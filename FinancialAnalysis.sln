@@ -3,18 +3,34 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialAnalysis", "FinancialAnalysis\FinancialAnalysis.csproj", "{4F9C8FF5-7ADD-4828-AAEE-D950B6E41FBE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialAnalysis.UI", "FinancialAnalysis\FinancialAnalysis.UI.csproj", "{4F9C8FF5-7ADD-4828-AAEE-D950B6E41FBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialAnalysis.Logic", "FinancialAnalysis.Logic\FinancialAnalysis.Logic.csproj", "{95C8F63A-3FF7-4B38-B9A8-85ED290F743B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4F9C8FF5-7ADD-4828-AAEE-D950B6E41FBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4F9C8FF5-7ADD-4828-AAEE-D950B6E41FBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F9C8FF5-7ADD-4828-AAEE-D950B6E41FBE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4F9C8FF5-7ADD-4828-AAEE-D950B6E41FBE}.Debug|x64.Build.0 = Debug|Any CPU
 		{4F9C8FF5-7ADD-4828-AAEE-D950B6E41FBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F9C8FF5-7ADD-4828-AAEE-D950B6E41FBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F9C8FF5-7ADD-4828-AAEE-D950B6E41FBE}.Release|x64.ActiveCfg = Release|Any CPU
+		{4F9C8FF5-7ADD-4828-AAEE-D950B6E41FBE}.Release|x64.Build.0 = Release|Any CPU
+		{95C8F63A-3FF7-4B38-B9A8-85ED290F743B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95C8F63A-3FF7-4B38-B9A8-85ED290F743B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95C8F63A-3FF7-4B38-B9A8-85ED290F743B}.Debug|x64.ActiveCfg = Debug|x64
+		{95C8F63A-3FF7-4B38-B9A8-85ED290F743B}.Debug|x64.Build.0 = Debug|x64
+		{95C8F63A-3FF7-4B38-B9A8-85ED290F743B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95C8F63A-3FF7-4B38-B9A8-85ED290F743B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95C8F63A-3FF7-4B38-B9A8-85ED290F743B}.Release|x64.ActiveCfg = Release|x64
+		{95C8F63A-3FF7-4B38-B9A8-85ED290F743B}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
