@@ -1,7 +1,12 @@
-using FinancialAnalysis.Logic.Models;
-using FinancialAnalysis.Logic.Models.Accounting;
+using FinancialAnalysis.Datalayer;
+using FinancialAnalysis.Logic.Messages;
+using FinancialAnalysis.Models.Models;
+using FinancialAnalysis.Models.Models.Accounting;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -39,33 +44,45 @@ namespace FinancialAnalysis.Logic.Model.ViewModel
             ////{
             ////    // Code runs "for real"
             ////}
-            CostAccountCategories = new ObservableCollection<CostAccountCategory>();
-            CostAccounts = new ObservableCollection<CostAccount>();
-            Seeder.SeedAll();
-            FillCostAccountCategories();
-            Import.ImportKontenrahmen();
+
+            DataLayer db = new DataLayer();
+            db.TaxTypes.CheckAndCreateStoredProcedures();
+
+            OpenKontenrahmenCommand = new RelayCommand(() =>
+            {
+                MessengerInstance.Send(new OpenKontenrahmenWindowMessage() { AccountingType = AccountingType.Credit });
+            });
+
+            CloseCommand = new RelayCommand(() =>
+            {
+                CloseAction();
+            });
         }
 
         private void FillCostAccountCategories()
         {
-            FinanceContext ctx = new FinanceContext();
-            foreach (var item in ctx.CostAccountCategories)
-            {
-                CostAccountCategories.Add(item);
-            }
+            //FinanceContext ctx = new FinanceContext();
+            //foreach (var item in ctx.CostAccountCategories)
+            //{
+            //    CostAccountCategories.Add(item);
+            //}
         }
 
         private void FillCostAccounts()
         {
-            CostAccounts.Clear();
-            FinanceContext ctx = new FinanceContext();
-            var accounts = ctx.CostAccounts.Where(x => x.CostAccountCategoryId == SelectedItem.CostAccountCategoryId).ToList();
-            foreach (var item in accounts)
-            {
-                CostAccounts.Add(item);
-            }
-            
+            //CostAccounts.Clear();
+            //FinanceContext ctx = new FinanceContext();
+            //var accounts = ctx.CostAccounts.Where(x => x.CostAccountCategoryId == SelectedItem.CostAccountCategoryId).ToList();
+            //foreach (var item in accounts)
+            //{
+            //    CostAccounts.Add(item);
+            //}
         }
+
+        public RelayCommand OpenKontenrahmenCommand { get; }
+        public RelayCommand CloseCommand { get; }
+
+        public Action CloseAction { get; set; }
 
     }
 }

@@ -1,0 +1,26 @@
+﻿<Window x:Class="FinancialAnalysis.DialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FinancialAnalysis"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        mc:Ignorable="d"
+         dx:ThemeManager.ThemeName="Office2016WhiteSE"
+        DataContext="{Binding Dialog, Source={StaticResource Locator}}"
+        Title="{Binding Title}" Height="200" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Viewbox Width="60" Height="60" Stretch="Uniform" StretchDirection="DownOnly" HorizontalAlignment="Left" Margin="30,0,0,0" Grid.Column="0">
+            <Canvas Width="60" Height="60">
+                <Path Data="{Binding ImageVector}"
+                Fill="{Binding Brush}" Height="60" Width="60" Stretch="Fill" />
+            </Canvas>
+        </Viewbox>
+        <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="30,0,30,10" TextWrapping="Wrap" Text="{Binding Message}" />
+        <dx:SimpleButton Content="OK" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="75" Margin="0,0,0,15" Command="{Binding CloseCommand}"/>
+    </Grid>
+</Window>

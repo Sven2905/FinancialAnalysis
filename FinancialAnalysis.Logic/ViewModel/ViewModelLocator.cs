@@ -14,6 +14,7 @@
 
 using CommonServiceLocator;
 using FinancialAnalysis.Logic.Model.ViewModel;
+using FinancialAnalysis.Logic.ViewModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 
@@ -44,6 +45,9 @@ namespace FinancialAnalysis.Logic
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<KontenrahmenViewModel>();
+            SimpleIoc.Default.Register<BookingViewModel>();
+            SimpleIoc.Default.Register<DialogViewModel>();
         }
 
         public MainViewModel Main
@@ -53,7 +57,31 @@ namespace FinancialAnalysis.Logic
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
-        
+
+        public KontenrahmenViewModel Kontenrahmen
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<KontenrahmenViewModel>();
+            }
+        }
+
+        public BookingViewModel Bookings
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<BookingViewModel>();
+            }
+        }
+
+        public DialogViewModel Dialog
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<DialogViewModel>();
+            }
+        }
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
