@@ -45,7 +45,6 @@
     <Compile Include="Accounting\Booking.cs" />
     <Compile Include="Accounting\CostAccount.cs" />
     <Compile Include="Accounting\CostAccountCategory.cs" />
-    <Compile Include="Accounting\CostAccountType.cs" />
     <Compile Include="Accounting\CostCenter.cs" />
     <Compile Include="Accounting\Credit.cs" />
     <Compile Include="Accounting\Debit.cs" />
@@ -53,13 +52,13 @@
     <Compile Include="Accounting\ScannedDocument.cs" />
     <Compile Include="Accounting\TaxType.cs" />
     <Compile Include="Company.cs" />
+    <Compile Include="Creditor.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="HealthInsurance.cs" />
-    <Compile Include="Helper\Day.cs" />
-    <Compile Include="Helper\Encryption.cs" />
     <Compile Include="Location.cs" />
+    <Compile Include="ProjectManagement\Debitor.cs" />
     <Compile Include="ProjectManagement\Project.cs" />
     <Compile Include="ProjectManagement\ProjectEmployeeMapping.cs" />
     <Compile Include="ProjectManagement\ProjectRole.cs" />

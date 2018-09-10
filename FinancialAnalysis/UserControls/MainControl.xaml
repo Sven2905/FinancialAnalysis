@@ -7,6 +7,7 @@
              xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
              xmlns:lc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              mc:Ignorable="d" 
              dx:ThemeManager.ThemeName="Office2016WhiteSE"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -31,7 +32,13 @@
                 Fill="White" Height="60" Width="60" Stretch="Fill" />
             </Canvas>
         </Viewbox>
-        <dx:SimpleButton Glyph="{dx:SvgImageSource Uri=/Images/regular/calculator.svg}" Padding="5" GlyphToContentOffset="0" Foreground="#3f729b" Grid.Row="1" Content="Buchungen" dxwuin:Navigation.NavigateTo="BookingControl" VerticalAlignment="Center" Width="180" Height="50" FontSize="20" />
-
-    </Grid>
+        <StackPanel Grid.Row="1" Margin="0,200,0,0">
+        <dx:SimpleButton Glyph="{dx:SvgImageSource Uri=/Images/regular/calculator.svg}" Padding="5" GlyphToContentOffset="0" Foreground="#3f729b" Grid.Row="1" Content="Buchungen" dxwuin:Navigation.NavigateTo="BookingControl" VerticalAlignment="Center" Width="180" Height="50" FontSize="20" Margin="2" />
+            <dx:SimpleButton Glyph="{dx:SvgImageSource Uri=/Images/regular/Euro-Sign.svg}" Padding="5" GlyphToContentOffset="0" Foreground="#3f729b" Grid.Row="1" Content="Steuerarten" dxwuin:Navigation.NavigateTo="TaxTypeControl" VerticalAlignment="Center" Width="180" Height="50" FontSize="20" Margin="2" />
+            <dx:SimpleButton Glyph="{dx:SvgImageSource Uri=/Images/regular/Euro-Sign.svg}" Padding="5" GlyphToContentOffset="0" Foreground="#3f729b" Grid.Row="1" Content="Kontenrahmen" dxwuin:Navigation.NavigateTo="CostAccountControl" VerticalAlignment="Center" Width="180" Height="50" FontSize="20" Margin="2" />
+        </StackPanel>
+        <Grid Grid.Row="1">
+            
+        </Grid>
+</Grid>
 </UserControl>

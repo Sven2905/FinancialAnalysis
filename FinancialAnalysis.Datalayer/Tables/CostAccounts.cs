@@ -1,0 +1,227 @@
+﻿using Dapper;
+using FinancialAnalysis.Datalayer.StoredProcedures;
+using FinancialAnalysis.Models.Accounting;
+using Serilog;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+
+namespace FinancialAnalysis.Datalayer.Tables
+{
+    public class CostAccounts : ITable
+    {
+        public string TableName { get; }
+        private CostAccountsStoredProcedures sp = new CostAccountsStoredProcedures();
+
+        public CostAccounts()
+        {
+            TableName = "CostAccounts";
+            CheckAndCreateTable();
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .WriteTo.File("logs\\Tables.txt", rollingInterval: RollingInterval.Month)
+                .CreateLogger();
+        }
+
+        public void CheckAndCreateStoredProcedures()
+        {
+            sp.CheckAndCreateProcedures();
+        }
+
+        public void CheckAndCreateTable()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') " +
+                    $"CREATE TABLE {TableName}(Id int IDENTITY(1,1) PRIMARY KEY, Description nvarchar(150) NOT NULL, AccountNumber int, RefTaxTypeId int, RefCostAccountCategoryId int, IsVisible bit )";
+
+                using (SqlCommand command = new SqlCommand(commandStr, con))
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while creating table '{TableName}'", e);
+            }
+        }
+
+        // @AccountNumber, @RefTaxTypeId, @RefCostAccountCategoryId, @GainsOutputAllocation, @SalesTaxAllocation
+
+        /// <summary>
+        /// Returns all CostAccount records
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<CostAccount> GetAll()
+        {
+            IEnumerable<CostAccount> output = new List<CostAccount>();
+            try
+            {
+                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    output = con.Query<CostAccount, CostAccountCategory, CostAccount>($"dbo.{TableName}_GetAll",
+    (objCostAccount, objCostAccountCategory) => { objCostAccount.CostAccountCategory = objCostAccountCategory; return objCostAccount; },
+    commandType: CommandType.StoredProcedure).ToList();
+                }
+
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
+            }
+            return output;
+        }
+
+        /// <summary>
+        /// Inserts the CostAccount item
+        /// </summary>
+        /// <param name="costAccount"></param>
+        /// <returns>Id of inserted item</returns>
+        public int Insert(CostAccount costAccount)
+        {
+            int id = 0;
+            try
+            {
+                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @Description, @AccountNumber, @RefTaxTypeId, @RefCostAccountCategoryId, @IsVisible", costAccount);
+                    return result.Single();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Insert item' from table '{TableName}'", e);
+            }
+            return id;
+        }
+
+        /// <summary>
+        /// Inserts the list of CostAccount items
+        /// </summary>
+        /// <param name="costAccounts"></param>
+        public void Insert(IEnumerable<CostAccount> costAccounts)
+        {
+            try
+            {
+                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    foreach (var costAccount in costAccounts)
+                    {
+                        con.Query($"dbo.{TableName}_Insert @Description, @AccountNumber, @RefTaxTypeId, @RefCostAccountCategoryId, @IsVisible", costAccount);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Insert item' into table '{TableName}'", e);
+            }
+        }
+
+        /// <summary>
+        /// Returns CostAccount by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public CostAccount GetById(int id)
+        {
+            CostAccount output = new CostAccount();
+            try
+            {
+                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    output = con.QuerySingleOrDefault<CostAccount>($"dbo.{TableName}_GetById @Id", new { Id = id });
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
+            }
+            return output;
+        }
+
+        /// <summary>
+        /// Update CostAccount, if not exist, insert it
+        /// </summary>
+        /// <param name="costAccount"></param>
+        public void UpdateOrInsert(CostAccount costAccount)
+        {
+            if (costAccount.Id == 0 || GetById(costAccount.Id) is null)
+            {
+                Insert(costAccount);
+                return;
+            }
+
+            Update(costAccount);
+        }
+
+        /// <summary>
+        /// Update CostAccounts, if not exist insert them
+        /// </summary>
+        /// <param name="costAccounts"></param>
+        public void UpdateOrInsert(IEnumerable<CostAccount> costAccounts)
+        {
+            foreach (var costAccount in costAccounts)
+            {
+                UpdateOrInsert(costAccount);
+            }
+        }
+
+        /// <summary>
+        /// Update CostAccount
+        /// </summary>
+        /// <param name="costAccount"></param>
+        public void Update(CostAccount costAccount)
+        {
+            if (costAccount.Id == 0 || GetById(costAccount.Id) is null)
+            {
+                return;
+            }
+
+            try
+            {
+                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.Execute($"dbo.{TableName}_Update @Id, @Description, @AccountNumber, @RefTaxTypeId, @RefCostAccountCategoryId, @IsVisible", costAccount);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Update' from table '{TableName}'", e);
+            }
+        }
+
+        /// <summary>
+        /// Delete CostAccount by Id
+        /// </summary>
+        /// <param name="id"></param>
+        public void Delete(int id)
+        {
+            try
+            {
+                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.Execute($"dbo.{TableName}_Delete @Id", new { Id = id });
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Delete' from table '{TableName}'", e);
+            }
+        }
+
+        /// <summary>
+        /// Delete CostAccount by Item
+        /// </summary>
+        /// <param name="id"></param>
+        public void Delete(CostAccount costAccount)
+        {
+            Delete(costAccount.Id);
+        }
+    }
+}

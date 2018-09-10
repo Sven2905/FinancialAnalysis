@@ -48,6 +48,8 @@ namespace FinancialAnalysis.Logic
             SimpleIoc.Default.Register<KontenrahmenViewModel>();
             SimpleIoc.Default.Register<BookingViewModel>();
             SimpleIoc.Default.Register<DialogViewModel>();
+            SimpleIoc.Default.Register<TaxTypeViewModel>();
+            SimpleIoc.Default.Register<CostAccountViewModel>();
         }
 
         public MainViewModel Main
@@ -79,6 +81,22 @@ namespace FinancialAnalysis.Logic
             get
             {
                 return ServiceLocator.Current.GetInstance<DialogViewModel>();
+            }
+        }
+
+        public TaxTypeViewModel TaxType
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<TaxTypeViewModel>();
+            }
+        }
+
+        public CostAccountViewModel CostAccount
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<CostAccountViewModel>();
             }
         }
 

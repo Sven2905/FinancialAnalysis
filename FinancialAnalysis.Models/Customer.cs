@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinancialAnalysis.Models.Models
+namespace FinancialAnalysis.Models
 {
     public class Customer
     {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FinancialAnalysis.Datalayer.StoredProcedures
 {
-    internal class TaxTypesStoredProcedures : IStoredProcedure
+    internal class TaxTypesStoredProcedures : IStoredProcedures
     {
         public string TableName { get; }
 
@@ -27,11 +27,11 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
 
         private void GetAllData()
         {
-            if (!Helper.StoredProcedureExists("dbo.TaxTypes_GetAll", DatabaseNames.FinancialAnalysisDB))
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetAll", DatabaseNames.FinancialAnalysisDB))
             {
                 StringBuilder sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [TaxTypes_GetAll] AS BEGIN SET NOCOUNT ON; SELECT Id, Name, AmountOfTax FROM {TableName} END");
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; SELECT Id, Description, DescriptionShort, AmountOfTax, TaxCategory, RefAccountNumber, RefAccountNotPayable FROM {TableName} END");
                 using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
@@ -47,11 +47,14 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
 
         private void InsertData()
         {
-            if (!Helper.StoredProcedureExists("dbo.TaxTypes_Insert", DatabaseNames.FinancialAnalysisDB))
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_Insert", DatabaseNames.FinancialAnalysisDB))
             {
                 StringBuilder sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [TaxTypes_Insert] @Name nvarchar(50), @AmountOfTax decimal AS BEGIN SET NOCOUNT ON; INSERT into {TableName} (Name,AmountOfTax) VALUES (@Name,@AmountOfTax); SELECT CAST(SCOPE_IDENTITY() as int) END");
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_Insert] @Description nvarchar(50), @DescriptionShort nvarchar(50), @AmountOfTax decimal, @TaxCategory int, @RefAccountNumber int, @RefAccountNotPayable int AS BEGIN SET NOCOUNT ON; " +
+                                $"INSERT into {TableName} (Description, DescriptionShort, AmountOfTax, TaxCategory, RefAccountNumber, RefAccountNotPayable) " +
+                                $"VALUES (@Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefAccountNumber, @RefAccountNotPayable); " +
+                                $"SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
@@ -67,12 +70,14 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
 
         private void GetById()
         {
-            if (!Helper.StoredProcedureExists("dbo.TaxTypes_GetById", DatabaseNames.FinancialAnalysisDB))
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetById", DatabaseNames.FinancialAnalysisDB))
             {
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [TaxTypes_GetById] @Id int AS BEGIN SET NOCOUNT ON; SELECT Id, Name, AmountOfTax FROM {TableName} WHERE Id = @Id END");
+                    $"CREATE PROCEDURE [{TableName}_GetById] @Id int AS BEGIN SET NOCOUNT ON; SELECT Id, Description, DescriptionShort, AmountOfTax, TaxCategory, RefAccountNumber, RefAccountNotPayable " +
+                    $"FROM {TableName} " +
+                    $"WHERE Id = @Id END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -89,12 +94,16 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
 
         private void UpdateData()
         {
-            if (!Helper.StoredProcedureExists("dbo.TaxTypes_Update", DatabaseNames.FinancialAnalysisDB))
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_Update", DatabaseNames.FinancialAnalysisDB))
             {
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [TaxTypes_Update] @Id int, @Name nvarchar(50), @AmountOfTax decimal AS BEGIN SET NOCOUNT ON; UPDATE {TableName} SET Name = @Name, AmountOfTax = @AmountOfTax WHERE Id = @Id END");
+                    $"CREATE PROCEDURE [{TableName}_Update] @Id int,  @Description nvarchar(50), @DescriptionShort nvarchar(50), @AmountOfTax decimal, @TaxCategory int, @RefAccountNumber int, @RefAccountNotPayable int " +
+                    $"AS BEGIN SET NOCOUNT ON; " +
+                    $"UPDATE {TableName} " +
+                    $"SET Description = @Description, @DescriptionShort = DescriptionShort, AmountOfTax = @AmountOfTax, @TaxCategory = TaxCategory, @RefAccountNumber = RefAccountNumber, @RefAccountNotPayable = RefAccountNotPayable " +
+                    $"WHERE Id = @Id END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -111,12 +120,12 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
 
         private void DeleteData()
         {
-            if (!Helper.StoredProcedureExists("dbo.TaxTypes_Delete", DatabaseNames.FinancialAnalysisDB))
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_Delete", DatabaseNames.FinancialAnalysisDB))
             {
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [TaxTypes_Delete] @Id int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE Id = @Id END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @Id int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE Id = @Id END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

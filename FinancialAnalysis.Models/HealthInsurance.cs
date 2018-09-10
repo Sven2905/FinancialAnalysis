@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FinancialAnalysis.Models.Models
+namespace FinancialAnalysis.Models
 {
     public class HealthInsurance
     {

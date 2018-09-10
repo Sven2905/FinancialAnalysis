@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FinancialAnalysis.Models.Models.Accounting;
+using FinancialAnalysis.Models.Accounting;
 
 namespace FinancialAnalysis.Logic.ViewModel
 {

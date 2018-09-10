@@ -1,7 +1,7 @@
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
-using FinancialAnalysis.Models.Models;
-using FinancialAnalysis.Models.Models.Accounting;
+using FinancialAnalysis.Models;
+using FinancialAnalysis.Models.Accounting;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Utilities;
 
 namespace FinancialAnalysis.Logic.Model.ViewModel
 {
@@ -26,10 +27,7 @@ namespace FinancialAnalysis.Logic.Model.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        public ObservableCollection<CostAccountCategory> CostAccountCategories { get; set; }
-        public ObservableCollection<CostAccount> CostAccounts { get; set; }
-        private CostAccountCategory _SelectedItem;
-        public CostAccountCategory SelectedItem { get { return _SelectedItem; } set { _SelectedItem = value; FillCostAccounts(); } }
+        public List<Company> Data { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -45,8 +43,30 @@ namespace FinancialAnalysis.Logic.Model.ViewModel
             ////    // Code runs "for real"
             ////}
 
-            DataLayer db = new DataLayer();
-            db.TaxTypes.CheckAndCreateStoredProcedures();
+            Company c = new Company()
+            {
+                Name = "Sven Technology",
+                Street = "Horster Str. 115",
+                City = "Gelsenkirchen",
+                Postcode = 45899,
+                BankName = "Sparkasse",
+                BIC = "123456789",
+                IBAN = "DE22123456789",
+                ContactPerson = "Sven Fuhrmann",
+                Fax = "00000",
+                Phone = "1337 - 42",
+                FederalState = FederalState.NW, 
+                eMail = "sven@sven.tech",
+                TaxNumber = "1597532468",
+                UStID = "9513578642",
+                Website = "sven.tech"
+            };
+
+            DataLayer db = new DataLayer(true);
+            //db.TaxTypes.Seed();
+
+            Import _Import = new Import();
+            _Import.ImportCostAccounts(Standardkontenrahmen.SKR04);
 
             OpenKontenrahmenCommand = new RelayCommand(() =>
             {
@@ -57,26 +77,6 @@ namespace FinancialAnalysis.Logic.Model.ViewModel
             {
                 CloseAction();
             });
-        }
-
-        private void FillCostAccountCategories()
-        {
-            //FinanceContext ctx = new FinanceContext();
-            //foreach (var item in ctx.CostAccountCategories)
-            //{
-            //    CostAccountCategories.Add(item);
-            //}
-        }
-
-        private void FillCostAccounts()
-        {
-            //CostAccounts.Clear();
-            //FinanceContext ctx = new FinanceContext();
-            //var accounts = ctx.CostAccounts.Where(x => x.CostAccountCategoryId == SelectedItem.CostAccountCategoryId).ToList();
-            //foreach (var item in accounts)
-            //{
-            //    CostAccounts.Add(item);
-            //}
         }
 
         public RelayCommand OpenKontenrahmenCommand { get; }

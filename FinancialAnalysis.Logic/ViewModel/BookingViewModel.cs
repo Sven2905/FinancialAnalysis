@@ -10,12 +10,12 @@ using DevExpress.Xpf.Dialogs;
 using DevExpress.Xpf.Core;
 using System.IO;
 using FinancialAnalysis.Datalayer;
-using FinancialAnalysis.Models.Models;
-using FinancialAnalysis.Models.Models.Accounting;
+using FinancialAnalysis.Models;
+using FinancialAnalysis.Models.Accounting;
 
 namespace FinancialAnalysis.Logic.ViewModel
 {
-    public class BookingViewModel : GalaSoft.MvvmLight.ViewModelBase
+    public class BookingViewModel : ViewModelBase
     {
         #region Fields
         
@@ -50,7 +50,7 @@ namespace FinancialAnalysis.Logic.ViewModel
             MessengerInstance.Register<SelectedCostAccount>(this, ChangeSelectedCostAccount);
 
             DataLayer db = new DataLayer();
-            TaxTypes = db.TaxTypes.GetAllTaxTypes().ToList();
+            TaxTypes = db.TaxTypes.GetAll().ToList();
 
             //var ctx = new FinanceContext();
             //CostAccounts = ctx.CostAccounts.ToList();
@@ -66,9 +66,9 @@ namespace FinancialAnalysis.Logic.ViewModel
             switch (SelectedCostAccount.AccountingType)
             {
                 case AccountingType.Credit:
-                    Creditor = SelectedCostAccount.CostAccount; CreditorId = SelectedCostAccount.CostAccount.CostAccountId; break;
+                    Creditor = SelectedCostAccount.CostAccount; CreditorId = SelectedCostAccount.CostAccount.Id; break;
                 case AccountingType.Debit:
-                    Debitor = SelectedCostAccount.CostAccount; DebitorId = SelectedCostAccount.CostAccount.CostAccountId; break;
+                    Debitor = SelectedCostAccount.CostAccount; DebitorId = SelectedCostAccount.CostAccount.Id; break;
                 default:
                     break;
             }
@@ -81,13 +81,13 @@ namespace FinancialAnalysis.Logic.ViewModel
         public int CreditorId
         {
             get { return _CreditorId; }
-            set { _CreditorId = value; Creditor = CostAccounts.Single(x => x.CostAccountId == value); }
+            set { _CreditorId = value; Creditor = CostAccounts.Single(x => x.Id == value); }
         }
 
         public int DebitorId
         {
             get { return _DebitorId; }
-            set { _DebitorId = value; Debitor = CostAccounts.Single(x => x.CostAccountId == value); }
+            set { _DebitorId = value; Debitor = CostAccounts.Single(x => x.Id == value); }
         }
 
         public RelayCommand GetCreditorCommand { get; }

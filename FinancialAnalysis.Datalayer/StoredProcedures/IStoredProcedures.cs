@@ -1,6 +1,6 @@
 ﻿namespace FinancialAnalysis.Datalayer.StoredProcedures
 {
-    internal interface IStoredProcedure
+    internal interface IStoredProcedures
     {
         string TableName { get; }
 

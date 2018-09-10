@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="FinancialAnalysis.UserControls.CostAccountControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
+             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:models="clr-namespace:FinancialAnalysis.Models;assembly=FinancialAnalysis.Models"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             mc:Ignorable="d" 
+             DataContext="{Binding CostAccount, Source={StaticResource Locator}}"
+             dx:ThemeManager.ThemeName="Office2016WhiteSE"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <dxwui:PageAdornerControl Header="Kontenrahmen" Grid.Row="0" Foreground="#3f729b" >
+            <dxwui:PageAdornerControl.HeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <ContentPresenter Content="{Binding}" />
+                    </Grid>
+                </DataTemplate>
+            </dxwui:PageAdornerControl.HeaderTemplate>
+        </dxwui:PageAdornerControl>
+
+        <Border Grid.Column="0" Grid.Row="1" BorderThickness="1" BorderBrush="#FAFAFA" Margin="25" >
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="3" Color="#EAEAEA" ShadowDepth="2" />
+            </Border.Effect>
+            <Grid Grid.Row="1" Grid.Column="0" Background="White">
+                <Grid Margin="20">
+                    <dxg:TreeListControl ItemsSource="{Binding CostAccountCategories}" SelectedItem="{Binding SelectedCategory}" MinHeight="500" MinWidth="700" >
+                        <dxg:TreeListControl.Columns>
+                            <dxg:TreeListColumn FieldName="Description" Header="Beschreibung" />
+                        </dxg:TreeListControl.Columns>
+                        <dxg:TreeListControl.View>
+                            <dxg:TreeListView AllowPerPixelScrolling="True" VerticalScrollbarVisibility="Auto" ShowTotalSummary="True" KeyFieldName="Id" ParentFieldName="ParentCategoryId" BestFitMode="Smart" ShowSearchPanelFindButton="True" TreeLineStyle="None" ShowEditFormOnDoubleClick="False" ShowEditFormOnEnterKey="False" ShowEditFormOnF2Key="False" AllowEditing="False" AllowColumnMoving="False" AllowMoveColumnToDropArea="False" AutoWidth="True" />
+                        </dxg:TreeListControl.View>
+                    </dxg:TreeListControl>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Border Grid.Column="1" Grid.Row="1" BorderThickness="1" BorderBrush="#FAFAFA" Margin="25" >
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="3" Color="#EAEAEA" ShadowDepth="2" />
+            </Border.Effect>
+        <Grid Background="White">
+            <Grid  Margin="20">
+            <dxg:GridControl ItemsSource="{Binding FilteredCostAccounts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCostAccount}" SelectionMode="Row">
+                <dxg:GridControl.View>
+                            <dxg:TableView BestFitMode="Smart" EditFormColumnCount="2" EditFormShowMode="Inline"  NewItemRowPosition="Top" AutoWidth="True" ShowGroupPanel="False" ShowTotalSummary="True" VerticalScrollbarVisibility="Auto" >
+                        <dxg:TableView.InputBindings>
+                            <KeyBinding Key="Delete" >
+                                <dxmvvm:Interaction.Behaviors>
+                                    <dxmvvm:ConfirmationBehavior 
+                                        EnableConfirmationMessage="True" 
+                                        Command="{Binding DeleteFocusedRowCommand}" 
+                                        MessageText="Möchten Sie den markierten Eintrag wirklich löschen?" 
+                                        MessageIcon="Question" MessageTitle="Eintrag löschen"/>
+                                </dxmvvm:Interaction.Behaviors>
+                            </KeyBinding>
+                        </dxg:TableView.InputBindings>
+                        <dxmvvm:Interaction.Behaviors>
+                            <dxmvvm:EventToCommand
+                                Command="{Binding RowUpdatedCommand}" 
+                                EventName="RowUpdated"
+                                PassEventArgsToCommand="True" />
+                        </dxmvvm:Interaction.Behaviors>
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+                <dxg:GridColumn FieldName="IsVisible" Header="Sichtbar" Width="50" />
+                <dxg:GridColumn FieldName="AccountNumber" Header="Nummer" Width="60" />
+                        <dxg:GridColumn FieldName="Description" Header="Beschreibung" Width="400"/>
+                        <dxg:GridColumn FieldName="RefTaxTypeId" Header="Steuer" Width="110" >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:ComboBoxEditSettings ItemsSource="{Binding TaxTypes}" DisplayMember="Description" ValueMember="Id" />
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="RefCostAccountCategoryId" Header="Kategorie" Width="100">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:ComboBoxEditSettings ItemsSource="{Binding CostAccountCategories}" DisplayMember="Description" ValueMember="Id"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                    </dxg:GridControl>
+            </Grid>
+        </Grid>
+        </Border>
+    </Grid>
+</UserControl>

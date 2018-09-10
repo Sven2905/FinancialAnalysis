@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinancialAnalysis.Models.Models.Accounting
+namespace FinancialAnalysis.Models.Accounting
 {
     /// <summary>
     /// Class that represents a cost center for matching costs and bills

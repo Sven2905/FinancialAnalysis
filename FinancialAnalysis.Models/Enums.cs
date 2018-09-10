@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinancialAnalysis.Models.Models
+namespace FinancialAnalysis.Models
 {
     public enum AccountingType
     {
@@ -58,7 +58,8 @@ namespace FinancialAnalysis.Models.Models
     /// <para /> SH = Schleswig-Holstein,
     /// <para /> TH = Thüringen
     /// </summary>
-    public enum EnumFederalState {
+    public enum FederalState
+    {
         [Display(Name = "Baden-Württemberg")] BW,
         [Display(Name = "Bayern")] BY,
         [Display(Name = "Berlin")] BE,
@@ -74,5 +75,23 @@ namespace FinancialAnalysis.Models.Models
         [Display(Name = "Sachsen")] SN,
         [Display(Name = "Sachsen-Anhalt")] ST,
         [Display(Name = "Schleswig-Holstein")] SH,
-        [Display(Name = "Thüringen")] TH }
+        [Display(Name = "Thüringen")] TH
+    }
+
+    public enum TaxCategory
+    {
+        [Display(Name = "Keine")] None,
+        [Display(Name = "Netto")] Netto,
+        [Display(Name = "Brutto")] Brutto,
+        [Display(Name = "i.g.E")] igE,
+        [Display(Name = "13b")] thirteenB,
+        [Display(Name = "50%")] fiftyPercent,
+    }
+
+    public enum CostAccountType
+    {
+        [Display(Name = "Neutral")] Neutral,
+        [Display(Name = "Einnahmen")] Gain,
+        [Display(Name = "Ausgaben")] Loss,
+    }
 }

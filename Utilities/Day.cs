@@ -1,15 +1,15 @@
 ﻿using System;
 
-namespace FinancialAnalysis.Models.Models.Helper
+namespace Utilities
 {
     public static class Day
     {
-        public static bool IsWeekendHoliday(DateTime date, EnumFederalState federalState, bool includeSaturday = true)
+        public static bool IsWeekendHoliday(DateTime date, EnumFederalState enumFederalState, bool includeSaturday = true)
         {
             if (IsWeekend(date, includeSaturday))
                 return true;
 
-            if (IsHoliday(date, federalState))
+            if (IsHoliday(date, enumFederalState))
                 return true;
 
             return false;
@@ -26,7 +26,7 @@ namespace FinancialAnalysis.Models.Models.Helper
             return result;
         }
 
-        public static bool IsHoliday(DateTime date, EnumFederalState federalState)
+        public static bool IsHoliday(DateTime date, EnumFederalState enumFederalState)
         {
             var easterSunday = GetEasterSunday(date.Year);
 
@@ -35,8 +35,8 @@ namespace FinancialAnalysis.Models.Models.Helper
                 return true;
 
             // Heilige Drei Könige
-            if (federalState == EnumFederalState.BW || federalState == EnumFederalState.BY ||
-                federalState == EnumFederalState.ST)
+            if (enumFederalState == EnumFederalState.BW || enumFederalState == EnumFederalState.BY ||
+                enumFederalState == EnumFederalState.ST)
                 if (date.Day == 6 && date.Month == 1)
                     return true;
 
@@ -62,7 +62,7 @@ namespace FinancialAnalysis.Models.Models.Helper
 
             // Pfingstsonntag
             if (date == easterSunday.AddDays(49))
-                if (federalState == EnumFederalState.BB)
+                if (enumFederalState == EnumFederalState.BB)
                     return true;
 
             // Pfingstmontag
@@ -74,7 +74,7 @@ namespace FinancialAnalysis.Models.Models.Helper
                 return true;
 
             // Mariä Himmelfahrt
-            if (federalState == EnumFederalState.BY || federalState == EnumFederalState.SL)
+            if (enumFederalState == EnumFederalState.BY || enumFederalState == EnumFederalState.SL)
                 if (date.Day == 18 && date.Month == 8)
                     return true;
 
@@ -83,21 +83,21 @@ namespace FinancialAnalysis.Models.Models.Helper
                 return true;
 
             // Reformationstag
-            if (federalState == EnumFederalState.BB || federalState == EnumFederalState.MV ||
-                federalState == EnumFederalState.SN || federalState == EnumFederalState.ST ||
-                federalState == EnumFederalState.TH)
+            if (enumFederalState == EnumFederalState.BB || enumFederalState == EnumFederalState.MV ||
+                enumFederalState == EnumFederalState.SN || enumFederalState == EnumFederalState.ST ||
+                enumFederalState == EnumFederalState.TH)
                 if (date.Day == 6 && date.Month == 1)
                     return true;
 
             // Allerheiligen
-            if (federalState == EnumFederalState.BW || federalState == EnumFederalState.BY ||
-                federalState == EnumFederalState.NW || federalState == EnumFederalState.RP ||
-                federalState == EnumFederalState.SL)
+            if (enumFederalState == EnumFederalState.BW || enumFederalState == EnumFederalState.BY ||
+                enumFederalState == EnumFederalState.NW || enumFederalState == EnumFederalState.RP ||
+                enumFederalState == EnumFederalState.SL)
                 if (date.Day == 1 && date.Month == 11)
                     return true;
 
             // Buß- und Bettag
-            if (federalState == EnumFederalState.SN)
+            if (enumFederalState == EnumFederalState.SN)
                 if (date == GetBussUndBettag(date.Year))
                     return true;
 

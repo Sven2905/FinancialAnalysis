@@ -1,5 +1,6 @@
-﻿using FinancialAnalysis.Models.Models;
-using FinancialAnalysis.Models.Models.Accounting;
+﻿using FinancialAnalysis.Datalayer;
+using FinancialAnalysis.Models;
+using FinancialAnalysis.Models.Accounting;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -16,7 +17,7 @@ namespace FinancialAnalysis.Logic.ViewModel
 
         private CostAccount _SelectedItem;
         private string _Filter;
-        private List<CostAccount> _CostAccounts;
+        private List<CostAccount> _CostAccounts = new List<CostAccount>();
 
         #endregion Fields
 
@@ -44,14 +45,15 @@ namespace FinancialAnalysis.Logic.ViewModel
 
         private void RefreshCostAccounts()
         {
-
+            DataLayer db = new DataLayer();
+            _CostAccounts = db.CostAccounts.GetAll().ToList();
         }
 
         private void FilterList()
         {
             if (!string.IsNullOrEmpty(Filter))
             {
-                FilteredList = _CostAccounts.Where(x => x.Name.ToLower().Contains(Filter.ToLower())).ToList();
+                FilteredList = _CostAccounts.Where(x => x.Description.ToLower().Contains(Filter.ToLower())).ToList();
                 RaisePropertyChanged("FilteredList");
             }
             else

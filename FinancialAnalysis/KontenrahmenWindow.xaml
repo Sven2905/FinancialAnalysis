@@ -52,7 +52,7 @@
             </dxg:GridControl.View>
             <dxg:GridControl.Columns>
                 <dxg:GridColumn FieldName="AccountNumber" IsSmart="True"/>
-                <dxg:GridColumn FieldName="Name" IsSmart="True" Width="*"/>
+                <dxg:GridColumn FieldName="Description" IsSmart="True" Width="*"/>
             </dxg:GridControl.Columns>
         </dxg:GridControl>
 

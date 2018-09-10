@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace FinancialAnalysis.Models.Models.Helper
+namespace Utilities
 {
     public static class Encryption
     {
@@ -120,9 +117,14 @@ namespace FinancialAnalysis.Models.Models.Helper
 
             // Combine Salt + Text
             for (int i = 0; i < baSalt.Length; i++)
+            {
                 baEncrypted[i] = baSalt[i];
+            }
+
             for (int i = 0; i < baText.Length; i++)
+            {
                 baEncrypted[i + baSalt.Length] = baText[i];
+            }
 
             baEncrypted = AES_Encrypt(baEncrypted, baPwdHash);
 
@@ -145,7 +147,9 @@ namespace FinancialAnalysis.Models.Models.Helper
             int saltLength = GetSaltLength();
             byte[] baResult = new byte[baDecrypted.Length - saltLength];
             for (int i = 0; i < baResult.Length; i++)
+            {
                 baResult[i] = baDecrypted[i + saltLength];
+            }
 
             string result = Encoding.UTF8.GetString(baResult);
             return result;

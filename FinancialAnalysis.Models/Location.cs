@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinancialAnalysis.Models.Models
+namespace FinancialAnalysis.Models
 {
     public class Location
     {
@@ -12,7 +12,7 @@ namespace FinancialAnalysis.Models.Models
         public string Street { get; set; }
         public int Postcode { get; set; }
         public string City { get; set; }
-        public EnumFederalState FederalState { get; set; }
+        public FederalState FederalState { get; set; }
         public string ContactName { get; set; }
         public string Phone { get; set; }
         public string Mail { get; set; }

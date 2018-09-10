@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FinancialAnalysis.Models.Models;
+using FinancialAnalysis.Models;
 
 namespace FinancialAnalysis.Datalayer
 {
@@ -52,7 +52,7 @@ namespace FinancialAnalysis.Datalayer
         {
             using (DataLayer db = new DataLayer())
             {
-                var tableVersion = db.TableVersions.GetAllTaxTypes().SingleOrDefault(x => x.Name == tableName);
+                var tableVersion = db.TableVersions.GetAll().SingleOrDefault(x => x.Name == tableName);
                 return tableVersion;
             }
         }

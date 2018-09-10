@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialAnalysis.Datalayer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialAnalysis.Models", "FinancialAnalysis.Models\FinancialAnalysis.Models.csproj", "{3BCF7383-9805-4BD4-A8CD-FD978E348E15}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{69F19F6B-092B-4EE7-AD82-3944F3694952}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,14 @@ Global
 		{3BCF7383-9805-4BD4-A8CD-FD978E348E15}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3BCF7383-9805-4BD4-A8CD-FD978E348E15}.Release|x64.ActiveCfg = Release|Any CPU
 		{3BCF7383-9805-4BD4-A8CD-FD978E348E15}.Release|x64.Build.0 = Release|Any CPU
+		{69F19F6B-092B-4EE7-AD82-3944F3694952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69F19F6B-092B-4EE7-AD82-3944F3694952}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69F19F6B-092B-4EE7-AD82-3944F3694952}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{69F19F6B-092B-4EE7-AD82-3944F3694952}.Debug|x64.Build.0 = Debug|Any CPU
+		{69F19F6B-092B-4EE7-AD82-3944F3694952}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69F19F6B-092B-4EE7-AD82-3944F3694952}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69F19F6B-092B-4EE7-AD82-3944F3694952}.Release|x64.ActiveCfg = Release|Any CPU
+		{69F19F6B-092B-4EE7-AD82-3944F3694952}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

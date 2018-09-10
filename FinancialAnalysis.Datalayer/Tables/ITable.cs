@@ -1,4 +1,6 @@
-﻿namespace FinancialAnalysis.Datalayer.Tables
+﻿using System.Collections;
+
+namespace FinancialAnalysis.Datalayer.Tables
 {
     public interface ITable
     {

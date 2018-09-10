@@ -1,0 +1,1191 @@
+0100	Entgeltlich erworbene Konzessionen und gewerbliche Schutzrechte	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	2. Konzessionen, Lizenzen und ähnliche Rechte und Werte	-	-
+0110	Konzessionen	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	2. Konzessionen, Lizenzen und ähnliche Rechte und Werte	-	-
+0120	Gewerbliche Schutzrechte	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	2. Konzessionen, Lizenzen und ähnliche Rechte und Werte	-	-
+0130	Ähnliche Rechte und Werte	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	2. Konzessionen, Lizenzen und ähnliche Rechte und Werte	-	-
+0135	EDV-Software	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	2. Konzessionen, Lizenzen und ähnliche Rechte und Werte	-	-
+0140	Lizenzen an gewerblichen Schutzrechten	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	2. Konzessionen, Lizenzen und ähnliche Rechte und Werte	-	-
+0143	Selbst geschaffene immaterielle Vermögensgegenstände	Anlagevermögen	sonstige	0	0	-	0	-	1. Selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte und Werte	-	-
+0144	EDV-Software	Anlagevermögen	sonstige	0	0	-	0	-	1. Selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte und Werte	-	-
+0145	Lizenzen und Franchiseverträge	Anlagevermögen	sonstige	0	0	-	0	-	1. Selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte und Werte	-	-
+0146	Konzessionen und gewerbliche Schutzrechte	Anlagevermögen	sonstige	0	0	-	0	-	1. Selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte und Werte	-	-
+0147	Rezepte, Verfahren, Prototypen	Anlagevermögen	sonstige	0	0	-	0	-	1. Selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte und Werte	-	-
+0148	Immaterielle Vermögensgegenstände in Entwicklung	Anlagevermögen	sonstige	0	0	-	0	-	1. Selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte und Werte	-	-
+0150	Geschäfts- oder Firmenwert	Anlagevermögen	Firmenwert	0	0	-	0	-	3. Geschäfts- oder Firmenwert	-	-
+0170	Anzahlungen auf immaterielle Vermögensgegenstände 	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen auf immat. Vermögensgegenstände	-	-
+0179	Anzahlungen auf Geschäfts- oder Firmenwert 	Anlagevermögen	sonstige	0	0	-	0	-	4. geleistete Anzahlungen auf immat. Vermögensgegenstände	-	-
+0200	Grundstücke, grundstücksgleiche Rechte und Bauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0210	Grundstücksgleiche Rechte ohne Bauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0215	Unbebaute Grundstücke	Anlagevermögen	Sachanlagen	0	0	-	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0220	Grundstücksgleiche Rechte	Anlagevermögen	Sachanlagen	0	0	-	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0225	Grundstücke mit Substanzverzehr 	Anlagevermögen	Sachanlagen	0	0	-	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0230	Bauten auf eigenen Grundstücken	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0235	Grundstückswerte eigener bebauter Grundstücke 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0240	Geschäftsbauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0250	Fabrikbauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0260	Andere Bauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0270	Garagen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0280	Außenanlagen Fabrik und Geschäftsbauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0285	Hof- und Wegebefestigungen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0290	Einrichtungen für Geschäfts- Fabrik- und andere Bauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0300	Wohnbauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0305	Garagen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0310	Außenanlagen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0315	Hof- und Wegebefestigungen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0320	Einrichtungen für Wohnbauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0329	Gebäudeteil des häuslichen Arbeitszimmers	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0330	Bauten auf fremden Grundstücken	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0340	Geschäftsbauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0350	Fabrikbauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0360	Wohnbauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0370	Andere Bauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0380	Garagen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0390	Außenanlagen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0395	Hof- und Wegebefestigungen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0398	Einrichtung Fabrik- und Geschäftsbauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0400	Technische Anlagen und Maschinen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	2. technische  Anlagen und Maschinen	-	-
+0420	Technische Anlagen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	2. technische  Anlagen und Maschinen	-	-
+0440	Maschinen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	2. technische  Anlagen und Maschinen	-	-
+0450	Transportanlagen und Ähnliches	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	2. technische  Anlagen und Maschinen	-	-
+0460	Maschinengebundene Werkzeuge	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	2. technische  Anlagen und Maschinen	-	-
+0470	Betriebsvorrichtungen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	2. technische  Anlagen und Maschinen	-	-
+0500	Betriebs- und Geschäftsausstattung	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
+0510	Andere Anlagen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
+0520	Pkw	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
+0540	Lkw	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
+0560	Sonstige Transportmittel	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
+0620	Werkzeuge	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
+0630	Betriebsausstattung	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
+0635	Geschäftsausstattung	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
+0640	Ladeneinrichtung	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
+0650	Büroeinrichtung	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
+0660	Gerüst- und Schalungsmaterial	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
+0670	Geringwertige Wirtschaftsgüter	Anlagevermögen	Geringwertige WG	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
+0675	Geringwertige Wirtschaftsgüter Sammelposten	Anlagevermögen	Geringwertige WG	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
+0680	Einbauten in fremde Grundstücke	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
+0690	Sonstige Betriebs- und Geschäftsausstattung	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
+0700	Geleistete Anzahlungen und Anlagen im Bau 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
+0705	Anzahlungen auf Grundstücke ohne Bauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
+0710	Geschäfts-, Fabrik- und andere Bauten im Bau	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
+0720	Anzahlungen auf Bauten auf eigenen Grundstücken	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
+0725	Wohnbauten im Bau 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
+0735	Anzahlungen auf Wohnbauten auf eigenen Grundstücken	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
+0740	Geschäfts-, Fabrik- und andere Bauten im Bau	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
+0755	Wohnbauten im Bau 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
+0765	Anzahlungen auf Wohnbauten auf fremden Grundtücken	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
+0770	Technische Anlagen und Maschinen im Bau 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
+0780	Anzahlungen auf Technische Anlagen und Maschinen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
+0785	Andere Anlagen, Betriebs- und Geschäftsausstattung im Bau 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
+0795	Anzahlungen auf andere Anlagen, Betriebs- und Geschäftsausstattung 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
+0800	Anteile an verbundenen Unternehmen	Anlagevermögen	Finanzanlagen	0	0	-	0	-	1. Anteile an verbundenen Unternehmen Finanzanlagen	-	-
+0803	Anteile an verbundenen Unternehmen, Personengesellschaften	Anlagevermögen	Finanzanlagen	0	0	-	0	-	1. Anteile an verbundenen Unternehmen Finanzanlagen	-	-
+0804	Anteile an verbundenen Unternehmen, Kapitalgesellschaften	Anlagevermögen	Finanzanlagen	0	0	-	0	-	1. Anteile an verbundenen Unternehmen Finanzanlagen	-	-
+0805	Anteile an herrschender oder mehrheitlich beteiligter Personengesellschaften	Anlagevermögen	Finanzanlagen	0	0	-	0	-	1. Anteile an verbundenen Unternehmen Finanzanlagen	-	-
+0808	Anteile an herrschender oder mehrheitlich beteiligter Kapitalgesellschaften	Anlagevermögen	Finanzanlagen	0	0	-	0	-	1. Anteile an verbundenen Unternehmen Finanzanlagen	-	-
+0809	Anteile an herrschender oder mit Mehrheit beteiligter Gesellschaft 	Anlagevermögen	Finanzanlagen	0	0	-	0	-	1. Anteile an verbundenen Unternehmen Finanzanlagen	-	-
+0810	Ausleihungen an verbundene Unternehmen	Anlagevermögen	Finanzanlagen	0	0	-	0	-	2. Ausleihungen an verbundene Unternehmen	-	-
+0813	Ausleihungen an verbundene Unternehmen, Personengesellschaften	Anlagevermögen	Finanzanlagen	0	0	-	0	-	2. Ausleihungen an verbundene Unternehmen	-	-
+0814	Ausleihungen an verbundene Unternehmen, Kapitalgesellschaften	Anlagevermögen	Finanzanlagen	0	0	-	0	-	2. Ausleihungen an verbundene Unternehmen	-	-
+0815	Ausleihungen an verbundene Unternehmen, Einzelunternehmen	Anlagevermögen	Finanzanlagen	0	0	-	0	-	2. Ausleihungen an verbundene Unternehmen	-	-
+0820	Beteiligungen	Anlagevermögen	Finanzanlagen	0	0	-	0	-	3. Beteiligungen	-	-
+0829	Beteiligung einer GmbH & Co. KG an einer Komplementär-GmbH 	Anlagevermögen	Finanzanlagen	0	0	-	0	-	3. Beteiligungen	-	-
+0830	Typisch stille Beteiligungen 	Anlagevermögen	Finanzanlagen	0	0	-	0	-	3. Beteiligungen	-	-
+0840	Atypisch stille Beteiligungen 	Anlagevermögen	Finanzanlagen	0	0	-	0	-	3. Beteiligungen	-	-
+0850	Beteiligungen an Kapitalgesellschaften 	Anlagevermögen	Finanzanlagen	0	0	-	0	-	3. Beteiligungen	-	-
+0860	Beteiligungen an Personengesellschaften 	Anlagevermögen	Finanzanlagen	0	0	-	0	-	3. Beteiligungen	-	-
+0880	Ausleihungen an UN mit Beteiligungsverhältnis	Anlagevermögen	Finanzanlagen	0	0	-	0	-	4. Ausleihungen an Unternehmen. mit denen ein Beteil.verh. besteht	-	-
+0883	Ausleihungen an UN mit Beteiligungsverhältnis, Personengesellschaften	Anlagevermögen	Finanzanlagen	0	0	-	0	-	4. Ausleihungen an Unternehmen. mit denen ein Beteil.verh. besteht	-	-
+0885	Ausleihungen an UN mit Beteiligungsverhältnis,Kapitalgesellschaften	Anlagevermögen	Finanzanlagen	0	0	-	0	-	4. Ausleihungen an Unternehmen. mit denen ein Beteil.verh. besteht	-	-
+0900	Wertpapiere des Anlagevermögens	Anlagevermögen	Finanzanlagen	0	0	-	0	-	5. Wertpapiere des Anlagevermögens	-	-
+0910	Wertpapiere mit Gewinnbeteiligungsansprüchen 	Anlagevermögen	Finanzanlagen	0	0	-	0	-	5. Wertpapiere des Anlagevermögens	-	-
+0920	Festverzinsliche Wertpapiere 	Anlagevermögen	Finanzanlagen	0	0	-	0	-	5. Wertpapiere des Anlagevermögens	-	-
+0930	Sonstige Ausleihungen	Anlagevermögen	Finanzanlagen	0	0	-	0	-	6. sonstige Ausleihungen	-	-
+0940	Darlehen	Anlagevermögen	Finanzanlagen	0	0	-	0	-	6. sonstige Ausleihungen	-	-
+0960	Ausleihungen an Gesellschafter 	Anlagevermögen	Finanzanlagen	0	0	-	0	-	6. sonstige Ausleihungen	-	-
+0961	Ausleihungen an GmbH-Gesellschafter 	Anlagevermögen	Finanzanlagen	0	0	-	0	-	6. sonstige Ausleihungen	-	-
+0962	Ausleihungen an persönlich haftende Gesellschafter 	Anlagevermögen	Finanzanlagen	0	0	-	0	-	6. sonstige Ausleihungen	-	-
+0963	Ausleihungen an Kommanditisten	Anlagevermögen	Finanzanlagen	0	0	-	0	-	6. sonstige Ausleihungen	-	-
+0964	Ausleihungen stille Gesellschafter	Anlagevermögen	Finanzanlagen	0	0	-	0	-	6. sonstige Ausleihungen	-	-
+0970	Ausleihungen an nahe stehende Personen  	Anlagevermögen	Finanzanlagen	0	0	-	0	-	6. sonstige Ausleihungen	-	-
+0980	Genossenschaftsanteile zum langfristigen Verbleib 	Anlagevermögen	Finanzanlagen	0	0	-	0	-	3. Beteiligungen	-	-
+1000	Roh-, Hilfs- und Betriebsstoffe	Vorräte	Roh-, Hilfs- und Betriebsstoffe	0	0	-	0	-	1. Roh-. Hilfs- und Betriebsstoffe	-	-
+1040	Unfertige Erzeugnisse und Leistungen	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. unfertige Erzeugnisse	-	-
+1050	Unfertige Erzeugnisse	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. unfertige Erzeugnisse	-	-
+1080	Unfertige Leistungen	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. unfertige Erzeugnisse	-	-
+1090	In Ausführung befindliche Bauaufträge	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. unfertige Erzeugnisse	-	-
+1095	In Arbeit befindliche Aufträge	Vorräte	sonstige	0	0	-	0	-	2. unfertige Erzeugnisse	-	-
+1100	Fertige Erzeugnisse und Waren	Vorräte	fertige Erzeugnisse und Waren	0	0	-	0	-	3. fertige Erzeugnisse und Waren	-	-
+1110	Fertige Erzeugnisse	Vorräte	fertige Erzeugnisse und Waren	0	0	-	0	-	3. fertige Erzeugnisse und Waren	-	-
+1140	Waren	Vorräte	fertige Erzeugnisse und Waren	0	0	-	0	-	3. fertige Erzeugnisse und Waren	-	-
+1180	Geleistete Anzahlungen auf Vorräte	Geleistete Anzahlungen		0	0	-	0	-	4. geleistete Anzahlungen auf Vorräte	-	-
+1181	Geleistete Anzahlungen 7 % Vorsteuer	Geleistete Anzahlungen		0	4	VSt. 7% 	0	-	4. geleistete Anzahlungen auf Vorräte	-	-
+1184	Geleistete Anzahlungen 16 % Vorsteuer	Geleistete Anzahlungen		0	6	VSt. 16% 	0	-	4. geleistete Anzahlungen auf Vorräte	-	-
+1185	Geleistete Anzahlungen 15 % Vorsteuer	Geleistete Anzahlungen		0	5	VSt. 15% 	0	-	4. geleistete Anzahlungen auf Vorräte	-	-
+1186	Geleistete Anzahlungen 19 % Vorsteuer	Geleistete Anzahlungen		0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen auf Vorräte	-	-
+1190	Erhaltene Anzahlungen auf Bestellungen (von Vorräten offen abgesetzt)	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	4. geleistete Anzahlungen auf Vorräte	-	-
+1200	Forderungen aus Lieferungen und Leistungen	Forderungen	sonstige	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	8. sonstige Verbindlichkeiten	-
+1210	Forderungen aus Lieferungen und Leistungen ohne Kontokorrent	Forderungen	sonstige	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+1215	Forderungen aus Lieferungen und Leistungen zum allgemeinen Steuersatz	Forderungen	sonstige	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+1216	Forderungen aus Lieferungen und Leistungen zum ermäßigten Steuersatz 	Forderungen	sonstige	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+1217	Forderungen aus stfr. oder nicht stb. Lieferungen und Leistungen	Forderungen	sonstige	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+1218	Forderungen aus Lieferungen und Leistungen gemäß §24 UStG	Forderungen	sonstige	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+1219	Gegenkonto 1215-1218 bei Aufteilung der Ford. nach Steuersätzen (EÜR)	Forderungen	sonstige	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+1220	Forderungen nach § 11 EStG für § 4/3	Forderungen	sonstige	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	-	-
+1221	Forderungen aus Lieferungen und Leistungen ohne Kontokorrent b. 1J	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	8. sonstige Verbindlichkeiten	-
+1225	Forderungen aus Lieferungen und Leistungen ohne Kontokorrent g. 1J	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	8. sonstige Verbindlichkeiten	-
+1230	Wechsel aus Lieferungen und Leistungen	Forderungen	Wechselforderung	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+1231	Wechsel aus Lieferungen und Leistungen - Restlaufzeit bis 1 Jahr 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	8. sonstige Verbindlichkeiten	-
+1232	Wechsel aus Lieferungen und Leistungen - Restlaufzeit größer 1 Jahr 	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	8. sonstige Verbindlichkeiten	-
+1235	Wechsel aus Lieferungen und Leistungen, bundesbankfähig	Forderungen	Wechselforderung	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	8. sonstige Verbindlichkeiten	-
+1240	Zweifelhafte Forderungen 	Forderungen	sonstige	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	-	-
+1241	Zweifelhafte Forderungen - Restlaufzeit bis 1 Jahr 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	8. sonstige Verbindlichkeiten	-
+1245	Zweifelhafte Forderungen - Restlaufzeit größer 1 Jahr 	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	8. sonstige Verbindlichkeiten	-
+1246	Einzelwertberichtigung zu Forderungen - Restlaufzeit bis 1 Jahr 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	-	-
+1247	Einzelwertberichtigung zu Forderungen - Restlaufzeit größer 1 Jahr 	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	-	-
+1248	Pauschalwertberichtigung zu Forderungen - Restlaufzeit bis 1 Jahr 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	-	-
+1249	Pauschalwertberichtigung zu Forderungen - Restlaufzeit größer 1 Jahr 	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	-	-
+1250	Forderungen aus Lieferungen und Leistungen gegen Gesellschafter 	Forderungen	sonstige	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	8. sonstige Verbindlichkeiten	-
+1251	Forderungen aus Lieferungen und Leistungen gegen Gesellschafter b 1J	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	8. sonstige Verbindlichkeiten	-
+1255	Forderungen aus Lieferungen und Leistungen gegen Gesellschafter g. 1J	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	8. sonstige Verbindlichkeiten	-
+1260	Forderungen gegen verbundene Unternehmen	Forderungen	sonstige	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
+1261	Forderungen gegen verbundene Unternehmen Restlaufzeit bis 1 Jahr 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
+1265	Forderungen gegen verbundene Unternehmen Restlaufzeit größer 1 Jahr 	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
+1266	Besitzwechsel gegen verbundene Unternehmen 	Forderungen	sonstige	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
+1267	Besitzwechsel gegen verbundene Unternehmen Restlaufzeit bis 1 Jahr 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
+1268	Besitzwechsel gegen verbundene Unternehmen Restlaufzeit größer 1 Jahr 	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
+1269	Besitzwechsel gegen verbundene Unternehmen, bundesbankfähig 	Forderungen	sonstige	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
+1270	Forderungen aus Lieferungen und Leistungen gegen verbundene Unternehmen 	Forderungen	sonstige	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
+1271	Forderungen aus Lieferungen und Leistungen gegen verbundene Unternehmen b. 1J	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
+1275	Forderungen aus Lieferungen und Leistungen gegen verbundene Unternehmen g 1J 	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
+1276	Wertberichtigung Forderungen gegen verbundene Unternehmen b. 1J 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	-	-
+1277	Wertberichtigung Forderungen gegen verbundene Unternehmen gr. 1J	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	-	-
+1280	Forderungen gegen Unternehmen mit Beteiligungsverhältnis	Forderungen	sonstige	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+1281	Forderungen gegen Unternehmen,mit Beteiligungsverhältnis b. 1J	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+1285	Forderungen gegen Unternehmen, mit Beteiigungsverhältnis gr. 1J	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+1286	Besitzwechsel gegen Unternehmen mit Beteiligungsverhältnis	Forderungen	sonstige	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+1287	Besitzwechsel gegen Unternehmen mit Beteiligungsverhältnis  b. 1J	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+1288	Besitzwechsel gegen Unternehmen mit Beteiligungsverhältnis gr. 1J	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+1289	Besitzwechsel gegen Unternehmen mit Beteiligungsverhältnis, bundesbankfähig	Forderungen	sonstige	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+1290	Forderungen aus Lieferungen und Leistungen gegen UN mit Beteiligungsverhältnis	Forderungen	sonstige	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+1291	Forderungen aus Lieferungen und Leistungen gg. UN mit Beteiligg. b. 1J	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+1295	Forderungen aus Lieferungen und Leistungen gg. UN mit Beteiligg. gr.1J	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+1296	WB Forderungen gg. UN. mit Beteiliggverh. b. 1J	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	-	-
+1297	WB Forderungen gg. UN. mit Beteiligungsverh. gr.1J	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	-	-
+1298	Ausstehende Einlagen eingefordert	Forderungen	sonstige	0	0	-	0	-	Ausstehende Einlagen auf das gezeichnete Kapital	-	-
+1299	Nachschüsse (Forderungen, Gegenkonto 2929)	Forderungen	sonstige	0	0	-	0	-	Ausstehende Einlagen auf das gezeichnete Kapital	-	-
+1300	Sonstige Vermögensgegenstände	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1301	Sonstige Vermögensgegenstände - Restlaufzeit bis 1 Jahr 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1305	Sonstige Vermögensgegenstände - Restlaufzeit größer 1 Jahr 	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1307	Forderungen gegen GmbH-Gesellschafter	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1308	Forderungen gegen GmbH-Gesellschafter - Restlaufzeit bis 1 Jahr	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1309	Forderungen gegen GmbH-Gesellschafter - Restlaufzeit größer 1 Jahr	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1310	Forderungen gegen Geschäftsführer	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1311	Forderungen gegen Geschäftsführer bis 1J	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1315	Forderungen gegen Geschäftsführer größer 1J	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1317	Forderungen gegen persönlich haftende Gesellschafter	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1318	Forderungen gegen persönlich haftende Gesellschafter - Restlaufzeit bis 1 Jahr	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1319	Forderungen gegen persönlich haftende Gesellschafter - Restlaufzeit größer 1 J	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1320	Forderungen gegen Aufsichtsrats- u. Beirats-Mitglieder 	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1321	Forderungen gegen Aufsichtsrats- u. Beirats-Mitglieder bis 1 Jahr 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1325	Forderungen gegen Aufsichtsrats- u. Beirats-Mitglieder größer 1 Jahr 	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1327	Forderungen gegen Kommanditisten und atypisch stille Gesellschafter	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1328	Forderungen gegen Kommanditisten und atypisch stille Gesellschafter bis 1 Jahr	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1329	Forderungen gegen Kommanditisten und atypisch stille Gesellschafter größer 1 J	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1330	Forderungen gegen sonstige Gesellschafter	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1331	Forderungen gegen Gesellschafter - Restlaufzeit bis 1 Jahr 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1335	Forderungen gegen Gesellschafter - Restlaufzeit größer 1 Jahr 	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1337	Forderungen gegen typisch stille Gesellschafter	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1338	Forderungen gegen typisch stille Gesellschafter bis 1 Jahr	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1339	Forderungen gegen typisch stille Gesellschafter größer 1 Jahr	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1340	Forderungen gegen Personal aus Lohn- u. Gehaltsabrechnung	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1341	Forderungen gegen Personal aus Lohn- und Gehaltsabrechnung b. 1 Jahr 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1345	Forderungen gegen Personal aus Lohn- und Gehaltsabrechnung gr. 1 Jahr 	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1350	Kautionen	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1351	Kautionen - Restlaufzeit bis 1 Jahr 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1355	Kautionen - Restlaufzeit größer 1 Jahr 	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1360	Darlehen	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1361	Darlehen - Restlaufzeit bis 1 Jahr 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1365	Darlehen - Restlaufzeit größer 1 Jahr 	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1369	Ford. ggü. Krankenkassen aus Aufwendungsausgleichsgesetz	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1370	Durchlaufende Posten	Interimskonto		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1374	Fremdgeld 	Interimskonto		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1375	Agenturwarenabrechnung 	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+1378	Ansprüche aus Rückdeckungsversicherungen 	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+1380	Vermögensgegenst. z. Erfüllung v. Pensionsrückst. u. ä. Verpfl.	Forderungen	Laufzeit über 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+1381	Vermögensgegenst. z. Saldierung m. Pensionsrückst. u. ä . Verpfl.	Forderungen	Laufzeit über 5 Jahre	0	0	-	0	-	E. Aktiver Unterschiedsbetrag aus der Vermögensverrechnung	1. Rückstellungen für Pensionen und ähnliche Verpflichtungen	-
+1382	Vermögensgegenst. zur Erfüllung mit Altersversorgung vergleichbaren Verpfl.	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+1383	Vermögensgegenst. zur Saldierung vergleichbare Verpfl. §246 Abs. 2 HGB	Forderungen	sonstige	0	0	-	0	-	E. Aktiver Unterschiedsbetrag aus der Vermögensverrechnung	3. sonstige Rückstellungen	-
+1390	GmbH-Anteile zum kurzfristigen Verbleib 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+1391	Forderungen gegen Arbeitsgemeinschaften	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+1393	Genussrechte	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+1394	Einzahlungsansprüche zu Nebenleistungen oder Zuzahlungen	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+1395	Genossenschafts-Anteile zum kurzfristigen Verbleib 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+1396	Nachträglich abziehbare Vorsteuer, bewegliche Wirtschaftsgüter	Vorsteuer		64	0	- 	111	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1397	Zurückzuzahlende Vorsteuer, bewegliche Wirtschaftsgüter	Vorsteuer		64	0	- 	111	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1398	Nachträglich abziehbare Vorsteuer, unbewegliche Wirtschaftsgüter	Vorsteuer		64	0	- 	109	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1399	Zurückzuzahlende Vorsteuer, unbewegliche Wirtschaftsgüter	Vorsteuer		64	0	- 	109	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1400	Abziehbare Vorsteuer	Vorsteuer		66	0	- 	320	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1401	Abziehbare Vorsteuer 7 %	Vorsteuer		66	0	- 	320	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1402	Abziehbare Vorsteuer aus EG-Erwerb	Vorsteuer		61	0	- 	761	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1403	Abziehbare Vorsteuer aus EG-Erwerb 16 %	Vorsteuer		61	0	- 	761	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1404	Abziehbare Vorsteuer aus EG-Erwerb 19 %	Vorsteuer		61	0	- 	761	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1405	Abziehbare Vorsteuer 16 %	Vorsteuer		66	0	- 	320	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1406	Abziehbare Vorsteuer 19 %	Vorsteuer		66	0	- 	320	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1407	Abziehbare Vorsteuer nach § 13b UStG 19 %	Vorsteuer		67	0	- 	467	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1408	Abziehbare Vorsteuer nach § 13b UStG	Vorsteuer		67	0	- 	467	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1409	Abziehbare Vorsteuer nach § 13b UStG 16 %	Vorsteuer		67	0	- 	467	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1410	Aufzuteilende Vorsteuer	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1411	Aufzuteilende Vorsteuer 7 %	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1412	Aufzuteilende Vorsteuer aus EG-Erwerb	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1413	Aufzuteilende Vorsteuer aus EG-Erwerb 19 %	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1415	Aufzuteilende Vorsteuer 16 %	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1416	Aufzuteilende Vorsteuer 19 %	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1417	Aufzuteilende Vorsteuer nach §§ 13a/13b UStG	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1418	Aufzuteilende Vorsteuer nach §§ 13a/13b UStG 16 % 	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1419	Aufzuteilende Vorsteuer nach §§ 13a/13b UStG 19 % 	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1420	Umsatzsteuerforderungen 	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+1421	Umsatzsteuerforderungen laufendes Jahr	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+1422	Umsatzsteuerforderungen Vorjahr	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+1425	Umsatzsteuerforderungen früherer Jahre	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+1427	Forderungen aus entrichteten Verbrauchsteuern	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+1432	Abziehbare Vorsteuer aus EG-Erwerb von Neufahrzeugen	Vorsteuer		61	0	- 	761	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1433	Entstandene Einfuhrumsatzsteuer	Vorsteuer		62	0	- 	762	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1434	Vorsteuer in Folgeperiode/im Folgejahr abziehbar	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+1435	Forderungen aus Gewerbesteuerüberzahlungen	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+1436	Vorsteuer aus Erwerb als letzter Abnehmer innerhalb eines Dreiecksgeschäfts	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+1440	Steuererstattungsansprüche gegenüber anderen Ländern	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+1450	Körperschaftsteuerrückforderung	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+1456	Forderungen an das Finanzamt aus abgeführtem Bauabzugsbetrag	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1457	Forderung gegenüber Bundesagentur für Arbeit	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1460	Geldtransit	Interimskonto		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1480	Gegenkonto Vorsteuer § 4/3 EStG 	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1481	Auflösung Vorsteuer aus Vorjahr § 4/3 EStG 	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1482	Vorsteuer aus Investitionen § 4/3 EStG 	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1483	Gegenkonto für Vorsteuer nach Durchschnittssätzen für § 4/3 EStG 	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1485	Verrechnungskonto Gewinnermittlung § 4/3 EStG, ergebniswirksam  	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1486	Verrechnungskonto Gewinnermittlung § 4/3 EStG, nicht ergebniswirksam  	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1490	Verrechnungskonto Ist-Versteuerung	Interimskonto		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+1495	Verrechnung erhaltene Anzahlungen 	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+1498	Überleitungskonto Kostenstellen	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Personalaufwand
+1500	Anteile an verbundenen Unternehmen (Umlaufvermögen) 	Umlaufvermögen		0	0	-	0	-	1. Anteile an verbundenen Unternehmen Wertpapiere	-	-
+1504	Anteile an herrschender Gesellschaft (Umlaufvermögen) 	Umlaufvermögen		0	0	-	0	-	1. Anteile an verbundenen Unternehmen Wertpapiere	-	-
+1510	Sonstige Wertpapiere	Umlaufvermögen		0	0	-	0	-	2. sonstige Wertpapiere	-	-
+1520	Finanzwechsel	Umlaufvermögen		0	0	-	0	-	2. sonstige Wertpapiere	-	-
+1525	Wertpapiere mit unwesentlichen Wertschwankungen	Umlaufvermögen		0	0	-	0	-	2. sonstige Wertpapiere	-	-
+1530	Wertpapieranlagen kurzfr. Disposition	Umlaufvermögen		0	0	-	0	-	2. sonstige Wertpapiere	-	-
+1550	Schecks	Finanzkonto	Schecks	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	-	-
+1600	Kasse	Finanzkonto	Kassenkonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	-	-
+1610	Nebenkasse 1	Finanzkonto	Kassenkonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	-	-
+1620	Nebenkasse 2	Finanzkonto	Kassenkonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	-	-
+1700	Bank (Postbank)	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1710	Bank (Postbank 1)	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1720	Bank (Postbank 2)	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1730	Bank (Postbank 3)	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1780	LZB-Guthaben 	Finanzkonto	sonstige	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	-	-
+1790	Bundesbankguthaben 	Finanzkonto	sonstige	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	-	-
+1800	Bank	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1810	Bank 1	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1820	Bank 2	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1830	Bank 3	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1840	Bank 4	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1850	Bank 5	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1890	Finanzmittelanlagen kurzfristige Finanzdisposition nicht im Finanzmittelfonds	Finanzkonto	sonstige	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	-	-
+1900	Aktive Rechnungsabgrenzung	Aktive Rechnungsabgrenzung		0	0	-	0	-	C. Rechnungsabgrenzungsposten	-	-
+1920	Aufwand Zölle und Verbrauchsteuern	Aktive Rechnungsabgrenzung		0	0	-	0	-	C. Rechnungsabgrenzungsposten	-	-
+1930	Als Aufwand berücksichtigte Umsatzsteuer auf Anzahlungen 	Aktive Rechnungsabgrenzung		0	0	-	0	-	C. Rechnungsabgrenzungsposten	-	-
+1940	Damnum/Disagio	Aktive Rechnungsabgrenzung		0	0	-	0	-	C. Rechnungsabgrenzungsposten	-	-
+1950	Abgrenzung aktive latente Steuern 	Aktive Rechnungsabgrenzung		0	0	-	0	-	C. Rechnungsabgrenzungsposten	-	-
+2000	Festkapital	Kapital	sonstige	0	0	-	0	-	-	Gezeichnetes Kapital	-
+2010	Variables Kapital	Kapital	sonstige	0	0	-	0	-	-	Variables Kapital	-
+2020	Gesellschafter-Darlehen 	Kapital	sonstige	0	0	-	0	-	-	Variables Kapital	-
+2050	Kommandit-Kapital	Kapital	sonstige	0	0	-	0	-	-	Gezeichnetes Kapital	-
+2060	Verlustausgleichskonto	Kapital	sonstige	0	0	-	0	-	-	Variables Kapital	-
+2070	Gesellschafter-Darlehen 	Kapital	sonstige	0	0	-	0	-	-	Variables Kapital	-
+2100	Privatentnahmen allgemein	Privat	Entnahmen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2130	Unentgeltliche Wertabgaben	Privat	Entnahmen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2150	Privatsteuern	Privat	Entnahmen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2180	Privateinlagen	Privat	Einlagen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2200	Sonderausgaben beschränkt abzugsfähig	Privat	Entnahmen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2230	Sonderausgaben unbeschränkt abzugsfähig	Privat	Entnahmen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2250	Zuwendungen, Spenden	Privat	Entnahmen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2280	Außergewöhnliche Belastungen	Privat	Entnahmen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2300	Grundstücksaufwand	Privat	Entnahmen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2349	Grundstücksaufwand	Privat	Entnahmen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2350	Grundstücksertrag	Privat	Einlagen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2399	Grundstücksertrag	Privat	Einlagen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2500	Privatentnahmen allgemein Teilh.	Privat	Entnahmen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2530	Unentgeltliche Wertabgaben Teilh.	Privat	Entnahmen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2550	Privatsteuern Teilh.	Privat	Entnahmen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2580	Privateinlagen Teilh.	Privat	Einlagen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2600	Sonderausgaben beschränkt abzugsfähig Teilh.	Privat	Entnahmen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2630	Sonderausgaben unbeschränkt abzugsfähig Teilh.	Privat	Entnahmen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2650	Zuwendungen, Spenden Teilh.	Privat	Entnahmen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2680	Außergewöhnliche Belastungen Teilh.	Privat	Entnahmen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2700	Grundstücksaufwand Teilh.	Privat	Entnahmen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2750	Grundstücksertrag Teilh.	Privat	Einlagen	0	0	-	0	-	-	Einlagen/Entnahmen	-
+2900	Gezeichnetes Kapital	Kapital	gezeichnetes Kapital	0	0	-	0	-	-	Gezeichnetes Kapital	-
+2908	Kapitalerhöhung aus Gesellschaftsmitteln	Kapital	gezeichnetes Kapital	0	0	-	0	-	-	Gezeichnetes Kapital	-
+2909	Erworbene eigene Anteile	Kapital	sonstige	0	0	-	0	-	-	Gezeichnetes Kapital	-
+2920	Kapitalrücklage	Kapital	gesetzliche Rücklagen	0	0	-	0	-	-	II. Kapitalrücklagen	-
+2925	Kapitalrücklage durch Ausgabe von Anteilen über Nennbetrag 	Kapital	gesetzliche Rücklagen	0	0	-	0	-	-	II. Kapitalrücklagen	-
+2926	Kapitalrücklage durch Ausgabe von Schuldverschreibungen	Kapital	gesetzliche Rücklagen	0	0	-	0	-	-	II. Kapitalrücklagen	-
+2927	Kapitalrücklage gg. Vorzugsgewährung	Kapital	gesetzliche Rücklagen	0	0	-	0	-	-	II. Kapitalrücklagen	-
+2928	Kapitalrücklage durch Zuzahlungen in das Eigenkapital	Kapital	gesetzliche Rücklagen	0	0	-	0	-	-	II. Kapitalrücklagen	-
+2929	Nachschusskapital (Gegenkonto 1299)	Kapital	gesetzliche Rücklagen	0	0	-	0	-	-	II. Kapitalrücklagen	-
+2930	Gesetzliche Rücklage 	Kapital	gesetzliche Rücklagen	0	0	-	0	-	-	1. gesetzliche Rücklagen	-
+2935	Rücklage f. Anteile an herrschendem oder mehrh. bet. Unternehmen	Kapital	freie Rücklagen	0	0	-	0	-	-	4. andere Gewinnrücklagen	-
+2950	Satzungsmäßige Rücklagen	Kapital	gesetzliche Rücklagen	0	0	-	0	-	-	3. satzungsmäßige Rücklagen	-
+2960	Andere Gewinnrücklagen	Kapital	freie Rücklagen	0	0	-	0	-	-	4. andere Gewinnrücklagen	-
+2961	Andere Gewinnrücklagen aus dem Erwerb eigener Anteile	Kapital	freie Rücklagen	0	0	-	0	-	-	4. andere Gewinnrücklagen	-
+2962	Eigenkapitalanteil von Wertaufholungen 	Kapital	freie Rücklagen	0	0	-	0	-	-	4. andere Gewinnrücklagen	-
+2963	Gewinnrücklagen aus den Übergangsvorschriften BilMoG	Kapital	freie Rücklagen	0	0	-	0	-	-	4. andere Gewinnrücklagen	-
+2964	Gewinnrückl. a. d. Übergangsvorschr. BilMoG (Zuschr. Sachanlageverm.)	Kapital	freie Rücklagen	0	0	-	0	-	-	4. andere Gewinnrücklagen	-
+2965	Gewinnrückl. a. d. Übergangsvorschr. BilMoG (Zuschr. Finanzanlageverm.)	Kapital	freie Rücklagen	0	0	-	0	-	-	4. andere Gewinnrücklagen	-
+2966	Gewinnrückl. a. d. Übergangsvorschr. BilMoG (Auflös. Sonderpo. m. Rückl.Ant.)	Kapital	freie Rücklagen	0	0	-	0	-	-	4. andere Gewinnrücklagen	-
+2967	Latente Steuern (Gewinnrücklage Haben)	Kapital	freie Rücklagen	0	0	-	0	-	-	4. andere Gewinnrücklagen	-
+2968	Latente Steuern (Gewinnrücklage Soll)	Kapital	freie Rücklagen	0	0	-	0	-	-	4. andere Gewinnrücklagen	-
+2969	Rechnungsabgrenzungsposten  (Gewinnrücklage Soll)	Kapital	freie Rücklagen	0	0	-	0	-	-	4. andere Gewinnrücklagen	-
+2970	Gewinnvortrag vor Verwendung	Kapital	Gewinn- und Verlustvortrag	0	0	-	0	-	-	IV. Gewinn- und Verlustvortrag	-
+2978	Verlustvortrag vor Verwendung	Kapital	Gewinn- und Verlustvortrag	0	0	-	0	-	-	IV. Gewinn- und Verlustvortrag	-
+2979	Vorträge auf neue Rechnung ( Bilanz )	Kapital	Gewinn- und Verlustvortrag	0	0	-	0	-	-	IV. Gewinn- und Verlustvortrag	-
+2980	Sonderposten mit Rücklageanteil steuerfreie Rücklagen 	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
+2981	Sonderposten mit Rücklageanteil nach § 6b EStG	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
+2982	Sonderposten mit Rücklageanteil nach EStR R 6.6	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
+2988	Rücklage für Zuschüsse	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
+2989	Sonderposten mit Rücklageanteil nach § 52 Abs. 16 EStG	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
+2990	Sonderposten mit Rücklageanteil, Sonderabschreibungen  	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
+2993	Sonderposten mit Rücklageanteil nach § 7g Abs. 2 EStG n.F.	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
+2995	Ausgleichsposten bei Entnahmen § 4g EStG	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
+2997	Sonderposten mit Rücklageanteil § 7g Abs. 5 EStG	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
+2998	Sonderposten mit Rücklageanteil nach § 7g Abs.3 und 7 EStG a.F.	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
+2999	Sonderposten für Zuschüsse und Zulagen 	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
+3000	Pensions- und ähnliche Rückstellungen	Rückstellung	Pensionsrückstellungen	0	0	-	0	-	-	1. Rückstellungen für Pensionen und ähnliche Verpflichtungen	-
+3005	Rückstellungen Pensionen und ähnliche Verpflichtungen gegen. Gesellschaftern	Rückstellung	Pensionsrückstellungen	0	0	-	0	-	-	1. Rückstellungen für Pensionen und ähnliche Verpflichtungen	-
+3009	Rückstellungen f. Pensionen u. ä. Verpfl. z. Sald. 	Rückstellung	Pensionsrückstellungen	0	0	-	0	-	-	1. Rückstellungen für Pensionen und ähnliche Verpflichtungen	-
+3010	Rückstellungen für Direktzusagen	Rückstellung	Pensionsrückstellungen	0	0	-	0	-	-	1. Rückstellungen für Pensionen und ähnliche Verpflichtungen	-
+3011	Rückstellungen für Zuschussverpflichtungen für Pensionskassen und LV	Rückstellung	Pensionsrückstellungen	0	0	-	0	-	-	1. Rückstellungen für Pensionen und ähnliche Verpflichtungen	-
+3015	Pensionsähnliche Rückstellungen	Rückstellung	Pensionsrückstellungen	0	0	-	0	-	-	1. Rückstellungen für Pensionen und ähnliche Verpflichtungen	-
+3020	Steuerrückstellungen 	Rückstellung	Steuerrückstellungen	0	0	-	0	-	-	2. Steuerrückstellungen	-
+3030	Gewerbesteuerrückstellung	Rückstellung	Steuerrückstellungen	0	0	-	0	-	-	2. Steuerrückstellungen	-
+3035	Gewerbesteuerrückstellung, § 4 Abs. 5b EStG	Rückstellung	Steuerrückstellungen	0	0	-	0	-	-	2. Steuerrückstellungen	-
+3040	Körperschaftsteuerrückstellung	Rückstellung	Steuerrückstellungen	0	0	-	0	-	-	2. Steuerrückstellungen	-
+3050	Steuerrückstellung aus Steuerstundung (BStBK)	Rückstellung	Steuerrückstellungen	0	0	-	0	-	-	2. Steuerrückstellungen	-
+3060	Rückstellung für latente Steuern 	Rückstellung	Steuerrückstellungen	0	0	-	0	-	-	2. Steuerrückstellungen	-
+3065	Passive latente Steuern 	Rückstellung	Steuerrückstellungen	0	0	-	0	-	-	F. Passive latente Steuern	-
+3070	Sonstige Rückstellungen 	Rückstellung	sonstige	0	0	-	0	-	-	3. sonstige Rückstellungen	-
+3075	Rückstellungen Instandhaltungen bis 3 M	Rückstellung	sonstige	0	0	-	0	-	-	3. sonstige Rückstellungen	-
+3076	Rückstellungen mit Altersversorgung vergleichbare Verpflichtungen	Rückstellung	sonstige	0	0	-	0	-	-	3. sonstige Rückstellungen	-
+3077	Rückstellungen mit Altersversorgung vergleichbare Verpfl. § 246 Abs. 2 HGB	Rückstellung	sonstige	0	0	-	0	-	-	3. sonstige Rückstellungen	-
+3079	Urlaubsrückstellungen	Rückstellung	sonstige	0	0	-	0	-	-	3. sonstige Rückstellungen	-
+3085	Rückstellungen für Abraum- und Abfallbeseitigung	Rückstellung	sonstige	0	0	-	0	-	-	3. sonstige Rückstellungen	-
+3090	Rückstellungen für Gewährleistungen	Rückstellung	sonstige	0	0	-	0	-	-	3. sonstige Rückstellungen	-
+3092	Rückstellungen für drohende Verluste aus schwebenden Geschäften 	Rückstellung	sonstige	0	0	-	0	-	-	3. sonstige Rückstellungen	-
+3095	Rückstellungen für Abschluss- und Prüfungskosten	Rückstellung	sonstige	0	0	-	0	-	-	3. sonstige Rückstellungen	-
+3098	Aufwandsrückstellungen gemäß § 249 Abs 2 HGB	Rückstellung	sonstige	0	0	-	0	-	-	3. sonstige Rückstellungen	-
+3099	Rückstellungen für Umweltschutz	Rückstellung	sonstige	0	0	-	0	-	-	3. sonstige Rückstellungen	-
+3100	Anleihen, nicht konvertibel 	Verbindlichkeiten	sonstige	0	0	-	0	-	-	1. Anleihen	-
+3101	Anleihen, nicht konvertibel - Restlaufzeit bis 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	1. Anleihen	-
+3105	Anleihen, nicht konvertibel - Restlaufzeit 1 bis 5  Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	-	1. Anleihen	-
+3110	Anleihen, nicht konvertibel - Restlaufzeit größer 5  Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	-	1. Anleihen	-
+3120	Anleihen, konvertibel 	Verbindlichkeiten	sonstige	0	0	-	0	-	-	1. Anleihen	-
+3121	Anleihen, konvertibel - Restlaufzeit bis 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	1. Anleihen	-
+3125	Anleihen, konvertibel - Restlaufzeit 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	-	1. Anleihen	-
+3130	Anleihen, konvertibel - Restlaufzeit größer 5 Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	-	1. Anleihen	-
+3150	Verbindlichkeiten geg. Kreditinstituten	Verbindlichkeiten	sonstige	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+3151	Verbindlichkeiten geg. Kreditinstituten Restlaufzeit bis 1 Jahr	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+3160	Verbindlichkeiten geg. Kreditinstituten Restlaufzeit 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+3170	Verbindlichkeiten geg. Kreditinstituten Restlaufzeit größer 5 Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+3180	Verbindlichkeiten geg. Kreditinstituten aus Teilzahlungsverträgen 	Verbindlichkeiten	sonstige	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+3181	Verbindlichkeiten geg. Kreditinstituten ausTeilzahlungsverträgen  bis 1 Jahr	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+3190	Verbindlichkeiten geg. Kreditinstituten aus Teilzahlungsverträgen 1 bis 5 J	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+3200	Verbindlichkeiten geg. Kreditinstituten aus Teilzahlungsvertragen gr. 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+3250	Erhaltene Anzahlungen auf Bestellungen 	Erhaltene Anzahlungen		0	0	-	0	-	-	3. erhaltene Anzahlungen auf Bestellungen	-
+3260	Erhaltene Anzahlungen 7 % USt.	Erhaltene Anzahlungen		86	1	USt. 7% 	275	-	-	3. erhaltene Anzahlungen auf Bestellungen	-
+3270	Erhaltene Anzahlungen 16 % USt.	Erhaltene Anzahlungen		35	3	USt. 16% 	155	-	-	3. erhaltene Anzahlungen auf Bestellungen	-
+3271	Erhaltene Anzahlungen 15 % USt.	Erhaltene Anzahlungen		35	2	USt. 15% 	155	-	-	3. erhaltene Anzahlungen auf Bestellungen	-
+3272	Erhaltene Anzahlungen 19 % USt.	Erhaltene Anzahlungen		81	20	USt. 19% 	177	-	-	3. erhaltene Anzahlungen auf Bestellungen	-
+3280	Erhaltene Anzahlungen - Restlaufzeit bis 1 Jahr	Erhaltene Anzahlungen		0	0	-	0	-	-	3. erhaltene Anzahlungen auf Bestellungen	-
+3284	Erhaltene Anzahlungen - Restlaufzeit 1 bis 5  Jahre	Erhaltene Anzahlungen		0	0	-	0	-	-	3. erhaltene Anzahlungen auf Bestellungen	-
+3285	Erhaltene Anzahlungen - Restlaufzeit größer 5  Jahre	Erhaltene Anzahlungen		0	0	-	0	-	-	3. erhaltene Anzahlungen auf Bestellungen	-
+3300	Verbindlichkeiten aus Lieferungen und Leistungen	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+3305	Verbindlichkeiten aus Lieferungen und Leistungen zum allg. Umsatzsteuersatz	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+3306	Verbindlichkeiten aus Lieferungen und Leistungen zum erm. Umsatzsteuersatz	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+3307	Verbindlichkeiten aus Lieferungen und Leistungen ohne Vorsteuer	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+3309	Gegenkonto 3305-3307 b. Aufteilung der Verbindlichk. nach Steuersätzen (EÜR)	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+3310	Verbindlichkeiten aus Lieferungen und Leistungen ohne Kontokorrent	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+3334	Verindlichkeiten Investitionen §4/3 EStG	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+3335	Verbindlichkeiten aus Lieferungen und Leistungen ohne Kontokorrent bis 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+3337	Verbindlichkeiten aus Lieferungen und Leistungen ohne Kontokorrent 1-5 J.	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+3338	Verbindlichkeiten aus Lieferungen und Leistungen ohne Kontokorrent - gr. 5 J	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+3340	Verbindlichkeiten aus Lieferungen und Leistungen gg. Gesellschaftern 	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+3341	Verbindlichkeiten aus Lieferungen und Leistungen gg. Gesellschaftern b. 1 J	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+3345	Verbindlichkeiten aus Lieferungen und Leistungen gg. Gesellschaftern 1-5 J. 	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+3348	Verbindlichkeiten aus Lieferungen und Leistungen gg. Gesellschaftern g. 5J	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
+3350	Wechselverbindlichkeiten 	Verbindlichkeiten	Wechselverbindlichkeit	0	0	-	0	-	-	5. Verb. aus Annahme gez. Wechsel und Ausstellung eig. Wechsel	-
+3351	Wechselverbindlichkeiten bis 1 Jahr	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	5. Verb. aus Annahme gez. Wechsel und Ausstellung eig. Wechsel	-
+3380	WWechselverbindlichkeiten	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	-	5. Verb. aus Annahme gez. Wechsel und Ausstellung eig. Wechsel	-
+3390	Wechselverbindlichkeiten	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	-	5. Verb. aus Annahme gez. Wechsel und Ausstellung eig. Wechsel	-
+3400	Verbindlichkeiten gegenüber verbundenen Unternehmen 	Verbindlichkeiten	sonstige	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
+3401	Verbindlichkeiten gegenüber verbundenen Unternehmen bis 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
+3405	Verbindlichkeiten gegenüber verbundenen Unternehmen 1-5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
+3410	Verbindlichkeiten gegenüber verbundenen Unternehmen gr. 5 J.	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
+3420	Verbindlichkeiten aus Lieferungen und Leistungen gg. verbundene UN	Verbindlichkeiten	sonstige	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
+3421	Verbindlichkeiten aus Lieferungen und Leistungen gg. verbundene UN bis 1 J	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
+3425	Verbindlichkeiten aus Lieferungen und Leistungen gg. verbundene UN 1-5 J	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
+3430	Verbindlichkeiten aus Lieferungen und Leistungen gg. verbundene UN gr. 5 J	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
+3450	Verbindlichkeiten geg. UN m. Beteiligungsverhältnis	Verbindlichkeiten	sonstige	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+3451	Verbindlichkeiten geg. UN m. Beteiligungsverhältnis bis 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+3455	Verbindlichkeiten geg. UN m. Beteiligungsverhältnis 1-5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+3460	Verbindlichkeiten geg. UN m. Beteiligungsverhältnis gr. 5 J	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+3470	Verbindlichkeiten aus Lieferungen und Leistungen gg.UN m.Bet.verh.	Verbindlichkeiten	sonstige	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+3471	Verbindlichkeiten aus Lieferungen und Leistungen gg.UN m.Bet.verh. bis 1 J.	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+3475	Verbindlichkeiten aus Lieferungen und Leistungen gg.UN m.Bet.verh. 1-5J.	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+3480	Verbindlichkeiten aus Lieferungen und Leistungen gg.UN m.Bet.verh. gr.5J.	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+3500	Sonstige Verbindlichkeiten	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3501	Sonstige Verbindlichkeiten - Restlaufzeit bis 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3504	Sonstige Verbindlichkeiten - Restlaufzeit 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3507	Sonstige Verbindlichkeiten - Restlaufzeit größer 5 Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3509	Sonstige Verbindlichkeiten nach § 11 EStG	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3510	Verbindlichkeiten geg. Gesellschaftern	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3511	Verbindlichkeiten geg. Gesellschaftern Restlaufzeit bis 1 Jahr	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3514	Verbindlichkeiten geg. Gesellschaftern Restlaufzeit 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3517	Verbindlichkeiten geg. Gesellschaftern Restlaufzeit größer 5 Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3519	Verbindlichkeiten geg. Gesellschaftern offene Ausschüttungen	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3520	Darlehen typisch stiller Gesellschafter 	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3521	Darlehen typisch stiller Gesellschafter - Restlaufzeit bis 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3524	Darlehen typisch stiller Gesellschafter - Restlaufzeit 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3527	Darlehen typisch stiller Gesellschafter - Restlaufzeit größer 5 Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3530	Darlehen atypisch stiller Gesellschafter 	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3531	Darlehen atypisch stiller Gesellschafter - Restlaufzeit bis 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3534	Darlehen atypisch stiller Gesellschafter - Restlaufzeit 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3537	Darlehen atypisch stiller Gesellschafter - Restlaufzeit größer 5 Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3540	Partiarische Darlehen 	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3541	Partiarische Darlehen - Restlaufzeit bis 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3544	Partiarische Darlehen - Restlaufzeit 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3547	Partiarische Darlehen - Restlaufzeit größer 5 Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3550	Erhaltene Kautionen	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3551	Erhaltene Kautionen - Restlaufzeit bis 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3554	Erhaltene Kautionen - Restlaufzeit 1 bis 5 Jahre 	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3557	Erhaltene Kautionen - Restlaufzeit größer 5 Jahre 	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3560	Darlehen	Verbindlichkeiten	sonstige	0	0	-	0	-	6. sonstige Ausleihungen	8. sonstige Verbindlichkeiten	-
+3561	Darlehen - Restlaufzeit bis 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3564	Darlehen - Restlaufzeit 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3567	Darlehen - Restlaufzeit größer 5 Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3600	Agenturwarenabrechnungen	Verbindlichkeiten	sonstige	0	0	-	0	-	6. sonstige Ausleihungen	8. sonstige Verbindlichkeiten	-
+3610	Kreditkartenabrechnung	Verbindlichkeiten	sonstige	0	0	-	0	-	6. sonstige Ausleihungen	8. sonstige Verbindlichkeiten	-
+3611	Verbindlichkeiten gegenüber Arbeitsgemeinschaften	Verbindlichkeiten	sonstige	0	0	-	0	-	6. sonstige Ausleihungen	8. sonstige Verbindlichkeiten	-
+3620	Gewinnverfügungskonto stille Gesellschafter	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3630	Sonstige Verrechnungskonten	Interimskonto		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3640	Verbindlichkeiten gegenüber GmbH-Gesellschaftern	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3641	Verbindlichkeiten gegenüber GmbH-Gesellschaftern - bis 1 Jahr	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3642	Verbindlichkeiten gegenüber GmbH-Gesellschaftern - 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3643	Verbindlichkeiten gegenüber GmbH-Gesellschaftern - größer 5 Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3645	Verbindlichkeiten gegenüber persönlich haftenden Gesellschaftern	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3646	Verbindlichkeiten gegenüber pers. haftenden Gesellschaftern - bis 1 Jahr	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3647	Verbindlichkeiten gegenüber pers. haftenden Gesellschaftern - 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3648	Verbindlichkeiten gegenüber pers. haftenden Gesellschaftern - größer 5 Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3650	Verbindlichkeiten gegenüber Kommanditisten	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3651	Verbindlichkeiten gegenüber Kommanditisten - bis 1 Jahr	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3652	Verbindlichkeiten gegenüber Kommanditisten - 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3653	Verbindlichkeiten gegenüber Kommanditisten - größer 5 Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3655	Verbindlichkeiten gegenüber stillen Gesellschaftern	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3656	Verbindlichkeiten gegenüber stillen Gesellschaftern - bis 1 Jahr	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3657	Verbindlichkeiten gegenüber stillen Gesellschaftern - 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3658	Verbindlichkeiten gegenüber stillen Gesellschaftern - größer 5 Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3695	Verrechnung geleistete Anzahlung	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	-	-
+3700	Verbindlichkeiten Steuern und Abgaben	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3701	Verbindlichkeiten Steuern und Abgaben bis 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3710	Verbindlichkeiten Steuern und Abgaben 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3715	Verbindlichkeiten Steuern und Abgaben größer 5 Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3720	Verbindlichkeiten aus Lohn und Gehalt	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3725	Verbindlichkeiten aus Einbehaltungen von Arbeitnehmern 	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3726	Verbindlichkeiten an das Finanzamt aus abzuführendem Bauabzugsbetrag	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3730	Verbindlichkeiten aus Lohn- u. Kirchensteuer	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3740	Verbindlichkeiten soziale Sicherheit	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3741	Verbindlichkeiten soziale Sicherheit bis 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3750	Verbindlichkeiten soziale Sicherheit 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3755	Verbindlichkeiten soziale Sicherheit größer 5 Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3759	Voraussichtliche Beitragsschuld gegenüber den Sozialversicherungsträgern	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3760	Verbindlichk. a. Einbeh. (KapESt, SolZ, KiSt auf KapESt) f. off. Ausschütt.	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3761	Verbindlichkeiten für Verbrauchsteuern	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3770	Verbindlichkeiten aus Vermögensbildung	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3771	Verbindlichkeiten aus Vermögensbildung - Restlaufzeit bis 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3780	Verbindlichkeiten aus Vermögensbildung - Restlaufzeit 1 bis 5 Jahre 	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3785	Verbindlichkeiten aus Vermögensbildung - Restlaufzeit größer 5 Jahre 	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3786	Ausgegebene Geschenkgutscheine	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3790	Verrechnungskonto Lohn und Gehalt	Interimskonto		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3796	Verbindlichkeiten im Rahmen der sozialen Sicherheit (für § 4/3 EStG) 	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
+3798	Umsatzsteuer aus i. a. EU-Land steuerpfl. elektr. Dienstleistungen	Umsatzsteuer		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3799	Steuerzahlungen aus i. a. EU-Land steuerpfl. elektr. Dienstleistungen (KEA/MOSS)	Umsatzsteuer		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3800	Umsatzsteuer	Umsatzsteuer		36	0	- 	156	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3801	Umsatzsteuer 7 %	Umsatzsteuer		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3802	Umsatzsteuer aus EG-Erwerb	Umsatzsteuer		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3803	Umsatzsteuer aus EG-Erwerb 16 %	Umsatzsteuer		98	0	- 	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3804	Umsatzsteuer aus EG-Erwerb 19 %	Umsatzsteuer		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3805	Umsatzsteuer 16 %	Umsatzsteuer		36	0	- 	156	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3806	Umsatzsteuer 19 %	Umsatzsteuer		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3807	Umsatzsteuer EG-Lieferungen 	Umsatzsteuer		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3808	Umsatzsteuer EG-Lieferungen 19 %	Umsatzsteuer		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3809	Umsatzsteuer aus EG-Erwerb ohne Vorsteuerabzug 	Umsatzsteuer		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3810	Umsatzsteuer nicht fällig	Rückstellung	Steuerrückstellungen	0	0	-	0	-	-	2. Steuerrückstellungen	-
+3811	Umsatzsteuer nicht fällig 7 %	Rückstellung	Steuerrückstellungen	0	0	-	0	-	-	2. Steuerrückstellungen	-
+3812	Umsatzsteuer nicht fällig, EG-Lieferungen	Rückstellung	Steuerrückstellungen	0	0	-	0	-	-	2. Steuerrückstellungen	-
+3813	Umsatzsteuer nicht fällig, EG-Lieferungen 16 %	Rückstellung	Steuerrückstellungen	0	0	-	0	-	-	2. Steuerrückstellungen	-
+3814	Umsatzsteuer nicht fällig, EG-Lieferungen 19 %	Rückstellung	Steuerrückstellungen	0	0	-	0	-	-	2. Steuerrückstellungen	-
+3815	Umsatzsteuer nicht fällig 16 %	Rückstellung	Steuerrückstellungen	0	0	-	0	-	-	3. sonstige Rückstellungen	-
+3816	Umsatzsteuer nicht fällig 19 %	Rückstellung	Steuerrückstellungen	0	0	-	0	-	-	2. Steuerrückstellungen	-
+3817	Umsatzsteuer aus im anderen EG-Land steuerpflichtigen Lieferungen 	Umsatzsteuer		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3818	Umsatzsteuer im anderen EG-Land sonstigen Leist./Werklieferungen  	Umsatzsteuer		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3819	Umsatzsteuer aus Erwerb als letzter Abnehmer innerhalb eines Dreiecksgeschäfts	Umsatzsteuer		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3820	Umsatzsteuervorauszahlungen	Umsatzsteuervorauszahlung		0	0	- 	100	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3830	Umsatzsteuervorauszahlungen 1/11	Umsatzsteuervorauszahlung		39	0	- 	100	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3832	Nachsteuer	Umsatzsteuer		65	0	- 	317	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3834	Umsatzsteuer aus innergemeinschaftlichem Erwerb von Neufahrzeugen	Umsatzsteuer		96	0	- 	796	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3835	Umsatzsteuer nach § 13b UStG	Umsatzsteuer		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3836	Umsatzsteuer nach § 13b UStG 16 %	Umsatzsteuer		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3837	Umsatzsteuer nach § 13b UStG 19 %	Umsatzsteuer		0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3840	USt laufendes Jahr	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3841	USt Vorjahr	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3845	USt frühere Jahre	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3850	Aufgeschobene Einfuhrumsatzsteuer	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3851	Unrichtig oder unberechtigt ausgewiesene Umsatzsteuer	Umsatzsteuer		69	0	- 	318	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3854	Steuerzahlungen an andere Länder 	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3860	Verbindlichkeiten aus Umsatzsteuer	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3865	Umsatzsteuer in Folgeperiode fällig (§§ 13 Abs. 1 Nr. 6, 13b Abs. 2 UStG)	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
+3900	Passive Rechnungsabgrenzung	Passive Rechnungsabgrenzung		0	0	-	0	-	-	E. Rechnungsabgrenzungsposten	-
+3950	Abgrenzung unterjährige AfA für BWA	Passive Rechnungsabgrenzung		0	0	-	0	-	-	E. Rechnungsabgrenzungsposten	-
+4000	Umsatzerlöse	Einnahmen	Umsatzerlöse	0	0	-	0	-	-	-	Umsatzerlöse
+4100	Steuerfreie Umsätze § 4 Nr. 8 ff UStG	Einnahmen	Umsatzerlöse	48	0	- 	287	-	-	-	Umsatzerlöse
+4110	Sonstige steuerfreie Umsätze Inland 	Einnahmen	Umsatzerlöse	48	0	- 	287	-	-	-	Umsatzerlöse
+4120	Steuerfreie Umsätze § 4 Nr. 1a. UStG	Einnahmen	Umsatzerlöse	43	0	- 	101	-	-	-	Umsatzerlöse
+4125	Steuerfreie EG-Lieferungen § 4 Nr.1b UStG	Einnahmen	Umsatzerlöse	41	0	- 	741	-	-	-	Umsatzerlöse
+4130	Innergemeinschaftliches Dreiecksgeschäft	Einnahmen	Umsatzerlöse	42	0	- 	742	-	-	-	Umsatzerlöse
+4135	Steuerfreie EG-Lieferung von Neufahrzeugen ohne UStID	Einnahmen	Umsatzerlöse	44	0	- 	744	-	-	-	Umsatzerlöse
+4136	Umsatzerlöse nach §§ 25 und 25a UStG 19% USt	Einnahmen	Umsatzerlöse	81	20	USt. 19% 	177	-	-	-	Umsatzerlöse
+4138	Umsatzerlöse nach §§ 25 und 25a UStG ohne USt	Einnahmen	Umsatzerlöse	0	0	-	0	-	-	-	Umsatzerlöse
+4139	Umsatzerlöse aus Reiseleistungen § 25 Abs. 2 UStG, steuerfrei	Einnahmen	Umsatzerlöse	0	0	-	0	-	-	-	Umsatzerlöse
+4140	Steuerfreie Umsätze Offshore etc.	Einnahmen	Umsatzerlöse	43	0	- 	103	-	-	-	Umsatzerlöse
+4150	Sonstige steuerfrei Umsätze (z.B. § 4 Nr. 2-7 UStG) 	Einnahmen	Umsatzerlöse	43	0	- 	102	-	-	-	Umsatzerlöse
+4180	Erlöse gemäß § 24 UStG	Einnahmen	Umsatzerlöse	76	0	- 	255	-	-	-	Umsatzerlöse
+4185	Erlöse als Kleinunternehmer § 19 Abs. 1 UStG	Einnahmen	Umsatzerlöse	0	0	- 	239	-	-	-	Umsatzerlöse
+4186	Erlöse aus Geldspielautomaten 19 % USt	Einnahmen	Umsatzerlöse	81	20	USt. 19% 	177	-	-	-	Umsatzerlöse
+4200	Erlöse	Einnahmen	Umsatzerlöse	0	0	-	0	-	-	-	Umsatzerlöse
+4300	Erlöse 7 % USt	Einnahmen	Umsatzerlöse	86	1	USt. 7% 	275	-	-	-	Umsatzerlöse
+4310	Erlöse EG-Lieferungen 7 % UStG	Einnahmen	Umsatzerlöse	86	1	USt. 7% 	275	-	-	-	Umsatzerlöse
+4315	Erlöse EG-Lieferungen 19 % UStG	Einnahmen	Umsatzerlöse	81	20	USt. 19% 	177	-	-	-	Umsatzerlöse
+4320	Erlöse aus im anderen EG-Land steuerpflichtigen Lieferungen	Einnahmen	Umsatzerlöse	45	0	- 	205	-	-	-	Umsatzerlöse
+4330	Erlöse EG-Lieferungen 16 % UStG	Einnahmen	Umsatzerlöse	35	3	USt. 16% 	155	-	-	-	Umsatzerlöse
+4331	Erlöse aus im anderen EU-Land steuerpflichtigen elektronischen Dienstleistungen	Einnahmen	Umsatzerlöse	45	0	- 	205	-	-	-	Umsatzerlöse
+4335	Erlöse aus Lieferungen von Mobilfunkgeräten/Schaltkreisen § 13b UStG	Einnahmen	Umsatzerlöse	68	0	- 	210	-	-	-	Umsatzerlöse
+4336	Erlöse aus im and. EG-Land steuerpfl. sonst. Leistungen, 13 b	Einnahmen	Umsatzerlöse	21	0	- 	721	-	-	-	Umsatzerlöse
+4337	Erlöse aus Leistungen nach § 13b UStG	Einnahmen	Umsatzerlöse	60	0	- 	209	-	-	-	Umsatzerlöse
+4338	Nicht steuerbare Umsätze Drittland	Einnahmen	Umsatzerlöse	45	0	- 	205	-	-	-	Umsatzerlöse
+4339	Nicht steuerbare Umsätze EG-Land	Einnahmen	Umsatzerlöse	45	0	- 	205	-	-	-	Umsatzerlöse
+4340	Erlöse 16 % USt	Einnahmen	Umsatzerlöse	35	3	USt. 16% 	155	-	-	-	Umsatzerlöse
+4400	Erlöse 19 % USt	Einnahmen	Umsatzerlöse	81	20	USt. 19% 	177	-	-	-	Umsatzerlöse
+4510	Erlöse Abfallverwertung	Einnahmen	Umsatzerlöse	0	0	-	0	-	-	-	Umsatzerlöse
+4520	Erlöse Leergut	Einnahmen	Umsatzerlöse	0	0	-	0	-	-	-	Umsatzerlöse
+4560	Provisionsumsätze	Einnahmen	Umsatzerlöse	0	0	-	0	-	-	-	Umsatzerlöse
+4566	Provisionsumsätze 7 % USt	Einnahmen	Umsatzerlöse	86	1	USt. 7% 	275	-	-	-	Umsatzerlöse
+4568	Provisionsumsätze 16 % USt	Einnahmen	Umsatzerlöse	35	3	USt. 16% 	155	-	-	-	Umsatzerlöse
+4569	Provisionsumsätze 19 % USt	Einnahmen	Umsatzerlöse	81	20	USt. 19% 	177	-	-	-	Umsatzerlöse
+4570	Sonstige Erträge aus Provisionen, Lizenzen und Patenten	Einnahmen	Umsatzerlöse	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4574	Sonstige Ertr. aus Prov., Lizenzen und Patenten, steuerfrei § 4 Nr. 8 ff. UStG	Einnahmen	Umsatzerlöse	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4575	Sonstige Ertr. aus Prov., Lizenzen und Patenten, steuerfrei § 4 Nr. 5 UStG	Einnahmen	Umsatzerlöse	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4576	Sonstige Erträge aus Provisionen, Lizenzen und Patenten, 7% USt	Einnahmen	Umsatzerlöse	86	1	USt. 7% 	275	-	-	-	Sonstige betriebliche Erträge
+4579	Sonstige Erträge aus Provisionen, Lizenzen und Patenten, 19% USt	Einnahmen	Umsatzerlöse	81	20	USt. 19% 	177	-	-	-	Sonstige betriebliche Erträge
+4600	Unentgeltliche Wertabgaben	Einnahmen	Umsatzerlöse	0	0	-	0	-	-	-	Umsatzerlöse
+4605	Entnahme von Gegenständen ohne USt	Einnahmen	Eigenverbrauch	0	0	-	0	-	-	-	Umsatzerlöse
+4610	Entnahme Unternehmer (Waren) 7 % USt	Einnahmen	Eigenverbrauch	86	1	USt. 7% 	195	-	-	-	Umsatzerlöse
+4616	Entnahme Unternehmer (Waren) 7 % USt	Einnahmen	Eigenverbrauch	86	1	USt. 7% 	195	-	-	-	Umsatzerlöse
+4619	Entnahme Unternehmer (Waren) ohne USt	Einnahmen	Eigenverbrauch	0	0	-	0	-	-	-	Umsatzerlöse
+4620	Entnahme Unternehmer  (Waren) 19 % USt	Einnahmen	Eigenverbrauch	81	20	USt. 19% 	178	-	-	-	Umsatzerlöse
+4630	Verwendung von Gegenständen 7 % USt	Einnahmen	Eigenverbrauch	86	1	USt. 7% 	195	-	-	-	Sonstige betriebliche Erträge
+4639	Verwendung von Gegenständen (Kfz) ohne USt	Einnahmen	Eigenverbrauch	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4640	Verwendung von Gegenständen 19 % USt	Einnahmen	Eigenverbrauch	81	20	USt. 19% 	179	-	-	-	Sonstige betriebliche Erträge
+4645	Verwendung von Gegenständen (Kfz) 19 % USt	Einnahmen	Eigenverbrauch	81	20	USt. 19% 	179	-	-	-	Sonstige betriebliche Erträge
+4646	Verwendung von Gegenständen (Tel) 19 % USt	Einnahmen	Eigenverbrauch	81	20	USt. 19% 	179	-	-	-	Sonstige betriebliche Erträge
+4650	Unentgeltliche Erbringung einer sonstigen Leistung 7 % USt	Einnahmen	Eigenverbrauch	86	1	USt. 7% 	196	-	-	-	Sonstige betriebliche Erträge
+4659	Unentgeltliche Erbringung einer sonstigen Leistung ohne USt	Einnahmen	Eigenverbrauch	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4660	Unentgeltliche Erbringung einer sonstigen Leistung 19 % USt	Einnahmen	Eigenverbrauch	81	20	USt. 19% 	179	-	-	-	Sonstige betriebliche Erträge
+4670	Unentgeltliche Zuwendung von Waren 7 % USt	Einnahmen	Eigenverbrauch	86	1	USt. 7% 	195	-	-	-	Umsatzerlöse
+4679	Unentgeltliche Zuwendung von Waren ohne USt. 	Einnahmen	Eigenverbrauch	0	0	-	0	-	-	-	Umsatzerlöse
+4680	Unentgeltliche Zuwendung von Waren 19 % USt	Einnahmen	Eigenverbrauch	81	20	USt. 19% 	178	-	-	-	Umsatzerlöse
+4686	Unentgeltliche Zuwendung von Gegenständen 19 % USt	Einnahmen	Eigenverbrauch	81	20	USt. 19% 	178	-	-	-	Sonstige betriebliche Erträge
+4689	Unentgeltliche Zuwendung von Gegenständen ohne USt	Einnahmen	Eigenverbrauch	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4690	Nicht steuerbare Umsätze (Innenumsätze)	Einnahmen	Umsatzerlöse	0	0	- 	0	-	-	-	Umsatzerlöse
+4695	Umsatzsteuervergütung, z.B. nach § 24 UStG	Einnahmen	Umsatzerlöse	0	0	-	0	-	-	-	Umsatzerlöse
+4699	Direkt mit dem Umsatz verbundene Steuern	Einnahmen	Umsatzerlöse	0	0	-	0	-	-	-	Umsatzerlöse
+4700	Erlösschmälerungen 	Einnahmen	Erlösminderungen	0	0	-	0	-	-	-	Umsatzerlöse
+4701	Erlösschmälerungen für steuerfreie Umsätze nach § 4 Nr. 8 ff. UStG	Einnahmen	Erlösminderungen	48	0	- 	287	-	-	-	Umsatzerlöse
+4702	Erlösschmälerungen für steuerfreie Umsätze nach § 4 Nr. 2-7 UStG	Einnahmen	Erlösminderungen	43	0	- 	102	-	-	-	Umsatzerlöse
+4703	Erlösschmälerungen für sonstige steuerfreie Umsätze ohne Vorsteuerabzug	Einnahmen	Erlösminderungen	48	0	- 	106	-	-	-	Umsatzerlöse
+4704	Erlösschmälerungen für sonstige steuerfreie Umsätze mit Vorsteuerabzug	Einnahmen	Erlösminderungen	43	0	- 	102	-	-	-	Umsatzerlöse
+4705	Erlösschmälerungen steuerfrei §4 Nr. 1a UStG	Einnahmen	Erlösminderungen	43	0	- 	102	-	-	-	Umsatzerlöse
+4710	Erlösschmälerungen 7 % USt	Einnahmen	Erlösminderungen	86	1	USt. 7% 	275	-	-	-	Umsatzerlöse
+4720	Erlösschmälerungen 19 % USt	Einnahmen	Erlösminderungen	81	20	USt. 19% 	177	-	-	-	Umsatzerlöse
+4723	Erlösschmälerungen 16 % USt	Einnahmen	Erlösminderungen	35	3	USt. 16% 	155	-	-	-	Umsatzerlöse
+4724	Erlösschmälerungen steuerfreie EG-Lieferungen	Einnahmen	Erlösminderungen	41	0	- 	741	-	-	-	Umsatzerlöse
+4725	Erlösschmälerungen EG-Lieferungen 7 % USt	Einnahmen	Erlösminderungen	86	1	USt. 7% 	275	-	-	-	Umsatzerlöse
+4726	Erlösschmälerungen EG-Lieferungen 19 % USt	Einnahmen	Erlösminderungen	81	20	USt. 19% 	177	-	-	-	Umsatzerlöse
+4727	Erlösschmälerungen im anderen EG-Land steuerpflichtige Lieferungen	Einnahmen	Erlösminderungen	0	0	-	0	-	-	-	Umsatzerlöse
+4729	Erlösschmälerungen EG-Lieferungen 16 % USt	Einnahmen	Erlösminderungen	35	3	USt. 16% 	155	-	-	-	Umsatzerlöse
+4730	Gewährte Skonti	Einnahmen	Erlösminderungen	48	0	- 	0	-	-	-	Umsatzerlöse
+4731	Gewährte Skonti 7 % USt	Einnahmen	Erlösminderungen	86	1	USt. 7% 	275	-	-	-	Umsatzerlöse
+4735	Gewährte Skonti 16 % USt	Einnahmen	Erlösminderungen	35	3	USt. 16% 	155	-	-	-	Umsatzerlöse
+4736	Gewährte Skonti 19 % USt	Einnahmen	Erlösminderungen	81	20	USt. 19% 	177	-	-	-	Umsatzerlöse
+4738	Gewährte Skonti Lieferung von Mobilfunkgeräten/Schaltkreisen nach §13b UStG	Einnahmen	Erlösminderungen	68	0	- 	210	-	-	-	Umsatzerlöse
+4741	Gewährte Skonti aus Leistungen, 13b UStG 	Einnahmen	Erlösminderungen	60	0	- 	209	-	-	-	Umsatzerlöse
+4742	Gew. Skonti a. Erlösen im and. EG-Land stpfl., 13b UStG	Einnahmen	Erlösminderungen	21	0	- 	721	-	-	-	Umsatzerlöse
+4743	Gewährte Skonti aus steuerfr. EG-Lief. § 4 Nr.1b UStG	Einnahmen	Erlösminderungen	41	0	- 	741	-	-	-	Umsatzerlöse
+4745	Gew. Skonti aus im Inland stpfl. EG-Lieferungen	Einnahmen	Erlösminderungen	35	3	USt. 16% 	155	-	-	-	Umsatzerlöse
+4746	Gewährte Skonti aus EG-Lieferungen 7 % UStG	Einnahmen	Erlösminderungen	86	1	USt. 7% 	275	-	-	-	Umsatzerlöse
+4748	Gewährte Skonti aus EG-Lieferungen 19 % 	Einnahmen	Erlösminderungen	81	20	USt. 19% 	177	-	-	-	Umsatzerlöse
+4750	Gewährte Boni 7 % USt	Einnahmen	Erlösminderungen	86	1	USt. 7% 	275	-	-	-	Umsatzerlöse
+4760	Gewährte Boni 19 % USt	Einnahmen	Erlösminderungen	81	20	USt. 19% 	177	-	-	-	Umsatzerlöse
+4762	Gewährte Boni 16 % USt	Einnahmen	Erlösminderungen	35	3	USt. 16% 	155	-	-	-	Umsatzerlöse
+4770	Gewährte Rabatte	Einnahmen	Erlösminderungen	0	0	-	0	-	-	-	Umsatzerlöse
+4780	Gewährte Rabatte 7 % USt	Einnahmen	Erlösminderungen	86	1	USt. 7% 	275	-	-	-	Umsatzerlöse
+4790	Gewährte Rabatte 19 % USt	Einnahmen	Erlösminderungen	81	20	USt. 19% 	177	-	-	-	Umsatzerlöse
+4792	Gewährte Rabatte 16 % USt	Einnahmen	Erlösminderungen	35	3	USt. 16% 	155	-	-	-	Umsatzerlöse
+4800	Bestandsveränderung fertige Erzeugnisse	Vorräte	Bestandsveränderungen	0	0	-	0	-	-	-	Bestandsveränderungen fertige/unfertige Erzeugnisse
+4810	Bestandsveränderung unfertige Erzeugnisse	Vorräte	Bestandsveränderungen	0	0	-	0	-	-	-	Bestandsveränderungen fertige/unfertige Erzeugnisse
+4815	Bestandsveränderung unfertige Leistungen	Vorräte	Bestandsveränderungen	0	0	-	0	-	-	-	Bestandsveränderungen fertige/unfertige Erzeugnisse
+4816	Bestandsveränderung Bauaufträge 	Vorräte	Bestandsveränderungen	0	0	-	0	-	-	-	Bestandsveränderungen fertige/unfertige Erzeugnisse
+4818	Bestandsveränderung Aufträge in Arbeit	Vorräte	Bestandsveränderungen	0	0	-	0	-	-	-	Bestandsveränderungen fertige/unfertige Erzeugnisse
+4820	Andere aktivierte Eigenleistungen	Einnahmen	Aktivierte Eigenleistungen	0	0	-	0	-	-	-	Aktivierte Eigenleistungen
+4824	Aktivierte Eigenleistungen (d. Herstellungskosten zurechenb. Fremdkapitalzinsen)	Einnahmen	Aktivierte Eigenleistungen	0	0	-	0	-	-	-	Aktivierte Eigenleistungen
+4825	Aktivierte Eigenleistungen z. Erst. v. selbst geschaff. immat. Vermög.Gegstd.	Einnahmen	Aktivierte Eigenleistungen	0	0	-	0	-	-	-	Aktivierte Eigenleistungen
+4830	Sonstige betriebliche Erträge	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4832	Sonstige betriebliche Erträge von verbundenen Unternehmen	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4833	Andere Nebenerlöse	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4834	Sonstige Erträge betrieblich und regelmäßig 16 % USt	Einnahmen	sonstige	35	3	USt. 16% 	155	-	-	-	Sonstige betriebliche Erträge
+4835	Sonstige Erträge betrieblich und regelmäßig 	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4836	Sonstige Erträge betrieblich und regelmäßig 19 % USt	Einnahmen	sonstige	81	20	USt. 19% 	177	-	-	-	Sonstige betriebliche Erträge
+4837	Sonstige Erträge betriebsfremd und regelmäßig 	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4838	Erstattete Vorsteuer anderer Länder	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4839	Sonstige Erträge unregelmäßig 	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4840	Erträge aus Kursdifferenzen	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4841	Sonstige Erlöse betrieblich und regelmäßig, steuerfrei § 4 Nr. 8 UStG	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4842	Sonstige Erlöse betrieblich und regelmäßig, steuerfrei § 4 Nr. 2-7 UStG	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4843	Erträge aus Bewertung Finanzmittelfonds	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4844	Erlöse Sachanlageverkäufe § 4 Nr. 1a UStG	Einnahmen	Anlagenverkäufe	43	0	- 	101	-	-	-	Sonstige betriebliche Erträge
+4845	Erlöse Sachanlageverkäufe 19 % USt	Einnahmen	Anlagenverkäufe	81	20	USt. 19% 	177	-	-	-	Sonstige betriebliche Erträge
+4847	Erträge aus der Währungsumrechnung (nicht § 256a HGB)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4848	Erlöse Sachanlageverkäufe § 4 Nr. 1b UStG	Einnahmen	Anlagenverkäufe	41	0	- 	741	-	-	-	Sonstige betriebliche Erträge
+4849	Erlöse Sachanlageverkäufe	Einnahmen	Anlagenverkäufe	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4850	Erlöse aus Verkäufen immaterieller Vermögensgegenstände	Einnahmen	Anlagenverkäufe	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4851	Erlöse aus Verkäufen Finanzanlagen	Einnahmen	Anlagenverkäufe	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4852	Erlöse Verkauf Finanzanl. z.T. steuerfrei 	Einnahmen	Anlagenverkäufe	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4855	Abgänge Sachanlagen Restbuchwert	Einnahmen	Anlagenverkäufe	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4856	Abgänge immaterielle Vermögensgegenstände Restbuchwert	Einnahmen	Anlagenverkäufe	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4857	Abgang Finanzanlagen Restbuchwert	Einnahmen	Anlagenverkäufe	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4858	Abgang Finanzanlagen z.T. steuerfrei Restbuchwert	Einnahmen	Anlagenverkäufe	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4860	Grundstückserträge	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4861	Erlöse aus Vermietung und Verpachtung, umsatzsteuerfrei § 4 Nr. 12 UStG	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4862	Erlöse aus Vermietung und Verpachtung 19% USt	Einnahmen	sonstige	81	20	USt. 19% 	177	-	-	-	Sonstige betriebliche Erträge
+4900	Erträge aus dem Abgang von Gegenständen des Anlagevermögens	Einnahmen	Anlagenverkäufe	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4901	Erträge aus der Veräußerung Ant. KapGes. z.T. steuerfrei	Einnahmen	Anlagenverkäufe	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4905	Erträge aus dem Abgang von Gegenständen des Umlaufvermögens	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4906	Erträge aus Abgang Umlaufvermögen z.T. steuerfrei	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4910	Erträge Zuschreibungen Sachanlagevermögen	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4911	Erträge Zuschreibungen immat. Anlagevermögen	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4912	Erträge Zuschreibungen Finanzanlagevermögen	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4913	Erträge Zuschreibungen Finanzanlagevermögen z.T. steuerfrei	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4914	Erträge Zuschreibungen z.T. steuerfrei	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4915	Erträge Zuschreibungen Umlaufvermögen Gegenstände	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4916	Erträge Zuschreibungen Umlaufvermögen z.T. steuerfrei	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4920	Erträge aus Herabsetzung Pauschalwertberichtigung zu Forderungen	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4923	Erträge aus Herabsetzung Einzelwertberichtigung zu Forderungen	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4925	Erträge aus abgeschriebenen Forderungen	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4927	Erträge aus der Auflösung einer steuerlichen Rücklage nach § 6b Abs. 3 EStG	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4928	Erträge aus der Auflösung einer steuerlichen Rücklage nach § 6b Abs. 10 EStG	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4929	Erträge aus der Auflösung der Rücklage für Ersatzbeschaffungen R 6.6 EStR	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4930	Erträge aus der Auflösung von Rückstellungen	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4932	Erträge aus der Herabsetzung von Verbindlichkeiten	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4935	Erträge aus der Auflösung einer steuerlichen Rücklage	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4936	Ertr. a. d. Auflös. stl. Rücklagen (Ansparabschreibung nach § 7g Abs. 2 EStG)	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4937	Erträge Auflösung steuerrechtlicher Sonderabschreibungen	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4938	Erträge Auflösung steuerliche Rücklage nach § 4g EStG	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4939	Erträge Auflösung steuerlichen Rücklagen § 52 Abs. 16 EStG 	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4940	Verrechnete sonstige Sachbezüge	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4941	Sachbezüge 7 % USt (Waren)	Einnahmen	sonstige	86	1	USt. 7% 	195	-	-	-	Sonstige betriebliche Erträge
+4945	Sachbezüge 19 % USt (Waren) 	Einnahmen	sonstige	81	20	USt. 19% 	178	-	-	-	Sonstige betriebliche Erträge
+4947	Verrechnete sonstige Sachbezüge aus Kfz-Gestellung 19% USt	Einnahmen	sonstige	81	20	USt. 19% 	178	-	-	-	Sonstige betriebliche Erträge
+4948	Verrechnete sonstige Sachbezüge 19% USt	Einnahmen	sonstige	81	20	USt. 19% 	178	-	-	-	Sonstige betriebliche Erträge
+4949	Verrechnete sonstige Sachbezüge ohne Umsatzsteuer	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4960	Periodenfremde Erträge	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4970	Versicherungsentschädigungen und Schadensersatzleistungen	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4972	Erstattungen Aufwendungsausgleichsgesetz	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4975	Investitionszuschüsse (steuerpflichtig )	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4980	Investitionszulagen ( steuerfrei )	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4981	Steuerfreie Erträge aus Auflösung von steuerlichen Rücklagen	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4982	Sonstige steuerfreie Betriebseinnahmen	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4987	Erträge aus der Aktivierung unentgeltlich erworener Vermögensgegenstände	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4989	Kostenerstattungen, Rückvergütungen und Gutschriften für frühere Jahre	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+4992	Erträge aus Verwaltungskostenumlagen	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+5000	Aufwendungen für Roh-, Hilfs-, Betriebsstoffe und bezogene Waren	Betriebsausgaben	Wareneinkauf	0	21	VSt. 19% 	0	-	-	-	Materialaufwand
+5100	Einkauf - Roh-, Hilfs- und Betriebsstoffe	Betriebsausgaben	Wareneinkauf	0	21	VSt. 19% 	0	-	-	-	Materialaufwand
+5110	Einkauf - Roh-, Hilfs- und Betriebsstoffe 7% Vorsteuer	Betriebsausgaben	Wareneinkauf	0	4	VSt. 7% 	0	-	-	-	Materialaufwand
+5130	Einkauf - Roh-, Hilfs- und Betriebsstoffe 19% Vorsteuer	Betriebsausgaben	Wareneinkauf	0	21	VSt. 19% 	0	-	-	-	Materialaufwand
+5160	Einkauf - Roh-, Hilfs- und Betriebsstoffe, EG-Erwerb 7% VSt und 7% USt	Betriebsausgaben	Wareneinkauf	93	17	I.g.E. 7% USt/VSt 	793	-	-	-	Materialaufwand
+5162	Einkauf - Roh-, Hilfs- und Betriebsstoffe, EG-Erwerb 19% VSt und 19% USt	Betriebsausgaben	Wareneinkauf	89	22	I.g.E. 19% USt/VSt 	781	-	-	-	Materialaufwand
+5189	Erwerb Roh-, Hilfs- und Betriebsstoffe letzter Abnehmer Dreiecksgeschäft	Betriebsausgaben	Wareneinkauf	89	22	I.g.E. 19% USt/VSt 	781	-	-	-	Materialaufwand
+5190	Energiestoffe ( Fertigung )	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5191	Energiestoffe (Fertigung) 7% Vorsteuer	Betriebsausgaben	Wareneinkauf	0	4	VSt. 7% 	0	-	-	-	Materialaufwand
+5192	Energiestoffe (Fertigung) 19% Vorsteuer	Betriebsausgaben	Wareneinkauf	0	21	VSt. 19% 	0	-	-	-	Materialaufwand
+5200	Wareneingang	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5300	Wareneingang 7 % Vorsteuer 	Betriebsausgaben	Wareneinkauf	0	4	VSt. 7% 	0	-	-	-	Materialaufwand
+5349	Wareneingang ohne Vorsteuerabzug	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5400	Wareneingang 19 % Vorsteuer 	Betriebsausgaben	Wareneinkauf	0	21	VSt. 19% 	0	-	-	-	Materialaufwand
+5420	EG-Erwerb 7 % Vorsteuer und 7 % Umsatzsteuer	Betriebsausgaben	Wareneinkauf	93	17	I.g.E. 7% USt/VSt 	793	-	-	-	Materialaufwand
+5425	EG-Erwerb 19 % Vorsteuer und 19 % Umsatzsteuer	Betriebsausgaben	Wareneinkauf	89	22	I.g.E. 19% USt/VSt 	781	-	-	-	Materialaufwand
+5440	EG-Erwerb Neufahrz. o. UStID 19 % VSt und 19 % USt	Betriebsausgaben	Wareneinkauf	94	25	I.g.E. Neufahrzeug 	794	-	-	-	Materialaufwand
+5553	Erwerb Waren als letzter Abnehmer innerhalb Dreiecksgeschäft	Betriebsausgaben	Wareneinkauf	94	22	I.g.E. 19% USt/VSt 	794	-	-	-	Materialaufwand
+5559	Steuerfreie Einfuhren	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5600	Nicht abziehbare Vorsteuer	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5610	Nicht abziehbare Vorsteuer 7 %	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5660	Nicht abziehbare Vorsteuer 19 %	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5700	Nachlässe 	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5701	Nachlässe aus Einkauf Roh-, Hilfs- und Betriebsstoffe	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5710	Nachlässe 7 % Vorsteuer 	Betriebsausgaben	Wareneinkauf	0	4	VSt. 7% 	0	-	-	-	Materialaufwand
+5714	Nachlässe aus Einkauf Roh-, Hilfs- und Betriebsstoffe 7 % Vorsteuer 	Betriebsausgaben	Wareneinkauf	0	4	VSt. 7% 	0	-	-	-	Materialaufwand
+5715	Nachlässe aus Einkauf Roh-, Hilfs- und Betriebsstoffe 19 % Vorsteuer 	Betriebsausgaben	Wareneinkauf	0	21	VSt. 19% 	0	-	-	-	Materialaufwand
+5717	Nachlässe aus Einkauf RHB,  EG-Erwerb 7% VSt. und 7% USt.	Betriebsausgaben	Wareneinkauf	93	17	I.g.E. 7% USt/VSt 	793	-	-	-	Materialaufwand
+5718	Nachlässe aus Einkauf RHB, EG-Erwerb 19 % VSt. und 19 % USt.	Betriebsausgaben	Wareneinkauf	89	22	I.g.E. 19% USt/VSt 	781	-	-	-	Materialaufwand
+5720	Nachlässe 19 % Vorsteuer 	Betriebsausgaben	Wareneinkauf	0	21	VSt. 19% 	0	-	-	-	Materialaufwand
+5722	Nachlässe 16 % Vorsteuer 	Betriebsausgaben	Wareneinkauf	0	6	VSt. 16% 	0	-	-	-	Materialaufwand
+5723	Nachlässe 15 % Vorsteuer 	Betriebsausgaben	Wareneinkauf	0	5	VSt. 15% 	0	-	-	-	Materialaufwand
+5724	Nachlässe aus EG-Erwerb 7 % VSt. und 7 % USt.	Betriebsausgaben	Wareneinkauf	93	17	I.g.E. 7% USt/VSt 	793	-	-	-	Materialaufwand
+5725	Nachlässe aus EG-Erwerb 19 % VSt. und 19 % USt.	Betriebsausgaben	Wareneinkauf	89	22	I.g.E. 19% USt/VSt 	781	-	-	-	Materialaufwand
+5726	Nachlässe aus EG-Erwerb 16 % VSt. und 16 % USt.	Betriebsausgaben	Wareneinkauf	95	16	I.g.E. 16% USt/VSt 	798	-	-	-	Materialaufwand
+5727	Nachlässe aus EG-Erwerb 15 % VSt. und 15 % USt.	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5730	Erhaltene Skonti 	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5731	Erhaltene Skonti 7 % Vorsteuer 	Betriebsausgaben	Wareneinkauf	0	4	VSt. 7% 	0	-	-	-	Materialaufwand
+5733	Erhaltene Skonti aus Einkauf Roh-, Hilfs- und Betriebsstoffe	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5734	Erhaltene Skonti aus Einkauf Roh-, Hilfs- und Betriebsstoffe 7% Vorsteuer	Betriebsausgaben	Wareneinkauf	0	4	VSt. 7% 	0	-	-	-	Materialaufwand
+5735	Erhaltene Skonti 16 % Vorsteuer 	Betriebsausgaben	Wareneinkauf	0	6	VSt. 16% 	0	-	-	-	Materialaufwand
+5736	Erhaltene Skonti 19 % Vorsteuer 	Betriebsausgaben	Wareneinkauf	0	21	VSt. 19% 	0	-	-	-	Materialaufwand
+5738	Erhaltene Skonti aus Einkauf Roh-, Hilfs- und Betriebsstoffe 19% Vorsteuer	Betriebsausgaben	Wareneinkauf	0	21	VSt. 19% 	0	-	-	-	Materialaufwand
+5741	Erhaltene Skonti Einkäufe RHB aus EG-Erwerb 19 % VSt. und 19 % USt.	Betriebsausgaben	Wareneinkauf	89	22	I.g.E. 19% USt/VSt 	781	-	-	-	Materialaufwand
+5743	Erhaltene Skonti Einkäufe RHB aus EG-Erwerb 7% VSt. und 7% USt.	Betriebsausgaben	Wareneinkauf	93	17	I.g.E. 7% USt/VSt 	793	-	-	-	Materialaufwand
+5744	Erhaltene Skonti aus Einkauf RHB aus steuerpfl. innergemeinschaftlichem Erwerb	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5750	Erhaltene Boni 7 % Vorsteuer 	Betriebsausgaben	Wareneinkauf	0	4	VSt. 7% 	0	-	-	-	Materialaufwand
+5753	Erhaltene Boni aus Einkauf Roh-, Hilfs- und Betriebsstoffe	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5754	Erhaltene Boni aus Einkauf Roh-, Hilfs- und Betriebsstoffe 7% Vorsteuer	Betriebsausgaben	Wareneinkauf	0	4	VSt. 7% 	0	-	-	-	Materialaufwand
+5755	Erhaltene Boni aus Einkauf Roh-, Hilfs- und Betriebsstoffe 19% Vorsteuer	Betriebsausgaben	Wareneinkauf	0	21	VSt. 19% 	0	-	-	-	Materialaufwand
+5760	Erhaltene Boni 19 % Vorsteuer 	Betriebsausgaben	Wareneinkauf	0	21	VSt. 19% 	0	-	-	-	Materialaufwand
+5764	Erhaltene Boni 16 % Vorsteuer 	Betriebsausgaben	Wareneinkauf	0	6	VSt. 16% 	0	-	-	-	Materialaufwand
+5770	Erhaltene Rabatte 	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5780	Erhaltene Rabatte 7 % Vorsteuer 	Betriebsausgaben	Wareneinkauf	0	4	VSt. 7% 	0	-	-	-	Materialaufwand
+5783	Erhaltene Rabatte aus Einkauf Roh-, Hilfs- und Betriebsstoffe	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5784	Erhaltene Rabatte aus Einkauf Roh-, Hilfs- und Betriebsstoffe 7% Vorsteuer	Betriebsausgaben	Wareneinkauf	0	4	VSt. 7% 	0	-	-	-	Materialaufwand
+5785	Erhaltene Rabatte aus Einkauf Roh-, Hilfs- und Betriebsstoffe 19% Vorsteuer	Betriebsausgaben	Wareneinkauf	0	21	VSt. 19% 	0	-	-	-	Materialaufwand
+5790	Erhaltene Rabatte 19 % Vorsteuer 	Betriebsausgaben	Wareneinkauf	0	21	VSt. 19% 	0	-	-	-	Materialaufwand
+5792	Erhaltene Skonti aus Erwerb Roh-, Hilfs- und Betriebsstoffe Dreiecksgeschäft	Betriebsausgaben	Wareneinkauf	42	22	I.g.E. 19% USt/VSt 	0	-	-	-	Materialaufwand
+5793	Erhaltene Skonti aus Erwerb Waren Dreiecksgeschäft	Betriebsausgaben	Wareneinkauf	42	22	I.g.E. 19% USt/VSt 	0	-	-	-	Materialaufwand
+5794	Erhaltene Rabatte 16 % Vorsteuer 	Betriebsausgaben	Wareneinkauf	0	6	VSt. 16% 	0	-	-	-	Materialaufwand
+5800	Bezugsnebenkosten	Betriebsausgaben	Wareneinkauf	0	21	VSt. 19% 	0	-	-	-	Materialaufwand
+5820	Leergut	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5840	Zölle und Einfuhrabgaben	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5880	Bestandsveränd. - Roh-, Hilfsstoffe, Waren	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5881	Bestandsveränderungen Waren	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5885	Bestandsveränderungen Roh-, Hilfs- und Betriebsstoffe	Betriebsausgaben	Wareneinkauf	0	0	-	0	-	-	-	Materialaufwand
+5900	Fremdleistungen	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Materialaufwand
+5906	Fremdleistungen 19% Vorsteuer	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	Materialaufwand
+5908	Fremdleistungen 7% Vorsteuer	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Materialaufwand
+5909	Fremdleistungen ohne Vorsteuer	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Materialaufwand
+5910	Bauleistungen § 13b 7 % Vorsteuer und 7 % Umsatzsteuer	Betriebsausgaben	sonstige	84	26	USt/VSt 7% 	877	-	-	-	Materialaufwand
+5913	Sonst. Leistungen im and. EG-Land ansäss. Untern. 7 % VorSt und 7 % USt	Betriebsausgaben	sonstige	84	26	USt/VSt 7% 	877	-	-	-	Sonstige betriebliche Aufwendungen
+5915	Leistungen eines im  Ausland ansässigen Unternehmens 7 % VSt u. USt	Betriebsausgaben	sonstige	52	26	USt/VSt 7% 	871	-	-	-	Materialaufwand
+5920	Bauleistungen§ 13b 19 % Vorsteuer und 19 % Umsatzsteuer	Betriebsausgaben	sonstige	84	27	USt/VSt 19% 	877	-	-	-	Materialaufwand
+5923	Sonst. Leistungen im and. EG-Land ansäss. Untern. 19 % VorSt und 19 % USt	Betriebsausgaben	sonstige	46	27	USt/VSt 19% 	846	-	-	-	Sonstige betriebliche Aufwendungen
+5925	Leistungen eines im Ausland ansässigen Unternehmens 19 % VSt u. 19 % USt	Betriebsausgaben	sonstige	52	27	USt/VSt 19% 	871	-	-	-	Materialaufwand
+5950	Erhaltene Skonti aus Leistungen, §13b	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+5951	Erhaltene Skonti aus s.  Leistungen § 13b, 19 % VorSt und 19 % USt	Betriebsausgaben	sonstige	84	27	USt/VSt 19% 	877	-	-	-	Sonstige betriebliche Aufwendungen
+6000	Löhne und Gehälter	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6010	Löhne	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6020	Gehälter	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6024	Geschäftsführergehälter der GmbH-Gesellschafter 	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6026	Tantiemen Gesellschafter-Geschäftsführer	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6027	Geschäftsführergehälter	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6028	Vergütungen an angestellte Mitunternehmer § 15 EStG	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6029	Tantiemen Arbeitnehmer	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6030	Aushilfslöhne	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6035	Löhne für Minijobs	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6036	Pauschale Steuern für Minijobber	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6037	Pauschale Steuern für Gesellschafter-Geschäftsführer	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6038	Pauschale Steuern für angestallte Mitunternehmer § 15 EStG	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6039	Pauschale Steuern für Arbeitnehmer	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6040	Pauschale Steuer für Aushilfen	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6045	Bedienungsgelder	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6050	Ehegattengehalt	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6060	Freiwillige soziale Aufwend., lohnsteuerpfl.	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6066	Freiwillige Zuwendungen an Minijobber	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6067	Freiwillige Zuwendungen an Gesellschafter-Geschäftsführer	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6068	Freiwillige Zuwendungen an angestellte Mitunternehmer § 15 EStG	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6069	Pauschale Steuer auf sonstige Bezüge (z.B. Fahrtkostenzuschüsse) 	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6070	Krankengeldzuschüsse	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6071	Sachzuwendungen und Dienstleistungen an Minijobber	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6072	Sachzuwendungen und Dienstleistungen an Arbeitnehmer	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6073	Sachzuwendungen und Dienstleistungen an Gesellschafter-Geschäftsführer	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6074	Sachzuwendungen und Dienstleistungen an angestellte Mitunternehmer § 15 EStG	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6075	Zuschüsse der Agenturen für Arbeit (Haben) 	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6076	Aufwendungen aus der Veränderung von Urlaubsrückstellungen	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6077	Aufwendungen aus der Veränderung von Urlaubsrückstellungen für Geschäftsführer	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6079	Aufwendungen aus der Veränderung von Urlaubsrückstellungen für Minijobber	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6080	Vermögenswirksame Leistungen	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6090	Fahrtkostenerstattung Wohn./Arbeitsstätte	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6098	Überleitungskonto KSt/KTr	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Personalaufwand
+6100	Soziale Abgaben, Altersversorgung	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6110	Gesetzliche soziale Aufwendungen	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6118	Gesetzliche soziale Aufwendungen für Mitunternehmer § 15 EStG 	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6120	Beiträge zur Berufsgenossenschaft	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6130	Freiwillige soziale Aufwend., lohnsteuerfrei	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6140	Aufwendungen für Altersversorgung	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6147	Pauschale Steuer auf sonstige Bezüge (z.B. Direktversicherungen) 	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6148	Aufwendungen für Altersversorgung für Mitunternehmer § 15 EStG	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6149	Aufwendungen für Altersversorgung für Gesellschafter-Geschäftsführer	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6150	Versorgungskassen 	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6160	Aufwendungen für Unterstützung	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6170	Sonstige soziale Abgaben	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6171	Soziale Abgaben für Minijobber	Betriebsausgaben	Personalkosten	0	0	-	0	-	-	-	Personalaufwand
+6200	Abschreibung auf immaterielle Vermögensgegenstände	Abschreibungen	sonstige	0	0	-	0	-	-	-	Abschreibungen
+6201	Abschreibung auf selbst geschaffene immaterielle Vermögensgegenstände	Abschreibungen	sonstige	0	0	-	0	-	-	-	Abschreibungen
+6205	Abschreibung auf den Geschäfts- oder Firmenwert	Abschreibungen	Firmenwert	0	0	-	0	-	-	-	Abschreibungen
+6209	Außerplanmäßige Abschreibungen auf den Geschäfts- oder Firmenwert	Abschreibungen	Firmenwert	0	0	-	0	-	-	-	Abschreibungen
+6210	Außerplanmäßige Abschreibung auf immaterielle Vermögensgegenstände	Abschreibungen	sonstige	0	0	-	0	-	-	-	Abschreibungen
+6211	Außerplanmäß. Abschreibung auf selbst gesch. immat. Vermögensgegenst.	Abschreibungen	sonstige	0	0	-	0	-	-	-	Abschreibungen
+6220	Abschreibungen auf Sachanlagen	Abschreibungen	Sachanlagen	0	0	-	0	-	-	-	Abschreibungen
+6221	Abschreibungen auf Gebäude	Abschreibungen	Sachanlagen	0	0	-	0	-	-	-	Abschreibungen
+6222	Abschreibungen auf Kfz	Abschreibungen	Sachanlagen	0	0	-	0	-	-	-	Abschreibungen
+6223	Abschreibungen auf Gebäudeanteil des häuslichen Arbeitszimmers	Abschreibungen	Sachanlagen	0	0	-	0	-	-	-	Abschreibungen
+6230	Außerplanmäßige Abschreibungen auf Sachanlagen	Abschreibungen	Sachanlagen	0	0	-	0	-	-	-	Abschreibungen
+6231	Außergewöhnliche Abschreibung Gebäude	Abschreibungen	Sachanlagen	0	0	-	0	-	-	-	Abschreibungen
+6232	Außergewöhnliche Abschreibung auf Kfz	Abschreibungen	Sachanlagen	0	0	-	0	-	-	-	Abschreibungen
+6233	Außergewöhnliche Abschreibung sonstige Wirtschaftsgüter	Abschreibungen	Sachanlagen	0	0	-	0	-	-	-	Abschreibungen
+6240	Abschreibung Sachanlagen steuerliche Sondervorschriften	Abschreibungen	Sachanlagen	0	0	-	0	-	-	-	Abschreibungen
+6241	Sonderabschreibungen nach § 7g Abs. 5 EStG (ohne Kfz)	Abschreibungen	Sachanlagen	0	0	-	0	-	-	-	Abschreibungen
+6242	Sonderabschreibungen nach § 7g Abs. 5 EStG (für Kfz)	Abschreibungen	Sachanlagen	0	0	-	0	-	-	-	Abschreibungen
+6243	Kürzung der Anschaff.- oder Herstellungskost. gem. § 7g Abs. 2 EStG (ohne Kfz)	Abschreibungen	Sachanlagen	0	0	-	0	-	-	-	Abschreibungen
+6244	Kürzung der An.- oder Herstellungskost. gemäß  § 7g Abs. 2 EStG n.F. (für Kfz)	Abschreibungen	Sachanlagen	0	0	-	0	-	-	-	Abschreibungen
+6250	Kaufleasing	Abschreibungen	Sachanlagen	0	0	-	0	-	-	-	Abschreibungen
+6260	Sofortabschreibung GWG	Abschreibungen	Geringwertige WG	0	0	-	0	-	-	-	Abschreibungen
+6262	Abschreibungen auf aktivierte GWG	Abschreibungen	Geringwertige WG	0	0	-	0	-	-	-	Abschreibungen
+6264	Abschreibung Sammelposten GWG	Abschreibungen	Geringwertige WG	0	0	-	0	-	-	-	Abschreibungen
+6266	Außerplanmäßige Abschreibungen auf aktivierte GWG	Abschreibungen	Geringwertige WG	0	0	-	0	-	-	-	Abschreibungen
+6270	Abschreibung- sonstige Vermögensgegenstände UV	Abschreibungen	sonstige	0	0	-	0	-	-	-	Abschreibungen
+6272	Abschreibungen auf UV, steuerrechtl. bedingt 	Abschreibungen	sonstige	0	0	-	0	-	-	-	Abschreibungen
+6275	Vorwegnahme künftiger UV-Wertschwankungen	Abschreibungen	sonstige	0	0	-	0	-	-	-	Abschreibungen
+6278	Abschreibungen auf Roh-, Hilfs- und Betriebsstoffe/Waren	Abschreibungen	sonstige	0	0	-	0	-	-	-	Abschreibungen
+6279	Abschreibungen auf fertige und unfertige Erzeugnisse	Abschreibungen	sonstige	0	0	-	0	-	-	-	Abschreibungen
+6280	Forderungsverluste (soweit unüblich hoch)	Einnahmen	sonstige	0	0	-	0	-	-	-	Abschreibungen
+6281	Forderungsverluste 7 % USt (soweit unüblich hoch)	Einnahmen	sonstige	86	1	USt. 7% 	275	-	-	-	Sonstige betriebliche Aufwendungen
+6285	Forderungsverluste 16 % USt (soweit unüblich hoch)	Einnahmen	sonstige	35	3	USt. 16% 	155	-	-	-	Sonstige betriebliche Aufwendungen
+6286	Forderungsverluste 19 % USt (soweit unüblich hoch)	Einnahmen	sonstige	81	20	USt. 19% 	177	-	-	-	Sonstige betriebliche Aufwendungen
+6287	Forderungsverluste 15 % USt (soweit unüblich hoch)	Einnahmen	sonstige	35	2	USt. 15% 	155	-	-	-	Sonstige betriebliche Aufwendungen
+6290	Abschreibungen Forderungen geg. Kap.Gesellschaften § 3c EStG/§ 8b Abs. 3 KStG	Einnahmen	sonstige	0	0	-	0	-	-	-	Abschreibungen
+6291	Abschreibungen Forderungen geg. Gesellschaftern § 8b Abs. 3 KStG	Einnahmen	sonstige	0	0	-	0	-	-	-	Abschreibungen
+6300	Sonstige betriebliche Aufwendungen	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten
+6302	Interimskonto f. Aufwendg. and. Land mit VorSt.Vergütung	Betriebsausgaben	sonstige	0	0	- 	0	-	-	-	Sonstige betriebliche Aufwendungen
+6303	Fremdleistungen/Fremdarbeiten	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten
+6304	Sonstige Aufwendungen betrieblich und regelmäßig	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten
+6305	Raumkosten	Betriebsausgaben	Raumkosten	0	21	VSt. 19% 	0	-	-	-	Raumkosten
+6310	Miete (unbewegliche Wirtschaftsgüter)	Betriebsausgaben	Raumkosten	0	0	- 	0	-	-	-	Raumkosten
+6312	Miete/Aufwendungen für doppelte Haushaltsführung	Betriebsausgaben	Raumkosten	0	0	- 	0	-	-	-	Raumkosten
+6313	Miete o.Pacht an Gesellschafter, für Überlassung unbewegliche Wirtschaftsgüter	Betriebsausgaben	Raumkosten	0	0	- 	0	-	-	-	Raumkosten
+6314	Vergütung an Mitunternehmer Miete unbewegliche WG § 15 EStG	Betriebsausgaben	Raumkosten	0	0	-	0	-	-	-	Raumkosten
+6315	Pacht (unbewegliche Wirtschaftsgüter)	Betriebsausgaben	Raumkosten	0	21	VSt. 19% 	0	-	-	-	Raumkosten
+6316	Leasing (unbewegliche Wirtschaftsgüter)	Betriebsausgaben	Raumkosten	0	21	VSt. 19% 	0	-	-	-	Raumkosten
+6317	Aufwendungen Miete o. Pacht (unbewegl. WG), steuerl. hinzuzurechnen	Betriebsausgaben	Raumkosten	0	0	- 	0	-	-	-	Raumkosten
+6319	Vergütung an Mitunternehmer Pacht unbeweglichen WG § 15 EStG	Betriebsausgaben	Raumkosten	0	21	VSt. 19% 	0	-	-	-	Raumkosten
+6320	Heizung	Betriebsausgaben	Raumkosten	0	21	VSt. 19% 	0	-	-	-	Raumkosten
+6325	Gas, Strom, Wasser	Betriebsausgaben	Raumkosten	0	21	VSt. 19% 	0	-	-	-	Raumkosten
+6330	Reinigung	Betriebsausgaben	Raumkosten	0	21	VSt. 19% 	0	-	-	-	Raumkosten
+6335	Instandhaltung betrieblicher Räume	Betriebsausgaben	Reparatur/Instandhaltung	0	21	VSt. 19% 	0	-	-	-	Raumkosten
+6340	Abgaben für betrieblich genutzten Grundbesitz	Betriebsausgaben	Raumkosten	0	0	-	0	-	-	-	Raumkosten
+6345	Sonstige Raumkosten	Betriebsausgaben	Raumkosten	0	21	VSt. 19% 	0	-	-	-	Raumkosten
+6348	Aufwendungen für ein häusliches Arbeitszimmer (abziehbarer Anteil)	Betriebsausgaben	Raumkosten	0	21	VSt. 19% 	0	-	-	-	Raumkosten
+6349	Aufwendungen für ein häusliches Arbeitszimmer (nicht abziehbarer Anteil)	Betriebsausgaben	Raumkosten	0	21	VSt. 19% 	0	-	-	-	Raumkosten
+6350	Sonstige Grundstücksaufwendungen	Betriebsausgaben	Raumkosten	0	0	-	0	-	-	-	Raumkosten
+6390	Zuwendungen, Spenden, steuerlich nicht abziehbar	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6391	Zuwendungen, Spenden für wissenschaftliche und kulturelle Zwecke	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6392	Zuwendungen, Spenden für mildtätige Zwecke	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6393	Zuwendungen, Spenden für kirchliche. religiöse und gemeinnützige Zwecke	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6394	Zuwendungen, Spenden an politische Parteien	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6395	Zuwendungen, Spenden i.d. Verm. (Vermögensstock) einer gemeinnützg. Stiftung	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6397	Zuwendungen, Spenden i.d. Verm. (Vermögensstock) einer kirchl. Stiftung	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6398	Zuwendungen, Spenden an Stiftung i.d. Verm. (Vermögensstock) wissenschaftl.	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6400	Versicherungen	Betriebsausgaben	Versicherungen/Beiträge	0	0	-	0	-	-	-	Versicherungen, Beiträge und Abgaben
+6405	Versicherungen für Gebäude	Betriebsausgaben	Versicherungen/Beiträge	0	0	-	0	-	-	-	Versicherungen, Beiträge und Abgaben
+6410	Netto-Prämie für Rückdeckung künftiger Versorgungsleistungen 	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Versicherungen, Beiträge und Abgaben
+6420	Beiträge	Betriebsausgaben	Versicherungen/Beiträge	0	0	-	0	-	-	-	Versicherungen, Beiträge und Abgaben
+6430	Sonstige Abgaben	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Versicherungen, Beiträge und Abgaben
+6436	Abzugsfähige Verspätungszuschläge und Zwangsgelder 	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Versicherungen, Beiträge und Abgaben
+6437	Nicht abzugsfähige Verspätungszuschläge und Zwangsgelder 	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Versicherungen, Beiträge und Abgaben
+6440	Ausgleichsabgabe Schwerbehindertengesetz	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	verschiedene betriebliche Kosten
+6450	Reparaturen, Instandhaltung von Bauten	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	Reparaturen und Instandhaltungen
+6460	Reparaturen, Instandhaltung Anlage und Maschinen	Betriebsausgaben	Reparatur/Instandhaltung	0	21	VSt. 19% 	0	-	-	-	Reparaturen und Instandhaltungen
+6470	Reparaturen, Instandhaltung andere Anlagen, Betriebs- und Geschäftsausstattung	Betriebsausgaben	Reparatur/Instandhaltung	0	21	VSt. 19% 	0	-	-	-	Reparaturen und Instandhaltungen
+6475	Zuführung zu Aufwandsrückstellungen	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6485	Reparaturen, Instandhaltung andere Anlagen	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	Reparaturen und Instandhaltungen
+6490	Sonstige Reparaturen, Instandhaltungen	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	Reparaturen und Instandhaltungen
+6495	Wartungskosten für Hard- und Software	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	Reparaturen und Instandhaltungen
+6498	Mietleasing bewegliche Wirtschaftsgüter für technische Anlagen und Maschinen	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten
+6500	Fahrzeugkosten	Betriebsausgaben	Fahrzeugkosten	0	21	VSt. 19% 	0	-	-	-	Fahrzeugkosten
+6520	Kfz-Versicherungen	Betriebsausgaben	Fahrzeugkosten	0	0	-	0	-	-	-	Fahrzeugkosten
+6530	Laufende Kfz-Betriebskosten	Betriebsausgaben	Fahrzeugkosten	0	21	VSt. 19% 	0	-	-	-	Fahrzeugkosten
+6540	Kfz-Reparaturen	Betriebsausgaben	Fahrzeugkosten	0	21	VSt. 19% 	0	-	-	-	Fahrzeugkosten
+6550	Garagenmiete	Betriebsausgaben	Fahrzeugkosten	0	0	-	0	-	-	-	Fahrzeugkosten
+6560	Mietleasing Kfz	Betriebsausgaben	Fahrzeugkosten	0	21	VSt. 19% 	0	-	-	-	Fahrzeugkosten
+6570	Sonstige Kfz-Kosten	Betriebsausgaben	Fahrzeugkosten	0	21	VSt. 19% 	0	-	-	-	Fahrzeugkosten
+6580	Mautgebühren	Betriebsausgaben	Fahrzeugkosten	0	21	VSt. 19% 	0	-	-	-	Fahrzeugkosten
+6590	Kfz-Kosten betriebl. Nutzung Kfz im PV	Betriebsausgaben	Fahrzeugkosten	0	21	VSt. 19% 	0	-	-	-	Fahrzeugkosten
+6595	Fremdfahrzeugkosten 	Betriebsausgaben	Fahrzeugkosten	0	21	VSt. 19% 	0	-	-	-	Fahrzeugkosten
+6600	Werbekosten	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	Werbe- und Reisekosten
+6605	Streuartikel	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	Werbe- und Reisekosten
+6610	Geschenke abzugsfähig ohne § 37b EStG	Betriebsausgaben	Geschenke	0	21	VSt. 19% 	0	-	-	-	Werbe- und Reisekosten
+6611	Geschenke abzugsfähig mit § 37b EStG	Betriebsausgaben	Geschenke	0	21	VSt. 19% 	0	-	-	-	Werbe- und Reisekosten
+6612	Pauschale Steuern für Geschenke und Zugaben abzugsfähig	Betriebsausgaben	Geschenke	0	0	-	0	-	-	-	Werbe- und Reisekosten
+6620	Geschenke nicht abzugsfähig ohne § 37b EStG	Betriebsausgaben	Geschenke	0	0	-	0	-	-	-	Werbe- und Reisekosten
+6621	Geschenke nicht abzugsfähig mit § 37b EStG	Betriebsausgaben	Geschenke	0	0	-	0	-	-	-	Werbe- und Reisekosten
+6625	Geschenke ausschließlich betriebl. genutzt	Betriebsausgaben	Geschenke	0	0	-	0	-	-	-	Werbe- und Reisekosten
+6629	Zugaben mit § 37b EStG	Betriebsausgaben	Geschenke	0	0	-	0	-	-	-	Werbe- und Reisekosten
+6630	Repräsentationskosten	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	Werbe- und Reisekosten
+6640	Bewirtungskosten	Betriebsausgaben	Bewirtungskosten	0	21	VSt. 19% 	0	-	-	-	Werbe- und Reisekosten
+6641	Eingeschränkt abziehbare Betriebsausgaben (abziehbarer Anteil)	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Werbe- und Reisekosten
+6642	Eingeschränkt abziehbare Betriebsausgaben (nicht abziehbarer Anteil)	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Werbe- und Reisekosten
+6643	Aufmerksamkeiten	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	Werbe- und Reisekosten
+6644	Nicht abzugsfähige Bewirtungskosten	Betriebsausgaben	Bewirtungskosten	0	21	VSt. 19% 	0	-	-	-	Werbe- und Reisekosten
+6645	Nicht abzugsfähige Betriebsausgaben aus Werbe- und Repräsentationskosten	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Werbe- und Reisekosten
+6650	Reisekosten Arbeitnehmer	Betriebsausgaben	Reisekosten	0	0	-	0	-	-	-	Werbe- und Reisekosten
+6660	Reisekosten Arbeitnehmer Übernachtungsaufwand	Betriebsausgaben	Reisekosten	0	4	VSt. 7% 	0	-	-	-	Werbe- und Reisekosten
+6663	Reisekosten Arbeitnehmer, Fahrtkosten	Betriebsausgaben	Reisekosten	0	4	VSt. 7% 	0	-	-	-	Werbe- und Reisekosten
+6664	Reisekosten Arbeitnehmer Verpflegungsmehraufwand	Betriebsausgaben	Reisekosten	0	0	-	0	-	-	-	Werbe- und Reisekosten
+6668	Reisekosten Arbeitnehmer Kilometergelderstattung	Betriebsausgaben	Reisekosten	0	0	-	0	-	-	-	Werbe- und Reisekosten
+6670	Reisekosten Unternehmer	Betriebsausgaben	Reisekosten	0	0	-	0	-	-	-	Werbe- und Reisekosten
+6673	Reisekosten Unternehmer, Fahrtkosten	Betriebsausgaben	Reisekosten	0	4	VSt. 7% 	0	-	-	-	Werbe- und Reisekosten
+6674	Reisekosten Unternehmer Verpflegungsmehraufwand	Betriebsausgaben	Reisekosten	0	0	-	0	-	-	-	Werbe- und Reisekosten
+6680	Reisekosten UN Übernachtungsaufwand und Reisenebenkosten	Betriebsausgaben	Reisekosten	0	4	VSt. 7% 	0	-	-	-	Werbe- und Reisekosten
+6688	Fahrten Wohnung / Betrieb und Familienheimfahrten, abziehbarer Anteil	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Werbe- und Reisekosten
+6689	Fahrten Wohnung / Betrieb und Familienheimfahrten (nicht abziehbarer Anteil)	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Werbe- und Reisekosten
+6690	Fahrten zwischen Wohnung und Arbeitsstätte und Familienheimfahrten (Haben)	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Werbe- und Reisekosten
+6691	Verpflegungsmehraufwendungen im Rahmen der doppelten Haushaltsführung	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Werbe- und Reisekosten
+6700	Kosten der Warenabgabe	Betriebsausgaben	Kosten Warenabgabe	0	21	VSt. 19% 	0	-	-	-	Kosten der Warenabgabe
+6710	Verpackungsmaterial	Betriebsausgaben	Kosten Warenabgabe	0	21	VSt. 19% 	0	-	-	-	Kosten der Warenabgabe
+6740	Ausgangsfrachten	Betriebsausgaben	Kosten Warenabgabe	0	21	VSt. 19% 	0	-	-	-	Kosten der Warenabgabe
+6760	Transportversicherungen	Betriebsausgaben	Kosten Warenabgabe	0	0	-	0	-	-	-	Kosten der Warenabgabe
+6770	Verkaufsprovisionen	Betriebsausgaben	Kosten Warenabgabe	0	21	VSt. 19% 	0	-	-	-	Kosten der Warenabgabe
+6780	Fremdarbeiten (Vertrieb)	Betriebsausgaben	Kosten Warenabgabe	0	21	VSt. 19% 	0	-	-	-	Kosten der Warenabgabe
+6790	Aufwand für Gewährleistung	Betriebsausgaben	Kosten Warenabgabe	0	0	-	0	-	-	-	verschiedene betriebliche Kosten
+6800	Porto	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	verschiedene betriebliche Kosten
+6805	Telefon	Betriebsausgaben	Telefonkosten	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten
+6810	Telefax und Internetkosten	Betriebsausgaben	Telefonkosten	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten
+6815	Bürobedarf	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten
+6820	Zeitschriften, Bücher (Fachliteratur)	Betriebsausgaben	sonstige	0	4	VSt. 7% 	0	-	-	-	verschiedene betriebliche Kosten
+6821	Fortbildungskosten 	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten
+6822	Freiwillige Sozialleistungen  	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten
+6823	Vergütungen an Mitunternehmer §15 EStG	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	verschiedene betriebliche Kosten
+6824	Haftungsvergütung an Mitunternehmer §15 EStG	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	verschiedene betriebliche Kosten
+6825	Rechts- und Beratungskosten	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten
+6827	Abschluss- und Prüfungskosten	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten
+6830	Buchführungskosten	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten
+6833	Miete o.Pacht an Gesellschafter, für Überlassung bewegliche Wirtschaftsgüter	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6834	Vergütung an Mitunternehmer Miete bewegliche WG § 15 EStG	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6835	Mieten für Einrichtungen (bewegliche Wirtschaftsgüter)	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten
+6837	Aufwendungen für Lizenzen, Konzessionen	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten
+6838	Aufwend. Miete o. Pacht (bewegl. Wirtschaftsg.), gewerbest. hinzuzurechnen	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten
+6840	Mietleasing bewegliche Wirtschaftsgüter für Betriebs- und Geschäftsausstattung	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	verschiedene betriebliche Kosten
+6845	Werkzeuge und Kleingeräte	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten
+6850	Sonstiger Betriebsbedarf	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten
+6855	Nebenkosten des Geldverkehrs	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	verschiedene betriebliche Kosten
+6856	Aufwendungen aus Anteilen KapGes. z.T. nicht abz.	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	verschiedene betriebliche Kosten
+6857	Aufwendungen aus Veräußerung Anteilen an KapGes. z.T. nicht abz.	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	verschiedene betriebliche Kosten
+6859	Aufwendungen für Abraum- und Abfallbeseitigung	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten
+6860	Nicht abziehbare Vorsteuer	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	verschiedene betriebliche Kosten
+6865	Nicht abziehbare Vorsteuer 7 %	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	verschiedene betriebliche Kosten
+6871	Nicht abziehbare Vorsteuer 19 %	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	verschiedene betriebliche Kosten
+6875	Nicht abziehbare Hälfte der Aufsichtsratsvergütungen 	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6876	Abziehbare Aufsichtsratsvergütungen 	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6880	Aufwendungen aus Kursdifferenzen	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	verschiedene betriebliche Kosten
+6881	Aufwendungen aus der Währungsumrechnung (nicht § 256a HGB)	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	verschiedene betriebliche Kosten
+6883	Aufwendungen aus Bewertung Finanzmittelfonds 	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	verschiedene betriebliche Kosten
+6884	Erlöse Sachanlageverkäufe § 4 Nr. 1a UStG 	Einnahmen	Anlagenverkäufe	43	0	- 	101	-	-	-	Sonstige betriebliche Aufwendungen
+6885	Erlöse Sachanlageverkäufe 19 % USt	Einnahmen	Anlagenverkäufe	81	20	USt. 19% 	177	-	-	-	Sonstige betriebliche Aufwendungen
+6886	Erlöse Sachanlageverkäufe 16 % USt	Einnahmen	Anlagenverkäufe	35	3	USt. 16% 	155	-	-	-	Sonstige betriebliche Aufwendungen
+6888	Erlöse Sachanlageverkäufe § 4 Nr. 1b UStG	Einnahmen	Anlagenverkäufe	43	0	- 	102	-	-	-	Sonstige betriebliche Aufwendungen
+6889	Erlöse Sachanlageverkäufe	Einnahmen	Anlagenverkäufe	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6890	Erlöse aus Verkäufen immaterieller Vermögensgegenstände	Einnahmen	Anlagenverkäufe	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6891	Erlöse aus Verkäufen Finanzanlagen	Einnahmen	Anlagenverkäufe	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6892	Erlöse aus Verkauf Finanzanlagen z.T. n.abz.	Einnahmen	Anlagenverkäufe	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6895	Abgänge Sachanlagen Restbuchwert	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6896	Abgänge immaterielle Vermögensgegenstände Restbuchwert	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6897	Abgang Finanzanlagen Restbuchwert	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6898	Abgang Finanzanlagen z.T. n.abz. Restbuchwert	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6900	Verluste aus Anlagenabgang	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6903	Verlust Veräußerung Anteile KapGes. (Finanzanlagevermögen) z.T. n. abz.	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6905	Verluste aus Abgang von Umlaufvermögen	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6906	Verluste aus Abgang Umlaufvermögen z.T. n. abziehbar	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6910	Abschreibungen auf Umlaufvermögen	Abschreibungen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6912	Abschreibungen auf Umlaufvermögen, steuerr. bedingt	Abschreibungen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6915	Vorwegnahme künftiger UV-Wertschwankungen	Abschreibungen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6917	Aufwendungen Zuschreibung Rückstellungen 	Abschreibungen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6918	Aufwendungen aus dem Erwerb eigener Anteile	Abschreibungen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6920	Einstellung in die Pauschalwertberichtigung zu Forderungen	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6922	Einstellungen in die steuerliche Rücklage nach § 6b Abs. 3 EStG	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6923	Einstellung in die Einzelwertberichtigung zu Forderungen	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6924	Einstellungen in die steuerliche Rücklage nach § 6b Abs. 10 EStG	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6927	Einstellungen in steuerliche Rücklagen	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6928	Einstellungen in die Rücklage für Ersatzbeschaffung nach R 6.6 EStR	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6929	Einstellungen in die steuerliche Rücklage nach § 4g EStG	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6930	Forderungsverluste	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6931	Forderungsverluste 7 % USt	Einnahmen	sonstige	86	1	USt. 7% 	275	-	-	-	Sonstige betriebliche Aufwendungen
+6932	Forderungsverluste aus steuerfreien EG-Lieferungen	Einnahmen	Umsatzerlöse	41	0	- 	102	-	-	-	Sonstige betriebliche Aufwendungen
+6933	Forderungsverluste EG-Lieferungen 7 % USt	Einnahmen	Umsatzerlöse	86	1	USt. 7% 	275	-	-	-	Sonstige betriebliche Aufwendungen
+6934	Forderungsverluste EG-Lieferungen 16 % USt	Einnahmen	Umsatzerlöse	35	3	USt. 16% 	155	-	-	-	Sonstige betriebliche Aufwendungen
+6935	Forderungsverluste 16 % USt	Einnahmen	sonstige	35	3	USt. 16% 	155	-	-	-	Sonstige betriebliche Aufwendungen
+6936	Forderungsverluste 19 % USt	Einnahmen	sonstige	81	20	USt. 19% 	177	-	-	-	Sonstige betriebliche Aufwendungen
+6937	Forderungsverluste 15 % USt	Einnahmen	sonstige	35	2	USt. 15% 	155	-	-	-	Sonstige betriebliche Aufwendungen
+6938	Forderungsverluste EG-Lieferungen 19 % USt	Einnahmen	Umsatzerlöse	81	20	USt. 19% 	177	-	-	-	Sonstige betriebliche Aufwendungen
+6939	Forderungsverluste aus im Inland stpfl. EG-Lieferungen 15 % USt (übl. Höhe)	Einnahmen	sonstige	35	2	USt. 15% 	155	-	-	-	Sonstige betriebliche Aufwendungen
+6960	Periodenfremde Aufwendungen	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6967	sonstige Aufwendungen betriebsfremd und regelmäßig 	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6968	Sonstige nicht abziehbare Aufwendungen	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+6969	Sonstige Aufwendungen unregelmäßig 	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+7000	Erträge aus Beteiligungen	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus Beteiligungen
+7004	Ertr. Beteilig. an Pers.Ges. (verbundene Unternehmen),  9 GewStG bzw. § 18 ESt	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus Beteiligungen
+7005	Erträge aus Anteilen an Kapitalgesellschaften (Beteiligungen)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus Beteiligungen
+7006	Erträge aus Anteilen an Kapitalgesellschaften (verb. Unternehmen)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus Beteiligungen
+7007	Sonst. gewerbesteuerfreie Gewinne aus Anteilen an einer Kapitalgesellschaft	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus Beteiligungen
+7008	Gewinnanteile gewerbl.u. selbst. Mituntern., § 9 GewStG bzw. § 18 EStG	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus Beteiligungen
+7009	Erträge aus Beteiligungen an verbundenen Unternehmen	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus Beteiligungen
+7010	Erträge Wertpapiere/Ausleihungen Finanzanlagevermögen	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus anderen Wertpapieren u. Ausleihungen
+7011	Erträge aus Ausleihungen des Finanzanlagevermögens	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus anderen Wertpapieren u. Ausleihungen
+7012	Erträge aus Ausleihungen des Finanzanlagevermögens an verbundene Unternehmen	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus anderen Wertpapieren u. Ausleihungen
+7013	Erträge aus Anteilen an Personengesellschaften (Finanzanlagevermögen)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus anderen Wertpapieren u. Ausleihungen
+7014	Erträge aus Anteilen an Kapitalgesellschaften (Finanzanlagevermögen)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus anderen Wertpapieren u. Ausleihungen
+7015	Erträge aus Anteilen an Kapitalgesellschaften (verbundene Unternehmen)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus anderen Wertpapieren u. Ausleihungen
+7016	Erträge aus Anteilen an Personengesellschaften (verbundene Unternehmen)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus anderen Wertpapieren u. Ausleihungen
+7017	Erträge aus anderen Wertpapieren des Finanzanlagevermögens an Kapitalges.	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus anderen Wertpapieren u. Ausleihungen
+7018	Erträge aus anderen Wertpapieren des Finanzanlagevermögens an Personenges.	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus anderen Wertpapieren u. Ausleihungen
+7019	Erträge Wertpapiere/Finanzanlageverm.-Ausleihungen verbundene Unternehmen 	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus anderen Wertpapieren u. Ausleihungen
+7020	Zins- und Dividendenerträge	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7030	Erhaltene Ausgleichszahlungen (als außenstehender Aktionär)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus anderen Wertpapieren u. Ausleihungen
+7100	Sonstige Zinsen u. ähnliche Erträge	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7103	Erträge aus Anteilen an Kapitalgesellschaften (Umlaufvermögen)	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7104	Erträge aus Anteilen an Kapitalgesellschaften (verbundene Unternehmen)	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7105	Zinserträge § 233a AO, steuerpflichtig	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7106	Zinserträge § 233a AO, steuerfrei (Anlage A KSt)	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7107	Zinserträge § 233a AO, § 4 Abs. 5b EStG, steuerfrei	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7109	Sonstige Zinsen und ähnliche Erträge aus verbundenen Unternehmen	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7110	Sonstige Zinserträge	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7119	Sonstige Zinserträge aus verbundenen Unternehmen 	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7120	Zinsähnliche Erträge	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7129	Zinsähnliche Erträge aus verbundenen Unternehmen 	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7130	Diskonterträge	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7139	Diskonterträge aus verbundenen Unternehmen 	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7140	Steuerfreie Zinserträge aus der Abzinsung von Rückstellungen	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7141	Zinserträge aus der Abzinsung von Verbindlichkeiten	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7142	Zinserträge aus der Abzinsung von Rückstellungen	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7143	Zinserträge aus der Abzinsung von Pensionsrückst. und ähnl./vergl. Verpfl.	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7144	Zinserträge Abzinsung v. Pensionsrückst. u. ähnl./vergl. Verpfl. z. Verr.	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7145	Erträge aus Vermögensgegenständen zur Verrechnung nach § 246 Abs. 2 HGB	Einnahmen	Zinserträge	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7190	Erträge aus Verlustübernahme	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+7192	Erhaltene Gewinne auf Grund einer Gewinngemeinschaft 	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+7194	Erhaltene Gewinne auf Grund eines Gewinn- oder Teilgewinnabführungsvertrags	Einnahmen	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+7200	Abschreibungen auf Finanzanlagen (dauerhaft)	Abschreibungen	Finanzanlagen	0	0	-	0	-	-	-	Abschreibungen
+7201	Abschreibungen auf Finanzanlagen (nicht dauerhaft)	Abschreibungen	Finanzanlagen	0	0	-	0	-	-	-	Abschreibungen
+7204	Abschreibungen auf Finanzanlagen (dauerhaft)	Abschreibungen	Finanzanlagen	0	0	-	0	-	-	-	Abschreibungen
+7207	Abschreibungen auf Finanzanlagen - verbundene Unternehmen	Abschreibungen	Finanzanlagen	0	0	-	0	-	-	-	Abschreibungen
+7208	Aufw. a. Gr. v. Verlustant. gewerbl. u. selbst. Mituntern.,  § 8 GewStG 	Abschreibungen	Finanzanlagen	0	0	-	0	-	-	-	Abschreibungen
+7210	Abschreibungen auf Wertpapiere des Umlaufvermögens	Abschreibungen	Finanzanlagen	0	0	-	0	-	-	-	Abschreibungen
+7214	Abschreibungen Wertpapiere des UV z.T. n.abz.	Abschreibungen	Finanzanlagen	0	0	-	0	-	-	-	Abschreibungen
+7217	Abschreibungen auf Wertpapiere des Umlaufvermögens - verbundene Unternehmen	Abschreibungen	Finanzanlagen	0	0	-	0	-	-	-	Abschreibungen
+7250	Abschreibungen auf Finanzanlagen aufgrund steuerrechtl. Sondervorschriften	Abschreibungen	Finanzanlagen	0	0	-	0	-	-	-	Abschreibungen
+7255	Abschreibungen Finanzanlagen z.T. n.abz.	Abschreibungen	Finanzanlagen	0	0	-	0	-	-	-	Abschreibungen
+7260	Vorwegnahme künftiger Wertschwankungen bei Wertpapieren des UV	Abschreibungen	Finanzanlagen	0	0	-	0	-	-	-	Abschreibungen
+7300	Zinsen und ähnliche Aufwendungen	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7302	Steuerl. n. abzugsf., andere Nebenleistg z. Steuern § 4 Abs. 5b EStG	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7303	Steuerlich abzugsfähige, andere Nebenleistungen zu Steuern 	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7304	Steuerlich nicht abzugsfähige, andere Nebenleistungen zu Steuern 	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7305	Zinsaufwendungen § 233a AO betriebliche Steuern	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7306	Zinsaufwendungen § 233a bis 237 AO Personensteuern 	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7309	Zinsaufwendungen an verbundene Unternehmen	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7310	Zinsaufwendungen für kurzfristige Verbindlichkeiten	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7313	Nicht abzugsfähige Schuldzinsen § 4 Abs. 4a EStG	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7316	Zinsen für Gesellschafterdarlehen	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7317	Zinsen an Gesellschafter mit mehr als 25% Beteiligung	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7319	Zinsaufwendungen f.kurzfr. Verbindlichkeiten an verbundene Unternehmen	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7320	Zinsaufwendungen für langfristige Verbindlichkeiten	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7323	Abschreibungen auf Disagio zur Finanzierung	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7324	Abschreibungen auf Disagio zur Finanzierung des Anlagevermögens	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7325	Zinsaufwendungen für Gebäude, die zum Betriebsvermögen gehören	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7326	Zinsen zur Finanzierung des Anlagevermögen	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7327	Renten und dauernde Lasten	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7328	Zinsen an Mitunternehmer § 15 EStG	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7329	Zinsaufwendungen f.langfr. Verbindlichkeiten an verbundene Unternehmen	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7330	Zinsähnliche Aufwendungen	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7339	Zinsähnliche Aufwendungen an verbundene Unternehmen 	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7340	Diskontaufwendungen	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7349	Diskontaufwendungen an verbundene Unternehmen 	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7350	Zinsen und ähnliche Aufwendungen z.T. nicht abz.	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7351	Zinsen und ähnliche Aufwendungen an verb.UN z.T. n.abz.	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7355	Kreditprovisionen und Verwaltungskostenbeiträge	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7360	Zinsanteil der Zuführungen zu Pensionsrückstellungen	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7361	Zinsaufwendungen aus der Abzinsung von Verbindlichkeiten	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7362	Zinsaufwendungen aus der Abzinsung von Rückstellungen	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7363	Zinsaufwendg. aus Abzinsung Pensionsrückst. u. ähnl./vergl. Verpfl.	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7364	Zinsaufwendg. aus Abzinsung Pensionsrückst. u. ähnl. Verpfl. § 246 Abs. 2 HGB	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
+7365	Aufwendungen aus Vermögensgegenst. z. Verr. n. § 246 Abs. 2 HGB	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7366	Steuerlich nicht abzugsfähige Zinsaufw. aus der Abzinsung von Rückstellungen	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Sonstige Zinsen und ähnliche Erträge
+7390	Aufwendungen aus Verlustübernahme 	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+7392	Abgeführte Gewinne auf Grund eine Gewinngemeinschaft 	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+7394	Abgeführte Gewinne auf Grund eines Gewinn- oder Teilgewinnabführungsvertrags	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+7399	Abgef. Gewinnanteile (S) / ausgegl. Verlustant. (H) bei stiller Ges. § 8 GewStG	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+7451	Erträge durch Verschmelzung und Umwandlung	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
+7452	Erträge durch den Verkauf von bedeutenden Beteiligungen	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
+7453	Erträge durch den Verkauf von bedeutenden Grundstücken	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
+7454	Gewinn aus Veräußerung/Aufgabe von Geschäftsaktivitäten	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
+7460	Erträge aus der Anwendung von Übergangsvorschriften	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
+7461	Erträge aus der Anwendung von Übergangsvorschriften (Zuschr. Sachanlageverm.)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
+7462	Erträge aus der Anwendung von Übergangsvorschriften (Zuschr. Finanzanlageverm.)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
+7463	Erträge aus der Anwendung von Übergangsvorschriften (Wertp. Umlaufverm.)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
+7464	Erträge aus der Anwendung von Übergangsvorschriften (latente Steuern)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
+7551	Verluste durch Verschmelzung und Umwandlung	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
+7552	Verluste durch außergewöhnliche Schadensfälle	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
+7553	Aufwendungen für Restrukturierungs- und Sanierungsmaßnahmen	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
+7554	Verluste aus Veräußerung/Aufgabe von Geschäftsaktivitäten	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
+7560	Aufwendungen aus der Anwendung von Übergangsvorschriften	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
+7561	Aufwendungen aus der Anwendung von Übergangsvorschriften (Pensionsrückst.)	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
+7562	Aufwendungen aus der Anwendung von Übergangsvorschriften (Bilanzierungshilfen)	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
+7563	Aufwendungen aus der Anwendung von Übergangsvorschriften (latente Steuern)	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
+7600	Körperschaftsteuer	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
+7603	Körperschaftsteuer für Vorjahre	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
+7604	Körperschaftsteuererstattungen für Vorjahre	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
+7607	Solidaritätszuschlag Erstattungen für Vorjahre	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
+7608	Solidaritätszuschlag	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
+7609	Solidaritätszuschlag für Vorjahre	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
+7610	Gewerbesteuer ( Vorauszahlung )	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
+7630	Kapitalertragsteuer 25 %	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
+7633	Anrechenbarer Solidaritätszuschlag auf Kapitalertragsteuer 25 %	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
+7639	Anrechnung / Abzug ausländische Quellensteuer	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
+7640	Gewerbesteuernachzahlungen Vorjahre	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
+7641	Gewerbesteuernachzhlg. und Gewerbesteuererst. für Vorjahre § 4 Abs. 5b EStG	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
+7642	Gewerbesteuererstattungen Vorjahre	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
+7643	Erträge aus der Auflösung von Gewerbesteuerrückstellungen § 4 Abs. 5b EStG	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
+7644	Erträge aus der Auflösung von Gewerbesteuerrückstellungen	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
+7646	Aufwendungen a. d. Zuführung zu Steuerrückstellungen für Steuerstundung (BStBK)	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
+7648	Erträge aus der Auflösung von Steuerrückstellungen für Steuerstundung (BStBK)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
+7649	Erträge aus der Zuführung und Auflösung von latenten Steuern	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
+7650	Sonstige Steuern	Betriebsausgaben	betriebliche Steuern	0	0	-	0	-	-	-	Sonstige Steuern
+7675	Verbrauchsteuer (sonstige Steuern)	Betriebsausgaben	betriebliche Steuern	0	0	-	0	-	-	-	Sonstige Steuern
+7678	Ökosteuer	Betriebsausgaben	betriebliche Steuern	0	0	-	0	-	-	-	Sonstige Steuern
+7680	Grundsteuer	Betriebsausgaben	betriebliche Steuern	0	0	-	0	-	-	-	Sonstige Steuern
+7685	Kfz-Steuer	Betriebsausgaben	betriebliche Steuern	0	0	-	0	-	-	-	Sonstige Steuern
+7690	Steuernachzahlung Vorj. - sonst. Steuern	Betriebsausgaben	betriebliche Steuern	0	0	-	0	-	-	-	Sonstige Steuern
+7692	Steuererstattungen Vorj. - sonst. Steuern	Betriebsausgaben	betriebliche Steuern	0	0	-	0	-	-	-	Sonstige Steuern
+7694	Erträge - Auflösung v. Rückst. f. sonst. St.	Betriebsausgaben	betriebliche Steuern	0	0	-	0	-	-	-	Sonstige Steuern
+7990	Aufwendungen/Erträge aus Umrechnungsdifferenzen 	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+9000	Saldenvorträge Sachkonten	Saldovortrag	Sachkonten	0	0	-	0	-	-	-	-
+9008	Saldenvorträge Debitoren	Saldovortrag	Debitoren	0	0	-	0	-	-	-	-
+9009	Saldenvorträge Kreditoren	Saldovortrag	Kreditoren	0	0	-	0	-	-	-	-
+9090	Summenvortragskonto	Interimskonto	Interimskonto	0	0	-	0	-	-	-	-

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FinancialAnalysis.Datalayer.StoredProcedures
 {
-    internal class TableVersionsStoredProcedures : IStoredProcedure
+    internal class TableVersionsStoredProcedures : IStoredProcedures
     {
         public string TableName { get; }
 
@@ -21,11 +21,11 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
 
         private void GetAllData()
         {
-            if (!Helper.StoredProcedureExists("dbo.TableVersions_GetAll", DatabaseNames.FinancialAnalysisDB))
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetAll", DatabaseNames.FinancialAnalysisDB))
             {
                 StringBuilder sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [TableVersions_GetAll] AS BEGIN SET NOCOUNT ON; SELECT Id, Name, Version, LastModified FROM {TableName} END");
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; SELECT Id, Name, Version, LastModified FROM {TableName} END");
                 using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
@@ -41,11 +41,11 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
 
         private void InsertData()
         {
-            if (!Helper.StoredProcedureExists("dbo.TaxTypes_Insert", DatabaseNames.FinancialAnalysisDB))
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_Insert", DatabaseNames.FinancialAnalysisDB))
             {
                 StringBuilder sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [TableVersions_Insert] @Name char(50), @Version int, @LastModified datetime AS BEGIN SET NOCOUNT ON; INSERT into {TableName} (Name, Version, LastModified) VALUES (@Name,@Version,@LastModified) END");
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(50), @Version int, @LastModified datetime AS BEGIN SET NOCOUNT ON; INSERT into {TableName} (Name, Version, LastModified) VALUES (@Name,@Version,@LastModified) END");
                 using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
