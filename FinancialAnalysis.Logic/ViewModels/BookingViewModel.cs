@@ -1,6 +1,4 @@
 ﻿using FinancialAnalysis.Logic.Messages;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +10,9 @@ using System.IO;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
+using DevExpress.Mvvm;
 
-namespace FinancialAnalysis.Logic.ViewModel
+namespace FinancialAnalysis.Logic.ViewModels
 {
     public class BookingViewModel : ViewModelBase
     {
@@ -22,6 +21,7 @@ namespace FinancialAnalysis.Logic.ViewModel
         private int _CreditorId;
         private int _DebitorId;
         private decimal _Amount;
+        private CostAccount _Creditor;
 
         #endregion Fields
 
@@ -30,15 +30,15 @@ namespace FinancialAnalysis.Logic.ViewModel
         public BookingViewModel()
         {
 
-        GetCreditorCommand = new RelayCommand(() =>
+        GetCreditorCommand = new DelegateCommand(() =>
             {
-                MessengerInstance.Send(new OpenKontenrahmenWindowMessage() { AccountingType = AccountingType.Credit });
+                Messenger.Default.Send(new OpenKontenrahmenWindowMessage() { AccountingType = AccountingType.Credit });
             });
-            GetDebitorCommand = new RelayCommand(() =>
+            GetDebitorCommand = new DelegateCommand(() =>
             {
-                MessengerInstance.Send(new OpenKontenrahmenWindowMessage() { AccountingType = AccountingType.Debit });
+                Messenger.Default.Send(new OpenKontenrahmenWindowMessage() { AccountingType = AccountingType.Debit });
             });
-            OpenFileCommand = new RelayCommand(() =>
+            OpenFileCommand = new DelegateCommand(() =>
             {
                 DXOpenFileDialog fileDialog = new DXOpenFileDialog();
                 if (fileDialog.ShowDialog().Value)
@@ -47,14 +47,11 @@ namespace FinancialAnalysis.Logic.ViewModel
                 }
             });
 
-            MessengerInstance.Register<SelectedCostAccount>(this, ChangeSelectedCostAccount);
+            Messenger.Default.Register<SelectedCostAccount>(this, ChangeSelectedCostAccount);
 
             DataLayer db = new DataLayer();
             TaxTypes = db.TaxTypes.GetAll().ToList();
-
-            //var ctx = new FinanceContext();
-            //CostAccounts = ctx.CostAccounts.ToList();
-            //TaxTypes = ctx.TaxTypes.ToList();
+            CostAccounts = db.CostAccounts.GetAllVisible().ToList();
         }
 
         #endregion Constructor
@@ -66,9 +63,9 @@ namespace FinancialAnalysis.Logic.ViewModel
             switch (SelectedCostAccount.AccountingType)
             {
                 case AccountingType.Credit:
-                    Creditor = SelectedCostAccount.CostAccount; CreditorId = SelectedCostAccount.CostAccount.Id; break;
+                    Creditor = SelectedCostAccount.CostAccount; CreditorId = SelectedCostAccount.CostAccount.CostAccountId; break;
                 case AccountingType.Debit:
-                    Debitor = SelectedCostAccount.CostAccount; DebitorId = SelectedCostAccount.CostAccount.Id; break;
+                    Debitor = SelectedCostAccount.CostAccount; DebitorId = SelectedCostAccount.CostAccount.CostAccountId; break;
                 default:
                     break;
             }
@@ -81,19 +78,23 @@ namespace FinancialAnalysis.Logic.ViewModel
         public int CreditorId
         {
             get { return _CreditorId; }
-            set { _CreditorId = value; Creditor = CostAccounts.Single(x => x.Id == value); }
+            set { _CreditorId = value; Creditor = CostAccounts.Single(x => x.CostAccountId == value); }
         }
 
         public int DebitorId
         {
             get { return _DebitorId; }
-            set { _DebitorId = value; Debitor = CostAccounts.Single(x => x.Id == value); }
+            set { _DebitorId = value; Debitor = CostAccounts.Single(x => x.CostAccountId == value); }
         }
 
-        public RelayCommand GetCreditorCommand { get; }
-        public RelayCommand GetDebitorCommand { get; }
-        public RelayCommand OpenFileCommand { get; }
-        public CostAccount Creditor { get; set; }
+        public DelegateCommand GetCreditorCommand { get; }
+        public DelegateCommand GetDebitorCommand { get; }
+        public DelegateCommand OpenFileCommand { get; }
+        public CostAccount Creditor
+        {
+            get { return _Creditor; }
+            set { _Creditor = value; SelectedTax = TaxTypes.Single(x => x.TaxTypeId == _Creditor.RefTaxTypeId); }
+        }
         public CostAccount Debitor { get; set; }
         public TaxType SelectedTax { get; set; }
         public List<CostAccount> CostAccounts { get; set; }

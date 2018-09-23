@@ -37,7 +37,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') " +
-                    $"CREATE TABLE {TableName}(Id int IDENTITY(1,1) PRIMARY KEY, Description nvarchar(150) NOT NULL, AccountNumber int, RefTaxTypeId int, RefCostAccountCategoryId int, IsVisible bit )";
+                    $"CREATE TABLE {TableName}(CostAccountId int IDENTITY(1,1) PRIMARY KEY, Description nvarchar(150) NOT NULL, AccountNumber int UNIQUE, RefTaxTypeId int NULL, RefCostAccountCategoryId int, IsVisible bit, IsEditable bit )";
 
                 using (SqlCommand command = new SqlCommand(commandStr, con))
                 {
@@ -66,10 +66,32 @@ namespace FinancialAnalysis.Datalayer.Tables
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.Query<CostAccount, CostAccountCategory, CostAccount>($"dbo.{TableName}_GetAll",
-    (objCostAccount, objCostAccountCategory) => { objCostAccount.CostAccountCategory = objCostAccountCategory; return objCostAccount; },
-    commandType: CommandType.StoredProcedure).ToList();
+                    (objCostAccount, objCostAccountCategory) => { objCostAccount.CostAccountCategory = objCostAccountCategory; return objCostAccount; }, splitOn: "CostAccountCategoryId",
+                    commandType: CommandType.StoredProcedure).ToList();
                 }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
+            }
+            return output;
+        }
 
+        /// <summary>
+        /// Returns all visible CostAccount records
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<CostAccount> GetAllVisible()
+        {
+            IEnumerable<CostAccount> output = new List<CostAccount>();
+            try
+            {
+                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    output = con.Query<CostAccount, CostAccountCategory, CostAccount>($"dbo.{TableName}_GetAllVisible",
+                    (objCostAccount, objCostAccountCategory) => { objCostAccount.CostAccountCategory = objCostAccountCategory; return objCostAccount; }, splitOn: "CostAccountCategoryId",
+                    commandType: CommandType.StoredProcedure).ToList();
+                }
             }
             catch (Exception e)
             {
@@ -90,7 +112,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Description, @AccountNumber, @RefTaxTypeId, @RefCostAccountCategoryId, @IsVisible", costAccount);
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @Description, @AccountNumber, @RefTaxTypeId, @RefCostAccountCategoryId, @IsVisible, @IsEditable ", costAccount);
                     return result.Single();
                 }
             }
@@ -113,7 +135,7 @@ namespace FinancialAnalysis.Datalayer.Tables
                 {
                     foreach (var costAccount in costAccounts)
                     {
-                        con.Query($"dbo.{TableName}_Insert @Description, @AccountNumber, @RefTaxTypeId, @RefCostAccountCategoryId, @IsVisible", costAccount);
+                        con.Query($"dbo.{TableName}_Insert @Description, @AccountNumber, @RefTaxTypeId, @RefCostAccountCategoryId, @IsVisible, @IsEditable", costAccount);
                     }
                 }
             }
@@ -135,7 +157,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<CostAccount>($"dbo.{TableName}_GetById @Id", new { Id = id });
+                    output = con.QuerySingleOrDefault<CostAccount>($"dbo.{TableName}_GetById @CostAccountId", new { CostAccountId = id });
                 }
             }
             catch (Exception e)
@@ -151,7 +173,7 @@ namespace FinancialAnalysis.Datalayer.Tables
         /// <param name="costAccount"></param>
         public void UpdateOrInsert(CostAccount costAccount)
         {
-            if (costAccount.Id == 0 || GetById(costAccount.Id) is null)
+            if (costAccount.CostAccountId == 0 || GetById(costAccount.CostAccountId) is null)
             {
                 Insert(costAccount);
                 return;
@@ -178,7 +200,7 @@ namespace FinancialAnalysis.Datalayer.Tables
         /// <param name="costAccount"></param>
         public void Update(CostAccount costAccount)
         {
-            if (costAccount.Id == 0 || GetById(costAccount.Id) is null)
+            if (costAccount.CostAccountId == 0 || GetById(costAccount.CostAccountId) is null)
             {
                 return;
             }
@@ -187,7 +209,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @Id, @Description, @AccountNumber, @RefTaxTypeId, @RefCostAccountCategoryId, @IsVisible", costAccount);
+                    con.Execute($"dbo.{TableName}_Update @CostAccountId, @Description, @AccountNumber, @RefTaxTypeId, @RefCostAccountCategoryId, @IsVisible, @IsEditable", costAccount);
                 }
             }
             catch (Exception e)
@@ -206,7 +228,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @Id", new { Id = id });
+                    con.Execute($"dbo.{TableName}_Delete @CostAccountId", new { CostAccountId = id });
                 }
             }
             catch (Exception e)
@@ -221,7 +243,97 @@ namespace FinancialAnalysis.Datalayer.Tables
         /// <param name="id"></param>
         public void Delete(CostAccount costAccount)
         {
-            Delete(costAccount.Id);
+            Delete(costAccount.CostAccountId);
+        }
+
+        public int GetNextDebitorNumber()
+        {
+            int output = 10000;
+            try
+            {
+                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    output = con.ExecuteScalar<int>($"dbo.{TableName}_GetNextDebitorNumber");
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'GetNextDebitorNumber' from table '{TableName}'", e);
+            }
+            if (output == 0)
+                output = 10000;
+            else
+                output++;
+
+            return output;
+        }
+
+        public int GetNextCreditorNumber()
+        {
+            int output = 0;
+            try
+            {
+                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    output = con.ExecuteScalar<int>($"dbo.{TableName}_GetNextCreditorNumber");
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'GetNextCreditorNumber' from table '{TableName}'", e);
+            }
+            if (output == 0)
+                output = 70000;
+            else
+                output++;
+
+            return output;
+        }
+
+        public void AddReferences()
+        {
+            AddCostAccountCategoriesReference();
+            AddTaxTypesReference();
+        }
+
+        private void AddCostAccountCategoriesReference()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr = $"IF(OBJECT_ID('FK_CostAccounts_CostAccountCategories', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_CostAccounts_CostAccountCategories FOREIGN KEY(RefCostAccountCategoryId) REFERENCES CostAccountCategories(CostAccountCategoryId) ON DELETE CASCADE";
+
+                using (SqlCommand command = new SqlCommand(commandStr, con))
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while creating reference between '{TableName}' and CostAccountCategories", e);
+            }
+        }
+
+        private void AddTaxTypesReference()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr = $"IF(OBJECT_ID('FK_CostAccounts_TaxTypes', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_CostAccounts_TaxTypes FOREIGN KEY(RefTaxTypeId) REFERENCES TaxTypes(TaxTypeId)";
+
+                using (SqlCommand command = new SqlCommand(commandStr, con))
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while creating reference between '{TableName}' and TaxTypes", e);
+            }
         }
     }
 }

@@ -15,7 +15,6 @@ using System.Windows.Shapes;
 using DevExpress.Xpf.Core;
 using WinInterop = System.Windows.Interop;
 using System.Runtime.InteropServices;
-using FinancialAnalysis.Logic.Model.ViewModel;
 
 namespace FinancialAnalysis.UI.Desktop
 {

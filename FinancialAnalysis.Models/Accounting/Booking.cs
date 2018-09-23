@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevExpress.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Models.Accounting
 {
-    public class Booking
+    public class Booking : BindableBase
     {
         #region Properties
 

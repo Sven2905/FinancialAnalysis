@@ -1,5 +1,4 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+﻿using DevExpress.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
-namespace FinancialAnalysis.Logic.ViewModel
+namespace FinancialAnalysis.Logic.ViewModels
 {
     public class DialogViewModel : ViewModelBase
     {
@@ -19,11 +18,11 @@ namespace FinancialAnalysis.Logic.ViewModel
 
         public DialogViewModel()
         {
-            CloseCommand = new RelayCommand(() => CloseAction());
+            CloseCommand = new DelegateCommand(() => CloseAction());
         }
 
         public Action CloseAction { get; set; }
-        public RelayCommand CloseCommand { get; set; }
+        public DelegateCommand CloseCommand { get; set; }
 
         public string Message
         {

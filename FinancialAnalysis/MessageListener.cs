@@ -1,19 +1,13 @@
-﻿using FinancialAnalysis.Logic.Messages;
-using FinancialAnalysis.Logic.ViewModel;
-using GalaSoft.MvvmLight.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Logic.Messages;
+using FinancialAnalysis.Logic.ViewModels;
 
 namespace FinancialAnalysis.UI
 {
     /// <summary>
     /// Zentrale Listener-Klasse für alle Nachrichten.
     /// </summary>
-    class MessageListener
+    internal class MessageListener
     {
 
         #region Konstruktor
@@ -38,7 +32,10 @@ namespace FinancialAnalysis.UI
                      var window = new KontenrahmenWindow();
                      var model = window.DataContext as KontenrahmenViewModel;
                      if (model != null)
+                     {
                          model.AccountingType = msg.AccountingType;
+                     }
+
                      window.ShowDialog();
                  });
 
@@ -55,6 +52,12 @@ namespace FinancialAnalysis.UI
                      }
                      window.ShowDialog();
                  });
+            Messenger.Default.Register<OpenCompanyWindowMessage>(this,
+                msg =>
+                {
+                    var window = new CompanyWindow();
+                    window.ShowDialog();
+                });
         }
 
         #endregion

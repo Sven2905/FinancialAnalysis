@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevExpress.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,12 +7,9 @@ using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Models.Accounting
 {
-    /// <summary>
-    /// Categories of taxes
-    /// </summary>
-    public class TaxType
+    public class TaxType : BindableBase
     {
-        public int Id { get; set; }
+        public int TaxTypeId { get; set; }
         public string Description { get; set; }
         public string DescriptionShort { get; set; }
         public decimal AmountOfTax { get; set; }

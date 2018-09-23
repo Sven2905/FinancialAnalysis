@@ -135,12 +135,12 @@ namespace FinancialAnalysis.Logic
                         tempMainCat.Description = _Content[2];
 
                         mainCatId = db.CostAccountCategories.Insert(tempMainCat);
-                        tempMainCat.Id = mainCatId;
+                        tempMainCat.CostAccountCategoryId = mainCatId;
                         costAccountCategories.Add(tempMainCat);
                     }
                     else
                     {
-                        mainCatId = costAccountCategories.SingleOrDefault(x => x.Description == _Content[2] && x.ParentCategoryId == tempMainCat.ParentCategoryId).Id;
+                        mainCatId = costAccountCategories.SingleOrDefault(x => x.Description == _Content[2] && x.ParentCategoryId == tempMainCat.ParentCategoryId).CostAccountCategoryId;
                     }
 
                     var taxTypes = db.TaxTypes.GetAll().ToList();
@@ -155,12 +155,12 @@ namespace FinancialAnalysis.Logic
                             tempSubCat.ParentCategoryId = mainCatId;
 
                             subCatId = db.CostAccountCategories.Insert(tempSubCat);
-                            tempSubCat.Id = subCatId;
+                            tempSubCat.CostAccountCategoryId = subCatId;
                             costAccountCategories.Add(tempSubCat);
                         }
                         else
                         {
-                            subCatId = costAccountCategories.SingleOrDefault(x => x.Description == _Content[3] && x.ParentCategoryId == mainCatId).Id;
+                            subCatId = costAccountCategories.SingleOrDefault(x => x.Description == _Content[3] && x.ParentCategoryId == mainCatId).CostAccountCategoryId;
                         }
                     }
                     else
@@ -174,7 +174,8 @@ namespace FinancialAnalysis.Logic
                         AccountNumber = Convert.ToInt32(_Content[0]),
                         RefCostAccountCategoryId = subCatId,
                         Description = _Content[1],
-                        IsVisible = true
+                        IsVisible = true,
+                        IsEditable = false
                     };
                     if (true)
                     {
@@ -182,7 +183,7 @@ namespace FinancialAnalysis.Logic
                     }
                     var taxType = taxTypes.SingleOrDefault(x => x.DescriptionShort == _Content[6].Trim());
                     if (taxType != null)
-                        costAccount.RefTaxTypeId = taxType.Id;
+                        costAccount.RefTaxTypeId = taxType.TaxTypeId;
                     else
                         costAccount.RefTaxTypeId = 1;
 

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Datalayer.StoredProcedures
 {
@@ -27,6 +23,8 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
             GetById();
             UpdateData();
             DeleteData();
+            GetCreditorId();
+            GetDebitorId();
         }
 
         private void GetAllData()
@@ -35,7 +33,7 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
             {
                 StringBuilder sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; SELECT Id, Description, ParentCategoryId FROM {TableName} END");
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; SELECT CostAccountCategoryId, Description, ParentCategoryId FROM {TableName} END");
                 using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
@@ -79,9 +77,9 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @Id int AS BEGIN SET NOCOUNT ON; SELECT Id, Description, ParentCategoryId " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @CostAccountCategoryId int AS BEGIN SET NOCOUNT ON; SELECT CostAccountCategoryId, Description, ParentCategoryId " +
                     $"FROM {TableName} " +
-                    $"WHERE Id = @Id END");
+                    $"WHERE CostAccountCategoryId = @CostAccountCategoryId END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -103,11 +101,11 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @Id int, @Description nvarchar(50), @ParentCategoryId int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @CostAccountCategoryId int, @Description nvarchar(50), @ParentCategoryId int " +
                     $"AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     $"SET Description = @Description, ParentCategoryId = @ParentCategoryId " +
-                    $"WHERE Id = @Id END");
+                    $"WHERE CostAccountCategoryId = @CostAccountCategoryId END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -129,7 +127,55 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @Id int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE Id = @Id OR ParentCategoryId= @Id END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @CostAccountCategoryId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE CostAccountCategoryId = @CostAccountCategoryId OR ParentCategoryId= @CostAccountCategoryId END");
+                using (SqlConnection connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void GetCreditorId()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetCreditorId", DatabaseNames.FinancialAnalysisDB))
+            {
+                StringBuilder sbSP = new StringBuilder();
+
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_GetCreditorId] @Description nvarchar(150) AS BEGIN SET NOCOUNT ON; SELECT CostAccountCategoryId " +
+                    $"FROM {TableName} " +
+                    $"WHERE Description = @Description END");
+                using (SqlConnection connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void GetDebitorId()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetDebitorId", DatabaseNames.FinancialAnalysisDB))
+            {
+                StringBuilder sbSP = new StringBuilder();
+
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_GetDebitorId] @Description nvarchar(150) AS BEGIN SET NOCOUNT ON; SELECT CostAccountCategoryId " +
+                    $"FROM {TableName} " +
+                    $"WHERE Description = @Description END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

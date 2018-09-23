@@ -38,7 +38,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
-                                 $"Id int IDENTITY(1,1) PRIMARY KEY," +
+                                 $"CompanyId int IDENTITY(1,1) PRIMARY KEY," +
                                  $"Name nvarchar(50) NOT NULL," +
                                  $"Street nvarchar(50) NOT NULL," +
                                  $"Postcode int NOT NULL," +
@@ -147,7 +147,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<Company>($"dbo.{TableName}_GetById @Id", new { Id = id });
+                    output = con.QuerySingleOrDefault<Company>($"dbo.{TableName}_GetById @CompanyId", new { CompanyId = id });
                 }
             }
             catch (Exception e)
@@ -163,7 +163,7 @@ namespace FinancialAnalysis.Datalayer.Tables
         /// <param name="company"></param>
         public void UpdateOrInsert(Company company)
         {
-            if (company.Id == 0 || GetById(company.Id) is null)
+            if (company.CompanyId == 0 || GetById(company.CompanyId) is null)
             {
                 Insert(company);
                 return;
@@ -190,7 +190,7 @@ namespace FinancialAnalysis.Datalayer.Tables
         /// <param name="company"></param>
         public void Update(Company company)
         {
-            if (company.Id == 0 || GetById(company.Id) is null)
+            if (company.CompanyId == 0 || GetById(company.CompanyId) is null)
             {
                 return;
             }
@@ -199,7 +199,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @Id, @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState", company);
+                    con.Execute($"dbo.{TableName}_Update @CompanyId, @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState", company);
                 }
             }
             catch (Exception e)
@@ -218,7 +218,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @Id", new { Id = id });
+                    con.Execute($"dbo.{TableName}_Delete @CompanyId", new { CompanyId = id });
                 }
             }
             catch (Exception e)

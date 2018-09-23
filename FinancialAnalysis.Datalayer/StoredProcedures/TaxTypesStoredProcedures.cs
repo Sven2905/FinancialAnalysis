@@ -31,7 +31,7 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
             {
                 StringBuilder sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; SELECT Id, Description, DescriptionShort, AmountOfTax, TaxCategory, RefAccountNumber, RefAccountNotPayable FROM {TableName} END");
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; SELECT * FROM {TableName} END");
                 using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
@@ -75,9 +75,9 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @Id int AS BEGIN SET NOCOUNT ON; SELECT Id, Description, DescriptionShort, AmountOfTax, TaxCategory, RefAccountNumber, RefAccountNotPayable " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @TaxTypeId int AS BEGIN SET NOCOUNT ON; SELECT TaxTypeId, Description, DescriptionShort, AmountOfTax, TaxCategory, RefAccountNumber, RefAccountNotPayable " +
                     $"FROM {TableName} " +
-                    $"WHERE Id = @Id END");
+                    $"WHERE TaxTypeId = @TaxTypeId END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -99,11 +99,11 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @Id int,  @Description nvarchar(50), @DescriptionShort nvarchar(50), @AmountOfTax decimal, @TaxCategory int, @RefAccountNumber int, @RefAccountNotPayable int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @TaxTypeId int,  @Description nvarchar(50), @DescriptionShort nvarchar(50), @AmountOfTax decimal, @TaxCategory int, @RefAccountNumber int, @RefAccountNotPayable int " +
                     $"AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     $"SET Description = @Description, @DescriptionShort = DescriptionShort, AmountOfTax = @AmountOfTax, @TaxCategory = TaxCategory, @RefAccountNumber = RefAccountNumber, @RefAccountNotPayable = RefAccountNotPayable " +
-                    $"WHERE Id = @Id END");
+                    $"WHERE TaxTypeId = @TaxTypeId END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -125,7 +125,7 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @Id int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE Id = @Id END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @TaxTypeId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE TaxTypeId = @TaxTypeId END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

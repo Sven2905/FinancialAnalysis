@@ -1,13 +1,16 @@
-﻿using FinancialAnalysis.Models.ProjectManagement;
+﻿using DevExpress.Mvvm;
 
 namespace FinancialAnalysis.Models.Accounting
 {
-    /// <summary>
-    /// Account centers for Skr03
-    /// </summary>
-    public class CostAccount
+    public class CostAccount : BindableBase
     {
-        public int Id { get; set; }
+        public CostAccount()
+        {
+            RefTaxTypeId = 1;
+            IsEditable = true;
+        }
+
+        public int CostAccountId { get; set; }
         public int AccountNumber { get; set; }
         public string Description { get; set; }
         public int RefTaxTypeId { get; set; }
@@ -15,9 +18,7 @@ namespace FinancialAnalysis.Models.Accounting
         public CostAccountCategory CostAccountCategory { get; set; }
         public int RefCostAccountCategoryId { get; set; }
         public bool IsVisible { get; set; }
-        public int RefDebitorId { get; set; }
-        public Debitor Debitor { get; set; }
-        public int RefCreditorId { get; set; }
-        public Creditor Creditor { get; set; }
+        public bool IsEditable { get; set; }
+        public string DisplayName { get { return $"{AccountNumber} - {Description}"; } }
     }
 }

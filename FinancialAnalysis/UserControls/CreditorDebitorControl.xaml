@@ -1,0 +1,371 @@
+﻿<UserControl
+             x:Class="FinancialAnalysis.UserControls.CreditorDebitorControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
+             xmlns:models="clr-namespace:FinancialAnalysis.Models;assembly=FinancialAnalysis.Models"
+             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+             xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
+             mc:Ignorable="d"
+             dx:ThemeManager.ThemeName="Office2016WhiteSE"
+             d:DesignHeight="900" d:DesignWidth="1600">
+
+    <UserControl.Resources>
+        <Style x:Key="labelStyle" TargetType="{x:Type dxlc:LayoutItemLabel}">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#3f729b" />
+        </Style>
+        <Style x:Key="itemStyle" TargetType="{x:Type dxlc:LayoutItem}">
+            <Setter Property="LabelPosition" Value="Top"/>
+            <Setter Property="LabelStyle" Value="{StaticResource labelStyle}"/>
+            <Setter Property="Foreground" Value="#3f729b" />
+        </Style>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <ViewModels:CreditorDebitorViewModel/>
+    </UserControl.DataContext>
+
+    <dxmvvm:Interaction.Behaviors>
+        <dxmvvm:NotificationService UseWin8NotificationsIfAvailable="False" PredefinedNotificationDuration="Long" PredefinedNotificationTemplate="ShortHeaderAndLongText"/>
+        <dx:WindowedDocumentUIService x:Name="SingleObjectDocumentManagerService"/>
+    </dxmvvm:Interaction.Behaviors>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="6*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <dxwui:PageAdornerControl Header="Kreditor / Debitor" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Foreground="#3f729b" >
+            <dxwui:PageAdornerControl.HeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <ContentPresenter Content="{Binding}" />
+                    </Grid>
+                </DataTemplate>
+            </dxwui:PageAdornerControl.HeaderTemplate>
+        </dxwui:PageAdornerControl>
+
+        <dx:DXTabControl Grid.Row="1" Grid.Column="1" SelectedIndex="{Binding SelectedTab}">
+            <dx:DXTabItem Header="Kreditor">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Margin="15,0,10,0">
+                        <TextBlock Text="Vorhandene Firma auswählen" Grid.Column="0" Grid.Row="0" Margin="0,0,15,0" Foreground="#3f729b"/>
+                        <dxe:ComboBoxEdit Grid.Column="0" Grid.Row="0" Width="250" ItemsSource="{Binding Companies}" SelectedItem="{Binding SelectedCompany}" DisplayMember="Name" Foreground="#3f729b" />
+                        <dx:SimpleButton Margin="5,0,0,0" Width="30" Height="20" Padding="10,0,5,0" Command="{Binding OpenCompanyWindowCommand}">
+                            <dx:SimpleButton.Glyph>
+                                <dx:SvgImageSource Uri="/Images/light/edit.svg"/>
+                            </dx:SimpleButton.Glyph>
+                        </dx:SimpleButton>
+                    </StackPanel>
+
+                    <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Grid.Column="0" Grid.Row="1" >
+
+                        <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" >
+                            <dxlc:LayoutGroup.Header>
+                                <TextBlock Text="Anschrift" Foreground="#3f729b" FontWeight="Bold" />
+                            </dxlc:LayoutGroup.Header>
+                            <dxlc:LayoutItem Label="Firma">
+                                <dxe:TextEdit Text="{Binding Creditor.Company.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                            </dxlc:LayoutItem>
+                            <dxlc:LayoutItem Label="Strasse">
+                                <dxe:TextEdit Text="{Binding Creditor.Company.Street, UpdateSourceTrigger=PropertyChanged}"/>
+                            </dxlc:LayoutItem>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Postleitzahl" Width="100">
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.Postcode, UpdateSourceTrigger=PropertyChanged}"/>
+                                </dxlc:LayoutItem>
+                                <dxlc:LayoutItem Label="Ort">
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.City, UpdateSourceTrigger=PropertyChanged}"/>
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Ansprechpartner">
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.ContactPerson}"/>
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                            <dxlc:LayoutItem Label="Bundesland">
+                                <dxe:ComboBoxEdit ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:FederalState}, SplitNames=True}" EditValue="Creditor.Company.FederalState"/>
+                            </dxlc:LayoutItem>
+                        </dxlc:LayoutGroup>
+
+                        <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" >
+                            <dxlc:LayoutGroup.Header>
+                                <TextBlock Text="Bankdaten" Foreground="#3f729b" FontWeight="Bold" />
+                            </dxlc:LayoutGroup.Header>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Bank">
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.BankName}"/>
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="IBAN">
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.IBAN}"/>
+                                </dxlc:LayoutItem>
+                                <dxlc:LayoutItem Label="BIC">
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.BIC}"/>
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                        </dxlc:LayoutGroup>
+
+                        <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" >
+                            <dxlc:LayoutGroup.Header>
+                                <TextBlock Text="Steuern" Foreground="#3f729b" FontWeight="Bold" />
+                            </dxlc:LayoutGroup.Header>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Vorausgewählte Steuer">
+                                    <dxe:ComboBoxEdit ItemsSource="{Binding TaxTypes}" DisplayMember="Description" ValueMember="TaxTypeId" EditValue="{Binding Creditor.CostAccount.RefTaxTypeId}" Foreground="#3f729b" />
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Umsatzsteuer-Id">
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.UStID}"/>
+                                </dxlc:LayoutItem>
+                                <dxlc:LayoutItem Label="Steuernummer">
+                                    <dxe:TextEdit Text="{Binding Credito.Company.TaxNumber}"/>
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                        </dxlc:LayoutGroup>
+
+                        <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" >
+                            <dxlc:LayoutGroup.Header>
+                                <TextBlock Text="Allgemeines" Foreground="#3f729b" FontWeight="Bold" />
+                            </dxlc:LayoutGroup.Header>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Telefon">
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.Phone}"/>
+                                </dxlc:LayoutItem>
+                                <dxlc:LayoutItem Label="Fax">
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.Fax}"/>
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="E-Mail">
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.eMail}"/>
+                                </dxlc:LayoutItem>
+                                <dxlc:LayoutItem Label="Website">
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.Website}"/>
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                        </dxlc:LayoutGroup>
+
+                    </dxlc:LayoutControl>
+
+                    <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,10,0" >
+                        <dx:SimpleButton Height="40" Width="100" Margin="5,0,5,0" Padding="10,0,10,0" Content="Neu" Command="{Binding NewCreditorCommand}"/>
+                        <dx:SimpleButton IsEnabled="{Binding SaveCreditorButtonEnabled}" Height="40" Width="100" Margin="5,0,5,0" Padding="10,0,10,0" Content="Speichern" Command="{Binding SaveCreditorCommand}"/>
+                        <dx:SimpleButton IsEnabled="{Binding DeleteCreditorButtonEnabled}" Height="40" Width="100" Margin="5,0,5,0" Padding="10,0,10,0" Content="Löschen" Command="{Binding DeleteCreditorCommand}"/>
+                    </StackPanel>
+
+                    <TextBlock Text="Kreditoren:" Grid.Column="2" Grid.Row="0" Foreground="#3f729b" Margin="12,0,0,0" FontSize="16"/>
+
+                    <ListView ItemsSource="{Binding Creditors}" Grid.Column="2" Grid.Row="1" BorderThickness="1" BorderBrush="#DADADA" Padding="0" Margin="12" FontSize="14" SelectedItem="{Binding Creditor}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                        <TextBlock FontSize="16" Foreground="#3f729b" Text="{Binding CostAccount.AccountNumber}" Margin="5,0,0,0" />
+                                        <TextBlock FontSize="16" Foreground="#3f729b" Text=" - " Margin="5,0,0,0" />
+                                        <TextBlock FontSize="16" Foreground="#3f729b" Text="{Binding Company.Name}" Margin="5,0,0,0" />
+                                    </StackPanel>
+                                    <StackPanel Margin="30,0,0,0" Grid.Row="1">
+                                        <TextBlock Foreground="Gray" Text="{Binding Company.Address}">
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ListView>
+
+                </Grid>
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="Debitor">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Margin="15,0,10,0">
+                        <TextBlock Text="Vorhandene Firma auswählen" Grid.Column="0" Grid.Row="0" Margin="0,0,15,0" Foreground="#3f729b"/>
+                        <dxe:ComboBoxEdit Grid.Column="0" Grid.Row="0" Width="250" ItemsSource="{Binding Companies}" SelectedItem="{Binding SelectedCompany}" DisplayMember="Name" Foreground="#3f729b" />
+                        <dx:SimpleButton Margin="5,0,0,0" Width="30" Height="20" Padding="10,0,5,0" Command="{Binding OpenCompanyWindowCommand}">
+                            <dx:SimpleButton.Glyph>
+                                <dx:SvgImageSource Uri="/Images/light/edit.svg"/>
+                            </dx:SimpleButton.Glyph>
+                        </dx:SimpleButton>
+                    </StackPanel>
+
+                    <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Grid.Column="0" Grid.Row="1" >
+
+                        <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" >
+                            <dxlc:LayoutGroup.Header>
+                                <TextBlock Text="Anschrift" Foreground="#3f729b" FontWeight="Bold" />
+                            </dxlc:LayoutGroup.Header>
+                            <dxlc:LayoutItem Label="Firma">
+                                <dxe:TextEdit Text="{Binding Debitor.Company.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                            </dxlc:LayoutItem>
+                            <dxlc:LayoutItem Label="Strasse">
+                                <dxe:TextEdit Text="{Binding Debitor.Company.Street, UpdateSourceTrigger=PropertyChanged}"/>
+                            </dxlc:LayoutItem>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Postleitzahl" Width="100">
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.Postcode, UpdateSourceTrigger=PropertyChanged}"/>
+                                </dxlc:LayoutItem>
+                                <dxlc:LayoutItem Label="Ort">
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.City, UpdateSourceTrigger=PropertyChanged}"/>
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Ansprechpartner">
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.ContactPerson}"/>
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                            <dxlc:LayoutItem Label="Bundesland">
+                                <dxe:ComboBoxEdit ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:FederalState}, SplitNames=True}" EditValue="Debitor.Company.FederalState"/>
+                            </dxlc:LayoutItem>
+                        </dxlc:LayoutGroup>
+
+                        <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" >
+                            <dxlc:LayoutGroup.Header>
+                                <TextBlock Text="Bankdaten" Foreground="#3f729b" FontWeight="Bold" />
+                            </dxlc:LayoutGroup.Header>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Bank">
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.BankName}"/>
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="IBAN">
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.IBAN}"/>
+                                </dxlc:LayoutItem>
+                                <dxlc:LayoutItem Label="BIC">
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.BIC}"/>
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                        </dxlc:LayoutGroup>
+
+                        <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" >
+                            <dxlc:LayoutGroup.Header>
+                                <TextBlock Text="Steuern" Foreground="#3f729b" FontWeight="Bold" />
+                            </dxlc:LayoutGroup.Header>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Vorausgewählte Steuer">
+                                    <dxe:ComboBoxEdit ItemsSource="{Binding TaxTypes}" DisplayMember="Description" ValueMember="TaxTypeId" EditValue="{Binding Debitor.CostAccount.RefTaxTypeId}" Foreground="#3f729b" />
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Umsatzsteuer-Id">
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.UStID}"/>
+                                </dxlc:LayoutItem>
+                                <dxlc:LayoutItem Label="Steuernummer">
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.TaxNumber}"/>
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                        </dxlc:LayoutGroup>
+
+                        <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" >
+                            <dxlc:LayoutGroup.Header>
+                                <TextBlock Text="Allgemeines" Foreground="#3f729b" FontWeight="Bold" />
+                            </dxlc:LayoutGroup.Header>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Telefon">
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.Phone}"/>
+                                </dxlc:LayoutItem>
+                                <dxlc:LayoutItem Label="Fax">
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.Fax}"/>
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="E-Mail">
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.eMail}"/>
+                                </dxlc:LayoutItem>
+                                <dxlc:LayoutItem Label="Website">
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.Website}"/>
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                        </dxlc:LayoutGroup>
+
+                    </dxlc:LayoutControl>
+
+                    <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,10,0" >
+                        <dx:SimpleButton Height="40" Width="100" Margin="5,0,5,0" Padding="10,0,10,0" Content="Neu" Command="{Binding NewDebitorCommand}"/>
+                        <dx:SimpleButton IsEnabled="{Binding SaveDebitorButtonEnabled}" Height="40" Width="100" Margin="5,0,5,0" Padding="10,0,10,0" Content="Speichern" Background="#00C851" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Command="{Binding SaveDebitorCommand}" />
+                        <dx:SimpleButton IsEnabled="{Binding DeleteDebitorButtonEnabled}" Height="40" Width="100" Margin="5,0,5,0" Padding="10,0,10,0" Content="Löschen" Background="#ff4444" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Command="{Binding DeleteDebitorCommand}" />
+                    </StackPanel>
+
+                    <TextBlock Text="Debitoren:" Grid.Column="2" Grid.Row="0" Foreground="#3f729b" Margin="12,0,0,0" FontSize="16"/>
+
+                    <ListView ItemsSource="{Binding Debitors}" Grid.Column="2" Grid.Row="1" BorderThickness="1" BorderBrush="#DADADA" Padding="0" Margin="12" FontSize="14" SelectedItem="{Binding Debitor}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                        <TextBlock FontSize="16" Foreground="#3f729b" Text="{Binding CostAccount.AccountNumber}" Margin="5,0,0,0" />
+                                        <TextBlock FontSize="16" Foreground="#3f729b" Text=" - " Margin="5,0,0,0" />
+                                        <TextBlock FontSize="16" Foreground="#3f729b" Text="{Binding Company.Name}" Margin="5,0,0,0" />
+                                    </StackPanel>
+                                    <StackPanel Margin="30,0,0,0" Grid.Row="1">
+                                        <TextBlock Foreground="Gray" Text="{Binding Company.Address}">
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ListView>
+
+                </Grid>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
+    </Grid>
+</UserControl>

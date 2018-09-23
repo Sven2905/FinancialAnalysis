@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using FinancialAnalysis.Datalayer.StoredProcedures;
+using System.Collections;
 
 namespace FinancialAnalysis.Datalayer.Tables
 {

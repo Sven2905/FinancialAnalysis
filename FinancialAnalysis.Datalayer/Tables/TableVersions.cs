@@ -39,7 +39,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             try
             {
                 SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(Id int IDENTITY(1,1) PRIMARY KEY,Name char(50) NOT NULL,Version int NOT NULL,LastModified datetime NOT NULL)";
+                var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(TableVersionId int IDENTITY(1,1) PRIMARY KEY,Name char(50) NOT NULL,Version int NOT NULL,LastModified datetime NOT NULL)";
 
                 using (SqlCommand command = new SqlCommand(commandStr, con))
                 {
@@ -87,7 +87,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<TableVersion>($"dbo.{TableName}_GetById @Id", new { Id = id });
+                    output = con.QuerySingleOrDefault<TableVersion>($"dbo.{TableName}_GetById @TableVersionId", new { TableVersionId = id });
                 }
             }
             catch (Exception e)
@@ -146,7 +146,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @Id, @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefAccountNumber, @RefAccountNotPayable", tableVersion);
+                    con.Execute($"dbo.{TableName}_Update @TableVersionId, @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefAccountNumber, @RefAccountNotPayable", tableVersion);
                 }
             }
             catch (Exception e)

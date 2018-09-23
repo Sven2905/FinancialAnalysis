@@ -1,4 +1,4 @@
-﻿<UserControl xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  x:Class="FinancialAnalysis.UserControls.MainControl"
+﻿<UserControl xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dxwuin="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/navigation"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -8,9 +8,13 @@
              xmlns:lc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"  x:Class="FinancialAnalysis.UserControls.MainControl"
              mc:Ignorable="d" 
              dx:ThemeManager.ThemeName="Office2016WhiteSE"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <ViewModels:MainViewModel/>
+    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -33,12 +37,27 @@
             </Canvas>
         </Viewbox>
         <StackPanel Grid.Row="1" Margin="0,200,0,0">
-        <dx:SimpleButton Glyph="{dx:SvgImageSource Uri=/Images/regular/calculator.svg}" Padding="5" GlyphToContentOffset="0" Foreground="#3f729b" Grid.Row="1" Content="Buchungen" dxwuin:Navigation.NavigateTo="BookingControl" VerticalAlignment="Center" Width="180" Height="50" FontSize="20" Margin="2" />
-            <dx:SimpleButton Glyph="{dx:SvgImageSource Uri=/Images/regular/Euro-Sign.svg}" Padding="5" GlyphToContentOffset="0" Foreground="#3f729b" Grid.Row="1" Content="Steuerarten" dxwuin:Navigation.NavigateTo="TaxTypeControl" VerticalAlignment="Center" Width="180" Height="50" FontSize="20" Margin="2" />
-            <dx:SimpleButton Glyph="{dx:SvgImageSource Uri=/Images/regular/Euro-Sign.svg}" Padding="5" GlyphToContentOffset="0" Foreground="#3f729b" Grid.Row="1" Content="Kontenrahmen" dxwuin:Navigation.NavigateTo="CostAccountControl" VerticalAlignment="Center" Width="180" Height="50" FontSize="20" Margin="2" />
+            <dx:SimpleButton Padding="5" GlyphToContentOffset="0" Foreground="#3f729b" Grid.Row="1" Content="Buchungen" dxwuin:Navigation.NavigateTo="BookingControl" VerticalAlignment="Center" Width="220" Height="50" FontSize="20" Margin="2" >
+                <dx:SimpleButton.Glyph>
+                    <dx:SvgImageSource Uri="/Images/regular/calculator.svg"/>
+                </dx:SimpleButton.Glyph>
+            </dx:SimpleButton>
+            <dx:SimpleButton Padding="5" GlyphToContentOffset="0" Foreground="#3f729b" Grid.Row="1" Content="Steuerarten" dxwuin:Navigation.NavigateTo="TaxTypeControl" VerticalAlignment="Center" Width="220" Height="50" FontSize="20" Margin="2" >
+                <dx:SimpleButton.Glyph>
+                    <dx:SvgImageSource Uri="/Images/regular/Euro-Sign.svg"/>
+                </dx:SimpleButton.Glyph>
+            </dx:SimpleButton>
+            <dx:SimpleButton Padding="5" GlyphToContentOffset="0" Foreground="#3f729b" Grid.Row="1" Content="Kontenrahmen" dxwuin:Navigation.NavigateTo="CostAccountControl" VerticalAlignment="Center" Width="220" Height="50" FontSize="20" Margin="2" >
+                <dx:SimpleButton.Glyph>
+                    <dx:SvgImageSource Uri="/Images/regular/Euro-Sign.svg"/>
+                </dx:SimpleButton.Glyph>
+            </dx:SimpleButton>
+            <dx:SimpleButton Padding="5" GlyphToContentOffset="0" Foreground="#3f729b" Grid.Row="1" Content="Kreditor / Debitor" dxwuin:Navigation.NavigateTo="CreditorDebitorControl" VerticalAlignment="Center" Width="220" Height="50" FontSize="20" Margin="2" >
+                <dx:SimpleButton.Glyph>
+                    <dx:SvgImageSource Uri="/Images/regular/Euro-Sign.svg"/>
+                </dx:SimpleButton.Glyph>
+            </dx:SimpleButton>
         </StackPanel>
-        <Grid Grid.Row="1">
-            
-        </Grid>
-</Grid>
+        <Grid Grid.Row="1"/>
+    </Grid>
 </UserControl>

@@ -32,7 +32,7 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
             {
                 StringBuilder sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; SELECT * FROM {TableName} END");
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; SELECT CompanyId, Name, Street, Postcode, City, ContactPerson, UStID, TaxNumber, Phone, Fax, eMail, Website, IBAN, BIC, BankName, FederalState FROM {TableName} END");
                 using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
@@ -77,7 +77,7 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @Id int AS BEGIN SET NOCOUNT ON; SELECT * FROM {TableName} WHERE Id = @Id END");
+                    $"CREATE PROCEDURE [{TableName}_GetById] @CompanyId int AS BEGIN SET NOCOUNT ON; SELECT * FROM {TableName} WHERE CompanyId = @CompanyId END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -99,7 +99,7 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @Id int, @Name nvarchar(50), @Street nvarchar(50), @Postcode int, @City nvarchar(50), @ContactPerson nvarchar(50), @UStID nvarchar(50), @TaxNumber nvarchar(50), @Phone nvarchar(50), @Fax nvarchar(50), @eMail nvarchar(50), @Website nvarchar(50), @IBAN nvarchar(50), @BIC nvarchar(50), @BankName nvarchar(50), @FederalState int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @CompanyId int, @Name nvarchar(50), @Street nvarchar(50), @Postcode int, @City nvarchar(50), @ContactPerson nvarchar(50), @UStID nvarchar(50), @TaxNumber nvarchar(50), @Phone nvarchar(50), @Fax nvarchar(50), @eMail nvarchar(50), @Website nvarchar(50), @IBAN nvarchar(50), @BIC nvarchar(50), @BankName nvarchar(50), @FederalState int " +
                     $"AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} SET " +
                     $"Name = @Name, " +
@@ -117,7 +117,7 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                     $"BIC = @BIC, " +
                     $"BankName = @BankName, " +
                     $"FederalState = @FederalState " +
-                    $"WHERE Id = @Id END");
+                    $"WHERE CompanyId = @CompanyId END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -139,7 +139,7 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @Id int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE Id = @Id END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @CompanyId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE CompanyId = @CompanyId END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

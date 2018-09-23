@@ -1,4 +1,5 @@
-﻿<dx:DXWindow x:Class="FinancialAnalysis.UI.Desktop.MainWindow"
+﻿<dxc:DXWindow
+    x:Class="FinancialAnalysis.UI.Desktop.MainWindow"
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui" 
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -10,18 +11,22 @@
     xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" 
     xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
     xmlns:dxnav="http://schemas.devexpress.com/winfx/2008/xaml/navigation"
-xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/core" 
-             mc:Ignorable="d"
-        dx:ThemeManager.ThemeName="Office2016WhiteSE"
-        DataContext="{Binding Main, Source={StaticResource Locator}}" Background="#FAFAFA"
-        WindowState="Maximized" Title="Finanzanalyse" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen" IsEnabled="{Binding BindableProperty, Source={StaticResource MessageListener}}" Width="1200" Height="800" ResizeMode="CanResizeWithGrip" Loaded="DXWindow_Loaded" >
-    <Grid >
-        <dxb:BarManager ToolbarGlyphSize="Small">
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    mc:Ignorable="d"
+    dxc:ThemeManager.ThemeName="Office2016WhiteSE"
+    Background="#FAFAFA"
+    WindowState="Maximized" 
+    Title="Finanzanalyse" 
+    WindowStyle="ThreeDBorderWindow" 
+    WindowStartupLocation="CenterScreen" 
+    IsEnabled="{Binding BindableProperty, Source={StaticResource MessageListener}}" Width="1200" Height="800" ResizeMode="CanResizeWithGrip" Loaded="DXWindow_Loaded" >
+    <Grid Background="White">
+        <!--<dxb:BarManager ToolbarGlyphSize="Small">
             <dxb:BarManager.Bars>
                 <dxb:Bar Caption="File" IsMainMenu="True">
                     <dxb:BarSubItem x:Name="biFile" Content="File">
-                        <dxb:BarButtonItem x:Name="biFileOpen" Content="Open" Glyph="{dx:DXImage Image=Open_16x16.png}" LargeGlyph="{dx:DXImage Image=Open_32x32.png}" Command="{Binding OpenFileCommand}" />
-                        <dxb:BarButtonItem x:Name="biFileNew" Content="New" Glyph="{dx:DXImage Image=New_16x16.png}" LargeGlyph="{dx:DXImage Image=New_32x32.png}" Command="{Binding NewFileCommand}" />
+                        <dxb:BarButtonItem x:Name="biFileOpen" Content="Open" Glyph="{dxc:DXImage Image=Open_16x16.png}" LargeGlyph="{dxc:DXImage Image=Open_32x32.png}" Command="{Binding OpenFileCommand}" />
+                        <dxb:BarButtonItem x:Name="biFileNew" Content="New" Glyph="{dxc:DXImage Image=New_16x16.png}" LargeGlyph="{dxc:DXImage Image=New_32x32.png}" Command="{Binding NewFileCommand}" />
                     </dxb:BarSubItem>
                     <dxb:BarSubItem x:Name="biEdit" Content="Edit">
                         <dxb:BarButtonItemLink BarItemName="biCut"/>
@@ -35,15 +40,15 @@ xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/core"
                     </dxb:Bar.DockInfo>
                     <dxb:BarStaticItem x:Name="biRow" Content="Row:" ShowBorder="False"/>
                     <dxb:BarStaticItem x:Name="biRowValue" Content="1" ShowBorder="False"/>
-                    <dxb:BarCheckItem x:Name="biLeft" Alignment="Far" Glyph="{dx:DXImage Image=AlignLeft_16x16.png}" GroupIndex="1" IsChecked="True" Command="{Binding SetAlignmentCommand}" CommandParameter="{x:Static TextAlignment.Left}" />
-                    <dxb:BarCheckItem x:Name="biCenter" Alignment="Far" Glyph="{dx:DXImage Image=AlignCenter_16x16.png}" GroupIndex="1" Command="{Binding SetAlignmentCommand}" CommandParameter="{x:Static TextAlignment.Center}" />
-                    <dxb:BarCheckItem x:Name="biRight" Alignment="Far" Glyph="{dx:DXImage Image=AlignRight_16x16.png}" GroupIndex="1" Command="{Binding SetAlignmentCommand}" CommandParameter="{x:Static TextAlignment.Right}" />
+                    <dxb:BarCheckItem x:Name="biLeft" Alignment="Far" Glyph="{dxc:DXImage Image=AlignLeft_16x16.png}" GroupIndex="1" IsChecked="True" Command="{Binding SetAlignmentCommand}" CommandParameter="{x:Static TextAlignment.Left}" />
+                    <dxb:BarCheckItem x:Name="biCenter" Alignment="Far" Glyph="{dxc:DXImage Image=AlignCenter_16x16.png}" GroupIndex="1" Command="{Binding SetAlignmentCommand}" CommandParameter="{x:Static TextAlignment.Center}" />
+                    <dxb:BarCheckItem x:Name="biRight" Alignment="Far" Glyph="{dxc:DXImage Image=AlignRight_16x16.png}" GroupIndex="1" Command="{Binding SetAlignmentCommand}" CommandParameter="{x:Static TextAlignment.Right}" />
                 </dxb:Bar>
             </dxb:BarManager.Bars>
-        </dxb:BarManager>
+        </dxb:BarManager>-->
 
-        <dxwui:NavigationFrame Source="MainControl" AnimationType="SlideHorizontal" Margin="0,25,0,25"/>
+        <dxwui:NavigationFrame Source="MainControl" AnimationType="SlideHorizontal" />
 
         <!--<dx:SimpleButton Glyph="{dx:SvgImageSource Uri=/Images/regular/times.svg}" Grid.Column="1" Width="50" HorizontalAlignment="Right" Command="{Binding CloseCommand}" />-->
     </Grid>
-</dx:DXWindow>
+</dxc:DXWindow>

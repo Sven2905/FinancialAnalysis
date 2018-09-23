@@ -1,5 +1,4 @@
 ﻿using DevExpress.Mvvm;
-using GalaSoft.MvvmLight;
 using DevExpress.Xpf.Grid;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models.Accounting;
@@ -8,9 +7,9 @@ using System.Windows.Input;
 using Utilities;
 using System.Collections.Generic;
 
-namespace FinancialAnalysis.Logic.ViewModel
+namespace FinancialAnalysis.Logic.ViewModels
 {
-    public class TaxTypeViewModel : GalaSoft.MvvmLight.ViewModelBase
+    public class TaxTypeViewModel : ViewModelBase
     {
         public TaxType SelectedItem { get; set; }
         public ObservableCollection<TaxType> TaxTypes { get; set; }

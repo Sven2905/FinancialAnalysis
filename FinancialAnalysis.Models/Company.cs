@@ -1,8 +1,12 @@
-﻿namespace FinancialAnalysis.Models
+﻿using DevExpress.Mvvm;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+namespace FinancialAnalysis.Models
 {
-    public class Company
+    public class Company : BindableBase
     {
-        public int Id { get; set; }
+        public int CompanyId { get; set; }
         public string Name { get; set; }
         public string Street { get; set; }
         public int Postcode { get; set; }
@@ -18,5 +22,6 @@
         public string BIC { get; set; }
         public string BankName { get; set; }
         public FederalState FederalState { get; set; }
+        public string Address { get { return $"{Street}, {Postcode} {City}"; } }
     }
 }

@@ -40,7 +40,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             try
             {
                 SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(Id int IDENTITY(1,1) PRIMARY KEY,Description nvarchar(50) NOT NULL, DescriptionShort nvarchar(50) NOT NULL, AmountOfTax decimal NOT NULL, TaxCategory int NOT NULL, RefAccountNumber int, RefAccountNotPayable int )";
+                var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(TaxTypeId int IDENTITY(1,1) PRIMARY KEY,Description nvarchar(50) NOT NULL, DescriptionShort nvarchar(50) NOT NULL, AmountOfTax decimal NOT NULL, TaxCategory int NOT NULL, RefAccountNumber int, RefAccountNotPayable int )";
 
                 using (SqlCommand command = new SqlCommand(commandStr, con))
                 {
@@ -113,7 +113,7 @@ namespace FinancialAnalysis.Datalayer.Tables
                 {
                     foreach (var taxType in taxTypes)
                     {
-                        con.Query($"dbo.{TableName}_Insert @DescriptionShort, @AmountOfTax, @TaxCategory, @RefAccountNumber, @RefAccountNotPayable", taxType);
+                        Insert(taxType);
                     }
                 }
             }
@@ -135,7 +135,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<TaxType>($"dbo.{TableName}_GetById @Id", new { Id = id });
+                    output = con.QuerySingleOrDefault<TaxType>($"dbo.{TableName}_GetById @TaxTypeId", new { TaxTypeId = id });
                 }
             }
             catch (Exception e)
@@ -151,7 +151,7 @@ namespace FinancialAnalysis.Datalayer.Tables
         /// <param name="taxType"></param>
         public void UpdateOrInsert(TaxType taxType)
         {
-            if (taxType.Id == 0 || GetById(taxType.Id) is null)
+            if (taxType.TaxTypeId == 0 || GetById(taxType.TaxTypeId) is null)
             {
                 Insert(taxType);
                 return;
@@ -178,7 +178,7 @@ namespace FinancialAnalysis.Datalayer.Tables
         /// <param name="taxType"></param>
         public void Update(TaxType taxType)
         {
-            if (taxType.Id == 0 || GetById(taxType.Id) is null)
+            if (taxType.TaxTypeId == 0 || GetById(taxType.TaxTypeId) is null)
             {
                 return;
             }
@@ -187,7 +187,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @Id, @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefAccountNumber, @RefAccountNotPayable", taxType);
+                    con.Execute($"dbo.{TableName}_Update @TaxTypeId, @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefAccountNumber, @RefAccountNotPayable", taxType);
                 }
             }
             catch (Exception e)
@@ -206,7 +206,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @Id", new { Id = id });
+                    con.Execute($"dbo.{TableName}_Delete @TaxTypeId", new { TaxTypeId = id });
                 }
             }
             catch (Exception e)
@@ -221,7 +221,7 @@ namespace FinancialAnalysis.Datalayer.Tables
         /// <param name="id"></param>
         public void Delete(TaxType taxType)
         {
-            Delete(taxType.Id);
+            Delete(taxType.TaxTypeId);
         }
 
         /// <summary>

@@ -1,15 +1,14 @@
-﻿using FinancialAnalysis.Datalayer;
+﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinancialAnalysis.Logic.ViewModel
+namespace FinancialAnalysis.Logic.ViewModels
 {
     public class KontenrahmenViewModel : ViewModelBase
     {
@@ -26,11 +25,11 @@ namespace FinancialAnalysis.Logic.ViewModel
         public KontenrahmenViewModel()
         {
             RefreshCostAccounts();
-            RefreshCommand = new RelayCommand(() =>
+            RefreshCommand = new DelegateCommand(() =>
             {
                 RefreshCostAccounts();
             });
-            SelectedCommand = new RelayCommand(() =>
+            SelectedCommand = new DelegateCommand(() =>
             {
                 SendSelectedToParent();
                 CloseAction();
@@ -66,7 +65,7 @@ namespace FinancialAnalysis.Logic.ViewModel
         public void SendSelectedToParent()
         {
             if (SelectedItem != null)
-                MessengerInstance.Send<SelectedCostAccount>(new SelectedCostAccount() { AccountingType = AccountingType, CostAccount = SelectedItem });
+                Messenger.Default.Send(new SelectedCostAccount() { AccountingType = AccountingType, CostAccount = SelectedItem });
         }
 
         #endregion Methods
@@ -74,8 +73,8 @@ namespace FinancialAnalysis.Logic.ViewModel
         #region Properties
 
         public List<CostAccount> FilteredList { get; set; }
-        public RelayCommand RefreshCommand { get; }
-        public RelayCommand SelectedCommand { get; }
+        public DelegateCommand RefreshCommand { get; }
+        public DelegateCommand SelectedCommand { get; }
 
         public string Filter
         {

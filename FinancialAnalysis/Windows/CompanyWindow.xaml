@@ -1,0 +1,37 @@
+﻿<dxc:DXWindow
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="FinancialAnalysis.CompanyWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
+    xmlns:dxa="http://schemas.devexpress.com/winfx/2008/xaml/accordion"
+    xmlns:local="clr-namespace:FinancialAnalysis"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    mc:Ignorable="d"
+    Title="Firmen" Height="450" Width="800" ShowIcon="False" ShowTitle="False" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Topmost="True">
+    <dxc:DXWindow.DataContext>
+        <ViewModels:CompanyViewModel/>
+    </dxc:DXWindow.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="50" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" >
+            <dxc:SimpleButton Content="Neu" />
+            <dxc:SimpleButton Content="Speichern" />
+            <dxc:SimpleButton Content="Löschen" />
+        </StackPanel>
+        <dxa:AccordionControl ShowSearchControl="True" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding CostAccountCategories}" DisplayMemberPath="Description" ChildrenPath="SubCategories" />
+
+
+    </Grid>
+</dxc:DXWindow>

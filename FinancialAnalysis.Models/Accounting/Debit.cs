@@ -1,14 +1,13 @@
-﻿using System;
+﻿using DevExpress.Mvvm;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Models.Accounting
 {
-    public class Debit
+    public class Debit : BindableBase
     {
         public int DebitId { get; set; }
         public decimal Amount { get; set; }

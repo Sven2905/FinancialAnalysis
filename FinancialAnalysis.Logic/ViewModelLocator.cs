@@ -15,8 +15,6 @@
 using CommonServiceLocator;
 using FinancialAnalysis.Logic.Model.ViewModel;
 using FinancialAnalysis.Logic.ViewModel;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Ioc;
 
 namespace FinancialAnalysis.Logic
 {
@@ -50,6 +48,7 @@ namespace FinancialAnalysis.Logic
             SimpleIoc.Default.Register<DialogViewModel>();
             SimpleIoc.Default.Register<TaxTypeViewModel>();
             SimpleIoc.Default.Register<CostAccountViewModel>();
+            SimpleIoc.Default.Register<CreditorDebitorViewModel>();
         }
 
         public MainViewModel Main
@@ -97,6 +96,14 @@ namespace FinancialAnalysis.Logic
             get
             {
                 return ServiceLocator.Current.GetInstance<CostAccountViewModel>();
+            }
+        }
+
+        public CreditorDebitorViewModel CreditorDebitor
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<CreditorDebitorViewModel>();
             }
         }
 
