@@ -1,4 +1,5 @@
-﻿using FinancialAnalysis.Logic.ViewModels;
+﻿using DevExpress.Xpf.Core;
+using FinancialAnalysis.Logic.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace FinancialAnalysis
     /// <summary>
     /// Interaktionslogik für Kontenrahmen.xaml
     /// </summary>
-    public partial class KontenrahmenWindow : Window
+    public partial class KontenrahmenWindow : DXWindow
     {
         public KontenrahmenWindow()
         {

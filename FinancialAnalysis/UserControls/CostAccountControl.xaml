@@ -39,14 +39,14 @@
         </dxwui:PageAdornerControl>
 
 
-        <dxa:AccordionControl Grid.Row="1" Grid.Column="0" Margin="10,0" Foreground="#3F729B" ShowSearchControl="True" ItemsSource="{Binding CostAccountCategoriesHierachical}" DisplayMemberPath="Description" ChildrenPath="SubCategories" SelectedItem="{Binding SelectedCategory}"/>
+        <dxa:AccordionControl Grid.Row="1" Grid.Column="0" Margin="10,0" Foreground="#3F729B" ShowSearchControl="True" ItemsSource="{Binding CostAccountCategoriesHierachical}" DisplayMemberPath="Description" ChildrenPath="SubCategories" SelectedItem="{Binding SelectedCategory}" />
 
         <TextBlock Grid.Row="1" Grid.Column="1" Margin="20,0,0,0" FontSize="16" Foreground="#3F729B" Text="Kontenrahmen:" />
 
         <Grid Grid.Column="1" Grid.Row="1" Margin="20,30,20,20">
             <dxg:GridControl ItemsSource="{Binding FilteredCostAccounts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCostAccount}" SelectionMode="Row">
                 <dxg:GridControl.View>
-                    <dxg:TableView BestFitMode="Smart" EditFormColumnCount="2" EditFormShowMode="None"  NewItemRowPosition="Top" AutoWidth="True" ShowGroupPanel="False" ShowTotalSummary="True" VerticalScrollbarVisibility="Auto" >
+                    <dxg:TableView BestFitMode="Smart" Foreground="#3F729B" EditFormColumnCount="2" EditFormShowMode="None"  NewItemRowPosition="Top" AutoWidth="True" ShowGroupPanel="False" ShowTotalSummary="True" VerticalScrollbarVisibility="Auto" >
                         <dxg:TableView.InputBindings>
                             <KeyBinding Key="Delete" >
                                 <dxmvvm:Interaction.Behaviors>

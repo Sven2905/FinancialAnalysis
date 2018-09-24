@@ -86,7 +86,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                     _SelectedCostAccount.PropertyChanged -= _SelectedCostAccount_PropertyChanged;
                 }
 
-                _SelectedCostAccount = value; _SelectedCostAccount.PropertyChanged += _SelectedCostAccount_PropertyChanged;
+                _SelectedCostAccount = value; if(_SelectedCostAccount != null)_SelectedCostAccount.PropertyChanged += _SelectedCostAccount_PropertyChanged;
             }
         }
 

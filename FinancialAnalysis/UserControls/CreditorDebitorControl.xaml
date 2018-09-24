@@ -33,7 +33,7 @@
     </UserControl.DataContext>
 
     <dxmvvm:Interaction.Behaviors>
-        <dxmvvm:NotificationService UseWin8NotificationsIfAvailable="False" PredefinedNotificationDuration="Long" PredefinedNotificationTemplate="ShortHeaderAndLongText"/>
+        <dxmvvm:NotificationService UseWin8NotificationsIfAvailable="False" PredefinedNotificationDuration="Default" PredefinedNotificationTemplate="ShortHeaderAndLongText"/>
         <dx:WindowedDocumentUIService x:Name="SingleObjectDocumentManagerService"/>
     </dxmvvm:Interaction.Behaviors>
 
