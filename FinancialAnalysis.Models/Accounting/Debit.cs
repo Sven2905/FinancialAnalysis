@@ -11,9 +11,8 @@ namespace FinancialAnalysis.Models.Accounting
     {
         public int DebitId { get; set; }
         public decimal Amount { get; set; }
-        public int KontenrahmenId { get; set; }
-        public Kontenrahmen Kontenrahmen { get; set; }
+        public int RefCostAccountId { get; set; }
+        public CostAccount CostAccount { get; set; }
         public int BookingId { get; set; }
-        public Booking Booking { get; set; }
     }
 }

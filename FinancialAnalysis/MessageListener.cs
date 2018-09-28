@@ -1,6 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Logic.ViewModels;
+using FinancialAnalysis.Windows;
 
 namespace FinancialAnalysis.UI
 {
@@ -58,6 +59,18 @@ namespace FinancialAnalysis.UI
                     var window = new CompanyWindow();
                     window.ShowDialog();
                 });
+            Messenger.Default.Register<OpenPDFViewerWindowMessage>(this,
+                 msg =>
+                 {
+                     var window = new PDFViewerWindow();
+                     var model = window.DataContext as PDFViewerViewModel;
+                     if (model != null)
+                     {
+                         model.ScannedDocumentId = msg.ScannedDocumentId;
+                     }
+
+                     window.ShowDialog();
+                 });
         }
 
         #endregion

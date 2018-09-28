@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using FinancialAnalysis.Datalayer.StoredProcedures;
-using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using Serilog;
 using System;
@@ -8,17 +7,19 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Datalayer.Tables
 {
-    public class Companies : ITable
+    public class ScannedDocuments : ITable
     {
         public string TableName { get; }
-        private CompaniesStoredProcedures sp = new CompaniesStoredProcedures();
+        private ScannedDocumentsStoredProcedures sp = new ScannedDocumentsStoredProcedures();
 
-        public Companies()
+        public ScannedDocuments()
         {
-            TableName = "Companies";
+            TableName = "ScannedDocuments";
             CheckAndCreateTable();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -37,23 +38,8 @@ namespace FinancialAnalysis.Datalayer.Tables
             try
             {
                 SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
-                                 $"CompanyId int IDENTITY(1,1) PRIMARY KEY," +
-                                 $"Name nvarchar(50) NOT NULL," +
-                                 $"Street nvarchar(50) NOT NULL," +
-                                 $"Postcode int NOT NULL," +
-                                 $"City nvarchar(50) NOT NULL," +
-                                 $"ContactPerson nvarchar(50)," +
-                                 $"UStID nvarchar(50)," +
-                                 $"TaxNumber nvarchar(50)," +
-                                 $"Phone nvarchar(50)," +
-                                 $"Fax nvarchar(50)," +
-                                 $"eMail nvarchar(50)," +
-                                 $"Website nvarchar(50)," +
-                                 $"IBAN nvarchar(50)," +
-                                 $"BIC nvarchar(50)," +
-                                 $"BankName nvarchar(50)," +
-                                 $"FederalState int)";
+                var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') " +
+                    $"CREATE TABLE {TableName}(ScannedDocumentId int IDENTITY(1,1) PRIMARY KEY, Content varbinary(MAX), FileName nvarchar(150) NOT NULL, Date datetime NOT NULL, RefBookingId int NOT NULL)";
 
                 using (SqlCommand command = new SqlCommand(commandStr, con))
                 {
@@ -69,17 +55,17 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Returns all Company records
+        /// Returns all ScannedDocument records
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Company> GetAll()
+        public IEnumerable<ScannedDocument> GetAll()
         {
-            IEnumerable<Company> output = new List<Company>();
+            IEnumerable<ScannedDocument> output = new List<ScannedDocument>();
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<Company>($"dbo.{TableName}_GetAll");
+                    output = con.Query<ScannedDocument>($"dbo.{TableName}_GetAll");
                 }
 
             }
@@ -91,63 +77,63 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Inserts the Company item
+        /// Inserts the ScannedDocument item
         /// </summary>
-        /// <param name="Company"></param>
+        /// <param name="scannedDocument"></param>
         /// <returns>Id of inserted item</returns>
-        public int Insert(Company company)
+        public int Insert(ScannedDocument scannedDocument)
         {
             int id = 0;
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState", company);
-                    id = result.Single();
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @Content, @FileName, @Date, @RefBookingId", scannedDocument);
+                    return result.Single();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Insert item' from table '{TableName}'", e);
+            }
+            return id;
+        }
+
+        /// <summary>
+        /// Inserts the list of CostAccountCategory items
+        /// </summary>
+        /// <param name="scannedDocuments"></param>
+        public void Insert(IEnumerable<ScannedDocument> scannedDocuments)
+        {
+            try
+            {
+                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    foreach (var scannedDocument in scannedDocuments)
+                    {
+                        Insert(scannedDocument);
+                    }
                 }
             }
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'Insert item' into table '{TableName}'", e);
             }
-            return id;
         }
 
         /// <summary>
-        /// Inserts the list of Company items
-        /// </summary>
-        /// <param name="company"></param>
-        public void Insert(IEnumerable<Company> companies)
-        {
-            try
-            {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    foreach (var company in companies)
-                    {
-                        con.Query($"dbo.{TableName}_Insert @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState", company);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while 'Insert items' into table '{TableName}'", e);
-            }
-        }
-
-        /// <summary>
-        /// Returns Company by Id
+        /// Returns ScannedDocument by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Company GetById(int id)
+        public ScannedDocument GetById(int id)
         {
-            Company output = new Company();
+            ScannedDocument output = new ScannedDocument();
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<Company>($"dbo.{TableName}_GetById @CompanyId", new { CompanyId = id });
+                    output = con.QuerySingleOrDefault<ScannedDocument>($"dbo.{TableName}_GetById @ScannedDocumentId", new { ScannedDocumentId = id });
                 }
             }
             catch (Exception e)
@@ -158,39 +144,39 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Update Company, if not exist, insert it
+        /// Update ScannedDocument, if not exist, insert it
         /// </summary>
-        /// <param name="company"></param>
-        public void UpdateOrInsert(Company company)
+        /// <param name="scannedDocument"></param>
+        public void UpdateOrInsert(ScannedDocument scannedDocument)
         {
-            if (company.CompanyId == 0 || GetById(company.CompanyId) is null)
+            if (scannedDocument.ScannedDocumentId == 0 || GetById(scannedDocument.ScannedDocumentId) is null)
             {
-                Insert(company);
+                Insert(scannedDocument);
                 return;
             }
 
-            Update(company);
+            Update(scannedDocument);
         }
 
         /// <summary>
-        /// Update Companies, if not exist insert them
+        /// Update ScannedDocuments, if not exist insert them
         /// </summary>
-        /// <param name="companies"></param>
-        public void UpdateOrInsert(IEnumerable<Company> companies)
+        /// <param name="scannedDocuments"></param>
+        public void UpdateOrInsert(IEnumerable<ScannedDocument> scannedDocuments)
         {
-            foreach (var company in companies)
+            foreach (var scannedDocument in scannedDocuments)
             {
-                UpdateOrInsert(company);
+                UpdateOrInsert(scannedDocument);
             }
         }
 
         /// <summary>
-        /// Update Company
+        /// Update CostAccountCategory
         /// </summary>
-        /// <param name="company"></param>
-        public void Update(Company company)
+        /// <param name="scannedDocument"></param>
+        public void Update(ScannedDocument scannedDocument)
         {
-            if (company.CompanyId == 0 || GetById(company.CompanyId) is null)
+            if (scannedDocument.ScannedDocumentId == 0 || GetById(scannedDocument.ScannedDocumentId) is null)
             {
                 return;
             }
@@ -199,7 +185,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @CompanyId, @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState", company);
+                    con.Execute($"dbo.{TableName}_Update @ScannedDocumentId, @Content, @FileName, @Date, @RefBookingId", scannedDocument);
                 }
             }
             catch (Exception e)
@@ -209,7 +195,7 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Delete Company by Id
+        /// Delete CostAccountCategory by Id
         /// </summary>
         /// <param name="id"></param>
         public void Delete(int id)
@@ -218,7 +204,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @CompanyId", new { CompanyId = id });
+                    con.Execute($"dbo.{TableName}_Delete @ScannedDocumentId", new { ScannedDocumentId = id });
                 }
             }
             catch (Exception e)
@@ -228,24 +214,37 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Checks if Company has Creditor or Debitor
+        /// Delete CostAccountCategory by Item
         /// </summary>
         /// <param name="id"></param>
-        public bool IsCompanyInUse(int id)
+        public void Delete(CostAccountCategory costAccountCategory)
         {
-            bool IsInUse = true;
+            Delete(costAccountCategory.CostAccountCategoryId);
+        }
+
+        public void AddReferences()
+        {
+            AddBookingsReference();
+        }
+
+        private void AddBookingsReference()
+        {
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr = $"IF(OBJECT_ID('FK_ScannedDocuments_Bookings', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_ScannedDocuments_Booking FOREIGN KEY(RefBookingId) REFERENCES Bookings(BookingId)";
+
+                using (SqlCommand command = new SqlCommand(commandStr, con))
                 {
-                    IsInUse = con.ExecuteScalar<bool>($"dbo.{TableName}_IsCompanyInUse @CompanyId", new { CompanyId = id });
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
                 }
             }
             catch (Exception e)
             {
-                Log.Error($"Exception occured while 'IsCompanyInUse' from table '{TableName}'", e);
+                Log.Error($"Exception occured while creating reference between '{TableName}' and Bookings", e);
             }
-            return IsInUse;
         }
     }
 }

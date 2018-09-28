@@ -11,7 +11,6 @@ namespace FinancialAnalysis.Logic.ViewModels
 {
     public class AccountingViewModel : ViewModelBase
     {
-        public ObservableCollection<Booking> Bookings { get; set; }
-        public ObservableCollection<Kontenrahmen> Kontenrahmen { get; set; }
+        public ObservableCollection<CostAccount> CostAccounts { get; set; }
     }
 }

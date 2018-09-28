@@ -4,7 +4,6 @@ using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
-using System;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -209,8 +208,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             using (DataLayer db = new DataLayer())
             {
                 db.Creditors.Delete(Creditor.CreditorId);
-                db.Companies.Delete(Creditor.Company.CompanyId);
-                db.CostAccounts.Delete(Creditor.CostAccount.CostAccountId);
             }
             RefreshData();
         }
@@ -220,8 +217,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             using (DataLayer db = new DataLayer())
             {
                 db.Debitors.Delete(Debitor.DebitorId);
-                db.Companies.Delete(Debitor.Company.CompanyId);
-                db.CostAccounts.Delete(Debitor.CostAccount.CostAccountId);
             }
             RefreshData();
         }
@@ -279,6 +274,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                     Creditor.Company = new Company();
                 }
                 Creditor.Company.PropertyChanged += CreditorCompany_PropertyChanged;
+
                 ValidateCreditor();
             }
             else if (SelectedTab == 1)
@@ -290,6 +286,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                     Debitor.Company = new Company();
                 }
                 Debitor.Company.PropertyChanged += DebitorCompany_PropertyChanged;
+
                 ValidateSaveDebitor();
             }
         }
@@ -331,13 +328,17 @@ namespace FinancialAnalysis.Logic.ViewModels
                 Creditor = new Creditor();
             }
 
-            if (Creditor.Company.CompanyId != 0)
+            if (Creditor.CreditorId != 0)
             {
-                DeleteCreditorButtonEnabled = true;
-                return;
+                using (DataLayer db = new DataLayer())
+                {
+                    DeleteCreditorButtonEnabled = !db.Creditors.IsCreditorInUse(Creditor.CreditorId);
+                }
             }
-
-            DeleteCreditorButtonEnabled = false;
+            else
+            {
+                DeleteCreditorButtonEnabled = false;
+            }
         }
 
         private void ValidateSaveDebitor()
@@ -363,13 +364,17 @@ namespace FinancialAnalysis.Logic.ViewModels
                 Debitor = new Debitor();
             }
 
-            if (Debitor.Company.CompanyId != 0)
+            if (Debitor.DebitorId != 0)
             {
-                DeleteDebitorButtonEnabled = true;
-                return;
+                using (DataLayer db = new DataLayer())
+                {
+                    DeleteDebitorButtonEnabled = !db.Debitors.IsDebitorInUse(Debitor.DebitorId);
+                }
             }
-
-            DeleteDebitorButtonEnabled = false;
+            else
+            {
+                DeleteDebitorButtonEnabled = false;
+            }
         }
         #endregion Validation Methods
 

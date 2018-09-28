@@ -7,7 +7,7 @@
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic" x:Class="FinancialAnalysis.DialogWindow"
         mc:Ignorable="d"
-         dx:ThemeManager.ThemeName="Office2016WhiteSE"
+        dx:ThemeManager.ThemeName="Office2016WhiteSE"
         Title="{Binding Title}" Height="200" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.DataContext>
         <ViewModels:DialogViewModel/>

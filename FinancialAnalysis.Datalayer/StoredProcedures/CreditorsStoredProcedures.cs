@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Datalayer.StoredProcedures
 {
@@ -27,6 +23,7 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
             GetById();
             UpdateData();
             DeleteData();
+            IsCreditorInUse();
         }
 
         private void GetAllData()
@@ -41,7 +38,8 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                     $"a.CostAccountId, a.Description, a.AccountNumber, a.RefTaxTypeId, a.RefCostAccountCategoryId, a.IsVisible " +
                     $"FROM {TableName} c " +
                     $"INNER JOIN Companies co ON RefCompanyId = co.CompanyId " +
-                    $"INNER JOIN CostAccounts a ON RefCostAccountId = a.CostAccountId END");
+                    $"INNER JOIN CostAccounts a ON RefCostAccountId = a.CostAccountId " +
+                    $"ORDER BY a.AccountNumber END");
                 using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
@@ -136,6 +134,34 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_Delete] @CreditorId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE CreditorId = @CreditorId END");
+                using (SqlConnection connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void IsCreditorInUse()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_IsCreditorInUse", DatabaseNames.FinancialAnalysisDB))
+            {
+                StringBuilder sbSP = new StringBuilder();
+
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_IsCreditorInUse] @CreditorId int AS " +
+                    $"SELECT CASE WHEN EXISTS ( " +
+                    $"SELECT * FROM {TableName} " +
+                    $"RIGHT JOIN CostAccounts ON {TableName}.RefCostAccountId = CostAccounts.CostAccountId " +
+                    $"WHERE CreditorId = @CreditorId) " +
+                    $"THEN CAST(1 AS BIT) " +
+                    $"ELSE CAST(0 AS BIT) END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
              xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
              xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
              xmlns:lc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
@@ -16,7 +17,7 @@
              xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic" x:Class="FinancialAnalysis.UserControls.BookingControl"
              mc:Ignorable="d"
              dx:ThemeManager.ThemeName="Office2016WhiteSE"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="900" d:DesignWidth="1600">
     <UserControl.DataContext>
         <ViewModels:BookingViewModel/>
     </UserControl.DataContext>
@@ -162,12 +163,25 @@
                     <dxmvvm:EnumItemsSourceBehavior EnumType="{x:Type models:GrossNetType}"/>
                 </dxmvvm:Interaction.Behaviors>
             </dxe:ComboBoxEdit>
-            <dxe:ListBoxEdit Grid.Column="7" Grid.Row="2" Margin="10,3,45,3" Width="250" HorizontalAlignment="Left" >
+            <dxe:ListBoxEdit Grid.Column="7" Grid.Row="2" Margin="10,3,45,3" Height="500" HorizontalAlignment="Left" ItemsSource="{Binding ScannedDocuments}" SelectedItem="{Binding SelectedScannedDocument}" >
+                <dxmvvm:Interaction.Behaviors>
+                    <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding DoubleClickListBoxCommand}" PassEventArgsToCommand="True"/>
+                </dxmvvm:Interaction.Behaviors>
                 <dxe:ListBoxEdit.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Vertical"/>
+                        <StackPanel Orientation="Vertical" />
                     </ItemsPanelTemplate>
                 </dxe:ListBoxEdit.ItemsPanel>
+                <dxe:ListBoxEdit.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ToolTip="{Binding ToolTip}">
+                        <StackPanel Orientation="Vertical">
+                            <svgc:SvgViewbox Margin="5" Height="50" Width="50" Stretch="Uniform" Source="/Images/light/file-pdf.svg" HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding FileName}" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </dxe:ListBoxEdit.ItemTemplate>
             </dxe:ListBoxEdit>
         </Grid>
         

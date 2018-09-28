@@ -17,6 +17,10 @@ namespace FinancialAnalysis.Datalayer
         public CostAccounts CostAccounts { get; set; } = new CostAccounts();
         public Creditors Creditors { get; set; } = new Creditors();
         public Debitors Debitors { get; set; } = new Debitors();
+        public Debits Debits { get; set; } = new Debits();
+        public Credits Credits { get; set; } = new Credits();
+        public Bookings Bookings { get; set; } = new Bookings();
+        public ScannedDocuments ScannedDocuments { get; set; } = new ScannedDocuments();
 
         public void Dispose()
         {
@@ -43,6 +47,10 @@ namespace FinancialAnalysis.Datalayer
             CostAccounts.CheckAndCreateStoredProcedures();
             Creditors.CheckAndCreateStoredProcedures();
             Debitors.CheckAndCreateStoredProcedures();
+            Credits.CheckAndCreateStoredProcedures();
+            Debits.CheckAndCreateStoredProcedures();
+            ScannedDocuments.CheckAndCreateStoredProcedures();
+            Bookings.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()
@@ -50,6 +58,9 @@ namespace FinancialAnalysis.Datalayer
             CostAccounts.AddReferences();
             Creditors.AddReferences();
             Debitors.AddReferences();
+            Credits.AddReferences();
+            Debits.AddReferences();
+            ScannedDocuments.AddReferences();
         }
     }
 }

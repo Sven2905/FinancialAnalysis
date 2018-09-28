@@ -57,7 +57,6 @@
     <Compile Include="Accounting\CostCenter.cs" />
     <Compile Include="Accounting\Credit.cs" />
     <Compile Include="Accounting\Debit.cs" />
-    <Compile Include="Accounting\Kontenrahmen.cs" />
     <Compile Include="Accounting\ScannedDocument.cs" />
     <Compile Include="Accounting\TaxType.cs" />
     <Compile Include="Company.cs" />

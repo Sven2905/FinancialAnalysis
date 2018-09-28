@@ -14,6 +14,7 @@
     xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
     xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic" x:Class="FinancialAnalysis.CompanyWindow"
     mc:Ignorable="d"
+    dx:ThemeManager.ThemeName="Office2016WhiteSE"
     Title="Firmen" Height="800" Width="800" ShowIcon="False" ShowTitle="False" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Topmost="True">
 
     <dx:DXWindow.Resources>
@@ -62,26 +63,26 @@
                     <TextBlock Text="Anschrift" Foreground="#3f729b" FontWeight="Bold" />
                 </dxlc:LayoutGroup.Header>
                 <dxlc:LayoutItem Label="Firma">
-                    <dxe:TextEdit Text="{Binding Creditor.Company.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                    <dxe:TextEdit Text="{Binding SelectedCompany.Name, UpdateSourceTrigger=PropertyChanged}"/>
                 </dxlc:LayoutItem>
                 <dxlc:LayoutItem Label="Strasse">
-                    <dxe:TextEdit Text="{Binding Creditor.Company.Street, UpdateSourceTrigger=PropertyChanged}"/>
+                    <dxe:TextEdit Text="{Binding SelectedCompany.Street, UpdateSourceTrigger=PropertyChanged}"/>
                 </dxlc:LayoutItem>
                 <dxlc:LayoutGroup>
                     <dxlc:LayoutItem Label="Postleitzahl" Width="100">
-                        <dxe:TextEdit Text="{Binding Creditor.Company.Postcode, UpdateSourceTrigger=PropertyChanged}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.Postcode, UpdateSourceTrigger=PropertyChanged}"/>
                     </dxlc:LayoutItem>
                     <dxlc:LayoutItem Label="Ort">
-                        <dxe:TextEdit Text="{Binding Creditor.Company.City, UpdateSourceTrigger=PropertyChanged}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.City, UpdateSourceTrigger=PropertyChanged}"/>
                     </dxlc:LayoutItem>
                 </dxlc:LayoutGroup>
                 <dxlc:LayoutGroup>
                     <dxlc:LayoutItem Label="Ansprechpartner">
-                        <dxe:TextEdit Text="{Binding Creditor.Company.ContactPerson}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.ContactPerson}"/>
                     </dxlc:LayoutItem>
                 </dxlc:LayoutGroup>
                 <dxlc:LayoutItem Label="Bundesland">
-                    <dxe:ComboBoxEdit ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:FederalState}, SplitNames=True}" EditValue="Creditor.Company.FederalState"/>
+                    <dxe:ComboBoxEdit ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:FederalState}, SplitNames=True}" EditValue="SelectedCompany.FederalState"/>
                 </dxlc:LayoutItem>
             </dxlc:LayoutGroup>
 
@@ -91,15 +92,15 @@
                 </dxlc:LayoutGroup.Header>
                 <dxlc:LayoutGroup>
                     <dxlc:LayoutItem Label="Bank">
-                        <dxe:TextEdit Text="{Binding Creditor.Company.BankName}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.BankName}"/>
                     </dxlc:LayoutItem>
                 </dxlc:LayoutGroup>
                 <dxlc:LayoutGroup>
                     <dxlc:LayoutItem Label="IBAN">
-                        <dxe:TextEdit Text="{Binding Creditor.Company.IBAN}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.IBAN}"/>
                     </dxlc:LayoutItem>
                     <dxlc:LayoutItem Label="BIC">
-                        <dxe:TextEdit Text="{Binding Creditor.Company.BIC}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.BIC}"/>
                     </dxlc:LayoutItem>
                 </dxlc:LayoutGroup>
             </dxlc:LayoutGroup>
@@ -110,7 +111,7 @@
                 </dxlc:LayoutGroup.Header>
                 <dxlc:LayoutGroup>
                     <dxlc:LayoutItem Label="Umsatzsteuer-Id">
-                        <dxe:TextEdit Text="{Binding Creditor.Company.UStID}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.UStID}"/>
                     </dxlc:LayoutItem>
                     <dxlc:LayoutItem Label="Steuernummer">
                         <dxe:TextEdit Text="{Binding Credito.Company.TaxNumber}"/>
@@ -124,18 +125,18 @@
                 </dxlc:LayoutGroup.Header>
                 <dxlc:LayoutGroup>
                     <dxlc:LayoutItem Label="Telefon">
-                        <dxe:TextEdit Text="{Binding Creditor.Company.Phone}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.Phone}"/>
                     </dxlc:LayoutItem>
                     <dxlc:LayoutItem Label="Fax">
-                        <dxe:TextEdit Text="{Binding Creditor.Company.Fax}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.Fax}"/>
                     </dxlc:LayoutItem>
                 </dxlc:LayoutGroup>
                 <dxlc:LayoutGroup>
                     <dxlc:LayoutItem Label="E-Mail">
-                        <dxe:TextEdit Text="{Binding Creditor.Company.eMail}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.eMail}"/>
                     </dxlc:LayoutItem>
                     <dxlc:LayoutItem Label="Website">
-                        <dxe:TextEdit Text="{Binding Creditor.Company.Website}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.Website}"/>
                     </dxlc:LayoutItem>
                 </dxlc:LayoutGroup>
             </dxlc:LayoutGroup>
@@ -143,9 +144,9 @@
         </dxlc:LayoutControl>
 
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Height="30" HorizontalAlignment="Center">
-            <dx:SimpleButton Content="Neu" Margin="10,0,0,0"/>
-            <dx:SimpleButton Content="Speichern" Margin="10,0,0,0"/>
-            <dx:SimpleButton Content="Löschen" Margin="10,0,0,0"/>
+            <dx:SimpleButton Content="Neu" Margin="0,0,0,0" Command="{Binding NewCompanyCommand}"/>
+            <dx:SimpleButton IsEnabled="{Binding SaveCompanyButtonEnabled}" Content="Speichern" Margin="10,0,0,0" Command="{Binding SaveCompanyCommand}"/>
+            <dx:SimpleButton IsEnabled="{Binding DeleteCompanyButtonEnabled}" Content="Löschen" Margin="10,0,0,0" Command="{Binding DeleteCompanyCommand}"/>
         </StackPanel>
 
     </Grid>

@@ -134,7 +134,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<CostAccountCategory>($"dbo.{TableName}_GetById @Id", new { CostAccountCategoryId = id });
+                    output = con.QuerySingleOrDefault<CostAccountCategory>($"dbo.{TableName}_GetById @CostAccountCategoryId", new { CostAccountCategoryId = id });
                 }
             }
             catch (Exception e)
@@ -165,9 +165,9 @@ namespace FinancialAnalysis.Datalayer.Tables
         /// <param name="costAccountCategories"></param>
         public void UpdateOrInsert(IEnumerable<CostAccountCategory> costAccountCategories)
         {
-            foreach (var taxType in costAccountCategories)
+            foreach (var costAccountCategory in costAccountCategories)
             {
-                UpdateOrInsert(taxType);
+                UpdateOrInsert(costAccountCategory);
             }
         }
 

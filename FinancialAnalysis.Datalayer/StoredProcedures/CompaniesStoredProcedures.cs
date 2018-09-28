@@ -24,6 +24,7 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
             GetById();
             UpdateData();
             DeleteData();
+            IsCompanyInUse();
         }
 
         private void GetAllData()
@@ -32,7 +33,10 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
             {
                 StringBuilder sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; SELECT CompanyId, Name, Street, Postcode, City, ContactPerson, UStID, TaxNumber, Phone, Fax, eMail, Website, IBAN, BIC, BankName, FederalState FROM {TableName} END");
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
+                    $"SELECT CompanyId, Name, Street, Postcode, City, ContactPerson, UStID, TaxNumber, Phone, Fax, eMail, Website, IBAN, BIC, BankName, FederalState " +
+                    $"FROM {TableName} " +
+                    $"ORDER BY Name END");
                 using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
@@ -140,6 +144,35 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_Delete] @CompanyId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE CompanyId = @CompanyId END");
+                using (SqlConnection connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void IsCompanyInUse()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_IsCompanyInUse", DatabaseNames.FinancialAnalysisDB))
+            {
+                StringBuilder sbSP = new StringBuilder();
+
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_IsCompanyInUse] @CompanyId int AS " +
+                    $"SELECT CASE WHEN EXISTS ( " +
+                    $"SELECT * FROM {TableName} " +
+                    $"RIGHT JOIN Creditors ON {TableName}.CompanyId = Creditors.RefCompanyId " +
+                    $"RIGHT JOIN Debitors ON {TableName}.CompanyId = Debitors.RefCompanyId " +
+                    $"WHERE CompanyId = @CompanyId) " +
+                    $"THEN CAST(1 AS BIT) " +
+                    $"ELSE CAST(0 AS BIT) END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

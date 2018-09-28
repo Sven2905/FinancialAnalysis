@@ -52,8 +52,6 @@ namespace FinancialAnalysis.Datalayer.Tables
             }
         }
 
-        // @AccountNumber, @RefTaxTypeId, @RefCostAccountCategoryId, @GainsOutputAllocation, @SalesTaxAllocation
-
         /// <summary>
         /// Returns all CostAccount records
         /// </summary>
@@ -135,7 +133,7 @@ namespace FinancialAnalysis.Datalayer.Tables
                 {
                     foreach (var costAccount in costAccounts)
                     {
-                        con.Query($"dbo.{TableName}_Insert @Description, @AccountNumber, @RefTaxTypeId, @RefCostAccountCategoryId, @IsVisible, @IsEditable", costAccount);
+                        Insert(costAccount);
                     }
                 }
             }

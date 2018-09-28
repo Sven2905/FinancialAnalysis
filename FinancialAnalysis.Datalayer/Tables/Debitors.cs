@@ -265,6 +265,27 @@ namespace FinancialAnalysis.Datalayer.Tables
                 Log.Error($"Exception occured while creating reference between '{TableName}' and Companies", e);
             }
         }
+
+        /// <summary>
+        /// Checks if Debitor has Cost Accounts
+        /// </summary>
+        /// <param name="id"></param>
+        public bool IsDebitorInUse(int id)
+        {
+            bool IsInUse = true;
+            try
+            {
+                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    IsInUse = con.ExecuteScalar<bool>($"dbo.{TableName}_IsDebitorInUse @DebitorId", new { DebitorId = id });
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'IsDebitorInUse' from table '{TableName}'", e);
+            }
+            return IsInUse;
+        }
     }
 }
 

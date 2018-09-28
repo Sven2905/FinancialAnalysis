@@ -225,8 +225,8 @@ namespace FinancialAnalysis.Datalayer.Tables
             AddCostCompaniesReference();
             AddCostAccountsReference();
         }
-
-        private void AddCostCompaniesReference()
+        
+        private void AddCostAccountsReference()
         {
             try
             {
@@ -246,7 +246,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             }
         }
 
-        private void AddCostAccountsReference()
+        private void AddCostCompaniesReference()
         {
             try
             {
@@ -264,6 +264,27 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 Log.Error($"Exception occured while creating reference between '{TableName}' and Companies", e);
             }
+        }
+
+        /// <summary>
+        /// Checks if Creditor has Cost Accounts
+        /// </summary>
+        /// <param name="id"></param>
+        public bool IsCreditorInUse(int id)
+        {
+            bool IsInUse = true;
+            try
+            {
+                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    IsInUse = con.ExecuteScalar<bool>($"dbo.{TableName}_IsCreditorInUse @CreditorId", new { CreditorId = id });
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'IsCreditorInUse' from table '{TableName}'", e);
+            }
+            return IsInUse;
         }
     }
 }

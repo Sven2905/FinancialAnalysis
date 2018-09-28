@@ -97,6 +97,7 @@
     <Compile Include="Messages\OpenCompanyWindowMessage.cs" />
     <Compile Include="Messages\OpenDialogWindowMessage.cs" />
     <Compile Include="Messages\OpenKontenrahmenWindowMessage.cs" />
+    <Compile Include="Messages\OpenPDFViewerWindowMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AccountingViewModel.cs" />
     <Compile Include="ViewModels\BookingViewModel.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="ViewModels\KontenrahmenViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\PDFViewerViewModel.cs" />
     <Compile Include="ViewModels\TaxTypeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -123,15 +125,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FinancialAnalysis.Datalayer\FinancialAnalysis.Datalayer.csproj">
-      <Project>{8EFE4217-8830-48AC-AADA-3C8E06ACC2D3}</Project>
+      <Project>{8efe4217-8830-48ac-aada-3c8e06acc2d3}</Project>
       <Name>FinancialAnalysis.Datalayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\FinancialAnalysis.Models\FinancialAnalysis.Models.csproj">
-      <Project>{3BCF7383-9805-4BD4-A8CD-FD978E348E15}</Project>
+      <Project>{3bcf7383-9805-4bd4-a8cd-fd978e348e15}</Project>
       <Name>FinancialAnalysis.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
-      <Project>{69F19F6B-092B-4EE7-AD82-3944F3694952}</Project>
+      <Project>{69f19f6b-092b-4ee7-ad82-3944f3694952}</Project>
       <Name>Utilities</Name>
     </ProjectReference>
   </ItemGroup>

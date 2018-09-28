@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Datalayer.StoredProcedures
 {
-    class DebitorsStoredProcedures : IStoredProcedures
+    class ScannedDocumentsStoredProcedures : IStoredProcedures
     {
         public string TableName { get; }
 
-        public DebitorsStoredProcedures()
+        public ScannedDocumentsStoredProcedures()
         {
-            TableName = "Debitors";
+            TableName = "ScannedDocuments";
         }
 
         /// <summary>
@@ -27,7 +27,6 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
             GetById();
             UpdateData();
             DeleteData();
-            IsDebitorInUse();
         }
 
         private void GetAllData()
@@ -36,13 +35,7 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
             {
                 StringBuilder sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                    $"SELECT d.DebitorId, d.RefCompanyId, d.RefCostAccountId, " +
-                    $"co.CompanyId, co.Name, co.Street, co.Postcode, co.City, co.ContactPerson, co.UStID, co.TaxNumber, co.Phone, co.Fax, co.eMail, co.Website, co.IBAN, co.BIC, co.BankName, co.FederalState, " +
-                    $"a.CostAccountId, a.Description, a.AccountNumber, a.RefTaxTypeId, a.RefCostAccountCategoryId, a.IsVisible FROM {TableName} d " +
-                    $"JOIN Companies co ON d.RefCompanyId = co.CompanyId " +
-                    $"JOIN CostAccounts a ON d.RefCostAccountId = a.CostAccountId " +
-                    $"ORDER BY a.AccountNumber END");
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; SELECT ScannedDocumentId, Content, FileName, Date, RefBookingId FROM {TableName} END");
                 using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
@@ -62,9 +55,9 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
             {
                 StringBuilder sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_Insert] @RefCompanyId int, @RefCostAccountId int AS BEGIN SET NOCOUNT ON; " +
-                                $"INSERT into {TableName} (RefCompanyId, RefCostAccountId) " +
-                                $"VALUES (@RefCompanyId, @RefCostAccountId); " +
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_Insert] @Content varbinary(MAX), @FileName nvarchar(150), @Date datetime, @RefBookingId int AS BEGIN SET NOCOUNT ON; " +
+                                $"INSERT into {TableName} (Content, FileName, Date, RefBookingId) " +
+                                $"VALUES (@Content, @FileName, @Date, @RefBookingId); " +
                                 $"SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -86,9 +79,9 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @DebitorId int AS BEGIN SET NOCOUNT ON; SELECT DebitorId, RefCompanyId, RefCostAccountId " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @ScannedDocumentId int AS BEGIN SET NOCOUNT ON; SELECT ScannedDocumentId, Content, FileName, Date, RefBookingId " +
                     $"FROM {TableName} " +
-                    $"WHERE DebitorId = @DebitorId END");
+                    $"WHERE ScannedDocumentId = @ScannedDocumentId END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -110,11 +103,11 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @DebitorId int, @RefCompanyId int, @RefCostAccountId int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @ScannedDocumentId int, @Content varbinary(MAX), @FileName nvarchar(150), @Date datetime, @RefBookingId int " +
                     $"AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
-                    $"SET RefCompanyId = @RefCompanyId, RefCostAccountId = @RefCostAccountId " +
-                    $"WHERE DebitorId = @DebitorId END");
+                    $"SET Content = @Content, FileName = @FileName, Date = @Date, RefBookingId = @RefBookingId " +
+                    $"WHERE ScannedDocumentId = @ScannedDocumentId END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -136,35 +129,7 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @DebitorId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE DebitorId = @DebitorId END");
-                using (SqlConnection connection =
-                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
-                    {
-                        connection.Open();
-                        cmd.CommandType = CommandType.Text;
-                        cmd.ExecuteNonQuery();
-                        connection.Close();
-                    }
-                }
-            }
-        }
-
-        private void IsDebitorInUse()
-        {
-            if (!Helper.StoredProcedureExists($"dbo.{TableName}_IsDebitorInUse", DatabaseNames.FinancialAnalysisDB))
-            {
-                StringBuilder sbSP = new StringBuilder();
-
-                sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_IsDebitorInUse] @DebitorId int AS " +
-                    $"SELECT CASE WHEN EXISTS ( " +
-                    $"SELECT * FROM {TableName} " +
-                    $"RIGHT JOIN CostAccounts ON {TableName}.RefCostAccountId = CostAccounts.CostAccountId " +
-                    $"WHERE DebitorId = @DebitorId) " +
-                    $"THEN CAST(1 AS BIT) " +
-                    $"ELSE CAST(0 AS BIT) END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @ScannedDocumentId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE ScannedDocumentId = @ScannedDocumentId END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
