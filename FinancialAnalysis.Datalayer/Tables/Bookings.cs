@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using Utilities;
 
 namespace FinancialAnalysis.Datalayer.Tables
 {
@@ -63,7 +64,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<Booking, List<Credit>, List<Debit>, List<ScannedDocument>, Booking>($"dbo.{TableName}_GetAll",
+                    output = con.Query<Booking, SvenTechCollection<Credit>, SvenTechCollection<Debit>, SvenTechCollection<ScannedDocument>, Booking>($"dbo.{TableName}_GetAll",
                     (booking, credits, debits, documents) => { booking.Credits = credits; booking.Debits = debits; booking.ScannedDocuments = documents; return booking; }, splitOn: "CreditId, DebitId, ScannedDocumentId",
                     commandType: CommandType.StoredProcedure).ToList();
                 }

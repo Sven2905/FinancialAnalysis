@@ -16,5 +16,7 @@ namespace FinancialAnalysis.Models.Accounting
         public TaxCategory TaxCategory { get; set; } // Steuerart
         public int RefAccountNumber { get; set; } // Das Umsatzsteuer- oder Vorsteuerkonto, auf das der Steuerbetrag zum Steuersatz gebucht wird
         public int RefAccountNotPayable { get; set; } // Haben Sie die Art ‚i.g.E‘ oder ’13b‘ gewählt, ist ein Vorsteuerkontos in der Spalte USt-Konto EU Bau einzutragen
+        public int RefCostAccount { get; set; }
+        public CostAccount CostAccount { get; set; }
     }
 }

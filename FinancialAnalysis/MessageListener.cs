@@ -66,7 +66,14 @@ namespace FinancialAnalysis.UI
                      var model = window.DataContext as PDFViewerViewModel;
                      if (model != null)
                      {
-                         model.ScannedDocumentId = msg.ScannedDocumentId;
+                         if (msg.ScannedDocumentId != 0)
+                         {
+                             model.ScannedDocumentId = msg.ScannedDocumentId;
+                         }
+                         else
+                         {
+                             model.Path = msg.Path;
+                         }
                      }
 
                      window.ShowDialog();

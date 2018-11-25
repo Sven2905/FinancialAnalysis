@@ -40,7 +40,15 @@ namespace FinancialAnalysis.Datalayer.Tables
             try
             {
                 SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(TaxTypeId int IDENTITY(1,1) PRIMARY KEY,Description nvarchar(50) NOT NULL, DescriptionShort nvarchar(50) NOT NULL, AmountOfTax decimal NOT NULL, TaxCategory int NOT NULL, RefAccountNumber int, RefAccountNotPayable int )";
+                var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') " +
+                    $"CREATE TABLE {TableName}(" +
+                    $"TaxTypeId int IDENTITY(1,1) PRIMARY KEY, " +
+                    $"Description nvarchar(50) NOT NULL, " +
+                    $"DescriptionShort nvarchar(50) NOT NULL, " +
+                    $"AmountOfTax decimal NOT NULL, " +
+                    $"TaxCategory int NOT NULL, " +
+                    $"RefAccountNumber int, " +
+                    $"RefAccountNotPayable int )";
 
                 using (SqlCommand command = new SqlCommand(commandStr, con))
                 {

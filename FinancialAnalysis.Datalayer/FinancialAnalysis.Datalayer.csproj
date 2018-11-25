@@ -111,6 +111,10 @@
       <Project>{3bcf7383-9805-4bd4-a8cd-fd978e348e15}</Project>
       <Name>FinancialAnalysis.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{69F19F6B-092B-4EE7-AD82-3944F3694952}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

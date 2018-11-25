@@ -8,8 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Controls;
-using System.Windows.Media;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -18,10 +16,10 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         #region Fields
 
-        private int _CreditorId;
-        private int _DebitorId;
+        private int _CostAccountCreditorId;
+        private int _CostAccountDebitorId;
         private decimal _Amount;
-        private CostAccount _Creditor;
+        private CostAccount _CostAccountCreditor;
 
         #endregion Fields
 
@@ -48,7 +46,32 @@ namespace FinancialAnalysis.Logic.ViewModels
             });
             DoubleClickListBoxCommand = new DelegateCommand(() =>
             {
-                Messenger.Default.Send(new OpenPDFViewerWindowMessage(SelectedScannedDocument.ScannedDocumentId));
+                if (SelectedScannedDocument != null)
+                {
+                    Messenger.Default.Send(new OpenPDFViewerWindowMessage(SelectedScannedDocument.Path));
+                }
+            });
+
+            AddToStackCommand = new DelegateCommand(() =>
+            {
+                AddToStack(CreateBookingItem());
+                ClearForm();
+            });
+
+            SaveStackToDBCommand = new DelegateCommand(() =>
+            {
+                SaveStackToDb();
+            });
+
+            SaveBookingCommand = new DelegateCommand(() =>
+            {
+                SaveBookingToDB(CreateBookingItem());
+                ClearForm();
+            });
+
+            CancelCommand = new DelegateCommand(() =>
+            {
+                ClearForm();
             });
 
             Messenger.Default.Register<SelectedCostAccount>(this, ChangeSelectedCostAccount);
@@ -57,6 +80,17 @@ namespace FinancialAnalysis.Logic.ViewModels
             TaxTypes = db.TaxTypes.GetAll().ToList();
             CostAccounts = db.CostAccounts.GetAllVisible().ToList();
             ScannedDocuments = db.ScannedDocuments.GetAll().ToSvenTechCollection();
+        }
+
+        #endregion Constructor
+
+        #region Methods
+
+        private void ClearForm()
+        {
+            Amount = 0;
+            Description = "";
+            ScannedDocuments.Clear();
         }
 
         private void SaveFileToDatabase(string path)
@@ -72,62 +106,203 @@ namespace FinancialAnalysis.Logic.ViewModels
                 Content = file,
                 Date = DateTime.Now,
                 FileName = fileName,
-                RefBookingId = 1
+                RefBookingId = 1,
+                Path = path
             };
-            using(DataLayer db = new DataLayer())
-            {
-                db.ScannedDocuments.Insert(scannedDocument);
-            }
+
+            ScannedDocuments.Add(scannedDocument);
         }
-
-        #endregion Constructor
-
-        #region Methods
 
         public void ChangeSelectedCostAccount(SelectedCostAccount SelectedCostAccount)
         {
             switch (SelectedCostAccount.AccountingType)
             {
                 case AccountingType.Credit:
-                    Creditor = SelectedCostAccount.CostAccount; CreditorId = SelectedCostAccount.CostAccount.CostAccountId; break;
+                    CostAccountCreditor = SelectedCostAccount.CostAccount; CostAccountCreditorId = SelectedCostAccount.CostAccount.CostAccountId; break;
                 case AccountingType.Debit:
-                    Debitor = SelectedCostAccount.CostAccount; DebitorId = SelectedCostAccount.CostAccount.CostAccountId; break;
+                    CostAccountDebitor = SelectedCostAccount.CostAccount; CostAccountDebitorId = SelectedCostAccount.CostAccount.CostAccountId; break;
                 default:
                     break;
             }
+        }
+
+        private bool ValidateBooking()
+        {
+            var result = false;
+
+            if (CostAccountCreditorId != 0 && CostAccountDebitorId != 0 && SelectedTax != null)
+            {
+                result = true;
+            }
+
+            result = true;
+
+            return result;
+        }
+
+        private Booking CreateBookingItem()
+        {
+            if (!ValidateBooking())
+            {
+                return null;
+            }
+
+            Booking booking = new Booking(Amount, Date, Description);
+
+            decimal tax = 0;
+            decimal amountWithoutTax = 0;
+            if (SelectedTax.AmountOfTax > 0)
+            {
+                if (GrossNetType == GrossNetType.Brutto)
+                {
+                    tax = (Amount / (100 + SelectedTax.AmountOfTax)) * SelectedTax.AmountOfTax;
+                    amountWithoutTax = Amount - tax;
+                }
+                else
+                {
+                    tax = Amount / 100 * SelectedTax.AmountOfTax;
+                    amountWithoutTax = Amount;
+                }
+            }
+
+            Credit credit = new Credit(Amount, CostAccountCreditorId, booking.BookingId);
+            Debit debit = new Debit(amountWithoutTax, CostAccountDebitorId, booking.BookingId);
+            booking.Credits.Add(credit);
+            booking.Debits.Add(debit);
+            booking.ScannedDocuments = ScannedDocuments;
+
+            return booking;
+        }
+
+        private void SaveBookingToDB(Booking booking)
+        {
+            if (booking == null)
+            {
+                return;
+            }
+
+            int bookingId = 0;
+
+            using (DataLayer db = new DataLayer())
+            {
+                try
+                {
+                    bookingId = db.Bookings.Insert(booking);
+                }
+                catch (Exception ex)
+                {
+                    Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                }
+            }
+
+            foreach (var item in booking.Credits)
+            {
+                item.RefBookingId = bookingId;
+                using (DataLayer db = new DataLayer())
+                {
+                    try
+                    {
+                        db.Credits.Insert(item);
+                    }
+                    catch (Exception ex)
+                    {
+                        Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                    }
+                }
+            }
+
+            foreach (var item in booking.Debits)
+            {
+                item.RefBookingId = bookingId;
+                using (DataLayer db = new DataLayer())
+                {
+                    try
+                    {
+                        db.Debits.Insert(item);
+                    }
+                    catch (Exception ex)
+                    {
+                        Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                    }
+                }
+            }
+
+            foreach (var item in booking.ScannedDocuments)
+            {
+                item.RefBookingId = bookingId;
+
+                using (DataLayer db = new DataLayer())
+                {
+                    try
+                    {
+                        db.ScannedDocuments.Insert(item);
+                    }
+                    catch (Exception ex)
+                    {
+                        Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                    }
+                }
+            }
+        }
+
+        private void AddToStack(Booking booking)
+        {
+            Booking bookingItem = CreateBookingItem();
+
+            if (bookingItem != null)
+            {
+                BookingsOnStack.Add(bookingItem);
+            }
+        }
+
+        private void SaveStackToDb()
+        {
+            foreach (var item in BookingsOnStack)
+            {
+                SaveBookingToDB(item);
+            }
+
+            BookingsOnStack.Clear();
         }
 
         #endregion Methods
 
         #region Properties
 
-        public int CreditorId
+        public int CostAccountCreditorId
         {
-            get { return _CreditorId; }
-            set { _CreditorId = value; Creditor = CostAccounts.Single(x => x.CostAccountId == value); }
+            get { return _CostAccountCreditorId; }
+            set { _CostAccountCreditorId = value; CostAccountCreditor = CostAccounts.Single(x => x.CostAccountId == value); }
         }
 
-        public int DebitorId
+        public int CostAccountDebitorId
         {
-            get { return _DebitorId; }
-            set { _DebitorId = value; Debitor = CostAccounts.Single(x => x.CostAccountId == value); }
+            get { return _CostAccountDebitorId; }
+            set { _CostAccountDebitorId = value; CostAccountDebitor = CostAccounts.Single(x => x.CostAccountId == value); }
         }
 
+        public DelegateCommand AddToStackCommand { get; }
+        public DelegateCommand SaveStackToDBCommand { get; }
+        public DelegateCommand SaveBookingCommand { get; }
+        public DelegateCommand CancelCommand { get; }
         public DelegateCommand GetCreditorCommand { get; }
         public DelegateCommand GetDebitorCommand { get; }
         public DelegateCommand OpenFileCommand { get; }
         public DelegateCommand DoubleClickListBoxCommand { get; set; }
 
-        public CostAccount Creditor
+        public CostAccount CostAccountCreditor
         {
-            get { return _Creditor; }
-            set { _Creditor = value; SelectedTax = TaxTypes.Single(x => x.TaxTypeId == _Creditor.RefTaxTypeId); }
+            get { return _CostAccountCreditor; }
+            set { _CostAccountCreditor = value; SelectedTax = TaxTypes.Single(x => x.TaxTypeId == _CostAccountCreditor.RefTaxTypeId); }
         }
-        public CostAccount Debitor { get; set; }
+
+        public SvenTechCollection<Booking> BookingsOnStack { get; set; } = new SvenTechCollection<Booking>();
+        public string Description { get; set; }
+        public CostAccount CostAccountDebitor { get; set; }
         public TaxType SelectedTax { get; set; }
         public List<CostAccount> CostAccounts { get; set; }
         public List<TaxType> TaxTypes { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
         public GrossNetType GrossNetType { get; set; }
         public ScannedDocument SelectedScannedDocument { get; set; }
         public SvenTechCollection<ScannedDocument> ScannedDocuments { get; set; }

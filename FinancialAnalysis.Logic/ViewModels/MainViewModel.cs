@@ -21,8 +21,6 @@ namespace FinancialAnalysis.Logic.ViewModels
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        public List<Company> Data { get; set; }
-
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>

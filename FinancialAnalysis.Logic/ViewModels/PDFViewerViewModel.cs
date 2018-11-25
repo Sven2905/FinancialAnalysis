@@ -1,6 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models.Accounting;
+using System;
 using System.IO;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -9,9 +10,10 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         private readonly ScannedDocument _ScannedDocument;
         private int _ScannedDocumentId;
+        private string _Path;
         private byte[] content;
 
-        private void LoadDocument()
+        private void LoadDocumentById()
         {
             using (DataLayer db = new DataLayer())
             {
@@ -21,7 +23,17 @@ namespace FinancialAnalysis.Logic.ViewModels
             ScannedDocument = ms;
         }
 
+        private void LoadDocumentByPath()
+        {
+            content = File.ReadAllBytes(_Path);
+            MemoryStream ms = new MemoryStream(content);
+            ScannedDocument = ms;
+        }
+
+        #region Properties
+
         public MemoryStream ScannedDocument { get; set; }
+
         public int ScannedDocumentId
         {
             get { return _ScannedDocumentId; }
@@ -29,9 +41,23 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 _ScannedDocumentId = value; if (_ScannedDocumentId != 0)
                 {
-                    LoadDocument();
+                    LoadDocumentById();
                 }
             }
         }
+
+        public string Path
+        {
+            get { return _Path; }
+            set
+            {
+                _Path = value; if (!string.IsNullOrEmpty(_Path))
+                {
+                    LoadDocumentByPath();
+                }
+            }
+        }
+
+        #endregion Properties
     }
 }

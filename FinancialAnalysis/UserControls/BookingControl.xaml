@@ -65,10 +65,10 @@
                 <ColumnDefinition Width="500" />
                 <ColumnDefinition Width="80" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="120" />
                 <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="350" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -91,8 +91,8 @@
             <TextBlock Grid.Column="0" Grid.Row="6" Text="Haben: " VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#3F729B" />
             <TextBlock Grid.Column="0" Grid.Row="8" Text="Steuer: " VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#3F729B" />
 
-            <dxe:DateEdit Grid.Column="1" Grid.Row="0" Margin="0,3,0,3" Foreground="#3F729B" />
-            <TextBox Grid.Column="1" Grid.Row="2" Height="75" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" AcceptsReturn="True" Foreground="#3F729B" />
+            <dxe:DateEdit Grid.Column="1" Grid.Row="0" Margin="0,3,0,3" Foreground="#3F729B" DateTime="{Binding Date}" />
+            <TextBox Grid.Column="1" Grid.Row="2" Height="75" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" AcceptsReturn="True" Foreground="#3F729B" Text="{Binding Description}"/>
             <dxg:LookUpEdit DisplayMember="DisplayName" ValueMember="CostAccountId" Foreground="#3F729B" Grid.Column="1" Grid.Row="4" Margin="0,3,0,3" PopupWidth="800" ItemsSource="{Binding CostAccounts}" EditValue="{Binding CreditorId, Mode=TwoWay}" AutoComplete="True" IsPopupAutoWidth="True" AutoPopulateColumns="False">
                 <dxg:LookUpEdit.PopupContentTemplate>
                     <ControlTemplate>
@@ -163,7 +163,7 @@
                     <dxmvvm:EnumItemsSourceBehavior EnumType="{x:Type models:GrossNetType}"/>
                 </dxmvvm:Interaction.Behaviors>
             </dxe:ComboBoxEdit>
-            <dxe:ListBoxEdit Grid.Column="7" Grid.Row="2" Margin="10,3,45,3" Height="500" HorizontalAlignment="Left" ItemsSource="{Binding ScannedDocuments}" SelectedItem="{Binding SelectedScannedDocument}" >
+            <dxe:ListBoxEdit Grid.Column="7" Grid.Row="2" Grid.RowSpan="3" Margin="10,3,45,3" Height="300" MinWidth="300" HorizontalAlignment="Left" ItemsSource="{Binding ScannedDocuments}" SelectedItem="{Binding SelectedScannedDocument}" >
                 <dxmvvm:Interaction.Behaviors>
                     <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding DoubleClickListBoxCommand}" PassEventArgsToCommand="True"/>
                 </dxmvvm:Interaction.Behaviors>
@@ -187,22 +187,23 @@
         
             <Grid Grid.Row="4" Grid.Column="1" >
                     <VirtualizingStackPanel Orientation="Horizontal" Margin="15">
-                        <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Stapel hinzufügen" Foreground="#3F729B" />
-                        <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Sofort buchen" Foreground="#3F729B" />
-                        <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Verwerfen" Foreground="#3F729B" />
-                        <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Stapel buchen" Foreground="#3F729B" />
+                        <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Stapel hinzufügen" Foreground="#3F729B" Command="{Binding AddToStackCommand}" />
+                <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Sofort buchen" Foreground="#3F729B" Command="{Binding SaveBookingCommand}" />
+                <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Verwerfen" Foreground="#3F729B" Command="{Binding CancelCommand}" />
+                <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Stapel buchen" Foreground="#3F729B" Command="{Binding SaveStackToDBCommand}" />
                     </VirtualizingStackPanel>
             </Grid>
 
                 <Grid Grid.Column="1" Grid.Row="6" Margin="15">
-                    <dxg:GridControl MaxHeight="2000" MaxWidth="4000">
+            <dxg:GridControl MaxHeight="2000" MaxWidth="4000" ItemsSource="{Binding BookingsOnStack}" AutoGenerateColumns="AddNew">
                         <dxmvvm:Interaction.Behaviors>
                             <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding SelectedCommand}" >
                             </dxmvvm:EventToCommand>
                         </dxmvvm:Interaction.Behaviors>
 
                         <dxg:GridControl.View>
-                            <dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True" AllowEditing="False" BestFitMode="Smart" ShowGroupPanel="False" VerticalScrollbarVisibility="Auto" />
+                    <dxg:TreeListView KeyFieldName="Id" ParentFieldName="RefBookingId"/>
+                    <!--<dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True" AllowEditing="False" BestFitMode="Smart" ShowGroupPanel="False" VerticalScrollbarVisibility="Auto" />-->
                         </dxg:GridControl.View>
                     </dxg:GridControl>
                 </Grid>
