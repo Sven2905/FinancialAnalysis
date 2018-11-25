@@ -28,9 +28,9 @@ namespace FinancialAnalysis.Models.Accounting
         public decimal Amount { get; set; }
         public DateTime Date { get; set; }
         public string Description { get; set; }
-        public SvenTechCollection<ScannedDocument> ScannedDocuments { get; set; }
-        public SvenTechCollection<Debit> Debits { get; set; } = new SvenTechCollection<Debit>();
-        public SvenTechCollection<Credit> Credits { get; set; } = new SvenTechCollection<Credit>();
+        public List<ScannedDocument> ScannedDocuments { get; set; } = new List<ScannedDocument>();
+        public List<Debit> Debits { get; set; } = new List<Debit>();
+        public List<Credit> Credits { get; set; } = new List<Credit>();
 
         #endregion
 

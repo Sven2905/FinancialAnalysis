@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Datalayer.StoredProcedures
 {
-    class BookingsStoredProcedures : IStoredProcedures
+    internal class BookingsStoredProcedures : IStoredProcedures
     {
         public string TableName { get; }
 
@@ -25,6 +21,7 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
             GetAllData();
             InsertData();
             GetById();
+            GetByConditions();
         }
 
         private void GetAllData()
@@ -35,12 +32,12 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
                     $"SELECT b.BookingId, b.Description, b.Amount, b.Date, " +
-                    $"s.ScannedDocumentId, s.Content, s.Date, s.FileName, s.RefBookingId, " +
-                    $"c.CreditId, c.Amount, c.RefCostAccountId, c.RefBookingId, " +
-                    $"d.DebitId, d.Amount, d.RefCostAccountId, d.RefBookingId FROM {TableName} b " +
+                    $"s.ScannedDocumentId AS ScannedDocuments_ScannedDocumentId, s.Content AS ScannedDocuments_Content, s.Date AS ScannedDocuments_Date, s.FileName AS ScannedDocuments_FileName, s.RefBookingId AS ScannedDocuments_RefBookingId, " +
+                    $"c.CreditId AS Credits_CreditId, c.Amount AS Credits_Amount, c.RefCostAccountId AS Credits_RefCostAccountId, c.RefBookingId AS Credits_RefBookingId, " +
+                    $"d.DebitId AS Debits_DebitId, d.Amount AS Debits_Amount, d.RefCostAccountId AS Debits_RefCostAccountId, d.RefBookingId AS Debits_RefBookingId FROM {TableName} b " +
                     $"INNER JOIN Credits c ON b.BookingId = c.RefBookingId " +
                     $"INNER JOIN Debits d ON b.BookingId = d.RefBookingId " +
-                    $"INNER JOIN ScannedDocuments s ON b.BookingId = s.RefBookingId " +
+                    $"LEFT JOIN ScannedDocuments s ON b.BookingId = s.RefBookingId " +
                     $"END");
                 using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -86,9 +83,51 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @BookingId int AS BEGIN SET NOCOUNT ON; SELECT BookingId, Description, Amount, Date " +
-                    $"FROM {TableName} " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @BookingId int AS BEGIN SET NOCOUNT ON; " +
+                    $"SELECT b.BookingId, b.Description, b.Amount, b.Date, " +
+                    $"s.ScannedDocumentId AS ScannedDocuments_ScannedDocumentId, s.Content AS ScannedDocuments_Content, s.Date AS ScannedDocuments_Date, s.FileName AS ScannedDocuments_FileName, s.RefBookingId AS ScannedDocuments_RefBookingId, " +
+                    $"c.CreditId AS Credits_CreditId, c.Amount AS Credits_Amount, c.RefCostAccountId AS Credits_RefCostAccountId, c.RefBookingId AS Credits_RefBookingId, " +
+                    $"d.DebitId AS Debits_DebitId, d.Amount AS Debits_Amount, d.RefCostAccountId AS Debits_RefCostAccountId, d.RefBookingId AS Debits_RefBookingId FROM {TableName} b " +
+                    $"INNER JOIN Credits c ON b.BookingId = c.RefBookingId " +
+                    $"INNER JOIN Debits d ON b.BookingId = d.RefBookingId " +
+                    $"LEFT JOIN ScannedDocuments s ON b.BookingId = s.RefBookingId " +
                     $"WHERE BookingId = @BookingId END");
+                using (SqlConnection connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void GetByConditions()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetByConditions", DatabaseNames.FinancialAnalysisDB))
+            {
+                StringBuilder sbSP = new StringBuilder();
+
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_GetByConditions] @StartDate datetime, @EndDate datetime, @CreditId int, @DebitId int AS BEGIN SET NOCOUNT ON; " +
+                    $"SELECT b.BookingId, b.Description, b.Amount, b.Date, " +
+                    $"s.ScannedDocumentId AS ScannedDocuments_ScannedDocumentId, s.Content AS ScannedDocuments_Content, s.Date AS ScannedDocuments_Date, s.FileName AS ScannedDocuments_FileName, s.RefBookingId AS ScannedDocuments_RefBookingId, " +
+                    $"c.CreditId AS Credits_CreditId, c.Amount AS Credits_Amount, c.RefCostAccountId AS Credits_RefCostAccountId, c.RefBookingId AS Credits_RefBookingId, " +
+                    $"d.DebitId AS Debits_DebitId, d.Amount AS Debits_Amount, d.RefCostAccountId AS Debits_RefCostAccountId, d.RefBookingId AS Debits_RefBookingId FROM {TableName} b " +
+                    $"INNER JOIN Credits c ON b.BookingId = c.RefBookingId " +
+                    $"INNER JOIN Debits d ON b.BookingId = d.RefBookingId " +
+                    $"LEFT JOIN ScannedDocuments s ON b.BookingId = s.RefBookingId " +
+                    $"WHERE " +
+                    $"b.Date >= @StartDate " +
+                    $"AND b.Date <= @EndDate " +
+                    $"AND c.CreditId = isnull(@CreditId,CreditId) " +
+                    $"AND d.DebitId = isnull(@DebitId,DebitId) " +
+                    "END");
+
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

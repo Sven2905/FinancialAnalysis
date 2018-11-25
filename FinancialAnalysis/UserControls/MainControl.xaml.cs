@@ -23,6 +23,8 @@ namespace FinancialAnalysis.UserControls
         public MainControl()
         {
             InitializeComponent();
+
+            btnCreditorsDebitors.Content = "Kreditoren" + Environment.NewLine + "Debitoren";
         }
     }
 }

@@ -54,30 +54,38 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Returns all Booking records
+        /// Returns all Booking records.
         /// </summary>
         /// <returns></returns>
         public IEnumerable<Booking> GetAll()
         {
-            IEnumerable<Booking> output = new List<Booking>();
+            IEnumerable<Booking> output = new SvenTechCollection<Booking>();
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (var conn = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<Booking, SvenTechCollection<Credit>, SvenTechCollection<Debit>, SvenTechCollection<ScannedDocument>, Booking>($"dbo.{TableName}_GetAll",
-                    (booking, credits, debits, documents) => { booking.Credits = credits; booking.Debits = debits; booking.ScannedDocuments = documents; return booking; }, splitOn: "CreditId, DebitId, ScannedDocumentId",
-                    commandType: CommandType.StoredProcedure).ToList();
+                    conn.Open();
+                    dynamic dynamicItem = conn.Query<dynamic>($"dbo.{TableName}_GetAll");
+                    Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(Booking), new List<string> { "BookingId" });
+                    Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ScannedDocument), new List<string> { "ScannedDocuments_ScannedDocumentId" });
+                    Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(Credit), new List<string> { "Credits_CreditId" });
+                    Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(Debit), new List<string> { "Debits_DebitId" });
+                    conn.Close();
+
+                    output = (Slapper.AutoMapper.MapDynamic<Booking>(dynamicItem) as IEnumerable<Booking>).ToList();
                 }
+                return output;
             }
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
             }
+
             return output;
         }
 
         /// <summary>
-        /// Inserts the CostAccount item
+        /// Inserts the CostAccount item.
         /// </summary>
         /// <param name="Booking"></param>
         /// <returns>Id of inserted item</returns>
@@ -100,7 +108,7 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Inserts the list of CostAccount items
+        /// Inserts the list of CostAccount items.
         /// </summary>
         /// <param name="Bookings"></param>
         public void Insert(IEnumerable<Booking> Bookings)
@@ -122,7 +130,7 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Returns CostAccount by Id
+        /// Returns CostAccount by Id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -131,9 +139,55 @@ namespace FinancialAnalysis.Datalayer.Tables
             Booking output = new Booking();
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (var conn = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<Booking>($"dbo.{TableName}_GetById @BookingId", new { BookingId = id });
+                    conn.Open();
+                    dynamic dynamicItem = conn.Query<dynamic>($"dbo.{TableName}_GetById @BookingId", new { BookingId = id });
+                    Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(Booking), new List<string> { "BookingId" });
+                    Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ScannedDocument), new List<string> { "ScannedDocuments_ScannedDocumentId" });
+                    Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(Credit), new List<string> { "Credits_CreditId" });
+                    Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(Debit), new List<string> { "Debits_DebitId" });
+                    conn.Close();
+
+                    var outputs = (Slapper.AutoMapper.MapDynamic<Booking>(dynamicItem) as IEnumerable<Booking>).ToList();
+                    if (outputs.Count == 1)
+                    {
+                        output = outputs[0];
+                    }
+                }
+                return output;
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
+            }
+            return output;
+        }
+
+        /// <summary>
+        /// Returns all Booking records with conditions. 
+        /// </summary>
+        /// <param name="startDate">[incl.]</param>
+        /// <param name="endDate">[incl.]</param>
+        /// <param name="creditId"></param>
+        /// <param name="debitId"></param>
+        /// <returns></returns>
+        public IEnumerable<Booking> GetByConditions(DateTime startDate, DateTime endDate, int? creditId = null, int? debitId = null)
+        {
+            IEnumerable<Booking> output = new SvenTechCollection<Booking>();
+            try
+            {
+                using (var conn = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    conn.Open();
+                    dynamic dynamicItem = conn.Query<dynamic>($"dbo.{TableName}_GetByConditions @StartDate, @EndDate, @CreditId, @DebitId", new { StartDate = startDate, EndDate = endDate, CreditId = creditId, DebitId = debitId });
+                    Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(Booking), new List<string> { "BookingId" });
+                    Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(ScannedDocument), new List<string> { "ScannedDocuments_ScannedDocumentId" });
+                    Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(Credit), new List<string> { "Credits_CreditId" });
+                    Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(Debit), new List<string> { "Debits_DebitId" });
+                    conn.Close();
+
+                    output = (Slapper.AutoMapper.MapDynamic<Booking>(dynamicItem) as IEnumerable<Booking>).ToList();
                 }
             }
             catch (Exception e)
@@ -142,5 +196,6 @@ namespace FinancialAnalysis.Datalayer.Tables
             }
             return output;
         }
+
     }
 }

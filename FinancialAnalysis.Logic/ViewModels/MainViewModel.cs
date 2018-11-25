@@ -35,7 +35,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             ////    // Code runs "for real"
             ////}
 
-
             DataLayer db = new DataLayer();
             db.CreateDatabaseSchema();
             if (db.TaxTypes.GetAll().Count() == 0)
