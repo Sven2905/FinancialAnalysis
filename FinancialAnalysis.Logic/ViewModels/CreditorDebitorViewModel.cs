@@ -12,15 +12,15 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         #region Fields
 
-        private Creditor _Creditor = new Creditor();
-        private Debitor _Debitor = new Debitor();
-        private Company _SelectedCompany = new Company();
-        private bool _SaveCreditorButtonEnabled;
-        private bool _SaveDebitorButtonEnabled;
-        private bool _DeleteCreditorButtonEnabled;
-        private bool _DeleteDebitorButtonEnabled;
+        private Creditor _creditor = new Creditor();
+        private Debitor _debitor = new Debitor();
+        private Company _selectedCompany = new Company();
+        private bool _saveCreditorButtonEnabled;
+        private bool _saveDebitorButtonEnabled;
+        private bool _deleteCreditorButtonEnabled;
+        private bool _deleteDebitorButtonEnabled;
 
-        private IDocumentManagerService SingleObjectDocumentManagerService { get { return GetService<IDocumentManagerService>("SignleObjectDocumentManagerService"); } }
+        private IDocumentManagerService SingleObjectDocumentManagerService => GetService<IDocumentManagerService>("SingleObjectDocumentManagerService");
 
         #endregion Fields
 
@@ -223,22 +223,11 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void InitializeButtonCommands()
         {
-            SaveCreditorCommand = new DelegateCommand(() =>
-            {
-                SaveCreditor();
-            });
-            DeleteCreditorCommand = new DelegateCommand(() =>
-            {
-                DeleteCreditor();
-            });
-            SaveDebitorCommand = new DelegateCommand(() =>
-            {
-                SaveDebitor();
-            });
-            DeleteDebitorCommand = new DelegateCommand(() =>
-            {
-                DeleteDebitor();
-            });
+            SaveCreditorCommand = new DelegateCommand(SaveCreditor);
+            DeleteCreditorCommand = new DelegateCommand(DeleteCreditor);
+            SaveDebitorCommand = new DelegateCommand(SaveDebitor);
+            DeleteDebitorCommand = new DelegateCommand(DeleteDebitor);
+
             NewCreditorCommand = new DelegateCommand(() =>
             {
                 Creditor = new Creditor();
@@ -376,6 +365,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 DeleteDebitorButtonEnabled = false;
             }
         }
+
         #endregion Validation Methods
 
         #endregion Methods
@@ -398,41 +388,41 @@ namespace FinancialAnalysis.Logic.ViewModels
         public int SelectedTab { get; set; } = 0;
         public Creditor Creditor
         {
-            get { return _Creditor; }
-            set { _Creditor = value; ValidateCreditor(); }
+            get => _creditor;
+            set { _creditor = value; ValidateCreditor(); }
         }
         public Debitor Debitor
         {
-            get { return _Debitor; }
-            set { _Debitor = value; ValidateDebitor(); }
+            get => _debitor;
+            set { _debitor = value; ValidateDebitor(); }
         }
         public Company SelectedCompany
         {
-            get { return _SelectedCompany; }
-            set { _SelectedCompany = value; UseExistingCompany(); }
+            get => _selectedCompany;
+            set { _selectedCompany = value; UseExistingCompany(); }
         }
 
-
         #region Validation Properties
+
         public bool SaveCreditorButtonEnabled
         {
-            get { return _SaveCreditorButtonEnabled; }
-            set { _SaveCreditorButtonEnabled = value; RaisePropertyChanged(); }
+            get => _saveCreditorButtonEnabled;
+            set { _saveCreditorButtonEnabled = value; RaisePropertyChanged(); }
         }
         public bool SaveDebitorButtonEnabled
         {
-            get { return _SaveDebitorButtonEnabled; }
-            set { _SaveDebitorButtonEnabled = value; RaisePropertyChanged(); }
+            get => _saveDebitorButtonEnabled;
+            set { _saveDebitorButtonEnabled = value; RaisePropertyChanged(); }
         }
         public bool DeleteCreditorButtonEnabled
         {
-            get { return _DeleteCreditorButtonEnabled; }
-            set { _DeleteCreditorButtonEnabled = value; RaisePropertyChanged(); }
+            get => _deleteCreditorButtonEnabled;
+            set { _deleteCreditorButtonEnabled = value; RaisePropertyChanged(); }
         }
         public bool DeleteDebitorButtonEnabled
         {
-            get { return _DeleteDebitorButtonEnabled; }
-            set { _DeleteDebitorButtonEnabled = value; RaisePropertyChanged(); }
+            get => _deleteDebitorButtonEnabled;
+            set { _deleteDebitorButtonEnabled = value; RaisePropertyChanged(); }
         }
         #endregion Validation Properties
 

@@ -111,7 +111,7 @@
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutItem Label="Bundesland">
-                                <dxe:ComboBoxEdit ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:FederalState}, SplitNames=True}" EditValue="Creditor.Company.FederalState"/>
+                                <dxe:ComboBoxEdit ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:FederalState}, SplitNames=True}" EditValue="{Binding Creditor.Company.FederalState, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
 

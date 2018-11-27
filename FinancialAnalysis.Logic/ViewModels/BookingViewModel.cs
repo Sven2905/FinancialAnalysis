@@ -86,10 +86,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 ClearForm();
             });
 
-            SaveStackToDbCommand = new DelegateCommand(() =>
-            {
-                SaveStackToDb();
-            });
+            SaveStackToDbCommand = new DelegateCommand(SaveStackToDb);
 
             SaveBookingCommand = new DelegateCommand(() =>
             {
@@ -97,10 +94,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 ClearForm();
             });
 
-            CancelCommand = new DelegateCommand(() =>
-            {
-                ClearForm();
-            });
+            CancelCommand = new DelegateCommand(ClearForm);
         }
 
         private void CreateScannedDocumentItem(string path)

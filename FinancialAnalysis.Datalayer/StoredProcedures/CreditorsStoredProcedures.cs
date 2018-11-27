@@ -158,8 +158,9 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                     $"CREATE PROCEDURE [{TableName}_IsCreditorInUse] @CreditorId int AS " +
                     $"SELECT CASE WHEN EXISTS ( " +
                     $"SELECT * FROM {TableName} " +
-                    $"RIGHT JOIN CostAccounts ON {TableName}.RefCostAccountId = CostAccounts.CostAccountId " +
-                    $"WHERE CreditorId = @CreditorId) " +
+                    $"INNER JOIN CostAccounts ON {TableName}.RefCostAccountId = CostAccounts.CostAccountId " +
+                    $"INNER JOIN Credits ON CostAccounts.CostAccountId = Credits.RefCostAccountId " +
+                    $"WHERE {TableName}.CreditorId = @CreditorId ) " +
                     $"THEN CAST(1 AS BIT) " +
                     $"ELSE CAST(0 AS BIT) END");
                 using (SqlConnection connection =
