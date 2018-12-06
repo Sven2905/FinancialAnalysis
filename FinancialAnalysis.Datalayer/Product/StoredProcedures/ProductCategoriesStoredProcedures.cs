@@ -32,7 +32,7 @@ namespace FinancialAnalysis.Datalayer.Product
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
                     $"SELECT ProductCategoryId, " +
                     $"Name, " +
-                    $"Description, " +
+                    $"Description " +
                     $"FROM {TableName} " +
                     $"END");
                 using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -54,7 +54,7 @@ namespace FinancialAnalysis.Datalayer.Product
             {
                 StringBuilder sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150) int AS BEGIN SET NOCOUNT ON; " +
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
                                 $"INSERT into {TableName} (Name, Description) " +
                                 $"VALUES (@Name, @Description); " +
                                 $"SELECT CAST(SCOPE_IDENTITY() as int) END");

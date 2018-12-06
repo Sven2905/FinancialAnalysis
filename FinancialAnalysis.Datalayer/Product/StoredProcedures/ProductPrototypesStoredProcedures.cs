@@ -33,11 +33,11 @@ namespace FinancialAnalysis.Datalayer.Product
                     $"SELECT ProductPrototypeId, " +
                     $"Name, " +
                     $"Description, " +
-                    $"DimensionX " +
-                    $"DimensionY " +
-                    $"DimensionZ " +
-                    $"Weight " +
-                    $"IsStackable " +
+                    $"DimensionX, " +
+                    $"DimensionY, " +
+                    $"DimensionZ, " +
+                    $"Weight, " +
+                    $"IsStackable, " +
                     $"RefProductCategory " +
                     $"FROM {TableName} " +
                     $"END");
