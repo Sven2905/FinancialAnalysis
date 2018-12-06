@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using FinancialAnalysis.Datalayer.StoredProcedures;
 using FinancialAnalysis.Models.Accounting;
 using Serilog;
 using System;
@@ -8,16 +7,16 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace FinancialAnalysis.Datalayer.Tables
+namespace FinancialAnalysis.Datalayer.Accounting
 {
-    public class Debits : ITable
+    public class Credits : ITable
     {
         public string TableName { get; }
-        private DebitsStoredProcedures sp = new DebitsStoredProcedures();
+        private CreditsStoredProcedures sp = new CreditsStoredProcedures();
 
-        public Debits()
+        public Credits()
         {
-            TableName = "Debits";
+            TableName = "Credits";
             CheckAndCreateTable();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -32,7 +31,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
-                                 $"DebitId int IDENTITY(1,1) PRIMARY KEY," +
+                                 $"CreditId int IDENTITY(1,1) PRIMARY KEY," +
                                  $"Amount money NOT NULL," +
                                  $"RefBookingId int NOT NULL," +
                                  $"RefCostAccountId int NOT NULL)";
@@ -56,17 +55,17 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Returns all Debit records
+        /// Returns all Credit records
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Debit> GetAll()
+        public IEnumerable<Credit> GetAll()
         {
-            IEnumerable<Debit> output = new List<Debit>();
+            IEnumerable<Credit> output = new List<Credit>();
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<Debit>($"dbo.{TableName}_GetAll");
+                    output = con.Query<Credit>($"dbo.{TableName}_GetAll");
                 }
             }
             catch (Exception e)
@@ -77,18 +76,18 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Inserts the Debit item
+        /// Inserts the Credit item
         /// </summary>
-        /// <param name="debit"></param>
+        /// <param name="Credit"></param>
         /// <returns>Id of inserted item</returns>
-        public int Insert(Debit debit)
+        public int Insert(Credit Credit)
         {
             int id = 0;
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Amount, @RefCostAccountId, @RefBookingId", debit);
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @Amount, @RefCostAccountId, @RefBookingId", Credit);
                     id = result.Single();
                 }
             }
@@ -100,18 +99,18 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Inserts the list of Debits items
+        /// Inserts the list of Credits items
         /// </summary>
         /// <param name="creditor"></param>
-        public void Insert(IEnumerable<Debit> debits)
+        public void Insert(IEnumerable<Credit> Credits)
         {
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var debit in debits)
+                    foreach (var Credit in Credits)
                     {
-                        Insert(debit);
+                        Insert(Credit);
                     }
                 }
             }
@@ -122,18 +121,18 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Returns Debit by Id
+        /// Returns Credit by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Debit GetById(int id)
+        public Credit GetById(int id)
         {
-            Debit output = new Debit();
+            Credit output = new Credit();
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<Debit>($"dbo.{TableName}_GetById @DebitId", new { DebitId = id });
+                    output = con.QuerySingleOrDefault<Credit>($"dbo.{TableName}_GetById @CreditId", new { CreditId = id });
                 }
             }
             catch (Exception e)
@@ -154,7 +153,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             try
             {
                 SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"IF(OBJECT_ID('FK_Debits_CostAccounts', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_Debits_CostAccounts FOREIGN KEY(RefCostAccountId) REFERENCES CostAccounts(CostAccountId)";
+                var commandStr = $"IF(OBJECT_ID('FK_Credits_CostAccounts', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_Credits_CostAccounts FOREIGN KEY(RefCostAccountId) REFERENCES CostAccounts(CostAccountId)";
 
                 using (SqlCommand command = new SqlCommand(commandStr, con))
                 {
@@ -174,7 +173,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             try
             {
                 SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"IF(OBJECT_ID('FK_Debits_Bookings', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_Debits_Booking FOREIGN KEY(RefBookingId) REFERENCES Bookings(BookingId)";
+                var commandStr = $"IF(OBJECT_ID('FK_Credits_Bookings', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_Credits_Booking FOREIGN KEY(RefBookingId) REFERENCES Bookings(BookingId)";
 
                 using (SqlCommand command = new SqlCommand(commandStr, con))
                 {
@@ -190,5 +189,3 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
     }
 }
-
-

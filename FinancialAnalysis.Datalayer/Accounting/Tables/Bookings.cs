@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using FinancialAnalysis.Datalayer.StoredProcedures;
 using FinancialAnalysis.Models.Accounting;
 using Serilog;
 using System;
@@ -9,7 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using Utilities;
 
-namespace FinancialAnalysis.Datalayer.Tables
+namespace FinancialAnalysis.Datalayer.Accounting
 {
     public class Bookings : ITable
     {

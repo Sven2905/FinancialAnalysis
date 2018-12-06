@@ -1,16 +1,18 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace FinancialAnalysis.Datalayer.StoredProcedures
+namespace FinancialAnalysis.Datalayer.Accounting
 {
-    public class CostAccountCategoriesStoredProcedures : IStoredProcedures
+    class ScannedDocumentsStoredProcedures : IStoredProcedures
     {
         public string TableName { get; }
 
-        public CostAccountCategoriesStoredProcedures()
+        public ScannedDocumentsStoredProcedures()
         {
-            TableName = "CostAccountCategories";
+            TableName = "ScannedDocuments";
         }
 
         /// <summary>
@@ -23,8 +25,6 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
             GetById();
             UpdateData();
             DeleteData();
-            GetCreditorId();
-            GetDebitorId();
         }
 
         private void GetAllData()
@@ -33,7 +33,7 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
             {
                 StringBuilder sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; SELECT CostAccountCategoryId, Description, ParentCategoryId FROM {TableName} END");
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; SELECT ScannedDocumentId, Content, FileName, Date, RefBookingId FROM {TableName} END");
                 using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
@@ -53,9 +53,9 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
             {
                 StringBuilder sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_Insert] @Description nvarchar(50), @ParentCategoryId int AS BEGIN SET NOCOUNT ON; " +
-                                $"INSERT into {TableName} (Description, ParentCategoryId) " +
-                                $"VALUES (@Description, @ParentCategoryId); " +
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_Insert] @Content varbinary(MAX), @FileName nvarchar(150), @Date datetime, @RefBookingId int AS BEGIN SET NOCOUNT ON; " +
+                                $"INSERT into {TableName} (Content, FileName, Date, RefBookingId) " +
+                                $"VALUES (@Content, @FileName, @Date, @RefBookingId); " +
                                 $"SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -77,9 +77,9 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @CostAccountCategoryId int AS BEGIN SET NOCOUNT ON; SELECT CostAccountCategoryId, Description, ParentCategoryId " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @ScannedDocumentId int AS BEGIN SET NOCOUNT ON; SELECT ScannedDocumentId, Content, FileName, Date, RefBookingId " +
                     $"FROM {TableName} " +
-                    $"WHERE CostAccountCategoryId = @CostAccountCategoryId END");
+                    $"WHERE ScannedDocumentId = @ScannedDocumentId END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -101,11 +101,11 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @CostAccountCategoryId int, @Description nvarchar(50), @ParentCategoryId int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @ScannedDocumentId int, @Content varbinary(MAX), @FileName nvarchar(150), @Date datetime, @RefBookingId int " +
                     $"AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
-                    $"SET Description = @Description, ParentCategoryId = @ParentCategoryId " +
-                    $"WHERE CostAccountCategoryId = @CostAccountCategoryId END");
+                    $"SET Content = @Content, FileName = @FileName, Date = @Date, RefBookingId = @RefBookingId " +
+                    $"WHERE ScannedDocumentId = @ScannedDocumentId END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -127,55 +127,7 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @CostAccountCategoryId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE CostAccountCategoryId = @CostAccountCategoryId OR ParentCategoryId= @CostAccountCategoryId END");
-                using (SqlConnection connection =
-                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
-                    {
-                        connection.Open();
-                        cmd.CommandType = CommandType.Text;
-                        cmd.ExecuteNonQuery();
-                        connection.Close();
-                    }
-                }
-            }
-        }
-
-        private void GetCreditorId()
-        {
-            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetCreditorId", DatabaseNames.FinancialAnalysisDB))
-            {
-                StringBuilder sbSP = new StringBuilder();
-
-                sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetCreditorId] @Description nvarchar(150) AS BEGIN SET NOCOUNT ON; SELECT CostAccountCategoryId " +
-                    $"FROM {TableName} " +
-                    $"WHERE Description = @Description END");
-                using (SqlConnection connection =
-                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
-                    {
-                        connection.Open();
-                        cmd.CommandType = CommandType.Text;
-                        cmd.ExecuteNonQuery();
-                        connection.Close();
-                    }
-                }
-            }
-        }
-
-        private void GetDebitorId()
-        {
-            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetDebitorId", DatabaseNames.FinancialAnalysisDB))
-            {
-                StringBuilder sbSP = new StringBuilder();
-
-                sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetDebitorId] @Description nvarchar(150) AS BEGIN SET NOCOUNT ON; SELECT CostAccountCategoryId " +
-                    $"FROM {TableName} " +
-                    $"WHERE Description = @Description END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @ScannedDocumentId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE ScannedDocumentId = @ScannedDocumentId END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

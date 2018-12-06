@@ -2,15 +2,15 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.StoredProcedures
+namespace FinancialAnalysis.Datalayer.Product
 {
-    public class DebitsStoredProcedures : IStoredProcedures
+    public class ProductPrototypesProcedures : IStoredProcedures
     {
         public string TableName { get; }
 
-        public DebitsStoredProcedures()
+        public ProductPrototypesProcedures()
         {
-            TableName = "Debits";
+            TableName = "ProductPrototypes";
         }
 
         /// <summary>
@@ -30,7 +30,15 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                    $"SELECT DebitId, Amount, RefCostAccountId, RefBookingId " +
+                    $"SELECT ProductPrototypeId, " +
+                    $"Name, " +
+                    $"Description, " +
+                    $"DimensionX " +
+                    $"DimensionY " +
+                    $"DimensionZ " +
+                    $"Weight " +
+                    $"IsStackable " +
+                    $"RefProductCategory " +
                     $"FROM {TableName} " +
                     $"END");
                 using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -52,9 +60,9 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
             {
                 StringBuilder sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_Insert] @Amount money, @RefCostAccountId int, @RefBookingId int AS BEGIN SET NOCOUNT ON; " +
-                                $"INSERT into {TableName} (Amount, RefCostAccountId, RefBookingId) " +
-                                $"VALUES (@Amount, @RefCostAccountId, @RefBookingId); " +
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150), @DimensionX decimal, @DimensionY decimal, @DimensionZ decimal, @Weight decimal, @IsStackable bit, @RefProductCategory int AS BEGIN SET NOCOUNT ON; " +
+                                $"INSERT into {TableName} (Name, Description, DimensionX, DimensionY, DimensionZ, Weight, IsStackable, RefProductCategory) " +
+                                $"VALUES (@Name, @Description, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @RefProductCategory); " +
                                 $"SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -76,9 +84,9 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @DebitId int AS BEGIN SET NOCOUNT ON; SELECT DebitId, Amount, RefCostAccountId, RefBookingId " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @ProductPrototypeId int AS BEGIN SET NOCOUNT ON; SELECT Name, Description, DimensionX, DimensionY, DimensionZ, Weight, IsStackable, RefProductCategory " +
                     $"FROM {TableName} " +
-                    $"WHERE DebitId = @DebitId END");
+                    $"WHERE ProductPrototypeId = @ProductPrototypeId END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

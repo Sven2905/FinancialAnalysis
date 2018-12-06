@@ -79,31 +79,35 @@
     <Compile Include="DataLayer.cs" />
     <Compile Include="Helper\DatabaseNames.cs" />
     <Compile Include="Helper\Helper.cs" />
+    <Compile Include="Product\StoredProcedures\ProductCategoriesStoredProcedures.cs" />
+    <Compile Include="Product\StoredProcedures\ProductPrototypesStoredProcedures.cs" />
+    <Compile Include="Product\Tables\ProductCategories.cs" />
+    <Compile Include="Product\Tables\ProductPrototypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StoredProcedures\BookingsStoredProcedures.cs" />
+    <Compile Include="Accounting\StoredProcedures\BookingsStoredProcedures.cs" />
     <Compile Include="StoredProcedures\CompaniesStoredProcedures.cs" />
-    <Compile Include="StoredProcedures\CostAccountCategoriesStoredProcedures.cs" />
-    <Compile Include="StoredProcedures\CostAccountsStoredProcedures.cs" />
-    <Compile Include="StoredProcedures\CreditorsStoredProcedures.cs" />
-    <Compile Include="StoredProcedures\CreditsStoredProcedures.cs" />
-    <Compile Include="StoredProcedures\DebitorsStoredProcedures.cs" />
-    <Compile Include="StoredProcedures\DebitsStoredProcedures.cs" />
+    <Compile Include="Accounting\StoredProcedures\CostAccountCategoriesStoredProcedures.cs" />
+    <Compile Include="Accounting\StoredProcedures\CostAccountsStoredProcedures.cs" />
+    <Compile Include="Accounting\StoredProcedures\CreditorsStoredProcedures.cs" />
+    <Compile Include="Accounting\StoredProcedures\CreditsStoredProcedures.cs" />
+    <Compile Include="Accounting\StoredProcedures\DebitorsStoredProcedures.cs" />
+    <Compile Include="Accounting\StoredProcedures\DebitsStoredProcedures.cs" />
     <Compile Include="StoredProcedures\IStoredProcedures.cs" />
-    <Compile Include="StoredProcedures\ScannedDocumentsStoredProcedures.cs" />
+    <Compile Include="Accounting\StoredProcedures\ScannedDocumentsStoredProcedures.cs" />
     <Compile Include="StoredProcedures\TableVersionsStoredProcedures.cs" />
-    <Compile Include="StoredProcedures\TaxTypesStoredProcedures.cs" />
-    <Compile Include="Tables\Bookings.cs" />
+    <Compile Include="Accounting\StoredProcedures\TaxTypesStoredProcedures.cs" />
+    <Compile Include="Accounting\Tables\Bookings.cs" />
     <Compile Include="Tables\Companies.cs" />
-    <Compile Include="Tables\CostAccountCategories.cs" />
-    <Compile Include="Tables\CostAccounts.cs" />
-    <Compile Include="Tables\Creditors.cs" />
-    <Compile Include="Tables\Credits.cs" />
-    <Compile Include="Tables\Debitors.cs" />
-    <Compile Include="Tables\Debits.cs" />
+    <Compile Include="Accounting\Tables\CostAccountCategories.cs" />
+    <Compile Include="Accounting\Tables\CostAccounts.cs" />
+    <Compile Include="Accounting\Tables\Creditors.cs" />
+    <Compile Include="Accounting\Tables\Credits.cs" />
+    <Compile Include="Accounting\Tables\Debitors.cs" />
+    <Compile Include="Accounting\Tables\Debits.cs" />
     <Compile Include="Tables\ITable.cs" />
-    <Compile Include="Tables\ScannedDocuments.cs" />
+    <Compile Include="Accounting\Tables\ScannedDocuments.cs" />
     <Compile Include="Tables\TableVersions.cs" />
-    <Compile Include="Tables\TaxTypes.cs" />
+    <Compile Include="Accounting\Tables\TaxTypes.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -118,6 +122,12 @@
       <Project>{69F19F6B-092B-4EE7-AD82-3944F3694952}</Project>
       <Name>Utilities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Ordering\StoredProcedures\" />
+    <Folder Include="Ordering\Tables\" />
+    <Folder Include="Warehouse\StoredProcedures\" />
+    <Folder Include="Warehouse\Tables\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

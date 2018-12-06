@@ -65,8 +65,12 @@
     <Compile Include="Employee.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="HealthInsurance.cs" />
+    <Compile Include="Ordering\Order.cs" />
+    <Compile Include="Ordering\OrderDetail.cs" />
+    <Compile Include="Product\ProductPrototype.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Accounting\Debitor.cs" />
+    <Compile Include="Product\ProductCategory.cs" />
     <Compile Include="ProjectManagement\Project.cs" />
     <Compile Include="ProjectManagement\ProjectEmployeeMapping.cs" />
     <Compile Include="ProjectManagement\ProjectRole.cs" />
@@ -75,6 +79,9 @@
     <Compile Include="SelectedCostAccount.cs" />
     <Compile Include="TableVersion.cs" />
     <Compile Include="Tariff.cs" />
+    <Compile Include="Warehouse\BookedProduct.cs" />
+    <Compile Include="Warehouse\Stockyard.cs" />
+    <Compile Include="Warehouse\Warehouse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

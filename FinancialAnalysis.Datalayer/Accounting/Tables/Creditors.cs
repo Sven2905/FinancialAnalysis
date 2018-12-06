@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using FinancialAnalysis.Datalayer.StoredProcedures;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using Serilog;
@@ -9,16 +8,16 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace FinancialAnalysis.Datalayer.Tables
+namespace FinancialAnalysis.Datalayer.Accounting
 {
-    public class Debitors : ITable
+    public class Creditors : ITable
     {
         public string TableName { get; }
-        private DebitorsStoredProcedures sp = new DebitorsStoredProcedures();
+        private CreditorsStoredProcedures sp = new CreditorsStoredProcedures();
 
-        public Debitors()
+        public Creditors()
         {
-            TableName = "Debitors";
+            TableName = "Creditors";
             CheckAndCreateTable();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -33,7 +32,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
-                                 $"DebitorId int IDENTITY(1,1) PRIMARY KEY," +
+                                 $"CreditorId int IDENTITY(1,1) PRIMARY KEY," +
                                  $"RefCompanyId int NOT NULL," +
                                  $"RefCostAccountId int NOT NULL)";
 
@@ -56,21 +55,21 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Returns all Debitor records
+        /// Returns all Creditor records
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Debitor> GetAll()
+        public IEnumerable<Creditor> GetAll()
         {
-            IEnumerable<Debitor> output = new List<Debitor>();
+            IEnumerable<Creditor> output = new List<Creditor>();
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<Debitor, Company, CostAccount, Debitor>($"dbo.{TableName}_GetAll",
-                            (debitor, company, costaccount) => {
-                                debitor.Company = company;
-                                debitor.CostAccount = costaccount;
-                                return debitor;
+                    output = con.Query<Creditor, Company, CostAccount, Creditor>($"dbo.{TableName}_GetAll",
+                            (creditor, company, costaccount) => {
+                                creditor.Company = company;
+                                creditor.CostAccount = costaccount;
+                                return creditor;
                             }, splitOn: "CompanyId, CostAccountId",
                             commandType: CommandType.StoredProcedure).ToList();
                 }
@@ -84,18 +83,18 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Inserts the Debitor item
+        /// Inserts the Creditor item
         /// </summary>
-        /// <param name="debitor"></param>
+        /// <param name="creditor"></param>
         /// <returns>Id of inserted item</returns>
-        public int Insert(Debitor debitor)
+        public int Insert(Creditor creditor)
         {
             int id = 0;
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @RefCompanyId, @RefCostAccountId", debitor);
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @RefCompanyId, @RefCostAccountId", creditor);
                     id = result.Single();
                 }
             }
@@ -107,18 +106,18 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Inserts the list of Debitor items
+        /// Inserts the list of Creditor items
         /// </summary>
-        /// <param name="debitor"></param>
-        public void Insert(IEnumerable<Debitor> debitors)
+        /// <param name="creditor"></param>
+        public void Insert(IEnumerable<Creditor> creditors)
         {
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var debitor in debitors)
+                    foreach (var creditor in creditors)
                     {
-                        Insert(debitor);
+                        Insert(creditor);
                     }
                 }
             }
@@ -129,18 +128,18 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Returns Debitor by Id
+        /// Returns Creditor by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Debitor GetById(int id)
+        public Creditor GetById(int id)
         {
-            Debitor output = new Debitor();
+            Creditor output = new Creditor();
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<Debitor>($"dbo.{TableName}_GetById @DebitorId", new { DebitorId = id });
+                    output = con.QuerySingleOrDefault<Creditor>($"dbo.{TableName}_GetById @CreditorId", new { CreditorId = id });
                 }
             }
             catch (Exception e)
@@ -151,39 +150,39 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Update Debitor, if not exist, insert it
+        /// Update Creditor, if not exist, insert it
         /// </summary>
         /// <param name="creditor"></param>
-        public void UpdateOrInsert(Debitor debitor)
+        public void UpdateOrInsert(Creditor creditor)
         {
-            if (debitor.DebitorId == 0 || GetById(debitor.DebitorId) is null)
+            if (creditor.CreditorId == 0 || GetById(creditor.CreditorId) is null)
             {
-                Insert(debitor);
+                Insert(creditor);
                 return;
             }
 
-            Update(debitor);
+            Update(creditor);
         }
 
         /// <summary>
-        /// Update Debitors, if not exist insert them
+        /// Update Creditors, if not exist insert them
         /// </summary>
         /// <param name="creditor"></param>
-        public void UpdateOrInsert(IEnumerable<Debitor> debitors)
+        public void UpdateOrInsert(IEnumerable<Creditor> creditors)
         {
-            foreach (var debitor in debitors)
+            foreach (var creditor in creditors)
             {
-                UpdateOrInsert(debitor);
+                UpdateOrInsert(creditor);
             }
         }
 
         /// <summary>
-        /// Update Debitor
+        /// Update Creditor
         /// </summary>
         /// <param name="creditor"></param>
-        public void Update(Debitor debitor)
+        public void Update(Creditor creditor)
         {
-            if (debitor.DebitorId == 0 || GetById(debitor.DebitorId) is null)
+            if (creditor.CreditorId == 0 || GetById(creditor.CreditorId) is null)
             {
                 return;
             }
@@ -192,7 +191,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @RefCompanyId, @RefCostAccountId", debitor);
+                    con.Execute($"dbo.{TableName}_Update @RefCompanyId, @RefCostAccountId", creditor);
                 }
             }
             catch (Exception e)
@@ -202,7 +201,7 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Delete Debitor by Id
+        /// Delete Creditor by Id
         /// </summary>
         /// <param name="id"></param>
         public void Delete(int id)
@@ -211,7 +210,7 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @DebitorId", new { DebitorId = id });
+                    con.Execute($"dbo.{TableName}_Delete @CreditorId", new { CreditorId = id });
                 }
             }
             catch (Exception e)
@@ -225,13 +224,13 @@ namespace FinancialAnalysis.Datalayer.Tables
             AddCostCompaniesReference();
             AddCostAccountsReference();
         }
-
-        private void AddCostCompaniesReference()
+        
+        private void AddCostAccountsReference()
         {
             try
             {
                 SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"IF(OBJECT_ID('FK_Debitors_CostAccounts', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_Debitors_CostAccounts FOREIGN KEY(RefCostAccountId) REFERENCES CostAccounts(CostAccountId)";
+                var commandStr = $"IF(OBJECT_ID('FK_Creditors_CostAccounts', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_Creditors_CostAccounts FOREIGN KEY(RefCostAccountId) REFERENCES CostAccounts(CostAccountId)";
 
                 using (SqlCommand command = new SqlCommand(commandStr, con))
                 {
@@ -246,12 +245,12 @@ namespace FinancialAnalysis.Datalayer.Tables
             }
         }
 
-        private void AddCostAccountsReference()
+        private void AddCostCompaniesReference()
         {
             try
             {
                 SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"IF(OBJECT_ID('FK_Debitors_Companies', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_Debitors_Companies FOREIGN KEY(RefCompanyId) REFERENCES Companies(CompanyId)";
+                var commandStr = $"IF(OBJECT_ID('FK_Creditors_Companies', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_Creditors_Companies FOREIGN KEY(RefCompanyId) REFERENCES Companies(CompanyId)";
 
                 using (SqlCommand command = new SqlCommand(commandStr, con))
                 {
@@ -267,22 +266,22 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Checks if Debitor has Cost Accounts
+        /// Checks if Creditor has Cost Accounts
         /// </summary>
         /// <param name="id"></param>
-        public bool IsDebitorInUse(int id)
+        public bool IsCreditorInUse(int id)
         {
             bool IsInUse = true;
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    IsInUse = con.ExecuteScalar<bool>($"dbo.{TableName}_IsDebitorInUse @DebitorId", new { DebitorId = id });
+                    IsInUse = con.ExecuteScalar<bool>($"dbo.{TableName}_IsCreditorInUse @CreditorId", new { CreditorId = id });
                 }
             }
             catch (Exception e)
             {
-                Log.Error($"Exception occured while 'IsDebitorInUse' from table '{TableName}'", e);
+                Log.Error($"Exception occured while 'IsCreditorInUse' from table '{TableName}'", e);
             }
             return IsInUse;
         }

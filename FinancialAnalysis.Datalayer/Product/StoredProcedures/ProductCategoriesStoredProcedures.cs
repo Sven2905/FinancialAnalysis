@@ -2,15 +2,15 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.StoredProcedures
+namespace FinancialAnalysis.Datalayer.Product
 {
-    public class CreditsStoredProcedures : IStoredProcedures
+    public class ProductCategoriesProcedures : IStoredProcedures
     {
         public string TableName { get; }
 
-        public CreditsStoredProcedures()
+        public ProductCategoriesProcedures()
         {
-            TableName = "Credits";
+            TableName = "ProductCategories";
         }
 
         /// <summary>
@@ -30,7 +30,9 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                    $"SELECT CreditId, Amount, RefCostAccountId, RefBookingId " +
+                    $"SELECT ProductCategoryId, " +
+                    $"Name, " +
+                    $"Description, " +
                     $"FROM {TableName} " +
                     $"END");
                 using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -52,9 +54,9 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
             {
                 StringBuilder sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_Insert] @Amount money, @RefCostAccountId int, @RefBookingId int AS BEGIN SET NOCOUNT ON; " +
-                                $"INSERT into {TableName} (Amount, RefCostAccountId, RefBookingId) " +
-                                $"VALUES (@Amount, @RefCostAccountId, @RefBookingId); " +
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150) int AS BEGIN SET NOCOUNT ON; " +
+                                $"INSERT into {TableName} (Name, Description) " +
+                                $"VALUES (@Name, @Description); " +
                                 $"SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -76,9 +78,9 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 StringBuilder sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @CreditId int AS BEGIN SET NOCOUNT ON; SELECT CreditId, Amount, RefCostAccountId, RefBookingId " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @ProductCategoryId int AS BEGIN SET NOCOUNT ON; SELECT Name, Description " +
                     $"FROM {TableName} " +
-                    $"WHERE CreditId = @CreditId END");
+                    $"WHERE ProductCategoryId = @ProductCategoryId END");
                 using (SqlConnection connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

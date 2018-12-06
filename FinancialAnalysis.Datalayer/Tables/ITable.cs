@@ -1,7 +1,6 @@
-﻿using FinancialAnalysis.Datalayer.StoredProcedures;
-using System.Collections;
+﻿using System.Collections;
 
-namespace FinancialAnalysis.Datalayer.Tables
+namespace FinancialAnalysis.Datalayer
 {
     public interface ITable
     {

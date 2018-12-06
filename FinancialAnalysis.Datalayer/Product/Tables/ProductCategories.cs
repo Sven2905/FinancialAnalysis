@@ -1,6 +1,5 @@
 ﻿using Dapper;
-using FinancialAnalysis.Datalayer.StoredProcedures;
-using FinancialAnalysis.Models.Accounting;
+using FinancialAnalysis.Models.Product;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -8,16 +7,16 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace FinancialAnalysis.Datalayer.Tables
+namespace FinancialAnalysis.Datalayer.Product
 {
-    public class Credits : ITable
+    public class ProductCategories : ITable
     {
         public string TableName { get; }
-        private CreditsStoredProcedures sp = new CreditsStoredProcedures();
+        private ProductCategoriesProcedures sp = new ProductCategoriesProcedures();
 
-        public Credits()
+        public ProductCategories()
         {
-            TableName = "Credits";
+            TableName = "ProductCategories";
             CheckAndCreateTable();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -32,10 +31,9 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
-                                 $"CreditId int IDENTITY(1,1) PRIMARY KEY," +
-                                 $"Amount money NOT NULL," +
-                                 $"RefBookingId int NOT NULL," +
-                                 $"RefCostAccountId int NOT NULL)";
+                                 $"ProductCategoryId int IDENTITY(1,1) PRIMARY KEY," +
+                                 $"Name nvarchar(150) NOT NULL," +
+                                 $"Description nvarchar(150)";
 
                 using (SqlCommand command = new SqlCommand(commandStr, con))
                 {
@@ -56,17 +54,17 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Returns all Credit records
+        /// Returns all Product Category records
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Credit> GetAll()
+        public IEnumerable<ProductCategory> GetAll()
         {
-            IEnumerable<Credit> output = new List<Credit>();
+            IEnumerable<ProductCategory> output = new List<ProductCategory>();
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<Credit>($"dbo.{TableName}_GetAll");
+                    output = con.Query<ProductCategory>($"dbo.{TableName}_GetAll");
                 }
             }
             catch (Exception e)
@@ -77,18 +75,18 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Inserts the Credit item
+        /// Inserts the Product Category item
         /// </summary>
-        /// <param name="Credit"></param>
+        /// <param name="ProductPrototype"></param>
         /// <returns>Id of inserted item</returns>
-        public int Insert(Credit Credit)
+        public int Insert(ProductCategory ProductCategory)
         {
             int id = 0;
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Amount, @RefCostAccountId, @RefBookingId", Credit);
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @Description, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @RefProductCategory", ProductCategory);
                     id = result.Single();
                 }
             }
@@ -100,18 +98,18 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Inserts the list of Credits items
+        /// Inserts the list of Product Category items
         /// </summary>
-        /// <param name="creditor"></param>
-        public void Insert(IEnumerable<Credit> Credits)
+        /// <param name="ProductPrototype"></param>
+        public void Insert(IEnumerable<ProductCategory> ProductCategories)
         {
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var Credit in Credits)
+                    foreach (var ProductCategory in ProductCategories)
                     {
-                        Insert(Credit);
+                        Insert(ProductCategory);
                     }
                 }
             }
@@ -122,18 +120,18 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Returns Credit by Id
+        /// Returns Product Category by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Credit GetById(int id)
+        public ProductCategory GetById(int id)
         {
-            Credit output = new Credit();
+            ProductCategory output = new ProductCategory();
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<Credit>($"dbo.{TableName}_GetById @CreditId", new { CreditId = id });
+                    output = con.QuerySingleOrDefault<ProductCategory>($"dbo.{TableName}_GetById @ProductPrototypeId", new { ProductCategoryId = id });
                 }
             }
             catch (Exception e)
@@ -141,52 +139,6 @@ namespace FinancialAnalysis.Datalayer.Tables
                 Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
             }
             return output;
-        }
-
-        public void AddReferences()
-        {
-            AddCostAccountsReference();
-            AddBookingsReference();
-        }
-
-        private void AddCostAccountsReference()
-        {
-            try
-            {
-                SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"IF(OBJECT_ID('FK_Credits_CostAccounts', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_Credits_CostAccounts FOREIGN KEY(RefCostAccountId) REFERENCES CostAccounts(CostAccountId)";
-
-                using (SqlCommand command = new SqlCommand(commandStr, con))
-                {
-                    con.Open();
-                    command.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while creating reference between '{TableName}' and CostAccounts", e);
-            }
-        }
-
-        private void AddBookingsReference()
-        {
-            try
-            {
-                SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"IF(OBJECT_ID('FK_Credits_Bookings', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_Credits_Booking FOREIGN KEY(RefBookingId) REFERENCES Bookings(BookingId)";
-
-                using (SqlCommand command = new SqlCommand(commandStr, con))
-                {
-                    con.Open();
-                    command.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while creating reference between '{TableName}' and Bookings", e);
-            }
         }
     }
 }

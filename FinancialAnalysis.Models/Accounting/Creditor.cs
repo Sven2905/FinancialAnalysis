@@ -20,5 +20,6 @@ namespace FinancialAnalysis.Models.Accounting
         public Company Company { get; set; }
         public int RefCostAccountId { get; set; }
         public CostAccount CostAccount { get; set; }
+
     }
 }

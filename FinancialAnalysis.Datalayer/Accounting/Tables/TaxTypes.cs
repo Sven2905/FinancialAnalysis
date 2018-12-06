@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using FinancialAnalysis.Datalayer.StoredProcedures;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using Serilog;
@@ -10,7 +9,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinancialAnalysis.Datalayer.Tables
+namespace FinancialAnalysis.Datalayer.Accounting
 {
     public class TaxTypes : ITable
     {

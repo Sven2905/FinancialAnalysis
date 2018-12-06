@@ -1,4 +1,6 @@
-﻿using FinancialAnalysis.Datalayer.Tables;
+﻿using FinancialAnalysis.Datalayer.Accounting;
+using FinancialAnalysis.Datalayer.Product;
+using FinancialAnalysis.Datalayer.Tables;
 using System;
 
 namespace FinancialAnalysis.Datalayer
@@ -21,6 +23,9 @@ namespace FinancialAnalysis.Datalayer
         public Credits Credits { get; set; } = new Credits();
         public Bookings Bookings { get; set; } = new Bookings();
         public ScannedDocuments ScannedDocuments { get; set; } = new ScannedDocuments();
+        public ProductCategories ProductCategories { get; set; } = new ProductCategories();
+        public ProductPrototypes ProductPrototypes { get; set; } = new ProductPrototypes();
+
 
         public void Dispose()
         {
@@ -51,6 +56,8 @@ namespace FinancialAnalysis.Datalayer
             Debits.CheckAndCreateStoredProcedures();
             ScannedDocuments.CheckAndCreateStoredProcedures();
             Bookings.CheckAndCreateStoredProcedures();
+            ProductCategories.CheckAndCreateStoredProcedures();
+            ProductPrototypes.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()
@@ -61,6 +68,7 @@ namespace FinancialAnalysis.Datalayer
             Credits.AddReferences();
             Debits.AddReferences();
             ScannedDocuments.AddReferences();
+            ProductPrototypes.AddReferences();
         }
     }
 }

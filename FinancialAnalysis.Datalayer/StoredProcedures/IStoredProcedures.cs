@@ -1,4 +1,4 @@
-﻿namespace FinancialAnalysis.Datalayer.StoredProcedures
+﻿namespace FinancialAnalysis.Datalayer
 {
     internal interface IStoredProcedures
     {
