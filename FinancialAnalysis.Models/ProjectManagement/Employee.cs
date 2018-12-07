@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Models.ProjectManagement
 {
     /// <summary>
-    /// Employee of the company
+    ///     Employee of the company
     /// </summary>
     public class Employee
     {
@@ -22,6 +19,7 @@ namespace FinancialAnalysis.Models.ProjectManagement
         public CivilStatus CivilStatus { get; set; }
         public int RefTariffId { get; set; }
         public Tariff Tariff { get; set; }
+
         // Steuer-Id
         public string TaxId { get; set; }
         public int RefHealthInsuranceId { get; set; }
@@ -34,7 +32,9 @@ namespace FinancialAnalysis.Models.ProjectManagement
         public string IBAN { get; set; }
         public decimal Salary { get; set; }
         public float WorkHoursPerWeek { get; set; }
+
         public int VacationDays { get; set; }
+
         // Sozialversicherungsnummer
         public string NationalInsuranceNumber { get; set; }
         public byte[] Picture { get; set; }

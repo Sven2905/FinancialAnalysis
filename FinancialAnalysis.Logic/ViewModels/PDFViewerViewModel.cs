@@ -1,32 +1,32 @@
-﻿using DevExpress.Mvvm;
+﻿using System.IO;
+using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models.Accounting;
-using System;
-using System.IO;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
     public class PDFViewerViewModel : ViewModelBase
     {
         private readonly ScannedDocument _ScannedDocument;
-        private int _ScannedDocumentId;
         private string _Path;
+        private int _ScannedDocumentId;
         private byte[] content;
 
         private void LoadDocumentById()
         {
-            using (DataLayer db = new DataLayer())
+            using (var db = new DataLayer())
             {
                 content = db.ScannedDocuments.GetById(ScannedDocumentId).Content;
             }
-            MemoryStream ms = new MemoryStream(content);
+
+            var ms = new MemoryStream(content);
             ScannedDocument = ms;
         }
 
         private void LoadDocumentByPath()
         {
             content = File.ReadAllBytes(_Path);
-            MemoryStream ms = new MemoryStream(content);
+            var ms = new MemoryStream(content);
             ScannedDocument = ms;
         }
 
@@ -36,25 +36,21 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public int ScannedDocumentId
         {
-            get { return _ScannedDocumentId; }
+            get => _ScannedDocumentId;
             set
             {
-                _ScannedDocumentId = value; if (_ScannedDocumentId != 0)
-                {
-                    LoadDocumentById();
-                }
+                _ScannedDocumentId = value;
+                if (_ScannedDocumentId != 0) LoadDocumentById();
             }
         }
 
         public string Path
         {
-            get { return _Path; }
+            get => _Path;
             set
             {
-                _Path = value; if (!string.IsNullOrEmpty(_Path))
-                {
-                    LoadDocumentByPath();
-                }
+                _Path = value;
+                if (!string.IsNullOrEmpty(_Path)) LoadDocumentByPath();
             }
         }
 

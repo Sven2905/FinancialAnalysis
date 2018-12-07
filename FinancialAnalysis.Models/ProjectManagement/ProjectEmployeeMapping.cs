@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FinancialAnalysis.Models.ProjectManagement
+﻿namespace FinancialAnalysis.Models.ProjectManagement
 {
     /// <summary>
-    /// Mapping between employee, project and role
+    ///     Mapping between employee, project and role
     /// </summary>
     public class ProjectEmployeeMapping
     {

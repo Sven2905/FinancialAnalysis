@@ -1,19 +1,13 @@
-﻿using FinancialAnalysis.Datalayer.Accounting;
+﻿using System;
+using FinancialAnalysis.Datalayer.Accounting;
 using FinancialAnalysis.Datalayer.Product;
 using FinancialAnalysis.Datalayer.ProjectManagement;
 using FinancialAnalysis.Datalayer.Tables;
-using System;
-using System.Collections.Generic;
 
 namespace FinancialAnalysis.Datalayer
 {
     public class DataLayer : IDisposable
     {
-        public DataLayer()
-        {
-
-        }
-        
         public TaxTypes TaxTypes { get; set; } = new TaxTypes();
         public TableVersions TableVersions { get; set; } = new TableVersions();
         public Companies Companies { get; set; } = new Companies();
@@ -41,10 +35,10 @@ namespace FinancialAnalysis.Datalayer
         {
             //if (TableVersions.GetById(1) == null || TableVersions.GetById(1).Version != 1)
             //{
-                CheckAndCreateStoredProcedures();
-                AddReferences();
+            CheckAndCreateStoredProcedures();
+            AddReferences();
 
-                //TableVersions.Insert(new Models.TableVersion() { Name = "Alpha", Version = 1, LastModified = DateTime.Now });
+            //TableVersions.Insert(new Models.TableVersion() { Name = "Alpha", Version = 1, LastModified = DateTime.Now });
             //}
         }
 

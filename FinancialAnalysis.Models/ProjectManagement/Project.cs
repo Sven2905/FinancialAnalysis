@@ -1,14 +1,11 @@
-﻿using FinancialAnalysis.Models.Accounting;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using FinancialAnalysis.Models.Accounting;
 
 namespace FinancialAnalysis.Models.ProjectManagement
 {
     /// <summary>
-    /// Project which can be worked on
+    ///     Project which can be worked on
     /// </summary>
     public class Project
     {

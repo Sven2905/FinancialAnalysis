@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FinancialAnalysis.Models.ProjectManagement
+﻿namespace FinancialAnalysis.Models.ProjectManagement
 {
     /// <summary>
-    /// Roles for projects
+    ///     Roles for projects
     /// </summary>
     public class ProjectRole
     {

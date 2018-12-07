@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 namespace FinancialAnalysis.Logic.Messages
 {
     public class OpenDialogWindowMessage
     {
-        public OpenDialogWindowMessage(string Title, string Message, MessageBoxImage MessageBoxImage = MessageBoxImage.None)
+        public OpenDialogWindowMessage(string Title, string Message,
+            MessageBoxImage MessageBoxImage = MessageBoxImage.None)
         {
             this.Title = Title;
             this.Message = Message;

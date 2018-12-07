@@ -1,19 +1,17 @@
-﻿using Dapper;
-using FinancialAnalysis.Datalayer.StoredProcedures;
-using FinancialAnalysis.Models;
-using Serilog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using Dapper;
+using FinancialAnalysis.Datalayer.StoredProcedures;
+using FinancialAnalysis.Models;
+using Serilog;
 
 namespace FinancialAnalysis.Datalayer.Tables
 {
     public class TableVersions : ITable
     {
-        private TableVersionsStoredProcedures sp = new TableVersionsStoredProcedures();
-
-        public string TableName { get; }
+        private readonly TableVersionsStoredProcedures sp = new TableVersionsStoredProcedures();
 
         public TableVersions()
         {
@@ -26,22 +24,25 @@ namespace FinancialAnalysis.Datalayer.Tables
                 .CreateLogger();
         }
 
+        public string TableName { get; }
+
         public void CheckAndCreateStoredProcedures()
         {
             sp.CheckAndCreateProcedures();
         }
 
         /// <summary>
-        /// Checks if table exists otherwise creates it
+        ///     Checks if table exists otherwise creates it
         /// </summary>
         public void CheckAndCreateTable()
         {
             try
             {
-                SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(TableVersionId int IDENTITY(1,1) PRIMARY KEY,Name char(50) NOT NULL,Version int NOT NULL,LastModified datetime NOT NULL)";
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(TableVersionId int IDENTITY(1,1) PRIMARY KEY,Name char(50) NOT NULL,Version int NOT NULL,LastModified datetime NOT NULL)";
 
-                using (SqlCommand command = new SqlCommand(commandStr, con))
+                using (var command = new SqlCommand(commandStr, con))
                 {
                     con.Open();
                     command.ExecuteNonQuery();
@@ -55,7 +56,7 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Returns all TableVersion records
+        ///     Returns all TableVersion records
         /// </summary>
         /// <returns></returns>
         public IEnumerable<TableVersion> GetAll()
@@ -63,7 +64,8 @@ namespace FinancialAnalysis.Datalayer.Tables
             IEnumerable<TableVersion> output = new List<TableVersion>();
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.Query<TableVersion>($"dbo.{TableName}_GetAll");
                 }
@@ -72,40 +74,45 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
             }
+
             return output;
         }
 
         /// <summary>
-        /// Returns TaxType by Id
+        ///     Returns TaxType by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public TableVersion GetById(int id)
         {
-            TableVersion output = new TableVersion();
+            var output = new TableVersion();
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<TableVersion>($"dbo.{TableName}_GetById @TableVersionId", new { TableVersionId = id });
+                    output = con.QuerySingleOrDefault<TableVersion>($"dbo.{TableName}_GetById @TableVersionId",
+                        new {TableVersionId = id});
                 }
             }
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
             }
+
             return output;
         }
 
         /// <summary>
-        /// Inserts the list of TableVersion items
+        ///     Inserts the list of TableVersion items
         /// </summary>
         /// <param name="tableVersions"></param>
         public void Insert(TableVersion tableVersion)
         {
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     con.Execute($"dbo.{TableName}_Insert @Name, @Version, @LastModified", tableVersion);
                 }
@@ -117,7 +124,7 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Update TaxType, if not exist, insert it
+        ///     Update TaxType, if not exist, insert it
         /// </summary>
         /// <param name="tableVersion"></param>
         public void UpdateOrInsert(TableVersion tableVersion)
@@ -132,21 +139,21 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Update TaxType
+        ///     Update TaxType
         /// </summary>
         /// <param name="tableVersion"></param>
         public void Update(TableVersion tableVersion)
         {
-            if (tableVersion.Id == 0 || GetById(tableVersion.Id) is null)
-            {
-                return;
-            }
+            if (tableVersion.Id == 0 || GetById(tableVersion.Id) is null) return;
 
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @TableVersionId, @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefAccountNumber, @RefAccountNotPayable", tableVersion);
+                    con.Execute(
+                        $"dbo.{TableName}_Update @TableVersionId, @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefAccountNumber, @RefAccountNotPayable",
+                        tableVersion);
                 }
             }
             catch (Exception e)

@@ -6,11 +6,10 @@ using FinancialAnalysis.Windows;
 namespace FinancialAnalysis.UI
 {
     /// <summary>
-    /// Zentrale Listener-Klasse für alle Nachrichten.
+    ///     Zentrale Listener-Klasse für alle Nachrichten.
     /// </summary>
     internal class MessageListener
     {
-
         #region Konstruktor
 
         public MessageListener()
@@ -20,39 +19,46 @@ namespace FinancialAnalysis.UI
 
         #endregion
 
+        #region Properties
+
+        /// <summary>
+        ///     Nur zum Aufruf notwendig.
+        /// </summary>
+        public bool BindableProperty => true;
+
+        #endregion
+
         #region Methods
 
         /// <summary>
-        /// Registriert alle Nachrichten und deren Aktion nach dem Aufruf
+        ///     Registriert alle Nachrichten und deren Aktion nach dem Aufruf
         /// </summary>
         private void InitMessenger()
         {
             Messenger.Default.Register<OpenKontenrahmenWindowMessage>(this,
-                 msg =>
-                 {
-                     var window = new KontenrahmenWindow();
-                     var model = window.DataContext as KontenrahmenViewModel;
-                     if (model != null)
-                     {
-                         model.AccountingType = msg.AccountingType;
-                     }
+                msg =>
+                {
+                    var window = new KontenrahmenWindow();
+                    var model = window.DataContext as KontenrahmenViewModel;
+                    if (model != null) model.AccountingType = msg.AccountingType;
 
-                     window.ShowDialog();
-                 });
+                    window.ShowDialog();
+                });
 
             Messenger.Default.Register<OpenDialogWindowMessage>(this,
-                 msg =>
-                 {
-                     var window = new DialogWindow();
-                     var model = window.DataContext as DialogViewModel;
-                     if (model != null)
-                     {
-                         model.Message = msg.Message;
-                         model.Title = msg.Title;
-                         model.MessageBoxImage = msg.MessageBoxImage;
-                     }
-                     window.ShowDialog();
-                 });
+                msg =>
+                {
+                    var window = new DialogWindow();
+                    var model = window.DataContext as DialogViewModel;
+                    if (model != null)
+                    {
+                        model.Message = msg.Message;
+                        model.Title = msg.Title;
+                        model.MessageBoxImage = msg.MessageBoxImage;
+                    }
+
+                    window.ShowDialog();
+                });
             Messenger.Default.Register<OpenCompanyWindowMessage>(this,
                 msg =>
                 {
@@ -60,36 +66,22 @@ namespace FinancialAnalysis.UI
                     window.ShowDialog();
                 });
             Messenger.Default.Register<OpenPDFViewerWindowMessage>(this,
-                 msg =>
-                 {
-                     var window = new PDFViewerWindow();
-                     var model = window.DataContext as PDFViewerViewModel;
-                     if (model != null)
-                     {
-                         if (msg.ScannedDocumentId != 0)
-                         {
-                             model.ScannedDocumentId = msg.ScannedDocumentId;
-                         }
-                         else
-                         {
-                             model.Path = msg.Path;
-                         }
-                     }
+                msg =>
+                {
+                    var window = new PDFViewerWindow();
+                    var model = window.DataContext as PDFViewerViewModel;
+                    if (model != null)
+                    {
+                        if (msg.ScannedDocumentId != 0)
+                            model.ScannedDocumentId = msg.ScannedDocumentId;
+                        else
+                            model.Path = msg.Path;
+                    }
 
-                     window.ShowDialog();
-                 });
+                    window.ShowDialog();
+                });
         }
 
         #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Nur zum Aufruf notwendig.
-        /// </summary>
-        public bool BindableProperty => true;
-
-        #endregion
-
     }
 }

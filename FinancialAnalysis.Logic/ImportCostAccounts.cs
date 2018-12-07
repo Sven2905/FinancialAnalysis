@@ -1,10 +1,10 @@
-﻿using FinancialAnalysis.Datalayer;
-using FinancialAnalysis.Models;
-using FinancialAnalysis.Models.Accounting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FinancialAnalysis.Datalayer;
+using FinancialAnalysis.Models;
+using FinancialAnalysis.Models.Accounting;
 
 namespace FinancialAnalysis.Logic
 {
@@ -12,7 +12,7 @@ namespace FinancialAnalysis.Logic
     {
         public void ImportCostAccounts(Standardkontenrahmen standardkontenrahmen)
         {
-            string _FilePath = string.Empty;
+            var _FilePath = string.Empty;
 
             switch (standardkontenrahmen)
             {
@@ -24,16 +24,14 @@ namespace FinancialAnalysis.Logic
                     _FilePath = @".\Data\SKR04.txt";
                     CreateSKR04MainCategories();
                     break;
-                default:
-                    break;
             }
 
-            List<CostAccountCategory> costAccountCategories = new List<CostAccountCategory>();
+            var costAccountCategories = new List<CostAccountCategory>();
 
-            DataLayer db = new DataLayer();
+            var db = new DataLayer();
             costAccountCategories.AddRange(db.CostAccountCategories.GetAll());
 
-            using (StreamReader reader = new StreamReader(_FilePath))
+            using (var reader = new StreamReader(_FilePath))
             {
                 var document = reader.ReadToEnd().Split('\n');
 
@@ -56,14 +54,13 @@ namespace FinancialAnalysis.Logic
 
                     var _Content = line.Split('\t');
 
-                    int mainCatId = 0;
-                    int subCatId = 0;
+                    var mainCatId = 0;
+                    var subCatId = 0;
 
-                    CostAccountCategory tempMainCat = new CostAccountCategory();
+                    var tempMainCat = new CostAccountCategory();
 
                     // Get parent category
                     if (standardkontenrahmen == Standardkontenrahmen.SKR03)
-                    {
                         switch (_Content[0][0])
                         {
                             case '0':
@@ -90,12 +87,8 @@ namespace FinancialAnalysis.Logic
                             case '9':
                                 tempMainCat.ParentCategoryId = 8;
                                 break;
-                            default:
-                                break;
                         }
-                    }
                     else
-                    {
                         switch (_Content[0][0])
                         {
                             case '0':
@@ -125,12 +118,10 @@ namespace FinancialAnalysis.Logic
                             case '9':
                                 tempMainCat.ParentCategoryId = 9;
                                 break;
-                            default:
-                                break;
                         }
-                    }
 
-                    if (costAccountCategories.SingleOrDefault(x => x.Description == _Content[2] && x.ParentCategoryId == tempMainCat.ParentCategoryId) == null)
+                    if (costAccountCategories.SingleOrDefault(x =>
+                            x.Description == _Content[2] && x.ParentCategoryId == tempMainCat.ParentCategoryId) == null)
                     {
                         tempMainCat.Description = _Content[2];
 
@@ -140,16 +131,19 @@ namespace FinancialAnalysis.Logic
                     }
                     else
                     {
-                        mainCatId = costAccountCategories.SingleOrDefault(x => x.Description == _Content[2] && x.ParentCategoryId == tempMainCat.ParentCategoryId).CostAccountCategoryId;
+                        mainCatId = costAccountCategories.SingleOrDefault(x =>
+                                x.Description == _Content[2] && x.ParentCategoryId == tempMainCat.ParentCategoryId)
+                            .CostAccountCategoryId;
                     }
 
                     var taxTypes = db.TaxTypes.GetAll().ToList();
 
-                    CostAccountCategory tempSubCat = new CostAccountCategory();
+                    var tempSubCat = new CostAccountCategory();
 
                     if (!string.IsNullOrEmpty(_Content[3]))
                     {
-                        if (costAccountCategories.SingleOrDefault(x => x.Description == _Content[3] && x.ParentCategoryId == mainCatId) == null)
+                        if (costAccountCategories.SingleOrDefault(x =>
+                                x.Description == _Content[3] && x.ParentCategoryId == mainCatId) == null)
                         {
                             tempSubCat.Description = _Content[3];
                             tempSubCat.ParentCategoryId = mainCatId;
@@ -160,7 +154,9 @@ namespace FinancialAnalysis.Logic
                         }
                         else
                         {
-                            subCatId = costAccountCategories.SingleOrDefault(x => x.Description == _Content[3] && x.ParentCategoryId == mainCatId).CostAccountCategoryId;
+                            subCatId = costAccountCategories
+                                .SingleOrDefault(x => x.Description == _Content[3] && x.ParentCategoryId == mainCatId)
+                                .CostAccountCategoryId;
                         }
                     }
                     else
@@ -169,7 +165,7 @@ namespace FinancialAnalysis.Logic
                     }
 
 
-                    CostAccount costAccount = new CostAccount()
+                    var costAccount = new CostAccount
                     {
                         AccountNumber = Convert.ToInt32(_Content[0]),
                         RefCostAccountCategoryId = subCatId,
@@ -179,8 +175,8 @@ namespace FinancialAnalysis.Logic
                     };
                     if (true)
                     {
-
                     }
+
                     var taxType = taxTypes.SingleOrDefault(x => x.DescriptionShort == _Content[6].Trim());
                     if (taxType != null)
                         costAccount.RefTaxTypeId = taxType.TaxTypeId;
@@ -190,43 +186,42 @@ namespace FinancialAnalysis.Logic
                     db.CostAccounts.Insert(costAccount);
                 }
             }
-
         }
 
         private void CreateSKR03MainCategories()
         {
-            List<CostAccountCategory> _CostAccounts = new List<CostAccountCategory>()
+            var _CostAccounts = new List<CostAccountCategory>
             {
-                new CostAccountCategory(){ Description = " 0 - Anlage- und Kapitalkonten" },
-                new CostAccountCategory(){ Description = " 1 - Finanz- und Privatkonten" },
-                new CostAccountCategory(){ Description = " 2 - Abgrenzungskonten" },
-                new CostAccountCategory(){ Description = " 3 - Wareneingangs- und Bestandkonten" },
-                new CostAccountCategory(){ Description = " 4 - Betriebliche Aufwendungen" },
-                new CostAccountCategory(){ Description = " 7 - Bestände an Erzeugnissen" },
-                new CostAccountCategory(){ Description = " 8 - Erlöskonten" },
-                new CostAccountCategory(){ Description = " 9 - Vortrags-, Kapital- und statistische Konten" }
+                new CostAccountCategory {Description = " 0 - Anlage- und Kapitalkonten"},
+                new CostAccountCategory {Description = " 1 - Finanz- und Privatkonten"},
+                new CostAccountCategory {Description = " 2 - Abgrenzungskonten"},
+                new CostAccountCategory {Description = " 3 - Wareneingangs- und Bestandkonten"},
+                new CostAccountCategory {Description = " 4 - Betriebliche Aufwendungen"},
+                new CostAccountCategory {Description = " 7 - Bestände an Erzeugnissen"},
+                new CostAccountCategory {Description = " 8 - Erlöskonten"},
+                new CostAccountCategory {Description = " 9 - Vortrags-, Kapital- und statistische Konten"}
             };
 
-            DataLayer db = new DataLayer();
+            var db = new DataLayer();
             db.CostAccountCategories.Insert(_CostAccounts);
         }
 
         private void CreateSKR04MainCategories()
         {
-            List<CostAccountCategory> _CostAccounts = new List<CostAccountCategory>()
+            var _CostAccounts = new List<CostAccountCategory>
             {
-                new CostAccountCategory(){ Description = " 0 - Anlagevermögen" },
-                new CostAccountCategory(){ Description = " 1 - Umlaufvermögen" },
-                new CostAccountCategory(){ Description = " 2 - Eigenkapitalkonten" },
-                new CostAccountCategory(){ Description = " 3 - Fremdkapitalkonten" },
-                new CostAccountCategory(){ Description = " 4 - Betriebliche Erträge" },
-                new CostAccountCategory(){ Description = " 5 - Betriebliche Aufwendungen" },
-                new CostAccountCategory(){ Description = " 6 - Betriebliche Aufwendungen" },
-                new CostAccountCategory(){ Description = " 7 - Weitere Erträge und Aufwendungen" },
-                new CostAccountCategory(){ Description = " 9 - Vortrags-, Kapital- und statistische Konten" }
+                new CostAccountCategory {Description = " 0 - Anlagevermögen"},
+                new CostAccountCategory {Description = " 1 - Umlaufvermögen"},
+                new CostAccountCategory {Description = " 2 - Eigenkapitalkonten"},
+                new CostAccountCategory {Description = " 3 - Fremdkapitalkonten"},
+                new CostAccountCategory {Description = " 4 - Betriebliche Erträge"},
+                new CostAccountCategory {Description = " 5 - Betriebliche Aufwendungen"},
+                new CostAccountCategory {Description = " 6 - Betriebliche Aufwendungen"},
+                new CostAccountCategory {Description = " 7 - Weitere Erträge und Aufwendungen"},
+                new CostAccountCategory {Description = " 9 - Vortrags-, Kapital- und statistische Konten"}
             };
 
-            DataLayer db = new DataLayer();
+            var db = new DataLayer();
             db.CostAccountCategories.Insert(_CostAccounts);
         }
     }

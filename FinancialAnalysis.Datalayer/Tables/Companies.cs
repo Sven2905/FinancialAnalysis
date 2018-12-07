@@ -1,20 +1,18 @@
-﻿using Dapper;
-using FinancialAnalysis.Datalayer.StoredProcedures;
-using FinancialAnalysis.Models;
-using FinancialAnalysis.Models.Accounting;
-using Serilog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using Dapper;
+using FinancialAnalysis.Datalayer.StoredProcedures;
+using FinancialAnalysis.Models;
+using Serilog;
 
 namespace FinancialAnalysis.Datalayer.Tables
 {
     public class Companies : ITable
     {
-        public string TableName { get; }
-        private CompaniesStoredProcedures sp = new CompaniesStoredProcedures();
+        private readonly CompaniesStoredProcedures sp = new CompaniesStoredProcedures();
 
         public Companies()
         {
@@ -27,6 +25,8 @@ namespace FinancialAnalysis.Datalayer.Tables
                 .CreateLogger();
         }
 
+        public string TableName { get; }
+
         public void CheckAndCreateStoredProcedures()
         {
             sp.CheckAndCreateProcedures();
@@ -36,26 +36,27 @@ namespace FinancialAnalysis.Datalayer.Tables
         {
             try
             {
-                SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
-                                 $"CompanyId int IDENTITY(1,1) PRIMARY KEY," +
-                                 $"Name nvarchar(50) NOT NULL," +
-                                 $"Street nvarchar(50) NOT NULL," +
-                                 $"Postcode int NOT NULL," +
-                                 $"City nvarchar(50) NOT NULL," +
-                                 $"ContactPerson nvarchar(50)," +
-                                 $"UStID nvarchar(50)," +
-                                 $"TaxNumber nvarchar(50)," +
-                                 $"Phone nvarchar(50)," +
-                                 $"Fax nvarchar(50)," +
-                                 $"eMail nvarchar(50)," +
-                                 $"Website nvarchar(50)," +
-                                 $"IBAN nvarchar(50)," +
-                                 $"BIC nvarchar(50)," +
-                                 $"BankName nvarchar(50)," +
-                                 $"FederalState int)";
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
+                    "CompanyId int IDENTITY(1,1) PRIMARY KEY," +
+                    "Name nvarchar(50) NOT NULL," +
+                    "Street nvarchar(50) NOT NULL," +
+                    "Postcode int NOT NULL," +
+                    "City nvarchar(50) NOT NULL," +
+                    "ContactPerson nvarchar(50)," +
+                    "UStID nvarchar(50)," +
+                    "TaxNumber nvarchar(50)," +
+                    "Phone nvarchar(50)," +
+                    "Fax nvarchar(50)," +
+                    "eMail nvarchar(50)," +
+                    "Website nvarchar(50)," +
+                    "IBAN nvarchar(50)," +
+                    "BIC nvarchar(50)," +
+                    "BankName nvarchar(50)," +
+                    "FederalState int)";
 
-                using (SqlCommand command = new SqlCommand(commandStr, con))
+                using (var command = new SqlCommand(commandStr, con))
                 {
                     con.Open();
                     command.ExecuteNonQuery();
@@ -69,7 +70,7 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Returns all Company records
+        ///     Returns all Company records
         /// </summary>
         /// <returns></returns>
         public IEnumerable<Company> GetAll()
@@ -77,32 +78,37 @@ namespace FinancialAnalysis.Datalayer.Tables
             IEnumerable<Company> output = new List<Company>();
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.Query<Company>($"dbo.{TableName}_GetAll");
                 }
-
             }
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
             }
+
             return output;
         }
 
         /// <summary>
-        /// Inserts the Company item
+        ///     Inserts the Company item
         /// </summary>
         /// <param name="Company"></param>
         /// <returns>Id of inserted item</returns>
         public int Insert(Company company)
         {
-            int id = 0;
+            var id = 0;
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState", company);
+                    var result =
+                        con.Query<int>(
+                            $"dbo.{TableName}_Insert @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState",
+                            company);
                     id = result.Single();
                 }
             }
@@ -110,23 +116,25 @@ namespace FinancialAnalysis.Datalayer.Tables
             {
                 Log.Error($"Exception occured while 'Insert item' into table '{TableName}'", e);
             }
+
             return id;
         }
 
         /// <summary>
-        /// Inserts the list of Company items
+        ///     Inserts the list of Company items
         /// </summary>
         /// <param name="company"></param>
         public void Insert(IEnumerable<Company> companies)
         {
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     foreach (var company in companies)
-                    {
-                        con.Query($"dbo.{TableName}_Insert @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState", company);
-                    }
+                        con.Query(
+                            $"dbo.{TableName}_Insert @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState",
+                            company);
                 }
             }
             catch (Exception e)
@@ -136,29 +144,32 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Returns Company by Id
+        ///     Returns Company by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public Company GetById(int id)
         {
-            Company output = new Company();
+            var output = new Company();
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<Company>($"dbo.{TableName}_GetById @CompanyId", new { CompanyId = id });
+                    output = con.QuerySingleOrDefault<Company>($"dbo.{TableName}_GetById @CompanyId",
+                        new {CompanyId = id});
                 }
             }
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
             }
+
             return output;
         }
 
         /// <summary>
-        /// Update Company, if not exist, insert it
+        ///     Update Company, if not exist, insert it
         /// </summary>
         /// <param name="company"></param>
         public void UpdateOrInsert(Company company)
@@ -173,33 +184,30 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Update Companies, if not exist insert them
+        ///     Update Companies, if not exist insert them
         /// </summary>
         /// <param name="companies"></param>
         public void UpdateOrInsert(IEnumerable<Company> companies)
         {
-            foreach (var company in companies)
-            {
-                UpdateOrInsert(company);
-            }
+            foreach (var company in companies) UpdateOrInsert(company);
         }
 
         /// <summary>
-        /// Update Company
+        ///     Update Company
         /// </summary>
         /// <param name="company"></param>
         public void Update(Company company)
         {
-            if (company.CompanyId == 0 || GetById(company.CompanyId) is null)
-            {
-                return;
-            }
+            if (company.CompanyId == 0 || GetById(company.CompanyId) is null) return;
 
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @CompanyId, @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState", company);
+                    con.Execute(
+                        $"dbo.{TableName}_Update @CompanyId, @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState",
+                        company);
                 }
             }
             catch (Exception e)
@@ -209,16 +217,17 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Delete Company by Id
+        ///     Delete Company by Id
         /// </summary>
         /// <param name="id"></param>
         public void Delete(int id)
         {
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @CompanyId", new { CompanyId = id });
+                    con.Execute($"dbo.{TableName}_Delete @CompanyId", new {CompanyId = id});
                 }
             }
             catch (Exception e)
@@ -228,23 +237,26 @@ namespace FinancialAnalysis.Datalayer.Tables
         }
 
         /// <summary>
-        /// Checks if Company has Creditor or Debitor
+        ///     Checks if Company has Creditor or Debitor
         /// </summary>
         /// <param name="id"></param>
         public bool IsCompanyInUse(int id)
         {
-            bool IsInUse = true;
+            var IsInUse = true;
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    IsInUse = con.ExecuteScalar<bool>($"dbo.{TableName}_IsCompanyInUse @CompanyId", new { CompanyId = id });
+                    IsInUse = con.ExecuteScalar<bool>($"dbo.{TableName}_IsCompanyInUse @CompanyId",
+                        new {CompanyId = id});
                 }
             }
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'IsCompanyInUse' from table '{TableName}'", e);
             }
+
             return IsInUse;
         }
     }

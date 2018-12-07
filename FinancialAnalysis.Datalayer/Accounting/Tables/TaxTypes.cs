@@ -1,19 +1,18 @@
-﻿using Dapper;
-using FinancialAnalysis.Models;
-using FinancialAnalysis.Models.Accounting;
-using Serilog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Threading.Tasks;
+using Dapper;
+using FinancialAnalysis.Models;
+using FinancialAnalysis.Models.Accounting;
+using Serilog;
 
 namespace FinancialAnalysis.Datalayer.Accounting
 {
     public class TaxTypes : ITable
     {
-        private TaxTypesStoredProcedures sp = new TaxTypesStoredProcedures();
+        private readonly TaxTypesStoredProcedures sp = new TaxTypesStoredProcedures();
 
         public TaxTypes()
         {
@@ -32,24 +31,24 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        /// Checks if table exists otherwise creates it
+        ///     Checks if table exists otherwise creates it
         /// </summary>
         public void CheckAndCreateTable()
         {
             try
             {
-                SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') " +
-                    $"CREATE TABLE {TableName}(" +
-                    $"TaxTypeId int IDENTITY(1,1) PRIMARY KEY, " +
-                    $"Description nvarchar(50) NOT NULL, " +
-                    $"DescriptionShort nvarchar(50) NOT NULL, " +
-                    $"AmountOfTax decimal NOT NULL, " +
-                    $"TaxCategory int NOT NULL, " +
-                    $"RefAccountNumber int, " +
-                    $"RefAccountNotPayable int )";
+                                 $"CREATE TABLE {TableName}(" +
+                                 "TaxTypeId int IDENTITY(1,1) PRIMARY KEY, " +
+                                 "Description nvarchar(50) NOT NULL, " +
+                                 "DescriptionShort nvarchar(50) NOT NULL, " +
+                                 "AmountOfTax decimal NOT NULL, " +
+                                 "TaxCategory int NOT NULL, " +
+                                 "RefAccountNumber int, " +
+                                 "RefAccountNotPayable int )";
 
-                using (SqlCommand command = new SqlCommand(commandStr, con))
+                using (var command = new SqlCommand(commandStr, con))
                 {
                     con.Open();
                     command.ExecuteNonQuery();
@@ -62,9 +61,11 @@ namespace FinancialAnalysis.Datalayer.Accounting
             }
         }
 
+        public string TableName { get; }
+
 
         /// <summary>
-        /// Returns all TaxType records
+        ///     Returns all TaxType records
         /// </summary>
         /// <returns></returns>
         public IEnumerable<TaxType> GetAll()
@@ -72,32 +73,37 @@ namespace FinancialAnalysis.Datalayer.Accounting
             IEnumerable<TaxType> output = new List<TaxType>();
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.Query<TaxType>($"dbo.{TableName}_GetAll");
                 }
-
             }
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
             }
+
             return output;
         }
 
         /// <summary>
-        /// Inserts the TaxType item
+        ///     Inserts the TaxType item
         /// </summary>
         /// <param name="taxType"></param>
         /// <returns>Id of inserted item</returns>
         public int Insert(TaxType taxType)
         {
-            int id = 0;
+            var id = 0;
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefAccountNumber, @RefAccountNotPayable", taxType);
+                    var result =
+                        con.Query<int>(
+                            $"dbo.{TableName}_Insert @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefAccountNumber, @RefAccountNotPayable",
+                            taxType);
                     return result.Single();
                 }
             }
@@ -105,23 +111,22 @@ namespace FinancialAnalysis.Datalayer.Accounting
             {
                 Log.Error($"Exception occured while 'Insert item' from table '{TableName}'", e);
             }
+
             return id;
         }
 
         /// <summary>
-        /// Inserts the list of TaxType items
+        ///     Inserts the list of TaxType items
         /// </summary>
         /// <param name="taxTypes"></param>
         public void Insert(IEnumerable<TaxType> taxTypes)
         {
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var taxType in taxTypes)
-                    {
-                        Insert(taxType);
-                    }
+                    foreach (var taxType in taxTypes) Insert(taxType);
                 }
             }
             catch (Exception e)
@@ -131,29 +136,32 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        /// Returns TaxType by Id
+        ///     Returns TaxType by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public TaxType GetById(int id)
         {
-            TaxType output = new TaxType();
+            var output = new TaxType();
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<TaxType>($"dbo.{TableName}_GetById @TaxTypeId", new { TaxTypeId = id });
+                    output = con.QuerySingleOrDefault<TaxType>($"dbo.{TableName}_GetById @TaxTypeId",
+                        new {TaxTypeId = id});
                 }
             }
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
             }
+
             return output;
         }
 
         /// <summary>
-        /// Update TaxType, if not exist, insert it
+        ///     Update TaxType, if not exist, insert it
         /// </summary>
         /// <param name="taxType"></param>
         public void UpdateOrInsert(TaxType taxType)
@@ -168,33 +176,30 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        /// Update TaxTypes, if not exist insert them
+        ///     Update TaxTypes, if not exist insert them
         /// </summary>
         /// <param name="taxTypes"></param>
         public void UpdateOrInsert(IEnumerable<TaxType> taxTypes)
         {
-            foreach (var taxType in taxTypes)
-            {
-                UpdateOrInsert(taxType);
-            }
+            foreach (var taxType in taxTypes) UpdateOrInsert(taxType);
         }
 
         /// <summary>
-        /// Update TaxType
+        ///     Update TaxType
         /// </summary>
         /// <param name="taxType"></param>
         public void Update(TaxType taxType)
         {
-            if (taxType.TaxTypeId == 0 || GetById(taxType.TaxTypeId) is null)
-            {
-                return;
-            }
+            if (taxType.TaxTypeId == 0 || GetById(taxType.TaxTypeId) is null) return;
 
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @TaxTypeId, @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefAccountNumber, @RefAccountNotPayable", taxType);
+                    con.Execute(
+                        $"dbo.{TableName}_Update @TaxTypeId, @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefAccountNumber, @RefAccountNotPayable",
+                        taxType);
                 }
             }
             catch (Exception e)
@@ -204,16 +209,17 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        /// Delete TaxType by Id
+        ///     Delete TaxType by Id
         /// </summary>
         /// <param name="id"></param>
         public void Delete(int id)
         {
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @TaxTypeId", new { TaxTypeId = id });
+                    con.Execute($"dbo.{TableName}_Delete @TaxTypeId", new {TaxTypeId = id});
                 }
             }
             catch (Exception e)
@@ -223,7 +229,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        /// Delete TaxType by Item
+        ///     Delete TaxType by Item
         /// </summary>
         /// <param name="id"></param>
         public void Delete(TaxType taxType)
@@ -232,39 +238,111 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        /// Seeds the table with initial data
+        ///     Seeds the table with initial data
         /// </summary>
         public void Seed()
         {
-            List<TaxType> taxTypes = new List<TaxType>()
+            var taxTypes = new List<TaxType>
             {
-                new TaxType() { DescriptionShort = "Keine", Description="Keine", AmountOfTax = 0, TaxCategory = TaxCategory.None },
-                new TaxType() { DescriptionShort = "Bau 7%", Description="Bau mit 7% USt/VSt", AmountOfTax = 7, TaxCategory = TaxCategory.thirteenB, RefAccountNumber = 1785},
-                new TaxType() { DescriptionShort = "I.g.E 7% USt/VSt", Description="I.g.E 7% USt/VSt", AmountOfTax = 7, TaxCategory = TaxCategory.igE, RefAccountNumber = 1773 },
-                new TaxType() { DescriptionShort = "I.g.E 16% USt/VSt", Description="I.g.E 16% USt/VSt", AmountOfTax = 16, TaxCategory = TaxCategory.igE, RefAccountNumber = 1774 },
-                new TaxType() { DescriptionShort = "I.g.E 19% USt/VSt", Description="I.g.E 19% USt/VSt", AmountOfTax = 19, TaxCategory = TaxCategory.igE, RefAccountNumber = 1772 },
-                new TaxType() { DescriptionShort = "I.g.E Neufahrzeug", Description="I.g.E Neufahrzeuge 19% USt/VSt", AmountOfTax = 19, TaxCategory = TaxCategory.igE, RefAccountNumber = 1784 },
-                new TaxType() { DescriptionShort = "Kfz 19% VSt. 50%", Description="Kfz 19% Vorsteuer. 50%", AmountOfTax = 19, TaxCategory = TaxCategory.fiftyPercent, RefAccountNumber = 1570 },
-                new TaxType() { DescriptionShort = "Kfz VSt. 50%", Description="Kfz Vorsteuer. 50%", AmountOfTax = 16, TaxCategory = TaxCategory.fiftyPercent, RefAccountNumber = 1570 },
-                new TaxType() { DescriptionShort = "USt. 15%", Description="Umsatzsteuer 15%", AmountOfTax = 15, TaxCategory = TaxCategory.Netto, RefAccountNumber = 1770 },
-                new TaxType() { DescriptionShort = "USt. 16%", Description="Umsatzsteuer 16%", AmountOfTax = 16, TaxCategory = TaxCategory.Netto, RefAccountNumber = 1775 },
-                new TaxType() { DescriptionShort = "USt. 19%", Description="Umsatzsteuer 19%", AmountOfTax = 19, TaxCategory = TaxCategory.Netto, RefAccountNumber = 1776 },
-                new TaxType() { DescriptionShort = "USt. 7%", Description="Umsatzsteuer 7%", AmountOfTax = 7, TaxCategory = TaxCategory.Netto, RefAccountNumber = 1771 },
-                new TaxType() { DescriptionShort = "USt/VSt 19%", Description="Reverse Charge (Steuerschuld Leistungsempf.) 19% USt/VSt", AmountOfTax = 19, TaxCategory = TaxCategory.thirteenB, RefAccountNumber = 1787 },
-                new TaxType() { DescriptionShort = "USt/VSt 7%", Description= "Reverse Charge (Steuerschuld Leistungsempf.) 7% USt/VSt", AmountOfTax = 7, TaxCategory = TaxCategory.thirteenB, RefAccountNumber = 1785 },
-                new TaxType() { DescriptionShort = "VSt. 15%", Description="Vorsteuer 15%", AmountOfTax = 15, TaxCategory = TaxCategory.Netto, RefAccountNumber = 1771 },
-                new TaxType() { DescriptionShort = "VSt. 16%", Description="Vorsteuer 16%", AmountOfTax = 16, TaxCategory = TaxCategory.Netto, RefAccountNumber = 1575 },
-                new TaxType() { DescriptionShort = "VSt. 19%", Description="Vorsteuer 19%", AmountOfTax = 19, TaxCategory = TaxCategory.Netto, RefAccountNumber = 1576 },
-                new TaxType() { DescriptionShort = "VSt. 7%", Description="Vorsteuer 7%", AmountOfTax = 7, TaxCategory = TaxCategory.Netto, RefAccountNumber = 1571 },
-                
+                new TaxType
+                {
+                    DescriptionShort = "Keine", Description = "Keine", AmountOfTax = 0, TaxCategory = TaxCategory.None
+                },
+                new TaxType
+                {
+                    DescriptionShort = "Bau 7%", Description = "Bau mit 7% USt/VSt", AmountOfTax = 7,
+                    TaxCategory = TaxCategory.thirteenB, RefAccountNumber = 1785
+                },
+                new TaxType
+                {
+                    DescriptionShort = "I.g.E 7% USt/VSt", Description = "I.g.E 7% USt/VSt", AmountOfTax = 7,
+                    TaxCategory = TaxCategory.igE, RefAccountNumber = 1773
+                },
+                new TaxType
+                {
+                    DescriptionShort = "I.g.E 16% USt/VSt", Description = "I.g.E 16% USt/VSt", AmountOfTax = 16,
+                    TaxCategory = TaxCategory.igE, RefAccountNumber = 1774
+                },
+                new TaxType
+                {
+                    DescriptionShort = "I.g.E 19% USt/VSt", Description = "I.g.E 19% USt/VSt", AmountOfTax = 19,
+                    TaxCategory = TaxCategory.igE, RefAccountNumber = 1772
+                },
+                new TaxType
+                {
+                    DescriptionShort = "I.g.E Neufahrzeug", Description = "I.g.E Neufahrzeuge 19% USt/VSt",
+                    AmountOfTax = 19, TaxCategory = TaxCategory.igE, RefAccountNumber = 1784
+                },
+                new TaxType
+                {
+                    DescriptionShort = "Kfz 19% VSt. 50%", Description = "Kfz 19% Vorsteuer. 50%", AmountOfTax = 19,
+                    TaxCategory = TaxCategory.fiftyPercent, RefAccountNumber = 1570
+                },
+                new TaxType
+                {
+                    DescriptionShort = "Kfz VSt. 50%", Description = "Kfz Vorsteuer. 50%", AmountOfTax = 16,
+                    TaxCategory = TaxCategory.fiftyPercent, RefAccountNumber = 1570
+                },
+                new TaxType
+                {
+                    DescriptionShort = "USt. 15%", Description = "Umsatzsteuer 15%", AmountOfTax = 15,
+                    TaxCategory = TaxCategory.Netto, RefAccountNumber = 1770
+                },
+                new TaxType
+                {
+                    DescriptionShort = "USt. 16%", Description = "Umsatzsteuer 16%", AmountOfTax = 16,
+                    TaxCategory = TaxCategory.Netto, RefAccountNumber = 1775
+                },
+                new TaxType
+                {
+                    DescriptionShort = "USt. 19%", Description = "Umsatzsteuer 19%", AmountOfTax = 19,
+                    TaxCategory = TaxCategory.Netto, RefAccountNumber = 1776
+                },
+                new TaxType
+                {
+                    DescriptionShort = "USt. 7%", Description = "Umsatzsteuer 7%", AmountOfTax = 7,
+                    TaxCategory = TaxCategory.Netto, RefAccountNumber = 1771
+                },
+                new TaxType
+                {
+                    DescriptionShort = "USt/VSt 19%",
+                    Description = "Reverse Charge (Steuerschuld Leistungsempf.) 19% USt/VSt", AmountOfTax = 19,
+                    TaxCategory = TaxCategory.thirteenB, RefAccountNumber = 1787
+                },
+                new TaxType
+                {
+                    DescriptionShort = "USt/VSt 7%",
+                    Description = "Reverse Charge (Steuerschuld Leistungsempf.) 7% USt/VSt", AmountOfTax = 7,
+                    TaxCategory = TaxCategory.thirteenB, RefAccountNumber = 1785
+                },
+                new TaxType
+                {
+                    DescriptionShort = "VSt. 15%", Description = "Vorsteuer 15%", AmountOfTax = 15,
+                    TaxCategory = TaxCategory.Netto, RefAccountNumber = 1771
+                },
+                new TaxType
+                {
+                    DescriptionShort = "VSt. 16%", Description = "Vorsteuer 16%", AmountOfTax = 16,
+                    TaxCategory = TaxCategory.Netto, RefAccountNumber = 1575
+                },
+                new TaxType
+                {
+                    DescriptionShort = "VSt. 19%", Description = "Vorsteuer 19%", AmountOfTax = 19,
+                    TaxCategory = TaxCategory.Netto, RefAccountNumber = 1576
+                },
+                new TaxType
+                {
+                    DescriptionShort = "VSt. 7%", Description = "Vorsteuer 7%", AmountOfTax = 7,
+                    TaxCategory = TaxCategory.Netto, RefAccountNumber = 1571
+                }
             };
 
             using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
             {
-                con.Execute($"dbo.{TableName}_Insert @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefAccountNumber, @RefAccountNotPayable", taxTypes);
+                con.Execute(
+                    $"dbo.{TableName}_Insert @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefAccountNumber, @RefAccountNotPayable",
+                    taxTypes);
             }
         }
-
-        public string TableName { get; }
     }
 }

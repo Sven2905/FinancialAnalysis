@@ -4,7 +4,8 @@ namespace Utilities
 {
     public static class Day
     {
-        public static bool IsWeekendHoliday(DateTime date, EnumFederalState enumFederalState, bool includeSaturday = true)
+        public static bool IsWeekendHoliday(DateTime date, EnumFederalState enumFederalState,
+            bool includeSaturday = true)
         {
             if (IsWeekend(date, includeSaturday))
                 return true;

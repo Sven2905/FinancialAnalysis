@@ -6,35 +6,38 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:dxa="http://schemas.devexpress.com/winfx/2008/xaml/accordion"
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
-    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
     xmlns:models="clr-namespace:FinancialAnalysis.Models;assembly=FinancialAnalysis.Models"
     xmlns:local="clr-namespace:FinancialAnalysis"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
     xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
-    xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic" x:Class="FinancialAnalysis.CompanyWindow"
+    xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
+    x:Class="FinancialAnalysis.CompanyWindow"
     mc:Ignorable="d"
     dx:ThemeManager.ThemeName="Office2016WhiteSE"
-    Title="Firmen" Height="800" Width="800" ShowIcon="False" ShowTitle="False" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Topmost="True">
+    Title="Firmen" Height="800" Width="800" ShowIcon="False" ShowTitle="False" WindowStartupLocation="CenterScreen"
+    ShowInTaskbar="False" Topmost="True">
 
     <dx:DXWindow.Resources>
         <Style x:Key="labelStyle" TargetType="{x:Type dxlc:LayoutItemLabel}">
-            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="Foreground" Value="#3f729b" />
         </Style>
         <Style x:Key="itemStyle" TargetType="{x:Type dxlc:LayoutItem}">
-            <Setter Property="LabelPosition" Value="Top"/>
-            <Setter Property="LabelStyle" Value="{StaticResource labelStyle}"/>
+            <Setter Property="LabelPosition" Value="Top" />
+            <Setter Property="LabelStyle" Value="{StaticResource labelStyle}" />
             <Setter Property="Foreground" Value="#3f729b" />
         </Style>
     </dx:DXWindow.Resources>
     <dx:DXWindow.DataContext>
-        <ViewModels:CompanyViewModel/>
+        <ViewModels:CompanyViewModel />
     </dx:DXWindow.DataContext>
 
     <dxmvvm:Interaction.Behaviors>
-        <dxmvvm:NotificationService UseWin8NotificationsIfAvailable="False" PredefinedNotificationDuration="Default" PredefinedNotificationTemplate="ShortHeaderAndLongText"/>
-        <dx:WindowedDocumentUIService x:Name="SingleObjectDocumentManagerService"/>
+        <dxmvvm:NotificationService UseWin8NotificationsIfAvailable="False" PredefinedNotificationDuration="Default"
+                                    PredefinedNotificationTemplate="ShortHeaderAndLongText" />
+        <dx:WindowedDocumentUIService x:Name="SingleObjectDocumentManagerService" />
     </dxmvvm:Interaction.Behaviors>
 
     <Grid>
@@ -52,91 +55,95 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Margin="15,0,10,0" Grid.Column="1" Grid.Row="1">
-            <TextBlock Text="Vorhandene Firma auswählen" Margin="0,0,15,0" Foreground="#3f729b"/>
-            <dxe:ComboBoxEdit Width="250" ItemsSource="{Binding Companies}" SelectedItem="{Binding SelectedCompany}" DisplayMember="Name" Foreground="#3f729b" />
+            <TextBlock Text="Vorhandene Firma auswählen" Margin="0,0,15,0" Foreground="#3f729b" />
+            <dxe:ComboBoxEdit Width="250" ItemsSource="{Binding Companies}" SelectedItem="{Binding SelectedCompany}"
+                              DisplayMember="Name" Foreground="#3f729b" />
         </StackPanel>
 
-        <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Grid.Column="1" Grid.Row="2" >
+        <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10"
+                            Grid.Column="1" Grid.Row="2">
 
-            <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" >
+            <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
                 <dxlc:LayoutGroup.Header>
                     <TextBlock Text="Anschrift" Foreground="#3f729b" FontWeight="Bold" />
                 </dxlc:LayoutGroup.Header>
                 <dxlc:LayoutItem Label="Firma">
-                    <dxe:TextEdit Text="{Binding SelectedCompany.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                    <dxe:TextEdit Text="{Binding SelectedCompany.Name, UpdateSourceTrigger=PropertyChanged}" />
                 </dxlc:LayoutItem>
                 <dxlc:LayoutItem Label="Strasse">
-                    <dxe:TextEdit Text="{Binding SelectedCompany.Street, UpdateSourceTrigger=PropertyChanged}"/>
+                    <dxe:TextEdit Text="{Binding SelectedCompany.Street, UpdateSourceTrigger=PropertyChanged}" />
                 </dxlc:LayoutItem>
                 <dxlc:LayoutGroup>
                     <dxlc:LayoutItem Label="Postleitzahl" Width="100">
-                        <dxe:TextEdit Text="{Binding SelectedCompany.Postcode, UpdateSourceTrigger=PropertyChanged}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.Postcode, UpdateSourceTrigger=PropertyChanged}" />
                     </dxlc:LayoutItem>
                     <dxlc:LayoutItem Label="Ort">
-                        <dxe:TextEdit Text="{Binding SelectedCompany.City, UpdateSourceTrigger=PropertyChanged}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.City, UpdateSourceTrigger=PropertyChanged}" />
                     </dxlc:LayoutItem>
                 </dxlc:LayoutGroup>
                 <dxlc:LayoutGroup>
                     <dxlc:LayoutItem Label="Ansprechpartner">
-                        <dxe:TextEdit Text="{Binding SelectedCompany.ContactPerson}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.ContactPerson}" />
                     </dxlc:LayoutItem>
                 </dxlc:LayoutGroup>
                 <dxlc:LayoutItem Label="Bundesland">
-                    <dxe:ComboBoxEdit ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:FederalState}, SplitNames=True}" EditValue="SelectedCompany.FederalState"/>
+                    <dxe:ComboBoxEdit
+                        ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:FederalState}, SplitNames=True}"
+                        EditValue="SelectedCompany.FederalState" />
                 </dxlc:LayoutItem>
             </dxlc:LayoutGroup>
 
-            <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" >
+            <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
                 <dxlc:LayoutGroup.Header>
                     <TextBlock Text="Bankdaten" Foreground="#3f729b" FontWeight="Bold" />
                 </dxlc:LayoutGroup.Header>
                 <dxlc:LayoutGroup>
                     <dxlc:LayoutItem Label="Bank">
-                        <dxe:TextEdit Text="{Binding SelectedCompany.BankName}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.BankName}" />
                     </dxlc:LayoutItem>
                 </dxlc:LayoutGroup>
                 <dxlc:LayoutGroup>
                     <dxlc:LayoutItem Label="IBAN">
-                        <dxe:TextEdit Text="{Binding SelectedCompany.IBAN}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.IBAN}" />
                     </dxlc:LayoutItem>
                     <dxlc:LayoutItem Label="BIC">
-                        <dxe:TextEdit Text="{Binding SelectedCompany.BIC}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.BIC}" />
                     </dxlc:LayoutItem>
                 </dxlc:LayoutGroup>
             </dxlc:LayoutGroup>
 
-            <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" >
+            <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
                 <dxlc:LayoutGroup.Header>
                     <TextBlock Text="Steuern" Foreground="#3f729b" FontWeight="Bold" />
                 </dxlc:LayoutGroup.Header>
                 <dxlc:LayoutGroup>
                     <dxlc:LayoutItem Label="Umsatzsteuer-Id">
-                        <dxe:TextEdit Text="{Binding SelectedCompany.UStID}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.UStID}" />
                     </dxlc:LayoutItem>
                     <dxlc:LayoutItem Label="Steuernummer">
-                        <dxe:TextEdit Text="{Binding Credito.Company.TaxNumber}"/>
+                        <dxe:TextEdit Text="{Binding Credito.Company.TaxNumber}" />
                     </dxlc:LayoutItem>
                 </dxlc:LayoutGroup>
             </dxlc:LayoutGroup>
 
-            <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" >
+            <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
                 <dxlc:LayoutGroup.Header>
                     <TextBlock Text="Allgemeines" Foreground="#3f729b" FontWeight="Bold" />
                 </dxlc:LayoutGroup.Header>
                 <dxlc:LayoutGroup>
                     <dxlc:LayoutItem Label="Telefon">
-                        <dxe:TextEdit Text="{Binding SelectedCompany.Phone}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.Phone}" />
                     </dxlc:LayoutItem>
                     <dxlc:LayoutItem Label="Fax">
-                        <dxe:TextEdit Text="{Binding SelectedCompany.Fax}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.Fax}" />
                     </dxlc:LayoutItem>
                 </dxlc:LayoutGroup>
                 <dxlc:LayoutGroup>
                     <dxlc:LayoutItem Label="E-Mail">
-                        <dxe:TextEdit Text="{Binding SelectedCompany.eMail}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.eMail}" />
                     </dxlc:LayoutItem>
                     <dxlc:LayoutItem Label="Website">
-                        <dxe:TextEdit Text="{Binding SelectedCompany.Website}"/>
+                        <dxe:TextEdit Text="{Binding SelectedCompany.Website}" />
                     </dxlc:LayoutItem>
                 </dxlc:LayoutGroup>
             </dxlc:LayoutGroup>
@@ -144,9 +151,11 @@
         </dxlc:LayoutControl>
 
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Height="30" HorizontalAlignment="Center">
-            <dx:SimpleButton Content="Neu" Margin="0,0,0,0" Command="{Binding NewCompanyCommand}"/>
-            <dx:SimpleButton IsEnabled="{Binding SaveCompanyButtonEnabled}" Content="Speichern" Margin="10,0,0,0" Command="{Binding SaveCompanyCommand}"/>
-            <dx:SimpleButton IsEnabled="{Binding DeleteCompanyButtonEnabled}" Content="Löschen" Margin="10,0,0,0" Command="{Binding DeleteCompanyCommand}"/>
+            <dx:SimpleButton Content="Neu" Margin="0,0,0,0" Command="{Binding NewCompanyCommand}" />
+            <dx:SimpleButton IsEnabled="{Binding SaveCompanyButtonEnabled}" Content="Speichern" Margin="10,0,0,0"
+                             Command="{Binding SaveCompanyCommand}" />
+            <dx:SimpleButton IsEnabled="{Binding DeleteCompanyButtonEnabled}" Content="Löschen" Margin="10,0,0,0"
+                             Command="{Binding DeleteCompanyCommand}" />
         </StackPanel>
 
     </Grid>

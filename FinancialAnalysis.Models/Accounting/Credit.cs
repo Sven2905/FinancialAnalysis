@@ -1,9 +1,4 @@
 ﻿using DevExpress.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Models.Accounting
 {
@@ -11,7 +6,6 @@ namespace FinancialAnalysis.Models.Accounting
     {
         public Credit()
         {
-
         }
 
         public Credit(decimal Amount, int RefCostAccountId, int RefBookingId)

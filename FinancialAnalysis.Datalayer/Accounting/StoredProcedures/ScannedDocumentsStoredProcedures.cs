@@ -1,22 +1,20 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Datalayer.Accounting
 {
-    class ScannedDocumentsStoredProcedures : IStoredProcedures
+    internal class ScannedDocumentsStoredProcedures : IStoredProcedures
     {
-        public string TableName { get; }
-
         public ScannedDocumentsStoredProcedures()
         {
             TableName = "ScannedDocuments";
         }
 
+        public string TableName { get; }
+
         /// <summary>
-        /// Check if all Stored Procedures are created, otherwise create them
+        ///     Check if all Stored Procedures are created, otherwise create them
         /// </summary>
         public void CheckAndCreateProcedures()
         {
@@ -31,12 +29,14 @@ namespace FinancialAnalysis.Datalayer.Accounting
         {
             if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetAll", DatabaseNames.FinancialAnalysisDB))
             {
-                StringBuilder sbSP = new StringBuilder();
+                var sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; SELECT ScannedDocumentId, Content, FileName, Date, RefBookingId FROM {TableName} END");
-                using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; SELECT ScannedDocumentId, Content, FileName, Date, RefBookingId FROM {TableName} END");
+                using (var connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
                     {
                         connection.Open();
                         cmd.CommandType = CommandType.Text;
@@ -51,15 +51,17 @@ namespace FinancialAnalysis.Datalayer.Accounting
         {
             if (!Helper.StoredProcedureExists($"dbo.{TableName}_Insert", DatabaseNames.FinancialAnalysisDB))
             {
-                StringBuilder sbSP = new StringBuilder();
+                var sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_Insert] @Content varbinary(MAX), @FileName nvarchar(150), @Date datetime, @RefBookingId int AS BEGIN SET NOCOUNT ON; " +
-                                $"INSERT into {TableName} (Content, FileName, Date, RefBookingId) " +
-                                $"VALUES (@Content, @FileName, @Date, @RefBookingId); " +
-                                $"SELECT CAST(SCOPE_IDENTITY() as int) END");
-                using (SqlConnection connection = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Content varbinary(MAX), @FileName nvarchar(150), @Date datetime, @RefBookingId int AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Content, FileName, Date, RefBookingId) " +
+                    "VALUES (@Content, @FileName, @Date, @RefBookingId); " +
+                    "SELECT CAST(SCOPE_IDENTITY() as int) END");
+                using (var connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
                     {
                         connection.Open();
                         cmd.CommandType = CommandType.Text;
@@ -74,16 +76,16 @@ namespace FinancialAnalysis.Datalayer.Accounting
         {
             if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetById", DatabaseNames.FinancialAnalysisDB))
             {
-                StringBuilder sbSP = new StringBuilder();
+                var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetById] @ScannedDocumentId int AS BEGIN SET NOCOUNT ON; SELECT ScannedDocumentId, Content, FileName, Date, RefBookingId " +
                     $"FROM {TableName} " +
-                    $"WHERE ScannedDocumentId = @ScannedDocumentId END");
-                using (SqlConnection connection =
+                    "WHERE ScannedDocumentId = @ScannedDocumentId END");
+                using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
                     {
                         connection.Open();
                         cmd.CommandType = CommandType.Text;
@@ -98,18 +100,18 @@ namespace FinancialAnalysis.Datalayer.Accounting
         {
             if (!Helper.StoredProcedureExists($"dbo.{TableName}_Update", DatabaseNames.FinancialAnalysisDB))
             {
-                StringBuilder sbSP = new StringBuilder();
+                var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_Update] @ScannedDocumentId int, @Content varbinary(MAX), @FileName nvarchar(150), @Date datetime, @RefBookingId int " +
-                    $"AS BEGIN SET NOCOUNT ON; " +
+                    "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
-                    $"SET Content = @Content, FileName = @FileName, Date = @Date, RefBookingId = @RefBookingId " +
-                    $"WHERE ScannedDocumentId = @ScannedDocumentId END");
-                using (SqlConnection connection =
+                    "SET Content = @Content, FileName = @FileName, Date = @Date, RefBookingId = @RefBookingId " +
+                    "WHERE ScannedDocumentId = @ScannedDocumentId END");
+                using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
                     {
                         connection.Open();
                         cmd.CommandType = CommandType.Text;
@@ -124,14 +126,14 @@ namespace FinancialAnalysis.Datalayer.Accounting
         {
             if (!Helper.StoredProcedureExists($"dbo.{TableName}_Delete", DatabaseNames.FinancialAnalysisDB))
             {
-                StringBuilder sbSP = new StringBuilder();
+                var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_Delete] @ScannedDocumentId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE ScannedDocumentId = @ScannedDocumentId END");
-                using (SqlConnection connection =
+                using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    using (SqlCommand cmd = new SqlCommand(sbSP.ToString(), connection))
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
                     {
                         connection.Open();
                         cmd.CommandType = CommandType.Text;

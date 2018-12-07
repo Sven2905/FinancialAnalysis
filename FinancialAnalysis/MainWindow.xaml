@@ -1,25 +1,26 @@
 ﻿<dxc:DXWindow
     x:Class="FinancialAnalysis.UI.Desktop.MainWindow"
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
-    xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui" 
+    xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:FinancialAnalysis.UI.Desktop"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
-    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" 
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
     xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
     xmlns:dxnav="http://schemas.devexpress.com/winfx/2008/xaml/navigation"
     xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/core"
     mc:Ignorable="d"
     dxc:ThemeManager.ThemeName="Office2016WhiteSE"
     Background="#FAFAFA"
-    WindowState="Maximized" 
-    Title="Finanzanalyse" 
-    WindowStyle="ThreeDBorderWindow" 
-    WindowStartupLocation="CenterScreen" 
-    IsEnabled="{Binding BindableProperty, Source={StaticResource MessageListener}}" Width="1200" Height="800" ResizeMode="CanResizeWithGrip" Loaded="DXWindow_Loaded" >
+    WindowState="Maximized"
+    Title="Finanzanalyse"
+    WindowStyle="ThreeDBorderWindow"
+    WindowStartupLocation="CenterScreen"
+    IsEnabled="{Binding BindableProperty, Source={StaticResource MessageListener}}" Width="1200" Height="800"
+    ResizeMode="CanResizeWithGrip" Loaded="DXWindow_Loaded">
     <Grid Background="White">
         <!--<dxb:BarManager ToolbarGlyphSize="Small">
             <dxb:BarManager.Bars>

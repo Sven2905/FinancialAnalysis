@@ -1,4 +1,5 @@
-﻿using DevExpress.Mvvm;
+﻿using System.ComponentModel;
+using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
@@ -10,20 +11,6 @@ namespace FinancialAnalysis.Logic.ViewModels
 {
     public class CreditorDebitorViewModel : ViewModelBase
     {
-        #region Fields
-
-        private Creditor _creditor = new Creditor();
-        private Debitor _debitor = new Debitor();
-        private Company _selectedCompany = new Company();
-        private bool _saveCreditorButtonEnabled;
-        private bool _saveDebitorButtonEnabled;
-        private bool _deleteCreditorButtonEnabled;
-        private bool _deleteDebitorButtonEnabled;
-
-        private IDocumentManagerService SingleObjectDocumentManagerService => GetService<IDocumentManagerService>("SingleObjectDocumentManagerService");
-
-        #endregion Fields
-
         #region Constructor
 
         public CreditorDebitorViewModel()
@@ -37,9 +24,22 @@ namespace FinancialAnalysis.Logic.ViewModels
             InitializeButtonCommands();
         }
 
-
-
         #endregion Constructor;
+
+        #region Fields
+
+        private Creditor _creditor = new Creditor();
+        private Debitor _debitor = new Debitor();
+        private Company _selectedCompany = new Company();
+        private bool _saveCreditorButtonEnabled;
+        private bool _saveDebitorButtonEnabled;
+        private bool _deleteCreditorButtonEnabled;
+        private bool _deleteDebitorButtonEnabled;
+
+        private IDocumentManagerService SingleObjectDocumentManagerService =>
+            GetService<IDocumentManagerService>("SingleObjectDocumentManagerService");
+
+        #endregion Fields
 
         #region Methods
 
@@ -49,13 +49,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 UpdateCompany(Creditor.Company);
                 if (Creditor.CreditorId != 0)
-                {
                     UpdateCreditor();
-                }
                 else
-                {
                     CreateCreditor();
-                }
             }
             else
             {
@@ -67,7 +63,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void CreateCreditor()
         {
-            using (DataLayer db = new DataLayer())
+            using (var db = new DataLayer())
             {
                 var creditorNumber = db.CostAccounts.GetNextCreditorNumber();
                 Creditor.CostAccount.AccountNumber = creditorNumber;
@@ -75,18 +71,20 @@ namespace FinancialAnalysis.Logic.ViewModels
                 Creditor.CostAccount.Description = Creditor.Company.Name;
                 Creditor.CostAccount.IsVisible = true;
                 var costAccountId = db.CostAccounts.Insert(Creditor.CostAccount);
-                var creditor = new Creditor() { RefCompanyId = SelectedCompany.CompanyId, RefCostAccountId = costAccountId };
+                var creditor = new Creditor
+                    {RefCompanyId = SelectedCompany.CompanyId, RefCostAccountId = costAccountId};
                 db.Creditors.Insert(creditor);
             }
 
             var notificationService = this.GetRequiredService<INotificationService>();
-            var notification = notificationService.CreatePredefinedNotification("Neuer Kreditor", $"Der Kreditor {Creditor.Company.Name} wurde erfolgreich angelegt.", string.Empty);
+            var notification = notificationService.CreatePredefinedNotification("Neuer Kreditor",
+                $"Der Kreditor {Creditor.Company.Name} wurde erfolgreich angelegt.", string.Empty);
             notification.ShowAsync();
         }
 
         private void UpdateCreditor()
         {
-            using (DataLayer db = new DataLayer())
+            using (var db = new DataLayer())
             {
                 db.Creditors.Update(Creditor);
             }
@@ -94,7 +92,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void RefreshData()
         {
-            using (DataLayer db = new DataLayer())
+            using (var db = new DataLayer())
             {
                 Creditors = db.Creditors.GetAll().ToSvenTechCollection();
                 Debitors = db.Debitors.GetAll().ToSvenTechCollection();
@@ -105,7 +103,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void CreateCreditorWithCompany()
         {
-            using (DataLayer db = new DataLayer())
+            using (var db = new DataLayer())
             {
                 var companyId = db.Companies.Insert(Creditor.Company);
                 var creditorNumber = db.CostAccounts.GetNextCreditorNumber();
@@ -114,12 +112,13 @@ namespace FinancialAnalysis.Logic.ViewModels
                 Creditor.CostAccount.Description = Creditor.Company.Name;
                 Creditor.CostAccount.IsVisible = true;
                 var costAccountId = db.CostAccounts.Insert(Creditor.CostAccount);
-                var creditor = new Creditor() { RefCompanyId = companyId, RefCostAccountId = costAccountId };
+                var creditor = new Creditor {RefCompanyId = companyId, RefCostAccountId = costAccountId};
                 db.Creditors.Insert(creditor);
             }
 
             var notificationService = this.GetRequiredService<INotificationService>();
-            var notification = notificationService.CreatePredefinedNotification("Neuer Kreditor", $"Der Kreditor {Creditor.Company.Name} wurde erfolgreich angelegt.", string.Empty);
+            var notification = notificationService.CreatePredefinedNotification("Neuer Kreditor",
+                $"Der Kreditor {Creditor.Company.Name} wurde erfolgreich angelegt.", string.Empty);
             notification.ShowAsync();
         }
 
@@ -129,13 +128,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 UpdateCompany(Debitor.Company);
                 if (Debitor.DebitorId != 0)
-                {
                     UpdateDebitor();
-                }
                 else
-                {
                     CreateDebitor();
-                }
             }
             else
             {
@@ -147,7 +142,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void CreateDebitor()
         {
-            using (DataLayer db = new DataLayer())
+            using (var db = new DataLayer())
             {
                 var debitorNumber = db.CostAccounts.GetNextDebitorNumber();
                 Debitor.CostAccount.AccountNumber = debitorNumber;
@@ -155,18 +150,19 @@ namespace FinancialAnalysis.Logic.ViewModels
                 Debitor.CostAccount.Description = Debitor.Company.Name;
                 Debitor.CostAccount.IsVisible = true;
                 var costAccountId = db.CostAccounts.Insert(Debitor.CostAccount);
-                var debitor = new Debitor() { RefCompanyId = SelectedCompany.CompanyId, RefCostAccountId = costAccountId };
+                var debitor = new Debitor {RefCompanyId = SelectedCompany.CompanyId, RefCostAccountId = costAccountId};
                 db.Debitors.Insert(debitor);
             }
 
             var notificationService = this.GetRequiredService<INotificationService>();
-            var notification = notificationService.CreatePredefinedNotification("Neuer Debitor", $"Der Debitor {Debitor.Company.Name} wurde erfolgreich angelegt.", string.Empty);
+            var notification = notificationService.CreatePredefinedNotification("Neuer Debitor",
+                $"Der Debitor {Debitor.Company.Name} wurde erfolgreich angelegt.", string.Empty);
             notification.ShowAsync();
         }
 
         private void UpdateDebitor()
         {
-            using (DataLayer db = new DataLayer())
+            using (var db = new DataLayer())
             {
                 db.Debitors.Update(Debitor);
             }
@@ -174,7 +170,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void CreateDebitorWithCompany()
         {
-            using (DataLayer db = new DataLayer())
+            using (var db = new DataLayer())
             {
                 var companyId = db.Companies.Insert(Debitor.Company);
                 var debitorNumber = db.CostAccounts.GetNextDebitorNumber();
@@ -183,41 +179,46 @@ namespace FinancialAnalysis.Logic.ViewModels
                 Debitor.CostAccount.Description = Debitor.Company.Name;
                 Debitor.CostAccount.IsVisible = true;
                 var costAccountId = db.CostAccounts.Insert(Debitor.CostAccount);
-                var creditor = new Creditor() { RefCompanyId = companyId, RefCostAccountId = costAccountId };
+                var creditor = new Creditor {RefCompanyId = companyId, RefCostAccountId = costAccountId};
                 db.Creditors.Insert(creditor);
             }
 
             var notificationService = this.GetRequiredService<INotificationService>();
-            var notification = notificationService.CreatePredefinedNotification("Neuer Debitor", $"Der Debitor {Debitor.Company.Name} wurde erfolgreich angelegt.", string.Empty);
+            var notification = notificationService.CreatePredefinedNotification("Neuer Debitor",
+                $"Der Debitor {Debitor.Company.Name} wurde erfolgreich angelegt.", string.Empty);
             notification.ShowAsync();
         }
 
         private void UpdateCompany(Company company)
         {
-            using (DataLayer db = new DataLayer())
+            using (var db = new DataLayer())
             {
                 db.Companies.Update(company);
             }
+
             var notificationService = this.GetRequiredService<INotificationService>();
-            var notification = notificationService.CreatePredefinedNotification("Änderungen", $"Die Änderungen am Debitor {company.Name} wurde erfolgreich gespeichert.", string.Empty);
+            var notification = notificationService.CreatePredefinedNotification("Änderungen",
+                $"Die Änderungen am Debitor {company.Name} wurde erfolgreich gespeichert.", string.Empty);
             notification.ShowAsync();
         }
 
         private void DeleteCreditor()
         {
-            using (DataLayer db = new DataLayer())
+            using (var db = new DataLayer())
             {
                 db.Creditors.Delete(Creditor.CreditorId);
             }
+
             RefreshData();
         }
 
         private void DeleteDebitor()
         {
-            using (DataLayer db = new DataLayer())
+            using (var db = new DataLayer())
             {
                 db.Debitors.Delete(Debitor.DebitorId);
             }
+
             RefreshData();
         }
 
@@ -228,26 +229,20 @@ namespace FinancialAnalysis.Logic.ViewModels
             SaveDebitorCommand = new DelegateCommand(SaveDebitor);
             DeleteDebitorCommand = new DelegateCommand(DeleteDebitor);
 
-            NewCreditorCommand = new DelegateCommand(() =>
-            {
-                Creditor = new Creditor();
-            });
-            NewDebitorCommand = new DelegateCommand(() =>
-            {
-                Debitor = new Debitor();
-            });
+            NewCreditorCommand = new DelegateCommand(() => { Creditor = new Creditor(); });
+            NewDebitorCommand = new DelegateCommand(() => { Debitor = new Debitor(); });
             OpenCompanyWindowCommand = new DelegateCommand(() =>
             {
                 Messenger.Default.Send(new OpenCompanyWindowMessage());
             });
         }
 
-        private void CreditorCompany_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void CreditorCompany_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             ValidateCreditor();
         }
 
-        private void DebitorCompany_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void DebitorCompany_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             ValidateDebitor();
         }
@@ -258,10 +253,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 Creditor.Company.PropertyChanged -= CreditorCompany_PropertyChanged;
                 Creditor.Company = SelectedCompany;
-                if (Creditor.Company.IsNull())
-                {
-                    Creditor.Company = new Company();
-                }
+                if (Creditor.Company.IsNull()) Creditor.Company = new Company();
                 Creditor.Company.PropertyChanged += CreditorCompany_PropertyChanged;
 
                 ValidateCreditor();
@@ -270,10 +262,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 Debitor.Company.PropertyChanged -= DebitorCompany_PropertyChanged;
                 Debitor.Company = SelectedCompany;
-                if (Debitor.Company.IsNull())
-                {
-                    Debitor.Company = new Company();
-                }
+                if (Debitor.Company.IsNull()) Debitor.Company = new Company();
                 Debitor.Company.PropertyChanged += DebitorCompany_PropertyChanged;
 
                 ValidateSaveDebitor();
@@ -296,12 +285,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void ValidateSaveCreditor()
         {
-            if (Creditor.IsNull())
-            {
-                Creditor = new Creditor();
-            }
+            if (Creditor.IsNull()) Creditor = new Creditor();
 
-            if (!string.IsNullOrEmpty(Creditor.Company.Name) && !string.IsNullOrEmpty(Creditor.Company.Street) && Creditor.Company.Postcode != 0 && !string.IsNullOrEmpty(Creditor.Company.City))
+            if (!string.IsNullOrEmpty(Creditor.Company.Name) && !string.IsNullOrEmpty(Creditor.Company.Street) &&
+                Creditor.Company.Postcode != 0 && !string.IsNullOrEmpty(Creditor.Company.City))
             {
                 SaveCreditorButtonEnabled = true;
                 return;
@@ -312,32 +299,23 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void ValidateDeleteCreditor()
         {
-            if (Creditor.IsNull())
-            {
-                Creditor = new Creditor();
-            }
+            if (Creditor.IsNull()) Creditor = new Creditor();
 
             if (Creditor.CreditorId != 0)
-            {
-                using (DataLayer db = new DataLayer())
+                using (var db = new DataLayer())
                 {
                     DeleteCreditorButtonEnabled = !db.Creditors.IsCreditorInUse(Creditor.CreditorId);
                 }
-            }
             else
-            {
                 DeleteCreditorButtonEnabled = false;
-            }
         }
 
         private void ValidateSaveDebitor()
         {
-            if (Debitor.IsNull())
-            {
-                Debitor = new Debitor();
-            }
+            if (Debitor.IsNull()) Debitor = new Debitor();
 
-            if (!string.IsNullOrEmpty(Debitor.Company.Name) && !string.IsNullOrEmpty(Debitor.Company.Street) && Debitor.Company.Postcode != 0 && !string.IsNullOrEmpty(Debitor.Company.City))
+            if (!string.IsNullOrEmpty(Debitor.Company.Name) && !string.IsNullOrEmpty(Debitor.Company.Street) &&
+                Debitor.Company.Postcode != 0 && !string.IsNullOrEmpty(Debitor.Company.City))
             {
                 SaveDebitorButtonEnabled = true;
                 return;
@@ -348,22 +326,15 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void ValidateDeleteDebitor()
         {
-            if (Debitor.IsNull())
-            {
-                Debitor = new Debitor();
-            }
+            if (Debitor.IsNull()) Debitor = new Debitor();
 
             if (Debitor.DebitorId != 0)
-            {
-                using (DataLayer db = new DataLayer())
+                using (var db = new DataLayer())
                 {
                     DeleteDebitorButtonEnabled = !db.Debitors.IsDebitorInUse(Debitor.DebitorId);
                 }
-            }
             else
-            {
                 DeleteDebitorButtonEnabled = false;
-            }
         }
 
         #endregion Validation Methods
@@ -386,20 +357,35 @@ namespace FinancialAnalysis.Logic.ViewModels
         public SvenTechCollection<Debitor> Debitors { get; set; } = new SvenTechCollection<Debitor>();
 
         public int SelectedTab { get; set; } = 0;
+
         public Creditor Creditor
         {
             get => _creditor;
-            set { _creditor = value; ValidateCreditor(); }
+            set
+            {
+                _creditor = value;
+                ValidateCreditor();
+            }
         }
+
         public Debitor Debitor
         {
             get => _debitor;
-            set { _debitor = value; ValidateDebitor(); }
+            set
+            {
+                _debitor = value;
+                ValidateDebitor();
+            }
         }
+
         public Company SelectedCompany
         {
             get => _selectedCompany;
-            set { _selectedCompany = value; UseExistingCompany(); }
+            set
+            {
+                _selectedCompany = value;
+                UseExistingCompany();
+            }
         }
 
         #region Validation Properties
@@ -407,26 +393,45 @@ namespace FinancialAnalysis.Logic.ViewModels
         public bool SaveCreditorButtonEnabled
         {
             get => _saveCreditorButtonEnabled;
-            set { _saveCreditorButtonEnabled = value; RaisePropertyChanged(); }
+            set
+            {
+                _saveCreditorButtonEnabled = value;
+                RaisePropertyChanged();
+            }
         }
+
         public bool SaveDebitorButtonEnabled
         {
             get => _saveDebitorButtonEnabled;
-            set { _saveDebitorButtonEnabled = value; RaisePropertyChanged(); }
+            set
+            {
+                _saveDebitorButtonEnabled = value;
+                RaisePropertyChanged();
+            }
         }
+
         public bool DeleteCreditorButtonEnabled
         {
             get => _deleteCreditorButtonEnabled;
-            set { _deleteCreditorButtonEnabled = value; RaisePropertyChanged(); }
+            set
+            {
+                _deleteCreditorButtonEnabled = value;
+                RaisePropertyChanged();
+            }
         }
+
         public bool DeleteDebitorButtonEnabled
         {
             get => _deleteDebitorButtonEnabled;
-            set { _deleteDebitorButtonEnabled = value; RaisePropertyChanged(); }
+            set
+            {
+                _deleteDebitorButtonEnabled = value;
+                RaisePropertyChanged();
+            }
         }
+
         #endregion Validation Properties
 
         #endregion Properties
-
     }
 }

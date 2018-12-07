@@ -1,18 +1,17 @@
-﻿using Dapper;
-using FinancialAnalysis.Models.ProjectManagement;
-using Serilog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using Dapper;
+using FinancialAnalysis.Models.ProjectManagement;
+using Serilog;
 
 namespace FinancialAnalysis.Datalayer.ProjectManagement
 {
     public class ProjectEmployeeMappings : ITable
     {
-        public string TableName { get; }
-        private ProjectsStoredProcedures sp = new ProjectsStoredProcedures();
+        private readonly ProjectsStoredProcedures sp = new ProjectsStoredProcedures();
 
         public ProjectEmployeeMappings()
         {
@@ -25,18 +24,21 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 .CreateLogger();
         }
 
+        public string TableName { get; }
+
         public void CheckAndCreateTable()
         {
             try
             {
-                SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
-                                 $"ProjectEmployeeMappingId int IDENTITY(1,1) PRIMARY KEY," +
-                                 $"RefEmployeeId int NOT NULL," +
-                                 $"RefProjectId int NOT NULL," +
-                                 $"RefProjectRoleId int NOT NULL)";
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
+                    "ProjectEmployeeMappingId int IDENTITY(1,1) PRIMARY KEY," +
+                    "RefEmployeeId int NOT NULL," +
+                    "RefProjectId int NOT NULL," +
+                    "RefProjectRoleId int NOT NULL)";
 
-                using (SqlCommand command = new SqlCommand(commandStr, con))
+                using (var command = new SqlCommand(commandStr, con))
                 {
                     con.Open();
                     command.ExecuteNonQuery();
@@ -55,7 +57,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         }
 
         /// <summary>
-        /// Returns all ProjectEmployeeMapping records
+        ///     Returns all ProjectEmployeeMapping records
         /// </summary>
         /// <returns></returns>
         public IEnumerable<ProjectEmployeeMapping> GetAll()
@@ -63,7 +65,8 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
             IEnumerable<ProjectEmployeeMapping> output = new List<ProjectEmployeeMapping>();
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.Query<ProjectEmployeeMapping>($"dbo.{TableName}_GetAll");
                 }
@@ -72,22 +75,26 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
             {
                 Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
             }
+
             return output;
         }
 
         /// <summary>
-        /// Inserts the ProjectEmployeeMapping item
+        ///     Inserts the ProjectEmployeeMapping item
         /// </summary>
         /// <param name="ProjectEmployeeMapping"></param>
         /// <returns>Id of inserted item</returns>
         public int Insert(ProjectEmployeeMapping ProjectEmployeeMapping)
         {
-            int id = 0;
+            var id = 0;
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @RefEmployeeId, @RefProjectId, @RefProjectRoleId", ProjectEmployeeMapping);
+                    var result =
+                        con.Query<int>($"dbo.{TableName}_Insert @RefEmployeeId, @RefProjectId, @RefProjectRoleId",
+                            ProjectEmployeeMapping);
                     id = result.Single();
                 }
             }
@@ -95,23 +102,22 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
             {
                 Log.Error($"Exception occured while 'Insert item' into table '{TableName}'", e);
             }
+
             return id;
         }
 
         /// <summary>
-        /// Inserts the list of ProjectEmployeeMapping items
+        ///     Inserts the list of ProjectEmployeeMapping items
         /// </summary>
         /// <param name="ProjectEmployeeMapping"></param>
         public void Insert(IEnumerable<ProjectEmployeeMapping> ProjectEmployeeMappings)
         {
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var ProjectEmployeeMapping in ProjectEmployeeMappings)
-                    {
-                        Insert(ProjectEmployeeMapping);
-                    }
+                    foreach (var ProjectEmployeeMapping in ProjectEmployeeMappings) Insert(ProjectEmployeeMapping);
                 }
             }
             catch (Exception e)
@@ -121,24 +127,27 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         }
 
         /// <summary>
-        /// Returns Project by Id
+        ///     Returns Project by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public ProjectEmployeeMapping GetById(int id)
         {
-            ProjectEmployeeMapping output = new ProjectEmployeeMapping();
+            var output = new ProjectEmployeeMapping();
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<ProjectEmployeeMapping>($"dbo.{TableName}_GetById @ProjectEmployeeMappingId", new { ProjectEmployeeMappingId = id });
+                    output = con.QuerySingleOrDefault<ProjectEmployeeMapping>(
+                        $"dbo.{TableName}_GetById @ProjectEmployeeMappingId", new {ProjectEmployeeMappingId = id});
                 }
             }
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
             }
+
             return output;
         }
 
@@ -153,10 +162,11 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         {
             try
             {
-                SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"IF(OBJECT_ID('FK_{TableName}_Employees', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_Employees FOREIGN KEY(RefEmployeeId) REFERENCES Employees(EmployeeId)";
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_{TableName}_Employees', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_Employees FOREIGN KEY(RefEmployeeId) REFERENCES Employees(EmployeeId)";
 
-                using (SqlCommand command = new SqlCommand(commandStr, con))
+                using (var command = new SqlCommand(commandStr, con))
                 {
                     con.Open();
                     command.ExecuteNonQuery();
@@ -173,10 +183,11 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         {
             try
             {
-                SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"IF(OBJECT_ID('FK_{TableName}_Projects', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_Projects FOREIGN KEY(RefProjectId) REFERENCES Projects(ProjectId)";
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_{TableName}_Projects', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_Projects FOREIGN KEY(RefProjectId) REFERENCES Projects(ProjectId)";
 
-                using (SqlCommand command = new SqlCommand(commandStr, con))
+                using (var command = new SqlCommand(commandStr, con))
                 {
                     con.Open();
                     command.ExecuteNonQuery();
@@ -193,10 +204,11 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         {
             try
             {
-                SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"IF(OBJECT_ID('FK_{TableName}_Employees', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_ProjectRoles FOREIGN KEY(RefProjectRoleId) REFERENCES ProjectRoles(ProjectRoleId)";
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_{TableName}_Employees', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_ProjectRoles FOREIGN KEY(RefProjectRoleId) REFERENCES ProjectRoles(ProjectRoleId)";
 
-                using (SqlCommand command = new SqlCommand(commandStr, con))
+                using (var command = new SqlCommand(commandStr, con))
                 {
                     con.Open();
                     command.ExecuteNonQuery();

@@ -1,30 +1,32 @@
 ﻿<UserControl
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
-             xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
-             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
-             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
-             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-             xmlns:models="clr-namespace:FinancialAnalysis.Models;assembly=FinancialAnalysis.Models"
-             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
-             xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
-    xmlns:dxa="http://schemas.devexpress.com/winfx/2008/xaml/accordion" x:Class="FinancialAnalysis.UserControls.CostAccountControl"
-             mc:Ignorable="d"
-             dx:ThemeManager.ThemeName="Office2016WhiteSE"
-             d:DesignHeight="450" d:DesignWidth="800" DataContext="{dxmvvm:ViewModelSource Type={x:Type ViewModels:CostAccountViewModel}}">
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
+    xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:models="clr-namespace:FinancialAnalysis.Models;assembly=FinancialAnalysis.Models"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
+    xmlns:dxa="http://schemas.devexpress.com/winfx/2008/xaml/accordion"
+    x:Class="FinancialAnalysis.UserControls.CostAccountControl"
+    mc:Ignorable="d"
+    dx:ThemeManager.ThemeName="Office2016WhiteSE"
+    d:DesignHeight="450" d:DesignWidth="800"
+    DataContext="{dxmvvm:ViewModelSource Type={x:Type ViewModels:CostAccountViewModel}}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <dxwui:PageAdornerControl Header="Kontenrahmen" Grid.Row="0" Foreground="#3F729B" >
+        <dxwui:PageAdornerControl Header="Kontenrahmen" Grid.Row="0" Foreground="#3F729B">
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
@@ -39,44 +41,56 @@
         </dxwui:PageAdornerControl>
 
 
-        <dxa:AccordionControl Grid.Row="1" Grid.Column="0" Margin="10,0" Foreground="#3F729B" ShowSearchControl="True" ItemsSource="{Binding CostAccountCategoriesHierachical}" DisplayMemberPath="Description" ChildrenPath="SubCategories" SelectedItem="{Binding SelectedCategory}" />
+        <dxa:AccordionControl Grid.Row="1" Grid.Column="0" Margin="10,0" Foreground="#3F729B" ShowSearchControl="True"
+                              ItemsSource="{Binding CostAccountCategoriesHierachical}" DisplayMemberPath="Description"
+                              ChildrenPath="SubCategories" SelectedItem="{Binding SelectedCategory}" />
 
-        <TextBlock Grid.Row="1" Grid.Column="1" Margin="20,0,0,0" FontSize="16" Foreground="#3F729B" Text="Kontenrahmen:" />
+        <TextBlock Grid.Row="1" Grid.Column="1" Margin="20,0,0,0" FontSize="16" Foreground="#3F729B"
+                   Text="Kontenrahmen:" />
 
         <Grid Grid.Column="1" Grid.Row="1" Margin="20,30,20,20">
-            <dxg:GridControl ItemsSource="{Binding FilteredCostAccounts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCostAccount}" SelectionMode="Row">
+            <dxg:GridControl
+                ItemsSource="{Binding FilteredCostAccounts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding SelectedCostAccount}" SelectionMode="Row">
                 <dxg:GridControl.View>
-                    <dxg:TableView BestFitMode="Smart" Foreground="#3F729B" EditFormColumnCount="2" EditFormShowMode="None"  NewItemRowPosition="Top" AutoWidth="True" ShowGroupPanel="False" ShowTotalSummary="True" VerticalScrollbarVisibility="Auto" >
+                    <dxg:TableView BestFitMode="Smart" Foreground="#3F729B" EditFormColumnCount="2"
+                                   EditFormShowMode="None" NewItemRowPosition="Top" AutoWidth="True"
+                                   ShowGroupPanel="False" ShowTotalSummary="True" VerticalScrollbarVisibility="Auto">
                         <dxg:TableView.InputBindings>
-                            <KeyBinding Key="Delete" >
+                            <KeyBinding Key="Delete">
                                 <dxmvvm:Interaction.Behaviors>
-                                    <dxmvvm:ConfirmationBehavior 
-                                        EnableConfirmationMessage="True" 
-                                        Command="{Binding DeleteFocusedRowCommand}" 
-                                        MessageText="Möchten Sie den markierten Eintrag wirklich löschen?" 
-                                        MessageIcon="Question" MessageTitle="Eintrag löschen"/>
+                                    <dxmvvm:ConfirmationBehavior
+                                        EnableConfirmationMessage="True"
+                                        Command="{Binding DeleteFocusedRowCommand}"
+                                        MessageText="Möchten Sie den markierten Eintrag wirklich löschen?"
+                                        MessageIcon="Question" MessageTitle="Eintrag löschen" />
                                 </dxmvvm:Interaction.Behaviors>
                             </KeyBinding>
                         </dxg:TableView.InputBindings>
                         <dxmvvm:Interaction.Behaviors>
                             <dxmvvm:EventToCommand
-                                Command="{Binding RowUpdatedCommand}" 
+                                Command="{Binding RowUpdatedCommand}"
                                 EventName="RowUpdated"
                                 PassEventArgsToCommand="True" />
                         </dxmvvm:Interaction.Behaviors>
                     </dxg:TableView>
                 </dxg:GridControl.View>
                 <dxg:GridColumn FieldName="IsVisible" Header="Sichtbar" Width="50" />
-                <dxg:GridColumn FieldName="AccountNumber" Header="Nummer" Width="60" AllowEditing="{Binding SelectedCostAccount.IsEditable}"/>
-                <dxg:GridColumn FieldName="Description" Header="Beschreibung" Width="400" AllowEditing="{Binding SelectedCostAccount.IsEditable}" />
-                <dxg:GridColumn FieldName="RefTaxTypeId" Header="Steuer" Width="110" AllowEditing="{Binding SelectedCostAccount.IsEditable}">
+                <dxg:GridColumn FieldName="AccountNumber" Header="Nummer" Width="60"
+                                AllowEditing="{Binding SelectedCostAccount.IsEditable}" />
+                <dxg:GridColumn FieldName="Description" Header="Beschreibung" Width="400"
+                                AllowEditing="{Binding SelectedCostAccount.IsEditable}" />
+                <dxg:GridColumn FieldName="RefTaxTypeId" Header="Steuer" Width="110"
+                                AllowEditing="{Binding SelectedCostAccount.IsEditable}">
                     <dxg:GridColumn.EditSettings>
-                        <dxe:ComboBoxEditSettings ItemsSource="{Binding TaxTypes}" DisplayMember="Description" ValueMember="TaxTypeId" />
+                        <dxe:ComboBoxEditSettings ItemsSource="{Binding TaxTypes}" DisplayMember="Description"
+                                                  ValueMember="TaxTypeId" />
                     </dxg:GridColumn.EditSettings>
                 </dxg:GridColumn>
-                <dxg:GridColumn FieldName="RefCostAccountCategoryId" Header="Kategorie" Width="100" >
+                <dxg:GridColumn FieldName="RefCostAccountCategoryId" Header="Kategorie" Width="100">
                     <dxg:GridColumn.EditSettings>
-                        <dxe:ComboBoxEditSettings ItemsSource="{Binding CostAccountCategories}" DisplayMember="Description" ValueMember="CostAccountCategoryId"/>
+                        <dxe:ComboBoxEditSettings ItemsSource="{Binding CostAccountCategories}"
+                                                  DisplayMember="Description" ValueMember="CostAccountCategoryId" />
                     </dxg:GridColumn.EditSettings>
                 </dxg:GridColumn>
             </dxg:GridControl>

@@ -1,18 +1,17 @@
-﻿using Dapper;
-using FinancialAnalysis.Models.ProjectManagement;
-using Serilog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using Dapper;
+using FinancialAnalysis.Models.ProjectManagement;
+using Serilog;
 
 namespace FinancialAnalysis.Datalayer.ProjectManagement
 {
     public class Projects : ITable
     {
-        public string TableName { get; }
-        private ProjectsStoredProcedures sp = new ProjectsStoredProcedures();
+        private readonly ProjectsStoredProcedures sp = new ProjectsStoredProcedures();
 
         public Projects()
         {
@@ -25,24 +24,27 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 .CreateLogger();
         }
 
+        public string TableName { get; }
+
         public void CheckAndCreateTable()
         {
             try
             {
-                SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
-                                 $"ProjectId int IDENTITY(1,1) PRIMARY KEY," +
-                                 $"Name nvarchar(150) NOT NULL," +
-                                 $"Description nvarchar(150)," +
-                                 $"StartDate datetime NOT NULL," +
-                                 $"ExpectedEndDate datetime NOT NULL," +
-                                 $"TotalEndDate datetime NOT NULL," +
-                                 $"IsEnded bit," +
-                                 $"Budget money," +
-                                 $"RefCostCenterId int NOT NULL," +
-                                 $"RefCustomerId int)";
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
+                    "ProjectId int IDENTITY(1,1) PRIMARY KEY," +
+                    "Name nvarchar(150) NOT NULL," +
+                    "Description nvarchar(150)," +
+                    "StartDate datetime NOT NULL," +
+                    "ExpectedEndDate datetime NOT NULL," +
+                    "TotalEndDate datetime NOT NULL," +
+                    "IsEnded bit," +
+                    "Budget money," +
+                    "RefCostCenterId int NOT NULL," +
+                    "RefCustomerId int)";
 
-                using (SqlCommand command = new SqlCommand(commandStr, con))
+                using (var command = new SqlCommand(commandStr, con))
                 {
                     con.Open();
                     command.ExecuteNonQuery();
@@ -61,7 +63,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         }
 
         /// <summary>
-        /// Returns all Project records
+        ///     Returns all Project records
         /// </summary>
         /// <returns></returns>
         public IEnumerable<Project> GetAll()
@@ -69,7 +71,8 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
             IEnumerable<Project> output = new List<Project>();
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.Query<Project>($"dbo.{TableName}_GetAll");
                 }
@@ -78,22 +81,27 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
             {
                 Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
             }
+
             return output;
         }
 
         /// <summary>
-        /// Inserts the Project item
+        ///     Inserts the Project item
         /// </summary>
         /// <param name="Project"></param>
         /// <returns>Id of inserted item</returns>
         public int Insert(Project Project)
         {
-            int id = 0;
+            var id = 0;
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @Description, @Budget, @StartDate, @ExpectedEndDate, @TotalEndDate, @IsEnded, @RefCostCenterId, @RefCustomerId", Project);
+                    var result =
+                        con.Query<int>(
+                            $"dbo.{TableName}_Insert @Name, @Description, @Budget, @StartDate, @ExpectedEndDate, @TotalEndDate, @IsEnded, @RefCostCenterId, @RefCustomerId",
+                            Project);
                     id = result.Single();
                 }
             }
@@ -101,23 +109,22 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
             {
                 Log.Error($"Exception occured while 'Insert item' into table '{TableName}'", e);
             }
+
             return id;
         }
 
         /// <summary>
-        /// Inserts the list of Project items
+        ///     Inserts the list of Project items
         /// </summary>
         /// <param name="creditor"></param>
         public void Insert(IEnumerable<Project> Projects)
         {
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var Project in Projects)
-                    {
-                        Insert(Project);
-                    }
+                    foreach (var Project in Projects) Insert(Project);
                 }
             }
             catch (Exception e)
@@ -127,24 +134,27 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         }
 
         /// <summary>
-        /// Returns Project by Id
+        ///     Returns Project by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public Project GetById(int id)
         {
-            Project output = new Project();
+            var output = new Project();
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<Project>($"dbo.{TableName}_GetById @ProjectId", new { ProjectId = id });
+                    output = con.QuerySingleOrDefault<Project>($"dbo.{TableName}_GetById @ProjectId",
+                        new {ProjectId = id});
                 }
             }
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
             }
+
             return output;
         }
 
@@ -157,10 +167,11 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         {
             try
             {
-                SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"IF(OBJECT_ID('FK_{TableName}_CostCenter', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_CostCenter FOREIGN KEY(RefCostCenterId) REFERENCES CostCenters(CostCenterId)";
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_{TableName}_CostCenter', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_CostCenter FOREIGN KEY(RefCostCenterId) REFERENCES CostCenters(CostCenterId)";
 
-                using (SqlCommand command = new SqlCommand(commandStr, con))
+                using (var command = new SqlCommand(commandStr, con))
                 {
                     con.Open();
                     command.ExecuteNonQuery();

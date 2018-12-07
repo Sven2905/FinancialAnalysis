@@ -1,25 +1,15 @@
-﻿using DevExpress.Mvvm;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models.Accounting;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
     public class CostAccountViewModel : ViewModelBase
     {
-        #region Fields
-
-        private SvenTechCollection<CostAccount> _CostAccounts = new SvenTechCollection<CostAccount>();
-        private SvenTechCollection<CostAccountCategory> _CostAccountCategories = new SvenTechCollection<CostAccountCategory>();
-        private CostAccountCategory _SelectedCategory;
-        private CostAccount _SelectedCostAccount;
-        private DataLayer db = new DataLayer();
-
-        #endregion Fields
-
         #region Constructur
 
         public CostAccountViewModel()
@@ -29,12 +19,22 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #endregion Constructor
 
+        #region Fields
+
+        private SvenTechCollection<CostAccount> _CostAccounts = new SvenTechCollection<CostAccount>();
+        private CostAccountCategory _SelectedCategory;
+        private CostAccount _SelectedCostAccount;
+        private readonly DataLayer db = new DataLayer();
+
+        #endregion Fields
+
         #region Methods
 
         public void RefreshLists()
         {
             CostAccountCategories = db.CostAccountCategories.GetAll().ToSvenTechCollection();
-            CostAccountCategoriesHierachical = CostAccountCategories.ToHierachicalCollection<CostAccountCategory>().ToSvenTechCollection();
+            CostAccountCategoriesHierachical = CostAccountCategories.ToHierachicalCollection<CostAccountCategory>()
+                .ToSvenTechCollection();
             TaxTypes = db.TaxTypes.GetAll().ToSvenTechCollection();
             _CostAccounts = db.CostAccounts.GetAll().ToSvenTechCollection();
         }
@@ -42,16 +42,10 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void FilterCostAccounts()
         {
             FilteredCostAccounts.Clear();
-            if (SelectedCategory.IsNull())
-            {
-                return;
-            }
+            if (SelectedCategory.IsNull()) return;
 
             var ids = GetChildIds(SelectedCategory.CostAccountCategoryId).ToList();
-            if (ids.IsNull())
-            {
-                return;
-            }
+            if (ids.IsNull()) return;
 
             ids.Add(SelectedCategory.CostAccountCategoryId);
             FilteredCostAccounts.AddRange(_CostAccounts.Where(x => ids.Contains(x.RefCostAccountCategoryId)));
@@ -59,16 +53,13 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private IEnumerable<int> GetChildIds(int motherId)
         {
-            List<int> result = new List<int>();
-            var ids = CostAccountCategories.Where(x => x.ParentCategoryId == motherId).Select(x => x.CostAccountCategoryId);
+            var result = new List<int>();
+            var ids = CostAccountCategories.Where(x => x.ParentCategoryId == motherId)
+                .Select(x => x.CostAccountCategoryId);
             result.AddRange(ids);
             if (ids.Any())
-            {
                 foreach (var id in ids)
-                {
                     result.AddRange(GetChildIds(id));
-                }
-            }
             return result;
         }
 
@@ -78,35 +69,42 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public CostAccount SelectedCostAccount
         {
-            get { return _SelectedCostAccount; }
+            get => _SelectedCostAccount;
             set
             {
                 if (_SelectedCostAccount != null)
-                {
                     _SelectedCostAccount.PropertyChanged -= _SelectedCostAccount_PropertyChanged;
-                }
 
-                _SelectedCostAccount = value; if(_SelectedCostAccount != null)_SelectedCostAccount.PropertyChanged += _SelectedCostAccount_PropertyChanged;
+                _SelectedCostAccount = value;
+                if (_SelectedCostAccount != null)
+                    _SelectedCostAccount.PropertyChanged += _SelectedCostAccount_PropertyChanged;
             }
         }
 
-        private void _SelectedCostAccount_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void _SelectedCostAccount_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             db.CostAccounts.Update(SelectedCostAccount);
         }
 
         public SvenTechCollection<CostAccountCategory> CostAccountCategoriesHierachical { get; set; }
         public SvenTechCollection<TaxType> TaxTypes { get; set; }
-        public SvenTechCollection<CostAccount> FilteredCostAccounts { get; set; } = new SvenTechCollection<CostAccount>();
+
+        public SvenTechCollection<CostAccount> FilteredCostAccounts { get; set; } =
+            new SvenTechCollection<CostAccount>();
+
         public CostAccountCategory SelectedCategory
         {
-            get { return _SelectedCategory; }
-            set { _SelectedCategory = value; FilterCostAccounts(); }
+            get => _SelectedCategory;
+            set
+            {
+                _SelectedCategory = value;
+                FilterCostAccounts();
+            }
         }
 
-        public SvenTechCollection<CostAccountCategory> CostAccountCategories { get => _CostAccountCategories; set => _CostAccountCategories = value; }
+        public SvenTechCollection<CostAccountCategory> CostAccountCategories { get; set; } =
+            new SvenTechCollection<CostAccountCategory>();
 
         #endregion Properties
-
     }
 }

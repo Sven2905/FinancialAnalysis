@@ -80,7 +80,7 @@
     <Compile Include="ProjectManagement\ProjectRole.cs" />
     <Compile Include="ProjectManagement\ProjectWorkingTime.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SelectedCostAccount.cs" />
+    <Compile Include="Accounting\SelectedCostAccount.cs" />
     <Compile Include="TableVersion.cs" />
     <Compile Include="ProjectManagement\Tariff.cs" />
     <Compile Include="Warehouse\BookedProduct.cs" />

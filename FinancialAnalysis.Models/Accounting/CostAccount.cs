@@ -19,6 +19,6 @@ namespace FinancialAnalysis.Models.Accounting
         public int RefCostAccountCategoryId { get; set; }
         public bool IsVisible { get; set; }
         public bool IsEditable { get; set; }
-        public string DisplayName { get { return $"{AccountNumber} - {Description}"; } }
+        public string DisplayName => $"{AccountNumber} - {Description}";
     }
 }

@@ -1,6 +1,4 @@
 ﻿using DevExpress.Mvvm;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace FinancialAnalysis.Models
 {
@@ -22,6 +20,6 @@ namespace FinancialAnalysis.Models
         public string BIC { get; set; }
         public string BankName { get; set; }
         public FederalState FederalState { get; set; }
-        public string Address { get { return $"{Street}, {Postcode} {City}"; } }
+        public string Address => $"{Street}, {Postcode} {City}";
     }
 }

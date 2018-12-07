@@ -1,9 +1,5 @@
-﻿using DevExpress.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using DevExpress.Mvvm;
 
 namespace FinancialAnalysis.Models.Accounting
 {
@@ -15,11 +11,7 @@ namespace FinancialAnalysis.Models.Accounting
         public string Path { get; set; }
         public DateTime Date { get; set; }
         public int RefBookingId { get; set; }
-        public string ToolTip {
-            get
-            {
-                return $"Dateiname: {FileName}" + Environment.NewLine + $"Datum: {Date.ToShortDateString()}";
-            }
-        }
+
+        public string ToolTip => $"Dateiname: {FileName}" + Environment.NewLine + $"Datum: {Date.ToShortDateString()}";
     }
 }

@@ -1,29 +1,20 @@
-﻿using DevExpress.Mvvm;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using DevExpress.Mvvm;
 using DevExpress.Xpf.Dialogs;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
     public class BookingViewModel : ViewModelBase
     {
-        #region Fields
-
-        private int _costAccountCreditorId;
-        private int _costAccountDebitorId;
-        private decimal _amount;
-        private CostAccount _costAccountCreditor;
-
-        #endregion Fields
-
         #region Constructor
 
         public BookingViewModel()
@@ -32,7 +23,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             Messenger.Default.Register<SelectedCostAccount>(this, ChangeSelectedCostAccount);
 
-            using (DataLayer db = new DataLayer())
+            using (var db = new DataLayer())
             {
                 TaxTypes = db.TaxTypes.GetAll().ToList();
                 CostAccounts = db.CostAccounts.GetAllVisible().ToList();
@@ -42,6 +33,15 @@ namespace FinancialAnalysis.Logic.ViewModels
         }
 
         #endregion Constructor
+
+        #region Fields
+
+        private int _costAccountCreditorId;
+        private int _costAccountDebitorId;
+        private decimal _amount;
+        private CostAccount _costAccountCreditor;
+
+        #endregion Fields
 
         #region Methods
 
@@ -56,29 +56,24 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             GetCreditorCommand = new DelegateCommand(() =>
             {
-                Messenger.Default.Send(new OpenKontenrahmenWindowMessage() { AccountingType = AccountingType.Credit });
+                Messenger.Default.Send(new OpenKontenrahmenWindowMessage {AccountingType = AccountingType.Credit});
             });
 
             GetDebitorCommand = new DelegateCommand(() =>
             {
-                Messenger.Default.Send(new OpenKontenrahmenWindowMessage() { AccountingType = AccountingType.Debit });
+                Messenger.Default.Send(new OpenKontenrahmenWindowMessage {AccountingType = AccountingType.Debit});
             });
 
             OpenFileCommand = new DelegateCommand(() =>
             {
-                DXOpenFileDialog fileDialog = new DXOpenFileDialog();
-                if (fileDialog.ShowDialog().Value)
-                {
-                    CreateScannedDocumentItem(fileDialog.FileName);
-                }
+                var fileDialog = new DXOpenFileDialog();
+                if (fileDialog.ShowDialog().Value) CreateScannedDocumentItem(fileDialog.FileName);
             });
 
             DoubleClickListBoxCommand = new DelegateCommand(() =>
             {
                 if (SelectedScannedDocument != null)
-                {
                     Messenger.Default.Send(new OpenPDFViewerWindowMessage(SelectedScannedDocument.Path));
-                }
             });
 
             AddToStackCommand = new DelegateCommand(() =>
@@ -102,10 +97,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteSelectedScannedDocument()
         {
-            if (SelectedScannedDocument != null)
-            {
-                ScannedDocuments.Remove(SelectedScannedDocument);
-            }
+            if (SelectedScannedDocument != null) ScannedDocuments.Remove(SelectedScannedDocument);
         }
 
         private void CreateScannedDocumentItem(string path)
@@ -115,7 +107,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             var temp = path.Split('\\');
             var fileName = temp[temp.Length - 1].Replace(".pdf", "").Replace(".PDF", "");
 
-            ScannedDocument scannedDocument = new ScannedDocument()
+            var scannedDocument = new ScannedDocument
             {
                 Content = file,
                 Date = DateTime.Now,
@@ -133,10 +125,12 @@ namespace FinancialAnalysis.Logic.ViewModels
             switch (selectedCostAccount.AccountingType)
             {
                 case AccountingType.Credit:
-                    CostAccountCreditor = selectedCostAccount.CostAccount; CostAccountCreditorId = selectedCostAccount.CostAccount.CostAccountId; break;
+                    CostAccountCreditor = selectedCostAccount.CostAccount;
+                    CostAccountCreditorId = selectedCostAccount.CostAccount.CostAccountId;
+                    break;
                 case AccountingType.Debit:
-                    CostAccountDebitor = selectedCostAccount.CostAccount; CostAccountDebitorId = selectedCostAccount.CostAccount.CostAccountId; break;
-                default:
+                    CostAccountDebitor = selectedCostAccount.CostAccount;
+                    CostAccountDebitorId = selectedCostAccount.CostAccount.CostAccountId;
                     break;
             }
         }
@@ -145,10 +139,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             var result = false;
 
-            if (CostAccountCreditorId != 0 && CostAccountDebitorId != 0 && SelectedTax != null)
-            {
-                result = true;
-            }
+            if (CostAccountCreditorId != 0 && CostAccountDebitorId != 0 && SelectedTax != null) result = true;
 
             result = true;
 
@@ -157,12 +148,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private Booking CreateBookingItem()
         {
-            if (!ValidateBooking())
-            {
-                return null;
-            }
+            if (!ValidateBooking()) return null;
 
-            Booking booking = new Booking(Amount, Date, Description);
+            var booking = new Booking(Amount, Date, Description);
 
             decimal tax = 0;
             decimal amountWithoutTax = 0;
@@ -170,7 +158,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 if (GrossNetType == GrossNetType.Brutto)
                 {
-                    tax = (Amount / (100 + SelectedTax.AmountOfTax)) * SelectedTax.AmountOfTax;
+                    tax = Amount / (100 + SelectedTax.AmountOfTax) * SelectedTax.AmountOfTax;
                     amountWithoutTax = Amount - tax;
                 }
                 else
@@ -180,8 +168,8 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
             }
 
-            Credit credit = new Credit(Amount, CostAccountCreditorId, booking.BookingId);
-            Debit debit = new Debit(amountWithoutTax, CostAccountDebitorId, booking.BookingId);
+            var credit = new Credit(Amount, CostAccountCreditorId, booking.BookingId);
+            var debit = new Debit(amountWithoutTax, CostAccountDebitorId, booking.BookingId);
             booking.Credits.Add(credit);
             booking.Debits.Add(debit);
             booking.ScannedDocuments = ScannedDocuments.ToList();
@@ -191,14 +179,11 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveBookingToDB(Booking booking)
         {
-            if (booking == null)
-            {
-                return;
-            }
+            if (booking == null) return;
 
-            int bookingId = 0;
+            var bookingId = 0;
 
-            using (DataLayer db = new DataLayer())
+            using (var db = new DataLayer())
             {
                 bookingId = db.Bookings.Insert(booking);
             }
@@ -206,7 +191,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             foreach (var item in booking.Credits)
             {
                 item.RefBookingId = bookingId;
-                using (DataLayer db = new DataLayer())
+                using (var db = new DataLayer())
                 {
                     db.Credits.Insert(item);
                 }
@@ -215,7 +200,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             foreach (var item in booking.Debits)
             {
                 item.RefBookingId = bookingId;
-                using (DataLayer db = new DataLayer())
+                using (var db = new DataLayer())
                 {
                     db.Debits.Insert(item);
                 }
@@ -225,7 +210,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 item.RefBookingId = bookingId;
 
-                using (DataLayer db = new DataLayer())
+                using (var db = new DataLayer())
                 {
                     db.ScannedDocuments.Insert(item);
                 }
@@ -234,20 +219,14 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void AddToStack(Booking booking)
         {
-            Booking bookingItem = CreateBookingItem();
+            var bookingItem = CreateBookingItem();
 
-            if (bookingItem != null)
-            {
-                BookingsOnStack.Add(bookingItem);
-            }
+            if (bookingItem != null) BookingsOnStack.Add(bookingItem);
         }
 
         private void SaveStackToDb()
         {
-            foreach (var item in BookingsOnStack)
-            {
-                SaveBookingToDB(item);
-            }
+            foreach (var item in BookingsOnStack) SaveBookingToDB(item);
 
             BookingsOnStack.Clear();
         }
@@ -259,13 +238,21 @@ namespace FinancialAnalysis.Logic.ViewModels
         public int CostAccountCreditorId
         {
             get => _costAccountCreditorId;
-            set { _costAccountCreditorId = value; CostAccountCreditor = CostAccounts.Single(x => x.CostAccountId == value); }
+            set
+            {
+                _costAccountCreditorId = value;
+                CostAccountCreditor = CostAccounts.Single(x => x.CostAccountId == value);
+            }
         }
 
         public int CostAccountDebitorId
         {
-            get { return _costAccountDebitorId; }
-            set { _costAccountDebitorId = value; CostAccountDebitor = CostAccounts.Single(x => x.CostAccountId == value); }
+            get => _costAccountDebitorId;
+            set
+            {
+                _costAccountDebitorId = value;
+                CostAccountDebitor = CostAccounts.Single(x => x.CostAccountId == value);
+            }
         }
 
         public DelegateCommand AddToStackCommand { get; set; }
@@ -280,8 +267,12 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public CostAccount CostAccountCreditor
         {
-            get { return _costAccountCreditor; }
-            set { _costAccountCreditor = value; SelectedTax = TaxTypes.Single(x => x.TaxTypeId == _costAccountCreditor.RefTaxTypeId); }
+            get => _costAccountCreditor;
+            set
+            {
+                _costAccountCreditor = value;
+                SelectedTax = TaxTypes.Single(x => x.TaxTypeId == _costAccountCreditor.RefTaxTypeId);
+            }
         }
 
         public SvenTechCollection<Booking> BookingsOnStack { get; set; } = new SvenTechCollection<Booking>();
@@ -293,12 +284,18 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DateTime Date { get; set; } = DateTime.Now;
         public GrossNetType GrossNetType { get; set; }
         public ScannedDocument SelectedScannedDocument { get; set; }
-        public ObservableCollection<ScannedDocument> ScannedDocuments { get; set; } = new ObservableCollection<ScannedDocument>();
+
+        public ObservableCollection<ScannedDocument> ScannedDocuments { get; set; } =
+            new ObservableCollection<ScannedDocument>();
 
         public decimal Amount
         {
-            get { return Math.Round(_amount, 2); }
-            set { _amount = value; RaisePropertyChanged(); }
+            get => Math.Round(_amount, 2);
+            set
+            {
+                _amount = value;
+                RaisePropertyChanged();
+            }
         }
 
         #endregion Properties

@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FinancialAnalysis.Models;
+﻿using FinancialAnalysis.Models;
 
 namespace FinancialAnalysis.Logic.Messages
 {
     /// <summary>
-    /// Klasse zum Öffnen des Hauptmenüs
+    ///     Klasse zum Öffnen des Hauptmenüs
     /// </summary>
     public class OpenKontenrahmenWindowMessage
     {
         public OpenKontenrahmenWindowMessage()
         {
-
         }
 
         public OpenKontenrahmenWindowMessage(AccountingType AccountingType)

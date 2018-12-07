@@ -2,20 +2,21 @@
              xmlns:dxwuin="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/navigation"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
              xmlns:lc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
-             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" 
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-             xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"  x:Class="FinancialAnalysis.UserControls.MainControl"
-             mc:Ignorable="d" 
+             xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
+             x:Class="FinancialAnalysis.UserControls.MainControl"
+             mc:Ignorable="d"
              dx:ThemeManager.ThemeName="Office2016WhiteSE"
              d:DesignHeight="900" d:DesignWidth="1600">
     <UserControl.DataContext>
-        <ViewModels:MainViewModel/>
+        <ViewModels:MainViewModel />
     </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -28,70 +29,106 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Margin="0,0,0,0" Background="#3f729b" >
+        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Margin="0,0,0,0" Background="#3f729b">
             <!--<dx:SimpleButton Glyph="{dx:SvgImageSource Uri=/Images/light/analytics.svg}" Width="80" HorizontalAlignment="Left" Focusable="False" />-->
-            <TextBlock Text="Finanzanalyse" VerticalAlignment="Center" Foreground="White" FontSize="36" Margin="110,0,0,0" FontFamily="Urdu Typesetting"/>
+            <TextBlock Text="Finanzanalyse" VerticalAlignment="Center" Foreground="White" FontSize="36"
+                       Margin="110,0,0,0" FontFamily="Urdu Typesetting" />
         </Grid>
         <!--<Image Source="/Images/SmallLogo.png" HorizontalAlignment="Left" Margin="3,3,3,3"/>-->
-        <Viewbox Width="60" Height="60" Stretch="Uniform" StretchDirection="DownOnly" HorizontalAlignment="Left" Margin="15,0,0,0" >
+        <Viewbox Width="60" Height="60" Stretch="Uniform" StretchDirection="DownOnly" HorizontalAlignment="Left"
+                 Margin="15,0,0,0">
             <Canvas Width="60" Height="60">
-                <Path Data="M80 352H16c-8.84 0-16 7.16-16 16v128c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V368c0-8.84-7.16-16-16-16zM64 480H32v-96h32v96zm496-288h-64c-8.84 0-16 7.16-16 16v288c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V208c0-8.84-7.16-16-16-16zm-16 288h-32V224h32v256zM502.77 88.68C510.12 93.24 518.71 96 528 96c26.51 0 48-21.49 48-48S554.51 0 528 0s-48 21.49-48 48c0 5.51 1.12 10.71 2.83 15.64l-89.6 71.68c-7.35-4.57-15.94-7.33-25.23-7.33s-17.88 2.76-25.23 7.33l-89.6-71.68C254.88 58.72 256 53.51 256 48c0-26.51-21.49-48-48-48s-48 21.49-48 48c0 7.4 1.81 14.32 4.8 20.58L68.58 164.8C62.32 161.81 55.4 160 48 160c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-7.4-1.81-14.32-4.8-20.58l96.22-96.22C193.68 94.19 200.6 96 208 96c9.29 0 17.88-2.76 25.23-7.33l89.6 71.68c-1.71 4.93-2.83 10.14-2.83 15.65 0 26.51 21.49 48 48 48s48-21.49 48-48c0-5.51-1.12-10.72-2.83-15.65l89.6-71.67zM528 32c8.82 0 16 7.18 16 16s-7.18 16-16 16-16-7.18-16-16 7.18-16 16-16zM48 224c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16zM208 64c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16zm160 128c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16zm-128 0h-64c-8.84 0-16 7.16-16 16v288c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V208c0-8.84-7.16-16-16-16zm-16 288h-32V224h32v256zm176-160h-64c-8.84 0-16 7.16-16 16v160c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V336c0-8.84-7.16-16-16-16zm-16 160h-32V352h32v128z" 
-                Fill="White" Height="60" Width="60" Stretch="Fill" />
+                <Path
+                    Data="M80 352H16c-8.84 0-16 7.16-16 16v128c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V368c0-8.84-7.16-16-16-16zM64 480H32v-96h32v96zm496-288h-64c-8.84 0-16 7.16-16 16v288c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V208c0-8.84-7.16-16-16-16zm-16 288h-32V224h32v256zM502.77 88.68C510.12 93.24 518.71 96 528 96c26.51 0 48-21.49 48-48S554.51 0 528 0s-48 21.49-48 48c0 5.51 1.12 10.71 2.83 15.64l-89.6 71.68c-7.35-4.57-15.94-7.33-25.23-7.33s-17.88 2.76-25.23 7.33l-89.6-71.68C254.88 58.72 256 53.51 256 48c0-26.51-21.49-48-48-48s-48 21.49-48 48c0 7.4 1.81 14.32 4.8 20.58L68.58 164.8C62.32 161.81 55.4 160 48 160c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-7.4-1.81-14.32-4.8-20.58l96.22-96.22C193.68 94.19 200.6 96 208 96c9.29 0 17.88-2.76 25.23-7.33l89.6 71.68c-1.71 4.93-2.83 10.14-2.83 15.65 0 26.51 21.49 48 48 48s48-21.49 48-48c0-5.51-1.12-10.72-2.83-15.65l89.6-71.67zM528 32c8.82 0 16 7.18 16 16s-7.18 16-16 16-16-7.18-16-16 7.18-16 16-16zM48 224c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16zM208 64c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16zm160 128c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16zm-128 0h-64c-8.84 0-16 7.16-16 16v288c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V208c0-8.84-7.16-16-16-16zm-16 288h-32V224h32v256zm176-160h-64c-8.84 0-16 7.16-16 16v160c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V336c0-8.84-7.16-16-16-16zm-16 160h-32V352h32v128z"
+                    Fill="White" Height="60" Width="60" Stretch="Fill" />
             </Canvas>
         </Viewbox>
-        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Orientation="Vertical" >
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Margin="0,0,0,0" Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
-                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top" VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1" Content="Buchungen" dxwuin:Navigation.NavigateTo="BookingControl" VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2" >
+                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
+                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
+                                 Content="Buchungen" dxwuin:Navigation.NavigateTo="BookingControl"
+                                 VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2">
                     <dx:SimpleButton.Glyph>
-                        <dx:SvgImageSource Uri="/Images/light/calculator.svg" Size="87,100"/>
+                        <dx:SvgImageSource Uri="/Images/light/calculator.svg" Size="87,100" />
                     </dx:SimpleButton.Glyph>
                 </dx:SimpleButton>
-                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top" VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1" Content="Buchungshistorie" dxwuin:Navigation.NavigateTo="BookingHistoryControl" VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2" >
+                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
+                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
+                                 Content="Buchungshistorie" dxwuin:Navigation.NavigateTo="BookingHistoryControl"
+                                 VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2">
                     <dx:SimpleButton.Glyph>
-                        <dx:SvgImageSource Uri="/Images/light/search-dollar.svg" Size="100,100"/>
+                        <dx:SvgImageSource Uri="/Images/light/search-dollar.svg" Size="100,100" />
                     </dx:SimpleButton.Glyph>
                 </dx:SimpleButton>
-                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top" VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1" Content="Management" dxwuin:Navigation.NavigateTo="ProjectManagementControl" VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2" >
+                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
+                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
+                                 Content="Management" dxwuin:Navigation.NavigateTo="ProjectManagementControl"
+                                 VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2">
                     <dx:SimpleButton.Glyph>
-                        <dx:SvgImageSource Uri="/Images/light/users.svg" Size="100,100"/>
+                        <dx:SvgImageSource Uri="/Images/light/users.svg" Size="100,100" />
                     </dx:SimpleButton.Glyph>
                 </dx:SimpleButton>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top" VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1" Content="Steuersätze" dxwuin:Navigation.NavigateTo="TaxTypeControl" VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2" >
+                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
+                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
+                                 Content="Steuersätze" dxwuin:Navigation.NavigateTo="TaxTypeControl"
+                                 VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2">
                     <dx:SimpleButton.Glyph>
-                        <dx:SvgImageSource Uri="/Images/light/Percent.svg" Size="87,100"/>
+                        <dx:SvgImageSource Uri="/Images/light/Percent.svg" Size="87,100" />
                     </dx:SimpleButton.Glyph>
                 </dx:SimpleButton>
-                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top" VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1" Content="Kontenrahmen" dxwuin:Navigation.NavigateTo="CostAccountControl" VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2" >
+                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
+                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
+                                 Content="Kontenrahmen" dxwuin:Navigation.NavigateTo="CostAccountControl"
+                                 VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2">
                     <dx:SimpleButton.Glyph>
-                        <dx:SvgImageSource Uri="/Images/light/Landmark.svg" Size="100,100"/>
+                        <dx:SvgImageSource Uri="/Images/light/Landmark.svg" Size="100,100" />
                     </dx:SimpleButton.Glyph>
                 </dx:SimpleButton>
-                <dx:SimpleButton x:Name="btnCreditorsDebitors" Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top" VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1" Content="Kreditoren / Debitoren" dxwuin:Navigation.NavigateTo="CreditorDebitorControl" VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2"  >
+                <dx:SimpleButton x:Name="btnCreditorsDebitors" Padding="10,20,10,20" GlyphToContentOffset="10"
+                                 GlyphAlignment="Top" VerticalContentAlignment="Center" Foreground="#3f729b"
+                                 Grid.Row="1" Content="Kreditoren / Debitoren"
+                                 dxwuin:Navigation.NavigateTo="CreditorDebitorControl" VerticalAlignment="Center"
+                                 Width="180" Height="180" FontSize="20" Margin="2">
                     <dx:SimpleButton.Glyph>
-                        <dx:SvgImageSource Uri="/Images/light/hand-holding-usd.svg" Size="80,80"/>
+                        <dx:SvgImageSource Uri="/Images/light/hand-holding-usd.svg" Size="80,80" />
                     </dx:SimpleButton.Glyph>
                 </dx:SimpleButton>
             </StackPanel>
         </StackPanel>
-        <TextBox Grid.Row="1" Grid.Column="1"  Name="myTextBox" HorizontalAlignment="Left" Height="24" Margin="107,104,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="319" Visibility="Hidden">
-            <dxb:BarManager.DXContextMenu >
-                <dxb:RadialContextMenu DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}" dxb:ImageColorizer.Color="#3f729b">
-                    <dxb:BarButtonItem Content="Copy" Glyph="{dx:DXImage Image=Copy_16x16.png}" Command="{Binding CopyCommand}" CommandTarget="{Binding}" />
-                    <dxb:BarButtonItem Content="Cut" Glyph="{dx:DXImage Image=Cut_16x16.png}" Command="{Binding CutCommand}" CommandTarget="{Binding}" />
-                    <dxb:BarButtonItem Content="Paste" Glyph="{dx:DXImage Image=Paste_16x16.png}" Command="{x:Static ApplicationCommands.Paste}" CommandTarget="{Binding}" />
-                    <dxb:BarSplitButtonItem Content="Select All" Glyph="{dx:DXImage Image=SelectAll_16x16.png}" LargeGlyph="{dx:DXImage Image=SelectAll_32x32.png}" Command="{Binding SelectAllCommand}" >
+        <TextBox Grid.Row="1" Grid.Column="1" Name="myTextBox" HorizontalAlignment="Left" Height="24"
+                 Margin="107,104,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="319"
+                 Visibility="Hidden">
+            <dxb:BarManager.DXContextMenu>
+                <dxb:RadialContextMenu
+                    DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}"
+                    dxb:ImageColorizer.Color="#3f729b">
+                    <dxb:BarButtonItem Content="Copy" Glyph="{dx:DXImage Image=Copy_16x16.png}"
+                                       Command="{Binding CopyCommand}" CommandTarget="{Binding}" />
+                    <dxb:BarButtonItem Content="Cut" Glyph="{dx:DXImage Image=Cut_16x16.png}"
+                                       Command="{Binding CutCommand}" CommandTarget="{Binding}" />
+                    <dxb:BarButtonItem Content="Paste" Glyph="{dx:DXImage Image=Paste_16x16.png}"
+                                       Command="{x:Static ApplicationCommands.Paste}" CommandTarget="{Binding}" />
+                    <dxb:BarSplitButtonItem Content="Select All" Glyph="{dx:DXImage Image=SelectAll_16x16.png}"
+                                            LargeGlyph="{dx:DXImage Image=SelectAll_32x32.png}"
+                                            Command="{Binding SelectAllCommand}">
                         <dxb:BarSplitButtonItem.PopupControl>
                             <dxb:PopupMenu>
-                                <dxb:BarButtonItem x:Name="bClear" CategoryName="Edit" Content="Clear" Glyph="{dx:DXImage Image=Delete_16x16.png}" Command="{Binding ClearSelectionCommand}" />
-                                <dxb:BarButtonItem Content="Select All" Glyph="{dx:DXImage Image=SelectAll_16x16.png}" LargeGlyph="{dx:DXImage Image=SelectAll_32x32.png}" Command="{Binding SelectAllCommand}" />
+                                <dxb:BarButtonItem x:Name="bClear" CategoryName="Edit" Content="Clear"
+                                                   Glyph="{dx:DXImage Image=Delete_16x16.png}"
+                                                   Command="{Binding ClearSelectionCommand}" />
+                                <dxb:BarButtonItem Content="Select All" Glyph="{dx:DXImage Image=SelectAll_16x16.png}"
+                                                   LargeGlyph="{dx:DXImage Image=SelectAll_32x32.png}"
+                                                   Command="{Binding SelectAllCommand}" />
                             </dxb:PopupMenu>
                         </dxb:BarSplitButtonItem.PopupControl>
                     </dxb:BarSplitButtonItem>
                 </dxb:RadialContextMenu>
             </dxb:BarManager.DXContextMenu>
         </TextBox>
-        <Grid Grid.Row="1"/>
+        <Grid Grid.Row="1" />
     </Grid>
 </UserControl>

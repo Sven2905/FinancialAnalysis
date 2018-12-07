@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
+using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Utilities
 {
@@ -22,7 +21,7 @@ namespace Utilities
 
         public static void AddRange<T>(this ObservableCollection<T> destination, IEnumerable<T> source)
         {
-            foreach (T item in source)
+            foreach (var item in source)
                 destination.Add(item);
         }
 
@@ -79,7 +78,7 @@ namespace Utilities
             return result;
         }
 
-        public static int Occurrence(this String instr, string search)
+        public static int Occurrence(this string instr, string search)
         {
             return Regex.Matches(instr, search).Count;
         }
@@ -88,23 +87,21 @@ namespace Utilities
         {
             try
             {
-                Type t = typeof(T);
-                Type u = Nullable.GetUnderlyingType(t);
+                var t = typeof(T);
+                var u = Nullable.GetUnderlyingType(t);
 
                 if (u != null)
                 {
                     if (value == null || value.Equals(""))
                         return default(T);
 
-                    return (T)Convert.ChangeType(value, u);
+                    return (T) Convert.ChangeType(value, u);
                 }
-                else
-                {
-                    if (value == null || value.Equals(""))
-                        return default(T);
 
-                    return (T)Convert.ChangeType(value, t);
-                }
+                if (value == null || value.Equals(""))
+                    return default(T);
+
+                return (T) Convert.ChangeType(value, t);
             }
 
             catch
@@ -114,22 +111,19 @@ namespace Utilities
         }
 
         /// <summary>
-        /// Calculates the sum of the given timeSpans.
+        ///     Calculates the sum of the given timeSpans.
         /// </summary>
         public static TimeSpan Sum(this IEnumerable<TimeSpan> timeSpans)
         {
-            TimeSpan sumTillNowTimeSpan = TimeSpan.Zero;
+            var sumTillNowTimeSpan = TimeSpan.Zero;
 
-            foreach (TimeSpan timeSpan in timeSpans)
-            {
-                sumTillNowTimeSpan += timeSpan;
-            }
+            foreach (var timeSpan in timeSpans) sumTillNowTimeSpan += timeSpan;
 
             return sumTillNowTimeSpan;
         }
 
         /// <summary>
-        /// Checks if IEnumerable is not null and not empty.
+        ///     Checks if IEnumerable is not null and not empty.
         /// </summary>
         /// <param name="source"></param>
         /// <returns>Returns true when IEnumerable is not null and not empty, otherwise false.</returns>
@@ -139,16 +133,16 @@ namespace Utilities
         }
 
         /// <summary>
-        /// Clones an object with all his values without references.
+        ///     Clones an object with all his values without references.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns>New object with same values.</returns>
         public static T Clone<T>(this T obj)
         {
-            var inst = obj.GetType().GetMethod("MemberwiseClone", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            var inst = obj.GetType().GetMethod("MemberwiseClone", BindingFlags.Instance | BindingFlags.NonPublic);
 
-            return (T)inst?.Invoke(obj, null);
+            return (T) inst?.Invoke(obj, null);
         }
     }
 }

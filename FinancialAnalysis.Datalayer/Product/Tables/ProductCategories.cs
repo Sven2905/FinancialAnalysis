@@ -1,18 +1,17 @@
-﻿using Dapper;
-using FinancialAnalysis.Models.Product;
-using Serilog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using Dapper;
+using FinancialAnalysis.Models.Product;
+using Serilog;
 
 namespace FinancialAnalysis.Datalayer.Product
 {
     public class ProductCategories : ITable
     {
-        public string TableName { get; }
-        private ProductCategoriesProcedures sp = new ProductCategoriesProcedures();
+        private readonly ProductCategoriesProcedures sp = new ProductCategoriesProcedures();
 
         public ProductCategories()
         {
@@ -25,17 +24,20 @@ namespace FinancialAnalysis.Datalayer.Product
                 .CreateLogger();
         }
 
+        public string TableName { get; }
+
         public void CheckAndCreateTable()
         {
             try
             {
-                SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
-                                 $"ProductCategoryId int IDENTITY(1,1) PRIMARY KEY," +
-                                 $"Name nvarchar(150) NOT NULL," +
-                                 $"Description nvarchar(150)";
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
+                    "ProductCategoryId int IDENTITY(1,1) PRIMARY KEY," +
+                    "Name nvarchar(150) NOT NULL," +
+                    "Description nvarchar(150)";
 
-                using (SqlCommand command = new SqlCommand(commandStr, con))
+                using (var command = new SqlCommand(commandStr, con))
                 {
                     con.Open();
                     command.ExecuteNonQuery();
@@ -54,7 +56,7 @@ namespace FinancialAnalysis.Datalayer.Product
         }
 
         /// <summary>
-        /// Returns all Product Category records
+        ///     Returns all Product Category records
         /// </summary>
         /// <returns></returns>
         public IEnumerable<ProductCategory> GetAll()
@@ -62,7 +64,8 @@ namespace FinancialAnalysis.Datalayer.Product
             IEnumerable<ProductCategory> output = new List<ProductCategory>();
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.Query<ProductCategory>($"dbo.{TableName}_GetAll");
                 }
@@ -71,22 +74,27 @@ namespace FinancialAnalysis.Datalayer.Product
             {
                 Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
             }
+
             return output;
         }
 
         /// <summary>
-        /// Inserts the Product Category item
+        ///     Inserts the Product Category item
         /// </summary>
         /// <param name="ProductPrototype"></param>
         /// <returns>Id of inserted item</returns>
         public int Insert(ProductCategory ProductCategory)
         {
-            int id = 0;
+            var id = 0;
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @Description, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @RefProductCategory", ProductCategory);
+                    var result =
+                        con.Query<int>(
+                            $"dbo.{TableName}_Insert @Name, @Description, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @RefProductCategory",
+                            ProductCategory);
                     id = result.Single();
                 }
             }
@@ -94,23 +102,22 @@ namespace FinancialAnalysis.Datalayer.Product
             {
                 Log.Error($"Exception occured while 'Insert item' into table '{TableName}'", e);
             }
+
             return id;
         }
 
         /// <summary>
-        /// Inserts the list of Product Category items
+        ///     Inserts the list of Product Category items
         /// </summary>
         /// <param name="ProductPrototype"></param>
         public void Insert(IEnumerable<ProductCategory> ProductCategories)
         {
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var ProductCategory in ProductCategories)
-                    {
-                        Insert(ProductCategory);
-                    }
+                    foreach (var ProductCategory in ProductCategories) Insert(ProductCategory);
                 }
             }
             catch (Exception e)
@@ -120,24 +127,27 @@ namespace FinancialAnalysis.Datalayer.Product
         }
 
         /// <summary>
-        /// Returns Product Category by Id
+        ///     Returns Product Category by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public ProductCategory GetById(int id)
         {
-            ProductCategory output = new ProductCategory();
+            var output = new ProductCategory();
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<ProductCategory>($"dbo.{TableName}_GetById @ProductPrototypeId", new { ProductCategoryId = id });
+                    output = con.QuerySingleOrDefault<ProductCategory>($"dbo.{TableName}_GetById @ProductPrototypeId",
+                        new {ProductCategoryId = id});
                 }
             }
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
             }
+
             return output;
         }
     }

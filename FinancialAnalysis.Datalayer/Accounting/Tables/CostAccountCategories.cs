@@ -1,21 +1,17 @@
-﻿using Dapper;
-using FinancialAnalysis.Models;
-using FinancialAnalysis.Models.Accounting;
-using Serilog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Dapper;
+using FinancialAnalysis.Models.Accounting;
+using Serilog;
 
 namespace FinancialAnalysis.Datalayer.Accounting
 {
     public class CostAccountCategories : ITable
     {
-        public string TableName { get; }
-        private CostAccountCategoriesStoredProcedures sp = new CostAccountCategoriesStoredProcedures();
+        private readonly CostAccountCategoriesStoredProcedures sp = new CostAccountCategoriesStoredProcedures();
 
         public CostAccountCategories()
         {
@@ -28,6 +24,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 .CreateLogger();
         }
 
+        public string TableName { get; }
+
         public void CheckAndCreateStoredProcedures()
         {
             sp.CheckAndCreateProcedures();
@@ -37,14 +35,14 @@ namespace FinancialAnalysis.Datalayer.Accounting
         {
             try
             {
-                SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') " +
-                    $"CREATE TABLE {TableName}" +
-                    $"(CostAccountCategoryId int IDENTITY(1,1) PRIMARY KEY, " +
-                    $"Description nvarchar(50) NOT NULL, " +
-                    $"ParentCategoryId int )";
+                                 $"CREATE TABLE {TableName}" +
+                                 "(CostAccountCategoryId int IDENTITY(1,1) PRIMARY KEY, " +
+                                 "Description nvarchar(50) NOT NULL, " +
+                                 "ParentCategoryId int )";
 
-                using (SqlCommand command = new SqlCommand(commandStr, con))
+                using (var command = new SqlCommand(commandStr, con))
                 {
                     con.Open();
                     command.ExecuteNonQuery();
@@ -58,7 +56,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        /// Returns all CostAccountCategory records
+        ///     Returns all CostAccountCategory records
         /// </summary>
         /// <returns></returns>
         public IEnumerable<CostAccountCategory> GetAll()
@@ -66,32 +64,35 @@ namespace FinancialAnalysis.Datalayer.Accounting
             IEnumerable<CostAccountCategory> output = new List<CostAccountCategory>();
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.Query<CostAccountCategory>($"dbo.{TableName}_GetAll");
                 }
-
             }
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
             }
+
             return output;
         }
 
         /// <summary>
-        /// Inserts the CostAccountCategory item
+        ///     Inserts the CostAccountCategory item
         /// </summary>
         /// <param name="costAccountCategory"></param>
         /// <returns>Id of inserted item</returns>
         public int Insert(CostAccountCategory costAccountCategory)
         {
-            int id = 0;
+            var id = 0;
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Description, @ParentCategoryId", costAccountCategory);
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @Description, @ParentCategoryId",
+                        costAccountCategory);
                     return result.Single();
                 }
             }
@@ -99,23 +100,22 @@ namespace FinancialAnalysis.Datalayer.Accounting
             {
                 Log.Error($"Exception occured while 'Insert item' from table '{TableName}'", e);
             }
+
             return id;
         }
 
         /// <summary>
-        /// Inserts the list of CostAccountCategory items
+        ///     Inserts the list of CostAccountCategory items
         /// </summary>
         /// <param name="costAccountCategories"></param>
         public void Insert(IEnumerable<CostAccountCategory> costAccountCategories)
         {
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var costAccountCategory in costAccountCategories)
-                    {
-                        Insert(costAccountCategory);
-                    }
+                    foreach (var costAccountCategory in costAccountCategories) Insert(costAccountCategory);
                 }
             }
             catch (Exception e)
@@ -125,34 +125,38 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        /// Returns CostAccountCategory by Id
+        ///     Returns CostAccountCategory by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public CostAccountCategory GetById(int id)
         {
-            CostAccountCategory output = new CostAccountCategory();
+            var output = new CostAccountCategory();
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<CostAccountCategory>($"dbo.{TableName}_GetById @CostAccountCategoryId", new { CostAccountCategoryId = id });
+                    output = con.QuerySingleOrDefault<CostAccountCategory>(
+                        $"dbo.{TableName}_GetById @CostAccountCategoryId", new {CostAccountCategoryId = id});
                 }
             }
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
             }
+
             return output;
         }
 
         /// <summary>
-        /// Update CostAccountCategory, if not exist, insert it
+        ///     Update CostAccountCategory, if not exist, insert it
         /// </summary>
         /// <param name="costAccountCategory"></param>
         public void UpdateOrInsert(CostAccountCategory costAccountCategory)
         {
-            if (costAccountCategory.CostAccountCategoryId == 0 || GetById(costAccountCategory.CostAccountCategoryId) is null)
+            if (costAccountCategory.CostAccountCategoryId == 0 ||
+                GetById(costAccountCategory.CostAccountCategoryId) is null)
             {
                 Insert(costAccountCategory);
                 return;
@@ -162,33 +166,30 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        /// Update CostAccountCategories, if not exist insert them
+        ///     Update CostAccountCategories, if not exist insert them
         /// </summary>
         /// <param name="costAccountCategories"></param>
         public void UpdateOrInsert(IEnumerable<CostAccountCategory> costAccountCategories)
         {
-            foreach (var costAccountCategory in costAccountCategories)
-            {
-                UpdateOrInsert(costAccountCategory);
-            }
+            foreach (var costAccountCategory in costAccountCategories) UpdateOrInsert(costAccountCategory);
         }
 
         /// <summary>
-        /// Update CostAccountCategory
+        ///     Update CostAccountCategory
         /// </summary>
         /// <param name="costAccountCategory"></param>
         public void Update(CostAccountCategory costAccountCategory)
         {
-            if (costAccountCategory.CostAccountCategoryId == 0 || GetById(costAccountCategory.CostAccountCategoryId) is null)
-            {
-                return;
-            }
+            if (costAccountCategory.CostAccountCategoryId == 0 ||
+                GetById(costAccountCategory.CostAccountCategoryId) is null) return;
 
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @CostAccountCategoryId, @Description @ParentCategoryId", costAccountCategory);
+                    con.Execute($"dbo.{TableName}_Update @CostAccountCategoryId, @Description @ParentCategoryId",
+                        costAccountCategory);
                 }
             }
             catch (Exception e)
@@ -198,16 +199,17 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        /// Delete CostAccountCategory by Id
+        ///     Delete CostAccountCategory by Id
         /// </summary>
         /// <param name="id"></param>
         public void Delete(int id)
         {
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @CostAccountCategoryId", new { CostAccountCategoryId = id });
+                    con.Execute($"dbo.{TableName}_Delete @CostAccountCategoryId", new {CostAccountCategoryId = id});
                 }
             }
             catch (Exception e)
@@ -217,7 +219,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        /// Delete CostAccountCategory by Item
+        ///     Delete CostAccountCategory by Item
         /// </summary>
         /// <param name="id"></param>
         public void Delete(CostAccountCategory costAccountCategory)
@@ -226,17 +228,19 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        /// Returns the id of creditor main group "Kreditoren"
+        ///     Returns the id of creditor main group "Kreditoren"
         /// </summary>
         /// <returns></returns>
         public int GetCreditorId()
         {
-            int output = 0;
+            var output = 0;
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.ExecuteScalar<int>($"dbo.{TableName}_GetCreditorId @Description", new { Description = "Kreditoren" });
+                    output = con.ExecuteScalar<int>($"dbo.{TableName}_GetCreditorId @Description",
+                        new {Description = "Kreditoren"});
                 }
             }
             catch (Exception e)
@@ -248,17 +252,19 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        /// Returns the id of debitor main group "Debitoren"
+        ///     Returns the id of debitor main group "Debitoren"
         /// </summary>
         /// <returns></returns>
         public int GetDebitorId()
         {
-            int output = 0;
+            var output = 0;
             try
             {
-                using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.ExecuteScalar<int>($"dbo.{TableName}_GetDebitorId @Description", new { Description = "Debitoren" });
+                    output = con.ExecuteScalar<int>($"dbo.{TableName}_GetDebitorId @Description",
+                        new {Description = "Debitoren"});
                 }
             }
             catch (Exception e)
