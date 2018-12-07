@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FinancialAnalysis.Models
+namespace FinancialAnalysis.Models.ProjectManagement
 {
     public class HealthInsurance
     {
@@ -10,6 +10,8 @@ namespace FinancialAnalysis.Models
         public int Postcode { get; set; }
         public string City { get; set; }
         public string ContactName { get; set; }
+        public string Phone { get; set; }
+        public string Mail { get; set; }
 
         public virtual List<Employee> Employees { get; set; }
     }

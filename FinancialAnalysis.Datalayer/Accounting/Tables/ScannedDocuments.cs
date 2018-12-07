@@ -38,7 +38,12 @@ namespace FinancialAnalysis.Datalayer.Accounting
             {
                 SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') " +
-                    $"CREATE TABLE {TableName}(ScannedDocumentId int IDENTITY(1,1) PRIMARY KEY, Content varbinary(MAX), FileName nvarchar(150) NOT NULL, Date datetime NOT NULL, RefBookingId int NOT NULL)";
+                    $"CREATE TABLE {TableName}" +
+                    $"(ScannedDocumentId int IDENTITY(1,1) PRIMARY KEY, " +
+                    $"Content varbinary(MAX), " +
+                    $"FileName nvarchar(150) NOT NULL, " +
+                    $"Date datetime NOT NULL, " +
+                    $"RefBookingId int NOT NULL)";
 
                 using (SqlCommand command = new SqlCommand(commandStr, con))
                 {

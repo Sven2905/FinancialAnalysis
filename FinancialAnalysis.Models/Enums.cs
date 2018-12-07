@@ -39,6 +39,14 @@ namespace FinancialAnalysis.Models
         Netto
     }
 
+    public enum PayType
+    {
+        Intervall,
+        [Display(Name = "Aktueller Monat")] ThisMonth,
+        [Display(Name = "Nachfolgender Monat")] NextMonth,
+        [Display(Name = "Bestimmter Tag")] NextSpecificDay
+    }
+
     /// <summary>
     /// Enum with Federal States of Germany (ISO 3166-2:DE)
     /// <para /> BW = Baden-Württemberg,

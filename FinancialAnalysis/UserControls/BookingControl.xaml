@@ -14,7 +14,8 @@
              xmlns:dxcn="http://schemas.devexpress.com/winfx/2008/xaml/core/internal"
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
              xmlns:models="clr-namespace:FinancialAnalysis.Models;assembly=FinancialAnalysis.Models"
-             xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic" x:Class="FinancialAnalysis.UserControls.BookingControl"
+             xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic" 
+             x:Class="FinancialAnalysis.UserControls.BookingControl"
              mc:Ignorable="d"
              dx:ThemeManager.ThemeName="Office2016WhiteSE"
              d:DesignHeight="900" d:DesignWidth="1600">
@@ -163,10 +164,18 @@
                     <dxmvvm:EnumItemsSourceBehavior EnumType="{x:Type models:GrossNetType}"/>
                 </dxmvvm:Interaction.Behaviors>
             </dxe:ComboBoxEdit>
-            <dxe:ListBoxEdit Grid.Column="7" Grid.Row="2" Grid.RowSpan="9" Margin="10,3,45,3" Height="300" MinWidth="300" HorizontalAlignment="Left" ItemsSource="{Binding ScannedDocuments}" SelectedItem="{Binding SelectedScannedDocument}" >
+            <dxe:ListBoxEdit Grid.Column="7" Grid.Row="2" Grid.RowSpan="9" Margin="10,-20,45,3" Height="300" MinWidth="300" HorizontalAlignment="Left" ItemsSource="{Binding ScannedDocuments}" SelectedItem="{Binding SelectedScannedDocument}" >
                 <dxmvvm:Interaction.Behaviors>
                     <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding DoubleClickListBoxCommand}" PassEventArgsToCommand="True"/>
                 </dxmvvm:Interaction.Behaviors>
+                <dxe:ListBoxEdit.ContextMenu>
+                    <ContextMenu StaysOpen="true" >
+                        <ContextMenu.BitmapEffect>
+                            <OuterGlowBitmapEffect />
+                        </ContextMenu.BitmapEffect>
+                        <MenuItem Header="Entfernen"     Tag="Delete" Command="{Binding DeleteSelectedScannedDocumentCommand}" />
+                    </ContextMenu>
+                </dxe:ListBoxEdit.ContextMenu>
                 <dxe:ListBoxEdit.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical" />
@@ -175,10 +184,10 @@
                 <dxe:ListBoxEdit.ItemTemplate>
                     <DataTemplate>
                         <Grid ToolTip="{Binding ToolTip}">
-                            <StackPanel Orientation="Vertical">
-                                <svgc:SvgViewbox Margin="5" Height="50" Width="50" Stretch="Uniform" Source="/Images/light/file-pdf.svg" HorizontalAlignment="Center" />
+                            <!--<StackPanel Orientation="Vertical" >-->
+                                <!--<svgc:SvgViewbox Margin="5" Height="50" Width="50" Stretch="Uniform" Source="/Images/light/file-pdf.svg" HorizontalAlignment="Center" />-->
                                 <TextBlock Text="{Binding FileName}" HorizontalAlignment="Center"/>
-                            </StackPanel>
+                            <!--</StackPanel> -->
                         </Grid>
                     </DataTemplate>
                 </dxe:ListBoxEdit.ItemTemplate>

@@ -39,7 +39,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
             {
                 SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') " +
-                    $"CREATE TABLE {TableName}(CostAccountCategoryId int IDENTITY(1,1) PRIMARY KEY,Description nvarchar(50) NOT NULL, ParentCategoryId int )";
+                    $"CREATE TABLE {TableName}" +
+                    $"(CostAccountCategoryId int IDENTITY(1,1) PRIMARY KEY, " +
+                    $"Description nvarchar(50) NOT NULL, " +
+                    $"ParentCategoryId int )";
 
                 using (SqlCommand command = new SqlCommand(commandStr, con))
                 {

@@ -6,6 +6,7 @@ using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using Utilities;
@@ -94,7 +95,17 @@ namespace FinancialAnalysis.Logic.ViewModels
                 ClearForm();
             });
 
+            DeleteSelectedScannedDocumentCommand = new DelegateCommand(DeleteSelectedScannedDocument);
+
             CancelCommand = new DelegateCommand(ClearForm);
+        }
+
+        private void DeleteSelectedScannedDocument()
+        {
+            if (SelectedScannedDocument != null)
+            {
+                ScannedDocuments.Remove(SelectedScannedDocument);
+            }
         }
 
         private void CreateScannedDocumentItem(string path)
@@ -114,6 +125,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             };
 
             ScannedDocuments.Add(scannedDocument);
+            RaisePropertiesChanged("ScannedDocuments");
         }
 
         public void ChangeSelectedCostAccount(SelectedCostAccount selectedCostAccount)
@@ -172,7 +184,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             Debit debit = new Debit(amountWithoutTax, CostAccountDebitorId, booking.BookingId);
             booking.Credits.Add(credit);
             booking.Debits.Add(debit);
-            booking.ScannedDocuments = ScannedDocuments;
+            booking.ScannedDocuments = ScannedDocuments.ToList();
 
             return booking;
         }
@@ -264,6 +276,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand GetDebitorCommand { get; set; }
         public DelegateCommand OpenFileCommand { get; set; }
         public DelegateCommand DoubleClickListBoxCommand { get; set; }
+        public DelegateCommand DeleteSelectedScannedDocumentCommand { get; set; }
 
         public CostAccount CostAccountCreditor
         {
@@ -280,7 +293,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DateTime Date { get; set; } = DateTime.Now;
         public GrossNetType GrossNetType { get; set; }
         public ScannedDocument SelectedScannedDocument { get; set; }
-        public List<ScannedDocument> ScannedDocuments { get; set; } = new List<ScannedDocument>();
+        public ObservableCollection<ScannedDocument> ScannedDocuments { get; set; } = new ObservableCollection<ScannedDocument>();
 
         public decimal Amount
         {

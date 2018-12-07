@@ -36,7 +36,12 @@ namespace FinancialAnalysis.Datalayer.Accounting
             {
                 SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') " +
-                    $"CREATE TABLE {TableName}(CostAccountId int IDENTITY(1,1) PRIMARY KEY, Description nvarchar(150) NOT NULL, AccountNumber int UNIQUE, RefTaxTypeId int NULL, RefCostAccountCategoryId int, IsVisible bit, IsEditable bit )";
+                    $"CREATE TABLE {TableName}(CostAccountId int IDENTITY(1,1) PRIMARY KEY, " +
+                    $"Description nvarchar(150) NOT NULL, AccountNumber int UNIQUE, " +
+                    $"RefTaxTypeId int NULL, " +
+                    $"RefCostAccountCategoryId int, " +
+                    $"IsVisible bit, " +
+                    $"IsEditable bit )";
 
                 using (SqlCommand command = new SqlCommand(commandStr, con))
                 {

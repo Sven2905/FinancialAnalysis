@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinancialAnalysis.Models
+namespace FinancialAnalysis.Models.ProjectManagement
 {
     /// <summary>
     /// Employee of the company
@@ -20,25 +20,26 @@ namespace FinancialAnalysis.Models
         public int Postcode { get; set; }
         public Gender Gender { get; set; }
         public CivilStatus CivilStatus { get; set; }
-        public int TariffId { get; set; }
-        public virtual Tariff Tariff { get; set; }
+        public int RefTariffId { get; set; }
+        public Tariff Tariff { get; set; }
         // Steuer-Id
         public string TaxId { get; set; }
-        public int HealthInsuranceId { get; set; }
+        public int RefHealthInsuranceId { get; set; }
         public HealthInsurance HealthInsurance { get; set; }
-        public bool DrivingLicence { get; set; }
+        public bool HasDrivingLicence { get; set; }
         public string Nationality { get; set; }
         public string Confession { get; set; }
         public string BankName { get; set; }
         public string BIC { get; set; }
         public string IBAN { get; set; }
         public decimal Salary { get; set; }
-        public float HoursPerWeek { get; set; }
+        public float WorkHoursPerWeek { get; set; }
         public int VacationDays { get; set; }
         // Sozialversicherungsnummer
         public string NationalInsuranceNumber { get; set; }
+        public byte[] Picture { get; set; }
+        public string PictureName { get; set; }
 
-        public int ProjectEmployeeMappingId { get; set; }
         public virtual List<ProjectEmployeeMapping> ProjectEmployeeMappings { get; set; }
         public virtual List<ProjectWorkingTime> ProjectWorkingTimes { get; set; }
     }

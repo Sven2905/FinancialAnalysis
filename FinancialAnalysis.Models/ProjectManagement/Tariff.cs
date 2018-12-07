@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FinancialAnalysis.Models
+namespace FinancialAnalysis.Models.ProjectManagement
 {
     public class Tariff
     {

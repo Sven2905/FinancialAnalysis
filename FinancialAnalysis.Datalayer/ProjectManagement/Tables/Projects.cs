@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using FinancialAnalysis.Models.Product;
+using FinancialAnalysis.Models.ProjectManagement;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -7,16 +7,16 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace FinancialAnalysis.Datalayer.Product
+namespace FinancialAnalysis.Datalayer.ProjectManagement
 {
-    public class ProductPrototypes : ITable
+    public class Projects : ITable
     {
         public string TableName { get; }
-        private ProductPrototypesProcedures sp = new ProductPrototypesProcedures();
+        private ProjectsStoredProcedures sp = new ProjectsStoredProcedures();
 
-        public ProductPrototypes()
+        public Projects()
         {
-            TableName = "ProductPrototypes";
+            TableName = "Projects";
             CheckAndCreateTable();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -31,15 +31,16 @@ namespace FinancialAnalysis.Datalayer.Product
             {
                 SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
-                                 $"ProductPrototypeId int IDENTITY(1,1) PRIMARY KEY," +
+                                 $"ProjectId int IDENTITY(1,1) PRIMARY KEY," +
                                  $"Name nvarchar(150) NOT NULL," +
                                  $"Description nvarchar(150)," +
-                                 $"DimensionX int," +
-                                 $"DimensionY int," +
-                                 $"DimensionZ int," +
-                                 $"Weight decimal," +
-                                 $"IsStackable bit" +
-                                 $"RefProductCategory int NOT NULL)";
+                                 $"StartDate datetime NOT NULL," +
+                                 $"ExpectedEndDate datetime NOT NULL," +
+                                 $"TotalEndDate datetime NOT NULL," +
+                                 $"IsEnded bit," +
+                                 $"Budget money," +
+                                 $"RefCostCenterId int NOT NULL," +
+                                 $"RefCustomerId int)";
 
                 using (SqlCommand command = new SqlCommand(commandStr, con))
                 {
@@ -60,17 +61,17 @@ namespace FinancialAnalysis.Datalayer.Product
         }
 
         /// <summary>
-        /// Returns all Product Prototypes records
+        /// Returns all Project records
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ProductPrototype> GetAll()
+        public IEnumerable<Project> GetAll()
         {
-            IEnumerable<ProductPrototype> output = new List<ProductPrototype>();
+            IEnumerable<Project> output = new List<Project>();
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<ProductPrototype>($"dbo.{TableName}_GetAll");
+                    output = con.Query<Project>($"dbo.{TableName}_GetAll");
                 }
             }
             catch (Exception e)
@@ -81,18 +82,18 @@ namespace FinancialAnalysis.Datalayer.Product
         }
 
         /// <summary>
-        /// Inserts the ProductPrototype item
+        /// Inserts the Project item
         /// </summary>
-        /// <param name="ProductPrototype"></param>
+        /// <param name="Project"></param>
         /// <returns>Id of inserted item</returns>
-        public int Insert(ProductPrototype ProductPrototype)
+        public int Insert(Project Project)
         {
             int id = 0;
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @Description, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @RefProductCategory", ProductPrototype);
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @Description, @Budget, @StartDate, @ExpectedEndDate, @TotalEndDate, @IsEnded, @RefCostCenterId, @RefCustomerId", Project);
                     id = result.Single();
                 }
             }
@@ -104,18 +105,18 @@ namespace FinancialAnalysis.Datalayer.Product
         }
 
         /// <summary>
-        /// Inserts the list of ProductPrototypes items
+        /// Inserts the list of Project items
         /// </summary>
-        /// <param name="ProductPrototype"></param>
-        public void Insert(IEnumerable<ProductPrototype> ProductPrototypes)
+        /// <param name="creditor"></param>
+        public void Insert(IEnumerable<Project> Projects)
         {
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var ProductPrototype in ProductPrototypes)
+                    foreach (var Project in Projects)
                     {
-                        Insert(ProductPrototype);
+                        Insert(Project);
                     }
                 }
             }
@@ -126,18 +127,18 @@ namespace FinancialAnalysis.Datalayer.Product
         }
 
         /// <summary>
-        /// Returns Product Prototype by Id
+        /// Returns Project by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ProductPrototype GetById(int id)
+        public Project GetById(int id)
         {
-            ProductPrototype output = new ProductPrototype();
+            Project output = new Project();
             try
             {
                 using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<ProductPrototype>($"dbo.{TableName}_GetById @ProductPrototypeId", new { ProductPrototypeId = id });
+                    output = con.QuerySingleOrDefault<Project>($"dbo.{TableName}_GetById @ProjectId", new { ProjectId = id });
                 }
             }
             catch (Exception e)
@@ -149,15 +150,15 @@ namespace FinancialAnalysis.Datalayer.Product
 
         public void AddReferences()
         {
-            AddCostAccountsReference();
+            AddCostCentersReference();
         }
 
-        private void AddCostAccountsReference()
+        private void AddCostCentersReference()
         {
             try
             {
                 SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr = $"IF(OBJECT_ID('FK_ProductPrototype_ProductCategory', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_ProductPrototype_ProductCategory FOREIGN KEY(RefProductCategory) REFERENCES ProductCategories(ProductCategoryId)";
+                var commandStr = $"IF(OBJECT_ID('FK_{TableName}_CostCenter', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_CostCenter FOREIGN KEY(RefCostCenterId) REFERENCES CostCenters(CostCenterId)";
 
                 using (SqlCommand command = new SqlCommand(commandStr, con))
                 {
@@ -168,7 +169,7 @@ namespace FinancialAnalysis.Datalayer.Product
             }
             catch (Exception e)
             {
-                Log.Error($"Exception occured while creating reference between '{TableName}' and ProductCategories", e);
+                Log.Error($"Exception occured while creating reference between '{TableName}' and CostCenters", e);
             }
         }
     }

@@ -1,7 +1,9 @@
 ﻿using FinancialAnalysis.Datalayer.Accounting;
 using FinancialAnalysis.Datalayer.Product;
+using FinancialAnalysis.Datalayer.ProjectManagement;
 using FinancialAnalysis.Datalayer.Tables;
 using System;
+using System.Collections.Generic;
 
 namespace FinancialAnalysis.Datalayer
 {
@@ -11,7 +13,7 @@ namespace FinancialAnalysis.Datalayer
         {
 
         }
-
+        
         public TaxTypes TaxTypes { get; set; } = new TaxTypes();
         public TableVersions TableVersions { get; set; } = new TableVersions();
         public Companies Companies { get; set; } = new Companies();
@@ -25,7 +27,10 @@ namespace FinancialAnalysis.Datalayer
         public ScannedDocuments ScannedDocuments { get; set; } = new ScannedDocuments();
         public ProductCategories ProductCategories { get; set; } = new ProductCategories();
         public ProductPrototypes ProductPrototypes { get; set; } = new ProductPrototypes();
-
+        public Projects Projects { get; set; } = new Projects();
+        public ProjectRoles ProjectRoles { get; set; } = new ProjectRoles();
+        public Employees Employees { get; set; } = new Employees();
+        public ProjectEmployeeMappings ProjectEmployeeMappings { get; set; } = new ProjectEmployeeMappings();
 
         public void Dispose()
         {
@@ -58,6 +63,10 @@ namespace FinancialAnalysis.Datalayer
             Bookings.CheckAndCreateStoredProcedures();
             ProductCategories.CheckAndCreateStoredProcedures();
             ProductPrototypes.CheckAndCreateStoredProcedures();
+            Projects.CheckAndCreateStoredProcedures();
+            Employees.CheckAndCreateStoredProcedures();
+            ProjectRoles.CheckAndCreateStoredProcedures();
+            ProjectEmployeeMappings.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()
@@ -69,6 +78,9 @@ namespace FinancialAnalysis.Datalayer
             Debits.AddReferences();
             ScannedDocuments.AddReferences();
             ProductPrototypes.AddReferences();
+            Projects.AddReferences();
+            Employees.AddReferences();
+            ProjectEmployeeMappings.AddReferences();
         }
     }
 }

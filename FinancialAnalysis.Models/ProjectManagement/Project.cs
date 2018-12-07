@@ -1,10 +1,11 @@
-﻿using System;
+﻿using FinancialAnalysis.Models.Accounting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinancialAnalysis.Models
+namespace FinancialAnalysis.Models.ProjectManagement
 {
     /// <summary>
     /// Project which can be worked on
@@ -18,13 +19,15 @@ namespace FinancialAnalysis.Models
         public DateTime StartDate { get; set; }
         public DateTime ExpectedEndDate { get; set; }
         public DateTime TotalEndDate { get; set; }
-        public bool Ended { get; set; }
+        public bool IsEnded { get; set; }
         public decimal Costs { get; set; }
 
-        public int? CustomerId { get; set; }
+        public int RefCostCenterId { get; set; }
+        public CostCenter CostCenter { get; set; }
+
+        public int? RefCustomerId { get; set; }
         public Customer Customer { get; set; } // Leader
 
-        public int ProjectEmployeeMappingId { get; set; }
         public virtual List<ProjectEmployeeMapping> ProjectEmployeeMappings { get; set; }
         public virtual List<ProjectWorkingTime> ProjectWorkingTimes { get; set; }
     }
