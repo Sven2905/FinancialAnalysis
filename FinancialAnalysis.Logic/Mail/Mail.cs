@@ -2,39 +2,33 @@
 using System.IO;
 using System.Net;
 using System.Net.Mail;
+using System.Net.Mime;
 using FinancialAnalysis.Models.Mail;
 
-namespace FinancialAnalysis.Logic
+namespace FinancialAnalysis.Logic.Mail
 {
     public static class Mail
     {
         public static void Send(MailData mailData, MailConfiguration mailConfiguration)
         {
-            var user = "m044ad26";
-            var password = "YrktvGZZu2M4eGpP";
-            var server = "w011d665.kasserver.com";
-
             var message = new MailMessage(mailConfiguration.Address, mailData.To)
             {
                 Subject = mailData.Subject,
                 Body = mailData.Body
             };
 
-            if (!string.IsNullOrEmpty(mailData.AttachmentPath))
+            if (mailData.AttachmentStream != null)
             {
-                Attachment attachment;
-                attachment = new Attachment(mailData.AttachmentPath);
+                var attachment = new Attachment(mailData.AttachmentStream, MediaTypeNames.Application.Octet);
                 message.Attachments.Add(attachment);
             }
 
             try
             {
-                var client = new SmtpClient(server);
-                client.Credentials = new NetworkCredential(user, password);
+                var client = new SmtpClient(mailConfiguration.Server);
+                client.Credentials = new NetworkCredential(mailConfiguration.User, mailConfiguration.Password);
                 client.Send(message);
                 message.Attachments.Dispose();
-
-                if (!string.IsNullOrEmpty(mailData.AttachmentPath)) File.Delete(mailData.AttachmentPath);
             }
             catch (Exception ex)
             {
