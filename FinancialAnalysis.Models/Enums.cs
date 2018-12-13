@@ -19,7 +19,7 @@ namespace FinancialAnalysis.Models
         [Display(Name = "Verheiratet")] Married,
         [Display(Name = "Ledig")] Single,
         [Display(Name = "Geschieden")] Divorced,
-        [Display(Name = "Verwitwed")] Widowed
+        [Display(Name = "Verwitwet")] Widowed
     }
 
     public enum Standardkontenrahmen
@@ -38,9 +38,7 @@ namespace FinancialAnalysis.Models
     {
         Intervall,
         [Display(Name = "Aktueller Monat")] ThisMonth,
-
-        [Display(Name = "Nachfolgender Monat")]
-        NextMonth,
+        [Display(Name = "Nachfolgender Monat")] NextMonth,
         [Display(Name = "Bestimmter Tag")] NextSpecificDay
     }
 

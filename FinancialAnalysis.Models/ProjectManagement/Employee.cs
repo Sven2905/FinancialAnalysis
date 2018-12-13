@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace FinancialAnalysis.Models.ProjectManagement
 {
     /// <summary>
-    ///     Employee of the company
+    ///     Employee
     /// </summary>
     public class Employee
     {
