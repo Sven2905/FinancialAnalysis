@@ -97,6 +97,14 @@
                         <dx:SvgImageSource Uri="/Images/light/hand-holding-usd.svg" Size="80,80" />
                     </dx:SimpleButton.Glyph>
                 </dx:SimpleButton>
+                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
+                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
+                                 Content="Einstellungen" dxwuin:Navigation.NavigateTo="ConfigurationControl"
+                                 VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2">
+                    <dx:SimpleButton.Glyph>
+                        <dx:SvgImageSource Uri="/Images/regular/Cogs.svg" Size="100,80" />
+                    </dx:SimpleButton.Glyph>
+                </dx:SimpleButton>
             </StackPanel>
         </StackPanel>
         <TextBox Grid.Row="1" Grid.Column="1" Name="myTextBox" HorizontalAlignment="Left" Height="24"

@@ -133,6 +133,9 @@
     <Compile Include="UserControls\BookingHistoryControl.xaml.cs">
       <DependentUpon>BookingHistoryControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ConfigurationControl.xaml.cs">
+      <DependentUpon>ConfigurationControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\CostCenterControl.xaml.cs">
       <DependentUpon>CostCenterControl.xaml</DependentUpon>
     </Compile>
@@ -144,6 +147,9 @@
     </Compile>
     <Compile Include="UserControls\ProjectManagementControl.xaml.cs">
       <DependentUpon>ProjectManagementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PaymentConditionControl.xaml.cs">
+      <DependentUpon>PaymentConditionControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\CompanyWindow.xaml.cs">
       <DependentUpon>CompanyWindow.xaml</DependentUpon>
@@ -180,6 +186,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\ConfigurationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\CostCenterControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -193,6 +203,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ProjectManagementControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\PaymentConditionControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

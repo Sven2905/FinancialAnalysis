@@ -25,6 +25,8 @@ namespace FinancialAnalysis.Datalayer
         public ProjectRoles ProjectRoles { get; set; } = new ProjectRoles();
         public Employees Employees { get; set; } = new Employees();
         public ProjectEmployeeMappings ProjectEmployeeMappings { get; set; } = new ProjectEmployeeMappings();
+        public Cashbacks Cashbacks { get; set; } = new Cashbacks();
+        public PaymentConditions PaymentConditions { get; set; } = new PaymentConditions();
 
         public void Dispose()
         {
@@ -61,6 +63,8 @@ namespace FinancialAnalysis.Datalayer
             Employees.CheckAndCreateStoredProcedures();
             ProjectRoles.CheckAndCreateStoredProcedures();
             ProjectEmployeeMappings.CheckAndCreateStoredProcedures();
+            Cashbacks.CheckAndCreateStoredProcedures();
+            PaymentConditions.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()
@@ -75,6 +79,7 @@ namespace FinancialAnalysis.Datalayer
             Projects.AddReferences();
             Employees.AddReferences();
             ProjectEmployeeMappings.AddReferences();
+            PaymentConditions.AddReferences();
         }
     }
 }

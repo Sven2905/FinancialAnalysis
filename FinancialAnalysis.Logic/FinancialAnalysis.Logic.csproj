@@ -110,6 +110,8 @@
     <Compile Include="ViewModels\Accounting\CostAccountViewModel.cs" />
     <Compile Include="ViewModels\Accounting\CreditorDebitorViewModel.cs" />
     <Compile Include="ViewModels\Accounting\CostCenterViewModel.cs" />
+    <Compile Include="ViewModels\Accounting\PaymentConditionViewModel.cs" />
+    <Compile Include="ViewModels\ConfigurationViewModel.cs" />
     <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="ViewModels\Accounting\KontenrahmenViewModel.cs" />
     <Compile Include="ViewModels\ProjectManagement\EmployeeViewModel.cs" />
@@ -117,6 +119,7 @@
     <Compile Include="ViewModels\PDFViewerViewModel.cs" />
     <Compile Include="ViewModels\Accounting\TaxTypeViewModel.cs" />
     <Compile Include="ViewModels\ProjectManagement\ProjectViewModel.cs" />
+    <Compile Include="XmlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
