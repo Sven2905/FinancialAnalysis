@@ -61,6 +61,7 @@
     <Compile Include="Accounting\ScannedDocument.cs" />
     <Compile Include="Accounting\TaxType.cs" />
     <Compile Include="Accounting\PaymentCondition.cs" />
+    <Compile Include="Administration\User.cs" />
     <Compile Include="Generell\Company.cs" />
     <Compile Include="Accounting\Creditor.cs" />
     <Compile Include="Generell\Customer.cs" />

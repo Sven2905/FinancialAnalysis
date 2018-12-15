@@ -102,7 +102,7 @@
                                  Content="Einstellungen" dxwuin:Navigation.NavigateTo="ConfigurationControl"
                                  VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2">
                     <dx:SimpleButton.Glyph>
-                        <dx:SvgImageSource Uri="/Images/regular/Cogs.svg" Size="100,80" />
+                        <dx:SvgImageSource Uri="/Images/light/Cogs.svg" Size="100,80" />
                     </dx:SimpleButton.Glyph>
                 </dx:SimpleButton>
             </StackPanel>
@@ -138,5 +138,6 @@
             </dxb:BarManager.DXContextMenu>
         </TextBox>
         <Grid Grid.Row="1" />
+
     </Grid>
 </UserControl>

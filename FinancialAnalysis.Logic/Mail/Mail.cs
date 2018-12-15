@@ -26,7 +26,7 @@ namespace FinancialAnalysis.Logic.Mail
             try
             {
                 var client = new SmtpClient(mailConfiguration.Server);
-                client.Credentials = new NetworkCredential(mailConfiguration.User, mailConfiguration.Password);
+                client.Credentials = new NetworkCredential(mailConfiguration.LoginUser, mailConfiguration.Password);
                 client.Send(message);
                 message.Attachments.Dispose();
             }

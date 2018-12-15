@@ -1,7 +1,10 @@
 ﻿using DevExpress.Mvvm;
+using DevExpress.Xpf.Core;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Logic.ViewModels;
+using FinancialAnalysis.UI.Desktop;
 using FinancialAnalysis.Windows;
+using System.Windows;
 
 namespace FinancialAnalysis.UI
 {
@@ -39,8 +42,7 @@ namespace FinancialAnalysis.UI
                 msg =>
                 {
                     var window = new KontenrahmenWindow();
-                    var model = window.DataContext as KontenrahmenViewModel;
-                    if (model != null) model.AccountingType = msg.AccountingType;
+                    if (window.DataContext is KontenrahmenViewModel model) model.AccountingType = msg.AccountingType;
 
                     window.ShowDialog();
                 });
@@ -49,8 +51,7 @@ namespace FinancialAnalysis.UI
                 msg =>
                 {
                     var window = new DialogWindow();
-                    var model = window.DataContext as DialogViewModel;
-                    if (model != null)
+                    if (window.DataContext is DialogViewModel model)
                     {
                         model.Message = msg.Message;
                         model.Title = msg.Title;
@@ -69,8 +70,7 @@ namespace FinancialAnalysis.UI
                 msg =>
                 {
                     var window = new PDFViewerWindow();
-                    var model = window.DataContext as PDFViewerViewModel;
-                    if (model != null)
+                    if (window.DataContext is PDFViewerViewModel model)
                     {
                         if (msg.ScannedDocumentId != 0)
                             model.ScannedDocumentId = msg.ScannedDocumentId;
@@ -79,6 +79,21 @@ namespace FinancialAnalysis.UI
                     }
 
                     window.ShowDialog();
+                });
+            Messenger.Default.Register<OpenMainWindowMessage>(this,
+                 msg =>
+                 {
+                     var window = new MainWindow();
+                     var model = window.DataContext as MainViewModel;
+                     Application.Current.MainWindow.Close();
+                     Application.Current.MainWindow = null;
+                     Application.Current.MainWindow = window;
+                     window.Show();
+                 });
+            Messenger.Default.Register<OpenSplashScreenMessage>(this,
+                msg =>
+                {
+                    DXSplashScreen.Show<SplashScreenView>();
                 });
         }
 

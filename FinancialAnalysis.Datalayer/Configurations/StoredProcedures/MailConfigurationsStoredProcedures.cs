@@ -2,13 +2,13 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.Product
+namespace FinancialAnalysis.Datalayer.Configurations
 {
-    public class ProductCategoriesStoredProcedures : IStoredProcedures
+    public class MailConfigurationsStoredProcedures : IStoredProcedures
     {
-        public ProductCategoriesStoredProcedures()
+        public MailConfigurationsStoredProcedures()
         {
-            TableName = "ProductCategories";
+            TableName = "MailConfigurations";
         }
 
         public string TableName { get; }
@@ -30,9 +30,11 @@ namespace FinancialAnalysis.Datalayer.Product
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT ProductCategoryId, " +
-                                "Name, " +
-                                "Description " +
+                                "SELECT MailConfigurationId, " +
+                                "Server, " +
+                                "Address, " +
+                                "LoginUser, " +
+                                "Password " +
                                 $"FROM {TableName} " +
                                 "END");
                 using (var connection =
@@ -56,9 +58,9 @@ namespace FinancialAnalysis.Datalayer.Product
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, Description) " +
-                    "VALUES (@Name, @Description); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Server nvarchar(150), @Address nvarchar(150), @LoginUser nvarchar(150), @Password nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Server, Address, LoginUser, Password ) " +
+                    "VALUES (@Server, @Address, @LoginUser, @Password ); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -81,9 +83,9 @@ namespace FinancialAnalysis.Datalayer.Product
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @ProductCategoryId int AS BEGIN SET NOCOUNT ON; SELECT Name, Description " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @MailConfigurationId int AS BEGIN SET NOCOUNT ON; SELECT MailConfigurationId, Server, Address, LoginUser, Password " +
                     $"FROM {TableName} " +
-                    "WHERE ProductCategoryId = @ProductCategoryId END");
+                    "WHERE MailConfigurationId = @MailConfigurationId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

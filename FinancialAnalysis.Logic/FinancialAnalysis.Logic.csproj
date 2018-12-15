@@ -98,6 +98,8 @@
     <Compile Include="Generell\Globals.cs" />
     <Compile Include="ImportCostAccounts.cs" />
     <Compile Include="Mail\Mail.cs" />
+    <Compile Include="Messages\OpenSplashScreenMessage.cs" />
+    <Compile Include="Messages\OpenMainWindowMessage.cs" />
     <Compile Include="Messages\OpenCompanyWindowMessage.cs" />
     <Compile Include="Messages\OpenDialogWindowMessage.cs" />
     <Compile Include="Messages\OpenKontenrahmenWindowMessage.cs" />
@@ -114,6 +116,7 @@
     <Compile Include="ViewModels\ConfigurationViewModel.cs" />
     <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="ViewModels\Accounting\KontenrahmenViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\ProjectManagement\EmployeeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PDFViewerViewModel.cs" />
