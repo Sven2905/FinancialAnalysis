@@ -4,9 +4,9 @@ using System.Text;
 
 namespace FinancialAnalysis.Datalayer.Product
 {
-    public class ProductPrototypesProcedures : IStoredProcedures
+    public class ProductPrototypesStoredProcedures : IStoredProcedures
     {
-        public ProductPrototypesProcedures()
+        public ProductPrototypesStoredProcedures()
         {
             TableName = "ProductPrototypes";
         }

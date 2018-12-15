@@ -1,5 +1,7 @@
 ﻿using System;
 using FinancialAnalysis.Datalayer.Accounting;
+using FinancialAnalysis.Datalayer.Administration;
+using FinancialAnalysis.Datalayer.Configurations;
 using FinancialAnalysis.Datalayer.Product;
 using FinancialAnalysis.Datalayer.ProjectManagement;
 using FinancialAnalysis.Datalayer.Tables;
@@ -27,6 +29,8 @@ namespace FinancialAnalysis.Datalayer
         public ProjectEmployeeMappings ProjectEmployeeMappings { get; set; } = new ProjectEmployeeMappings();
         public Cashbacks Cashbacks { get; set; } = new Cashbacks();
         public PaymentConditions PaymentConditions { get; set; } = new PaymentConditions();
+        public MailConfigurations MailConfigurations { get; set; } = new MailConfigurations();
+        public Users Users { get; set; } = new Users();
 
         public void Dispose()
         {
@@ -47,6 +51,7 @@ namespace FinancialAnalysis.Datalayer
         private void CheckAndCreateStoredProcedures()
         {
             TableVersions.CheckAndCreateStoredProcedures();
+            Users.CheckAndCreateStoredProcedures();
             TaxTypes.CheckAndCreateStoredProcedures();
             Companies.CheckAndCreateStoredProcedures();
             CostAccountCategories.CheckAndCreateStoredProcedures();
@@ -65,6 +70,7 @@ namespace FinancialAnalysis.Datalayer
             ProjectEmployeeMappings.CheckAndCreateStoredProcedures();
             Cashbacks.CheckAndCreateStoredProcedures();
             PaymentConditions.CheckAndCreateStoredProcedures();
+            MailConfigurations.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()

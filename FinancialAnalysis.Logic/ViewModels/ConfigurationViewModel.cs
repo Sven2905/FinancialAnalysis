@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models.Mail;
 using System;
 using System.Collections.Generic;
@@ -22,38 +23,21 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public MailConfiguration MailConfiguration { get; set; }
         public DelegateCommand SaveMailConfigCommand { get; set; }
-        string filePath = Environment.CurrentDirectory + "\\config.dat";
 
         private void SaveMailConfiguration()
         {
-            MailConfiguration.Server = Encryption.EncryptText(MailConfiguration.Server, @"G*ZCx[WD;d<k3*Gc");
-            MailConfiguration.User = Encryption.EncryptText(MailConfiguration.User, @"G*ZCx[WD;d<k3*Gc");
-            MailConfiguration.Password = Encryption.EncryptText(MailConfiguration.Password, @"G*ZCx[WD;d<k3*Gc");
-
-            var result = XmlHelper.ToXml(MailConfiguration);
-            using (var sw = new StreamWriter(filePath))
-            {
-                sw.WriteLine(result);
-                sw.Close();
-            }
+            if (MailConfiguration.MailConfigurationId == 0)
+                using (var db = new DataLayer())
+                    MailConfiguration.MailConfigurationId = db.MailConfigurations.Insert(MailConfiguration);
         }
 
         private void LoadMailConfiguration()
         {
-            if (!File.Exists(filePath))
-                return;
+            using (var db = new DataLayer())
+                MailConfiguration = db.MailConfigurations.GetAll().FirstOrDefault();
 
-            var xml = string.Empty;
-
-            using (var sr = new StreamReader(filePath))
-            {
-                xml = sr.ReadToEnd();
-            }
-
-            MailConfiguration = XmlHelper.FromXml<MailConfiguration>(xml);
-            MailConfiguration.Server = Encryption.DecryptText(MailConfiguration.Server, @"G*ZCx[WD;d<k3*Gc");
-            MailConfiguration.User = Encryption.DecryptText(MailConfiguration.User, @"G*ZCx[WD;d<k3*Gc");
-            MailConfiguration.Password = Encryption.DecryptText(MailConfiguration.Password, @"G*ZCx[WD;d<k3*Gc");
+            if (MailConfiguration == null)
+                MailConfiguration = new MailConfiguration();
         }
     }
 }

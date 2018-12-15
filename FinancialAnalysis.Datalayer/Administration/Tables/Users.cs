@@ -4,18 +4,18 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
-using FinancialAnalysis.Models.Product;
+using FinancialAnalysis.Models.Administration;
 using Serilog;
 
-namespace FinancialAnalysis.Datalayer.Product
+namespace FinancialAnalysis.Datalayer.Administration
 {
-    public class ProductCategories : ITable
+    public class Users : ITable
     {
-        private readonly ProductCategoriesStoredProcedures sp = new ProductCategoriesStoredProcedures();
+        private readonly UsersStoredProcedures sp = new UsersStoredProcedures();
 
-        public ProductCategories()
+        public Users()
         {
-            TableName = "ProductCategories";
+            TableName = "Users";
             CheckAndCreateTable();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -33,9 +33,14 @@ namespace FinancialAnalysis.Datalayer.Product
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
                     $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
-                    "ProductCategoryId int IDENTITY(1,1) PRIMARY KEY," +
-                    "Name nvarchar(150) NOT NULL," +
-                    "Description nvarchar(150)";
+                    "UserId int IDENTITY(1,1) PRIMARY KEY," +
+                    "Picture varbinary(MAX), " +
+                    "Firstname nvarchar(150) NOT NULL," +
+                    "Lastname nvarchar(150) NOT NULL," +
+                    "Contraction nvarchar(150) NOT NULL," +
+                    "Mail nvarchar(150) NOT NULL," +
+                    "LoginUser nvarchar(150) NOT NULL," +
+                    "Password nvarchar(150) NOT NULL)"; 
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -56,18 +61,18 @@ namespace FinancialAnalysis.Datalayer.Product
         }
 
         /// <summary>
-        ///     Returns all Product Category records
+        ///     Returns all User records
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ProductCategory> GetAll()
+        public IEnumerable<User> GetAll()
         {
-            IEnumerable<ProductCategory> output = new List<ProductCategory>();
+            IEnumerable<User> output = new List<User>();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<ProductCategory>($"dbo.{TableName}_GetAll");
+                    output = con.Query<User>($"dbo.{TableName}_GetAll");
                 }
             }
             catch (Exception e)
@@ -79,11 +84,11 @@ namespace FinancialAnalysis.Datalayer.Product
         }
 
         /// <summary>
-        ///     Inserts the Product Category item
+        ///     Inserts the User item
         /// </summary>
-        /// <param name="Product Category"></param>
+        /// <param name="User"></param>
         /// <returns>Id of inserted item</returns>
-        public int Insert(ProductCategory ProductCategory)
+        public int Insert(User User)
         {
             var id = 0;
             try
@@ -93,8 +98,8 @@ namespace FinancialAnalysis.Datalayer.Product
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Name, @Description, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @RefProductCategory",
-                            ProductCategory);
+                            $"dbo.{TableName}_Insert @Picture,@Firstname, @Lastname, @Contraction, @Mail, @LoginUser, @Password ",
+                            User);
                     id = result.Single();
                 }
             }
@@ -107,17 +112,17 @@ namespace FinancialAnalysis.Datalayer.Product
         }
 
         /// <summary>
-        ///     Inserts the list of Product Category items
+        ///     Inserts the list of User items
         /// </summary>
         /// <param name="ProductPrototype"></param>
-        public void Insert(IEnumerable<ProductCategory> ProductCategories)
+        public void Insert(IEnumerable<User> Users)
         {
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var ProductCategory in ProductCategories) Insert(ProductCategory);
+                    foreach (var User in Users) Insert(User);
                 }
             }
             catch (Exception e)
@@ -127,20 +132,43 @@ namespace FinancialAnalysis.Datalayer.Product
         }
 
         /// <summary>
-        ///     Returns Product Category by Id
+        ///     Returns User by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ProductCategory GetById(int id)
+        public User GetById(int id)
         {
-            var output = new ProductCategory();
+            var output = new User();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<ProductCategory>($"dbo.{TableName}_GetById @ProductPrototypeId",
-                        new {ProductCategoryId = id});
+                    output = con.QuerySingleOrDefault<User>($"dbo.{TableName}_GetById @UserId",
+                        new { UserId = id});
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
+            }
+
+            return output;
+        }
+
+        /// <summary>
+        ///     Returns User by Name and Password
+        /// </summary>
+        public User GetUserByNameAndPassword(string LoginUser, string Password)
+        {
+            var output = new User();
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    output = con.QuerySingleOrDefault<User>($"dbo.{TableName}_GetUserByNameAndPassword @LoginUser, @Password",
+                        new {  LoginUser, Password });
                 }
             }
             catch (Exception e)

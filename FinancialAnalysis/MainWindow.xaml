@@ -19,9 +19,17 @@
     Title="Finanzanalyse"
     WindowStyle="ThreeDBorderWindow"
     WindowStartupLocation="CenterScreen"
+    xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
     IsEnabled="{Binding BindableProperty, Source={StaticResource MessageListener}}" Width="1200" Height="800"
     ResizeMode="CanResizeWithGrip" Loaded="DXWindow_Loaded">
+    <Window.DataContext>
+        <ViewModels:MainViewModel />
+    </Window.DataContext>
     <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         <!--<dxb:BarManager ToolbarGlyphSize="Small">
             <dxb:BarManager.Bars>
                 <dxb:Bar Caption="File" IsMainMenu="True">
@@ -49,7 +57,13 @@
         </dxb:BarManager>-->
 
         <dxwui:NavigationFrame Source="MainControl" AnimationType="SlideHorizontal" />
+        <!--<StatusBar Grid.Row="1" Height="28" Margin="0" VerticalAlignment="Bottom" Grid.ColumnSpan="3">
+            <StatusBarItem HorizontalAlignment="Right" Width="150" Content="{Binding ActualUser.Name}" Margin="0,0,5,0" />
+        </StatusBar>-->
 
-        <!--<dx:SimpleButton Glyph="{dx:SvgImageSource Uri=/Images/regular/times.svg}" Grid.Column="1" Width="50" HorizontalAlignment="Right" Command="{Binding CloseCommand}" />-->
+        <dxb:StatusBarControl Grid.RowSpan="2" VerticalAlignment="Bottom" >
+            <dxb:BarStaticItem Content="{Binding ActualUser.Name}" />
+        </dxb:StatusBarControl>
+
     </Grid>
 </dxc:DXWindow>

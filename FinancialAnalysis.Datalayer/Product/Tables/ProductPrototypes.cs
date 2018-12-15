@@ -11,7 +11,7 @@ namespace FinancialAnalysis.Datalayer.Product
 {
     public class ProductPrototypes : ITable
     {
-        private readonly ProductPrototypesProcedures sp = new ProductPrototypesProcedures();
+        private readonly ProductPrototypesStoredProcedures sp = new ProductPrototypesStoredProcedures();
 
         public ProductPrototypes()
         {

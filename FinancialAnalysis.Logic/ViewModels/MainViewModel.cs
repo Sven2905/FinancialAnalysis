@@ -2,6 +2,7 @@ using System.Linq;
 using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models;
+using FinancialAnalysis.Models.Administration;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -19,19 +20,17 @@ namespace FinancialAnalysis.Logic.ViewModels
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
+
+        public User ActualUser { get; set; }
+
         /// <summary>
         ///     Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel()
         {
             ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
+
+            ActualUser = Globals.ActualUser;
 
             var db = new DataLayer();
             db.CreateDatabaseSchema();

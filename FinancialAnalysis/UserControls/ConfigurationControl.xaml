@@ -36,11 +36,13 @@
                 </DataTemplate>
             </dxwui:PageAdornerControl.HeaderTemplate>
         </dxwui:PageAdornerControl>
-        <StackPanel Grid.Row="2" HorizontalAlignment="Center">
-        <dxe:TextEdit NullText="Server" Height="22" Width="120" HorizontalAlignment="Left" Text="{Binding MailConfiguration.Server}" Margin="2"/>
-            <dxe:TextEdit NullText="User" Height="22" Width="120" HorizontalAlignment="Left" Text="{Binding MailConfiguration.User}" Margin="2"/>
-            <dxe:PasswordBoxEdit NullText="Password" Height="22" Width="120" HorizontalAlignment="Left" Text="{Binding MailConfiguration.Password}" Margin="2" />
-            <dx:SimpleButton Height="22" Width="120" Content="Speichern" Glyph="{dx:DXImage Image=Save_16x16.png}" HorizontalAlignment="Left" Command="{Binding SaveMailConfigCommand}" Margin="2"/>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Label Content="MailConfiguration" FontWeight="Bold" FontSize="14"/>
+            <dxe:TextEdit NullText="Server" Height="22" Width="150" HorizontalAlignment="Left" Text="{Binding MailConfiguration.Server}" Margin="2"/>
+            <dxe:TextEdit NullText="Address" Height="22" Width="150" HorizontalAlignment="Left" Text="{Binding MailConfiguration.Address}" Margin="2"/>
+            <dxe:TextEdit NullText="User" Height="22" Width="150" HorizontalAlignment="Left" Text="{Binding MailConfiguration.LoginUser}" Margin="2"/>
+            <dxe:PasswordBoxEdit NullText="Password" Height="22" Width="150" HorizontalAlignment="Left" Text="{Binding MailConfiguration.Password}" Margin="2" />
+            <dx:SimpleButton Height="22" Width="150" Content="Speichern" Glyph="{dx:DXImage Image=Save_16x16.png}" HorizontalAlignment="Left" Command="{Binding SaveMailConfigCommand}" Margin="2"/>
         </StackPanel>
         <StackPanel>
             

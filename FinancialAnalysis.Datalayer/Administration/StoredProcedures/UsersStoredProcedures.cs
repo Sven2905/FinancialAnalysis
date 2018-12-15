@@ -2,13 +2,13 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.Product
+namespace FinancialAnalysis.Datalayer.Administration
 {
-    public class ProductCategoriesStoredProcedures : IStoredProcedures
+    public class UsersStoredProcedures : IStoredProcedures
     {
-        public ProductCategoriesStoredProcedures()
+        public UsersStoredProcedures()
         {
-            TableName = "ProductCategories";
+            TableName = "Users";
         }
 
         public string TableName { get; }
@@ -21,6 +21,7 @@ namespace FinancialAnalysis.Datalayer.Product
             InsertData();
             GetAllData();
             GetById();
+            GetUserByNameAndPassword();
         }
 
         private void GetAllData()
@@ -30,9 +31,14 @@ namespace FinancialAnalysis.Datalayer.Product
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT ProductCategoryId, " +
-                                "Name, " +
-                                "Description " +
+                                "SELECT UserId, " +
+                                "Picture, " +
+                                "Firstname, " +
+                                "Lastname, " +
+                                "Contraction, " +
+                                "Mail, " +
+                                "LoginUser, " +
+                                "Password " +
                                 $"FROM {TableName} " +
                                 "END");
                 using (var connection =
@@ -56,9 +62,9 @@ namespace FinancialAnalysis.Datalayer.Product
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, Description) " +
-                    "VALUES (@Name, @Description); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Picture varbinary(MAX), @Firstname nvarchar(150), @Lastname nvarchar(150), @Contraction nvarchar(150), @Mail nvarchar(150), @LoginUser nvarchar(150), @Password nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Picture, Firstname, Lastname, Contraction, Mail, LoginUser, Password ) " +
+                    "VALUES (@Picture, @Firstname, @Lastname, @Contraction, @Mail, @LoginUser, @Password ); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -81,9 +87,34 @@ namespace FinancialAnalysis.Datalayer.Product
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @ProductCategoryId int AS BEGIN SET NOCOUNT ON; SELECT Name, Description " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @UserId int AS BEGIN SET NOCOUNT ON; SELECT UserId, Picture, Firstname, Lastname, Contraction, Mail, LoginUser, Password " +
                     $"FROM {TableName} " +
-                    "WHERE ProductCategoryId = @ProductCategoryId END");
+                    "WHERE UserId = @UserId END");
+                using (var connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void GetUserByNameAndPassword()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetUserByNameAndPassword", DatabaseNames.FinancialAnalysisDB))
+            {
+                var sbSP = new StringBuilder();
+
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_GetUserByNameAndPassword] @LoginUser nvarchar(150), @Password nvarchar(150) AS BEGIN SET NOCOUNT ON; SELECT UserId, Picture, Firstname, Lastname, Contraction, Mail, LoginUser, Password " +
+                    $"FROM {TableName} " +
+                    "WHERE LoginUser = @LoginUser " +
+                    "AND Password = @Password END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

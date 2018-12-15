@@ -42,11 +42,15 @@
     </Reference>
     <Reference Include="DevExpress.Data.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
     </Reference>
+    <Reference Include="DevExpress.Mvvm.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DevExpress.Mvvm.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Office.v18.2.Core, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
     </Reference>
     <Reference Include="DevExpress.Pdf.v18.2.Core, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Pdf.v18.2.Drawing, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v18.1.Core, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v18.2.Core, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Charts.v18.2.Core, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
     </Reference>
@@ -175,6 +179,9 @@
     <Compile Include="UserControls\TaxTypeControl.xaml.cs">
       <DependentUpon>TaxTypeControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\PDFViewerWindow.xaml.cs">
       <DependentUpon>PDFViewerWindow.xaml</DependentUpon>
     </Compile>
@@ -261,6 +268,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\PDFViewerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -281,10 +292,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Images\Emblem\292049459.pdf" />
+    <None Include="Images\Emblem\EPSLogo.eps" />
+    <None Include="Images\Emblem\PSLogo.ps" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -297,6 +312,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Emblem\400dpiLogo.jpg" />
+    <Resource Include="Images\Emblem\400dpiLogo.png" />
+    <Resource Include="Images\Emblem\400dpiLogoCropped.jpg" />
+    <Resource Include="Images\Emblem\400dpiLogoCropped.png" />
+    <Resource Include="Images\Emblem\FaviconLogo.jpg" />
+    <Resource Include="Images\Emblem\FaviconLogo.png" />
+    <Resource Include="Images\Emblem\MediumSquareLogo.jpg" />
+    <Resource Include="Images\Emblem\MediumSquareLogo.png" />
+    <Resource Include="Images\Emblem\SmallLogo.jpg" />
+    <Resource Include="Images\Emblem\SmallLogo.png" />
+    <Resource Include="Images\Emblem\SmallLogoBW.jpg" />
+    <Resource Include="Images\Emblem\SmallLogoBW.png" />
+    <Resource Include="Images\Emblem\svg\readme.txt" />
+    <Content Include="Images\Emblem\svg\SVGlogo.svg" />
+    <Content Include="Images\Emblem\svg\SVGlogoAI.svg" />
     <Resource Include="Images\SmallLogoDark.png" />
     <Resource Include="DXSplashScreen\Image.png" />
     <Resource Include="favicon.ico" />
