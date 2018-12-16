@@ -44,7 +44,7 @@
         </Grid.ColumnDefinitions>
 
         <dxwui:PageAdornerControl Header="Buchungen" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                                  Foreground="#3F729B">
+                                  Foreground="#3F729B" FontFamily="Tahoma">
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
@@ -88,15 +88,15 @@
 
 
             <TextBlock Grid.Column="0" Grid.Row="0" Text="Datum: " VerticalAlignment="Center" Margin="5,0,0,0"
-                       Foreground="#3F729B" />
+                       Foreground="#3F729B" FontFamily="Tahoma" />
             <TextBlock Grid.Column="0" Grid.Row="2" Text="Beschreibung: " VerticalAlignment="Top" Margin="5,0,0,0"
-                       Foreground="#3F729B" />
+                       Foreground="#3F729B" FontFamily="Tahoma" />
             <TextBlock Grid.Column="0" Grid.Row="4" Text="Soll: " VerticalAlignment="Center" Margin="5,0,0,0"
-                       Foreground="#3F729B" />
+                       Foreground="#3F729B" FontFamily="Tahoma" />
             <TextBlock Grid.Column="0" Grid.Row="6" Text="Haben: " VerticalAlignment="Center" Margin="5,0,0,0"
-                       Foreground="#3F729B" />
+                       Foreground="#3F729B" FontFamily="Tahoma" />
             <TextBlock Grid.Column="0" Grid.Row="8" Text="Steuer: " VerticalAlignment="Center" Margin="5,0,0,0"
-                       Foreground="#3F729B" />
+                       Foreground="#3F729B" FontFamily="Tahoma" />
 
             <dxe:DateEdit Grid.Column="1" Grid.Row="0" Margin="0,3,0,3" Foreground="#3F729B" DateTime="{Binding Date}" />
             <TextBox Grid.Column="1" Grid.Row="2" Height="200" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"
@@ -178,17 +178,17 @@
             </dx:SimpleButton>
 
             <TextBlock Grid.Column="4" Grid.Row="0" Text="Betrag: " VerticalAlignment="Center" Margin="5,0,0,0"
-                       Foreground="#3F729B" />
+                       Foreground="#3F729B" FontFamily="Tahoma" />
             <TextBlock Grid.Column="4" Grid.Row="2" Text="Rechnungen: " VerticalAlignment="Top" Margin="5,0,0,0"
-                       Foreground="#3F729B" />
+                       Foreground="#3F729B" FontFamily="Tahoma" />
 
             <dxe:TextEdit Grid.Column="5" Grid.Row="0" Margin="3,3,3,3" Mask="C" MaskType="Numeric"
                           Text="{Binding Amount}" Foreground="#3F729B" />
             <dx:SimpleButton Grid.Column="5" Grid.Row="2" Content="Datei auswählen" Margin="3,3,3,3" Height="30"
-                             Command="{Binding OpenFileCommand}" Foreground="#3F729B" VerticalAlignment="Top" />
+                             Command="{Binding OpenFileCommand}" Foreground="#3F729B" VerticalAlignment="Top" FontFamily="Tahoma" />
 
             <dxe:ComboBoxEdit Grid.Column="7" Grid.Row="0" Margin="10,3,0,3" EditValue="{Binding GrossNetType}"
-                              SelectedIndex="0" Width="100" HorizontalAlignment="Left" Foreground="#3F729B">
+                              SelectedIndex="0" Width="100" HorizontalAlignment="Left" Foreground="#3F729B" FontFamily="Tahoma" >
                 <dxmvvm:Interaction.Behaviors>
                     <dxmvvm:EnumItemsSourceBehavior EnumType="{x:Type models:GrossNetType}" />
                 </dxmvvm:Interaction.Behaviors>
@@ -230,13 +230,13 @@
         <Grid Grid.Row="4" Grid.Column="1">
             <VirtualizingStackPanel Orientation="Horizontal" Margin="15">
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Stapel hinzufügen"
-                                 Foreground="#3F729B" Command="{Binding AddToStackCommand}" />
+                                 Foreground="#3F729B" Command="{Binding AddToStackCommand}" FontFamily="Tahoma" />
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Sofort buchen" Foreground="#3F729B"
-                                 Command="{Binding SaveBookingCommand}" />
+                                 Command="{Binding SaveBookingCommand}" FontFamily="Tahoma" />
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Verwerfen" Foreground="#3F729B"
-                                 Command="{Binding CancelCommand}" />
+                                 Command="{Binding CancelCommand}" FontFamily="Tahoma" />
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Stapel buchen" Foreground="#3F729B"
-                                 Command="{Binding SaveStackToDbCommand}" />
+                                 Command="{Binding SaveStackToDbCommand}" FontFamily="Tahoma" />
             </VirtualizingStackPanel>
         </Grid>
 

@@ -2,6 +2,7 @@
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using FinancialAnalysis.Datalayer;
+using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models;
 using Utilities;
 
@@ -87,10 +88,20 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void DeleteCompany()
         {
             if (DeleteCompanyButtonEnabled)
-                using (var db = new DataLayer())
+            {
+                try
                 {
-                    db.Companies.Delete(SelectedCompany.CompanyId);
+                    using (var db = new DataLayer())
+                    {
+                        db.Companies.Delete(SelectedCompany.CompanyId);
+                    }
                 }
+                catch (System.Exception ex)
+                {
+                    Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                }
+            }
+                
         }
 
         private void UseExistingCompany()

@@ -160,5 +160,19 @@ namespace Utilities
         {
             return 8;
         }
+
+        public static string ComputeHash(string input, HashAlgorithm algorithm, byte[] salt)
+        {
+            byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+
+            // Combine salt and input bytes
+            byte[] saltedInput = new byte[salt.Length + inputBytes.Length];
+            salt.CopyTo(saltedInput, 0);
+            inputBytes.CopyTo(saltedInput, salt.Length);
+
+            byte[] hashedBytes = algorithm.ComputeHash(saltedInput);
+
+            return BitConverter.ToString(hashedBytes);
+        }
     }
 }

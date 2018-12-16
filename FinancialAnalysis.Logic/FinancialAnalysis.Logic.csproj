@@ -80,6 +80,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -113,7 +114,7 @@
     <Compile Include="ViewModels\Accounting\CreditorDebitorViewModel.cs" />
     <Compile Include="ViewModels\Accounting\CostCenterViewModel.cs" />
     <Compile Include="ViewModels\Accounting\PaymentConditionViewModel.cs" />
-    <Compile Include="ViewModels\ConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\Configuration\MailViewModel.cs" />
     <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="ViewModels\Accounting\KontenrahmenViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="ViewModels\PDFViewerViewModel.cs" />
     <Compile Include="ViewModels\Accounting\TaxTypeViewModel.cs" />
     <Compile Include="ViewModels\ProjectManagement\ProjectViewModel.cs" />
+    <Compile Include="ViewModels\Configuration\UsersViewModel.cs" />
     <Compile Include="XmlHelper.cs" />
   </ItemGroup>
   <ItemGroup>

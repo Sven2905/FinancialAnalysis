@@ -49,7 +49,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <dxwui:PageAdornerControl Header="Kreditor / Debitor" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                                  Foreground="#3f729b">
+                                  Foreground="#3f729b" FontFamily="Tahoma" >
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
@@ -64,7 +64,7 @@
         </dxwui:PageAdornerControl>
 
         <dx:DXTabControl Grid.Row="1" Grid.Column="1" SelectedIndex="{Binding SelectedTab}">
-            <dx:DXTabItem Header="Kreditor">
+            <dx:DXTabItem Header="Kreditor" FontFamily="Tahoma" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -82,8 +82,8 @@
                                    Foreground="#3f729b" />
                         <dxe:ComboBoxEdit Grid.Column="0" Grid.Row="0" Width="250" ItemsSource="{Binding Companies}"
                                           SelectedItem="{Binding SelectedCompany}" DisplayMember="Name"
-                                          Foreground="#3f729b" />
-                        <dx:SimpleButton Margin="5,0,0,0" Width="30" Height="20" Padding="10,0,5,0"
+                                          Foreground="#3f729b" FontFamily="Tahoma" />
+                        <dx:SimpleButton Margin="5,0,0,0" Width="30" Height="20" Padding="10,0,5,0" FontFamily="Tahoma" 
                                          Command="{Binding OpenCompanyWindowCommand}">
                             <dx:SimpleButton.Glyph>
                                 <dx:SvgImageSource Uri="/Images/light/edit.svg" />
@@ -96,97 +96,97 @@
 
                         <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
                             <dxlc:LayoutGroup.Header>
-                                <TextBlock Text="Anschrift" Foreground="#3f729b" FontWeight="Bold" />
+                                <TextBlock Text="Anschrift" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                             </dxlc:LayoutGroup.Header>
-                            <dxlc:LayoutItem Label="Firma">
+                            <dxlc:LayoutItem Label="Firma" FontFamily="Tahoma">
                                 <dxe:TextEdit
-                                    Text="{Binding Creditor.Company.Name, UpdateSourceTrigger=PropertyChanged}" />
+                                    Text="{Binding Creditor.Company.Name, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
-                            <dxlc:LayoutItem Label="Strasse">
+                            <dxlc:LayoutItem Label="Strasse" FontFamily="Tahoma" >
                                 <dxe:TextEdit
-                                    Text="{Binding Creditor.Company.Street, UpdateSourceTrigger=PropertyChanged}" />
+                                    Text="{Binding Creditor.Company.Street, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                             <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Postleitzahl" Width="100">
+                                <dxlc:LayoutItem Label="Postleitzahl" Width="100" FontFamily="Tahoma" >
                                     <dxe:TextEdit
-                                        Text="{Binding Creditor.Company.Postcode, UpdateSourceTrigger=PropertyChanged}" />
+                                        Text="{Binding Creditor.Company.Postcode, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
-                                <dxlc:LayoutItem Label="Ort">
+                                <dxlc:LayoutItem Label="Ort" FontFamily="Tahoma" >
                                     <dxe:TextEdit
-                                        Text="{Binding Creditor.Company.City, UpdateSourceTrigger=PropertyChanged}" />
+                                        Text="{Binding Creditor.Company.City, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Ansprechpartner">
-                                    <dxe:TextEdit Text="{Binding Creditor.Company.ContactPerson}" />
+                                <dxlc:LayoutItem Label="Ansprechpartner" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.ContactPerson}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Bundesland">
+                            <dxlc:LayoutItem Label="Bundesland" FontFamily="Tahoma" >
                                 <dxe:ComboBoxEdit
                                     ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:FederalState}, SplitNames=True}"
-                                    EditValue="{Binding Creditor.Company.FederalState, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    EditValue="{Binding Creditor.Company.FederalState, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
 
                         <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
                             <dxlc:LayoutGroup.Header>
-                                <TextBlock Text="Bankdaten" Foreground="#3f729b" FontWeight="Bold" />
+                                <TextBlock Text="Bankdaten" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                             </dxlc:LayoutGroup.Header>
                             <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Bank">
-                                    <dxe:TextEdit Text="{Binding Creditor.Company.BankName}" />
+                                <dxlc:LayoutItem Label="Bank" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.BankName}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="IBAN">
-                                    <dxe:TextEdit Text="{Binding Creditor.Company.IBAN}" />
+                                <dxlc:LayoutItem Label="IBAN" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.IBAN}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
-                                <dxlc:LayoutItem Label="BIC">
-                                    <dxe:TextEdit Text="{Binding Creditor.Company.BIC}" />
+                                <dxlc:LayoutItem Label="BIC" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.BIC}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                         </dxlc:LayoutGroup>
 
                         <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
                             <dxlc:LayoutGroup.Header>
-                                <TextBlock Text="Steuern" Foreground="#3f729b" FontWeight="Bold" />
+                                <TextBlock Text="Steuern" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                             </dxlc:LayoutGroup.Header>
                             <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Vorausgewählte Steuer">
+                                <dxlc:LayoutItem Label="Vorausgewählte Steuer" FontFamily="Tahoma" >
                                     <dxe:ComboBoxEdit ItemsSource="{Binding TaxTypes}" DisplayMember="Description"
-                                                      ValueMember="TaxTypeId"
+                                                      ValueMember="TaxTypeId" FontFamily="Tahoma" 
                                                       EditValue="{Binding Creditor.CostAccount.RefTaxTypeId}"
                                                       Foreground="#3f729b" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Umsatzsteuer-Id">
-                                    <dxe:TextEdit Text="{Binding Creditor.Company.UStID}" />
+                                <dxlc:LayoutItem Label="Umsatzsteuer-Id" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.UStID}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
-                                <dxlc:LayoutItem Label="Steuernummer">
-                                    <dxe:TextEdit Text="{Binding Credito.Company.TaxNumber}" />
+                                <dxlc:LayoutItem Label="Steuernummer" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Credito.Company.TaxNumber}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                         </dxlc:LayoutGroup>
 
                         <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
                             <dxlc:LayoutGroup.Header>
-                                <TextBlock Text="Allgemeines" Foreground="#3f729b" FontWeight="Bold" />
+                                <TextBlock Text="Allgemeines" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                             </dxlc:LayoutGroup.Header>
                             <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Telefon">
-                                    <dxe:TextEdit Text="{Binding Creditor.Company.Phone}" />
+                                <dxlc:LayoutItem Label="Telefon" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.Phone}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
-                                <dxlc:LayoutItem Label="Fax">
-                                    <dxe:TextEdit Text="{Binding Creditor.Company.Fax}" />
+                                <dxlc:LayoutItem Label="Fax" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.Fax}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="E-Mail">
-                                    <dxe:TextEdit Text="{Binding Creditor.Company.eMail}" />
+                                <dxlc:LayoutItem Label="E-Mail" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.eMail}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
-                                <dxlc:LayoutItem Label="Website">
-                                    <dxe:TextEdit Text="{Binding Creditor.Company.Website}" />
+                                <dxlc:LayoutItem Label="Website" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Creditor.Company.Website}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                         </dxlc:LayoutGroup>
@@ -196,17 +196,17 @@
                     <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right"
                                 Margin="0,0,10,0">
                         <dx:SimpleButton Height="40" Width="100" Margin="5,0,5,0" Padding="10,0,10,0" Content="Neu"
-                                         Command="{Binding NewCreditorCommand}" />
+                                         Command="{Binding NewCreditorCommand}" FontFamily="Tahoma" />
                         <dx:SimpleButton IsEnabled="{Binding SaveCreditorButtonEnabled}" Height="40" Width="100"
                                          Margin="5,0,5,0" Padding="10,0,10,0" Content="Speichern"
-                                         Command="{Binding SaveCreditorCommand}" />
+                                         Command="{Binding SaveCreditorCommand}" FontFamily="Tahoma" />
                         <dx:SimpleButton IsEnabled="{Binding DeleteCreditorButtonEnabled}" Height="40" Width="100"
                                          Margin="5,0,5,0" Padding="10,0,10,0" Content="Löschen"
-                                         Command="{Binding DeleteCreditorCommand}" />
+                                         Command="{Binding DeleteCreditorCommand}" FontFamily="Tahoma" />
                     </StackPanel>
 
                     <TextBlock Text="Kreditoren:" Grid.Column="2" Grid.Row="0" Foreground="#3f729b" Margin="12,0,0,0"
-                               FontSize="16" />
+                               FontSize="16" FontFamily="Tahoma" />
 
                     <ListView ItemsSource="{Binding Creditors}" Grid.Column="2" Grid.Row="1" BorderThickness="1"
                               BorderBrush="#DADADA" Padding="0" Margin="12" FontSize="14"
@@ -240,7 +240,7 @@
 
                 </Grid>
             </dx:DXTabItem>
-            <dx:DXTabItem Header="Debitor">
+            <dx:DXTabItem Header="Debitor" FontFamily="Tahoma" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -255,12 +255,12 @@
 
                     <StackPanel Orientation="Horizontal" Margin="15,0,10,0">
                         <TextBlock Text="Vorhandene Firma auswählen" Grid.Column="0" Grid.Row="0" Margin="0,0,15,0"
-                                   Foreground="#3f729b" />
+                                   Foreground="#3f729b" FontFamily="Tahoma" />
                         <dxe:ComboBoxEdit Grid.Column="0" Grid.Row="0" Width="250" ItemsSource="{Binding Companies}"
                                           SelectedItem="{Binding SelectedCompany}" DisplayMember="Name"
-                                          Foreground="#3f729b" />
+                                          Foreground="#3f729b" FontFamily="Tahoma" />
                         <dx:SimpleButton Margin="5,0,0,0" Width="30" Height="20" Padding="10,0,5,0"
-                                         Command="{Binding OpenCompanyWindowCommand}">
+                                         Command="{Binding OpenCompanyWindowCommand}" FontFamily="Tahoma" >
                             <dx:SimpleButton.Glyph>
                                 <dx:SvgImageSource Uri="/Images/light/edit.svg" />
                             </dx:SimpleButton.Glyph>
@@ -272,97 +272,97 @@
 
                         <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
                             <dxlc:LayoutGroup.Header>
-                                <TextBlock Text="Anschrift" Foreground="#3f729b" FontWeight="Bold" />
+                                <TextBlock Text="Anschrift" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                             </dxlc:LayoutGroup.Header>
                             <dxlc:LayoutItem Label="Firma">
                                 <dxe:TextEdit
-                                    Text="{Binding Debitor.Company.Name, UpdateSourceTrigger=PropertyChanged}" />
+                                    Text="{Binding Debitor.Company.Name, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
-                            <dxlc:LayoutItem Label="Strasse">
+                            <dxlc:LayoutItem Label="Strasse" FontFamily="Tahoma" >
                                 <dxe:TextEdit
-                                    Text="{Binding Debitor.Company.Street, UpdateSourceTrigger=PropertyChanged}" />
+                                    Text="{Binding Debitor.Company.Street, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                             <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Postleitzahl" Width="100">
+                                <dxlc:LayoutItem Label="Postleitzahl" Width="100" FontFamily="Tahoma" >
                                     <dxe:TextEdit
-                                        Text="{Binding Debitor.Company.Postcode, UpdateSourceTrigger=PropertyChanged}" />
+                                        Text="{Binding Debitor.Company.Postcode, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
-                                <dxlc:LayoutItem Label="Ort">
+                                <dxlc:LayoutItem Label="Ort" FontFamily="Tahoma" >
                                     <dxe:TextEdit
-                                        Text="{Binding Debitor.Company.City, UpdateSourceTrigger=PropertyChanged}" />
+                                        Text="{Binding Debitor.Company.City, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Ansprechpartner">
-                                    <dxe:TextEdit Text="{Binding Debitor.Company.ContactPerson}" />
+                                <dxlc:LayoutItem Label="Ansprechpartner" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.ContactPerson}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Bundesland">
+                            <dxlc:LayoutItem Label="Bundesland" FontFamily="Tahoma" >
                                 <dxe:ComboBoxEdit
                                     ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:FederalState}, SplitNames=True}"
-                                    EditValue="Debitor.Company.FederalState" />
+                                    EditValue="Debitor.Company.FederalState" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
 
                         <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
                             <dxlc:LayoutGroup.Header>
-                                <TextBlock Text="Bankdaten" Foreground="#3f729b" FontWeight="Bold" />
+                                <TextBlock Text="Bankdaten" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                             </dxlc:LayoutGroup.Header>
                             <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Bank">
-                                    <dxe:TextEdit Text="{Binding Debitor.Company.BankName}" />
+                                <dxlc:LayoutItem Label="Bank" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.BankName}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="IBAN">
-                                    <dxe:TextEdit Text="{Binding Debitor.Company.IBAN}" />
+                                <dxlc:LayoutItem Label="IBAN" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.IBAN}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
-                                <dxlc:LayoutItem Label="BIC">
-                                    <dxe:TextEdit Text="{Binding Debitor.Company.BIC}" />
+                                <dxlc:LayoutItem Label="BIC" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.BIC}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                         </dxlc:LayoutGroup>
 
                         <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
                             <dxlc:LayoutGroup.Header>
-                                <TextBlock Text="Steuern" Foreground="#3f729b" FontWeight="Bold" />
+                                <TextBlock Text="Steuern" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                             </dxlc:LayoutGroup.Header>
                             <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Vorausgewählte Steuer">
+                                <dxlc:LayoutItem Label="Vorausgewählte Steuer" FontFamily="Tahoma" >
                                     <dxe:ComboBoxEdit ItemsSource="{Binding TaxTypes}" DisplayMember="Description"
                                                       ValueMember="TaxTypeId"
                                                       EditValue="{Binding Debitor.CostAccount.RefTaxTypeId}"
-                                                      Foreground="#3f729b" />
+                                                      Foreground="#3f729b" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Umsatzsteuer-Id">
-                                    <dxe:TextEdit Text="{Binding Debitor.Company.UStID}" />
+                                <dxlc:LayoutItem Label="Umsatzsteuer-Id" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.UStID}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
-                                <dxlc:LayoutItem Label="Steuernummer">
-                                    <dxe:TextEdit Text="{Binding Debitor.Company.TaxNumber}" />
+                                <dxlc:LayoutItem Label="Steuernummer" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.TaxNumber}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                         </dxlc:LayoutGroup>
 
                         <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
                             <dxlc:LayoutGroup.Header>
-                                <TextBlock Text="Allgemeines" Foreground="#3f729b" FontWeight="Bold" />
+                                <TextBlock Text="Allgemeines" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                             </dxlc:LayoutGroup.Header>
                             <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Telefon">
-                                    <dxe:TextEdit Text="{Binding Debitor.Company.Phone}" />
+                                <dxlc:LayoutItem Label="Telefon" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.Phone}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
-                                <dxlc:LayoutItem Label="Fax">
-                                    <dxe:TextEdit Text="{Binding Debitor.Company.Fax}" />
+                                <dxlc:LayoutItem Label="Fax" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.Fax}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="E-Mail">
-                                    <dxe:TextEdit Text="{Binding Debitor.Company.eMail}" />
+                                <dxlc:LayoutItem Label="E-Mail" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.eMail}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
-                                <dxlc:LayoutItem Label="Website">
-                                    <dxe:TextEdit Text="{Binding Debitor.Company.Website}" />
+                                <dxlc:LayoutItem Label="Website" FontFamily="Tahoma" >
+                                    <dxe:TextEdit Text="{Binding Debitor.Company.Website}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                         </dxlc:LayoutGroup>
@@ -372,19 +372,19 @@
                     <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right"
                                 Margin="0,0,10,0">
                         <dx:SimpleButton Height="40" Width="100" Margin="5,0,5,0" Padding="10,0,10,0" Content="Neu"
-                                         Command="{Binding NewDebitorCommand}" />
+                                         Command="{Binding NewDebitorCommand}" FontFamily="Tahoma" />
                         <dx:SimpleButton IsEnabled="{Binding SaveDebitorButtonEnabled}" Height="40" Width="100"
                                          Margin="5,0,5,0" Padding="10,0,10,0" Content="Speichern" Background="#00C851"
                                          Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right"
-                                         Command="{Binding SaveDebitorCommand}" />
+                                         Command="{Binding SaveDebitorCommand}" FontFamily="Tahoma" />
                         <dx:SimpleButton IsEnabled="{Binding DeleteDebitorButtonEnabled}" Height="40" Width="100"
                                          Margin="5,0,5,0" Padding="10,0,10,0" Content="Löschen" Background="#ff4444"
                                          Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right"
-                                         Command="{Binding DeleteDebitorCommand}" />
+                                         Command="{Binding DeleteDebitorCommand}" FontFamily="Tahoma" />
                     </StackPanel>
 
                     <TextBlock Text="Debitoren:" Grid.Column="2" Grid.Row="0" Foreground="#3f729b" Margin="12,0,0,0"
-                               FontSize="16" />
+                               FontSize="16" FontFamily="Tahoma" />
 
                     <ListView ItemsSource="{Binding Debitors}" Grid.Column="2" Grid.Row="1" BorderThickness="1"
                               BorderBrush="#DADADA" Padding="0" Margin="12" FontSize="14"

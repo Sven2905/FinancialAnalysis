@@ -3,9 +3,11 @@ using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
+using DevExpress.Mvvm;
+using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Mail;
 
-namespace FinancialAnalysis.Logic.Mail
+namespace FinancialAnalysis.Logic
 {
     public static class Mail
     {
@@ -32,7 +34,7 @@ namespace FinancialAnalysis.Logic.Mail
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
             }
         }
     }

@@ -33,13 +33,14 @@ namespace FinancialAnalysis.Datalayer.Administration
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
                     $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
-                    "UserId int IDENTITY(1,1) PRIMARY KEY," +
+                    "UserId int IDENTITY(1,1) PRIMARY KEY, " +
                     "Picture varbinary(MAX), " +
-                    "Firstname nvarchar(150) NOT NULL," +
-                    "Lastname nvarchar(150) NOT NULL," +
-                    "Contraction nvarchar(150) NOT NULL," +
-                    "Mail nvarchar(150) NOT NULL," +
-                    "LoginUser nvarchar(150) NOT NULL," +
+                    "Firstname nvarchar(150) NOT NULL, " +
+                    "Lastname nvarchar(150) NOT NULL, " +
+                    "Contraction nvarchar(150) NOT NULL, " +
+                    "Mail nvarchar(150), " +
+                    "IsActive bit, " +
+                    "LoginUser nvarchar(150) NOT NULL, " +
                     "Password nvarchar(150) NOT NULL)"; 
 
                 using (var command = new SqlCommand(commandStr, con))
@@ -98,7 +99,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Picture,@Firstname, @Lastname, @Contraction, @Mail, @LoginUser, @Password ",
+                            $"dbo.{TableName}_Insert @Picture,@Firstname, @Lastname, @Contraction, @Mail, @IsActive, @LoginUser, @Password ",
                             User);
                     id = result.Single();
                 }
@@ -177,6 +178,94 @@ namespace FinancialAnalysis.Datalayer.Administration
             }
 
             return output;
+        }
+
+        /// <summary>
+        ///     Update User, if not exist, insert it
+        /// </summary>
+        /// <param name="User"></param>
+        public void UpdateOrInsert(User User)
+        {
+            if (User.UserId == 0 || GetById(User.UserId) is null)
+            {
+                Insert(User);
+                return;
+            }
+
+            Update(User);
+        }
+
+        /// <summary>
+        ///     Update Users, if not exist insert them
+        /// </summary>
+        /// <param name="User"></param>
+        public void UpdateOrInsert(IEnumerable<User> Users)
+        {
+            foreach (var User in Users) UpdateOrInsert(User);
+        }
+
+        /// <summary>
+        ///     Update User
+        /// </summary>
+        /// <param name="User"></param>
+        public void Update(User User)
+        {
+            if (User.UserId == 0 || GetById(User.UserId) is null) return;
+
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.Execute($"dbo.{TableName}_Update @UserId, @Picture, @Firstname, @Lastname, @Contraction, @Mail, @IsActive, @LoginUser", User);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Update' from table '{TableName}'", e);
+            }
+        }
+
+        /// <summary>
+        ///     Update Users Password
+        /// </summary>
+        /// <param name="User"></param>
+        public void UpdatePassword(User User)
+        {
+            if (User.UserId == 0 || GetById(User.UserId) is null) return;
+
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.Execute($"dbo.{TableName}_UpdatePassword @UserId, @Password", User);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Update' from table '{TableName}'", e);
+            }
+        }
+
+        /// <summary>
+        ///     Delete User by Id
+        /// </summary>
+        /// <param name="id"></param>
+        public void Delete(int id)
+        {
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.Execute($"dbo.{TableName}_Delete @UserId", new { UserId = id });
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Delete' from table '{TableName}'", e);
+            }
         }
     }
 }

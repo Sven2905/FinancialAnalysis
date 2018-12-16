@@ -32,7 +32,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <dxwui:PageAdornerControl Header="Steuersätze" Grid.Row="0" Foreground="#3f729b">
+        <dxwui:PageAdornerControl Header="Steuersätze" Grid.Row="0" Foreground="#3f729b" FontFamily="Tahoma" >
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>

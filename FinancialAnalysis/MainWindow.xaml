@@ -10,6 +10,7 @@
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
     xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+    xmlns:dxbt="http://schemas.devexpress.com/winfx/2008/xaml/bars/themekeys"
     xmlns:dxnav="http://schemas.devexpress.com/winfx/2008/xaml/navigation"
     xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/core"
     mc:Ignorable="d"
@@ -25,11 +26,13 @@
     <Window.DataContext>
         <ViewModels:MainViewModel />
     </Window.DataContext>
-    <Grid Background="White">
+    
+    <Grid Background="White" Margin="-7,0,-7,-7">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
         <!--<dxb:BarManager ToolbarGlyphSize="Small">
             <dxb:BarManager.Bars>
                 <dxb:Bar Caption="File" IsMainMenu="True">
@@ -56,14 +59,18 @@
             </dxb:BarManager.Bars>
         </dxb:BarManager>-->
 
-        <dxwui:NavigationFrame Source="MainControl" AnimationType="SlideHorizontal" />
-        <!--<StatusBar Grid.Row="1" Height="28" Margin="0" VerticalAlignment="Bottom" Grid.ColumnSpan="3">
-            <StatusBarItem HorizontalAlignment="Right" Width="150" Content="{Binding ActualUser.Name}" Margin="0,0,5,0" />
-        </StatusBar>-->
+        <StatusBar Grid.Row="1" Height="28" Margin="0" VerticalAlignment="Bottom" Grid.ColumnSpan="3" Background="#3f729b">
+            <StatusBarItem HorizontalAlignment="Left" Height="24" Content="{Binding CurrentTime}" Foreground="White" Margin="0,0,5,0" FontSize="14" FontFamily="Tahoma"/>
+            <StatusBarItem HorizontalAlignment="Right" Height="24" Content="{Binding ActualUser.Name}" Foreground="White" Margin="0,0,5,0" FontSize="14" FontFamily="Tahoma"/>
+        </StatusBar>
 
-        <dxb:StatusBarControl Grid.RowSpan="2" VerticalAlignment="Bottom" >
-            <dxb:BarStaticItem Content="{Binding ActualUser.Name}" />
-        </dxb:StatusBarControl>
+        <!--<dxb:BarManager Grid.Row="1" CreateStandardLayout="True" dxc:ThemeManager.ThemeName="Office2016Colorful" Margin="-7,-7">
+            <dxb:BarManager.Bars>
+                <dxb:Bar UseWholeRow="True" IsStatusBar="True" IsMultiLine="False" ShowDragWidget="False" AllowQuickCustomization="False" AllowRename="False" AllowHide="False" AllowCollapse="False" />
+            </dxb:BarManager.Bars>
+        </dxb:BarManager>-->
+
+        <dxwui:NavigationFrame Source="MainControl" AnimationType="SlideHorizontal"/>
 
     </Grid>
 </dxc:DXWindow>

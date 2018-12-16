@@ -22,17 +22,17 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="80" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="80" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Margin="0,0,0,0" Background="#3f729b">
+        <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Margin="0,0,0,0" Background="#3f729b">
             <!--<dx:SimpleButton Glyph="{dx:SvgImageSource Uri=/Images/light/analytics.svg}" Width="80" HorizontalAlignment="Left" Focusable="False" />-->
             <TextBlock Text="Finanzanalyse" VerticalAlignment="Center" Foreground="White" FontSize="36"
-                       Margin="110,0,0,0" FontFamily="Urdu Typesetting" />
+                       Margin="110,0,0,0" FontFamily="Tahoma" />
         </Grid>
         <!--<Image Source="/Images/SmallLogo.png" HorizontalAlignment="Left" Margin="3,3,3,3"/>-->
         <Viewbox Width="60" Height="60" Stretch="Uniform" StretchDirection="DownOnly" HorizontalAlignment="Left"
@@ -43,12 +43,15 @@
                     Fill="White" Height="60" Width="60" Stretch="Fill" />
             </Canvas>
         </Viewbox>
+
+        <TextBlock Grid.Column="1" Grid.ColumnSpan="2" FontFamily="Tahoma" HorizontalAlignment="Right" VerticalAlignment="Center" Text="{Binding ActualUser.Name}" FontSize="24" Foreground="White" Margin="0,0,10,0"/>
+
         <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
                     Margin="0,0,0,0" Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
                 <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
                                  VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
-                                 Content="Buchungen" dxwuin:Navigation.NavigateTo="BookingControl"
+                                 Content="Buchungen" dxwuin:Navigation.NavigateTo="BookingControl" FontFamily="Tahoma"
                                  VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2">
                     <dx:SimpleButton.Glyph>
                         <dx:SvgImageSource Uri="/Images/light/calculator.svg" Size="87,100" />
@@ -56,7 +59,7 @@
                 </dx:SimpleButton>
                 <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
                                  VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
-                                 Content="Buchungshistorie" dxwuin:Navigation.NavigateTo="BookingHistoryControl"
+                                 Content="Buchungshistorie" dxwuin:Navigation.NavigateTo="BookingHistoryControl" FontFamily="Tahoma"
                                  VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2">
                     <dx:SimpleButton.Glyph>
                         <dx:SvgImageSource Uri="/Images/light/search-dollar.svg" Size="100,100" />
@@ -64,25 +67,25 @@
                 </dx:SimpleButton>
                 <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
                                  VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
-                                 Content="Management" dxwuin:Navigation.NavigateTo="ProjectManagementControl"
+                                 Content="Management" dxwuin:Navigation.NavigateTo="ProjectManagementControl" FontFamily="Tahoma"
                                  VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2">
                     <dx:SimpleButton.Glyph>
-                        <dx:SvgImageSource Uri="/Images/light/users.svg" Size="100,100" />
+                        <dx:SvgImageSource Uri="/Images/light/users.svg" Size="120,100" />
                     </dx:SimpleButton.Glyph>
                 </dx:SimpleButton>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
                                  VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
-                                 Content="Steuersätze" dxwuin:Navigation.NavigateTo="TaxTypeControl"
+                                 Content="Steuersätze" dxwuin:Navigation.NavigateTo="TaxTypeControl" FontFamily="Tahoma"
                                  VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2">
                     <dx:SimpleButton.Glyph>
-                        <dx:SvgImageSource Uri="/Images/light/Percent.svg" Size="87,100" />
+                        <dx:SvgImageSource Uri="/Images/light/Percent.svg" Size="80,100" />
                     </dx:SimpleButton.Glyph>
                 </dx:SimpleButton>
                 <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
                                  VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
-                                 Content="Kontenrahmen" dxwuin:Navigation.NavigateTo="CostAccountControl"
+                                 Content="Kontenrahmen" dxwuin:Navigation.NavigateTo="CostAccountControl" FontFamily="Tahoma"
                                  VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2">
                     <dx:SimpleButton.Glyph>
                         <dx:SvgImageSource Uri="/Images/light/Landmark.svg" Size="100,100" />
@@ -90,7 +93,7 @@
                 </dx:SimpleButton>
                 <dx:SimpleButton x:Name="btnCreditorsDebitors" Padding="10,20,10,20" GlyphToContentOffset="10"
                                  GlyphAlignment="Top" VerticalContentAlignment="Center" Foreground="#3f729b"
-                                 Grid.Row="1" Content="Kreditoren / Debitoren"
+                                 Grid.Row="1" Content="Kreditoren / Debitoren" FontFamily="Tahoma"
                                  dxwuin:Navigation.NavigateTo="CreditorDebitorControl" VerticalAlignment="Center"
                                  Width="180" Height="180" FontSize="20" Margin="2">
                     <dx:SimpleButton.Glyph>
@@ -99,45 +102,13 @@
                 </dx:SimpleButton>
                 <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
                                  VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
-                                 Content="Einstellungen" dxwuin:Navigation.NavigateTo="ConfigurationControl"
+                                 Content="Einstellungen" dxwuin:Navigation.NavigateTo="ConfigurationControl" FontFamily="Tahoma"
                                  VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2">
                     <dx:SimpleButton.Glyph>
-                        <dx:SvgImageSource Uri="/Images/light/Cogs.svg" Size="100,80" />
+                        <dx:SvgImageSource Uri="/Images/light/Cogs.svg" Size="120,100" />
                     </dx:SimpleButton.Glyph>
                 </dx:SimpleButton>
             </StackPanel>
         </StackPanel>
-        <TextBox Grid.Row="1" Grid.Column="1" Name="myTextBox" HorizontalAlignment="Left" Height="24"
-                 Margin="107,104,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="319"
-                 Visibility="Hidden">
-            <dxb:BarManager.DXContextMenu>
-                <dxb:RadialContextMenu
-                    DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}"
-                    dxb:ImageColorizer.Color="#3f729b">
-                    <dxb:BarButtonItem Content="Copy" Glyph="{dx:DXImage Image=Copy_16x16.png}"
-                                       Command="{Binding CopyCommand}" CommandTarget="{Binding}" />
-                    <dxb:BarButtonItem Content="Cut" Glyph="{dx:DXImage Image=Cut_16x16.png}"
-                                       Command="{Binding CutCommand}" CommandTarget="{Binding}" />
-                    <dxb:BarButtonItem Content="Paste" Glyph="{dx:DXImage Image=Paste_16x16.png}"
-                                       Command="{x:Static ApplicationCommands.Paste}" CommandTarget="{Binding}" />
-                    <dxb:BarSplitButtonItem Content="Select All" Glyph="{dx:DXImage Image=SelectAll_16x16.png}"
-                                            LargeGlyph="{dx:DXImage Image=SelectAll_32x32.png}"
-                                            Command="{Binding SelectAllCommand}">
-                        <dxb:BarSplitButtonItem.PopupControl>
-                            <dxb:PopupMenu>
-                                <dxb:BarButtonItem x:Name="bClear" CategoryName="Edit" Content="Clear"
-                                                   Glyph="{dx:DXImage Image=Delete_16x16.png}"
-                                                   Command="{Binding ClearSelectionCommand}" />
-                                <dxb:BarButtonItem Content="Select All" Glyph="{dx:DXImage Image=SelectAll_16x16.png}"
-                                                   LargeGlyph="{dx:DXImage Image=SelectAll_32x32.png}"
-                                                   Command="{Binding SelectAllCommand}" />
-                            </dxb:PopupMenu>
-                        </dxb:BarSplitButtonItem.PopupControl>
-                    </dxb:BarSplitButtonItem>
-                </dxb:RadialContextMenu>
-            </dxb:BarManager.DXContextMenu>
-        </TextBox>
-        <Grid Grid.Row="1" />
-
     </Grid>
 </UserControl>

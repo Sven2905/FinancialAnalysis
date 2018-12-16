@@ -12,17 +12,28 @@ using System.Xml.Serialization;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
-    public class ConfigurationViewModel : ViewModelBase
+    public class MailViewModel : ViewModelBase
     {
-        public ConfigurationViewModel()
+        public MailViewModel()
         {
             SaveMailConfigCommand = new DelegateCommand(SaveMailConfiguration);
+            SendTestMailCommand = new DelegateCommand(SendTestMail);
             MailConfiguration = new MailConfiguration();
             LoadMailConfiguration();
         }
 
         public MailConfiguration MailConfiguration { get; set; }
         public DelegateCommand SaveMailConfigCommand { get; set; }
+        public DelegateCommand SendTestMailCommand { get; set; }
+
+        private void SendTestMail()
+        {
+            if (MailConfiguration.LoginUser != "" && MailConfiguration.Password != "" && MailConfiguration.Server != "")
+            {
+                var mailData = new MailData() { Body = "Dies ist eine automatisch generierte Testmail.", Subject = "Testmail", To = MailConfiguration.Address };
+                Mail.Send(mailData, MailConfiguration);
+            }
+        }
 
         private void SaveMailConfiguration()
         {

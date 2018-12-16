@@ -1,8 +1,10 @@
-using System.Linq;
 using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Administration;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -20,8 +22,14 @@ namespace FinancialAnalysis.Logic.ViewModels
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-
         public User ActualUser { get; set; }
+        public string CurrentTime
+        {
+            get { return _currentTime; }
+            set { _currentTime = value; RaisePropertiesChanged(); }
+        }
+
+        private string _currentTime;
 
         /// <summary>
         ///     Initializes a new instance of the MainViewModel class.
@@ -29,7 +37,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public MainViewModel()
         {
             ////if (IsInDesignMode)
-
+            ///
             ActualUser = Globals.ActualUser;
 
             var db = new DataLayer();
@@ -41,6 +49,17 @@ namespace FinancialAnalysis.Logic.ViewModels
                 var _Import = new Import();
                 _Import.ImportCostAccounts(Standardkontenrahmen.SKR03);
             }
+            UpdateTime();
+        }
+
+        private void UpdateTime()
+        {
+            Task.Run(() =>
+            {
+                CurrentTime = DateTime.Now.ToString("G");
+                Task.Delay(1000);
+                UpdateTime();
+            });
         }
     }
 }

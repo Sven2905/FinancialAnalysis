@@ -26,7 +26,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <dxwui:PageAdornerControl Header="Kontenrahmen" Grid.Row="0" Foreground="#3F729B">
+        <dxwui:PageAdornerControl Header="Kontenrahmen" Grid.Row="0" Foreground="#3F729B" FontFamily="Tahoma" >
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
@@ -46,7 +46,7 @@
                               ChildrenPath="SubCategories" SelectedItem="{Binding SelectedCategory}" />
 
         <TextBlock Grid.Row="1" Grid.Column="1" Margin="20,0,0,0" FontSize="16" Foreground="#3F729B"
-                   Text="Kontenrahmen:" />
+                   Text="Kontenrahmen:" FontFamily="Tahoma" />
 
         <Grid Grid.Column="1" Grid.Row="1" Margin="20,30,20,20">
             <dxg:GridControl

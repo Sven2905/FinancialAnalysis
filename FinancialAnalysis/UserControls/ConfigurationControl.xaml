@@ -1,29 +1,33 @@
-﻿<UserControl x:Class="FinancialAnalysis.UserControls.ConfigurationControl"
+﻿<UserControl xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxwuin="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/navigation"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
-             xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
-             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:lc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.DataContext>
-        <ViewModels:ConfigurationViewModel />
-    </UserControl.DataContext>
+             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
+             x:Class="FinancialAnalysis.UserControls.ConfigurationControl"
+             mc:Ignorable="d"
+             dx:ThemeManager.ThemeName="Office2016WhiteSE"
+             d:DesignHeight="900" d:DesignWidth="1600">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="100" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
-        <dxwui:PageAdornerControl Header="Einstellungen" Grid.Row="0" Foreground="#3f729b">
+
+        <dxwui:PageAdornerControl Grid.ColumnSpan="3" Header="Einstellungen" Grid.Row="0" Foreground="#3F729B" FontFamily="Tahoma">
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
@@ -36,15 +40,69 @@
                 </DataTemplate>
             </dxwui:PageAdornerControl.HeaderTemplate>
         </dxwui:PageAdornerControl>
-        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <Label Content="MailConfiguration" FontWeight="Bold" FontSize="14"/>
-            <dxe:TextEdit NullText="Server" Height="22" Width="150" HorizontalAlignment="Left" Text="{Binding MailConfiguration.Server}" Margin="2"/>
-            <dxe:TextEdit NullText="Address" Height="22" Width="150" HorizontalAlignment="Left" Text="{Binding MailConfiguration.Address}" Margin="2"/>
-            <dxe:TextEdit NullText="User" Height="22" Width="150" HorizontalAlignment="Left" Text="{Binding MailConfiguration.LoginUser}" Margin="2"/>
-            <dxe:PasswordBoxEdit NullText="Password" Height="22" Width="150" HorizontalAlignment="Left" Text="{Binding MailConfiguration.Password}" Margin="2" />
-            <dx:SimpleButton Height="22" Width="150" Content="Speichern" Glyph="{dx:DXImage Image=Save_16x16.png}" HorizontalAlignment="Left" Command="{Binding SaveMailConfigCommand}" Margin="2"/>
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Margin="0,0,0,0" Orientation="Vertical">
+            <!--<StackPanel Orientation="Horizontal">
+                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top" VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1" Content="Buchungen" dxwuin:Navigation.NavigateTo="BookingControl" VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2" >
+                    <dx:SimpleButton.Glyph>
+                        <dx:SvgImageSource Uri="/Images/light/calculator.svg" Size="87,100"/>
+                    </dx:SimpleButton.Glyph>
+                </dx:SimpleButton>
+                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top" VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1" Content="Buchungshistorie" dxwuin:Navigation.NavigateTo="BookingHistoryControl" VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2" >
+                    <dx:SimpleButton.Glyph>
+                        <dx:SvgImageSource Uri="/Images/light/search-dollar.svg" Size="100,100"/>
+                    </dx:SimpleButton.Glyph>
+                </dx:SimpleButton>
+            </StackPanel>-->
+            <StackPanel Orientation="Horizontal">
+                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
+                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
+                                 Content="Maileinstellungen" HorizontalContentAlignment="Center" HorizontalAlignment="Center" dxwuin:Navigation.NavigateTo="MailControl" FontFamily="Tahoma"
+                                 VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2">
+                    <dx:SimpleButton.Glyph>
+                        <dx:SvgImageSource Uri="/Images/light/Envelope.svg" Size="100,100" />
+                    </dx:SimpleButton.Glyph>
+                </dx:SimpleButton>
+                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
+                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1" Content="Userverwaltung" FontFamily="Tahoma"
+                                 dxwuin:Navigation.NavigateTo="UsersControl" VerticalAlignment="Center" Width="180"
+                                 Height="180" FontSize="20" Margin="2">
+                    <dx:SimpleButton.Glyph>
+                        <dx:SvgImageSource Uri="/Images/light/Users.svg" Size="120,100" />
+                    </dx:SimpleButton.Glyph>
+                </dx:SimpleButton>
+            </StackPanel>
         </StackPanel>
-
-
+        <TextBox Grid.Row="1" Grid.Column="1" Name="myTextBox" HorizontalAlignment="Left" Height="24"
+                 Margin="107,104,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="319"
+                 Visibility="Hidden">
+            <dxb:BarManager.DXContextMenu>
+                <dxb:RadialContextMenu
+                    DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}"
+                    dxb:ImageColorizer.Color="#3f729b">
+                    <dxb:BarButtonItem Content="Copy" Glyph="{dx:DXImage Image=Copy_16x16.png}"
+                                       Command="{Binding CopyCommand}" CommandTarget="{Binding}" />
+                    <dxb:BarButtonItem Content="Cut" Glyph="{dx:DXImage Image=Cut_16x16.png}"
+                                       Command="{Binding CutCommand}" CommandTarget="{Binding}" />
+                    <dxb:BarButtonItem Content="Paste" Glyph="{dx:DXImage Image=Paste_16x16.png}"
+                                       Command="{x:Static ApplicationCommands.Paste}" CommandTarget="{Binding}" />
+                    <dxb:BarSplitButtonItem Content="Select All" Glyph="{dx:DXImage Image=SelectAll_16x16.png}"
+                                            LargeGlyph="{dx:DXImage Image=SelectAll_32x32.png}"
+                                            Command="{Binding SelectAllCommand}">
+                        <dxb:BarSplitButtonItem.PopupControl>
+                            <dxb:PopupMenu>
+                                <dxb:BarButtonItem x:Name="bClear" CategoryName="Edit" Content="Clear"
+                                                   Glyph="{dx:DXImage Image=Delete_16x16.png}"
+                                                   Command="{Binding ClearSelectionCommand}" />
+                                <dxb:BarButtonItem Content="Select All" Glyph="{dx:DXImage Image=SelectAll_16x16.png}"
+                                                   LargeGlyph="{dx:DXImage Image=SelectAll_32x32.png}"
+                                                   Command="{Binding SelectAllCommand}" />
+                            </dxb:PopupMenu>
+                        </dxb:BarSplitButtonItem.PopupControl>
+                    </dxb:BarSplitButtonItem>
+                </dxb:RadialContextMenu>
+            </dxb:BarManager.DXContextMenu>
+        </TextBox>
+        <Grid Grid.Row="1" />
     </Grid>
 </UserControl>

@@ -3,28 +3,37 @@ using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
+        #region Constructor
+
         public LoginViewModel()
         {
             Seed();
-            LoginCommand = new DelegateCommand(Login);
+            LoginCommand = new DelegateCommand(Login, () => (!string.IsNullOrWhiteSpace(User.LoginUser) && !string.IsNullOrEmpty(User.Password)));
             ExitCommand = new DelegateCommand(Exit);
         }
+
+        #endregion Constructor
+
+        #region Fields
+
+        private int _Counter = 0;
+
+        #endregion Fields
+
+        #region Methods
 
         private void Seed()
         {
             using (var db = new DataLayer())
             {
                 db.CreateDatabaseSchema();
-                if (db.Users.GetAll().Count() == 0)
+                if (!db.Users.GetAll().Any())
                 {
                     var user = new User()
                     {
@@ -45,33 +54,60 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (CheckCredentials())
             {
+                ShowError = false;
                 Globals.ActualUser = User;
                 Messenger.Default.Send(new OpenSplashScreenMessage());
                 Messenger.Default.Send(new OpenMainWindowMessage());
-                return;
             }
-            User = new User();
+            else
+            {
+                _Counter++;
+            }
+
+            if (_Counter >= 3)
+            {
+                Exit();
+            }
         }
 
         private void Exit() => Environment.Exit(0);
 
         private bool CheckCredentials()
         {
-            if (User == null)
+            User foundUser;
+            using (var db = new DataLayer())
+            {
+                foundUser = db.Users.GetUserByNameAndPassword(User.LoginUser, User.Password);
+            }
+
+            if (foundUser == null)
+            {
+                ShowError = true;
+                ErrorText = "Falscher Benutzername oder Passwort!";
                 return false;
+            }
 
-            if (User.LoginUser != string.Empty && User.Password != string.Empty)
-                using (var db = new DataLayer())
-                    User = db.Users.GetUserByNameAndPassword(User.LoginUser, User.Password);
-
-            if (User == null || User.UserId == 0)
+            if (!foundUser.IsActive)
+            {
+                ShowError = true;
+                ErrorText = "Benutzer ist deaktiviert!";
                 return false;
+            }
 
+            User = foundUser;
             return true;
         }
+
+        #endregion Methods
+
+        #region Properties
 
         public DelegateCommand LoginCommand { get; set; }
         public DelegateCommand ExitCommand { get; set; }
         public User User { get; set; } = new User();
+        public bool ShowError { get; set; }
+        public string ErrorText { get; set; }
+
+        #endregion Properties
     }
 }

@@ -155,5 +155,19 @@ namespace FinancialAnalysis.Logic
             RandomNumberGenerator.Create().GetBytes(ba);
             return ba;
         }
+
+        public static string ComputeHash(string input, HashAlgorithm algorithm, byte[] salt)
+        {
+            Byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+
+            // Combine salt and input bytes
+            Byte[] saltedInput = new Byte[salt.Length + inputBytes.Length];
+            salt.CopyTo(saltedInput, 0);
+            inputBytes.CopyTo(saltedInput, salt.Length);
+
+            Byte[] hashedBytes = algorithm.ComputeHash(saltedInput);
+
+            return BitConverter.ToString(hashedBytes);
+        }
     }
 }
