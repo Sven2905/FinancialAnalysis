@@ -42,9 +42,6 @@
     </Reference>
     <Reference Include="DevExpress.Data.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
     </Reference>
-    <Reference Include="DevExpress.Mvvm.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <Private>True</Private>
-    </Reference>
     <Reference Include="DevExpress.Mvvm.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Office.v18.2.Core, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
     </Reference>
@@ -136,32 +133,33 @@
     </ApplicationDefinition>
     <Compile Include="Converter\BaseValueConverter.cs" />
     <Compile Include="Converter\BooleanToVisiblityConverter.cs" />
-    <Compile Include="UserControls\BookingHistoryControl.xaml.cs">
+    <Compile Include="Converter\NullToIsEnabledConverter.cs" />
+    <Compile Include="UserControls\Accounting\BookingHistoryControl.xaml.cs">
       <DependentUpon>BookingHistoryControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converter\BrushColorConverter.cs" />
-    <Compile Include="UserControls\MailControl.xaml.cs">
+    <Compile Include="UserControls\Administration\MailControl.xaml.cs">
       <DependentUpon>MailControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CostCenterControl.xaml.cs">
+    <Compile Include="UserControls\Accounting\CostCenterControl.xaml.cs">
       <DependentUpon>CostCenterControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\EmployeeControl.xaml.cs">
+    <Compile Include="UserControls\ProjectManagement\EmployeeControl.xaml.cs">
       <DependentUpon>EmployeeControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ProjectControl.xaml.cs">
+    <Compile Include="UserControls\ProjectManagement\ProjectControl.xaml.cs">
       <DependentUpon>ProjectControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ConfigurationControl.xaml.cs">
+    <Compile Include="UserControls\Administration\ConfigurationControl.xaml.cs">
       <DependentUpon>ConfigurationControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ProjectManagementControl.xaml.cs">
+    <Compile Include="UserControls\ProjectManagement\ProjectManagementControl.xaml.cs">
       <DependentUpon>ProjectManagementControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\PaymentConditionControl.xaml.cs">
+    <Compile Include="UserControls\Accounting\PaymentConditionControl.xaml.cs">
       <DependentUpon>PaymentConditionControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UsersControl.xaml.cs">
+    <Compile Include="UserControls\Administration\UsersControl.xaml.cs">
       <DependentUpon>UsersControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\CompanyWindow.xaml.cs">
@@ -173,19 +171,19 @@
     <Compile Include="DXSplashScreen\SplashScreenView.xaml.cs">
       <DependentUpon>SplashScreenView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\BookingControl.xaml.cs">
+    <Compile Include="UserControls\Accounting\BookingControl.xaml.cs">
       <DependentUpon>BookingControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CostAccountControl.xaml.cs">
+    <Compile Include="UserControls\Accounting\CostAccountControl.xaml.cs">
       <DependentUpon>CostAccountControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CreditorDebitorControl.xaml.cs">
+    <Compile Include="UserControls\Accounting\CreditorDebitorControl.xaml.cs">
       <DependentUpon>CreditorDebitorControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MainControl.xaml.cs">
       <DependentUpon>MainControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\TaxTypeControl.xaml.cs">
+    <Compile Include="UserControls\Accounting\TaxTypeControl.xaml.cs">
       <DependentUpon>TaxTypeControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoginWindow.xaml.cs">
@@ -198,39 +196,39 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\BookingHistoryControl.xaml">
+    <Page Include="UserControls\Accounting\BookingHistoryControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\MailControl.xaml">
+    <Page Include="UserControls\Administration\MailControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\CostCenterControl.xaml">
+    <Page Include="UserControls\Accounting\CostCenterControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\EmployeeControl.xaml">
+    <Page Include="UserControls\ProjectManagement\EmployeeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\ProjectControl.xaml">
+    <Page Include="UserControls\ProjectManagement\ProjectControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\ConfigurationControl.xaml">
+    <Page Include="UserControls\Administration\ConfigurationControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\ProjectManagementControl.xaml">
+    <Page Include="UserControls\ProjectManagement\ProjectManagementControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\PaymentConditionControl.xaml">
+    <Page Include="UserControls\Accounting\PaymentConditionControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\UsersControl.xaml">
+    <Page Include="UserControls\Administration\UsersControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -265,15 +263,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserControls\BookingControl.xaml">
+    <Page Include="UserControls\Accounting\BookingControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\CostAccountControl.xaml">
+    <Page Include="UserControls\Accounting\CostAccountControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\CreditorDebitorControl.xaml">
+    <Page Include="UserControls\Accounting\CreditorDebitorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -281,7 +279,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\TaxTypeControl.xaml">
+    <Page Include="UserControls\Accounting\TaxTypeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -65,9 +65,8 @@
     <Compile Include="Accounting\TaxType.cs" />
     <Compile Include="Accounting\PaymentCondition.cs" />
     <Compile Include="Administration\User.cs" />
-    <Compile Include="Generell\Company.cs" />
+    <Compile Include="General\Company.cs" />
     <Compile Include="Accounting\Creditor.cs" />
-    <Compile Include="Generell\Customer.cs" />
     <Compile Include="Mail\MailConfiguration.cs" />
     <Compile Include="Mail\MailData.cs" />
     <Compile Include="ProjectManagement\Employee.cs" />
@@ -76,7 +75,7 @@
     <Compile Include="Ordering\Order.cs" />
     <Compile Include="Ordering\OrderDetail.cs" />
     <Compile Include="Product\ProductPrototype.cs" />
-    <Compile Include="Generell\Location.cs" />
+    <Compile Include="General\Location.cs" />
     <Compile Include="Accounting\Debitor.cs" />
     <Compile Include="Product\ProductCategory.cs" />
     <Compile Include="ProjectManagement\Project.cs" />

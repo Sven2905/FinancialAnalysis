@@ -40,8 +40,8 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                     "Street nvarchar(150) NOT NULL," +
                     "City nvarchar(150) NOT NULL," +
                     "Postcode int NOT NULL," +
-                    "Gender int NOT NULL," +
-                    "CivilStatus int NOT NULL," +
+                    "Gender int," +
+                    "CivilStatus int," +
                     "TaxId nvarchar(150)," +
                     "HasDrivingLicence bit," +
                     "Nationality nvarchar(150)," +
@@ -54,8 +54,9 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                     "WorkHoursPerWeek real," +
                     "VacationDays real," +
                     "Picture varbinary(MAX)," +
-                    "PictureName nvarchar(150)," +
                     "RefHealthInsuranceId int," +
+                    "Mail nvarchar(150)," +
+                    "Phone nvarchar(150)," +
                     "RefTariffId int)";
 
                 using (var command = new SqlCommand(commandStr, con))
@@ -113,7 +114,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     var result = con.Query<int>(
-                        $"dbo.{TableName}_Insert @Firstname, @Lastname, @Birthdate, @Street, @City, @Postcode, @Gender, @CivilStatus, @RefTariffId, @TaxId, @RefHealthInsuranceId, @HasDrivingLicence, @Nationality, @Confession, @BankName, @BIC, @IBAN, @NationalInsuranceNumber, @Salary, @WorkHoursPerWeek, @VacationDays, @Picture, @PictureName",
+                        $"dbo.{TableName}_Insert @Firstname, @Lastname, @Birthdate, @Street, @City, @Postcode, @Gender, @CivilStatus, @RefTariffId, @TaxId, @RefHealthInsuranceId, @HasDrivingLicence, @Nationality, @Confession, @BankName, @BIC, @IBAN, @NationalInsuranceNumber, @Salary, @WorkHoursPerWeek, @VacationDays, @Picture, @Mail, @Phone",
                         Employee);
                     id = result.Single();
                 }
@@ -169,6 +170,74 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
             }
 
             return output;
+        }
+
+        /// <summary>
+        ///     Update Employee, if not exist, insert it
+        /// </summary>
+        /// <param name="Employee"></param>
+        public void UpdateOrInsert(Employee Employee)
+        {
+            if (Employee.EmployeeId == 0 || GetById(Employee.EmployeeId) is null)
+            {
+                Insert(Employee);
+                return;
+            }
+
+            Update(Employee);
+        }
+
+        /// <summary>
+        ///     Update Employees, if not exist insert them
+        /// </summary>
+        /// <param name="Employees"></param>
+        public void UpdateOrInsert(IEnumerable<Employee> Employees)
+        {
+            foreach (var Employee in Employees) UpdateOrInsert(Employee);
+        }
+
+        /// <summary>
+        ///     Update Employee
+        /// </summary>
+        /// <param name="Employee"></param>
+        public void Update(Employee Employee)
+        {
+            if (Employee.EmployeeId == 0 || GetById(Employee.EmployeeId) is null) return;
+
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.Execute($"dbo.{TableName}_Update @EmployeeId, @Firstname, @Lastname, @Birthdate, @Street, @City, @Postcode, @Gender, @CivilStatus, @RefTariffId, @TaxId, " +
+                        $"@RefHealthInsuranceId, @HasDrivingLicence, @Nationality, @Confession, @BankName, @BIC, @IBAN, @NationalInsuranceNumber, @Salary, @WorkHoursPerWeek, " +
+                        $"@VacationDays, @Picture, @Mail, @Phone", Employee);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Update' from table '{TableName}'", e);
+            }
+        }
+
+        /// <summary>
+        ///     Delete Employee by Id
+        /// </summary>
+        /// <param name="id"></param>
+        public void Delete(int id)
+        {
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.Execute($"dbo.{TableName}_Delete @EmployeeId", new { EmployeeId = id });
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Delete' from table '{TableName}'", e);
+            }
         }
 
         public void AddReferences()

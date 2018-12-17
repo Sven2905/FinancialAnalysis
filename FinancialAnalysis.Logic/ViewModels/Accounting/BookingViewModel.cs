@@ -22,11 +22,17 @@ namespace FinancialAnalysis.Logic.ViewModels
             SetCommands();
 
             Messenger.Default.Register<SelectedCostAccount>(this, ChangeSelectedCostAccount);
-
-            using (var db = new DataLayer())
+            try
             {
-                TaxTypes = db.TaxTypes.GetAll().ToList();
-                CostAccounts = db.CostAccounts.GetAllVisible().ToList();
+                using (var db = new DataLayer())
+                {
+                    TaxTypes = db.TaxTypes.GetAll().ToList();
+                    CostAccounts = db.CostAccounts.GetAllVisible().ToList();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
             }
 
             SelectedTax = TaxTypes.SingleOrDefault(x => x.TaxTypeId == 1);
@@ -56,12 +62,12 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             GetCreditorCommand = new DelegateCommand(() =>
             {
-                Messenger.Default.Send(new OpenKontenrahmenWindowMessage {AccountingType = AccountingType.Credit});
+                Messenger.Default.Send(new OpenKontenrahmenWindowMessage { AccountingType = AccountingType.Credit });
             });
 
             GetDebitorCommand = new DelegateCommand(() =>
             {
-                Messenger.Default.Send(new OpenKontenrahmenWindowMessage {AccountingType = AccountingType.Debit});
+                Messenger.Default.Send(new OpenKontenrahmenWindowMessage { AccountingType = AccountingType.Debit });
             });
 
             OpenFileCommand = new DelegateCommand(() =>
@@ -80,17 +86,17 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 AddToStack(CreateBookingItem());
                 ClearForm();
-            });
+            }, () => ValidateBooking());
 
-            SaveStackToDbCommand = new DelegateCommand(SaveStackToDb);
+            SaveStackToDbCommand = new DelegateCommand(SaveStackToDb, () => BookingsOnStack.Count > 0);
 
             SaveBookingCommand = new DelegateCommand(() =>
             {
                 SaveBookingToDB(CreateBookingItem());
                 ClearForm();
-            });
+            }, () => ValidateBooking());
 
-            DeleteSelectedScannedDocumentCommand = new DelegateCommand(DeleteSelectedScannedDocument);
+            DeleteSelectedScannedDocumentCommand = new DelegateCommand(DeleteSelectedScannedDocument, () => (ScannedDocuments.Count > 0));
 
             CancelCommand = new DelegateCommand(ClearForm);
         }
@@ -177,26 +183,48 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             var bookingId = 0;
 
-            using (var db = new DataLayer())
+            try
             {
-                bookingId = db.Bookings.Insert(booking);
+                using (var db = new DataLayer())
+                {
+                    bookingId = db.Bookings.Insert(booking);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
             }
 
             foreach (var item in booking.Credits)
             {
                 item.RefBookingId = bookingId;
-                using (var db = new DataLayer())
+
+                try
                 {
-                    db.Credits.Insert(item);
+                    using (var db = new DataLayer())
+                    {
+                        db.Credits.Insert(item);
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
                 }
             }
 
             foreach (var item in booking.Debits)
             {
                 item.RefBookingId = bookingId;
-                using (var db = new DataLayer())
+                try
                 {
-                    db.Debits.Insert(item);
+                    using (var db = new DataLayer())
+                    {
+                        db.Debits.Insert(item);
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
                 }
             }
 
@@ -204,9 +232,16 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 item.RefBookingId = bookingId;
 
-                using (var db = new DataLayer())
+                try
                 {
-                    db.ScannedDocuments.Insert(item);
+                    using (var db = new DataLayer())
+                    {
+                        db.ScannedDocuments.Insert(item);
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
                 }
             }
         }

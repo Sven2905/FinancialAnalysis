@@ -34,7 +34,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var commandStr =
                     $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}" +
                     "(CostCenterId int IDENTITY(1,1) PRIMARY KEY," +
-                    "Description nvarchar(150) NOT NULL)";
+                    "Name nvarchar(150) NOT NULL," +
+                    "Description nvarchar(MAX))";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -90,7 +91,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Description", CostCenter);
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @Description ", CostCenter);
                     id = result.Single();
                 }
             }
@@ -135,7 +136,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<CostCenter>($"dbo.{TableName}_GetById @CreditId",
+                    output = con.QuerySingleOrDefault<CostCenter>($"dbo.{TableName}_GetById @CostCenterId",
                         new {CostCenterId = id});
                 }
             }
@@ -145,6 +146,72 @@ namespace FinancialAnalysis.Datalayer.Accounting
             }
 
             return output;
+        }
+
+        /// <summary>
+        ///     Update CostCenter, if not exist, insert it
+        /// </summary>
+        /// <param name="CostCenter"></param>
+        public void UpdateOrInsert(CostCenter CostCenter)
+        {
+            if (CostCenter.CostCenterId == 0 || GetById(CostCenter.CostCenterId) is null)
+            {
+                Insert(CostCenter);
+                return;
+            }
+
+            Update(CostCenter);
+        }
+
+        /// <summary>
+        ///     Update CostCenters, if not exist insert them
+        /// </summary>
+        /// <param name="User"></param>
+        public void UpdateOrInsert(IEnumerable<CostCenter> CostCenters)
+        {
+            foreach (var CostCenter in CostCenters) UpdateOrInsert(CostCenter);
+        }
+
+        /// <summary>
+        ///     Update CostCenter
+        /// </summary>
+        /// <param name="CostCenter"></param>
+        public void Update(CostCenter CostCenter)
+        {
+            if (CostCenter.CostCenterId == 0 || GetById(CostCenter.CostCenterId) is null) return;
+
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.Execute($"dbo.{TableName}_Update @CostCenterId, @Name, @Description", CostCenter);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Update' from table '{TableName}'", e);
+            }
+        }
+
+        /// <summary>
+        ///     Delete CostCenter by Id
+        /// </summary>
+        /// <param name="id"></param>
+        public void Delete(int id)
+        {
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.Execute($"dbo.{TableName}_Delete @CostCenterId", new { CostCenterId = id });
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Delete' from table '{TableName}'", e);
+            }
         }
     }
 }

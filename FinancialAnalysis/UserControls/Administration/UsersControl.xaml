@@ -27,7 +27,7 @@
             <Setter Property="LabelStyle" Value="{StaticResource labelStyle}" />
             <Setter Property="Foreground" Value="#3f729b" />
         </Style>
-        
+        <local:NullToIsEnabledConverter x:Key="NullConverter"></local:NullToIsEnabledConverter>
         <local:BrushColorConverter x:Key="BConverter"></local:BrushColorConverter>
     </UserControl.Resources>
     
@@ -124,7 +124,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,-12,0,0">
+                <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,-12,0,0" IsEnabled="{Binding SelectedUser, Converter={StaticResource NullConverter}}">
                     <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
                         <dxlc:LayoutGroup.Header>
                             <TextBlock Text="Login Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
@@ -147,7 +147,7 @@
                     </dxlc:LayoutGroup>
                 </dxlc:LayoutControl>
 
-                <dxlc:LayoutControl Grid.Column="0" Grid.Row="1" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,-12,0,0" >
+                <dxlc:LayoutControl Grid.Column="0" Grid.Row="1" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,-12,0,0" IsEnabled="{Binding SelectedUser, Converter={StaticResource NullConverter}}">
                     <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
                         <dxlc:LayoutGroup.Header>
                             <TextBlock Text="Benutzer Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />

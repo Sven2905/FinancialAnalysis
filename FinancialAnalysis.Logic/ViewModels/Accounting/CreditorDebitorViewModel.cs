@@ -63,17 +63,24 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void CreateCreditor()
         {
-            using (var db = new DataLayer())
+            try
             {
-                var creditorNumber = db.CostAccounts.GetNextCreditorNumber();
-                Creditor.CostAccount.AccountNumber = creditorNumber;
-                Creditor.CostAccount.RefCostAccountCategoryId = db.CostAccountCategories.GetCreditorId();
-                Creditor.CostAccount.Description = Creditor.Company.Name;
-                Creditor.CostAccount.IsVisible = true;
-                var costAccountId = db.CostAccounts.Insert(Creditor.CostAccount);
-                var creditor = new Creditor
-                    {RefCompanyId = SelectedCompany.CompanyId, RefCostAccountId = costAccountId};
-                db.Creditors.Insert(creditor);
+                using (var db = new DataLayer())
+                {
+                    var creditorNumber = db.CostAccounts.GetNextCreditorNumber();
+                    Creditor.CostAccount.AccountNumber = creditorNumber;
+                    Creditor.CostAccount.RefCostAccountCategoryId = db.CostAccountCategories.GetCreditorId();
+                    Creditor.CostAccount.Description = Creditor.Company.Name;
+                    Creditor.CostAccount.IsVisible = true;
+                    var costAccountId = db.CostAccounts.Insert(Creditor.CostAccount);
+                    var creditor = new Creditor
+                    { RefCompanyId = SelectedCompany.CompanyId, RefCostAccountId = costAccountId };
+                    db.Creditors.Insert(creditor);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
             }
 
             var notificationService = this.GetRequiredService<INotificationService>();
@@ -84,36 +91,57 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void UpdateCreditor()
         {
-            using (var db = new DataLayer())
+            try
             {
-                db.Creditors.Update(Creditor);
+                using (var db = new DataLayer())
+                {
+                    db.Creditors.Update(Creditor);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
             }
         }
 
         private void RefreshData()
         {
-            using (var db = new DataLayer())
+            try
             {
-                Creditors = db.Creditors.GetAll().ToSvenTechCollection();
-                Debitors = db.Debitors.GetAll().ToSvenTechCollection();
-                TaxTypes = db.TaxTypes.GetAll().ToSvenTechCollection();
-                Companies = db.Companies.GetAll().ToSvenTechCollection();
+                using (var db = new DataLayer())
+                {
+                    Creditors = db.Creditors.GetAll().ToSvenTechCollection();
+                    Debitors = db.Debitors.GetAll().ToSvenTechCollection();
+                    TaxTypes = db.TaxTypes.GetAll().ToSvenTechCollection();
+                    Companies = db.Companies.GetAll().ToSvenTechCollection();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
             }
         }
 
         private void CreateCreditorWithCompany()
         {
-            using (var db = new DataLayer())
+            try
             {
-                var companyId = db.Companies.Insert(Creditor.Company);
-                var creditorNumber = db.CostAccounts.GetNextCreditorNumber();
-                Creditor.CostAccount.AccountNumber = creditorNumber;
-                Creditor.CostAccount.RefCostAccountCategoryId = db.CostAccountCategories.GetCreditorId();
-                Creditor.CostAccount.Description = Creditor.Company.Name;
-                Creditor.CostAccount.IsVisible = true;
-                var costAccountId = db.CostAccounts.Insert(Creditor.CostAccount);
-                var creditor = new Creditor {RefCompanyId = companyId, RefCostAccountId = costAccountId};
-                db.Creditors.Insert(creditor);
+                using (var db = new DataLayer())
+                {
+                    var companyId = db.Companies.Insert(Creditor.Company);
+                    var creditorNumber = db.CostAccounts.GetNextCreditorNumber();
+                    Creditor.CostAccount.AccountNumber = creditorNumber;
+                    Creditor.CostAccount.RefCostAccountCategoryId = db.CostAccountCategories.GetCreditorId();
+                    Creditor.CostAccount.Description = Creditor.Company.Name;
+                    Creditor.CostAccount.IsVisible = true;
+                    var costAccountId = db.CostAccounts.Insert(Creditor.CostAccount);
+                    var creditor = new Creditor { RefCompanyId = companyId, RefCostAccountId = costAccountId };
+                    db.Creditors.Insert(creditor);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
             }
 
             var notificationService = this.GetRequiredService<INotificationService>();
@@ -142,16 +170,23 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void CreateDebitor()
         {
-            using (var db = new DataLayer())
+            try
             {
-                var debitorNumber = db.CostAccounts.GetNextDebitorNumber();
-                Debitor.CostAccount.AccountNumber = debitorNumber;
-                Debitor.CostAccount.RefCostAccountCategoryId = db.CostAccountCategories.GetDebitorId();
-                Debitor.CostAccount.Description = Debitor.Company.Name;
-                Debitor.CostAccount.IsVisible = true;
-                var costAccountId = db.CostAccounts.Insert(Debitor.CostAccount);
-                var debitor = new Debitor {RefCompanyId = SelectedCompany.CompanyId, RefCostAccountId = costAccountId};
-                db.Debitors.Insert(debitor);
+                using (var db = new DataLayer())
+                {
+                    var debitorNumber = db.CostAccounts.GetNextDebitorNumber();
+                    Debitor.CostAccount.AccountNumber = debitorNumber;
+                    Debitor.CostAccount.RefCostAccountCategoryId = db.CostAccountCategories.GetDebitorId();
+                    Debitor.CostAccount.Description = Debitor.Company.Name;
+                    Debitor.CostAccount.IsVisible = true;
+                    var costAccountId = db.CostAccounts.Insert(Debitor.CostAccount);
+                    var debitor = new Debitor { RefCompanyId = SelectedCompany.CompanyId, RefCostAccountId = costAccountId };
+                    db.Debitors.Insert(debitor);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
             }
 
             var notificationService = this.GetRequiredService<INotificationService>();
@@ -162,25 +197,39 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void UpdateDebitor()
         {
-            using (var db = new DataLayer())
+            try
             {
-                db.Debitors.Update(Debitor);
+                using (var db = new DataLayer())
+                {
+                    db.Debitors.Update(Debitor);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
             }
         }
 
         private void CreateDebitorWithCompany()
         {
-            using (var db = new DataLayer())
+            try
             {
-                var companyId = db.Companies.Insert(Debitor.Company);
-                var debitorNumber = db.CostAccounts.GetNextDebitorNumber();
-                Debitor.CostAccount.AccountNumber = debitorNumber;
-                Debitor.CostAccount.RefCostAccountCategoryId = db.CostAccountCategories.GetDebitorId();
-                Debitor.CostAccount.Description = Debitor.Company.Name;
-                Debitor.CostAccount.IsVisible = true;
-                var costAccountId = db.CostAccounts.Insert(Debitor.CostAccount);
-                var creditor = new Creditor {RefCompanyId = companyId, RefCostAccountId = costAccountId};
-                db.Creditors.Insert(creditor);
+                using (var db = new DataLayer())
+                {
+                    var companyId = db.Companies.Insert(Debitor.Company);
+                    var debitorNumber = db.CostAccounts.GetNextDebitorNumber();
+                    Debitor.CostAccount.AccountNumber = debitorNumber;
+                    Debitor.CostAccount.RefCostAccountCategoryId = db.CostAccountCategories.GetDebitorId();
+                    Debitor.CostAccount.Description = Debitor.Company.Name;
+                    Debitor.CostAccount.IsVisible = true;
+                    var costAccountId = db.CostAccounts.Insert(Debitor.CostAccount);
+                    var creditor = new Creditor { RefCompanyId = companyId, RefCostAccountId = costAccountId };
+                    db.Creditors.Insert(creditor);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
             }
 
             var notificationService = this.GetRequiredService<INotificationService>();
@@ -191,9 +240,16 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void UpdateCompany(Company company)
         {
-            using (var db = new DataLayer())
+            try
             {
-                db.Companies.Update(company);
+                using (var db = new DataLayer())
+                {
+                    db.Companies.Update(company);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
             }
 
             var notificationService = this.GetRequiredService<INotificationService>();
@@ -204,9 +260,16 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteCreditor()
         {
-            using (var db = new DataLayer())
+            try
             {
-                db.Creditors.Delete(Creditor.CreditorId);
+                using (var db = new DataLayer())
+                {
+                    db.Creditors.Delete(Creditor.CreditorId);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
             }
 
             RefreshData();
@@ -214,9 +277,16 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteDebitor()
         {
-            using (var db = new DataLayer())
+            try
             {
-                db.Debitors.Delete(Debitor.DebitorId);
+                using (var db = new DataLayer())
+                {
+                    db.Debitors.Delete(Debitor.DebitorId);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
             }
 
             RefreshData();

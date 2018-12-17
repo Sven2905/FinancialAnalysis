@@ -79,7 +79,7 @@
     <Compile Include="Accounting\StoredProcedures\CostCentersStoredProcedures.cs" />
     <Compile Include="Accounting\StoredProcedures\CashbacksStoredProcedures.cs" />
     <Compile Include="Accounting\StoredProcedures\PaymentConditionsStoredProcedures.cs" />
-    <Compile Include="Accounting\Tables\CostCenter.cs" />
+    <Compile Include="Accounting\Tables\CostCenters.cs" />
     <Compile Include="Accounting\Tables\Cashbacks.cs" />
     <Compile Include="Accounting\Tables\PaymentConditions.cs" />
     <Compile Include="Administration\StoredProcedures\UsersStoredProcedures.cs" />

@@ -35,14 +35,14 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                     $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
                     "ProjectId int IDENTITY(1,1) PRIMARY KEY," +
                     "Name nvarchar(150) NOT NULL," +
-                    "Description nvarchar(150)," +
+                    "Description nvarchar(MAX)," +
                     "StartDate datetime NOT NULL," +
                     "ExpectedEndDate datetime NOT NULL," +
                     "TotalEndDate datetime NOT NULL," +
                     "IsEnded bit," +
                     "Budget money," +
                     "RefCostCenterId int NOT NULL," +
-                    "RefCustomerId int)";
+                    "RefEmployeeId int)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -100,7 +100,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Name, @Description, @Budget, @StartDate, @ExpectedEndDate, @TotalEndDate, @IsEnded, @RefCostCenterId, @RefCustomerId",
+                            $"dbo.{TableName}_Insert @Name, @Description, @Budget, @StartDate, @ExpectedEndDate, @TotalEndDate, @IsEnded, @RefCostCenterId, @RefEmployeeId",
                             Project);
                     id = result.Single();
                 }
@@ -181,6 +181,72 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
             catch (Exception e)
             {
                 Log.Error($"Exception occured while creating reference between '{TableName}' and CostCenters", e);
+            }
+        }
+
+        /// <summary>
+        ///     Update Project, if not exist, insert it
+        /// </summary>
+        /// <param name="User"></param>
+        public void UpdateOrInsert(Project Project)
+        {
+            if (Project.ProjectId == 0 || GetById(Project.ProjectId) is null)
+            {
+                Insert(Project);
+                return;
+            }
+
+            Update(Project);
+        }
+
+        /// <summary>
+        ///     Update Projects, if not exist insert them
+        /// </summary>
+        /// <param name="Project"></param>
+        public void UpdateOrInsert(IEnumerable<Project> Projects)
+        {
+            foreach (var Project in Projects) UpdateOrInsert(Project);
+        }
+
+        /// <summary>
+        ///     Update Project
+        /// </summary>
+        /// <param name="Project"></param>
+        public void Update(Project Project)
+        {
+            if (Project.ProjectId == 0 || GetById(Project.ProjectId) is null) return;
+
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.Execute($"dbo.{TableName}_Update @ProjectId, @Name, @Description, @Budget, @StartDate, @ExpectedEndDate, @TotalEndDate, @IsEnded, @RefCostCenterId, @RefEmployeeId", Project);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Update' from table '{TableName}'", e);
+            }
+        }
+
+        /// <summary>
+        ///     Delete User by Id
+        /// </summary>
+        /// <param name="id"></param>
+        public void Delete(int id)
+        {
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.Execute($"dbo.{TableName}_Delete @ProjectId", new { ProjectId = id });
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Delete' from table '{TableName}'", e);
             }
         }
     }

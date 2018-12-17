@@ -52,10 +52,9 @@ namespace FinancialAnalysis.Logic.ViewModels
         public UsersViewModel()
         {
             Users = LoadAllUsers();
-            SelectedUser = new User();
             NewUserCommand = new DelegateCommand(NewUser);
-            SaveUserCommand = new DelegateCommand(SaveUser);
-            DeleteUserCommand = new DelegateCommand(DeleteUser);
+            SaveUserCommand = new DelegateCommand(SaveUser, () => Validation());
+            DeleteUserCommand = new DelegateCommand(DeleteUser, () => (SelectedUser != null));
         }
 
         private SvenTechCollection<User> LoadAllUsers()
@@ -113,11 +112,6 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveUser()
         {
-            if (SelectedUser == null || string.IsNullOrEmpty(SelectedUser.LoginUser))
-            {
-                return;
-            }
-
             try
             {
                 if (SelectedUser.UserId != 0)
@@ -207,6 +201,26 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
 
             return data;
+        }
+
+        private bool Validation()
+        {
+            if (SelectedUser == null)
+            {
+                return false;
+            }
+            if (string.IsNullOrEmpty(SelectedUser.Firstname) || string.IsNullOrEmpty(SelectedUser.Lastname) || string.IsNullOrEmpty(SelectedUser.LoginUser))
+            {
+                return false;
+            }
+            if (SelectedUser.UserId == 0)
+            {
+                if (string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(PasswordRepeat))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private bool IsPasswordIdentical() => (Password == PasswordRepeat);

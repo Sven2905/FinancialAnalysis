@@ -24,6 +24,7 @@ namespace FinancialAnalysis.Datalayer
         public ProductCategories ProductCategories { get; set; } = new ProductCategories();
         public ProductPrototypes ProductPrototypes { get; set; } = new ProductPrototypes();
         public Projects Projects { get; set; } = new Projects();
+        public CostCenters CostCenters { get; set; } = new CostCenters();
         public ProjectRoles ProjectRoles { get; set; } = new ProjectRoles();
         public Employees Employees { get; set; } = new Employees();
         public ProjectEmployeeMappings ProjectEmployeeMappings { get; set; } = new ProjectEmployeeMappings();
@@ -65,6 +66,7 @@ namespace FinancialAnalysis.Datalayer
             ProductCategories.CheckAndCreateStoredProcedures();
             ProductPrototypes.CheckAndCreateStoredProcedures();
             Projects.CheckAndCreateStoredProcedures();
+            CostCenters.CheckAndCreateStoredProcedures();
             Employees.CheckAndCreateStoredProcedures();
             ProjectRoles.CheckAndCreateStoredProcedures();
             ProjectEmployeeMappings.CheckAndCreateStoredProcedures();

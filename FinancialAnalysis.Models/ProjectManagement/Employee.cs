@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevExpress.Mvvm;
+using System;
 using System.Collections.Generic;
 
 namespace FinancialAnalysis.Models.ProjectManagement
@@ -6,12 +7,12 @@ namespace FinancialAnalysis.Models.ProjectManagement
     /// <summary>
     ///     Employee
     /// </summary>
-    public class Employee
+    public class Employee : BindableBase
     {
         public int EmployeeId { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
-        public DateTime Birthdate { get; set; }
+        public DateTime Birthdate { get; set; } = DateTime.Now;
         public string Street { get; set; }
         public string City { get; set; }
         public int Postcode { get; set; }
@@ -38,9 +39,13 @@ namespace FinancialAnalysis.Models.ProjectManagement
         // Sozialversicherungsnummer
         public string NationalInsuranceNumber { get; set; }
         public byte[] Picture { get; set; }
-        public string PictureName { get; set; }
+        public string Phone { get; set; }
+        public string Mail { get; set; }
 
         public virtual List<ProjectEmployeeMapping> ProjectEmployeeMappings { get; set; }
         public virtual List<ProjectWorkingTime> ProjectWorkingTimes { get; set; }
+
+        public string Name => Firstname + " " + Lastname;
+        public string Address => Street + ", " + Postcode + " " + City;
     }
 }
