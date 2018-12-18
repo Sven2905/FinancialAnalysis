@@ -108,7 +108,7 @@
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>
                             <dxlc:LayoutItem Label="Projekt" FontFamily="Tahoma" >
-                                <dxe:ComboBoxEdit ValueMember="CostCenterId" DisplayMember="Name" ItemsSource="{Binding Projects}" EditValue="{Binding ProjectWorkingTime.RefProjectId}" FontFamily="Tahoma" />
+                                <dxe:ComboBoxEdit ValueMember="ProjectId" DisplayMember="Name" ItemsSource="{Binding Projects}" EditValue="{Binding ProjectWorkingTime.RefProjectId}" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>
@@ -118,7 +118,7 @@
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>
                             <dxlc:LayoutItem Label="Pause (Minuten)" FontFamily="Tahoma" >
-                                <dxe:TextEdit Text="{Binding ProjectWorkingTime.Breaktime, ConverterCulture='de-DE', StringFormat='C2'}" FontFamily="Tahoma" />
+                                <dxe:TextEdit Text="{Binding ProjectWorkingTime.Breaktime, ConverterCulture='de-DE', StringFormat='N0'}" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                     </dxlc:LayoutGroup>

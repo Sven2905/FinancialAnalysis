@@ -185,6 +185,12 @@
                 </dx:SimpleButton.Glyph>
             </dx:SimpleButton>
 
+            <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="10" Margin="0,3,0,3" ItemsSource="{Binding CostCenters}"
+                              DisplayMember="Name" EditValue="{Binding CostCenterId}" Foreground="#3F729B" />
+
+            <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="12" Margin="0,3,0,3" ItemsSource="{Binding Projects}"
+                              DisplayMember="Name" EditValue="{Binding ProjectId}" Foreground="#3F729B" />
+
             <TextBlock Grid.Column="4" Grid.Row="0" Text="Betrag: " VerticalAlignment="Center" Margin="5,0,0,0"
                        Foreground="#3F729B" FontFamily="Tahoma" />
             <TextBlock Grid.Column="4" Grid.Row="2" Text="Rechnungen: " VerticalAlignment="Top" Margin="5,0,0,0"
@@ -201,7 +207,7 @@
                     <dxmvvm:EnumItemsSourceBehavior EnumType="{x:Type models:GrossNetType}" />
                 </dxmvvm:Interaction.Behaviors>
             </dxe:ComboBoxEdit>
-            <dxe:ListBoxEdit Grid.Column="7" Grid.Row="2" Grid.RowSpan="9" Margin="10,-20,45,3" Height="300"
+            <dxe:ListBoxEdit Grid.Column="7" Grid.Row="2" Grid.RowSpan="7" Margin="10,0,45,3" Height="300"
                              MinWidth="300" HorizontalAlignment="Left" ItemsSource="{Binding ScannedDocuments}"
                              SelectedItem="{Binding SelectedScannedDocument}">
                 <dxmvvm:Interaction.Behaviors>

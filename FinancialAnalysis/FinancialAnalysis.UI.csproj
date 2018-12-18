@@ -144,7 +144,7 @@
     <Compile Include="UserControls\Accounting\CostCenterControl.xaml.cs">
       <DependentUpon>CostCenterControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ProjectWorkingTimeControl.xaml.cs">
+    <Compile Include="UserControls\ProjectManagement\ProjectWorkingTimeControl.xaml.cs">
       <DependentUpon>ProjectWorkingTimeControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ProjectManagement\EmployeeControl.xaml.cs">
@@ -211,7 +211,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\ProjectWorkingTimeControl.xaml">
+    <Page Include="UserControls\ProjectManagement\ProjectWorkingTimeControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
