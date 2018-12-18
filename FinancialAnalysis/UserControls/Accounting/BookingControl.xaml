@@ -84,6 +84,10 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="10" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
 
@@ -97,9 +101,13 @@
                        Foreground="#3F729B" FontFamily="Tahoma" />
             <TextBlock Grid.Column="0" Grid.Row="8" Text="Steuer: " VerticalAlignment="Center" Margin="5,0,0,0"
                        Foreground="#3F729B" FontFamily="Tahoma" />
+            <TextBlock Grid.Column="0" Grid.Row="10" Text="Kostenstelle: " VerticalAlignment="Center" Margin="5,0,0,0"
+                       Foreground="#3F729B" FontFamily="Tahoma" />
+            <TextBlock Grid.Column="0" Grid.Row="12" Text="Projekt: " VerticalAlignment="Center" Margin="5,0,0,0"
+                       Foreground="#3F729B" FontFamily="Tahoma" />
 
             <dxe:DateEdit Grid.Column="1" Grid.Row="0" Margin="0,3,0,3" Foreground="#3F729B" DateTime="{Binding Date}" />
-            <TextBox Grid.Column="1" Grid.Row="2" Height="200" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"
+            <TextBox Grid.Column="1" Grid.Row="2" Height="100" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"
                      AcceptsReturn="True" Foreground="#3F729B" Text="{Binding Description}" />
             <dxg:LookUpEdit DisplayMember="DisplayName" ValueMember="CostAccountId" Foreground="#3F729B"
                             Grid.Column="1" Grid.Row="4" Margin="0,3,0,3" PopupWidth="800"
