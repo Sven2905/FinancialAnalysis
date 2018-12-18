@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
+using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.ProjectManagement;
 using Serilog;
 
@@ -42,6 +43,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                     "IsEnded bit," +
                     "Budget money," +
                     "RefCostCenterId int NOT NULL," +
+                    "Identifier nvarchar(150) NOT NULL, " +
                     "RefEmployeeId int)";
 
                 using (var command = new SqlCommand(commandStr, con))
@@ -68,21 +70,39 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         /// <returns></returns>
         public IEnumerable<Project> GetAll()
         {
-            IEnumerable<Project> output = new List<Project>();
-            try
-            {
-                using (IDbConnection con =
-                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    output = con.Query<Project>($"dbo.{TableName}_GetAll");
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
-            }
+            var projectDictionary = new Dictionary<int, Project>();
 
-            return output;
+            using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+            {
+                var query = con.Query<Project, ProjectEmployeeMapping, Employee, CostCenter, ProjectRole, ProjectWorkingTime, Project>
+                    ($"dbo.{TableName}_GetAll",
+                        (p, m, e, c, r, t) =>
+                        {
+                            Project projectEntry = new Project();
+
+                            if (!projectDictionary.TryGetValue(p.ProjectId, out projectEntry))
+                            {
+                                projectEntry = p;
+                                projectEntry.CostCenter = c;
+                                if (m != null)
+                                {
+                                    m.ProjectRole = r;
+                                    m.Project = p;
+                                    m.Employee = e;
+                                }
+                                projectEntry.ProjectEmployeeMappings = new List<ProjectEmployeeMapping>();
+                                projectEntry.ProjectWorkingTimes = new List<ProjectWorkingTime>();
+                                projectDictionary.Add(projectEntry.ProjectId, projectEntry);
+                            }
+
+                            projectEntry.ProjectEmployeeMappings.Add(m);
+                            projectEntry.ProjectWorkingTimes.Add(t);
+                            return p;
+
+                        }, splitOn: "ProjectId, ProjectEmployeeMappingId, EmployeeId, CostCenterId, ProjectRoleId, ProjectWorkingTimeId")
+                    .AsQueryable();
+                return query.ToList();
+            }
         }
 
         /// <summary>
@@ -100,7 +120,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Name, @Description, @Budget, @StartDate, @ExpectedEndDate, @TotalEndDate, @IsEnded, @RefCostCenterId, @RefEmployeeId",
+                            $"dbo.{TableName}_Insert @Name, @Description, @Budget, @StartDate, @ExpectedEndDate, @TotalEndDate, @IsEnded, @RefCostCenterId, @Identifier, @RefEmployeeId",
                             Project);
                     id = result.Single();
                 }
@@ -147,7 +167,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.QuerySingleOrDefault<Project>($"dbo.{TableName}_GetById @ProjectId",
-                        new {ProjectId = id});
+                        new { ProjectId = id });
                 }
             }
             catch (Exception e)
@@ -221,7 +241,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @ProjectId, @Name, @Description, @Budget, @StartDate, @ExpectedEndDate, @TotalEndDate, @IsEnded, @RefCostCenterId, @RefEmployeeId", Project);
+                    con.Execute($"dbo.{TableName}_Update @ProjectId, @Name, @Description, @Budget, @StartDate, @ExpectedEndDate, @TotalEndDate, @IsEnded, @RefCostCenterId, @Identifier, @RefEmployeeId", Project);
                 }
             }
             catch (Exception e)

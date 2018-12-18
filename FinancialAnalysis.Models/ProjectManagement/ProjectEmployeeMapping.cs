@@ -1,4 +1,6 @@
-﻿namespace FinancialAnalysis.Models.ProjectManagement
+﻿using System.Collections.Generic;
+
+namespace FinancialAnalysis.Models.ProjectManagement
 {
     /// <summary>
     ///     Mapping between employee, project and role

@@ -33,9 +33,9 @@ namespace FinancialAnalysis.Datalayer.Product
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
                     $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
-                    "ProductCategoryId int IDENTITY(1,1) PRIMARY KEY," +
-                    "Name nvarchar(150) NOT NULL," +
-                    "Description nvarchar(150)";
+                    "ProductCategoryId int IDENTITY(1,1) PRIMARY KEY, " +
+                    "Name nvarchar(150) NOT NULL, " +
+                    "Description nvarchar(150))";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {

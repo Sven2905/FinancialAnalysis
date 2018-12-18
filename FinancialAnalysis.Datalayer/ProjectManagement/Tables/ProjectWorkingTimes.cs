@@ -9,13 +9,13 @@ using Serilog;
 
 namespace FinancialAnalysis.Datalayer.ProjectManagement
 {
-    public class Employees : ITable
+    public class ProjectWorkingTimes : ITable
     {
-        private readonly EmployeesStoredProcedures sp = new EmployeesStoredProcedures();
+        private readonly ProjectWorkingTimesStoredProcedures sp = new ProjectWorkingTimesStoredProcedures();
 
-        public Employees()
+        public ProjectWorkingTimes()
         {
-            TableName = "Employees";
+            TableName = "ProjectWorkingTimes";
             CheckAndCreateTable();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -33,31 +33,13 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
                     $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
-                    "EmployeeId int IDENTITY(1,1) PRIMARY KEY," +
-                    "Firstname nvarchar(150) NOT NULL," +
-                    "Lastname nvarchar(150) NOT NULL," +
-                    "Birthdate date," +
-                    "Street nvarchar(150) NOT NULL," +
-                    "City nvarchar(150) NOT NULL," +
-                    "Postcode int NOT NULL," +
-                    "Gender int," +
-                    "CivilStatus int," +
-                    "TaxId nvarchar(150)," +
-                    "HasDrivingLicence bit," +
-                    "Nationality nvarchar(150)," +
-                    "Confession nvarchar(150)," +
-                    "BankName nvarchar(150)," +
-                    "BIC nvarchar(150)," +
-                    "IBAN nvarchar(150)," +
-                    "NationalInsuranceNumber nvarchar(150)," +
-                    "Salary money," +
-                    "WorkHoursPerWeek real," +
-                    "VacationDays real," +
-                    "Picture varbinary(MAX)," +
-                    "RefHealthInsuranceId int," +
-                    "Mail nvarchar(150)," +
-                    "Phone nvarchar(150)," +
-                    "RefTariffId int)";
+                    "ProjectWorkingTimeId int IDENTITY(1,1) PRIMARY KEY," +
+                    "Description nvarchar(MAX)," +
+                    "StartTime datetime NOT NULL," +
+                    "EndTime datetime NOT NULL," +
+                    "Breaktime int NOT NULL," +
+                    "RefEmployeeId int NOT NULL," +
+                    "RefProjectId int NOT NULL)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -78,18 +60,18 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         }
 
         /// <summary>
-        ///     Returns all Employee records
+        ///     Returns all ProjectWorkingTime records
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Employee> GetAll()
+        public IEnumerable<ProjectWorkingTime> GetAll()
         {
-            IEnumerable<Employee> output = new List<Employee>();
+            IEnumerable<ProjectWorkingTime> output = new List<ProjectWorkingTime>();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<Employee>($"dbo.{TableName}_GetAll");
+                    output = con.Query<ProjectWorkingTime>($"dbo.{TableName}_GetAll");
                 }
             }
             catch (Exception e)
@@ -101,11 +83,11 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         }
 
         /// <summary>
-        ///     Inserts the Employee item
+        ///     Inserts the ProjectWorkingTime item
         /// </summary>
-        /// <param name="Employee"></param>
+        /// <param name="ProjectWorkingTime"></param>
         /// <returns>Id of inserted item</returns>
-        public int Insert(Employee Employee)
+        public int Insert(ProjectWorkingTime ProjectWorkingTime)
         {
             var id = 0;
             try
@@ -113,9 +95,10 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>(
-                        $"dbo.{TableName}_Insert @Firstname, @Lastname, @Birthdate, @Street, @City, @Postcode, @Gender, @CivilStatus, @RefTariffId, @TaxId, @RefHealthInsuranceId, @HasDrivingLicence, @Nationality, @Confession, @BankName, @BIC, @IBAN, @NationalInsuranceNumber, @Salary, @WorkHoursPerWeek, @VacationDays, @Picture, @Mail, @Phone",
-                        Employee);
+                    var result =
+                        con.Query<int>(
+                            $"dbo.{TableName}_Insert @Description, @StartTime, @EndTime, @Breaktime, @RefEmployeeId, @RefProjectId ",
+                            ProjectWorkingTime);
                     id = result.Single();
                 }
             }
@@ -128,17 +111,17 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         }
 
         /// <summary>
-        ///     Inserts the list of Project items
+        ///     Inserts the list of ProjectWorkingTime items
         /// </summary>
-        /// <param name="Employees"></param>
-        public void Insert(IEnumerable<Employee> Employees)
+        /// <param name="ProjectWorkingTime"></param>
+        public void Insert(IEnumerable<ProjectWorkingTime> ProjectWorkingTimes)
         {
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var Employee in Employees) Insert(Employee);
+                    foreach (var ProjectWorkingTime in ProjectWorkingTimes) Insert(ProjectWorkingTime);
                 }
             }
             catch (Exception e)
@@ -148,20 +131,20 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         }
 
         /// <summary>
-        ///     Returns Employee by Id
+        ///     Returns ProjectWorkingTime by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Employee GetById(int id)
+        public ProjectWorkingTime GetById(int id)
         {
-            var output = new Employee();
+            var output = new ProjectWorkingTime();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<Employee>($"dbo.{TableName}_GetById @EmployeeId",
-                        new {EmployeeId = id});
+                    output = con.QuerySingleOrDefault<ProjectWorkingTime>($"dbo.{TableName}_GetById @ProjectWorkingTimeId",
+                        new { ProjectWorkingTimeId = id});
                 }
             }
             catch (Exception e)
@@ -173,45 +156,43 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         }
 
         /// <summary>
-        ///     Update Employee, if not exist, insert it
+        ///     Update ProjectWorkingTime, if not exist, insert it
         /// </summary>
-        /// <param name="Employee"></param>
-        public void UpdateOrInsert(Employee Employee)
+        /// <param name="ProjectWorkingTime"></param>
+        public void UpdateOrInsert(ProjectWorkingTime ProjectWorkingTime)
         {
-            if (Employee.EmployeeId == 0 || GetById(Employee.EmployeeId) is null)
+            if (ProjectWorkingTime.ProjectWorkingTimeId == 0 || GetById(ProjectWorkingTime.ProjectWorkingTimeId) is null)
             {
-                Insert(Employee);
+                Insert(ProjectWorkingTime);
                 return;
             }
 
-            Update(Employee);
+            Update(ProjectWorkingTime);
         }
 
         /// <summary>
-        ///     Update Employees, if not exist insert them
+        ///     Update ProjectWorkingTimes, if not exist insert them
         /// </summary>
-        /// <param name="Employees"></param>
-        public void UpdateOrInsert(IEnumerable<Employee> Employees)
+        /// <param name="ProjectWorkingTimes"></param>
+        public void UpdateOrInsert(IEnumerable<ProjectWorkingTime> ProjectWorkingTimes)
         {
-            foreach (var Employee in Employees) UpdateOrInsert(Employee);
+            foreach (var ProjectWorkingTime in ProjectWorkingTimes) UpdateOrInsert(ProjectWorkingTime);
         }
 
         /// <summary>
-        ///     Update Employee
+        ///     Update ProjectWorkingTime
         /// </summary>
-        /// <param name="Employee"></param>
-        public void Update(Employee Employee)
+        /// <param name="ProjectWorkingTime"></param>
+        public void Update(ProjectWorkingTime ProjectWorkingTime)
         {
-            if (Employee.EmployeeId == 0 || GetById(Employee.EmployeeId) is null) return;
+            if (ProjectWorkingTime.ProjectWorkingTimeId == 0 || GetById(ProjectWorkingTime.ProjectWorkingTimeId) is null) return;
 
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @EmployeeId, @Firstname, @Lastname, @Birthdate, @Street, @City, @Postcode, @Gender, @CivilStatus, @RefTariffId, @TaxId, " +
-                        $"@RefHealthInsuranceId, @HasDrivingLicence, @Nationality, @Confession, @BankName, @BIC, @IBAN, @NationalInsuranceNumber, @Salary, @WorkHoursPerWeek, " +
-                        $"@VacationDays, @Picture, @Mail, @Phone", Employee);
+                    con.Execute($"dbo.{TableName}_Update @ProjectWorkingTimeId, @Description, @StartTime, @EndTime, @Breaktime, @RefEmployeeId, @RefProjectId", ProjectWorkingTime);
                 }
             }
             catch (Exception e)
@@ -221,7 +202,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         }
 
         /// <summary>
-        ///     Delete Employee by Id
+        ///     Delete ProjectWorkingTime by Id
         /// </summary>
         /// <param name="id"></param>
         public void Delete(int id)
@@ -231,7 +212,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @EmployeeId", new { EmployeeId = id });
+                    con.Execute($"dbo.{TableName}_Delete @ProjectWorkingTimeId", new { ProjectWorkingTimeId = id });
                 }
             }
             catch (Exception e)
@@ -242,16 +223,17 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
 
         public void AddReferences()
         {
-            AddHealthInsurancesReference();
+            AddEmployeesReference();
+            AddProjectsReference();
         }
 
-        private void AddHealthInsurancesReference()
+        private void AddEmployeesReference()
         {
             try
             {
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
-                    $"IF(OBJECT_ID('FK_{TableName}_HealthInsurances', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_HealthInsurances FOREIGN KEY(RefHealthInsuranceId) REFERENCES HealthInsurances(HealthInsuranceId)";
+                    $"IF(OBJECT_ID('FK_{TableName}_Employees', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_Employees FOREIGN KEY(RefEmployeeId) REFERENCES Employees(EmployeeId)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -262,7 +244,28 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
             }
             catch (Exception e)
             {
-                Log.Error($"Exception occured while creating reference between '{TableName}' and HealthInsurances", e);
+                Log.Error($"Exception occured while creating reference between '{TableName}' and Employees", e);
+            }
+        }
+
+        private void AddProjectsReference()
+        {
+            try
+            {
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_{TableName}_Projects', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_Projects FOREIGN KEY(RefProjectId) REFERENCES Projects(ProjectId)";
+
+                using (var command = new SqlCommand(commandStr, con))
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while creating reference between '{TableName}' and Projects", e);
             }
         }
     }

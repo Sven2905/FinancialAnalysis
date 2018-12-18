@@ -94,10 +94,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="General\Encryption.cs" />
     <Compile Include="General\Extensions.cs" />
     <Compile Include="General\Globals.cs" />
-    <Compile Include="ImportCostAccounts.cs" />
+    <Compile Include="Import.cs" />
     <Compile Include="Mail\Mail.cs" />
     <Compile Include="Messages\OpenSplashScreenMessage.cs" />
     <Compile Include="Messages\OpenMainWindowMessage.cs" />
@@ -124,7 +123,8 @@
     <Compile Include="ViewModels\Accounting\TaxTypeViewModel.cs" />
     <Compile Include="ViewModels\ProjectManagement\ProjectViewModel.cs" />
     <Compile Include="ViewModels\Administration\UsersViewModel.cs" />
-    <Compile Include="XmlHelper.cs" />
+    <Compile Include="General\XmlHelper.cs" />
+    <Compile Include="ViewModels\ProjectManagement\ProjectWorkingTimeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -138,6 +138,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="FodyWeavers.xml" />
+    <Content Include="ToDo.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FinancialAnalysis.Datalayer\FinancialAnalysis.Datalayer.csproj">

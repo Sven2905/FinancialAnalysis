@@ -35,6 +35,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}" +
                     "(CostCenterId int IDENTITY(1,1) PRIMARY KEY," +
                     "Name nvarchar(150) NOT NULL," +
+                    "Identifier nvarchar(150) NOT NULL, " +
                     "Description nvarchar(MAX))";
 
                 using (var command = new SqlCommand(commandStr, con))
@@ -91,7 +92,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @Description ", CostCenter);
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @Identifier, @Description ", CostCenter);
                     id = result.Single();
                 }
             }
@@ -185,7 +186,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @CostCenterId, @Name, @Description", CostCenter);
+                    con.Execute($"dbo.{TableName}_Update @CostCenterId, @Name, @Identifier, @Description", CostCenter);
                 }
             }
             catch (Exception e)

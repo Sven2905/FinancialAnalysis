@@ -11,7 +11,6 @@ namespace FinancialAnalysis
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            // DXSplashScreen.Show<SplashScreenView>();
         }
     }
 }

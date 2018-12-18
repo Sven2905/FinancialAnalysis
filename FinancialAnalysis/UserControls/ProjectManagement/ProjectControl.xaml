@@ -124,6 +124,11 @@
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>
+                            <dxlc:LayoutItem Label="Projekt-ID" FontFamily="Tahoma" >
+                                <dxe:TextEdit Text="{Binding SelectedProject.Identifier}" FontFamily="Tahoma" />
+                            </dxlc:LayoutItem>
+                        </dxlc:LayoutGroup>                        
+                        <dxlc:LayoutGroup>
                             <dxlc:LayoutItem Label="Name" FontFamily="Tahoma" >
                                 <dxe:TextEdit Text="{Binding SelectedProject.Name}" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>

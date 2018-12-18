@@ -70,7 +70,7 @@
             </dxb:BarManager.Bars>
         </dxb:BarManager>-->
 
-        <dxwui:NavigationFrame Source="MainControl" AnimationType="SlideHorizontal"/>
+        <dxwui:NavigationFrame Source="MainControl" AnimationType="SlideHorizontal" />
 
     </Grid>
 </dxc:DXWindow>

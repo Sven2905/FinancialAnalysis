@@ -55,9 +55,6 @@
     <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.Sinks.File.4.0.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
     </Reference>
-    <Reference Include="Slapper, Version=1.0.0.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Slapper.AutoMapper.1.0.0.9\lib\Slapper.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -97,11 +94,13 @@
     <Compile Include="ProjectManagement\StoredProcedures\HealthInsurancesStoredProcedures.cs" />
     <Compile Include="ProjectManagement\StoredProcedures\EmployeesStoredProcedures.cs" />
     <Compile Include="ProjectManagement\StoredProcedures\ProjectEmployeeMappingsStoredProcedures.cs" />
+    <Compile Include="ProjectManagement\StoredProcedures\ProjectWorkingTimesStoredProcedures.cs" />
     <Compile Include="ProjectManagement\StoredProcedures\ProjectsStoredProcedures.cs" />
     <Compile Include="ProjectManagement\Tables\ProjectRoles.cs" />
     <Compile Include="ProjectManagement\Tables\HealthInsurances.cs" />
     <Compile Include="ProjectManagement\Tables\Employees.cs" />
     <Compile Include="ProjectManagement\Tables\ProjectEmployeeMappings.cs" />
+    <Compile Include="ProjectManagement\Tables\ProjectWorkingTimes.cs" />
     <Compile Include="ProjectManagement\Tables\Projects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Accounting\StoredProcedures\BookingsStoredProcedures.cs" />

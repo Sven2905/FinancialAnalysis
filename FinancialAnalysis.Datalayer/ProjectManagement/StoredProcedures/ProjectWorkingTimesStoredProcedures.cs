@@ -2,13 +2,13 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.Accounting
+namespace FinancialAnalysis.Datalayer.ProjectManagement
 {
-    public class CostCentersStoredProcedures : IStoredProcedures
+    public class ProjectWorkingTimesStoredProcedures : IStoredProcedures
     {
-        public CostCentersStoredProcedures()
+        public ProjectWorkingTimesStoredProcedures()
         {
-            TableName = "CostCenters";
+            TableName = "ProjectWorkingTimes";
         }
 
         public string TableName { get; }
@@ -32,7 +32,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT CostCenterId, Name, Identifier, Description " +
+                                "SELECT ProjectWorkingTimeId, Description, StartTime, EndTime, Breaktime, RefEmployeeId, RefProjectId " +
                                 $"FROM {TableName} " +
                                 "END");
                 using (var connection =
@@ -56,9 +56,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Identifier nvarchar(150), @Description nvarchar(MAX) AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, Identifier, Description) " +
-                    "VALUES (@Name, @Identifier, @Description); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Description nvarchar(MAX), @StartTime datetime, @EndTime datetime, @Breaktime int, @RefEmployeeId int, @RefProjectId int AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Description, StartTime, EndTime, Breaktime, RefEmployeeId, RefProjectId) " +
+                    "VALUES (@Description, @StartTime, @EndTime, @Breaktime, @RefEmployeeId, @RefProjectId); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -81,9 +81,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @CostCenterId int AS BEGIN SET NOCOUNT ON; SELECT CostCenterId, Name, Identifier, Description " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @ProjectWorkingTimeId int AS BEGIN SET NOCOUNT ON; SELECT ProjectWorkingTimeId, Description, StartTime, EndTime, Breaktime, RefEmployeeId, RefProjectId " +
                     $"FROM {TableName} " +
-                    "WHERE CostCenterId = @CostCenterId END");
+                    "WHERE ProjectWorkingTimeId = @ProjectWorkingTimeId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -105,13 +105,16 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @CostCenterId int, @Name nvarchar(150),@Identifier nvarchar(150), @Description nvarchar(MAX) " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @ProjectWorkingTimeId int, @Description nvarchar(MAX), @StartTime datetime, @EndTime datetime, @Breaktime int, @RefEmployeeId int, @RefProjectId int " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
-                    "SET Name = @Name, " +
-                    "Identifier = @Identifier, " +
-                    "Description = @Description " +
-                    "WHERE CostCenterId = @CostCenterId END");
+                    "SET Description = @Description, " +
+                    "StartTime = @StartTime, " +
+                    "EndTime = @EndTime, " +
+                    "Breaktime = @Breaktime, " +
+                    "RefEmployeeId = @RefEmployeeId, " +
+                    "RefProjectId = @RefProjectId " +
+                    "WHERE ProjectWorkingTimeId = @ProjectWorkingTimeId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -133,7 +136,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @CostCenterId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE CostCenterId = @CostCenterId END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @ProjectWorkingTimeId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE ProjectWorkingTimeId = @ProjectWorkingTimeId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
