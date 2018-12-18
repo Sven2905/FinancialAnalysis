@@ -36,11 +36,11 @@ namespace FinancialAnalysis.Datalayer.Product
                     "ProductPrototypeId int IDENTITY(1,1) PRIMARY KEY," +
                     "Name nvarchar(150) NOT NULL," +
                     "Description nvarchar(150)," +
-                    "DimensionX int," +
-                    "DimensionY int," +
-                    "DimensionZ int," +
-                    "Weight decimal," +
-                    "IsStackable bit" +
+                    "DimensionX int, " +
+                    "DimensionY int, " +
+                    "DimensionZ int, " +
+                    "Weight decimal, " +
+                    "IsStackable bit, " +
                     "RefProductCategory int NOT NULL)";
 
                 using (var command = new SqlCommand(commandStr, con))

@@ -19,12 +19,13 @@ namespace FinancialAnalysis.Models.ProjectManagement
         public DateTime TotalEndDate { get; set; } = DateTime.Now;
         public bool IsEnded { get; set; }
         public decimal Costs { get; set; }
+        public string Identifier { get; set; }
 
         public int RefCostCenterId { get; set; }
-        public CostCenter CostCenter { get; set; }
+        public virtual CostCenter CostCenter { get; set; }
 
-        public int? RefEmployeeId { get; set; }
-        public Employee Employee { get; set; } // Leader
+        public int RefEmployeeId { get; set; }
+        public virtual Employee Employee { get; set; } // Leader
 
         public virtual List<ProjectEmployeeMapping> ProjectEmployeeMappings { get; set; }
         public virtual List<ProjectWorkingTime> ProjectWorkingTimes { get; set; }

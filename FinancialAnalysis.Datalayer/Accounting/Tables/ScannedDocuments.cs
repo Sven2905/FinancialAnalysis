@@ -238,7 +238,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
             {
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
-                    $"IF(OBJECT_ID('FK_ScannedDocuments_Bookings', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_ScannedDocuments_Booking FOREIGN KEY(RefBookingId) REFERENCES Bookings(BookingId)";
+                    $"IF(OBJECT_ID('FK_ScannedDocuments_Bookings', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_ScannedDocuments_Bookings FOREIGN KEY(RefBookingId) REFERENCES Bookings(BookingId)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {

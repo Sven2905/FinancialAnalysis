@@ -11,12 +11,12 @@ namespace FinancialAnalysis.Logic
             this IEnumerable<CostAccountCategory> collection)
         {
             var categories = (from fc in collection
-                select new CostAccountCategory
-                {
-                    CostAccountCategoryId = fc.CostAccountCategoryId,
-                    Description = fc.Description,
-                    ParentCategoryId = fc.ParentCategoryId
-                }).ToList();
+                              select new CostAccountCategory
+                              {
+                                  CostAccountCategoryId = fc.CostAccountCategoryId,
+                                  Description = fc.Description,
+                                  ParentCategoryId = fc.ParentCategoryId
+                              }).ToList();
 
             var lookup = categories.ToLookup(c => c.ParentCategoryId);
 
@@ -31,18 +31,6 @@ namespace FinancialAnalysis.Logic
             for (var i = itemsToRemove.Count() - 1; i >= 0; i--) categories.Remove(itemsToRemove[i]);
 
             return new SvenTechCollection<CostAccountCategory>(categories);
-
-
-            var finalList = new SvenTechCollection<CostAccountCategory>();
-            var ids = collection.Where(x => x.ParentCategoryId == 0).Select(x => x.CostAccountCategoryId);
-
-            finalList.AddRange(collection.Where(x => ids.Contains(x.CostAccountCategoryId)));
-
-            foreach (var item in collection)
-            {
-            }
-
-            return finalList;
         }
     }
 }

@@ -6,10 +6,10 @@ namespace FinancialAnalysis.Models.ProjectManagement
     {
         public int ProjectWorkingTimeId { get; set; }
         public int RefEmployeeId { get; set; }
-        public virtual Employee Employee { get; set; }
         public int RefProjectId { get; set; }
-        public virtual Project Project { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public string Description { get; set; }
+        public DateTime StartTime { get; set; } = DateTime.Now;
+        public DateTime EndTime { get; set; } = DateTime.Now;
+        public int Breaktime { get; set; }
     }
 }

@@ -6,7 +6,6 @@ using System.Linq;
 using Dapper;
 using FinancialAnalysis.Models.Accounting;
 using Serilog;
-using Slapper;
 using Utilities;
 
 namespace FinancialAnalysis.Datalayer.Accounting
@@ -64,31 +63,33 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// <returns></returns>
         public IEnumerable<Booking> GetAll()
         {
-            IEnumerable<Booking> output = new SvenTechCollection<Booking>();
-            try
+            var bookingDictionary = new Dictionary<int, Booking>();
+            using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
             {
-                using (var conn = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    conn.Open();
-                    dynamic dynamicItem = conn.Query<dynamic>($"dbo.{TableName}_GetAll");
-                    AutoMapper.Configuration.AddIdentifiers(typeof(Booking), new List<string> {"BookingId"});
-                    AutoMapper.Configuration.AddIdentifiers(typeof(ScannedDocument),
-                        new List<string> {"ScannedDocuments_ScannedDocumentId"});
-                    AutoMapper.Configuration.AddIdentifiers(typeof(Credit), new List<string> {"Credits_CreditId"});
-                    AutoMapper.Configuration.AddIdentifiers(typeof(Debit), new List<string> {"Debits_DebitId"});
-                    conn.Close();
+                var query = con.Query<Booking, ScannedDocument, Credit, Debit, Booking>
+                    ($"dbo.{TableName}_GetAll",
+                        (b, s, c, d) =>
+                        {
+                            Booking bookingEntry;
 
-                    output = (AutoMapper.MapDynamic<Booking>(dynamicItem) as IEnumerable<Booking>).ToList();
-                }
+                            if (!bookingDictionary.TryGetValue(b.BookingId, out bookingEntry))
+                            {
+                                bookingEntry = b;
+                                bookingEntry.Credits = new List<Credit>();
+                                bookingEntry.Debits = new List<Debit>();
+                                bookingEntry.ScannedDocuments = new List<ScannedDocument>();
+                                bookingDictionary.Add(bookingEntry.BookingId, bookingEntry);
+                            }
 
-                return output;
+                            bookingEntry.Credits.Add(c);
+                            bookingEntry.Debits.Add(d);
+                            bookingEntry.ScannedDocuments.Add(s);
+
+                            return b;
+                        }, splitOn: "BookingId, ScannedDocumentId, CreditId, DebitId")
+                    .AsQueryable();
+                return query.ToList();
             }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
-            }
-
-            return output;
         }
 
         /// <summary>
@@ -137,39 +138,39 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        ///     Returns CostAccount by Id.
+        ///     Returns Booking by Id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public Booking GetById(int id)
         {
-            var output = new Booking();
-            try
+            var bookingDictionary = new Dictionary<int, Booking>();
+            using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
             {
-                using (var conn = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    conn.Open();
-                    dynamic dynamicItem =
-                        conn.Query<dynamic>($"dbo.{TableName}_GetById @BookingId", new {BookingId = id});
-                    AutoMapper.Configuration.AddIdentifiers(typeof(Booking), new List<string> {"BookingId"});
-                    AutoMapper.Configuration.AddIdentifiers(typeof(ScannedDocument),
-                        new List<string> {"ScannedDocuments_ScannedDocumentId"});
-                    AutoMapper.Configuration.AddIdentifiers(typeof(Credit), new List<string> {"Credits_CreditId"});
-                    AutoMapper.Configuration.AddIdentifiers(typeof(Debit), new List<string> {"Debits_DebitId"});
-                    conn.Close();
+                var query = con.Query<Booking, ScannedDocument, Credit, Debit, Booking>
+                    ($"dbo.{TableName}_GetById @BookingId",
+                        (b, s, c, d) =>
+                        {
+                            Booking bookingEntry;
 
-                    var outputs = (AutoMapper.MapDynamic<Booking>(dynamicItem) as IEnumerable<Booking>).ToList();
-                    if (outputs.Count == 1) output = outputs[0];
-                }
+                            if (!bookingDictionary.TryGetValue(b.BookingId, out bookingEntry))
+                            {
+                                bookingEntry = b;
+                                bookingEntry.Credits = new List<Credit>();
+                                bookingEntry.Debits = new List<Debit>();
+                                bookingEntry.ScannedDocuments = new List<ScannedDocument>();
+                                bookingDictionary.Add(bookingEntry.BookingId, bookingEntry);
+                            }
 
-                return output;
+                            bookingEntry.Credits.Add(c);
+                            bookingEntry.Debits.Add(d);
+                            bookingEntry.ScannedDocuments.Add(s);
+
+                            return b;
+                        }, new { BookingId = id }, splitOn: "BookingId, ScannedDocumentId, CreditId, DebitId")
+                    .AsQueryable();
+                return query.SingleOrDefault();
             }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
-            }
-
-            return output;
         }
 
         /// <summary>
@@ -183,32 +184,33 @@ namespace FinancialAnalysis.Datalayer.Accounting
         public IEnumerable<Booking> GetByConditions(DateTime startDate, DateTime endDate, int? creditId = null,
             int? debitId = null)
         {
-            IEnumerable<Booking> output = new SvenTechCollection<Booking>();
-            try
+            var bookingDictionary = new Dictionary<int, Booking>();
+            using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
             {
-                using (var conn = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    conn.Open();
-                    dynamic dynamicItem =
-                        conn.Query<dynamic>(
-                            $"dbo.{TableName}_GetByConditions @StartDate, @EndDate, @CreditId, @DebitId",
-                            new {StartDate = startDate, EndDate = endDate, CreditId = creditId, DebitId = debitId});
-                    AutoMapper.Configuration.AddIdentifiers(typeof(Booking), new List<string> {"BookingId"});
-                    AutoMapper.Configuration.AddIdentifiers(typeof(ScannedDocument),
-                        new List<string> {"ScannedDocuments_ScannedDocumentId"});
-                    AutoMapper.Configuration.AddIdentifiers(typeof(Credit), new List<string> {"Credits_CreditId"});
-                    AutoMapper.Configuration.AddIdentifiers(typeof(Debit), new List<string> {"Debits_DebitId"});
-                    conn.Close();
+                var query = con.Query<Booking, ScannedDocument, Credit, Debit, Booking>
+                    ($"dbo.{TableName}_GetByConditions @StartDate, @EndDate, @CreditId, @DebitId",
+                        (b, s, c, d) =>
+                        {
+                            Booking bookingEntry;
 
-                    output = (AutoMapper.MapDynamic<Booking>(dynamicItem) as IEnumerable<Booking>).ToList();
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
-            }
+                            if (!bookingDictionary.TryGetValue(b.BookingId, out bookingEntry))
+                            {
+                                bookingEntry = b;
+                                bookingEntry.Credits = new List<Credit>();
+                                bookingEntry.Debits = new List<Debit>();
+                                bookingEntry.ScannedDocuments = new List<ScannedDocument>();
+                                bookingDictionary.Add(bookingEntry.BookingId, bookingEntry);
+                            }
 
-            return output;
+                            bookingEntry.Credits.Add(c);
+                            bookingEntry.Debits.Add(d);
+                            bookingEntry.ScannedDocuments.Add(s);
+
+                            return b;
+                        }, new { StartDate = startDate, EndDate = endDate, CreditId = creditId, DebitId = debitId }, splitOn: "BookingId, ScannedDocumentId, CreditId, DebitId")
+                    .AsQueryable();
+                return query.ToList();
+            }
         }
     }
 }

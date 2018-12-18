@@ -16,8 +16,8 @@ namespace FinancialAnalysis.Models
 
     public enum CivilStatus
     {
-        [Display(Name = "Verheiratet")] Married,
         [Display(Name = "Ledig")] Single,
+        [Display(Name = "Verheiratet")] Married,
         [Display(Name = "Geschieden")] Divorced,
         [Display(Name = "Verwitwet")] Widowed
     }
