@@ -117,9 +117,12 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="10" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
@@ -147,7 +150,7 @@
                     </dxlc:LayoutGroup>
                 </dxlc:LayoutControl>
 
-                <dxlc:LayoutControl Grid.Column="0" Grid.Row="1" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,-12,0,0" IsEnabled="{Binding SelectedUser, Converter={StaticResource NullConverter}}">
+                <dxlc:LayoutControl Grid.Column="0" Grid.Row="1" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,0,0,0" IsEnabled="{Binding SelectedUser, Converter={StaticResource NullConverter}}">
                     <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
                         <dxlc:LayoutGroup.Header>
                             <TextBlock Text="Benutzer Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
@@ -178,7 +181,7 @@
                     </dxlc:LayoutGroup>
                 </dxlc:LayoutControl>
 
-                <dxe:ImageEdit Grid.Column="2" Grid.RowSpan="2" Width="400" Height="400" VerticalAlignment="Top" Source="{Binding Image, Mode=TwoWay}" AllowNullInput="True">
+                <dxe:ImageEdit Grid.Column="0" Grid.Row="2" Width="400" Height="400" VerticalAlignment="Top" Source="{Binding Image, Mode=TwoWay}" AllowNullInput="True">
                     <dxe:ImageEdit.MenuTemplate>
                         <ControlTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -188,6 +191,8 @@
                         </ControlTemplate>
                     </dxe:ImageEdit.MenuTemplate>
                 </dxe:ImageEdit>
+
+                <dxg:GridControl Grid.Row="0" Grid.Column="4" Grid.RowSpan="4" VerticalAlignment="Top" Width="300" Height="500" />
             </Grid>
             
         </Grid>
