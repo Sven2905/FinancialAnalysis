@@ -9,6 +9,7 @@ using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
+using FinancialAnalysis.Models.Administration;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -293,6 +294,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand OpenFileCommand { get; set; }
         public DelegateCommand DoubleClickListBoxCommand { get; set; }
         public DelegateCommand DeleteSelectedScannedDocumentCommand { get; set; }
+        public User ActualUser { get { return Globals.ActualUser; } }
 
         public CostAccount CostAccountCreditor
         {

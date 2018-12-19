@@ -155,5 +155,71 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
 
             return output;
         }
+
+        /// <summary>
+        ///     Update HealthInsurance, if not exist, insert it
+        /// </summary>
+        /// <param name="HealthInsurance"></param>
+        public void UpdateOrInsert(HealthInsurance HealthInsurance)
+        {
+            if (HealthInsurance.HealthInsuranceId == 0 || GetById(HealthInsurance.HealthInsuranceId) is null)
+            {
+                Insert(HealthInsurance);
+                return;
+            }
+
+            Update(HealthInsurance);
+        }
+
+        /// <summary>
+        ///     Update HealthInsurance, if not exist insert them
+        /// </summary>
+        /// <param name="HealthInsurance"></param>
+        public void UpdateOrInsert(IEnumerable<HealthInsurance> HealthInsurances)
+        {
+            foreach (var HealthInsurance in HealthInsurances) UpdateOrInsert(HealthInsurance);
+        }
+
+        /// <summary>
+        ///     Update HealthInsurance
+        /// </summary>
+        /// <param name="HealthInsurance"></param>
+        public void Update(HealthInsurance HealthInsurance)
+        {
+            if (HealthInsurance.HealthInsuranceId == 0 || GetById(HealthInsurance.HealthInsuranceId) is null) return;
+
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.Execute($"dbo.{TableName}_Update @HealthInsuranceId, @Name, @Description, @Budget, @StartDate, @ExpectedEndDate, @TotalEndDate, @IsEnded, @RefCostCenterId, @RefEmployeeId", HealthInsurance);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Update' from table '{TableName}'", e);
+            }
+        }
+
+        /// <summary>
+        ///     Delete User by Id
+        /// </summary>
+        /// <param name="id"></param>
+        public void Delete(int id)
+        {
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.Execute($"dbo.{TableName}_Delete @HealthInsurance", new { HealthInsurance = id });
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Delete' from table '{TableName}'", e);
+            }
+        }
     }
 }

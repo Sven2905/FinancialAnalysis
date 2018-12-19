@@ -34,6 +34,8 @@ namespace FinancialAnalysis.Datalayer
         public PaymentConditions PaymentConditions { get; set; } = new PaymentConditions();
         public MailConfigurations MailConfigurations { get; set; } = new MailConfigurations();
         public Users Users { get; set; } = new Users();
+        public UserRights UserRights { get; set; } = new UserRights();
+        public UserRightUserMappings UserRightUserMappings { get; set; } = new UserRightUserMappings();
 
         public void Dispose()
         {
@@ -77,6 +79,8 @@ namespace FinancialAnalysis.Datalayer
             MailConfigurations.CheckAndCreateStoredProcedures();
             ProjectWorkingTimes.CheckAndCreateStoredProcedures();
             HealthInsurances.CheckAndCreateStoredProcedures();
+            UserRights.CheckAndCreateStoredProcedures();
+            UserRightUserMappings.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()
@@ -93,6 +97,7 @@ namespace FinancialAnalysis.Datalayer
             ProjectEmployeeMappings.AddReferences();
             PaymentConditions.AddReferences();
             ProjectWorkingTimes.AddReferences();
+            UserRightUserMappings.AddReferences();
         }
     }
 }

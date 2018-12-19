@@ -40,6 +40,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                     "Contraction nvarchar(150) NOT NULL, " +
                     "Mail nvarchar(150), " +
                     "IsActive bit, " +
+                    "IsAdministrator bit, " +
                     "LoginUser nvarchar(150) NOT NULL, " +
                     "Password nvarchar(150) NOT NULL)"; 
 
@@ -99,7 +100,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Picture,@Firstname, @Lastname, @Contraction, @Mail, @IsActive, @LoginUser, @Password ",
+                            $"dbo.{TableName}_Insert @Picture,@Firstname, @Lastname, @Contraction, @Mail, @IsActive, @IsAdministrator, @LoginUser, @Password ",
                             User);
                     id = result.Single();
                 }
@@ -115,7 +116,7 @@ namespace FinancialAnalysis.Datalayer.Administration
         /// <summary>
         ///     Inserts the list of User items
         /// </summary>
-        /// <param name="ProductPrototype"></param>
+        /// <param name="Users"></param>
         public void Insert(IEnumerable<User> Users)
         {
             try
@@ -162,22 +163,46 @@ namespace FinancialAnalysis.Datalayer.Administration
         /// </summary>
         public User GetUserByNameAndPassword(string LoginUser, string Password)
         {
-            var output = new User();
+            var userDictionary = new Dictionary<int, User>();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<User>($"dbo.{TableName}_GetUserByNameAndPassword @LoginUser, @Password",
-                        new {  LoginUser, Password });
+                    var query = con.Query<User, UserRightUserMapping, UserRight ,User>
+                    ($"dbo.{TableName}_GetUserByNameAndPassword @LoginUser, @Password",
+                        (u, m, r) =>
+                        {
+                            User userEntry = new User();
+
+                            if (!userDictionary.TryGetValue(u.UserId, out userEntry))
+                            {
+                                userEntry = u;
+                                if (m != null)
+                                {
+                                    userEntry.UserRights.Add(r, m.IsGranted);
+                                }
+                                userDictionary.Add(userEntry.UserId, userEntry);
+                            }
+                            else
+                            {
+                                userEntry.UserRights.Add(r, m.IsGranted);
+                            }
+
+                            return u;
+
+                        }, new { LoginUser, Password }, splitOn: "UserId, UserRightUserMappingId, UserRightId")
+                    .AsQueryable();
+
+                    return userDictionary.Values.First();
+
                 }
             }
             catch (Exception e)
             {
-                Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
+                Log.Error($"Exception occured while '_GetUserByNameAndPassword' from table '{TableName}'", e);
             }
-
-            return output;
+            return null;
         }
 
         /// <summary>
@@ -217,7 +242,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @UserId, @Picture, @Firstname, @Lastname, @Contraction, @Mail, @IsActive, @LoginUser", User);
+                    con.Execute($"dbo.{TableName}_Update @UserId, @Picture, @Firstname, @Lastname, @Contraction, @Mail, @IsActive, @IsAdministrator, @LoginUser", User);
                 }
             }
             catch (Exception e)

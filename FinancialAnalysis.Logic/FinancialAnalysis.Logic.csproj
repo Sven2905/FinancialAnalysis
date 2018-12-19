@@ -105,7 +105,6 @@
     <Compile Include="Messages\OpenKontenrahmenWindowMessage.cs" />
     <Compile Include="Messages\OpenPDFViewerWindowMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\Accounting\AccountingViewModel.cs" />
     <Compile Include="ViewModels\Accounting\BookingHistoryViewModel.cs" />
     <Compile Include="ViewModels\Accounting\BookingViewModel.cs" />
     <Compile Include="ViewModels\Accounting\CompanyViewModel.cs" />
@@ -121,10 +120,12 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PDFViewerViewModel.cs" />
     <Compile Include="ViewModels\Accounting\TaxTypeViewModel.cs" />
+    <Compile Include="ViewModels\ProjectManagement\ProjectManagementViewModel.cs" />
     <Compile Include="ViewModels\ProjectManagement\ProjectViewModel.cs" />
     <Compile Include="ViewModels\Administration\UsersViewModel.cs" />
     <Compile Include="General\XmlHelper.cs" />
     <Compile Include="ViewModels\ProjectManagement\ProjectWorkingTimeViewModel.cs" />
+    <Compile Include="ViewModels\ProjectManagement\HealthInsuranceViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

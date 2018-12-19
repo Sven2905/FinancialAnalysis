@@ -162,7 +162,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
             {
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
-                    $"IF(OBJECT_ID('FK_Credits_CostAccounts', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_Credits_CostAccounts FOREIGN KEY(RefCostAccountId) REFERENCES CostAccounts(CostAccountId)";
+                    $"IF(OBJECT_ID('FK_{TableName}_CostAccounts', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_CostAccounts FOREIGN KEY(RefCostAccountId) REFERENCES CostAccounts(CostAccountId)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -183,7 +183,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
             {
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
-                    $"IF(OBJECT_ID('FK_Credits_Bookings', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_Credits_Bookings FOREIGN KEY(RefBookingId) REFERENCES Bookings(BookingId)";
+                    $"IF(OBJECT_ID('FK_{TableName}_Bookings', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_Bookings FOREIGN KEY(RefBookingId) REFERENCES Bookings(BookingId)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {

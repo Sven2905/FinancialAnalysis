@@ -3,11 +3,14 @@ using System.Windows;
 using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
+using FinancialAnalysis.Models.Administration;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
     public class BookingHistoryViewModel : ViewModelBase
     {
+        public User ActualUser { get { return Globals.ActualUser; } }
+
         public BookingHistoryViewModel()
         {
             using (var db = new DataLayer())

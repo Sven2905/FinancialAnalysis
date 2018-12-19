@@ -22,7 +22,18 @@ namespace FinancialAnalysis.Logic.ViewModels
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        public User ActualUser { get; set; }
+        public User ActualUser { get { return Globals.ActualUser; } }
+
+        #region UserRights
+        public bool ShowBooking { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessBooking); } }
+        public bool ShowBookingHistory { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessBookingHistory); } }
+        public bool ShowProjectManagement { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessProjectManagement); } }
+        public bool ShowTaxType { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessTaxType); } }
+        public bool ShowCostAccount { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessCostAccount); } }
+        public bool ShowCreditorsDebitors { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessCreditorDebitor); } }
+        public bool ShowConfiguration { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessConfiguration); } }
+        #endregion UserRights
+
         public string CurrentTime
         {
             get { return _currentTime; }
@@ -36,19 +47,18 @@ namespace FinancialAnalysis.Logic.ViewModels
         /// </summary>
         public MainViewModel()
         {
-            ////if (IsInDesignMode)
-            ///
-            ActualUser = Globals.ActualUser;
+            //if (IsInDesignMode)
 
-            var db = new DataLayer();
-            db.CreateDatabaseSchema();
-            if (db.TaxTypes.GetAll().Count() == 0)
+            using (var db = new DataLayer())
             {
-                db.TaxTypes.Seed();
-
-                var _Import = new Import();
-                _Import.ImportCostAccounts(Standardkontenrahmen.SKR03);
+                if (db.TaxTypes.GetAll().Count() == 0)
+                {
+                    var _Import = new Import();
+                    db.TaxTypes.Seed();
+                    _Import.ImportCostAccounts(Standardkontenrahmen.SKR03);
+                }
             }
+
             UpdateTime();
         }
 

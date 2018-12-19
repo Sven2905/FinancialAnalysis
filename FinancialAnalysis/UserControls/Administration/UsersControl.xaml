@@ -12,7 +12,7 @@
              xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="1050" d:DesignWidth="1920">
     <UserControl.DataContext>
         <ViewModels:UsersViewModel />
     </UserControl.DataContext>
@@ -30,7 +30,7 @@
         <local:NullToIsEnabledConverter x:Key="NullConverter"></local:NullToIsEnabledConverter>
         <local:BrushColorConverter x:Key="BConverter"></local:BrushColorConverter>
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
@@ -85,18 +85,18 @@
                                 </Grid.ColumnDefinitions>
                                 <Border Width="4" HorizontalAlignment="Left" Background="{Binding IsActive, Converter={StaticResource BConverter}}" />
 
-                            <Border Grid.Column="1" Padding="8" Height="60" >
-                                <Border Background="#3F729B" Width="45" CornerRadius="45">
-                                    <TextBlock Margin="0,0,0,2" Text="{Binding Initials}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="24" />
+                                <Border Grid.Column="1" Padding="8" Height="60" >
+                                    <Border Background="#3F729B" Width="45" CornerRadius="45">
+                                        <TextBlock Margin="0,0,0,2" Text="{Binding Initials}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="24" />
+                                    </Border>
                                 </Border>
-                            </Border>
 
-                            <Border Grid.Column="2" Padding="0 0 8 0" >
-                                <StackPanel VerticalAlignment="Center" >
+                                <Border Grid.Column="2" Padding="0 0 8 0" >
+                                    <StackPanel VerticalAlignment="Center" >
                                         <TextBlock Margin="10,0,0,0" Text="{Binding LoginUser, Mode=TwoWay}" Foreground="#000" TextTrimming="CharacterEllipsis" />
                                         <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#9e9e9e" TextTrimming="CharacterEllipsis" />
-                                </StackPanel>
-                            </Border>
+                                    </StackPanel>
+                                </Border>
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -112,7 +112,7 @@
                                  Command="{Binding DeleteUserCommand}" FontFamily="Tahoma" />
             </VirtualizingStackPanel>
 
-                <Grid Grid.Column="3" Margin="0,50,0,0">
+            <Grid Grid.Column="3" Margin="0,50,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="10" />
@@ -159,6 +159,9 @@
                             <dxlc:LayoutItem Label="Aktiv" FontFamily="Tahoma" >
                                 <dxe:CheckEdit IsChecked="{Binding SelectedUser.IsActive}" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
+                            <dxlc:LayoutItem Label="Administrator" FontFamily="Tahoma" >
+                                <dxe:CheckEdit IsChecked="{Binding SelectedUser.IsAdministrator}" FontFamily="Tahoma" />
+                            </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>
                             <dxlc:LayoutItem Label="Vorname" FontFamily="Tahoma" >
@@ -194,7 +197,7 @@
 
                 <dxg:GridControl Grid.Row="0" Grid.Column="4" Grid.RowSpan="4" VerticalAlignment="Top" Width="300" Height="500" />
             </Grid>
-            
+
         </Grid>
     </Grid>
 </UserControl>

@@ -5,6 +5,7 @@ using System.Linq;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
+using FinancialAnalysis.Models.Administration;
 
 namespace FinancialAnalysis.Logic
 {
@@ -223,6 +224,37 @@ namespace FinancialAnalysis.Logic
 
             var db = new DataLayer();
             db.CostAccountCategories.Insert(_CostAccounts);
+        }
+
+        public void ImportUserRights()
+        {
+            List<UserRight> rights = new List<UserRight>()
+            {
+                new UserRight(Permission.AccessBooking, "Zugriff auf Buchungen"),
+                new UserRight(Permission.AccessBookingHistory, "Zugriff auf Buchungshistorie"),
+                new UserRight(Permission.AccessConfiguration, "Zugriff auf Konfiguration"),
+                new UserRight(Permission.AccessCostAccount, "Zugriff auf Kontenrahmen"),
+                new UserRight(Permission.AccessCostCenter, "Zugriff auf Kostenstellen"),
+                new UserRight(Permission.AccessCreditorDebitor, "Zugriff auf Kreditoren und Debitoren"),
+                new UserRight(Permission.AccessEmployee, "Zugriff auf Mitarbeiter"),
+                new UserRight(Permission.AccessMail, "Zugriff auf Mailkonfiguration"),
+                new UserRight(Permission.AccessPaymentCondidition, "Zugriff auf Zahlungsbedingungen"),
+                new UserRight(Permission.AccessProject, "Zugriff auf Projekt"),
+                new UserRight(Permission.AccessProjectManagement, "Zugriff auf Projektmanagement"),
+                new UserRight(Permission.AccessProjectWorkingTime, "Zugriff auf Zeiterfassung"),
+                new UserRight(Permission.AccessTaxType, "Zugriff auf Steuerarten"),
+                new UserRight(Permission.AccessUsers, "Zugriff auf Benutzer"),
+            };
+
+            using (DataLayer db = new DataLayer())
+            {
+                foreach (var item in rights)
+                {
+                    item.UserRightId = db.UserRights.Insert(item);
+                    db.UserRightUserMappings.Insert(new UserRightUserMapping() { RefUserId = 1, RefUserRightId = item.UserRightId, IsGranted = true });
+                }
+
+            }
         }
     }
 }

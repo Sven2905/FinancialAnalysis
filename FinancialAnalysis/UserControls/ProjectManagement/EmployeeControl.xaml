@@ -216,7 +216,7 @@
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>
                             <dxlc:LayoutItem Label="Krankenkasse" FontFamily="Tahoma" >
-                                <dxe:TextEdit Text="{Binding SelectedEmployee.HealthInsurance}" FontFamily="Tahoma" />
+                                <dxe:ComboBoxEdit ValueMember="HealthInsuranceId" DisplayMember="Name" ItemsSource="{Binding HealthInsurances}" EditValue="{Binding SelectedEmployee.RefHealthInsuranceId}" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                     </dxlc:LayoutGroup>
