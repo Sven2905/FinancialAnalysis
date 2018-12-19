@@ -64,7 +64,10 @@
     <Compile Include="Accounting\ScannedDocument.cs" />
     <Compile Include="Accounting\TaxType.cs" />
     <Compile Include="Accounting\PaymentCondition.cs" />
+    <Compile Include="Administration\Permisison.cs" />
+    <Compile Include="Administration\UserRight.cs" />
     <Compile Include="Administration\User.cs" />
+    <Compile Include="Administration\UserRightUserMapping.cs" />
     <Compile Include="General\Company.cs" />
     <Compile Include="Accounting\Creditor.cs" />
     <Compile Include="Mail\MailConfiguration.cs" />

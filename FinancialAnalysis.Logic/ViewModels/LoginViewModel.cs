@@ -4,6 +4,7 @@ using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using System;
 using System.Linq;
+using System.Windows;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -37,6 +38,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     var user = new User()
                     {
+                        IsAdministrator = true,
                         Firstname = "Admin",
                         Lastname = "Admin",
                         LoginUser = "Admin",
@@ -46,6 +48,13 @@ namespace FinancialAnalysis.Logic.ViewModels
                     };
 
                     db.Users.Insert(user);
+
+                }
+
+                if (!db.UserRights.GetAll().Any())
+                {
+                    var _Import = new Import();
+                    _Import.ImportUserRights();
                 }
             }
         }
@@ -70,7 +79,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
-        private void Exit() => Environment.Exit(0);
+        private void Exit() => Application.Current.Shutdown();
 
         private bool CheckCredentials()
         {

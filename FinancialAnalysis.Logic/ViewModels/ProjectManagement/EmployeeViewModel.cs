@@ -16,17 +16,20 @@ namespace FinancialAnalysis.Logic.ViewModels
         public EmployeeViewModel()
         {
             LoadEmployees();
+            LoadHealthInsurances();
             NewUserCommand = new DelegateCommand(NewUser);
             SaveUserCommand = new DelegateCommand(SaveUser, () => Validation());
             DeleteUserCommand = new DelegateCommand(DeleteUser, () => (SelectedEmployee != null));
         }
+
 
         #endregion Constructor
 
         #region Properties
 
         public SvenTechCollection<Employee> Employees { get; set; } = new SvenTechCollection<Employee>();
-        public DelegateCommand NewUserCommand { get; set; }
+        public SvenTechCollection<HealthInsurance> HealthInsurances { get; set; } = new SvenTechCollection<HealthInsurance>();
+        public DelegateCommand NewUserCommand { get; set; } 
         public DelegateCommand SaveUserCommand { get; set; }
         public DelegateCommand DeleteUserCommand { get; set; }
         public Employee SelectedEmployee
@@ -133,6 +136,21 @@ namespace FinancialAnalysis.Logic.ViewModels
                 using (var db = new DataLayer())
                 {
                     Employees = db.Employees.GetAll().ToSvenTechCollection();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+            }
+        }
+
+        private void LoadHealthInsurances()
+        {
+            try
+            {
+                using (var db = new DataLayer())
+                {
+                    HealthInsurances = db.HealthInsurances.GetAll().ToSvenTechCollection();
                 }
             }
             catch (System.Exception ex)

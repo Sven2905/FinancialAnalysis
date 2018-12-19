@@ -178,32 +178,6 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
             return output;
         }
 
-        public void AddReferences()
-        {
-            AddCostCentersReference();
-        }
-
-        private void AddCostCentersReference()
-        {
-            try
-            {
-                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr =
-                    $"IF(OBJECT_ID('FK_{TableName}_CostCenter', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_CostCenter FOREIGN KEY(RefCostCenterId) REFERENCES CostCenters(CostCenterId)";
-
-                using (var command = new SqlCommand(commandStr, con))
-                {
-                    con.Open();
-                    command.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while creating reference between '{TableName}' and CostCenters", e);
-            }
-        }
-
         /// <summary>
         ///     Update Project, if not exist, insert it
         /// </summary>
@@ -267,6 +241,32 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'Delete' from table '{TableName}'", e);
+            }
+        }
+
+        public void AddReferences()
+        {
+            AddCostCentersReference();
+        }
+
+        private void AddCostCentersReference()
+        {
+            try
+            {
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_{TableName}_CostCenter', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_CostCenter FOREIGN KEY(RefCostCenterId) REFERENCES CostCenters(CostCenterId)";
+
+                using (var command = new SqlCommand(commandStr, con))
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while creating reference between '{TableName}' and CostCenters", e);
             }
         }
     }

@@ -48,6 +48,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private User _SelectedUser;
         private BitmapImage _Image;
+        public User ActualUser { get { return Globals.ActualUser; } }
 
         public UsersViewModel()
         {

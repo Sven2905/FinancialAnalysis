@@ -4,18 +4,18 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
-using FinancialAnalysis.Models.Accounting;
+using FinancialAnalysis.Models.Administration;
 using Serilog;
 
-namespace FinancialAnalysis.Datalayer.Accounting
+namespace FinancialAnalysis.Datalayer.Administration
 {
-    public class Debits : ITable
+    public class UserRights : ITable
     {
-        private readonly DebitsStoredProcedures sp = new DebitsStoredProcedures();
+        private readonly UserRightsStoredProcedures sp = new UserRightsStoredProcedures();
 
-        public Debits()
+        public UserRights()
         {
-            TableName = "Debits";
+            TableName = "UserRights";
             CheckAndCreateTable();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -33,10 +33,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
                     $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
-                    "DebitId int IDENTITY(1,1) PRIMARY KEY," +
-                    "Amount money NOT NULL," +
-                    "RefBookingId int NOT NULL," +
-                    "RefCostAccountId int NOT NULL)";
+                    "UserRightId int IDENTITY(1,1) PRIMARY KEY, " +
+                    "Name nvarchar(150) NOT NULL, " +
+                    "Description nvarchar(150) NOT NULL, " +
+                    "Permission int NOT NULL)"; 
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -57,18 +57,18 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        ///     Returns all Debit records
+        ///     Returns all UserRight records
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Debit> GetAll()
+        public IEnumerable<UserRight> GetAll()
         {
-            IEnumerable<Debit> output = new List<Debit>();
+            IEnumerable<UserRight> output = new List<UserRight>();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<Debit>($"dbo.{TableName}_GetAll");
+                    output = con.Query<UserRight>($"dbo.{TableName}_GetAll");
                 }
             }
             catch (Exception e)
@@ -80,11 +80,11 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        ///     Inserts the Debit item
+        ///     Inserts the UserRight item
         /// </summary>
-        /// <param name="debit"></param>
+        /// <param name="UserRight"></param>
         /// <returns>Id of inserted item</returns>
-        public int Insert(Debit debit)
+        public int Insert(UserRight UserRight)
         {
             var id = 0;
             try
@@ -92,8 +92,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Amount, @RefCostAccountId, @RefBookingId",
-                        debit);
+                    var result =
+                        con.Query<int>(
+                            $"dbo.{TableName}_Insert @Name, @Description, @Permission ",
+                            UserRight);
                     id = result.Single();
                 }
             }
@@ -106,17 +108,17 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        ///     Inserts the list of Debits items
+        ///     Inserts the list of UserRight items
         /// </summary>
-        /// <param name="creditor"></param>
-        public void Insert(IEnumerable<Debit> debits)
+        /// <param name="UserRights"></param>
+        public void Insert(IEnumerable<UserRight> UserRights)
         {
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var debit in debits) Insert(debit);
+                    foreach (var UserRight in UserRights) Insert(UserRight);
                 }
             }
             catch (Exception e)
@@ -126,19 +128,20 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        ///     Returns Debit by Id
+        ///     Returns UserRight by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Debit GetById(int id)
+        public UserRight GetById(int id)
         {
-            var output = new Debit();
+            var output = new UserRight();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<Debit>($"dbo.{TableName}_GetById @DebitId", new {DebitId = id});
+                    output = con.QuerySingleOrDefault<UserRight>($"dbo.{TableName}_GetById @UserRightId",
+                        new { UserRightId = id});
                 }
             }
             catch (Exception e)
@@ -149,51 +152,69 @@ namespace FinancialAnalysis.Datalayer.Accounting
             return output;
         }
 
-        public void AddReferences()
+        /// <summary>
+        ///     Update UserRight, if not exist, insert it
+        /// </summary>
+        /// <param name="UserRight"></param>
+        public void UpdateOrInsert(UserRight UserRight)
         {
-            AddCostAccountsReference();
-            AddBookingsReference();
+            if (UserRight.UserRightId == 0 || GetById(UserRight.UserRightId) is null)
+            {
+                Insert(UserRight);
+                return;
+            }
+
+            Update(UserRight);
         }
 
-        private void AddCostAccountsReference()
+        /// <summary>
+        ///     Update UserRights, if not exist insert them
+        /// </summary>
+        /// <param name="UserRight"></param>
+        public void UpdateOrInsert(IEnumerable<UserRight> UserRights)
         {
+            foreach (var UserRight in UserRights) UpdateOrInsert(UserRight);
+        }
+
+        /// <summary>
+        ///     Update UserRight
+        /// </summary>
+        /// <param name="UserRight"></param>
+        public void Update(UserRight UserRight)
+        {
+            if (UserRight.UserRightId == 0 || GetById(UserRight.UserRightId) is null) return;
+
             try
             {
-                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr =
-                    $"IF(OBJECT_ID('FK_{TableName}_CostAccounts', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_CostAccounts FOREIGN KEY(RefCostAccountId) REFERENCES CostAccounts(CostAccountId)";
-
-                using (var command = new SqlCommand(commandStr, con))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Open();
-                    command.ExecuteNonQuery();
-                    con.Close();
+                    con.Execute($"dbo.{TableName}_Update @UserRightId, @Name, @Description, @Permission", UserRight);
                 }
             }
             catch (Exception e)
             {
-                Log.Error($"Exception occured while creating reference between '{TableName}' and CostAccounts", e);
+                Log.Error($"Exception occured while 'Update' from table '{TableName}'", e);
             }
         }
 
-        private void AddBookingsReference()
+        /// <summary>
+        ///     Delete UserRight by Id
+        /// </summary>
+        /// <param name="id"></param>
+        public void Delete(int id)
         {
             try
             {
-                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr =
-                    $"IF(OBJECT_ID('FK_{TableName}_Bookings', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_Bookings FOREIGN KEY(RefBookingId) REFERENCES Bookings(BookingId)";
-
-                using (var command = new SqlCommand(commandStr, con))
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Open();
-                    command.ExecuteNonQuery();
-                    con.Close();
+                    con.Execute($"dbo.{TableName}_Delete @UserRightId", new { UserRightId = id });
                 }
             }
             catch (Exception e)
             {
-                Log.Error($"Exception occured while creating reference between '{TableName}' and Bookings", e);
+                Log.Error($"Exception occured while 'Delete' from table '{TableName}'", e);
             }
         }
     }

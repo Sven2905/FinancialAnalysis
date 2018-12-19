@@ -3,16 +3,15 @@ using System.ComponentModel;
 using System.Security.Cryptography;
 using Utilities;
 using DevExpress.Mvvm;
+using System.Collections.Generic;
 
 namespace FinancialAnalysis.Models.Administration
 {
     public class User : ViewModelBase
     {
-        private string _Password = string.Empty;
-
+        #region Properties
         public int UserId { get; set; }
         public string LoginUser { get; set; }
-
         public string Password
         {
             get
@@ -34,9 +33,9 @@ namespace FinancialAnalysis.Models.Administration
         public byte[] Picture { get; set; }
         public string Mail { get; set; }
         public bool IsActive { get; set; } = true;
+        public bool IsAdministrator { get; set; } = false;
         public string Contraction { get; set; }
         public string Name { get { return Firstname + " " + Lastname; } }
-
         public string Firstname
         {
             get { return _Firstname; }
@@ -47,6 +46,7 @@ namespace FinancialAnalysis.Models.Administration
             get { return _Lastname; }
             set { _Lastname = value; RaisePropertyChanged("Name"); }
         }
+        public Dictionary<UserRight, bool> UserRights { get; set; } = new Dictionary<UserRight, bool>();
 
         /// <summary>
         /// Kürzel
@@ -65,8 +65,26 @@ namespace FinancialAnalysis.Models.Administration
                 }
             }
         }
+        #endregion Properties
 
+        #region Fields
         private string _Firstname;
         private string _Lastname;
+        private string _Password = string.Empty;
+        #endregion Fields
+
+        #region Methods
+        public bool IsUserRightGranted(Permission permission)
+        {
+            foreach (var right in UserRights.Keys)
+            {
+                if (right.Permission == permission)
+                {
+                    return UserRights[right];
+                }
+            }
+            return false;
+        }
+        #endregion Methods
     }
 }

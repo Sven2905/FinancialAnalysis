@@ -79,7 +79,11 @@
     <Compile Include="Accounting\Tables\CostCenters.cs" />
     <Compile Include="Accounting\Tables\Cashbacks.cs" />
     <Compile Include="Accounting\Tables\PaymentConditions.cs" />
+    <Compile Include="Administration\StoredProcedures\UserRightUserMappingsStoredProcedures.cs" />
+    <Compile Include="Administration\StoredProcedures\UserRightsStoredProcedures.cs" />
     <Compile Include="Administration\StoredProcedures\UsersStoredProcedures.cs" />
+    <Compile Include="Administration\Tables\UserRightUserMappings.cs" />
+    <Compile Include="Administration\Tables\UserRights.cs" />
     <Compile Include="Administration\Tables\Users.cs" />
     <Compile Include="Configurations\StoredProcedures\MailConfigurationsStoredProcedures.cs" />
     <Compile Include="Configurations\Tables\MailConfigurations.cs" />

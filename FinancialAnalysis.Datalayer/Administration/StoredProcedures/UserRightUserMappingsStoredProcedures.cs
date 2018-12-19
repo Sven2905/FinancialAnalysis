@@ -2,13 +2,13 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.ProjectManagement
+namespace FinancialAnalysis.Datalayer.Administration
 {
-    public class HealthInsurancesStoredProcedures : IStoredProcedures
+    public class UserRightUserMappingsStoredProcedures : IStoredProcedures
     {
-        public HealthInsurancesStoredProcedures()
+        public UserRightUserMappingsStoredProcedures()
         {
-            TableName = "HealthInsurances";
+            TableName = "UserRightUserMappings";
         }
 
         public string TableName { get; }
@@ -32,7 +32,10 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT HealthInsuranceId, Name, Street, Postcode, City, ContactName, Phone, Mail " +
+                                "SELECT UserRightUserMappingId, " +
+                                "IsGranted, " +
+                                "RefUserId, " +
+                                "RefUserRightId " +
                                 $"FROM {TableName} " +
                                 "END");
                 using (var connection =
@@ -56,9 +59,9 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Street nvarchar(150), @Postcode int, @City nvarchar(150), @ContactName nvarchar(150), @Phone nvarchar(150), @Mail nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, Street, Postcode, City, ContactName, Phone, Mail) " +
-                    "VALUES (@Name, @Street, @Postcode, @City, @ContactName, @Phone, @Mail); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @IsGranted bit, @RefUserId int, @RefUserRightId int AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (IsGranted, RefUserId, RefUserRightId ) " +
+                    "VALUES (@IsGranted, @RefUserId, @RefUserRightId ); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -81,9 +84,9 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @HealthInsuranceId int AS BEGIN SET NOCOUNT ON; SELECT HealthInsuranceId, Name, Street, Postcode, City, ContactName, Phone, Mail " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @UserRightUserMappingId int AS BEGIN SET NOCOUNT ON; SELECT UserRightUserMappingId, IsGranted, RefUserId, RefUserRightId " +
                     $"FROM {TableName} " +
-                    "WHERE HealthInsuranceId = @HealthInsuranceId END");
+                    "WHERE UserRightUserMappingId = @UserRightUserMappingId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -105,17 +108,13 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @HealthInsuranceId int, @Name nvarchar(150), @Street nvarchar(150), @Postcode int, @City nvarchar(150), @ContactName nvarchar(150), @Phone nvarchar(150), @Mail nvarchar(150) " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @UserRightUserMappingId int, @IsGranted bit, @RefUserId int, @RefUserRightId int " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
-                    "SET Name = @Name, " +
-                    "Street = @Street, " +
-                    "Postcode = @Postcode, " +
-                    "City = @City, " +
-                    "ContactName = @ContactName, " +
-                    "Phone = @Phone, " +
-                    "Mail = @Mail " +
-                    "WHERE HealthInsuranceId = @HealthInsuranceId END");
+                    "SET IsGranted = @IsGranted, " +
+                    "RefUserId = @RefUserId, " +
+                    "RefUserRightId = @RefUserRightId " +
+                    "WHERE UserRightUserMappingId = @UserRightUserMappingId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -137,7 +136,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @HealthInsuranceId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE HealthInsuranceId = @HealthInsuranceId END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @UserRightUserMappingId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE UserRightUserMappingId = @UserRightUserMappingId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

@@ -41,6 +41,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                                 "Contraction, " +
                                 "Mail, " +
                                 "IsActive, " +
+                                "IsAdministrator, " +
                                 "LoginUser, " +
                                 "Password " +
                                 $"FROM {TableName} " +
@@ -66,9 +67,9 @@ namespace FinancialAnalysis.Datalayer.Administration
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Picture varbinary(MAX), @Firstname nvarchar(150), @Lastname nvarchar(150), @Contraction nvarchar(150), @Mail nvarchar(150), @IsActive bit, @LoginUser nvarchar(150), @Password nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Picture, Firstname, Lastname, Contraction, Mail, IsActive, LoginUser, Password ) " +
-                    "VALUES (@Picture, @Firstname, @Lastname, @Contraction, @Mail, @IsActive, @LoginUser, @Password ); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Picture varbinary(MAX), @Firstname nvarchar(150), @Lastname nvarchar(150), @Contraction nvarchar(150), @Mail nvarchar(150), @IsActive bit, @IsAdministrator bit, @LoginUser nvarchar(150), @Password nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Picture, Firstname, Lastname, Contraction, Mail, IsActive, IsAdministrator, LoginUser, Password ) " +
+                    "VALUES (@Picture, @Firstname, @Lastname, @Contraction, @Mail, @IsActive, @IsAdministrator, @LoginUser, @Password ); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -91,7 +92,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @UserId int AS BEGIN SET NOCOUNT ON; SELECT UserId, Picture, Firstname, Lastname, Contraction, Mail, IsActive, LoginUser, Password " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @UserId int AS BEGIN SET NOCOUNT ON; SELECT UserId, Picture, Firstname, Lastname, Contraction, Mail, IsActive, IsAdministrator, LoginUser, Password " +
                     $"FROM {TableName} " +
                     "WHERE UserId = @UserId END");
                 using (var connection =
@@ -115,10 +116,15 @@ namespace FinancialAnalysis.Datalayer.Administration
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetUserByNameAndPassword] @LoginUser nvarchar(150), @Password nvarchar(150) AS BEGIN SET NOCOUNT ON; SELECT UserId, Picture, Firstname, Lastname, Contraction, Mail, IsActive, LoginUser, Password " +
-                    $"FROM {TableName} " +
-                    "WHERE LoginUser = @LoginUser " +
-                    "AND Password = @Password END");
+                    $"CREATE PROCEDURE [{TableName}_GetUserByNameAndPassword] @LoginUser nvarchar(150), @Password nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
+                    $"SELECT u.UserId, u.Picture, u.Firstname, u.Lastname, u.Contraction, u.Mail, u.IsActive, u.IsAdministrator, u.LoginUser, u.Password, " +
+                    $"m.UserRightUserMappingId, m.RefUserId, m.RefUserRightId, m.IsGranted, " +
+                    $"r.UserRightId, r.Name, r.Description, r.Permission " +
+                    $"FROM {TableName} u " +
+                    "LEFT JOIN UserRightUserMappings m ON u.UserId = m.RefUserId " +
+                    "LEFT JOIN UserRights r ON m.RefUserRightId = r.UserRightId " +
+                    "WHERE u.LoginUser = @LoginUser " +
+                    "AND u.Password = @Password END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -140,7 +146,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @UserId int, @Picture varbinary(MAX), @Firstname nvarchar(150), @Lastname nvarchar(150), @Contraction nvarchar(150), @Mail nvarchar(150), @IsActive bit, @LoginUser nvarchar(150) " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @UserId int, @Picture varbinary(MAX), @Firstname nvarchar(150), @Lastname nvarchar(150), @Contraction nvarchar(150), @Mail nvarchar(150), @IsActive bit, @IsAdministrator bit, @LoginUser nvarchar(150) " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "SET Picture = @Picture, " +
@@ -149,6 +155,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                     "Contraction = @Contraction, " +
                     "Mail = @Mail, " +
                     "IsActive = @IsActive, " +
+                    "IsAdministrator = @IsAdministrator, " +
                     "LoginUser = @LoginUser " +
                     "WHERE UserId = @UserId END");
                 using (var connection =
