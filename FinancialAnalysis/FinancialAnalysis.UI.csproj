@@ -133,11 +133,15 @@
     </ApplicationDefinition>
     <Compile Include="Converter\BaseValueConverter.cs" />
     <Compile Include="Converter\BooleanToVisiblityConverter.cs" />
+    <Compile Include="Converter\NullToVisConverter.cs" />
     <Compile Include="Converter\NullToIsEnabledConverter.cs" />
     <Compile Include="UserControls\Accounting\BookingHistoryControl.xaml.cs">
       <DependentUpon>BookingHistoryControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converter\BrushColorConverter.cs" />
+    <Compile Include="UserControls\Accounting\AccountingControl.xaml.cs">
+      <DependentUpon>AccountingControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Administration\MailControl.xaml.cs">
       <DependentUpon>MailControl.xaml</DependentUpon>
     </Compile>
@@ -202,6 +206,10 @@
     <Page Include="UserControls\Accounting\BookingHistoryControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Accounting\AccountingControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\Administration\MailControl.xaml">
       <SubType>Designer</SubType>

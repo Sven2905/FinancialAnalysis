@@ -111,7 +111,7 @@ namespace FinancialAnalysis.Datalayer.Administration
         ///     Inserts the list of UserRightUserMapping items
         /// </summary>
         /// <param name="UserRightUserMapping"></param>
-        public void Insert(IEnumerable<UserRightUserMapping> UserRightUserMappings)
+        private void Insert(IEnumerable<UserRightUserMapping> UserRightUserMappings)
         {
             try
             {
@@ -128,11 +128,12 @@ namespace FinancialAnalysis.Datalayer.Administration
         }
 
         /// <summary>
-        ///     Returns UserRightUserMapping by Id
+        /// Returns UserRightUserMapping by UserRightId and UserId
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="RefUserRightId"></param>
+        /// <param name="RefUserId"></param>
         /// <returns></returns>
-        public UserRightUserMapping GetById(int id)
+        public UserRightUserMapping GetByIds(int RefUserRightId, int RefUserId)
         {
             var output = new UserRightUserMapping();
             try
@@ -140,13 +141,13 @@ namespace FinancialAnalysis.Datalayer.Administration
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<UserRightUserMapping>($"dbo.{TableName}_GetById @UserRightUserMappingId",
-                        new { UserRightUserMappingId = id});
+                    output = con.QuerySingleOrDefault<UserRightUserMapping>($"dbo.{TableName}_GetByIds @RefUserRightId, @RefUserId",
+                        new { RefUserRightId, RefUserId });
                 }
             }
             catch (Exception e)
             {
-                Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
+                Log.Error($"Exception occured while 'GetByIds' from table '{TableName}'", e);
             }
 
             return output;
@@ -158,13 +159,19 @@ namespace FinancialAnalysis.Datalayer.Administration
         /// <param name="UserRight"></param>
         public void UpdateOrInsert(UserRightUserMapping UserRightUserMapping)
         {
-            if (UserRightUserMapping.UserRightUserMappingId == 0 || GetById(UserRightUserMapping.UserRightUserMappingId) is null)
+            if (UserRightUserMapping.UserRightUserMappingId != 0)
+            {
+                Update(UserRightUserMapping);
+            }
+
+            var temp = GetByIds(UserRightUserMapping.RefUserRightId, UserRightUserMapping.RefUserId);
+            if (temp is null)
             {
                 Insert(UserRightUserMapping);
                 return;
             }
 
-            Update(UserRightUserMapping);
+            Update(temp);
         }
 
         /// <summary>
@@ -180,10 +187,8 @@ namespace FinancialAnalysis.Datalayer.Administration
         ///     Update UserRightUserMapping
         /// </summary>
         /// <param name="UserRightUserMapping"></param>
-        public void Update(UserRightUserMapping UserRightUserMapping)
+        private void Update(UserRightUserMapping UserRightUserMapping)
         {
-            if (UserRightUserMapping.UserRightUserMappingId == 0 || GetById(UserRightUserMapping.UserRightUserMappingId) is null) return;
-
             try
             {
                 using (IDbConnection con =

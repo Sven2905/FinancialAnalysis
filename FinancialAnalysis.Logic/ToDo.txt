@@ -1,7 +1,5 @@
-﻿Rechteverwaltung
-Stunden buchen für Mitarbeiter
+﻿Stunden buchen für Mitarbeiter
 Tabelle für Stunden anlegen
-Beschreibung beim Stundenbuchen
 Kostenstelle und Projekt einer Buchung zuordnen
 Krankenkasse
 Filter

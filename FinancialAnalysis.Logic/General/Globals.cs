@@ -1,8 +1,11 @@
-﻿using FinancialAnalysis.Models.Administration;
+﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Datalayer;
+using FinancialAnalysis.Models.Administration;
+using System.Collections.Generic;
 
 namespace FinancialAnalysis.Logic
 {
-    public static class Globals
+    public class Globals : ViewModelBase
     {
         public static User ActualUser { get; set; }
 
@@ -13,5 +16,13 @@ namespace FinancialAnalysis.Logic
         //    DataLayer db = new DataLayer();
         //    return db.TableVersions.GetById(1);
         //}
+
+        public static List<UserRight> UserRights()
+        {
+            using (var db = new DataLayer())
+            {
+                return db.UserRights.GetAll();
+            }
+        }
     }
 }

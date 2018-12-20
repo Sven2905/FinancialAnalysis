@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using FinancialAnalysis.Datalayer;
+﻿using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace FinancialAnalysis.Logic
 {
@@ -38,7 +38,10 @@ namespace FinancialAnalysis.Logic
 
                 foreach (var line in document)
                 {
-                    if (string.IsNullOrEmpty(line)) continue;
+                    if (string.IsNullOrEmpty(line))
+                    {
+                        continue;
+                    }
 
                     // [0] Konto-Nummer	
                     // [1] Kontenbezeichnung	
@@ -62,6 +65,7 @@ namespace FinancialAnalysis.Logic
 
                     // Get parent category
                     if (standardkontenrahmen == Standardkontenrahmen.SKR03)
+                    {
                         switch (_Content[0][0])
                         {
                             case '0':
@@ -89,7 +93,9 @@ namespace FinancialAnalysis.Logic
                                 tempMainCat.ParentCategoryId = 8;
                                 break;
                         }
+                    }
                     else
+                    {
                         switch (_Content[0][0])
                         {
                             case '0':
@@ -120,6 +126,7 @@ namespace FinancialAnalysis.Logic
                                 tempMainCat.ParentCategoryId = 9;
                                 break;
                         }
+                    }
 
                     if (costAccountCategories.SingleOrDefault(x =>
                             x.Description == _Content[2] && x.ParentCategoryId == tempMainCat.ParentCategoryId) == null)
@@ -180,9 +187,13 @@ namespace FinancialAnalysis.Logic
 
                     var taxType = taxTypes.SingleOrDefault(x => x.DescriptionShort == _Content[6].Trim());
                     if (taxType != null)
+                    {
                         costAccount.RefTaxTypeId = taxType.TaxTypeId;
+                    }
                     else
+                    {
                         costAccount.RefTaxTypeId = 1;
+                    }
 
                     db.CostAccounts.Insert(costAccount);
                 }
@@ -230,20 +241,23 @@ namespace FinancialAnalysis.Logic
         {
             List<UserRight> rights = new List<UserRight>()
             {
-                new UserRight(Permission.AccessBooking, "Zugriff auf Buchungen"),
-                new UserRight(Permission.AccessBookingHistory, "Zugriff auf Buchungshistorie"),
-                new UserRight(Permission.AccessConfiguration, "Zugriff auf Konfiguration"),
-                new UserRight(Permission.AccessCostAccount, "Zugriff auf Kontenrahmen"),
-                new UserRight(Permission.AccessCostCenter, "Zugriff auf Kostenstellen"),
-                new UserRight(Permission.AccessCreditorDebitor, "Zugriff auf Kreditoren und Debitoren"),
-                new UserRight(Permission.AccessEmployee, "Zugriff auf Mitarbeiter"),
-                new UserRight(Permission.AccessMail, "Zugriff auf Mailkonfiguration"),
-                new UserRight(Permission.AccessPaymentCondidition, "Zugriff auf Zahlungsbedingungen"),
-                new UserRight(Permission.AccessProject, "Zugriff auf Projekt"),
-                new UserRight(Permission.AccessProjectManagement, "Zugriff auf Projektmanagement"),
-                new UserRight(Permission.AccessProjectWorkingTime, "Zugriff auf Zeiterfassung"),
-                new UserRight(Permission.AccessTaxType, "Zugriff auf Steuerarten"),
-                new UserRight(Permission.AccessUsers, "Zugriff auf Benutzer"),
+                new UserRight(Permission.AccessAccounting, "Buchhaltung", 0, "Erlaubt den Zugriff auf den Menüpunkt Buchhaltung"),                                  
+                new UserRight(Permission.AccessProjectManagement, "Projektmanagement", 0, "Erlaubt den Zugriff auf den Menüpunkt Projektmanagement"),               
+                new UserRight(Permission.AccessConfiguration, "Konfiguration", 0, "Erlaubt den Zugriff auf den Menüpunkt Konfiguration"),                           
+                new UserRight(Permission.AccessStockManagement, "Lagerverwaltung", 0, "Erlaubt den Zugriff auf den Menüpunkt Lagerverwaltung"),                     
+
+                new UserRight(Permission.AccessBooking, "Buchungen", (int)Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Buchungen"),                                         
+                new UserRight(Permission.AccessBookingHistory, "Buchungshistorie", (int)Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Buchungshistorie"),                    
+                new UserRight(Permission.AccessCreditorDebitor, "Kreditoren und Debitoren", (int)Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Kreditoren und Debitoren"),   
+                new UserRight(Permission.AccessTaxType, "Steuersätze", (int)Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Steuersätze"),                                     
+                new UserRight(Permission.AccessCostAccount, "Kontenrahmen", (int)Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Kontenrahmen"),                               
+                new UserRight(Permission.AccessCostCenter, "Kostenstellen", (int)Permission.AccessProjectManagement, "Erlaubt den Zugriff auf den Menüpunkt Kostenstellen"),                              
+                new UserRight(Permission.AccessEmployee, "Mitarbeiter", (int)Permission.AccessProjectManagement, "Erlaubt den Zugriff auf den Menüpunkt Mitarbeiter"),                                    
+                new UserRight(Permission.AccessProject, "Projekte", (int)Permission.AccessProjectManagement, "Erlaubt den Zugriff auf den Menüpunkt Projekte"),                                           
+                new UserRight(Permission.AccessProjectWorkingTime, "Zeiterfassungen", (int)Permission.AccessProjectManagement, "Erlaubt den Zugriff auf den Menüpunkt Zeiterfassungen"),                  
+                new UserRight(Permission.AccessMail, "Mailkonfiguration", (int)Permission.AccessConfiguration, "Erlaubt den Zugriff auf den Menüpunkt Mailkonfiguration"),                            
+                new UserRight(Permission.AccessUsers, "Benutzer", (int)Permission.AccessConfiguration, "Erlaubt den Zugriff auf den Menüpunkt Benutzer"),                                             
+                new UserRight(Permission.AccessPaymentCondidition, "Zahlungsbedingungen", (int)Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Zahlungsbedingungen"),          
             };
 
             using (DataLayer db = new DataLayer())
@@ -253,7 +267,6 @@ namespace FinancialAnalysis.Logic
                     item.UserRightId = db.UserRights.Insert(item);
                     db.UserRightUserMappings.Insert(new UserRightUserMapping() { RefUserId = 1, RefUserRightId = item.UserRightId, IsGranted = true });
                 }
-
             }
         }
     }

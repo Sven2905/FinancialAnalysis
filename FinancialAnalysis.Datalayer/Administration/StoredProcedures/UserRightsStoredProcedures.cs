@@ -35,6 +35,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                                 "SELECT UserRightId, " +
                                 "Name, " +
                                 "Description, " +
+                                "ParentCategory, " +
                                 "Permission " +
                                 $"FROM {TableName} " +
                                 "END");
@@ -59,9 +60,9 @@ namespace FinancialAnalysis.Datalayer.Administration
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150), @Permission int AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, Description, Permission ) " +
-                    "VALUES (@Name, @Description, @Permission ); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150), @ParentCategory int, @Permission int AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Name, Description, ParentCategory, Permission ) " +
+                    "VALUES (@Name, @Description, @ParentCategory, @Permission ); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -84,7 +85,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @UserRightId int AS BEGIN SET NOCOUNT ON; SELECT UserRightId, Name, Description, Permission " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @UserRightId int AS BEGIN SET NOCOUNT ON; SELECT UserRightId, Name, Description, ParentCategory, Permission " +
                     $"FROM {TableName} " +
                     "WHERE UserRightId = @UserRightId END");
                 using (var connection =
@@ -108,11 +109,12 @@ namespace FinancialAnalysis.Datalayer.Administration
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @UserRightId int, @Name nvarchar(150), @Description nvarchar(150), @Permission int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @UserRightId int, @Name nvarchar(150), @Description nvarchar(150), @ParentCategory int, @Permission int " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "SET Name = @Name, " +
                     "Description = @Description, " +
+                    "ParentCategory = @ParentCategory, " +
                     "Permission = @Permission " +
                     "WHERE UserRightId = @UserRightId END");
                 using (var connection =

@@ -35,6 +35,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                     $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
                     "UserRightId int IDENTITY(1,1) PRIMARY KEY, " +
                     "Name nvarchar(150) NOT NULL, " +
+                    "ParentCategory int, " +
                     "Description nvarchar(150) NOT NULL, " +
                     "Permission int NOT NULL)"; 
 
@@ -60,15 +61,15 @@ namespace FinancialAnalysis.Datalayer.Administration
         ///     Returns all UserRight records
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<UserRight> GetAll()
+        public List<UserRight> GetAll()
         {
-            IEnumerable<UserRight> output = new List<UserRight>();
+            List<UserRight> output = new List<UserRight>();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<UserRight>($"dbo.{TableName}_GetAll");
+                    output = con.Query<UserRight>($"dbo.{TableName}_GetAll").ToList();
                 }
             }
             catch (Exception e)
@@ -94,7 +95,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Name, @Description, @Permission ",
+                            $"dbo.{TableName}_Insert @Name, @Description, @ParentCategory, @Permission ",
                             UserRight);
                     id = result.Single();
                 }
@@ -189,7 +190,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @UserRightId, @Name, @Description, @Permission", UserRight);
+                    con.Execute($"dbo.{TableName}_Update @UserRightId, @Name, @Description, @@ParentCategory, @Permission", UserRight);
                 }
             }
             catch (Exception e)

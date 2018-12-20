@@ -47,6 +47,7 @@ namespace FinancialAnalysis.Models.Administration
             set { _Lastname = value; RaisePropertyChanged("Name"); }
         }
         public Dictionary<UserRight, bool> UserRights { get; set; } = new Dictionary<UserRight, bool>();
+        public List<UserRightUserMapping> UserRightUserMappings { get; set; } = new List<UserRightUserMapping>();
 
         /// <summary>
         /// Kürzel

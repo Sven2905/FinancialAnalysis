@@ -34,17 +34,12 @@ namespace FinancialAnalysis.Datalayer.Administration
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT UserId, " +
-                                "Picture, " +
-                                "Firstname, " +
-                                "Lastname, " +
-                                "Contraction, " +
-                                "Mail, " +
-                                "IsActive, " +
-                                "IsAdministrator, " +
-                                "LoginUser, " +
-                                "Password " +
-                                $"FROM {TableName} " +
+                                 $"SELECT u.UserId, u.Picture, u.Firstname, u.Lastname, u.Contraction, u.Mail, u.IsActive, u.IsAdministrator, u.LoginUser, u.Password, " +
+                    $"m.UserRightUserMappingId, m.RefUserId, m.RefUserRightId, m.IsGranted, " +
+                    $"r.UserRightId, r.Name, r.Description, r.ParentCategory, r.Permission " +
+                    $"FROM {TableName} u " +
+                    "LEFT JOIN UserRightUserMappings m ON u.UserId = m.RefUserId " +
+                    "LEFT JOIN UserRights r ON m.RefUserRightId = r.UserRightId " +
                                 "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -92,8 +87,13 @@ namespace FinancialAnalysis.Datalayer.Administration
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @UserId int AS BEGIN SET NOCOUNT ON; SELECT UserId, Picture, Firstname, Lastname, Contraction, Mail, IsActive, IsAdministrator, LoginUser, Password " +
-                    $"FROM {TableName} " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @UserId int AS BEGIN SET NOCOUNT ON; " +
+                     $"SELECT u.UserId, u.Picture, u.Firstname, u.Lastname, u.Contraction, u.Mail, u.IsActive, u.IsAdministrator, u.LoginUser, u.Password, " +
+                    $"m.UserRightUserMappingId, m.RefUserId, m.RefUserRightId, m.IsGranted, " +
+                    $"r.UserRightId, r.Name, r.Description, r.ParentCategory, r.Permission " +
+                    $"FROM {TableName} u " +
+                    "LEFT JOIN UserRightUserMappings m ON u.UserId = m.RefUserId " +
+                    "LEFT JOIN UserRights r ON m.RefUserRightId = r.UserRightId " +
                     "WHERE UserId = @UserId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -119,7 +119,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                     $"CREATE PROCEDURE [{TableName}_GetUserByNameAndPassword] @LoginUser nvarchar(150), @Password nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
                     $"SELECT u.UserId, u.Picture, u.Firstname, u.Lastname, u.Contraction, u.Mail, u.IsActive, u.IsAdministrator, u.LoginUser, u.Password, " +
                     $"m.UserRightUserMappingId, m.RefUserId, m.RefUserRightId, m.IsGranted, " +
-                    $"r.UserRightId, r.Name, r.Description, r.Permission " +
+                    $"r.UserRightId, r.Name, r.Description, r.ParentCategory, r.Permission " +
                     $"FROM {TableName} u " +
                     "LEFT JOIN UserRightUserMappings m ON u.UserId = m.RefUserId " +
                     "LEFT JOIN UserRights r ON m.RefUserRightId = r.UserRightId " +

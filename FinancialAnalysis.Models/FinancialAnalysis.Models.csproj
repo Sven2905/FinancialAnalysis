@@ -68,6 +68,7 @@
     <Compile Include="Administration\UserRight.cs" />
     <Compile Include="Administration\User.cs" />
     <Compile Include="Administration\UserRightUserMapping.cs" />
+    <Compile Include="Administration\UserRightUserMappingFlatStructure.cs" />
     <Compile Include="General\Company.cs" />
     <Compile Include="Accounting\Creditor.cs" />
     <Compile Include="Mail\MailConfiguration.cs" />

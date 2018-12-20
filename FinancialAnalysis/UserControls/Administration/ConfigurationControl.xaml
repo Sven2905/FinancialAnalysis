@@ -16,6 +16,12 @@
              mc:Ignorable="d"
              dx:ThemeManager.ThemeName="Office2016WhiteSE"
              d:DesignHeight="900" d:DesignWidth="1600">
+    <UserControl.DataContext>
+        <ViewModels:ConfigurationViewModel />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
@@ -56,26 +62,28 @@
             </StackPanel>-->
             <StackPanel Orientation="Horizontal">
                 <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
-                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
-                                 Content="Maileinstellungen" HorizontalContentAlignment="Center" HorizontalAlignment="Center" dxwuin:Navigation.NavigateTo="MailControl" FontFamily="Tahoma"
-                                 VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2">
+                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1" Content="Userverwaltung" FontFamily="Tahoma"
+                                 dxwuin:Navigation.NavigateTo="UsersControl" VerticalAlignment="Center" Width="180"
+                                 Height="180" FontSize="20" Margin="2" 
+                                 Visibility="{Binding Path=ShowUsers, Converter={StaticResource BoolToVis}}">
                     <dx:SimpleButton.Glyph>
-                        <dx:SvgImageSource Uri="/Images/light/Envelope.svg" Size="100,100" />
+                        <dx:SvgImageSource Uri="/Images/light/Users.svg" Size="120,100" />
                     </dx:SimpleButton.Glyph>
                 </dx:SimpleButton>
                 <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
-                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1" Content="Userverwaltung" FontFamily="Tahoma"
-                                 dxwuin:Navigation.NavigateTo="UsersControl" VerticalAlignment="Center" Width="180"
-                                 Height="180" FontSize="20" Margin="2">
+                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
+                                 Content="Maileinstellungen" HorizontalContentAlignment="Center" HorizontalAlignment="Center" dxwuin:Navigation.NavigateTo="MailControl" FontFamily="Tahoma"
+                                 VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2"
+                                 Visibility="{Binding Path=ShowMailConfiguration, Converter={StaticResource BoolToVis}}">
                     <dx:SimpleButton.Glyph>
-                        <dx:SvgImageSource Uri="/Images/light/Users.svg" Size="120,100" />
+                        <dx:SvgImageSource Uri="/Images/light/Envelope.svg" Size="100,100" />
                     </dx:SimpleButton.Glyph>
                 </dx:SimpleButton>
             </StackPanel>
         </StackPanel>
         <TextBox Grid.Row="1" Grid.Column="1" Name="myTextBox" HorizontalAlignment="Left" Height="24"
                  Margin="107,104,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="319"
-                 Visibility="Hidden">
+                 Visibility="Hidden" >
             <dxb:BarManager.DXContextMenu>
                 <dxb:RadialContextMenu
                     DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}"

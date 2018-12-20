@@ -20,7 +20,7 @@ namespace FinancialAnalysis.Datalayer.Administration
         {
             InsertData();
             GetAllData();
-            GetById();
+            GetByIds();
             UpdateData();
             DeleteData();
         }
@@ -77,16 +77,17 @@ namespace FinancialAnalysis.Datalayer.Administration
             }
         }
 
-        private void GetById()
+        private void GetByIds()
         {
-            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetById", DatabaseNames.FinancialAnalysisDB))
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetByIds", DatabaseNames.FinancialAnalysisDB))
             {
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @UserRightUserMappingId int AS BEGIN SET NOCOUNT ON; SELECT UserRightUserMappingId, IsGranted, RefUserId, RefUserRightId " +
+                    $"CREATE PROCEDURE [{TableName}_GetByIds] @RefUserRightId int, @RefUserId int AS BEGIN SET NOCOUNT ON; SELECT UserRightUserMappingId, IsGranted, RefUserId, RefUserRightId " +
                     $"FROM {TableName} " +
-                    "WHERE UserRightUserMappingId = @UserRightUserMappingId END");
+                    "WHERE RefUserRightId = @RefUserRightId " +
+                    "AND RefUserId = @RefUserId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

@@ -25,13 +25,13 @@ namespace FinancialAnalysis.Logic.ViewModels
         public User ActualUser { get { return Globals.ActualUser; } }
 
         #region UserRights
-        public bool ShowBooking { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessBooking); } }
-        public bool ShowBookingHistory { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessBookingHistory); } }
-        public bool ShowProjectManagement { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessProjectManagement); } }
-        public bool ShowTaxType { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessTaxType); } }
-        public bool ShowCostAccount { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessCostAccount); } }
-        public bool ShowCreditorsDebitors { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessCreditorDebitor); } }
-        public bool ShowConfiguration { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessConfiguration); } }
+        public bool ShowBooking { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessBooking) || ActualUser.IsAdministrator; } }
+        public bool ShowBookingHistory { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessBookingHistory) || ActualUser.IsAdministrator; } }
+        public bool ShowProjectManagement { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessProjectManagement) || ActualUser.IsAdministrator; } }
+        public bool ShowTaxType { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessTaxType) || ActualUser.IsAdministrator; } }
+        public bool ShowCostAccount { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessCostAccount) || ActualUser.IsAdministrator; } }
+        public bool ShowCreditorsDebitors { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessCreditorDebitor) || ActualUser.IsAdministrator; } }
+        public bool ShowConfiguration { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessConfiguration) || ActualUser.IsAdministrator; } }
         #endregion UserRights
 
         public string CurrentTime
@@ -47,7 +47,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         /// </summary>
         public MainViewModel()
         {
-            //if (IsInDesignMode)
+            if (IsInDesignMode)
+                return;
 
             using (var db = new DataLayer())
             {
