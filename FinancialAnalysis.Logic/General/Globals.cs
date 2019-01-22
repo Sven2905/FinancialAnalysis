@@ -16,13 +16,5 @@ namespace FinancialAnalysis.Logic
         //    DataLayer db = new DataLayer();
         //    return db.TableVersions.GetById(1);
         //}
-
-        public static List<UserRight> UserRights()
-        {
-            using (var db = new DataLayer())
-            {
-                return db.UserRights.GetAll();
-            }
-        }
     }
 }

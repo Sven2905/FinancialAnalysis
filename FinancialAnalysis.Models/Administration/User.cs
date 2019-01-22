@@ -73,19 +73,5 @@ namespace FinancialAnalysis.Models.Administration
         private string _Lastname;
         private string _Password = string.Empty;
         #endregion Fields
-
-        #region Methods
-        public bool IsUserRightGranted(Permission permission)
-        {
-            foreach (var right in UserRights.Keys)
-            {
-                if (right.Permission == permission)
-                {
-                    return UserRights[right];
-                }
-            }
-            return false;
-        }
-        #endregion Methods
     }
 }

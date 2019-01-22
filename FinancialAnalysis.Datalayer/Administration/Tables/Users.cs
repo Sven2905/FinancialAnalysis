@@ -123,10 +123,9 @@ namespace FinancialAnalysis.Datalayer.Administration
         ///     Inserts the User item
         /// </summary>
         /// <param name="User"></param>
-        /// <returns>Id of inserted item</returns>
-        public int Insert(User User)
+        /// <returns>Inserted item with Id</returns>
+        public User Insert(User User)
         {
-            var id = 0;
             try
             {
                 using (IDbConnection con =
@@ -136,15 +135,14 @@ namespace FinancialAnalysis.Datalayer.Administration
                         con.Query<int>(
                             $"dbo.{TableName}_Insert @Picture,@Firstname, @Lastname, @Contraction, @Mail, @IsActive, @IsAdministrator, @LoginUser, @Password ",
                             User);
-                    id = result.Single();
+                    User.UserId = result.Single();
                 }
             }
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'Insert item' into table '{TableName}'", e);
             }
-
-            return id;
+            return User;
         }
 
         /// <summary>
@@ -286,15 +284,15 @@ namespace FinancialAnalysis.Datalayer.Administration
         ///     Update User, if not exist, insert it
         /// </summary>
         /// <param name="User"></param>
-        public void UpdateOrInsert(User User)
+        public User UpdateOrInsert(User User)
         {
             if (User.UserId == 0 || GetById(User.UserId) is null)
             {
-                Insert(User);
-                return;
+                return Insert(User);
             }
 
             Update(User);
+            return User;
         }
 
         /// <summary>

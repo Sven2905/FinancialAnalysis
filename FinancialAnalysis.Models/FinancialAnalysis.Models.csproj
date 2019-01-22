@@ -36,7 +36,7 @@
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net46\CommonServiceLocator.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Mvvm.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Mvvm.v18.2, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="PropertyChanged, Version=2.5.11.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
       <HintPath>..\packages\PropertyChanged.Fody.2.5.11\lib\net452\PropertyChanged.dll</HintPath>
@@ -64,7 +64,7 @@
     <Compile Include="Accounting\ScannedDocument.cs" />
     <Compile Include="Accounting\TaxType.cs" />
     <Compile Include="Accounting\PaymentCondition.cs" />
-    <Compile Include="Administration\Permisison.cs" />
+    <Compile Include="Administration\Permission.cs" />
     <Compile Include="Administration\UserRight.cs" />
     <Compile Include="Administration\User.cs" />
     <Compile Include="Administration\UserRightUserMapping.cs" />

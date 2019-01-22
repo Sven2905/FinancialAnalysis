@@ -44,7 +44,7 @@ namespace FinancialAnalysis.Logic
         {
             using (var db = new DataLayer())
             {
-                var right = Globals.UserRights().Single(x => x.Permission == permission);
+                var right = UserManager.Instance.UserRights.Single(x => x.Permission == permission);
                 var tempUserRightUserMapping = user.UserRightUserMappings.SingleOrDefault(x => x.RefUserRightId == right.UserRightId);
                 if (tempUserRightUserMapping != null)
                 {
@@ -62,7 +62,7 @@ namespace FinancialAnalysis.Logic
         {
             using (var db = new DataLayer())
             {
-                var right = Globals.UserRights().Single(x => x.Permission == permission);
+                var right = UserManager.Instance.UserRights.Single(x => x.Permission == permission);
                 var tempUserRightUserMapping = user.UserRightUserMappings.SingleOrDefault(x => x.RefUserRightId == right.UserRightId);
                 if (tempUserRightUserMapping != null)
                 {
