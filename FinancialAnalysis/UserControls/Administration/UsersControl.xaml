@@ -151,12 +151,12 @@
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Passwort" FontFamily="Tahoma" >
-                                    <dxe:PasswordBoxEdit Text="{Binding Password}" FontFamily="Tahoma" />
+                                    <dxe:PasswordBoxEdit Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Passwort wiederholen" FontFamily="Tahoma" >
-                                    <dxe:PasswordBoxEdit Text="{Binding PasswordRepeat}" FontFamily="Tahoma" />
+                                    <dxe:PasswordBoxEdit Text="{Binding PasswordRepeat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                         </dxlc:LayoutGroup>

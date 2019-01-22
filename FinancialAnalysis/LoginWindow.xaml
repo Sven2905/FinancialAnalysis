@@ -42,10 +42,10 @@
         <Label Content="{Binding ErrorText}" Grid.ColumnSpan="5" Foreground="Red" Grid.Column="1" VerticalAlignment="Bottom" Margin="3,5" Visibility="{Binding Path=ShowError, Converter={StaticResource BoolToVis}}"/>
 
         <Label Content="User" Grid.Row="1" Grid.Column="1" Height="22" Margin="3,1,10,1" FontFamily="Tahoma" />
-        <dxe:TextEdit Name="User" Grid.Row="1" Grid.Column="2" Height="22" Width="220" Text="{Binding User.LoginUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1" />
+        <dxe:TextEdit Name="User" Grid.Row="1" Grid.Column="2" Height="22" Width="220" Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1" />
 
         <Label Content="Password" Grid.Row="3" Grid.Column="1" Height="22" Margin="3,1,10,1" FontFamily="Tahoma" />
-        <dxe:PasswordBoxEdit Grid.Row="3" Grid.Column="2" Height="22" Width="220" Text="{Binding User.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1"/>
+        <dxe:PasswordBoxEdit Grid.Row="3" Grid.Column="2" Height="22" Width="220" Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1"/>
 
         <!--<StackPanel Grid.Row="4" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">-->
         <dx:SimpleButton Grid.Row="4" Grid.Column="2" Height="22" Width="100" HorizontalAlignment="Left" Content="Login" Command="{Binding LoginCommand}" Margin="2,5,2,5"/>

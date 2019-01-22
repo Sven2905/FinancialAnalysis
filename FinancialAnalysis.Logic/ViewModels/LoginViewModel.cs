@@ -15,7 +15,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public LoginViewModel()
         {
             Seed();
-            LoginCommand = new DelegateCommand(Login, () => (!string.IsNullOrWhiteSpace(User.LoginUser) && !string.IsNullOrEmpty(User.Password)));
+            LoginCommand = new DelegateCommand(Login, () => (!string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrEmpty(Password)));
             ExitCommand = new DelegateCommand(Exit);
         }
 
@@ -64,7 +64,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (CheckCredentials())
             {
                 ShowError = false;
-                Globals.ActualUser = User;
                 Messenger.Default.Send(new OpenSplashScreenMessage());
                 Messenger.Default.Send(new OpenMainWindowMessage());
             }
@@ -83,11 +82,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private bool CheckCredentials()
         {
-            User foundUser;
-            using (var db = new DataLayer())
-            {
-                foundUser = db.Users.GetUserByNameAndPassword(User.LoginUser, User.Password);
-            }
+            User foundUser = UserManager.Instance.GetUserByNameAndPassword(UserName, Password);
 
             if (foundUser == null)
             {
@@ -103,7 +98,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return false;
             }
 
-            User = foundUser;
+            Globals.ActualUser = foundUser;
             return true;
         }
 
@@ -113,7 +108,8 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public DelegateCommand LoginCommand { get; set; }
         public DelegateCommand ExitCommand { get; set; }
-        public User User { get; set; } = new User();
+        public string UserName { get; set; }
+        public string Password { get; set; }
         public bool ShowError { get; set; }
         public string ErrorText { get; set; }
 

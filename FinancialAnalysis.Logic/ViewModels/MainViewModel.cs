@@ -10,13 +10,13 @@ namespace FinancialAnalysis.Logic.ViewModels
         public User ActualUser { get { return Globals.ActualUser; } }
 
         #region UserRights
-        public bool ShowBooking { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessBooking) || ActualUser.IsAdministrator; } }
-        public bool ShowBookingHistory { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessBookingHistory) || ActualUser.IsAdministrator; } }
-        public bool ShowProjectManagement { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessProjectManagement) || ActualUser.IsAdministrator; } }
-        public bool ShowTaxType { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessTaxType) || ActualUser.IsAdministrator; } }
-        public bool ShowCostAccount { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessCostAccount) || ActualUser.IsAdministrator; } }
-        public bool ShowCreditorsDebitors { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessCreditorDebitor) || ActualUser.IsAdministrator; } }
-        public bool ShowConfiguration { get { return Globals.ActualUser.IsUserRightGranted(Permission.AccessConfiguration) || ActualUser.IsAdministrator; } }
+        public bool ShowBookingHistory { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessBookingHistory) || ActualUser.IsAdministrator; } }
+        public bool ShowTaxType { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessTaxType) || ActualUser.IsAdministrator; } }
+        public bool ShowProjectManagement { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessProjectManagement) || ActualUser.IsAdministrator; } }
+        public bool ShowBooking { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessBooking) || ActualUser.IsAdministrator; } }
+        public bool ShowCostAccount { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessCostAccount) || ActualUser.IsAdministrator; } }
+        public bool ShowCreditorsDebitors { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessCreditorDebitor) || ActualUser.IsAdministrator; } }
+        public bool ShowConfiguration { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessConfiguration) || ActualUser.IsAdministrator; } }
         #endregion UserRights
 
         public string CurrentTime

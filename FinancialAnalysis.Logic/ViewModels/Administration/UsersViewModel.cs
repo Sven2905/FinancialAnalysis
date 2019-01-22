@@ -29,8 +29,6 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            UserRightUserMappingFlatStructure.OnItemPropertyChanged += UserRightUserMappingFlatStructure_OnItemPropertyChanged;
-
             _Users = LoadAllUsers();
             NewUserCommand = new DelegateCommand(NewUser);
             SaveUserCommand = new DelegateCommand(SaveUser, () => Validation());
@@ -44,22 +42,41 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void UserRightUserMappingFlatStructure_OnItemPropertyChanged(object sender, object item, System.ComponentModel.PropertyChangedEventArgs e)
         {
             UserRightUserMappingFlatStructure.OnItemPropertyChanged -= UserRightUserMappingFlatStructure_OnItemPropertyChanged;
+            var right = (UserRightUserMappingFlatStructure)item;
             foreach (var UserRightUserMapping in UserRightUserMappingFlatStructure)
             {
-                var right = (UserRightUserMappingFlatStructure)item;
-                if (UserRightUserMapping.ParentCategory == right.RefUserRightId && right.IsGranted == true)
+                if (UserRightUserMapping.ParentCategory == right.HierachicalId && right.IsGranted == true)
                 {
                     UserRightUserMapping.IsGranted = true;
                 }
-                else if (UserRightUserMapping.ParentCategory == right.RefUserRightId && right.IsGranted == false)
+                else if (UserRightUserMapping.ParentCategory == right.HierachicalId && right.IsGranted == false)
                 {
                     UserRightUserMapping.IsGranted = false;
                 }
-                if (UserRightUserMapping.RefUserRightId == right.ParentCategory && right.IsGranted == true)
+                if (UserRightUserMapping.RefUserRightId == right.HierachicalId && right.IsGranted == true)
                 {
                     UserRightUserMapping.IsGranted = true;
                 }
             }
+
+            if (right.IsGranted)
+            {
+                int parentId = right.ParentCategory;
+                do
+                {
+                    var parentRight = UserRightUserMappingFlatStructure.SingleOrDefault(x => x.HierachicalId == parentId);
+                    if (parentRight != null)
+                    {
+                        parentRight.IsGranted = true;
+                        parentId = parentRight.ParentCategory;
+                    }
+                    else
+                    {
+                        parentId = 0;
+                    }
+                } while (parentId != 0);
+            }
+
             UserRightUserMappingFlatStructure.OnItemPropertyChanged += UserRightUserMappingFlatStructure_OnItemPropertyChanged;
             RaisePropertyChanged("UserRightUserMappingFlatStructure");
         }
@@ -84,12 +101,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void NewUser()
         {
-            SelectedUser = new User();
-            foreach (var item in Globals.UserRights())
-            {
-                SelectedUser.UserRightUserMappings.Add(new UserRightUserMapping(0, item.UserRightId, false) { User = SelectedUser, UserRight = item });
-            }
-            FillUserRightUserMappingFlatStructure();
+            SelectedUser = UserManager.Instance.NewUser();
+            UserRightUserMappingFlatStructure = UserManager.Instance.GetUserRightUserMappingFlatStructure(SelectedUser);
+            UserRightUserMappingFlatStructure.OnItemPropertyChanged += UserRightUserMappingFlatStructure_OnItemPropertyChanged;
             _Users.Add(SelectedUser);
         }
 
@@ -107,93 +121,33 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            try
-            {
-                using (var db = new DataLayer())
-                {
-                    db.Users.Delete(SelectedUser.UserId);
-                    _Users.Remove(SelectedUser);
-                    SelectedUser = null;
-                }
-            }
-            catch (System.Exception ex)
-            {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
-            }
+            UserManager.Instance.DeleteUser(SelectedUser);
+            _Users.Remove(SelectedUser);
         }
 
         private void SaveUser()
         {
-            try
-            {
-                if (SelectedUser.UserId != 0)
-                {
-                    if (IsPasswordSet())
-                    {
-                        if (IsPasswordIdentical())
-                        {
-                            SelectedUser.Password = Password;
-                            using (var db = new DataLayer())
-                            {
-                                db.Users.UpdatePassword(SelectedUser);
-                            }
-                        }
-                        else
-                        {
-                            return; // Passwords are not identical
-                        }
-                    }
+            SelectedUser.Password = Password;
 
-                    using (var db = new DataLayer())
-                    {
-                        db.Users.Update(SelectedUser);
-                        foreach (var item in UserRightUserMappingFlatStructure)
-                        {
-                            SelectedUser.UserRightUserMappings.SingleOrDefault(x => x.UserRightUserMappingId == item.UserRightUserMappingId).IsGranted = item.IsGranted;
-                        }
-                        db.UserRightUserMappings.UpdateOrInsert(SelectedUser.UserRightUserMappings);
-                    }
-                    if (SelectedUser.UserId == Globals.ActualUser.UserId)
-                    {
-                        Globals.ActualUser = SelectedUser;
-                    }
-                }
-                else
-                {
-                    if (IsPasswordSet())
-                    {
-                        if (IsPasswordIdentical())
-                        {
-                            SelectedUser.Password = Password;
-                            using (var db = new DataLayer())
-                            {
-                                SelectedUser.UserId = db.Users.Insert(SelectedUser);
-                                foreach (var item in SelectedUser.UserRightUserMappings)
-                                {
-                                    item.RefUserId = SelectedUser.UserId;
-                                }
-                                foreach (var item in UserRightUserMappingFlatStructure)
-                                {
-                                    SelectedUser.UserRightUserMappings.SingleOrDefault(x => x.RefUserRightId == item.RefUserRightId).IsGranted = item.IsGranted;
-                                }
-                                db.UserRightUserMappings.UpdateOrInsert(SelectedUser.UserRightUserMappings);
-                                SelectedUser = db.Users.GetById(SelectedUser.UserId);
-                            }
-                        }
-                        else
-                        {
-                            // not identical
-                        }
-                    }
-                    else
-                    {
-                        // not set
-                    }
-                }
-            }
-            catch (System.Exception ex)
+            foreach (var item in SelectedUser.UserRightUserMappings)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                item.RefUserId = SelectedUser.UserId;
+            }
+            foreach (var item in UserRightUserMappingFlatStructure)
+            {
+                SelectedUser.UserRightUserMappings.SingleOrDefault(x => x.RefUserRightId == item.RefUserRightId).IsGranted = item.IsGranted;
+            }
+
+            UserManager.Instance.InsertOrUpdateUser(SelectedUser);
+
+            foreach (var item in UserRightUserMappingFlatStructure)
+            {
+                SelectedUser.UserRightUserMappings.SingleOrDefault(x => x.UserRightUserMappingId == item.UserRightUserMappingId).IsGranted = item.IsGranted;
+            }
+
+            if (SelectedUser.UserId == Globals.ActualUser.UserId)
+            {
+                Globals.ActualUser = SelectedUser;
             }
         }
 
@@ -251,21 +205,23 @@ namespace FinancialAnalysis.Logic.ViewModels
                     return false;
                 }
             }
+            if (!string.IsNullOrEmpty(Password) && string.IsNullOrEmpty(PasswordRepeat))
+            {
+                return false;
+            }
+            if (string.IsNullOrEmpty(Password) && !string.IsNullOrEmpty(PasswordRepeat))
+            {
+                return false;
+            }
+            if (IsPasswordSet())
+            {
+                if (!IsPasswordIdentical())
+                {
+                    return false;
+                }
+            }
+
             return true;
-        }
-
-        public void FillUserRightUserMappingFlatStructure()
-        {
-            if (SelectedUser == null)
-            {
-                return;
-            }
-
-            UserRightUserMappingFlatStructure.Clear();
-            foreach (var item in SelectedUser.UserRightUserMappings)
-            {
-                UserRightUserMappingFlatStructure.Add(new UserRightUserMappingFlatStructure(item));
-            }
         }
 
         private bool IsPasswordIdentical() => (Password == PasswordRepeat);
@@ -312,7 +268,11 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 _SelectedUser = value;
-                FillUserRightUserMappingFlatStructure();
+                if (value != null)
+                {
+                    UserRightUserMappingFlatStructure = UserManager.Instance.GetUserRightUserMappingFlatStructure(_SelectedUser);
+                    UserRightUserMappingFlatStructure.OnItemPropertyChanged += UserRightUserMappingFlatStructure_OnItemPropertyChanged;
+                }
                 if (_SelectedUser != null && _SelectedUser.Picture != null)
                 {
                     Image = ConvertToImage(SelectedUser.Picture);
