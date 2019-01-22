@@ -11,13 +11,6 @@ namespace FinancialAnalysis.Models.Accounting
         public TaxCategory TaxCategory { get; set; } // Steuerart
 
         public int
-            RefAccountNumber
-        {
-            get;
-            set;
-        } // Das Umsatzsteuer- oder Vorsteuerkonto, auf das der Steuerbetrag zum Steuersatz gebucht wird
-
-        public int
             RefAccountNotPayable
         {
             get;

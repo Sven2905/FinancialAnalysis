@@ -70,56 +70,56 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            
-                <TextBlock Grid.Row="0" Text="Vorhandene Benutzer" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="12,30,12,0"/>
-            
-                <dxlc:LayoutControl Grid.Row="1" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" VerticalAlignment="Top" >
-                    <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
-                        <dxlc:LayoutGroup.Header>
-                            <TextBlock Text="Filter" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
-                        </dxlc:LayoutGroup.Header>
-                        <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Filtertext" FontFamily="Tahoma" >
+
+            <TextBlock Grid.Row="0" Text="Vorhandene Benutzer" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="12,30,12,0"/>
+
+            <dxlc:LayoutControl Grid.Row="1" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" VerticalAlignment="Top" >
+                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
+                    <dxlc:LayoutGroup.Header>
+                        <TextBlock Text="Filter" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                    </dxlc:LayoutGroup.Header>
+                    <dxlc:LayoutGroup>
+                        <dxlc:LayoutItem Label="Filtertext" FontFamily="Tahoma" >
                             <dxe:TextEdit Text="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
-                            </dxlc:LayoutItem>
-                        </dxlc:LayoutGroup>
+                        </dxlc:LayoutItem>
                     </dxlc:LayoutGroup>
-                </dxlc:LayoutControl>
+                </dxlc:LayoutGroup>
+            </dxlc:LayoutControl>
 
-                <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="12,0,12,0">
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="12,0,12,0">
                 <ListView ItemsSource="{Binding FilteredUsers}" SelectedItem="{Binding SelectedUser}" x:Name="Users" BorderThickness="1" BorderBrush="DarkGray" FontSize="14" >
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="4" />
-                                        <ColumnDefinition Width="80" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Border Width="4" HorizontalAlignment="Left" Background="{Binding IsActive, Converter={StaticResource BConverter}}" />
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="4" />
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Border Width="4" HorizontalAlignment="Left" Background="{Binding IsActive, Converter={StaticResource BConverter}}" />
 
-                                    <Border Grid.Column="1" Padding="8" Height="60" >
-                                        <Border Background="#3F729B" Width="45" CornerRadius="45">
-                                            <TextBlock Margin="0,0,0,2" Text="{Binding Initials}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="24" />
-                                        </Border>
+                                <Border Grid.Column="1" Padding="8" Height="60" >
+                                    <Border Background="#3F729B" Width="45" CornerRadius="45">
+                                        <TextBlock Margin="0,0,0,2" Text="{Binding Initials}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="24" />
                                     </Border>
+                                </Border>
 
-                                    <Border Grid.Column="2" Padding="0 0 8 0" >
-                                        <StackPanel VerticalAlignment="Center" >
-                                            <TextBlock Margin="10,0,0,0" Text="{Binding LoginUser, Mode=TwoWay}" Foreground="#000" TextTrimming="CharacterEllipsis" />
-                                            <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#9e9e9e" TextTrimming="CharacterEllipsis" />
-                                        </StackPanel>
-                                    </Border>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ListView>
-                </ScrollViewer>
+                                <Border Grid.Column="2" Padding="0 0 8 0" >
+                                    <StackPanel VerticalAlignment="Center" >
+                                        <TextBlock Margin="10,0,0,0" Text="{Binding LoginUser, Mode=TwoWay}" Foreground="#000" TextTrimming="CharacterEllipsis" />
+                                        <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#9e9e9e" TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
 
             <VirtualizingStackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="15" >
                 <dx:SimpleButton Width="120" Height="30" Margin="5,0,5,0" Content="Neu"

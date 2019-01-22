@@ -1,25 +1,10 @@
 using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
-using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Administration;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
-    /// <summary>
-    ///     This class contains properties that the main View can data bind to.
-    ///     <para>
-    ///         Use the <strong>mvvminpc</strong> snippet to add bindable properties to this ViewModel.
-    ///     </para>
-    ///     <para>
-    ///         You can also use Blend to data bind with the tool's support.
-    ///     </para>
-    ///     <para>
-    ///         See http://www.galasoft.ch/mvvm
-    ///     </para>
-    /// </summary>
     public class MainViewModel : ViewModelBase
     {
         public User ActualUser { get { return Globals.ActualUser; } }
@@ -48,16 +33,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         public MainViewModel()
         {
             if (IsInDesignMode)
-                return;
-
-            using (var db = new DataLayer())
             {
-                if (db.TaxTypes.GetAll().Count() == 0)
-                {
-                    var _Import = new Import();
-                    db.TaxTypes.Seed();
-                    _Import.ImportCostAccounts(Standardkontenrahmen.SKR03);
-                }
+                return;
             }
 
             UpdateTime();
@@ -67,9 +44,11 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             Task.Run(() =>
             {
-                CurrentTime = DateTime.Now.ToString("G");
-                Task.Delay(1000);
-                UpdateTime();
+                while (true)
+                {
+                    CurrentTime = DateTime.Now.ToString("G");
+                    Task.Delay(1000);
+                }
             });
         }
     }

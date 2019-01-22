@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FinancialAnalysis.Models.Warehouse
+namespace FinancialAnalysis.Models.StockManagement
 {
     public class Warehouse
     {
@@ -10,7 +10,6 @@ namespace FinancialAnalysis.Models.Warehouse
         public string Street { get; set; }
         public int Postcode { get; set; }
         public string City { get; set; }
-        public int MyProperty { get; set; }
         public List<Stockyard> Stockyards { get; set; }
     }
 }

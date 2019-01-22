@@ -90,6 +90,7 @@
     <Compile Include="DataLayer.cs" />
     <Compile Include="Helper\DatabaseNames.cs" />
     <Compile Include="Helper\Helper.cs" />
+    <Compile Include="Import.cs" />
     <Compile Include="Product\StoredProcedures\ProductCategoriesStoredProcedures.cs" />
     <Compile Include="Product\StoredProcedures\ProductPrototypesStoredProcedures.cs" />
     <Compile Include="Product\Tables\ProductCategories.cs" />
@@ -149,8 +150,8 @@
   <ItemGroup>
     <Folder Include="Ordering\StoredProcedures\" />
     <Folder Include="Ordering\Tables\" />
-    <Folder Include="Warehouse\StoredProcedures\" />
-    <Folder Include="Warehouse\Tables\" />
+    <Folder Include="StockManagement\StoredProcedures\" />
+    <Folder Include="StockManagement\Tables\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

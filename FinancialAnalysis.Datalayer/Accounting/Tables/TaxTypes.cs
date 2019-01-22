@@ -45,7 +45,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                                  "DescriptionShort nvarchar(50) NOT NULL, " +
                                  "AmountOfTax decimal NOT NULL, " +
                                  "TaxCategory int NOT NULL, " +
-                                 "RefAccountNumber int, " +
+                                 "RefCostAccount int, " +
                                  "RefAccountNotPayable int )";
 
                 using (var command = new SqlCommand(commandStr, con))
@@ -102,7 +102,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefAccountNumber, @RefAccountNotPayable",
+                            $"dbo.{TableName}_Insert @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefCostAccount, @RefAccountNotPayable",
                             taxType);
                     return result.Single();
                 }
@@ -198,7 +198,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     con.Execute(
-                        $"dbo.{TableName}_Update @TaxTypeId, @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefAccountNumber, @RefAccountNotPayable",
+                        $"dbo.{TableName}_Update @TaxTypeId, @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefCostAccount, @RefAccountNotPayable",
                         taxType);
                 }
             }
@@ -251,97 +251,105 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 new TaxType
                 {
                     DescriptionShort = "Bau 7%", Description = "Bau mit 7% USt/VSt", AmountOfTax = 7,
-                    TaxCategory = TaxCategory.thirteenB, RefAccountNumber = 1785
+                    TaxCategory = TaxCategory.thirteenB, RefCostAccount = GetIdOfCostAccount(1785)
                 },
                 new TaxType
                 {
                     DescriptionShort = "I.g.E 7% USt/VSt", Description = "I.g.E 7% USt/VSt", AmountOfTax = 7,
-                    TaxCategory = TaxCategory.igE, RefAccountNumber = 1773
+                    TaxCategory = TaxCategory.igE, RefCostAccount = GetIdOfCostAccount(1773)
                 },
                 new TaxType
                 {
                     DescriptionShort = "I.g.E 16% USt/VSt", Description = "I.g.E 16% USt/VSt", AmountOfTax = 16,
-                    TaxCategory = TaxCategory.igE, RefAccountNumber = 1774
+                    TaxCategory = TaxCategory.igE, RefCostAccount = GetIdOfCostAccount(1774)
                 },
                 new TaxType
                 {
                     DescriptionShort = "I.g.E 19% USt/VSt", Description = "I.g.E 19% USt/VSt", AmountOfTax = 19,
-                    TaxCategory = TaxCategory.igE, RefAccountNumber = 1772
+                    TaxCategory = TaxCategory.igE, RefCostAccount = GetIdOfCostAccount(1772)
                 },
                 new TaxType
                 {
                     DescriptionShort = "I.g.E Neufahrzeug", Description = "I.g.E Neufahrzeuge 19% USt/VSt",
-                    AmountOfTax = 19, TaxCategory = TaxCategory.igE, RefAccountNumber = 1784
+                    AmountOfTax = 19, TaxCategory = TaxCategory.igE, RefCostAccount = GetIdOfCostAccount(1784)
                 },
                 new TaxType
                 {
                     DescriptionShort = "Kfz 19% VSt. 50%", Description = "Kfz 19% Vorsteuer. 50%", AmountOfTax = 19,
-                    TaxCategory = TaxCategory.fiftyPercent, RefAccountNumber = 1570
+                    TaxCategory = TaxCategory.fiftyPercent, RefCostAccount = GetIdOfCostAccount(1570)
                 },
                 new TaxType
                 {
                     DescriptionShort = "Kfz VSt. 50%", Description = "Kfz Vorsteuer. 50%", AmountOfTax = 16,
-                    TaxCategory = TaxCategory.fiftyPercent, RefAccountNumber = 1570
+                    TaxCategory = TaxCategory.fiftyPercent, RefCostAccount = GetIdOfCostAccount(1570)
                 },
                 new TaxType
                 {
                     DescriptionShort = "USt. 15%", Description = "Umsatzsteuer 15%", AmountOfTax = 15,
-                    TaxCategory = TaxCategory.Netto, RefAccountNumber = 1770
+                    TaxCategory = TaxCategory.Netto, RefCostAccount = GetIdOfCostAccount(1770)
                 },
                 new TaxType
                 {
                     DescriptionShort = "USt. 16%", Description = "Umsatzsteuer 16%", AmountOfTax = 16,
-                    TaxCategory = TaxCategory.Netto, RefAccountNumber = 1775
+                    TaxCategory = TaxCategory.Netto, RefCostAccount = GetIdOfCostAccount(1775)
                 },
                 new TaxType
                 {
                     DescriptionShort = "USt. 19%", Description = "Umsatzsteuer 19%", AmountOfTax = 19,
-                    TaxCategory = TaxCategory.Netto, RefAccountNumber = 1776
+                    TaxCategory = TaxCategory.Netto, RefCostAccount = GetIdOfCostAccount(1776)
                 },
                 new TaxType
                 {
                     DescriptionShort = "USt. 7%", Description = "Umsatzsteuer 7%", AmountOfTax = 7,
-                    TaxCategory = TaxCategory.Netto, RefAccountNumber = 1771
+                    TaxCategory = TaxCategory.Netto, RefCostAccount = GetIdOfCostAccount(1771)
                 },
                 new TaxType
                 {
                     DescriptionShort = "USt/VSt 19%",
                     Description = "Reverse Charge (Steuerschuld Leistungsempf.) 19% USt/VSt", AmountOfTax = 19,
-                    TaxCategory = TaxCategory.thirteenB, RefAccountNumber = 1787
+                    TaxCategory = TaxCategory.thirteenB, RefCostAccount = GetIdOfCostAccount(1787)
                 },
                 new TaxType
                 {
                     DescriptionShort = "USt/VSt 7%",
                     Description = "Reverse Charge (Steuerschuld Leistungsempf.) 7% USt/VSt", AmountOfTax = 7,
-                    TaxCategory = TaxCategory.thirteenB, RefAccountNumber = 1785
+                    TaxCategory = TaxCategory.thirteenB, RefCostAccount = GetIdOfCostAccount(1785)
                 },
                 new TaxType
                 {
                     DescriptionShort = "VSt. 15%", Description = "Vorsteuer 15%", AmountOfTax = 15,
-                    TaxCategory = TaxCategory.Netto, RefAccountNumber = 1771
+                    TaxCategory = TaxCategory.Netto, RefCostAccount = GetIdOfCostAccount(1771)
                 },
                 new TaxType
                 {
                     DescriptionShort = "VSt. 16%", Description = "Vorsteuer 16%", AmountOfTax = 16,
-                    TaxCategory = TaxCategory.Netto, RefAccountNumber = 1575
+                    TaxCategory = TaxCategory.Netto, RefCostAccount = GetIdOfCostAccount(1575)
                 },
                 new TaxType
                 {
                     DescriptionShort = "VSt. 19%", Description = "Vorsteuer 19%", AmountOfTax = 19,
-                    TaxCategory = TaxCategory.Netto, RefAccountNumber = 1576
+                    TaxCategory = TaxCategory.Netto, RefCostAccount = GetIdOfCostAccount(1576)
                 },
                 new TaxType
                 {
                     DescriptionShort = "VSt. 7%", Description = "Vorsteuer 7%", AmountOfTax = 7,
-                    TaxCategory = TaxCategory.Netto, RefAccountNumber = 1571
+                    TaxCategory = TaxCategory.Netto, RefCostAccount = GetIdOfCostAccount(1571)
                 }
             };
 
             using (IDbConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
             {
                 con.Execute(
-                    $"dbo.{TableName}_Insert @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefAccountNumber, @RefAccountNotPayable",
+                    $"dbo.{TableName}_Insert @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefCostAccount, @RefAccountNotPayable",
                     taxTypes);
+            }
+        }
+
+        private int GetIdOfCostAccount(int AccountNumber)
+        {
+            using(var db = new DataLayer())
+            {
+                return db.CostAccounts.GetByAccountNumber(AccountNumber);
             }
         }
     }

@@ -90,9 +90,9 @@
     <Compile Include="Accounting\SelectedCostAccount.cs" />
     <Compile Include="Database\TableVersion.cs" />
     <Compile Include="ProjectManagement\Tariff.cs" />
-    <Compile Include="Warehouse\BookedProduct.cs" />
-    <Compile Include="Warehouse\Stockyard.cs" />
-    <Compile Include="Warehouse\Warehouse.cs" />
+    <Compile Include="StockManagement\BookedProduct.cs" />
+    <Compile Include="StockManagement\Stockyard.cs" />
+    <Compile Include="StockManagement\Warehouse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

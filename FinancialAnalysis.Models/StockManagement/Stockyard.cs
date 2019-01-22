@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FinancialAnalysis.Models.Warehouse
+namespace FinancialAnalysis.Models.StockManagement
 {
     public class Stockyard
     {

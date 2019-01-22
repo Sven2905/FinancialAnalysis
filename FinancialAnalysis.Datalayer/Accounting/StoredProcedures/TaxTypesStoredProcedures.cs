@@ -54,9 +54,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Description nvarchar(50), @DescriptionShort nvarchar(50), @AmountOfTax decimal, @TaxCategory int, @RefAccountNumber int, @RefAccountNotPayable int AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Description, DescriptionShort, AmountOfTax, TaxCategory, RefAccountNumber, RefAccountNotPayable) " +
-                    "VALUES (@Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefAccountNumber, @RefAccountNotPayable); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Description nvarchar(50), @DescriptionShort nvarchar(50), @AmountOfTax decimal, @TaxCategory int, @RefCostAccount int, @RefAccountNotPayable int AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Description, DescriptionShort, AmountOfTax, TaxCategory, RefCostAccount, RefAccountNotPayable) " +
+                    "VALUES (@Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefCostAccount, @RefAccountNotPayable); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -79,7 +79,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @TaxTypeId int AS BEGIN SET NOCOUNT ON; SELECT TaxTypeId, Description, DescriptionShort, AmountOfTax, TaxCategory, RefAccountNumber, RefAccountNotPayable " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @TaxTypeId int AS BEGIN SET NOCOUNT ON; SELECT TaxTypeId, Description, DescriptionShort, AmountOfTax, TaxCategory, RefCostAccount, RefAccountNotPayable " +
                     $"FROM {TableName} " +
                     "WHERE TaxTypeId = @TaxTypeId END");
                 using (var connection =
@@ -103,10 +103,15 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @TaxTypeId int,  @Description nvarchar(50), @DescriptionShort nvarchar(50), @AmountOfTax decimal, @TaxCategory int, @RefAccountNumber int, @RefAccountNotPayable int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @TaxTypeId int,  @Description nvarchar(50), @DescriptionShort nvarchar(50), @AmountOfTax decimal, @TaxCategory int, @RefCostAccount int, @RefAccountNotPayable int " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
-                    "SET Description = @Description, @DescriptionShort = DescriptionShort, AmountOfTax = @AmountOfTax, @TaxCategory = TaxCategory, @RefAccountNumber = RefAccountNumber, @RefAccountNotPayable = RefAccountNotPayable " +
+                    "SET Description = @Description, " +
+                    "@DescriptionShort = DescriptionShort, " +
+                    "AmountOfTax = @AmountOfTax, " +
+                    "@TaxCategory = TaxCategory, " +
+                    "@RefCostAccount = RefCostAccount, " +
+                    "@RefAccountNotPayable = RefAccountNotPayable " +
                     "WHERE TaxTypeId = @TaxTypeId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

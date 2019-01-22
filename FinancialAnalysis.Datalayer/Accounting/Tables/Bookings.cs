@@ -105,7 +105,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Description, @Amount, @Date ", Booking);
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @Description, @Amount, @Date", Booking);
                     return result.Single();
                 }
             }

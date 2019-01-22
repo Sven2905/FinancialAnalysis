@@ -148,6 +148,15 @@
     <Compile Include="UserControls\Accounting\CostCenterControl.xaml.cs">
       <DependentUpon>CostCenterControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\StockManagement\ProductControl.xaml.cs">
+      <DependentUpon>ProductControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\StockManagement\ProductCategoryControl.xaml.cs">
+      <DependentUpon>ProductCategoryControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\StockManagement\StockManagementControl.xaml.cs">
+      <DependentUpon>StockManagementControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ProjectManagement\ProjectWorkingTimeControl.xaml.cs">
       <DependentUpon>ProjectWorkingTimeControl.xaml</DependentUpon>
     </Compile>
@@ -218,6 +227,18 @@
     <Page Include="UserControls\Accounting\CostCenterControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\StockManagement\ProductControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\StockManagement\ProductCategoryControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\StockManagement\StockManagementControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\ProjectManagement\ProjectWorkingTimeControl.xaml">
       <Generator>MSBuild:Compile</Generator>

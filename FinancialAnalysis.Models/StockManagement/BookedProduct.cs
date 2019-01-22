@@ -1,4 +1,4 @@
-﻿namespace FinancialAnalysis.Models.Warehouse
+﻿namespace FinancialAnalysis.Models.StockManagement
 {
     public class BookedProduct
     {

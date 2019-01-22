@@ -189,6 +189,31 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
+        ///     Returns CostAccount by AccountNumber
+        /// </summary>
+        /// <param name="AccountNumber"></param>
+        /// <returns></returns>
+        public int GetByAccountNumber(int AccountNumber)
+        {
+            var output = 0;
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    output = con.QuerySingleOrDefault<int>($"dbo.{TableName}_GetByAccountNumber @AccountNumber",
+                        new { AccountNumber });
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'GetByAccountNumber' from table '{TableName}'", e);
+            }
+
+            return output;
+        }
+
+        /// <summary>
         ///     Update CostAccount, if not exist, insert it
         /// </summary>
         /// <param name="costAccount"></param>

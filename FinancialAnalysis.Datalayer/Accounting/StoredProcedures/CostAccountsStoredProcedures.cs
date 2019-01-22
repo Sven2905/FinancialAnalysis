@@ -22,6 +22,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
             GetAllVisibleData();
             InsertData();
             GetById();
+            GetByAccountNumber();
             UpdateData();
             DeleteData();
             GetNextCreditorNumber();
@@ -113,6 +114,30 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     $"CREATE PROCEDURE [{TableName}_GetById] @CostAccountId int AS BEGIN SET NOCOUNT ON; SELECT CostAccountId, Description, AccountNumber, RefTaxTypeId, RefCostAccountCategoryId, IsVisible, IsEditable " +
                     $"FROM {TableName} " +
                     "WHERE CostAccountId = @CostAccountId END");
+                using (var connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void GetByAccountNumber()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetByAccountNumber", DatabaseNames.FinancialAnalysisDB))
+            {
+                var sbSP = new StringBuilder();
+
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_GetByAccountNumber] @AccountNumber int AS BEGIN SET NOCOUNT ON; SELECT CostAccountId " +
+                    $"FROM {TableName} " +
+                    "WHERE AccountNumber = @AccountNumber END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
