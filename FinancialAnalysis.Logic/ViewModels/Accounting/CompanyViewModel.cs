@@ -4,6 +4,7 @@ using DevExpress.Mvvm.POCO;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models;
+using FinancialAnalysis.Models.CompanyManagement;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels

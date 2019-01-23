@@ -4,18 +4,18 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
-using FinancialAnalysis.Models.Product;
 using Serilog;
+using FinancialAnalysis.Models.ProductManagement;
 
-namespace FinancialAnalysis.Datalayer.Product
+namespace FinancialAnalysis.Datalayer.ProductManagement
 {
-    public class ProductCategories : ITable
+    public class Products : ITable
     {
-        private readonly ProductCategoriesStoredProcedures sp = new ProductCategoriesStoredProcedures();
+        private readonly ProductsStoredProcedures sp = new ProductsStoredProcedures();
 
-        public ProductCategories()
+        public Products()
         {
-            TableName = "ProductCategories";
+            TableName = "Products";
             CheckAndCreateTable();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -33,9 +33,19 @@ namespace FinancialAnalysis.Datalayer.Product
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
                     $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
-                    "ProductCategoryId int IDENTITY(1,1) PRIMARY KEY, " +
-                    "Name nvarchar(150) NOT NULL, " +
-                    "Description nvarchar(150))";
+                    "ProductId int IDENTITY(1,1) PRIMARY KEY," +
+                    "Name nvarchar(150) NOT NULL," +
+                    "Description nvarchar(150)," +
+                    "DimensionX int, " +
+                    "DimensionY int, " +
+                    "DimensionZ int, " +
+                    "Weight decimal, " +
+                    "IsStackable bit, " +
+                    "Picture varbinary(MAX), " +
+                    "PackageUnit int, " +
+                    "BuyingPrice money, " +
+                    "SalePrice money, " +
+                    "RefProductCategoryId int NOT NULL)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -56,18 +66,18 @@ namespace FinancialAnalysis.Datalayer.Product
         }
 
         /// <summary>
-        ///     Returns all Product Category records
+        ///     Returns all Product Prototypes records
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ProductCategory> GetAll()
+        public IEnumerable<Product> GetAll()
         {
-            IEnumerable<ProductCategory> output = new List<ProductCategory>();
+            IEnumerable<Product> output = new List<Product>();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<ProductCategory>($"dbo.{TableName}_GetAll");
+                    output = con.Query<Product>($"dbo.{TableName}_GetAll");
                 }
             }
             catch (Exception e)
@@ -79,11 +89,11 @@ namespace FinancialAnalysis.Datalayer.Product
         }
 
         /// <summary>
-        ///     Inserts the Product Category item
+        ///     Inserts the ProductPrototype item
         /// </summary>
-        /// <param name="Product Category"></param>
+        /// <param name="ProductPrototype"></param>
         /// <returns>Id of inserted item</returns>
-        public int Insert(ProductCategory ProductCategory)
+        public int Insert(Product ProductPrototype)
         {
             var id = 0;
             try
@@ -93,8 +103,8 @@ namespace FinancialAnalysis.Datalayer.Product
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Name, @Description",
-                            ProductCategory);
+                            $"dbo.{TableName}_Insert @Name, @Description, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @BuyingPrice, @SalePrice, @RefProductCategoryId",
+                            ProductPrototype);
                     id = result.Single();
                 }
             }
@@ -107,17 +117,17 @@ namespace FinancialAnalysis.Datalayer.Product
         }
 
         /// <summary>
-        ///     Inserts the list of Product Category items
+        ///     Inserts the list of ProductPrototypes items
         /// </summary>
         /// <param name="ProductPrototype"></param>
-        public void Insert(IEnumerable<ProductCategory> ProductCategories)
+        public void Insert(IEnumerable<Product> ProductPrototypes)
         {
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var ProductCategory in ProductCategories) Insert(ProductCategory);
+                    foreach (var ProductPrototype in ProductPrototypes) Insert(ProductPrototype);
                 }
             }
             catch (Exception e)
@@ -127,20 +137,20 @@ namespace FinancialAnalysis.Datalayer.Product
         }
 
         /// <summary>
-        ///     Returns Product Category by Id
+        ///     Returns Product Prototype by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ProductCategory GetById(int id)
+        public Product GetById(int id)
         {
-            var output = new ProductCategory();
+            var output = new Product();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<ProductCategory>($"dbo.{TableName}_GetById @ProductCategoryId",
-                        new {ProductCategoryId = id});
+                    output = con.QuerySingleOrDefault<Product>($"dbo.{TableName}_GetById @ProductId",
+                        new {ProductPrototypeId = id});
                 }
             }
             catch (Exception e)
@@ -152,39 +162,39 @@ namespace FinancialAnalysis.Datalayer.Product
         }
 
         /// <summary>
-        ///     Update ProductCategory, if not exist, insert it
+        ///     Update ProductPrototype, if not exist, insert it
         /// </summary>
-        /// <param name="ProductCategory"></param>
-        public void UpdateOrInsert(ProductCategory ProductCategory)
+        /// <param name="ProductPrototype"></param>
+        public void UpdateOrInsert(ProductPrototype ProductPrototype)
         {
-            if (ProductCategory.ProductCategoryId == 0 || GetById(ProductCategory.ProductCategoryId) is null)
+            if (ProductPrototype.ProductPrototypeId == 0 || GetById(ProductPrototype.ProductPrototypeId) is null)
             {
-                Insert(ProductCategory);
+                Insert(ProductPrototype);
                 return;
             }
 
-            Update(ProductCategory);
+            Update(ProductPrototype);
         }
 
         /// <summary>
-        ///     Update ProductCategories, if not exist insert them
+        ///     Update ProductPrototypes, if not exist insert them
         /// </summary>
-        /// <param name="ProductCategories"></param>
-        public void UpdateOrInsert(IEnumerable<ProductCategory> ProductCategories)
+        /// <param name="User"></param>
+        public void UpdateOrInsert(IEnumerable<ProductPrototype> ProductPrototypes)
         {
-            foreach (var ProductCategory in ProductCategories)
+            foreach (var ProductPrototype in ProductPrototypes)
             {
-                UpdateOrInsert(ProductCategory);
+                UpdateOrInsert(ProductPrototype);
             }
         }
 
         /// <summary>
-        ///     Update ProductCategory
+        ///     Update ProductPrototype
         /// </summary>
-        /// <param name="ProductCategory"></param>
-        public void Update(ProductCategory ProductCategory)
+        /// <param name="ProductPrototype"></param>
+        public void Update(ProductPrototype ProductPrototype)
         {
-            if (ProductCategory.ProductCategoryId == 0)
+            if (ProductPrototype.ProductPrototypeId == 0)
             {
                 return;
             }
@@ -194,7 +204,7 @@ namespace FinancialAnalysis.Datalayer.Product
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @ProductCategoryId, @Name, @Description", ProductCategory);
+                    con.Execute($"dbo.{TableName}_Update @ProductPrototypeId, @Name, @Description, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @BuyingPrice, @SalePrice, @RefProductCategoryId", ProductPrototype);
                 }
             }
             catch (Exception e)
@@ -214,12 +224,38 @@ namespace FinancialAnalysis.Datalayer.Product
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @ProductCategoryId", new { ProductCategoryId = id });
+                    con.Execute($"dbo.{TableName}_Delete @ProductPrototypeId", new { ProductPrototypeId = id });
                 }
             }
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'Delete' from table '{TableName}'", e);
+            }
+        }
+
+        public void AddReferences()
+        {
+            AddCostAccountsReference();
+        }
+
+        private void AddCostAccountsReference()
+        {
+            try
+            {
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_ProductPrototype_ProductCategory', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_ProductPrototype_ProductCategory FOREIGN KEY(RefProductCategoryId) REFERENCES ProductCategories(ProductCategoryId)";
+
+                using (var command = new SqlCommand(commandStr, con))
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while creating reference between '{TableName}' and ProductCategories", e);
             }
         }
     }

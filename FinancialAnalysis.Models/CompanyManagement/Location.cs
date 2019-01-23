@@ -1,6 +1,8 @@
-﻿namespace FinancialAnalysis.Models
+﻿using DevExpress.Mvvm;
+
+namespace FinancialAnalysis.Models.CompanyManagement
 {
-    public class Location
+    public class Location : BindableBase
     {
         public int LocationId { get; set; }
         public string Street { get; set; }

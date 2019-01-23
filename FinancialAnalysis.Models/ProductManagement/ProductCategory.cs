@@ -1,4 +1,4 @@
-﻿namespace FinancialAnalysis.Models.Product
+﻿namespace FinancialAnalysis.Models.ProductManagement
 {
     public class ProductCategory
     {

@@ -1,8 +1,8 @@
-﻿namespace FinancialAnalysis.Models.Product
+﻿namespace FinancialAnalysis.Models.ProductManagement
 {
-    public class ProductPrototype
+    public class Product
     {
-        public int ProductPrototypeId { get; set; }
+        public int ProductId { get; set; }
         public string Name { get; set; }
         public bool IsStackable { get; set; }
         public string Description { get; set; }
@@ -13,8 +13,9 @@
         public byte[] Picture { get; set; }
         public int RefProductCategoryId { get; set; } = 1;
         public int PackageUnit { get; set; }
-        public decimal BuyingPrice { get; set; }
-        public decimal SalePrice { get; set; }
         public ProductCategory ProductCategory { get; set; }
+        public double DefaultBuyingPrice { get; set; } = 0.0;
+        public double DefaultSellingPrice { get; set; } = 0.0;
+        public byte[] Picture { get; set; }
     }
 }
