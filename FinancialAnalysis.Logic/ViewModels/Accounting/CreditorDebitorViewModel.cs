@@ -5,6 +5,7 @@ using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
+using FinancialAnalysis.Models.CompanyManagement;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels

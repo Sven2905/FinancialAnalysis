@@ -1,6 +1,6 @@
 ﻿using DevExpress.Mvvm;
 
-namespace FinancialAnalysis.Models
+namespace FinancialAnalysis.Models.CompanyManagement
 {
     public class Company : BindableBase
     {

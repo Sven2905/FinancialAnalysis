@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Models.CompanyManagement;
 
 namespace FinancialAnalysis.Models.Accounting
 {

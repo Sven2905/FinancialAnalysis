@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using DevExpress.Mvvm;
+using System.Collections.Generic;
 
 namespace FinancialAnalysis.Models.Warehouse
 {
-    public class Warehouse
+    public class Warehouse : BindableBase
     {
         public int WarehouseId { get; set; }
         public string Name { get; set; }

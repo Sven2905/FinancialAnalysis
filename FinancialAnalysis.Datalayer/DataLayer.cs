@@ -2,7 +2,7 @@
 using FinancialAnalysis.Datalayer.Accounting;
 using FinancialAnalysis.Datalayer.Administration;
 using FinancialAnalysis.Datalayer.Configurations;
-using FinancialAnalysis.Datalayer.Product;
+using FinancialAnalysis.Datalayer.ProductManagement;
 using FinancialAnalysis.Datalayer.ProjectManagement;
 using FinancialAnalysis.Datalayer.Tables;
 
@@ -22,7 +22,7 @@ namespace FinancialAnalysis.Datalayer
         public Bookings Bookings { get; set; } = new Bookings();
         public ScannedDocuments ScannedDocuments { get; set; } = new ScannedDocuments();
         public ProductCategories ProductCategories { get; set; } = new ProductCategories();
-        public ProductPrototypes ProductPrototypes { get; set; } = new ProductPrototypes();
+        public Products ProductPrototypes { get; set; } = new Products();
         public Projects Projects { get; set; } = new Projects();
         public CostCenters CostCenters { get; set; } = new CostCenters();
         public ProjectRoles ProjectRoles { get; set; } = new ProjectRoles();

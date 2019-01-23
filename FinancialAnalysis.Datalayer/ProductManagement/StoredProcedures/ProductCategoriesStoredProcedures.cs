@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.Product
+namespace FinancialAnalysis.Datalayer.ProductManagement
 {
     public class ProductCategoriesStoredProcedures : IStoredProcedures
     {

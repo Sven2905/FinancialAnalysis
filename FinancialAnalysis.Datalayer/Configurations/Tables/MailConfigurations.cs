@@ -5,7 +5,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
 using FinancialAnalysis.Models.Mail;
-using FinancialAnalysis.Models.Product;
 using Serilog;
 
 namespace FinancialAnalysis.Datalayer.Configurations

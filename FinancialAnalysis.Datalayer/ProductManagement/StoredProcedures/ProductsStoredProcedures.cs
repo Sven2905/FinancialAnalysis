@@ -2,11 +2,11 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.Product
+namespace FinancialAnalysis.Datalayer.ProductManagement
 {
-    public class ProductPrototypesStoredProcedures : IStoredProcedures
+    public class ProductsStoredProcedures : IStoredProcedures
     {
-        public ProductPrototypesStoredProcedures()
+        public ProductsStoredProcedures()
         {
             TableName = "ProductPrototypes";
         }
@@ -30,7 +30,7 @@ namespace FinancialAnalysis.Datalayer.Product
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT ProductPrototypeId, " +
+                                "SELECT ProductId, " +
                                 "Name, " +
                                 "Description, " +
                                 "DimensionX, " +
@@ -87,9 +87,9 @@ namespace FinancialAnalysis.Datalayer.Product
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @ProductPrototypeId int AS BEGIN SET NOCOUNT ON; SELECT Name, Description, DimensionX, DimensionY, DimensionZ, Weight, IsStackable, RefProductCategory " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @ProductId int AS BEGIN SET NOCOUNT ON; SELECT Name, Description, DimensionX, DimensionY, DimensionZ, Weight, IsStackable, RefProductCategory " +
                     $"FROM {TableName} " +
-                    "WHERE ProductPrototypeId = @ProductPrototypeId END");
+                    "WHERE ProductId = @ProductId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

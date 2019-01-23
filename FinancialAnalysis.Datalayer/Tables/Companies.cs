@@ -6,6 +6,7 @@ using System.Linq;
 using Dapper;
 using FinancialAnalysis.Datalayer.StoredProcedures;
 using FinancialAnalysis.Models;
+using FinancialAnalysis.Models.CompanyManagement;
 using Serilog;
 
 namespace FinancialAnalysis.Datalayer.Tables
