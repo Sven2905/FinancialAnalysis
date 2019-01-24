@@ -8,7 +8,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
     {
         public ProductsStoredProcedures()
         {
-            TableName = "ProductPrototypes";
+            TableName = "Products";
         }
 
         public string TableName { get; }
@@ -35,6 +35,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                                 "SELECT ProductId, " +
                                 "Name, " +
                                 "Description, " +
+                                "Barcode, " +
                                 "DimensionX, " +
                                 "DimensionY, " +
                                 "DimensionZ, " +
@@ -68,9 +69,9 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150), @DimensionX decimal, @DimensionY decimal, @DimensionZ decimal, @Weight decimal, @IsStackable bit, @Picture varbinary(MAX), @PackageUnit int, @BuyingPrice money, @SalePrice money, @RefProductCategoryId int AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, Description, DimensionX, DimensionY, DimensionZ, Weight, IsStackable, Picture, PackageUnit, BuyingPrice, SalePrice, RefProductCategoryId) " +
-                    "VALUES (@Name, @Description, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @BuyingPrice, @SalePrice, @RefProductCategoryId); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150), @Barcode nvarchar(150), @DimensionX decimal, @DimensionY decimal, @DimensionZ decimal, @Weight decimal, @IsStackable bit, @Picture varbinary(MAX), @PackageUnit int, @BuyingPrice money, @SalePrice money, @RefProductCategoryId int AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Name, Description, Barcode, DimensionX, DimensionY, DimensionZ, Weight, IsStackable, Picture, PackageUnit, BuyingPrice, SalePrice, RefProductCategoryId) " +
+                    "VALUES (@Name, @Description, @Barcode, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @BuyingPrice, @SalePrice, @RefProductCategoryId); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -93,7 +94,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @ProductId int AS BEGIN SET NOCOUNT ON; SELECT Name, Description, DimensionX, DimensionY, DimensionZ, Weight, IsStackable, RefProductCategory " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @ProductId int AS BEGIN SET NOCOUNT ON; SELECT Name, Description, Barcode, DimensionX, DimensionY, DimensionZ, Weight, IsStackable, RefProductCategory " +
                     $"FROM {TableName} " +
                     "WHERE ProductId = @ProductId END");
                 using (var connection =
@@ -117,11 +118,12 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @ProductPrototypeId int, @Name nvarchar(150), @Description nvarchar(150), @DimensionX decimal, @DimensionY decimal, @DimensionZ decimal, @Weight decimal, @IsStackable bit, @Picture varbinary(MAX), @PackageUnit int, @BuyingPrice money, @SalePrice money, @RefProductCategoryId int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @ProductId int, @Name nvarchar(150), @Description nvarchar(150), @Barcode nvarchar(150), @DimensionX decimal, @DimensionY decimal, @DimensionZ decimal, @Weight decimal, @IsStackable bit, @Picture varbinary(MAX), @PackageUnit int, @BuyingPrice money, @SalePrice money, @RefProductCategoryId int " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "SET Name = @Name, " +
                     "Description = @Description, " +
+                    "Barcode = @Barcode, " +
                     "DimensionX = @DimensionX, " +
                     "DimensionY = @DimensionY, " +
                     "DimensionZ = @DimensionZ, " +
@@ -132,7 +134,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                     "BuyingPrice = @BuyingPrice, " +
                     "SalePrice = @SalePrice, " +
                     "RefProductCategoryId = @RefProductCategoryId " +
-                    "WHERE ProductPrototypeId = @ProductPrototypeId END");
+                    "WHERE ProductId = @ProductId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -154,7 +156,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @ProductPrototypeId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE ProductPrototypeId = @ProductPrototypeId END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @ProductId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE ProductId = @ProductId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

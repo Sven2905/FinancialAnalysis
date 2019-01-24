@@ -5,11 +5,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinancialAnalysis.Models
+namespace FinancialAnalysis.Models.SalesManagement
 {
-    public class PurchaseType : BindableBase
+    public class SalesType : BindableBase
     {
-        public int PurchaseTypeId { get; set; }
+        public int SalesTypeId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
     }

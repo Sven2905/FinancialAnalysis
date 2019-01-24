@@ -24,7 +24,7 @@ namespace FinancialAnalysis.Datalayer
         public Bookings Bookings { get; set; } = new Bookings();
         public ScannedDocuments ScannedDocuments { get; set; } = new ScannedDocuments();
         public ProductCategories ProductCategories { get; set; } = new ProductCategories();
-        public Products ProductPrototypes { get; set; } = new Products();
+        public Products Products { get; set; } = new Products();
         public Projects Projects { get; set; } = new Projects();
         public CostCenters CostCenters { get; set; } = new CostCenters();
         public ProjectRoles ProjectRoles { get; set; } = new ProjectRoles();
@@ -73,7 +73,7 @@ namespace FinancialAnalysis.Datalayer
             ScannedDocuments.CheckAndCreateStoredProcedures();
             Bookings.CheckAndCreateStoredProcedures();
             ProductCategories.CheckAndCreateStoredProcedures();
-            ProductPrototypes.CheckAndCreateStoredProcedures();
+            Products.CheckAndCreateStoredProcedures();
             Projects.CheckAndCreateStoredProcedures();
             CostCenters.CheckAndCreateStoredProcedures();
             Employees.CheckAndCreateStoredProcedures();
@@ -98,7 +98,7 @@ namespace FinancialAnalysis.Datalayer
             Credits.AddReferences();
             Debits.AddReferences();
             ScannedDocuments.AddReferences();
-            ProductPrototypes.AddReferences();
+            Products.AddReferences();
             Projects.AddReferences();
             Employees.AddReferences();
             ProjectEmployeeMappings.AddReferences();

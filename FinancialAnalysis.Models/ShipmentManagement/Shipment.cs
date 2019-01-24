@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinancialAnalysis.Models
+namespace FinancialAnalysis.Models.ShipmentManagement
 {
     public class Shipment : BindableBase
     {

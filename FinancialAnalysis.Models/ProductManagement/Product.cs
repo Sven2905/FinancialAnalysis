@@ -17,6 +17,5 @@
         public ProductCategory ProductCategory { get; set; }
         public double DefaultBuyingPrice { get; set; } = 0.0;
         public double DefaultSellingPrice { get; set; } = 0.0;
-        public byte[] Picture { get; set; }
     }
 }

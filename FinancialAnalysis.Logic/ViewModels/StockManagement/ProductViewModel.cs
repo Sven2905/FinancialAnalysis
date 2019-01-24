@@ -2,7 +2,7 @@
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
-using FinancialAnalysis.Models.Product;
+using FinancialAnalysis.Models.ProductManagement;
 using System.IO;
 using System.Windows.Media.Imaging;
 using Utilities;
@@ -13,9 +13,9 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         #region Fields
 
-        private ProductPrototype _SelectedProduct;
+        private Product _SelectedProduct;
         private BitmapImage _Image;
-        private SvenTechCollection<ProductPrototype> _Products = new SvenTechCollection<ProductPrototype>();
+        private SvenTechCollection<Product> _Products = new SvenTechCollection<Product>();
         private string _FilterText;
 
         #endregion Fields
@@ -40,14 +40,14 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Methods
 
-        private SvenTechCollection<ProductPrototype> LoadAllProducts()
+        private SvenTechCollection<Product> LoadAllProducts()
         {
-            SvenTechCollection<ProductPrototype> allProducts = new SvenTechCollection<ProductPrototype>();
+            SvenTechCollection<Product> allProducts = new SvenTechCollection<Product>();
             try
             {
                 using (var db = new DataLayer())
                 {
-                    allProducts = db.ProductPrototypes.GetAll().ToSvenTechCollection();
+                    allProducts = db.Products.GetAll().ToSvenTechCollection();
                 }
             }
             catch (System.Exception ex)
@@ -78,7 +78,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void NewProduct()
         {
-            SelectedProduct = new ProductPrototype();
+            SelectedProduct = new Product();
             _Products.Add(SelectedProduct);
         }
 
@@ -89,7 +89,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            if (SelectedProduct.ProductPrototypeId == 0)
+            if (SelectedProduct.ProductId == 0)
             {
                 _Products.Remove(SelectedProduct);
                 SelectedProduct = null;
@@ -100,7 +100,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 using (var db = new DataLayer())
                 {
-                    db.ProductPrototypes.Delete(SelectedProduct.ProductPrototypeId);
+                    db.Products.Delete(SelectedProduct.ProductId);
                     _Products.Remove(SelectedProduct);
                     SelectedProduct = null;
                 }
@@ -115,18 +115,18 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                if (SelectedProduct.ProductPrototypeId != 0)
+                if (SelectedProduct.ProductId != 0)
                 {
                     using (var db = new DataLayer())
                     {
-                        db.ProductPrototypes.Update(SelectedProduct);
+                        db.Products.Update(SelectedProduct);
                     }
                 }
                 else
                 {
                     using (var db = new DataLayer())
                     {
-                        SelectedProduct.ProductPrototypeId = db.ProductPrototypes.Insert(SelectedProduct);
+                        SelectedProduct.ProductId = db.Products.Insert(SelectedProduct);
                     }
                 }
             }
@@ -191,7 +191,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Properties
 
-        public SvenTechCollection<ProductPrototype> FilteredProducts { get; set; } = new SvenTechCollection<ProductPrototype>();
+        public SvenTechCollection<Product> FilteredProducts { get; set; } = new SvenTechCollection<Product>();
         public SvenTechCollection<ProductCategory> ProductCategories { get; set; } = new SvenTechCollection<ProductCategory>();
         public DelegateCommand NewProductCommand { get; set; }
         public DelegateCommand SaveProductCommand { get; set; }
@@ -206,7 +206,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _FilterText = value;
                 if (!string.IsNullOrEmpty(_FilterText))
                 {
-                    FilteredProducts = new SvenTechCollection<ProductPrototype>();
+                    FilteredProducts = new SvenTechCollection<Product>();
                     foreach (var item in _Products)
                     {
                         if (item.Name.Contains(FilterText))
@@ -221,7 +221,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
             }
         }
-        public ProductPrototype SelectedProduct
+        public Product SelectedProduct
         {
             get { return _SelectedProduct; }
             set

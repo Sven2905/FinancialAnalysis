@@ -5,11 +5,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinancialAnalysis.Models
+namespace FinancialAnalysis.Models.ShipmentManagement
 {
-    public class SalesType : BindableBase
+    public class ShipmentType : BindableBase
     {
-        public int SalesTypeId { get; set; }
+        public int ShipmentTypeId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
     }
