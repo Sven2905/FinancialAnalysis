@@ -32,10 +32,11 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
             {
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
-                    $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
+                    $"If not exists (select name from sysobjects where name = '{TableName}') " +
+                    $"CREATE TABLE {TableName}(" +
                     "StockyardId int IDENTITY(1,1) PRIMARY KEY, " +
                     "Name nvarchar(150) NOT NULL," +
-                    "RefWarehouseId int NOT NULL";
+                    "RefWarehouseId int NOT NULL)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -73,6 +74,57 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
+            }
+
+            return output;
+        }
+
+        /// <summary>
+        ///     Returns Stockyard by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Stockyard GetById(int id)
+        {
+            var output = new Stockyard();
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    output = con.QuerySingleOrDefault<Stockyard>($"dbo.{TableName}_GetById @StockyardId",
+                        new { StockyardId = id });
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
+            }
+
+            return output;
+        }
+
+        /// <summary>
+        ///     Returns Stockyard for RefWarehouseId
+        /// </summary>
+        /// <param name="RefWarehouseId"></param>
+        /// <returns></returns>
+        public IEnumerable<Stockyard> GetByRefWarehouseId(int RefWarehouseId)
+        {
+            IEnumerable<Stockyard> output = new List<Stockyard>();
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    output = con.Query<Stockyard>($"dbo.{TableName}_GetAll @RefWarehouseId",
+                        new { RefWarehouseId });
+                }
+
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'GetByRefWarehouseId' from table '{TableName}'", e);
             }
 
             return output;
@@ -123,31 +175,6 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
             {
                 Log.Error($"Exception occured while 'Insert items' into table '{TableName}'", e);
             }
-        }
-
-        /// <summary>
-        ///     Returns Stockyard by Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public Stockyard GetById(int id)
-        {
-            var output = new Stockyard();
-            try
-            {
-                using (IDbConnection con =
-                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    output = con.QuerySingleOrDefault<Stockyard>($"dbo.{TableName}_GetById @StockyardId",
-                        new { StockyardId = id });
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
-            }
-
-            return output;
         }
 
         /// <summary>

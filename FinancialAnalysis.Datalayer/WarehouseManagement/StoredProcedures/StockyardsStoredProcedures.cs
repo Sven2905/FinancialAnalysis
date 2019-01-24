@@ -21,6 +21,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
             InsertData();
             GetAllData();
             GetById();
+            GetByRefWarehouseId();
             UpdateData();
             DeleteData();
         }
@@ -49,17 +50,16 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
             }
         }
 
-        private void InsertData()
+        private void GetById()
         {
-            if (!Helper.StoredProcedureExists($"dbo.{TableName}_Insert", DatabaseNames.FinancialAnalysisDB))
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetById", DatabaseNames.FinancialAnalysisDB))
             {
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @RefWarehouseId int AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, RefWarehouseId) " +
-                    "VALUES (@Name, @RefWarehouseId); " +
-                    "SELECT CAST(SCOPE_IDENTITY() as int) END");
+                    $"CREATE PROCEDURE [{TableName}_GetById] @StockyardId int AS BEGIN SET NOCOUNT ON; SELECT StockyardId, Name, RefWarehouseId " +
+                    $"FROM {TableName} " +
+                    "WHERE StockyardId = @StockyardId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -74,16 +74,41 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
             }
         }
 
-        private void GetById()
+        private void GetByRefWarehouseId()
         {
-            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetById", DatabaseNames.FinancialAnalysisDB))
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetByRefWarehouseId", DatabaseNames.FinancialAnalysisDB))
             {
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @StockyardId int AS BEGIN SET NOCOUNT ON; SELECT StockyardId, Name, RefWarehouseId " +
+                    $"CREATE PROCEDURE [{TableName}_GetByRefWarehouseId] @RefWarehouseId int AS BEGIN SET NOCOUNT ON; SELECT StockyardId, Name, RefWarehouseId " +
                     $"FROM {TableName} " +
-                    "WHERE StockyardId = @StockyardId END");
+                    "WHERE RefWarehouseId = @RefWarehouseId END");
+                using (var connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void InsertData()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_Insert", DatabaseNames.FinancialAnalysisDB))
+            {
+                var sbSP = new StringBuilder();
+
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @RefWarehouseId int AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Name, RefWarehouseId) " +
+                    "VALUES (@Name, @RefWarehouseId); " +
+                    "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

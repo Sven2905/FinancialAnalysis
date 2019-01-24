@@ -3,6 +3,7 @@ using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.WarehouseManagement;
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
@@ -14,7 +15,7 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         #region Fields
 
-        private readonly Warehouse _SelectedWarehouse;
+        private Warehouse _SelectedWarehouse;
         private SvenTechCollection<Warehouse> _Warehouses = new SvenTechCollection<Warehouse>();
         private string _FilterText;
 
@@ -161,7 +162,14 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
             }
         }
-        public Warehouse SelectedWarehouse { get; set; }
+
+        public Warehouse SelectedWarehouse
+        {
+            get { return _SelectedWarehouse; }
+            set { _SelectedWarehouse = value; }
+        }
+
+        public int SelectedWarehouseStockyardCount { get; set; } = 0;
 
         public User ActualUser { get { return Globals.ActualUser; } }
 

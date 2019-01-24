@@ -143,6 +143,11 @@
                                 <dxe:TextEdit TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" VerticalContentAlignment="Top" Text="{Binding SelectedWarehouse.Description}" Height="150" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
+                        <dxlc:LayoutGroup>
+                            <dxlc:LayoutItem Label="Anzahl Lagerplätze" FontFamily="Tahoma" >
+                                <dxe:TextEdit Text="{Binding SelectedWarehouse.Stockyards.Count, Mode=OneWay}" FontFamily="Tahoma" IsReadOnly="True" />
+                            </dxlc:LayoutItem>
+                        </dxlc:LayoutGroup>
                     </dxlc:LayoutGroup>
                 </dxlc:LayoutControl>
 

@@ -32,13 +32,14 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
             {
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
-                    $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
+                    $"If not exists (select name from sysobjects where name = '{TableName}') " +
+                    $"CREATE TABLE {TableName}(" +
                     "WarehouseId int IDENTITY(1,1) PRIMARY KEY, " +
                     "Name nvarchar(150) NOT NULL, " +
-                    "Description nvarchar(150) NOT NULL, " +
-                    "Street nvarchar(150) NOT NULL, " +
-                    "City nvarchar(150) NOT NULL, " +
-                    "Postcode int NOT NULL";
+                    "Description nvarchar(150), " +
+                    "Street nvarchar(150), " +
+                    "City nvarchar(150), " +
+                    "Postcode int)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -64,21 +65,34 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
         /// <returns></returns>
         public IEnumerable<Warehouse> GetAll()
         {
-            IEnumerable<Warehouse> output = new List<Warehouse>();
-            try
+            var warehouseDictionary = new Dictionary<int, Warehouse>();
+            using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
             {
-                using (IDbConnection con =
-                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    output = con.Query<Warehouse>($"dbo.{TableName}_GetAll");
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
-            }
+                var query = con.Query<Warehouse, Stockyard, Warehouse>
+                    ($"dbo.{TableName}_GetAll",
+                        (w, s) =>
+                        {
+                            Warehouse warehouseEntry;
 
-            return output;
+                            if (!warehouseDictionary.TryGetValue(w.WarehouseId, out warehouseEntry))
+                            {
+                                if (warehouseEntry == null)
+                                {
+                                    warehouseEntry = w;
+                                warehouseDictionary.Add(warehouseEntry.WarehouseId, warehouseEntry);
+                                warehouseEntry.Stockyards = new List<Stockyard>();
+                                }
+                            }
+                            if (s != null)
+                            {
+                                warehouseEntry.Stockyards.Add(s);
+                            }
+
+                            return warehouseEntry;
+                        }, splitOn: "WarehouseId, StockyardId")
+                    .AsQueryable();
+                return warehouseDictionary.Values.ToList();
+            }
         }
 
         /// <summary>
@@ -135,22 +149,29 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
         /// <returns></returns>
         public Warehouse GetById(int id)
         {
-            var output = new Warehouse();
-            try
+            var warehouseDictionary = new Dictionary<int, Warehouse>();
+            using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
             {
-                using (IDbConnection con =
-                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    output = con.QuerySingleOrDefault<Warehouse>($"dbo.{TableName}_GetById @WarehouseId",
-                        new { WarehouseId = id });
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
-            }
+                var query = con.Query<Warehouse, Stockyard, Warehouse>
+                    ($"dbo.{TableName}_GetById",
+                        (w, s) =>
+                        {
+                            Warehouse warehouseEntry;
 
-            return output;
+                            if (!warehouseDictionary.TryGetValue(w.WarehouseId, out warehouseEntry))
+                            {
+                                warehouseEntry = w;
+                                warehouseEntry.Stockyards = new List<Stockyard>();
+                                warehouseDictionary.Add(warehouseEntry.WarehouseId, warehouseEntry);
+                            }
+
+                            warehouseEntry.Stockyards.Add(s);
+
+                            return w;
+                        }, new { WarehouseId = id }, splitOn: "WarehouseId, StockyardId")
+                    .AsQueryable();
+                return query.FirstOrDefault();
+            }
         }
 
         /// <summary>

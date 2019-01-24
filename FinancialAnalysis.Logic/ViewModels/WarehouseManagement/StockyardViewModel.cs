@@ -14,7 +14,7 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         #region Fields
 
-        private readonly Stockyard _SelectedStockyard;
+        private Stockyard _SelectedStockyard;
         private SvenTechCollection<Stockyard> _Stockyards = new SvenTechCollection<Stockyard>();
         private string _FilterText;
 
@@ -138,6 +138,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand NewStockyardCommand { get; set; }
         public DelegateCommand SaveStockyardCommand { get; set; }
         public DelegateCommand DeleteStockyardCommand { get; set; }
+
         public string FilterText
         {
             get { return _FilterText; }
@@ -161,7 +162,12 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
             }
         }
-        public Stockyard SelectedStockyard { get; set; }
+
+        public Stockyard SelectedStockyard
+        {
+            get { return _SelectedStockyard; }
+            set { _SelectedStockyard = value; }
+        }
 
         public User ActualUser { get { return Globals.ActualUser; } }
 
