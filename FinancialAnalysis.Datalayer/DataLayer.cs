@@ -4,8 +4,10 @@ using FinancialAnalysis.Datalayer.Accounting;
 using FinancialAnalysis.Datalayer.Administration;
 using FinancialAnalysis.Datalayer.BillManagement;
 using FinancialAnalysis.Datalayer.Configurations;
+using FinancialAnalysis.Datalayer.InvoiceManagement;
 using FinancialAnalysis.Datalayer.ProductManagement;
 using FinancialAnalysis.Datalayer.ProjectManagement;
+using FinancialAnalysis.Datalayer.ShipmentManagement;
 using FinancialAnalysis.Datalayer.Tables;
 using FinancialAnalysis.Datalayer.WarehouseManagement;
 using FinancialAnalysis.Models;
@@ -44,6 +46,9 @@ namespace FinancialAnalysis.Datalayer
         public Stockyards Stockyards { get; set; } = new Stockyards();
         public BillTypes BillTypes { get; set; } = new BillTypes();
         public Bills Bills { get; set; } = new Bills();
+        public InvoiceTypes InvoiceTypes { get; set; } = new InvoiceTypes();
+        public Invoices Invoices { get; set; } = new Invoices();
+        public ShipmentTypes ShipmentTypes { get; set; } = new ShipmentTypes();
 
         public void Dispose()
         {
@@ -94,6 +99,9 @@ namespace FinancialAnalysis.Datalayer
             Stockyards.CheckAndCreateStoredProcedures();
             BillTypes.CheckAndCreateStoredProcedures();
             Bills.CheckAndCreateStoredProcedures();
+            InvoiceTypes.CheckAndCreateStoredProcedures();
+            Invoices.CheckAndCreateStoredProcedures();
+            ShipmentTypes.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()
@@ -113,6 +121,7 @@ namespace FinancialAnalysis.Datalayer
             UserRightUserMappings.AddReferences();
             Stockyards.AddReferences();
             Bills.AddReferences();
+            Invoices.AddReferences();
         }
 
         private void Seed()
