@@ -2,6 +2,7 @@
 using System.Linq;
 using FinancialAnalysis.Datalayer.Accounting;
 using FinancialAnalysis.Datalayer.Administration;
+using FinancialAnalysis.Datalayer.BillManagement;
 using FinancialAnalysis.Datalayer.Configurations;
 using FinancialAnalysis.Datalayer.ProductManagement;
 using FinancialAnalysis.Datalayer.ProjectManagement;
@@ -41,6 +42,8 @@ namespace FinancialAnalysis.Datalayer
         public UserRightUserMappings UserRightUserMappings { get; set; } = new UserRightUserMappings();
         public Warehouses Warehouses { get; set; } = new Warehouses();
         public Stockyards Stockyards { get; set; } = new Stockyards();
+        public BillTypes BillTypes { get; set; } = new BillTypes();
+        public Bills Bills { get; set; } = new Bills();
 
         public void Dispose()
         {
@@ -89,6 +92,8 @@ namespace FinancialAnalysis.Datalayer
             UserRightUserMappings.CheckAndCreateStoredProcedures();
             Warehouses.CheckAndCreateStoredProcedures();
             Stockyards.CheckAndCreateStoredProcedures();
+            BillTypes.CheckAndCreateStoredProcedures();
+            Bills.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()
@@ -107,6 +112,7 @@ namespace FinancialAnalysis.Datalayer
             ProjectWorkingTimes.AddReferences();
             UserRightUserMappings.AddReferences();
             Stockyards.AddReferences();
+            Bills.AddReferences();
         }
 
         private void Seed()
