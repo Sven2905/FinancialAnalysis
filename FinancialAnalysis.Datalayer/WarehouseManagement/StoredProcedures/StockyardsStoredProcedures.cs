@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.StockyardManagement
+namespace FinancialAnalysis.Datalayer.WarehouseManagement
 {
     public class StockyardsStoredProcedures : IStoredProcedures
     {
@@ -108,8 +108,8 @@ namespace FinancialAnalysis.Datalayer.StockyardManagement
                     $"CREATE PROCEDURE [{TableName}_Update] @StockyardId int, @Name nvarchar(150), @RefWarehouseId int " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
-                    "Name = @Name, " +
-                    "RefWarehouseId = @RefWarehouseId, " +
+                    "SET Name = @Name, " +
+                    "RefWarehouseId = @RefWarehouseId " +
                     "WHERE StockyardId = @StockyardId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

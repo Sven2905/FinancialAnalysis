@@ -3,11 +3,11 @@
 namespace FinancialAnalysis.UserControls
 {
     /// <summary>
-    ///     Interaktionslogik für StockManagementControl.xaml
+    ///     Interaktionslogik für WarehouseManagementControl.xaml
     /// </summary>
-    public partial class StockManagementControl : UserControl
+    public partial class WarehouseManagementControl : UserControl
     {
-        public StockManagementControl()
+        public WarehouseManagementControl()
         {
             InitializeComponent();
         }

@@ -7,11 +7,11 @@ using Dapper;
 using FinancialAnalysis.Models.WarehouseManagement;
 using Serilog;
 
-namespace FinancialAnalysis.Datalayer.ProjectManagement
+namespace FinancialAnalysis.Datalayer.WarehouseManagement
 {
     public class Warehouses : ITable
     {
-        private readonly EmployeesStoredProcedures sp = new EmployeesStoredProcedures();
+        private readonly WarehousesStoredProcedures sp = new WarehousesStoredProcedures();
 
         public Warehouses()
         {
@@ -33,11 +33,11 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
                     $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
-                    "WarehouseId int IDENTITY(1,1) PRIMARY KEY," +
-                    "Name nvarchar(150) NOT NULL," +
-                    "Description nvarchar(150) NOT NULL," +
-                    "Street nvarchar(150) NOT NULL," +
-                    "City nvarchar(150) NOT NULL," +
+                    "WarehouseId int IDENTITY(1,1) PRIMARY KEY, " +
+                    "Name nvarchar(150) NOT NULL, " +
+                    "Description nvarchar(150) NOT NULL, " +
+                    "Street nvarchar(150) NOT NULL, " +
+                    "City nvarchar(150) NOT NULL, " +
                     "Postcode int NOT NULL";
 
                 using (var command = new SqlCommand(commandStr, con))
@@ -142,7 +142,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.QuerySingleOrDefault<Warehouse>($"dbo.{TableName}_GetById @WarehouseId",
-                        new {EmployeeId = id});
+                        new { WarehouseId = id });
                 }
             }
             catch (Exception e)
@@ -200,7 +200,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         }
 
         /// <summary>
-        ///     Delete Employee by Id
+        ///     Delete Warehouse by Id
         /// </summary>
         /// <param name="id"></param>
         public void Delete(int id)
@@ -210,7 +210,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @WarehouseId", new { EmployeeId = id });
+                    con.Execute($"dbo.{TableName}_Delete @WarehouseId", new { WarehouseId = id });
                 }
             }
             catch (Exception e)

@@ -7,11 +7,11 @@ using Dapper;
 using FinancialAnalysis.Models.WarehouseManagement;
 using Serilog;
 
-namespace FinancialAnalysis.Datalayer.ProjectManagement
+namespace FinancialAnalysis.Datalayer.WarehouseManagement
 {
     public class Stockyards : ITable
     {
-        private readonly EmployeesStoredProcedures sp = new EmployeesStoredProcedures();
+        private readonly StockyardsStoredProcedures sp = new StockyardsStoredProcedures();
 
         public Stockyards()
         {
@@ -33,7 +33,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
                     $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
-                    "StockyardId int IDENTITY(1,1) PRIMARY KEY," +
+                    "StockyardId int IDENTITY(1,1) PRIMARY KEY, " +
                     "Name nvarchar(150) NOT NULL," +
                     "RefWarehouseId int NOT NULL";
 
@@ -126,7 +126,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         }
 
         /// <summary>
-        ///     Returns Employee by Id
+        ///     Returns Stockyard by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -139,7 +139,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.QuerySingleOrDefault<Stockyard>($"dbo.{TableName}_GetById @StockyardId",
-                        new {EmployeeId = id});
+                        new { StockyardId = id });
                 }
             }
             catch (Exception e)
@@ -197,7 +197,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         }
 
         /// <summary>
-        ///     Delete Employee by Id
+        ///     Delete Stockyard by Id
         /// </summary>
         /// <param name="id"></param>
         public void Delete(int id)
@@ -207,7 +207,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @StockyardId", new { EmployeeId = id });
+                    con.Execute($"dbo.{TableName}_Delete @StockyardId", new { StockyardId = id });
                 }
             }
             catch (Exception e)

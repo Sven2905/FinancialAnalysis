@@ -83,7 +83,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetById] @WarehouseId int AS BEGIN SET NOCOUNT ON; SELECT WarehouseId, Name, Description, Street, City, Postcode " +
                     $"FROM {TableName} " +
-                    "WHERE EmployeeId = @EmployeeId END");
+                    "WHERE WarehouseId = @WarehouseId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -108,11 +108,11 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                     $"CREATE PROCEDURE [{TableName}_Update] @WarehouseId int, @Name nvarchar(150), @Description nvarchar(150), @Street nvarchar(150), @City nvarchar(150), @Postcode int " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
-                    "Name = @Name, " +
+                    "SET Name = @Name, " +
                     "Description = @Description, " +
                     "Street = @Street, " +
                     "City = @City, " +
-                    "Postcode = @Postcode, " +
+                    "Postcode = @Postcode " +
                     "WHERE WarehouseId = @WarehouseId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

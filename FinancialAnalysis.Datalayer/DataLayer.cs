@@ -6,6 +6,7 @@ using FinancialAnalysis.Datalayer.Configurations;
 using FinancialAnalysis.Datalayer.ProductManagement;
 using FinancialAnalysis.Datalayer.ProjectManagement;
 using FinancialAnalysis.Datalayer.Tables;
+using FinancialAnalysis.Datalayer.WarehouseManagement;
 using FinancialAnalysis.Models;
 
 namespace FinancialAnalysis.Datalayer

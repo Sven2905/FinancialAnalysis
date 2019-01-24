@@ -12,7 +12,7 @@
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
-             x:Class="FinancialAnalysis.UserControls.StockManagementControl"
+             x:Class="FinancialAnalysis.UserControls.WarehouseManagementControl"
              mc:Ignorable="d"
              dx:ThemeManager.ThemeName="Office2016WhiteSE"
              d:DesignHeight="900" d:DesignWidth="1600">
