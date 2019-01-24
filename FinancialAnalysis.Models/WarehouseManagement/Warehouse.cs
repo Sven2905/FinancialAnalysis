@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.WarehouseManagement
     {
         public int WarehouseId { get; set; }
         public string Name { get; set; }
-        public int Description { get; set; }
+        public string Description { get; set; }
         public string Street { get; set; }
         public int Postcode { get; set; }
         public string City { get; set; }

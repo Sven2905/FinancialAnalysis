@@ -147,6 +147,12 @@
     <Compile Include="UserControls\Accounting\CostCenterControl.xaml.cs">
       <DependentUpon>CostCenterControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\WarehouseManagement\StockyardControl.xaml.cs">
+      <DependentUpon>StockyardControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WarehouseManagement\WarehouseControl.xaml.cs">
+      <DependentUpon>WarehouseControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\WarehouseManagement\ProductControl.xaml.cs">
       <DependentUpon>ProductControl.xaml</DependentUpon>
     </Compile>
@@ -226,6 +232,14 @@
     <Page Include="UserControls\Accounting\CostCenterControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\WarehouseManagement\StockyardControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\WarehouseManagement\WarehouseControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\WarehouseManagement\ProductControl.xaml">
       <Generator>MSBuild:Compile</Generator>
