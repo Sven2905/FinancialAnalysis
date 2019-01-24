@@ -119,10 +119,13 @@
     <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="ViewModels\Accounting\KontenrahmenViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\ShipmentManagement\ShipmentTypeViewModel.cs" />
+    <Compile Include="ViewModels\BillManagement\BillTypeViewModel.cs" />
+    <Compile Include="ViewModels\InvoiceManagement\InvoiceTypeViewModel.cs" />
     <Compile Include="ViewModels\WarehouseManagement\StockyardViewModel.cs" />
     <Compile Include="ViewModels\WarehouseManagement\WarehouseViewModel.cs" />
-    <Compile Include="ViewModels\WarehouseManagement\ProductViewModel.cs" />
-    <Compile Include="ViewModels\WarehouseManagement\ProductCategoryViewModel.cs" />
+    <Compile Include="ViewModels\ProductManagement\ProductViewModel.cs" />
+    <Compile Include="ViewModels\ProductManagement\ProductCategoryViewModel.cs" />
     <Compile Include="ViewModels\ProjectManagement\EmployeeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PDFViewerViewModel.cs" />
