@@ -5,8 +5,11 @@ using FinancialAnalysis.Datalayer.Administration;
 using FinancialAnalysis.Datalayer.BillManagement;
 using FinancialAnalysis.Datalayer.Configurations;
 using FinancialAnalysis.Datalayer.InvoiceManagement;
+using FinancialAnalysis.Datalayer.PaymentManagement;
 using FinancialAnalysis.Datalayer.ProductManagement;
 using FinancialAnalysis.Datalayer.ProjectManagement;
+using FinancialAnalysis.Datalayer.PurchaseManagement;
+using FinancialAnalysis.Datalayer.SalesManagement;
 using FinancialAnalysis.Datalayer.ShipmentManagement;
 using FinancialAnalysis.Datalayer.Tables;
 using FinancialAnalysis.Datalayer.WarehouseManagement;
@@ -49,6 +52,9 @@ namespace FinancialAnalysis.Datalayer
         public InvoiceTypes InvoiceTypes { get; set; } = new InvoiceTypes();
         public Invoices Invoices { get; set; } = new Invoices();
         public ShipmentTypes ShipmentTypes { get; set; } = new ShipmentTypes();
+        public PaymentTypes PaymentTypes { get; set; } = new PaymentTypes();
+        public PurchaseTypes PurchaseTypes { get; set; } = new PurchaseTypes();
+        public SalesTypes SalesTypes { get; set; } = new SalesTypes();
 
         public void Dispose()
         {
@@ -102,6 +108,9 @@ namespace FinancialAnalysis.Datalayer
             InvoiceTypes.CheckAndCreateStoredProcedures();
             Invoices.CheckAndCreateStoredProcedures();
             ShipmentTypes.CheckAndCreateStoredProcedures();
+            PurchaseTypes.CheckAndCreateStoredProcedures();
+            SalesTypes.CheckAndCreateStoredProcedures();
+            PaymentTypes.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()

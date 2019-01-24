@@ -99,6 +99,8 @@
     <Compile Include="InvoiceManagement\StoredProcedures\InvoiceTypesStoredProcedures.cs" />
     <Compile Include="InvoiceManagement\Tables\Invoices.cs" />
     <Compile Include="InvoiceManagement\Tables\InvoiceTypes.cs" />
+    <Compile Include="PaymentManagement\StoredProcedures\PaymentTypesStoredProcedures.cs" />
+    <Compile Include="PaymentManagement\Tables\PaymentTypes.cs" />
     <Compile Include="ProductManagement\StoredProcedures\ProductCategoriesStoredProcedures.cs" />
     <Compile Include="ProductManagement\StoredProcedures\ProductsStoredProcedures.cs" />
     <Compile Include="ProductManagement\Tables\ProductCategories.cs" />
@@ -117,6 +119,10 @@
     <Compile Include="ProjectManagement\Tables\Projects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Accounting\StoredProcedures\BookingsStoredProcedures.cs" />
+    <Compile Include="PurchaseManagement\StoredProcedures\PurchaseTypesStoredProcedures.cs" />
+    <Compile Include="PurchaseManagement\Tables\PurchaseTypes.cs" />
+    <Compile Include="SalesManagement\StoredProcedures\SalesTypesStoredProcedures.cs" />
+    <Compile Include="SalesManagement\Tables\SalesTypes.cs" />
     <Compile Include="ShipmentManagement\StoredProcedures\ShipmentTypesStoredProcedures.cs" />
     <Compile Include="ShipmentManagement\Tables\ShipmentTypes.cs" />
     <Compile Include="StoredProcedures\CompaniesStoredProcedures.cs" />
@@ -162,11 +168,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="PaymentManagement\" />
-    <Folder Include="PurchaseManagement\StoredProcedures\" />
-    <Folder Include="PurchaseManagement\Tables\" />
-    <Folder Include="SalesManagement\StoredProcedures\" />
-    <Folder Include="SalesManagement\Tables\" />
     <Folder Include="Template\StoredProcedures\" />
     <Folder Include="Template\Tables\" />
   </ItemGroup>
