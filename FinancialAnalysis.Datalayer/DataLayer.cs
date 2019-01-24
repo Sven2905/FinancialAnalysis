@@ -36,6 +36,8 @@ namespace FinancialAnalysis.Datalayer
         public Users Users { get; set; } = new Users();
         public UserRights UserRights { get; set; } = new UserRights();
         public UserRightUserMappings UserRightUserMappings { get; set; } = new UserRightUserMappings();
+        public Warehouses Warehouses { get; set; } = new Warehouses();
+        public Stockyards Stockyards { get; set; } = new Stockyards();
 
         public void Dispose()
         {
@@ -81,6 +83,8 @@ namespace FinancialAnalysis.Datalayer
             HealthInsurances.CheckAndCreateStoredProcedures();
             UserRights.CheckAndCreateStoredProcedures();
             UserRightUserMappings.CheckAndCreateStoredProcedures();
+            Warehouses.CheckAndCreateStoredProcedures();
+            Stockyards.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()
@@ -98,6 +102,7 @@ namespace FinancialAnalysis.Datalayer
             PaymentConditions.AddReferences();
             ProjectWorkingTimes.AddReferences();
             UserRightUserMappings.AddReferences();
+            Stockyards.AddReferences();
         }
     }
 }

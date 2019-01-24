@@ -2,7 +2,7 @@
 using DevExpress.Mvvm;
 using FinancialAnalysis.Models.ProductManagement;
 
-namespace FinancialAnalysis.Models.Warehouse
+namespace FinancialAnalysis.Models.WarehouseManagement
 {
     public class Stockyard : BindableBase
     {

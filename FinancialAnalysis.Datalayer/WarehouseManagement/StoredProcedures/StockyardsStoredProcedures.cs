@@ -2,13 +2,13 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.ProductManagement
+namespace FinancialAnalysis.Datalayer.StockyardManagement
 {
-    public class ProductCategoriesStoredProcedures : IStoredProcedures
+    public class StockyardsStoredProcedures : IStoredProcedures
     {
-        public ProductCategoriesStoredProcedures()
+        public StockyardsStoredProcedures()
         {
-            TableName = "ProductCategories";
+            TableName = "Stockyards";
         }
 
         public string TableName { get; }
@@ -21,6 +21,8 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
             InsertData();
             GetAllData();
             GetById();
+            UpdateData();
+            DeleteData();
         }
 
         private void GetAllData()
@@ -30,9 +32,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT ProductCategoryId, " +
-                                "Name, " +
-                                "Description " +
+                                "SELECT StockyardId, Name, RefWarehouseId " +
                                 $"FROM {TableName} " +
                                 "END");
                 using (var connection =
@@ -56,9 +56,9 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, Description) " +
-                    "VALUES (@Name, @Description); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @RefWarehouseId int AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Name, RefWarehouseId) " +
+                    "VALUES (@Name, @RefWarehouseId); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -81,10 +81,9 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @ProductCategoryId int AS BEGIN SET NOCOUNT ON; " +
-                    $"SELECT Name, Description " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @StockyardId int AS BEGIN SET NOCOUNT ON; SELECT StockyardId, Name, RefWarehouseId " +
                     $"FROM {TableName} " +
-                    "WHERE ProductCategoryId = @ProductCategoryId END");
+                    "WHERE StockyardId = @StockyardId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -106,12 +105,12 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @ProductCategoryId int, @Name nvarchar(150), @Description nvarchar(150) " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @StockyardId int, @Name nvarchar(150), @RefWarehouseId int " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "Name = @Name, " +
-                    "Description = @Description, " +
-                    "WHERE ProductCategoryId = @ProductCategoryId END");
+                    "RefWarehouseId = @RefWarehouseId, " +
+                    "WHERE StockyardId = @StockyardId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

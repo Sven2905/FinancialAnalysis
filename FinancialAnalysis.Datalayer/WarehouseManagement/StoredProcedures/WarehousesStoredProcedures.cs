@@ -2,13 +2,13 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.ProductManagement
+namespace FinancialAnalysis.Datalayer.WarehouseManagement
 {
-    public class ProductCategoriesStoredProcedures : IStoredProcedures
+    public class WarehousesStoredProcedures : IStoredProcedures
     {
-        public ProductCategoriesStoredProcedures()
+        public WarehousesStoredProcedures()
         {
-            TableName = "ProductCategories";
+            TableName = "Warehouses";
         }
 
         public string TableName { get; }
@@ -21,6 +21,8 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
             InsertData();
             GetAllData();
             GetById();
+            UpdateData();
+            DeleteData();
         }
 
         private void GetAllData()
@@ -30,9 +32,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT ProductCategoryId, " +
-                                "Name, " +
-                                "Description " +
+                                "SELECT WarehouseId, Name, Description, Street, City, Postcode "+
                                 $"FROM {TableName} " +
                                 "END");
                 using (var connection =
@@ -56,9 +56,9 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, Description) " +
-                    "VALUES (@Name, @Description); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150), @Street nvarchar(150), @City nvarchar(150), @Postcode int AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Name, Description, Street, City, Postcode) " +
+                    "VALUES (@Name, @Description, @Street, @City, @Postcode); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -81,10 +81,9 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @ProductCategoryId int AS BEGIN SET NOCOUNT ON; " +
-                    $"SELECT Name, Description " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @WarehouseId int AS BEGIN SET NOCOUNT ON; SELECT WarehouseId, Name, Description, Street, City, Postcode " +
                     $"FROM {TableName} " +
-                    "WHERE ProductCategoryId = @ProductCategoryId END");
+                    "WHERE EmployeeId = @EmployeeId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -106,12 +105,15 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @ProductCategoryId int, @Name nvarchar(150), @Description nvarchar(150) " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @WarehouseId int, @Name nvarchar(150), @Description nvarchar(150), @Street nvarchar(150), @City nvarchar(150), @Postcode int " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "Name = @Name, " +
                     "Description = @Description, " +
-                    "WHERE ProductCategoryId = @ProductCategoryId END");
+                    "Street = @Street, " +
+                    "City = @City, " +
+                    "Postcode = @Postcode, " +
+                    "WHERE WarehouseId = @WarehouseId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -133,7 +135,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @StockyardId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE StockyardId = @StockyardId END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @WarehouseId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE WarehouseId = @WarehouseId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

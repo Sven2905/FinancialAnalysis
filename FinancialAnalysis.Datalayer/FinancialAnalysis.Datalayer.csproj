@@ -131,6 +131,10 @@
     <Compile Include="Accounting\Tables\ScannedDocuments.cs" />
     <Compile Include="Tables\TableVersions.cs" />
     <Compile Include="Accounting\Tables\TaxTypes.cs" />
+    <Compile Include="WarehouseManagement\StoredProcedures\StockyardsStoredProcedures.cs" />
+    <Compile Include="WarehouseManagement\StoredProcedures\WarehousesStoredProcedures.cs" />
+    <Compile Include="WarehouseManagement\Tables\Stockyards.cs" />
+    <Compile Include="WarehouseManagement\Tables\Warehouses.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -146,11 +150,6 @@
       <Name>Utilities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Ordering\StoredProcedures\" />
-    <Folder Include="Ordering\Tables\" />
-    <Folder Include="Warehouse\StoredProcedures\" />
-    <Folder Include="Warehouse\Tables\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -93,7 +93,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Name, @Description, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @RefProductCategory",
+                            $"dbo.{TableName}_Insert @Name, @Description",
                             ProductCategory);
                     id = result.Single();
                 }
@@ -139,7 +139,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<ProductCategory>($"dbo.{TableName}_GetById @ProductPrototypeId",
+                    output = con.QuerySingleOrDefault<ProductCategory>($"dbo.{TableName}_GetById @ProductCategoryId",
                         new {ProductCategoryId = id});
                 }
             }

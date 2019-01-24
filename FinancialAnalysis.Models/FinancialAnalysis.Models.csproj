@@ -105,8 +105,8 @@
     <Compile Include="Shipment\Shipment.cs" />
     <Compile Include="Shipment\ShipmentType.cs" />
     <Compile Include="UnitOfMeasure.cs" />
-    <Compile Include="Warehouse\Stockyard.cs" />
-    <Compile Include="Warehouse\Warehouse.cs" />
+    <Compile Include="WarehouseManagement\Stockyard.cs" />
+    <Compile Include="WarehouseManagement\Warehouse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
