@@ -169,7 +169,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                             return b;
                         }, new { BookingId = id }, splitOn: "BookingId, ScannedDocumentId, CreditId, DebitId")
                     .AsQueryable();
-                return query.SingleOrDefault();
+                return query.FirstOrDefault();
             }
         }
 

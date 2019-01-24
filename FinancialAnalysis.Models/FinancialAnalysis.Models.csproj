@@ -96,20 +96,17 @@
     <Compile Include="Accounting\SelectedCostAccount.cs" />
     <Compile Include="Database\TableVersion.cs" />
     <Compile Include="ProjectManagement\Tariff.cs" />
-    <Compile Include="Purchase\PurchaseOrder.cs" />
-    <Compile Include="Purchase\PurchaseOrderDetail.cs" />
-    <Compile Include="Purchase\PurchaseType.cs" />
-    <Compile Include="Sales\SalesOrder.cs" />
-    <Compile Include="Sales\SalesOrderDetail.cs" />
-    <Compile Include="Sales\SalesType.cs" />
-    <Compile Include="Shipment\Shipment.cs" />
-    <Compile Include="Shipment\ShipmentType.cs" />
+    <Compile Include="PurchaseManagement\PurchaseOrder.cs" />
+    <Compile Include="PurchaseManagement\PurchaseOrderDetail.cs" />
+    <Compile Include="PurchaseManagement\PurchaseType.cs" />
+    <Compile Include="SalesManagement\SalesOrder.cs" />
+    <Compile Include="SalesManagement\SalesOrderDetail.cs" />
+    <Compile Include="SalesManagement\SalesType.cs" />
+    <Compile Include="ShipmentManagement\Shipment.cs" />
+    <Compile Include="ShipmentManagement\ShipmentType.cs" />
     <Compile Include="UnitOfMeasure.cs" />
-    <Compile Include="Warehouse\Stockyard.cs" />
-    <Compile Include="Warehouse\Warehouse.cs" />
-    <Compile Include="StockManagement\BookedProduct.cs" />
-    <Compile Include="StockManagement\Stockyard.cs" />
-    <Compile Include="StockManagement\Warehouse.cs" />
+    <Compile Include="WarehouseManagement\Stockyard.cs" />
+    <Compile Include="WarehouseManagement\Warehouse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

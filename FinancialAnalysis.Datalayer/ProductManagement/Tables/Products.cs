@@ -36,6 +36,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                     "ProductId int IDENTITY(1,1) PRIMARY KEY," +
                     "Name nvarchar(150) NOT NULL," +
                     "Description nvarchar(150)," +
+                    "Barcode nvarchar(150)," +
                     "DimensionX int, " +
                     "DimensionY int, " +
                     "DimensionZ int, " +
@@ -66,7 +67,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
         }
 
         /// <summary>
-        ///     Returns all Product Prototypes records
+        ///     Returns all Product records
         /// </summary>
         /// <returns></returns>
         public IEnumerable<Product> GetAll()
@@ -89,11 +90,11 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
         }
 
         /// <summary>
-        ///     Inserts the ProductPrototype item
+        ///     Inserts the Product item
         /// </summary>
-        /// <param name="ProductPrototype"></param>
+        /// <param name="Product"></param>
         /// <returns>Id of inserted item</returns>
-        public int Insert(Product ProductPrototype)
+        public int Insert(Product Product)
         {
             var id = 0;
             try
@@ -103,8 +104,8 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Name, @Description, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @BuyingPrice, @SalePrice, @RefProductCategoryId",
-                            ProductPrototype);
+                            $"dbo.{TableName}_Insert @Name, @Description, @Barcode, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @BuyingPrice, @SalePrice, @RefProductCategoryId",
+                            Product);
                     id = result.Single();
                 }
             }
@@ -117,17 +118,17 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
         }
 
         /// <summary>
-        ///     Inserts the list of ProductPrototypes items
+        ///     Inserts the list of Products items
         /// </summary>
-        /// <param name="ProductPrototype"></param>
-        public void Insert(IEnumerable<Product> ProductPrototypes)
+        /// <param name="Product"></param>
+        public void Insert(IEnumerable<Product> Products)
         {
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var ProductPrototype in ProductPrototypes) Insert(ProductPrototype);
+                    foreach (var Product in Products) Insert(Product);
                 }
             }
             catch (Exception e)
@@ -150,7 +151,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.QuerySingleOrDefault<Product>($"dbo.{TableName}_GetById @ProductId",
-                        new {ProductPrototypeId = id});
+                        new {ProductId = id});
                 }
             }
             catch (Exception e)
@@ -162,39 +163,39 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
         }
 
         /// <summary>
-        ///     Update ProductPrototype, if not exist, insert it
+        ///     Update Product, if not exist, insert it
         /// </summary>
-        /// <param name="ProductPrototype"></param>
-        public void UpdateOrInsert(ProductPrototype ProductPrototype)
+        /// <param name="Product"></param>
+        public void UpdateOrInsert(Product Product)
         {
-            if (ProductPrototype.ProductPrototypeId == 0 || GetById(ProductPrototype.ProductPrototypeId) is null)
+            if (Product.ProductId == 0 || GetById(Product.ProductId) is null)
             {
-                Insert(ProductPrototype);
+                Insert(Product);
                 return;
             }
 
-            Update(ProductPrototype);
+            Update(Product);
         }
 
         /// <summary>
-        ///     Update ProductPrototypes, if not exist insert them
+        ///     Update Products, if not exist insert them
         /// </summary>
         /// <param name="User"></param>
-        public void UpdateOrInsert(IEnumerable<ProductPrototype> ProductPrototypes)
+        public void UpdateOrInsert(IEnumerable<Product> Products)
         {
-            foreach (var ProductPrototype in ProductPrototypes)
+            foreach (var Product in Products)
             {
-                UpdateOrInsert(ProductPrototype);
+                UpdateOrInsert(Product);
             }
         }
 
         /// <summary>
-        ///     Update ProductPrototype
+        ///     Update Product
         /// </summary>
-        /// <param name="ProductPrototype"></param>
-        public void Update(ProductPrototype ProductPrototype)
+        /// <param name="Product"></param>
+        public void Update(Product Product)
         {
-            if (ProductPrototype.ProductPrototypeId == 0)
+            if (Product.ProductId == 0)
             {
                 return;
             }
@@ -204,7 +205,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @ProductPrototypeId, @Name, @Description, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @BuyingPrice, @SalePrice, @RefProductCategoryId", ProductPrototype);
+                    con.Execute($"dbo.{TableName}_Update @ProductId, @Name, @Description, @Barcode, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @BuyingPrice, @SalePrice, @RefProductCategoryId", Product);
                 }
             }
             catch (Exception e)
@@ -224,7 +225,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @ProductPrototypeId", new { ProductPrototypeId = id });
+                    con.Execute($"dbo.{TableName}_Delete @ProductId", new { ProductId = id });
                 }
             }
             catch (Exception e)
@@ -244,7 +245,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
             {
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
-                    $"IF(OBJECT_ID('FK_ProductPrototype_ProductCategory', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_ProductPrototype_ProductCategory FOREIGN KEY(RefProductCategoryId) REFERENCES ProductCategories(ProductCategoryId)";
+                    $"IF(OBJECT_ID('FK_{TableName}_ProductCategory', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_ProductCategory FOREIGN KEY(RefProductCategoryId) REFERENCES ProductCategories(ProductCategoryId)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {

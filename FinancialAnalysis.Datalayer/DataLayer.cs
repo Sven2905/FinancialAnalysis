@@ -2,10 +2,17 @@
 using System.Linq;
 using FinancialAnalysis.Datalayer.Accounting;
 using FinancialAnalysis.Datalayer.Administration;
+using FinancialAnalysis.Datalayer.BillManagement;
 using FinancialAnalysis.Datalayer.Configurations;
+using FinancialAnalysis.Datalayer.InvoiceManagement;
+using FinancialAnalysis.Datalayer.PaymentManagement;
 using FinancialAnalysis.Datalayer.ProductManagement;
 using FinancialAnalysis.Datalayer.ProjectManagement;
+using FinancialAnalysis.Datalayer.PurchaseManagement;
+using FinancialAnalysis.Datalayer.SalesManagement;
+using FinancialAnalysis.Datalayer.ShipmentManagement;
 using FinancialAnalysis.Datalayer.Tables;
+using FinancialAnalysis.Datalayer.WarehouseManagement;
 using FinancialAnalysis.Models;
 
 namespace FinancialAnalysis.Datalayer
@@ -24,7 +31,7 @@ namespace FinancialAnalysis.Datalayer
         public Bookings Bookings { get; set; } = new Bookings();
         public ScannedDocuments ScannedDocuments { get; set; } = new ScannedDocuments();
         public ProductCategories ProductCategories { get; set; } = new ProductCategories();
-        public Products ProductPrototypes { get; set; } = new Products();
+        public Products Products { get; set; } = new Products();
         public Projects Projects { get; set; } = new Projects();
         public CostCenters CostCenters { get; set; } = new CostCenters();
         public ProjectRoles ProjectRoles { get; set; } = new ProjectRoles();
@@ -38,6 +45,16 @@ namespace FinancialAnalysis.Datalayer
         public Users Users { get; set; } = new Users();
         public UserRights UserRights { get; set; } = new UserRights();
         public UserRightUserMappings UserRightUserMappings { get; set; } = new UserRightUserMappings();
+        public Warehouses Warehouses { get; set; } = new Warehouses();
+        public Stockyards Stockyards { get; set; } = new Stockyards();
+        public BillTypes BillTypes { get; set; } = new BillTypes();
+        public Bills Bills { get; set; } = new Bills();
+        public InvoiceTypes InvoiceTypes { get; set; } = new InvoiceTypes();
+        public Invoices Invoices { get; set; } = new Invoices();
+        public ShipmentTypes ShipmentTypes { get; set; } = new ShipmentTypes();
+        public PaymentTypes PaymentTypes { get; set; } = new PaymentTypes();
+        public PurchaseTypes PurchaseTypes { get; set; } = new PurchaseTypes();
+        public SalesTypes SalesTypes { get; set; } = new SalesTypes();
 
         public void Dispose()
         {
@@ -71,7 +88,7 @@ namespace FinancialAnalysis.Datalayer
             ScannedDocuments.CheckAndCreateStoredProcedures();
             Bookings.CheckAndCreateStoredProcedures();
             ProductCategories.CheckAndCreateStoredProcedures();
-            ProductPrototypes.CheckAndCreateStoredProcedures();
+            Products.CheckAndCreateStoredProcedures();
             Projects.CheckAndCreateStoredProcedures();
             CostCenters.CheckAndCreateStoredProcedures();
             Employees.CheckAndCreateStoredProcedures();
@@ -84,6 +101,16 @@ namespace FinancialAnalysis.Datalayer
             HealthInsurances.CheckAndCreateStoredProcedures();
             UserRights.CheckAndCreateStoredProcedures();
             UserRightUserMappings.CheckAndCreateStoredProcedures();
+            Warehouses.CheckAndCreateStoredProcedures();
+            Stockyards.CheckAndCreateStoredProcedures();
+            BillTypes.CheckAndCreateStoredProcedures();
+            Bills.CheckAndCreateStoredProcedures();
+            InvoiceTypes.CheckAndCreateStoredProcedures();
+            Invoices.CheckAndCreateStoredProcedures();
+            ShipmentTypes.CheckAndCreateStoredProcedures();
+            PurchaseTypes.CheckAndCreateStoredProcedures();
+            SalesTypes.CheckAndCreateStoredProcedures();
+            PaymentTypes.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()
@@ -94,13 +121,16 @@ namespace FinancialAnalysis.Datalayer
             Credits.AddReferences();
             Debits.AddReferences();
             ScannedDocuments.AddReferences();
-            ProductPrototypes.AddReferences();
+            Products.AddReferences();
             Projects.AddReferences();
             Employees.AddReferences();
             ProjectEmployeeMappings.AddReferences();
             PaymentConditions.AddReferences();
             ProjectWorkingTimes.AddReferences();
             UserRightUserMappings.AddReferences();
+            Stockyards.AddReferences();
+            Bills.AddReferences();
+            Invoices.AddReferences();
         }
 
         private void Seed()

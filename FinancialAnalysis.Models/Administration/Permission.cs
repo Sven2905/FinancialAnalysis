@@ -29,8 +29,8 @@ namespace FinancialAnalysis.Models.Administration
         AccessProject = 202,
         AccessProjectWorkingTime = 203,
 
-        // StockManagement 300 - 399
-        AccessStockManagement = 300,
+        // WarehouseManagement 300 - 399
+        AccessWarehouseManagement = 300,
 
     }
 }

@@ -147,14 +147,20 @@
     <Compile Include="UserControls\Accounting\CostCenterControl.xaml.cs">
       <DependentUpon>CostCenterControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\StockManagement\ProductControl.xaml.cs">
+    <Compile Include="UserControls\WarehouseManagement\StockyardControl.xaml.cs">
+      <DependentUpon>StockyardControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WarehouseManagement\WarehouseControl.xaml.cs">
+      <DependentUpon>WarehouseControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WarehouseManagement\ProductControl.xaml.cs">
       <DependentUpon>ProductControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\StockManagement\ProductCategoryControl.xaml.cs">
+    <Compile Include="UserControls\WarehouseManagement\ProductCategoryControl.xaml.cs">
       <DependentUpon>ProductCategoryControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\StockManagement\StockManagementControl.xaml.cs">
-      <DependentUpon>StockManagementControl.xaml</DependentUpon>
+    <Compile Include="UserControls\WarehouseManagement\WarehouseManagementControl.xaml.cs">
+      <DependentUpon>WarehouseManagementControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ProjectManagement\ProjectWorkingTimeControl.xaml.cs">
       <DependentUpon>ProjectWorkingTimeControl.xaml</DependentUpon>
@@ -227,15 +233,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\StockManagement\ProductControl.xaml">
+    <Page Include="UserControls\WarehouseManagement\StockyardControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\StockManagement\ProductCategoryControl.xaml">
+    <Page Include="UserControls\WarehouseManagement\WarehouseControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\StockManagement\StockManagementControl.xaml">
+    <Page Include="UserControls\WarehouseManagement\ProductControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\WarehouseManagement\ProductCategoryControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\WarehouseManagement\WarehouseManagementControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
