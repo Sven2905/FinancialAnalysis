@@ -150,6 +150,11 @@
       <Name>Utilities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Ordering\StoredProcedures\" />
+    <Folder Include="Ordering\Tables\" />
+    <Folder Include="StockManagement\StoredProcedures\" />
+    <Folder Include="StockManagement\Tables\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -41,7 +41,11 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                     "DimensionZ int, " +
                     "Weight decimal, " +
                     "IsStackable bit, " +
-                    "RefProductCategory int NOT NULL)";
+                    "Picture varbinary(MAX), " +
+                    "PackageUnit int, " +
+                    "BuyingPrice money, " +
+                    "SalePrice money, " +
+                    "RefProductCategoryId int NOT NULL)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -99,7 +103,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Name, @Description, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @RefProductCategory",
+                            $"dbo.{TableName}_Insert @Name, @Description, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @BuyingPrice, @SalePrice, @RefProductCategoryId",
                             ProductPrototype);
                     id = result.Single();
                 }
@@ -157,6 +161,78 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
             return output;
         }
 
+        /// <summary>
+        ///     Update ProductPrototype, if not exist, insert it
+        /// </summary>
+        /// <param name="ProductPrototype"></param>
+        public void UpdateOrInsert(ProductPrototype ProductPrototype)
+        {
+            if (ProductPrototype.ProductPrototypeId == 0 || GetById(ProductPrototype.ProductPrototypeId) is null)
+            {
+                Insert(ProductPrototype);
+                return;
+            }
+
+            Update(ProductPrototype);
+        }
+
+        /// <summary>
+        ///     Update ProductPrototypes, if not exist insert them
+        /// </summary>
+        /// <param name="User"></param>
+        public void UpdateOrInsert(IEnumerable<ProductPrototype> ProductPrototypes)
+        {
+            foreach (var ProductPrototype in ProductPrototypes)
+            {
+                UpdateOrInsert(ProductPrototype);
+            }
+        }
+
+        /// <summary>
+        ///     Update ProductPrototype
+        /// </summary>
+        /// <param name="ProductPrototype"></param>
+        public void Update(ProductPrototype ProductPrototype)
+        {
+            if (ProductPrototype.ProductPrototypeId == 0)
+            {
+                return;
+            }
+
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.Execute($"dbo.{TableName}_Update @ProductPrototypeId, @Name, @Description, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @BuyingPrice, @SalePrice, @RefProductCategoryId", ProductPrototype);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Update' from table '{TableName}'", e);
+            }
+        }
+
+        /// <summary>
+        ///     Delete User by Id
+        /// </summary>
+        /// <param name="id"></param>
+        public void Delete(int id)
+        {
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.Execute($"dbo.{TableName}_Delete @ProductPrototypeId", new { ProductPrototypeId = id });
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Delete' from table '{TableName}'", e);
+            }
+        }
+
         public void AddReferences()
         {
             AddCostAccountsReference();
@@ -168,7 +244,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
             {
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
-                    $"IF(OBJECT_ID('FK_ProductPrototype_ProductCategory', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_ProductPrototype_ProductCategory FOREIGN KEY(RefProductCategory) REFERENCES ProductCategories(ProductCategoryId)";
+                    $"IF(OBJECT_ID('FK_ProductPrototype_ProductCategory', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_ProductPrototype_ProductCategory FOREIGN KEY(RefProductCategoryId) REFERENCES ProductCategories(ProductCategoryId)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {

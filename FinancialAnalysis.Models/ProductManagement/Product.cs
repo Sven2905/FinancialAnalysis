@@ -11,7 +11,9 @@
         public double DimensionX { get; set; }
         public double DimensionY { get; set; }
         public double DimensionZ { get; set; }
-        public int RefProductCategory { get; set; } = 1;
+        public byte[] Picture { get; set; }
+        public int RefProductCategoryId { get; set; } = 1;
+        public int PackageUnit { get; set; }
         public ProductCategory ProductCategory { get; set; }
         public double DefaultBuyingPrice { get; set; } = 0.0;
         public double DefaultSellingPrice { get; set; } = 0.0;

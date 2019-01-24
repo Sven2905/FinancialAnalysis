@@ -26,6 +26,8 @@ namespace FinancialAnalysis.Models.Accounting
         public List<ScannedDocument> ScannedDocuments { get; set; } = new List<ScannedDocument>();
         public List<Debit> Debits { get; set; } = new List<Debit>();
         public List<Credit> Credits { get; set; } = new List<Credit>();
+        public int RefCostCenterId { get; set; }
+
 
         #endregion
 

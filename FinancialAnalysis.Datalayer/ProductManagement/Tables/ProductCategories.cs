@@ -150,5 +150,77 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
 
             return output;
         }
+
+        /// <summary>
+        ///     Update ProductCategory, if not exist, insert it
+        /// </summary>
+        /// <param name="ProductCategory"></param>
+        public void UpdateOrInsert(ProductCategory ProductCategory)
+        {
+            if (ProductCategory.ProductCategoryId == 0 || GetById(ProductCategory.ProductCategoryId) is null)
+            {
+                Insert(ProductCategory);
+                return;
+            }
+
+            Update(ProductCategory);
+        }
+
+        /// <summary>
+        ///     Update ProductCategories, if not exist insert them
+        /// </summary>
+        /// <param name="ProductCategories"></param>
+        public void UpdateOrInsert(IEnumerable<ProductCategory> ProductCategories)
+        {
+            foreach (var ProductCategory in ProductCategories)
+            {
+                UpdateOrInsert(ProductCategory);
+            }
+        }
+
+        /// <summary>
+        ///     Update ProductCategory
+        /// </summary>
+        /// <param name="ProductCategory"></param>
+        public void Update(ProductCategory ProductCategory)
+        {
+            if (ProductCategory.ProductCategoryId == 0)
+            {
+                return;
+            }
+
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.Execute($"dbo.{TableName}_Update @ProductCategoryId, @Name, @Description", ProductCategory);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Update' from table '{TableName}'", e);
+            }
+        }
+
+        /// <summary>
+        ///     Delete User by Id
+        /// </summary>
+        /// <param name="id"></param>
+        public void Delete(int id)
+        {
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.Execute($"dbo.{TableName}_Delete @ProductCategoryId", new { ProductCategoryId = id });
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Delete' from table '{TableName}'", e);
+            }
+        }
     }
 }

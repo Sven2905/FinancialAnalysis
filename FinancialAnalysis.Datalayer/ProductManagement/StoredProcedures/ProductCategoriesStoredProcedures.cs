@@ -21,6 +21,8 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
             InsertData();
             GetAllData();
             GetById();
+            UpdateData();
+            DeleteData();
         }
 
         private void GetAllData()
@@ -81,8 +83,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @ProductCategoryId int AS BEGIN SET NOCOUNT ON; " +
-                    $"SELECT Name, Description " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @ProductCategoryId int AS BEGIN SET NOCOUNT ON; SELECT Name, Description " +
                     $"FROM {TableName} " +
                     "WHERE ProductCategoryId = @ProductCategoryId END");
                 using (var connection =
@@ -106,11 +107,11 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @ProductCategoryId int, @Name nvarchar(150), @Description nvarchar(150) " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @ProductCategoryId int, @Name nvarchar(150), @Description nvarchar(150)" +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
-                    "Name = @Name, " +
-                    "Description = @Description, " +
+                    "SET Name = @Name, " +
+                    "Description = @Description " +
                     "WHERE ProductCategoryId = @ProductCategoryId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -133,7 +134,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @StockyardId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE StockyardId = @StockyardId END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @ProductCategoryId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE ProductCategoryId = @ProductCategoryId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

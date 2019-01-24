@@ -1,20 +1,22 @@
 ﻿using System;
+using System.Linq;
 using FinancialAnalysis.Datalayer.Accounting;
 using FinancialAnalysis.Datalayer.Administration;
 using FinancialAnalysis.Datalayer.Configurations;
 using FinancialAnalysis.Datalayer.ProductManagement;
 using FinancialAnalysis.Datalayer.ProjectManagement;
 using FinancialAnalysis.Datalayer.Tables;
+using FinancialAnalysis.Models;
 
 namespace FinancialAnalysis.Datalayer
 {
     public class DataLayer : IDisposable
     {
-        public TaxTypes TaxTypes { get; set; } = new TaxTypes();
         public TableVersions TableVersions { get; set; } = new TableVersions();
         public Companies Companies { get; set; } = new Companies();
         public CostAccountCategories CostAccountCategories { get; set; } = new CostAccountCategories();
         public CostAccounts CostAccounts { get; set; } = new CostAccounts();
+        public TaxTypes TaxTypes { get; set; } = new TaxTypes();
         public Creditors Creditors { get; set; } = new Creditors();
         public Debitors Debitors { get; set; } = new Debitors();
         public Debits Debits { get; set; } = new Debits();
@@ -49,6 +51,7 @@ namespace FinancialAnalysis.Datalayer
             //if (TableVersions.GetById(1) == null || TableVersions.GetById(1).Version != 1)
             //{
             CheckAndCreateStoredProcedures();
+            Seed();
             AddReferences();
 
             //TableVersions.Insert(new Models.TableVersion() { Name = "Alpha", Version = 1, LastModified = DateTime.Now });
@@ -59,10 +62,10 @@ namespace FinancialAnalysis.Datalayer
         {
             TableVersions.CheckAndCreateStoredProcedures();
             Users.CheckAndCreateStoredProcedures();
-            TaxTypes.CheckAndCreateStoredProcedures();
             Companies.CheckAndCreateStoredProcedures();
             CostAccountCategories.CheckAndCreateStoredProcedures();
             CostAccounts.CheckAndCreateStoredProcedures();
+            TaxTypes.CheckAndCreateStoredProcedures();
             Creditors.CheckAndCreateStoredProcedures();
             Debitors.CheckAndCreateStoredProcedures();
             Credits.CheckAndCreateStoredProcedures();
@@ -103,6 +106,19 @@ namespace FinancialAnalysis.Datalayer
             ProjectWorkingTimes.AddReferences();
             UserRightUserMappings.AddReferences();
             Stockyards.AddReferences();
+        }
+
+        private void Seed()
+        {
+            using (var db = new DataLayer())
+            {
+                if (db.TaxTypes.GetAll().Count() == 0)
+                {
+                    var _Import = new Import();
+                    _Import.ImportCostAccounts(Standardkontenrahmen.SKR03);
+                    db.TaxTypes.Seed();
+                }
+            }
         }
     }
 }
