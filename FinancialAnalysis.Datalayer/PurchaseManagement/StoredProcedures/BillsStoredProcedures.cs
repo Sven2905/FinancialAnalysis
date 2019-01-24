@@ -2,13 +2,13 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.BillManagement
+namespace FinancialAnalysis.Datalayer.PurchaseManagement
 {
-    public class BillTypesStoredProcedures : IStoredProcedures
+    internal class BillsStoredProcedures : IStoredProcedures
     {
-        public BillTypesStoredProcedures()
+        public BillsStoredProcedures()
         {
-            TableName = "BillTypes";
+            TableName = "Bills";
         }
 
         public string TableName { get; }
@@ -18,9 +18,10 @@ namespace FinancialAnalysis.Datalayer.BillManagement
         /// </summary>
         public void CheckAndCreateProcedures()
         {
-            InsertData();
             GetAllData();
+            InsertData();
             GetById();
+            GetByCreditorInvoiceNumber();
             UpdateData();
             DeleteData();
         }
@@ -31,8 +32,12 @@ namespace FinancialAnalysis.Datalayer.BillManagement
             {
                 var sbSP = new StringBuilder();
 
-                sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; SELECT BillTypeId, Name, Description FROM {TableName} END");
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
+                                "SELECT b.BillId, b.CreditorInvoiceNumber, b.BillDate, b.BillDueDate, b.Content, b.RefPurchaseOrderId, b.RefBillTypeId, " +
+                                $"t.BillTypeId, t.Name, t.Description " +
+                                $"FROM {TableName} b " +
+                                "LEFT JOIN BillTypes t ON b.RefBillTypeId = t.BillTypeId " +
+                                "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -54,9 +59,9 @@ namespace FinancialAnalysis.Datalayer.BillManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, Description) " +
-                    "VALUES (@Name, @Description); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @CreditorInvoiceNumber nvarchar(150), @BillDate datetime, @BillDueDate datetime, @Content varbinary(MAX), @RefPurchaseOrderId int, @RefBillTypeId int AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (CreditorInvoiceNumber, BillDate, BillDueDate, Content, RefPurchaseOrderId, RefBillTypeId) " +
+                    "VALUES (@CreditorInvoiceNumber, @BillDate, @BillDueDate, @Content, @RefPurchaseOrderId, @RefBillTypeId); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -79,9 +84,35 @@ namespace FinancialAnalysis.Datalayer.BillManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @BillTypeId int AS BEGIN SET NOCOUNT ON; SELECT BillTypeId, Name, Description " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @BillId int AS BEGIN SET NOCOUNT ON; " +
+                    $"SELECT BillId, CreditorInvoiceNumber, BillDate, BillDueDate, Content, RefPurchaseOrderId, RefBillTypeId " +
                     $"FROM {TableName} " +
-                    "WHERE BillTypeId = @BillTypeId END");
+                    "WHERE BillId = @BillId END");
+                using (var connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void GetByCreditorInvoiceNumber()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetByCreditorInvoiceNumber", DatabaseNames.FinancialAnalysisDB))
+            {
+                var sbSP = new StringBuilder();
+
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_GetByCreditorInvoiceNumber] @CreditorInvoiceNumber int AS BEGIN SET NOCOUNT ON; " +
+                    $"SELECT BillId, CreditorInvoiceNumber, BillDate, BillDueDate, Content, RefPurchaseOrderId, RefBillTypeId " +
+                    $"FROM {TableName} " +
+                    "WHERE CreditorInvoiceNumber = @CreditorInvoiceNumber END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -103,12 +134,16 @@ namespace FinancialAnalysis.Datalayer.BillManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @BillTypeId int, @Name nvarchar(150), @Description nvarchar(150) " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @BillId int, @CreditorInvoiceNumber nvarchar(150), @BillDate datetime, @BillDueDate datetime, @Content varbinary(MAX), @RefPurchaseOrderId int, @RefBillTypeId int " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
-                    "SET Description = @Description, " +
-                    "Name = @Name " +
-                    "WHERE BillTypeId = @BillTypeId END");
+                    "SET CreditorInvoiceNumber = @CreditorInvoiceNumber, " +
+                    "BillDate = @BillDate, " +
+                    "BillDueDate = @BillDueDate, " +
+                    "Content = @Content, " +
+                    "RefPurchaseOrderId = @RefPurchaseOrderId, " +
+                    "RefBillTypeId = @RefBillTypeId " +
+                    "WHERE BillId = @BillId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -130,7 +165,7 @@ namespace FinancialAnalysis.Datalayer.BillManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @BillTypeId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE BillTypeId = @BillTypeId END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @BillId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE BillId = @BillId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

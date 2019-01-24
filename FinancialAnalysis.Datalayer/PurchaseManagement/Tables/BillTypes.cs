@@ -4,18 +4,19 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
+using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.PurchaseManagement;
 using Serilog;
 
 namespace FinancialAnalysis.Datalayer.PurchaseManagement
 {
-    public class PurchaseTypes : ITable
+    public class BillTypes : ITable
     {
-        private readonly PurchaseTypesStoredProcedures sp = new PurchaseTypesStoredProcedures();
+        private readonly BillTypesStoredProcedures sp = new BillTypesStoredProcedures();
 
-        public PurchaseTypes()
+        public BillTypes()
         {
-            TableName = "PurchaseTypes";
+            TableName = "BillTypes";
             CheckAndCreateTable();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -38,7 +39,7 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') " +
                                  $"CREATE TABLE {TableName}" +
-                                 "(PurchaseTypeId int IDENTITY(1,1) PRIMARY KEY, " +
+                                 "(BillTypeId int IDENTITY(1,1) PRIMARY KEY, " +
                                  "Name nvarchar(150) NOT NULL, " +
                                  "Description nvarchar(150))";
 
@@ -56,18 +57,18 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
         }
 
         /// <summary>
-        ///     Returns all PurchaseType records
+        ///     Returns all BillType records
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<PurchaseType> GetAll()
+        public IEnumerable<BillType> GetAll()
         {
-            IEnumerable<PurchaseType> output = new List<PurchaseType>();
+            IEnumerable<BillType> output = new List<BillType>();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<PurchaseType>($"dbo.{TableName}_GetAll");
+                    output = con.Query<BillType>($"dbo.{TableName}_GetAll");
                 }
             }
             catch (Exception e)
@@ -79,11 +80,11 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
         }
 
         /// <summary>
-        ///     Inserts the PurchaseType item
+        ///     Inserts the BillType item
         /// </summary>
-        /// <param name="PurchaseType"></param>
+        /// <param name="BillType"></param>
         /// <returns>Id of inserted item</returns>
-        public int Insert(PurchaseType PurchaseType)
+        public int Insert(BillType BillType)
         {
             var id = 0;
             try
@@ -92,7 +93,7 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @Description ",
-                        PurchaseType);
+                        BillType);
                     return result.Single();
                 }
             }
@@ -105,17 +106,17 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
         }
 
         /// <summary>
-        ///     Inserts the list of PurchaseType items
+        ///     Inserts the list of BillType items
         /// </summary>
-        /// <param name="PurchaseTypes"></param>
-        public void Insert(IEnumerable<PurchaseType> PurchaseTypes)
+        /// <param name="BillTypes"></param>
+        public void Insert(IEnumerable<BillType> BillTypes)
         {
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var PurchaseType in PurchaseTypes) Insert(PurchaseType);
+                    foreach (var BillType in BillTypes) Insert(BillType);
                 }
             }
             catch (Exception e)
@@ -125,20 +126,20 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
         }
 
         /// <summary>
-        ///     Returns PurchaseType by Id
+        ///     Returns BillType by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public PurchaseType GetById(int id)
+        public BillType GetById(int id)
         {
-            var output = new PurchaseType();
+            var output = new BillType();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<PurchaseType>(
-                        $"dbo.{TableName}_GetById @PurchaseTypeId", new {PurchaseTypeId = id});
+                    output = con.QuerySingleOrDefault<BillType>(
+                        $"dbo.{TableName}_GetById @BillTypeId", new {BillTypeId = id});
                 }
             }
             catch (Exception e)
@@ -150,46 +151,46 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
         }
 
         /// <summary>
-        ///     Update PurchaseType, if not exist, insert it
+        ///     Update BillType, if not exist, insert it
         /// </summary>
-        /// <param name="PurchaseType"></param>
-        public void UpdateOrInsert(PurchaseType PurchaseType)
+        /// <param name="BillType"></param>
+        public void UpdateOrInsert(BillType BillType)
         {
-            if (PurchaseType.PurchaseTypeId == 0 ||
-                GetById(PurchaseType.PurchaseTypeId) is null)
+            if (BillType.BillTypeId == 0 ||
+                GetById(BillType.BillTypeId) is null)
             {
-                Insert(PurchaseType);
+                Insert(BillType);
                 return;
             }
 
-            Update(PurchaseType);
+            Update(BillType);
         }
 
         /// <summary>
-        ///     Update PurchaseTypes, if not exist insert them
+        ///     Update BillTypes, if not exist insert them
         /// </summary>
-        /// <param name="PurchaseTypes"></param>
-        public void UpdateOrInsert(IEnumerable<PurchaseType> PurchaseTypes)
+        /// <param name="BillTypes"></param>
+        public void UpdateOrInsert(IEnumerable<BillType> BillTypes)
         {
-            foreach (var PurchaseType in PurchaseTypes) UpdateOrInsert(PurchaseType);
+            foreach (var BillType in BillTypes) UpdateOrInsert(BillType);
         }
 
         /// <summary>
-        ///     Update PurchaseType
+        ///     Update BillType
         /// </summary>
-        /// <param name="PurchaseType"></param>
-        public void Update(PurchaseType PurchaseType)
+        /// <param name="BillType"></param>
+        public void Update(BillType BillType)
         {
-            if (PurchaseType.PurchaseTypeId == 0 ||
-                GetById(PurchaseType.PurchaseTypeId) is null) return;
+            if (BillType.BillTypeId == 0 ||
+                GetById(BillType.BillTypeId) is null) return;
 
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @PurchaseTypeId, @Name, @Description ",
-                        PurchaseType);
+                    con.Execute($"dbo.{TableName}_Update @BillTypeId, @Name, @Description ",
+                        BillType);
                 }
             }
             catch (Exception e)
@@ -199,7 +200,7 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
         }
 
         /// <summary>
-        ///     Delete PurchaseType by Id
+        ///     Delete BillType by Id
         /// </summary>
         /// <param name="id"></param>
         public void Delete(int id)
@@ -209,7 +210,7 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @PurchaseTypeId", new {PurchaseTypeId = id});
+                    con.Execute($"dbo.{TableName}_Delete @BillTypeId", new {BillTypeId = id});
                 }
             }
             catch (Exception e)
@@ -219,12 +220,12 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
         }
 
         /// <summary>
-        ///     Delete PurchaseType by Item
+        ///     Delete BillType by Item
         /// </summary>
         /// <param name="id"></param>
-        public void Delete(PurchaseType PurchaseType)
+        public void Delete(BillType BillType)
         {
-            Delete(PurchaseType.PurchaseTypeId);
+            Delete(BillType.BillTypeId);
         }
     }
 }

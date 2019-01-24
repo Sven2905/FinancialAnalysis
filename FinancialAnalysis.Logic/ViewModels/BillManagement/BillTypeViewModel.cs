@@ -2,7 +2,7 @@
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
-using FinancialAnalysis.Models.BillManagement;
+using FinancialAnalysis.Models.PurchaseManagement;
 using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;

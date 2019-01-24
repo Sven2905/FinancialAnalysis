@@ -2,7 +2,6 @@
 using System.Linq;
 using FinancialAnalysis.Datalayer.Accounting;
 using FinancialAnalysis.Datalayer.Administration;
-using FinancialAnalysis.Datalayer.BillManagement;
 using FinancialAnalysis.Datalayer.Configurations;
 using FinancialAnalysis.Datalayer.InvoiceManagement;
 using FinancialAnalysis.Datalayer.PaymentManagement;
@@ -13,6 +12,7 @@ using FinancialAnalysis.Datalayer.SalesManagement;
 using FinancialAnalysis.Datalayer.ShipmentManagement;
 using FinancialAnalysis.Datalayer.Tables;
 using FinancialAnalysis.Datalayer.WarehouseManagement;
+using FinancialAnalysis.Logic;
 using FinancialAnalysis.Models;
 
 namespace FinancialAnalysis.Datalayer
@@ -54,6 +54,9 @@ namespace FinancialAnalysis.Datalayer
         public ShipmentTypes ShipmentTypes { get; set; } = new ShipmentTypes();
         public PaymentTypes PaymentTypes { get; set; } = new PaymentTypes();
         public PurchaseTypes PurchaseTypes { get; set; } = new PurchaseTypes();
+        public GoodsReceivedNotes GoodsReceivedNotes { get; set; } = new GoodsReceivedNotes();
+        public PurchaseOrderPositions PurchaseOrderPositions { get; set; } = new PurchaseOrderPositions();
+        public PurchaseOrders PurchaseOrders { get; set; } = new PurchaseOrders();
         public SalesTypes SalesTypes { get; set; } = new SalesTypes();
 
         public void Dispose()
@@ -111,6 +114,9 @@ namespace FinancialAnalysis.Datalayer
             PurchaseTypes.CheckAndCreateStoredProcedures();
             SalesTypes.CheckAndCreateStoredProcedures();
             PaymentTypes.CheckAndCreateStoredProcedures();
+            GoodsReceivedNotes.CheckAndCreateStoredProcedures();
+            PurchaseOrderPositions.CheckAndCreateStoredProcedures();
+            PurchaseOrders.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()
@@ -131,6 +137,9 @@ namespace FinancialAnalysis.Datalayer
             Stockyards.AddReferences();
             Bills.AddReferences();
             Invoices.AddReferences();
+            GoodsReceivedNotes.AddReferences();
+            PurchaseOrderPositions.AddReferences();
+            PurchaseOrders.AddReferences();
         }
 
         private void Seed()

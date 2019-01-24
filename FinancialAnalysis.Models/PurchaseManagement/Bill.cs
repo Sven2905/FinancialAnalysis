@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinancialAnalysis.Models.BillManagement
+namespace FinancialAnalysis.Models.PurchaseManagement
 {
     public class Bill : BindableBase
     {
@@ -16,5 +16,6 @@ namespace FinancialAnalysis.Models.BillManagement
         public int BillTypeId { get; set; }
         public byte[] Content { get; set; }
         public BillType RefBillType { get; set; }
+        public int RefPurchaseOrderId { get; set; }
     }
 }

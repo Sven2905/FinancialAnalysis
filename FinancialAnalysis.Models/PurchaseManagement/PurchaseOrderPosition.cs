@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Models.PurchaseManagement
 {
-    public class PurchaseOrderDetail : BindableBase
+    public class PurchaseOrderPosition : BindableBase
     {
-        public int PurchaseOrderDetailsId { get; set; }
-        public int PurchaseOrderId { get; set; }
-        public PurchaseOrder PurchaseOrder { get; set; }
-        public int ProductId { get; set; }
+        public int PurchaseOrderPositionId { get; set; }
+        public int RefPurchaseOrderId { get; set; }
+        public int RefProductId { get; set; }
+        public double RefTaxTypeId { get; set; }
         public string Description { get; set; }
         public double Quantity { get; set; }
         public double Price { get; set; }
         public double DiscountPercentage { get; set; }
-        public double TaxPercentage { get; set; }
-        public double Total { get; set; }
+        public bool IsDelivered { get; set; }
+        public bool IsCanceled { get; set; }
     }
 }

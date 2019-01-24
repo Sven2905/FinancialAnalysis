@@ -5,10 +5,10 @@ using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
 using FinancialAnalysis.Models.Accounting;
-using FinancialAnalysis.Models.BillManagement;
+using FinancialAnalysis.Models.PurchaseManagement;
 using Serilog;
 
-namespace FinancialAnalysis.Datalayer.Accounting
+namespace FinancialAnalysis.Datalayer.PurchaseManagement
 {
     public class Bills : ITable
     {
@@ -43,6 +43,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                                  "BillDate datetime, " +
                                  "BillDueDate datetime, " +
                                  "Content varbinary(MAX), " +
+                                 "RefPurchaseOrderId int, " +
                                  "RefBillTypeId int )";
 
                 using (var command = new SqlCommand(commandStr, con))
@@ -102,7 +103,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @CreditorInvoiceNumber, @BillDate, @BillDueDate, @Content, @RefBillTypeId ",
+                            $"dbo.{TableName}_Insert @CreditorInvoiceNumber, @BillDate, @BillDueDate, @Content, @RefPurchaseOrderId, @RefBillTypeId ",
                             Bill);
                     return result.Single();
                 }
@@ -223,7 +224,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     con.Execute(
-                        $"dbo.{TableName}_Update @BillId, @CreditorInvoiceNumber, @BillDate, @BillDueDate, @Content, @RefBillTypeId",
+                        $"dbo.{TableName}_Update @BillId, @CreditorInvoiceNumber, @BillDate, @BillDueDate, @Content, @RefPurchaseOrderId, @RefBillTypeId",
                         Bill);
                 }
             }
@@ -266,6 +267,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
         public void AddReferences()
         {
             AddBillTypesReference();
+            AddPurchaseOrdersReference();
         }
 
         private void AddBillTypesReference()
@@ -286,6 +288,28 @@ namespace FinancialAnalysis.Datalayer.Accounting
             catch (Exception e)
             {
                 Log.Error($"Exception occured while creating reference between '{TableName}' and BillTypes",
+                    e);
+            }
+        }
+
+        private void AddPurchaseOrdersReference()
+        {
+            try
+            {
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_{TableName}_PurchaseOrders', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_PurchaseOrders FOREIGN KEY(RefPurchaseOrderId) REFERENCES PurchaseOrders(PurchaseOrderId) ON DELETE CASCADE";
+
+                using (var command = new SqlCommand(commandStr, con))
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while creating reference between '{TableName}' and PurchaseOrders",
                     e);
             }
         }

@@ -4,19 +4,18 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
-using FinancialAnalysis.Models.Accounting;
-using FinancialAnalysis.Models.BillManagement;
+using FinancialAnalysis.Models.PurchaseManagement;
 using Serilog;
 
-namespace FinancialAnalysis.Datalayer.BillManagement
+namespace FinancialAnalysis.Datalayer.PurchaseManagement
 {
-    public class BillTypes : ITable
+    public class GoodsReceivedNotes : ITable
     {
-        private readonly BillTypesStoredProcedures sp = new BillTypesStoredProcedures();
+        private readonly GoodsReceivedNotesStoredProcedures sp = new GoodsReceivedNotesStoredProcedures();
 
-        public BillTypes()
+        public GoodsReceivedNotes()
         {
-            TableName = "BillTypes";
+            TableName = "GoodsReceivedNotes";
             CheckAndCreateTable();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -39,9 +38,9 @@ namespace FinancialAnalysis.Datalayer.BillManagement
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') " +
                                  $"CREATE TABLE {TableName}" +
-                                 "(BillTypeId int IDENTITY(1,1) PRIMARY KEY, " +
-                                 "Name nvarchar(150) NOT NULL, " +
-                                 "Description nvarchar(150))";
+                                 "(GoodsReceivedNoteId int IDENTITY(1,1) PRIMARY KEY, " +
+                                 "RefPurchaseOrderId int NOT NULL, " +
+                                 "Content varbinary(MAX) NOT NULL)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -57,18 +56,18 @@ namespace FinancialAnalysis.Datalayer.BillManagement
         }
 
         /// <summary>
-        ///     Returns all BillType records
+        ///     Returns all GoodsReceivedNote records
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BillType> GetAll()
+        public IEnumerable<GoodsReceivedNote> GetAll()
         {
-            IEnumerable<BillType> output = new List<BillType>();
+            IEnumerable<GoodsReceivedNote> output = new List<GoodsReceivedNote>();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<BillType>($"dbo.{TableName}_GetAll");
+                    output = con.Query<GoodsReceivedNote>($"dbo.{TableName}_GetAll");
                 }
             }
             catch (Exception e)
@@ -80,11 +79,11 @@ namespace FinancialAnalysis.Datalayer.BillManagement
         }
 
         /// <summary>
-        ///     Inserts the BillType item
+        ///     Inserts the GoodsReceivedNote item
         /// </summary>
-        /// <param name="BillType"></param>
+        /// <param name="GoodsReceivedNote"></param>
         /// <returns>Id of inserted item</returns>
-        public int Insert(BillType BillType)
+        public int Insert(GoodsReceivedNote GoodsReceivedNote)
         {
             var id = 0;
             try
@@ -92,8 +91,8 @@ namespace FinancialAnalysis.Datalayer.BillManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @Description ",
-                        BillType);
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @RefPurchaseOrderId, @Content ",
+                        GoodsReceivedNote);
                     return result.Single();
                 }
             }
@@ -106,17 +105,17 @@ namespace FinancialAnalysis.Datalayer.BillManagement
         }
 
         /// <summary>
-        ///     Inserts the list of BillType items
+        ///     Inserts the list of GoodsReceivedNote items
         /// </summary>
-        /// <param name="BillTypes"></param>
-        public void Insert(IEnumerable<BillType> BillTypes)
+        /// <param name="GoodsReceivedNotes"></param>
+        public void Insert(IEnumerable<GoodsReceivedNote> GoodsReceivedNotes)
         {
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var BillType in BillTypes) Insert(BillType);
+                    foreach (var GoodsReceivedNote in GoodsReceivedNotes) Insert(GoodsReceivedNote);
                 }
             }
             catch (Exception e)
@@ -126,20 +125,20 @@ namespace FinancialAnalysis.Datalayer.BillManagement
         }
 
         /// <summary>
-        ///     Returns BillType by Id
+        ///     Returns GoodsReceivedNote by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public BillType GetById(int id)
+        public GoodsReceivedNote GetById(int id)
         {
-            var output = new BillType();
+            var output = new GoodsReceivedNote();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<BillType>(
-                        $"dbo.{TableName}_GetById @BillTypeId", new {BillTypeId = id});
+                    output = con.QuerySingleOrDefault<GoodsReceivedNote>(
+                        $"dbo.{TableName}_GetById @GoodsReceivedNoteId", new {GoodsReceivedNoteId = id});
                 }
             }
             catch (Exception e)
@@ -151,46 +150,46 @@ namespace FinancialAnalysis.Datalayer.BillManagement
         }
 
         /// <summary>
-        ///     Update BillType, if not exist, insert it
+        ///     Update GoodsReceivedNote, if not exist, insert it
         /// </summary>
-        /// <param name="BillType"></param>
-        public void UpdateOrInsert(BillType BillType)
+        /// <param name="GoodsReceivedNote"></param>
+        public void UpdateOrInsert(GoodsReceivedNote GoodsReceivedNote)
         {
-            if (BillType.BillTypeId == 0 ||
-                GetById(BillType.BillTypeId) is null)
+            if (GoodsReceivedNote.GoodsReceivedNoteId == 0 ||
+                GetById(GoodsReceivedNote.GoodsReceivedNoteId) is null)
             {
-                Insert(BillType);
+                Insert(GoodsReceivedNote);
                 return;
             }
 
-            Update(BillType);
+            Update(GoodsReceivedNote);
         }
 
         /// <summary>
-        ///     Update BillTypes, if not exist insert them
+        ///     Update GoodsReceivedNotes, if not exist insert them
         /// </summary>
-        /// <param name="BillTypes"></param>
-        public void UpdateOrInsert(IEnumerable<BillType> BillTypes)
+        /// <param name="GoodsReceivedNotes"></param>
+        public void UpdateOrInsert(IEnumerable<GoodsReceivedNote> GoodsReceivedNotes)
         {
-            foreach (var BillType in BillTypes) UpdateOrInsert(BillType);
+            foreach (var GoodsReceivedNote in GoodsReceivedNotes) UpdateOrInsert(GoodsReceivedNote);
         }
 
         /// <summary>
-        ///     Update BillType
+        ///     Update GoodsReceivedNote
         /// </summary>
-        /// <param name="BillType"></param>
-        public void Update(BillType BillType)
+        /// <param name="GoodsReceivedNote"></param>
+        public void Update(GoodsReceivedNote GoodsReceivedNote)
         {
-            if (BillType.BillTypeId == 0 ||
-                GetById(BillType.BillTypeId) is null) return;
+            if (GoodsReceivedNote.GoodsReceivedNoteId == 0 ||
+                GetById(GoodsReceivedNote.GoodsReceivedNoteId) is null) return;
 
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @BillTypeId, @Name, @Description ",
-                        BillType);
+                    con.Execute($"dbo.{TableName}_Update @GoodsReceivedNoteId, @RefPurchaseOrderId, @Content ",
+                        GoodsReceivedNote);
                 }
             }
             catch (Exception e)
@@ -200,7 +199,7 @@ namespace FinancialAnalysis.Datalayer.BillManagement
         }
 
         /// <summary>
-        ///     Delete BillType by Id
+        ///     Delete GoodsReceivedNote by Id
         /// </summary>
         /// <param name="id"></param>
         public void Delete(int id)
@@ -210,7 +209,7 @@ namespace FinancialAnalysis.Datalayer.BillManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @BillTypeId", new {BillTypeId = id});
+                    con.Execute($"dbo.{TableName}_Delete @GoodsReceivedNoteId", new {GoodsReceivedNoteId = id});
                 }
             }
             catch (Exception e)
@@ -220,12 +219,41 @@ namespace FinancialAnalysis.Datalayer.BillManagement
         }
 
         /// <summary>
-        ///     Delete BillType by Item
+        ///     Delete GoodsReceivedNote by Item
         /// </summary>
         /// <param name="id"></param>
-        public void Delete(BillType BillType)
+        public void Delete(GoodsReceivedNote GoodsReceivedNote)
         {
-            Delete(BillType.BillTypeId);
+            Delete(GoodsReceivedNote.GoodsReceivedNoteId);
+        }
+
+        public void AddReferences()
+        {
+            AddPurchaseTypesReference();
+        }
+
+        private void AddPurchaseTypesReference()
+        {
+            string refTable = "PurchaseOrders";
+
+            try
+            {
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefPurchaseOrderId) REFERENCES {refTable}(PurchaseOrderId) ON DELETE CASCADE";
+
+                using (var command = new SqlCommand(commandStr, con))
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while creating reference between '{TableName}' and {TableName}",
+                    e);
+            }
         }
     }
 }

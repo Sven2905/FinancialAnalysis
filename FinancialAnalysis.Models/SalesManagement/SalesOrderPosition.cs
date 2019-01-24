@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Models.SalesManagement
 {
-    public class SalesOrderDetail : BindableBase
+    public class SalesOrderPosition : BindableBase
     {
-        public int SalesOrderDetailId { get; set; }
-        public int SalesOrderId { get; set; }
-        public SalesOrder SalesOrder { get; set; }
-        public int ProductId { get; set; }
+        public int SalesOrderPositionId { get; set; }
+        public int RefSalesOrderId { get; set; }
+        public int RefProductId { get; set; }
         public string Description { get; set; }
         public decimal Quantity { get; set; }
         public decimal Price { get; set; }

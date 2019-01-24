@@ -11,15 +11,15 @@ namespace FinancialAnalysis.Models.SalesManagement
     {
         public int SalesOrderId { get; set; }
         public string Name { get; set; }
-        public int CustomerId { get; set; }
+        public int RefDebitorId { get; set; }
         public DateTimeOffset OrderDate { get; set; }
         public DateTimeOffset DeliveryDate { get; set; }
-        public int SalesTypeId { get; set; }
+        public int RefSalesTypeId { get; set; }
         public string Remarks { get; set; } // Bemerkung
         public decimal Amount { get; set; }
         public decimal Discount { get; set; }
         public decimal Tax { get; set; }
         public decimal Total { get; set; }
-        public List<SalesOrderDetail> SalesOrderDetails { get; set; } = new List<SalesOrderDetail>();
+        public List<SalesOrderPosition> SalesOrderPositions { get; set; } = new List<SalesOrderPosition>();
     }
 }

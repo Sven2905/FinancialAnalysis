@@ -32,5 +32,19 @@ namespace FinancialAnalysis.Models.Administration
         // WarehouseManagement 300 - 399
         AccessWarehouseManagement = 300,
 
+        // PurchaseManagement 400 - 499
+        AccessPurchaseManagement = 400,
+        AccessBills = 401,
+        AccessBillTypes = 402,
+        AccessGoodsReceivedNotes = 403,
+        AccessPurchaseOrders = 404,
+        AccessPurchaseTypes = 405,
+
+        // ProductManagement 500 - 599
+        AccessProductManagement = 500,
+        AccessProducts = 501,
+        AccessProductCategories = 502,
+
+
     }
 }
