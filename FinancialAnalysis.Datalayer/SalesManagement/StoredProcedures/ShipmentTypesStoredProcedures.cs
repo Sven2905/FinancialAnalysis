@@ -2,13 +2,13 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.ProductManagement
+namespace FinancialAnalysis.Datalayer.SalesManagement
 {
-    public class ProductsStoredProcedures : IStoredProcedures
+    public class ShipmentTypesStoredProcedures : IStoredProcedures
     {
-        public ProductsStoredProcedures()
+        public ShipmentTypesStoredProcedures()
         {
-            TableName = "Products";
+            TableName = "ShipmentTypes";
         }
 
         public string TableName { get; }
@@ -31,23 +31,8 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
             {
                 var sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT ProductId, " +
-                                "Name, " +
-                                "Description, " +
-                                "Barcode, " +
-                                "DimensionX, " +
-                                "DimensionY, " +
-                                "DimensionZ, " +
-                                "Weight, " +
-                                "IsStackable, " +
-                                "Picture, " +
-                                "PackageUnit, " +
-                                "BuyingPrice, " +
-                                "SalePrice, " +
-                                "RefProductCategoryId " +
-                                $"FROM {TableName} " +
-                                "END");
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; SELECT ShipmentTypeId, Name, Description FROM {TableName} END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -69,9 +54,9 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150), @Barcode nvarchar(150), @DimensionX decimal, @DimensionY decimal, @DimensionZ decimal, @Weight decimal, @IsStackable bit, @Picture varbinary(MAX), @PackageUnit int, @BuyingPrice money, @SalePrice money, @RefProductCategoryId int AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, Description, Barcode, DimensionX, DimensionY, DimensionZ, Weight, IsStackable, Picture, PackageUnit, BuyingPrice, SalePrice, RefProductCategoryId) " +
-                    "VALUES (@Name, @Description, @Barcode, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @BuyingPrice, @SalePrice, @RefProductCategoryId); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Name, Description) " +
+                    "VALUES (@Name, @Description); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -94,9 +79,9 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @ProductId int AS BEGIN SET NOCOUNT ON; SELECT Name, Description, Barcode, DimensionX, DimensionY, DimensionZ, Weight, IsStackable, RefProductCategoryId " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @ShipmentTypeId int AS BEGIN SET NOCOUNT ON; SELECT ShipmentTypeId, Name, Description " +
                     $"FROM {TableName} " +
-                    "WHERE ProductId = @ProductId END");
+                    "WHERE ShipmentTypeId = @ShipmentTypeId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -118,23 +103,12 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @ProductId int, @Name nvarchar(150), @Description nvarchar(150), @Barcode nvarchar(150), @DimensionX decimal, @DimensionY decimal, @DimensionZ decimal, @Weight decimal, @IsStackable bit, @Picture varbinary(MAX), @PackageUnit int, @BuyingPrice money, @SalePrice money, @RefProductCategoryId int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @ShipmentTypeId int, @Name nvarchar(150), @Description nvarchar(150) " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
-                    "SET Name = @Name, " +
-                    "Description = @Description, " +
-                    "Barcode = @Barcode, " +
-                    "DimensionX = @DimensionX, " +
-                    "DimensionY = @DimensionY, " +
-                    "DimensionZ = @DimensionZ, " +
-                    "Weight = @Weight, " +
-                    "IsStackable = @IsStackable, " +
-                    "Picture = @Picture, " +
-                    "PackageUnit = @PackageUnit, " +
-                    "BuyingPrice = @BuyingPrice, " +
-                    "SalePrice = @SalePrice, " +
-                    "RefProductCategoryId = @RefProductCategoryId " +
-                    "WHERE ProductId = @ProductId END");
+                    "SET Description = @Description, " +
+                    "Name = @Name " +
+                    "WHERE ShipmentTypeId = @ShipmentTypeId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -156,7 +130,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @ProductId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE ProductId = @ProductId END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @ShipmentTypeId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE ShipmentTypeId = @ShipmentTypeId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

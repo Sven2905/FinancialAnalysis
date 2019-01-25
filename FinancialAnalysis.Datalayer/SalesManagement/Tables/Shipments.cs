@@ -4,19 +4,18 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
-using FinancialAnalysis.Models.Accounting;
-using FinancialAnalysis.Models.ShipmentManagement;
+using FinancialAnalysis.Models.SalesManagement;
 using Serilog;
 
-namespace FinancialAnalysis.Datalayer.ShipmentManagement
+namespace FinancialAnalysis.Datalayer.SalesManagement
 {
-    public class ShipmentTypes : ITable
+    public class Shipments : ITable
     {
-        private readonly ShipmentTypesStoredProcedures sp = new ShipmentTypesStoredProcedures();
+        private readonly ShipmentsStoredProcedures sp = new ShipmentsStoredProcedures();
 
-        public ShipmentTypes()
+        public Shipments()
         {
-            TableName = "ShipmentTypes";
+            TableName = "Shipments";
             CheckAndCreateTable();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -38,10 +37,12 @@ namespace FinancialAnalysis.Datalayer.ShipmentManagement
             {
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') " +
-                                 $"CREATE TABLE {TableName}" +
-                                 "(ShipmentTypeId int IDENTITY(1,1) PRIMARY KEY, " +
-                                 "Name nvarchar(150) NOT NULL, " +
-                                 "Description nvarchar(150))";
+                                 $"CREATE TABLE {TableName}(" +
+                                 $"ShipmentId int IDENTITY(1,1) PRIMARY KEY, " +
+                                 "ShipmentNumber nvarchar(150), " +
+                                 "ShipmentDate datetime, " +
+                                 "RefSalesOrderId int, " +
+                                 "RefShipmentTypeId int )";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -57,18 +58,24 @@ namespace FinancialAnalysis.Datalayer.ShipmentManagement
         }
 
         /// <summary>
-        ///     Returns all ShipmentType records
+        ///     Returns all Shipment records
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ShipmentType> GetAll()
+        public IEnumerable<Shipment> GetAll()
         {
-            IEnumerable<ShipmentType> output = new List<ShipmentType>();
+            IEnumerable<Shipment> output = new List<Shipment>();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<ShipmentType>($"dbo.{TableName}_GetAll");
+                    output = con.Query<Shipment, ShipmentType, Shipment>($"dbo.{TableName}_GetAll",
+                        (objShipment, objShipmentType) =>
+                        {
+                            objShipment.ShipmentType = objShipmentType;
+                            return objShipment;
+                        }, splitOn: "ShipmentId, ShipmentTypeId",
+                        commandType: CommandType.StoredProcedure).ToList();
                 }
             }
             catch (Exception e)
@@ -80,11 +87,11 @@ namespace FinancialAnalysis.Datalayer.ShipmentManagement
         }
 
         /// <summary>
-        ///     Inserts the ShipmentType item
+        ///     Inserts the Shipment item
         /// </summary>
-        /// <param name="ShipmentType"></param>
+        /// <param name="Shipment"></param>
         /// <returns>Id of inserted item</returns>
-        public int Insert(ShipmentType ShipmentType)
+        public int Insert(Shipment Shipment)
         {
             var id = 0;
             try
@@ -92,8 +99,10 @@ namespace FinancialAnalysis.Datalayer.ShipmentManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @Description ",
-                        ShipmentType);
+                    var result =
+                        con.Query<int>(
+                            $"dbo.{TableName}_Insert @ShipmentDate, @ShipmentNumber, @RefSalesOrderId, @RefShipmentTypeId ",
+                            Shipment);
                     return result.Single();
                 }
             }
@@ -106,17 +115,17 @@ namespace FinancialAnalysis.Datalayer.ShipmentManagement
         }
 
         /// <summary>
-        ///     Inserts the list of ShipmentType items
+        ///     Inserts the list of Shipment items
         /// </summary>
-        /// <param name="ShipmentTypes"></param>
-        public void Insert(IEnumerable<ShipmentType> ShipmentTypes)
+        /// <param name="Shipments"></param>
+        public void Insert(IEnumerable<Shipment> Shipments)
         {
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var ShipmentType in ShipmentTypes) Insert(ShipmentType);
+                    foreach (var Shipment in Shipments) Insert(Shipment);
                 }
             }
             catch (Exception e)
@@ -126,20 +135,20 @@ namespace FinancialAnalysis.Datalayer.ShipmentManagement
         }
 
         /// <summary>
-        ///     Returns ShipmentType by Id
+        ///     Returns Shipment by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ShipmentType GetById(int id)
+        public Shipment GetById(int id)
         {
-            var output = new ShipmentType();
+            var output = new Shipment();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<ShipmentType>(
-                        $"dbo.{TableName}_GetById @ShipmentTypeId", new {ShipmentTypeId = id});
+                    output = con.QuerySingleOrDefault<Shipment>($"dbo.{TableName}_GetById @ShipmentId",
+                        new {ShipmentId = id});
                 }
             }
             catch (Exception e)
@@ -151,46 +160,45 @@ namespace FinancialAnalysis.Datalayer.ShipmentManagement
         }
 
         /// <summary>
-        ///     Update ShipmentType, if not exist, insert it
+        ///     Update Shipment, if not exist, insert it
         /// </summary>
-        /// <param name="ShipmentType"></param>
-        public void UpdateOrInsert(ShipmentType ShipmentType)
+        /// <param name="Shipment"></param>
+        public void UpdateOrInsert(Shipment Shipment)
         {
-            if (ShipmentType.ShipmentTypeId == 0 ||
-                GetById(ShipmentType.ShipmentTypeId) is null)
+            if (Shipment.ShipmentId == 0 || GetById(Shipment.ShipmentId) is null)
             {
-                Insert(ShipmentType);
+                Insert(Shipment);
                 return;
             }
 
-            Update(ShipmentType);
+            Update(Shipment);
         }
 
         /// <summary>
-        ///     Update ShipmentTypes, if not exist insert them
+        ///     Update Shipments, if not exist insert them
         /// </summary>
-        /// <param name="ShipmentTypes"></param>
-        public void UpdateOrInsert(IEnumerable<ShipmentType> ShipmentTypes)
+        /// <param name="Shipments"></param>
+        public void UpdateOrInsert(IEnumerable<Shipment> Shipments)
         {
-            foreach (var ShipmentType in ShipmentTypes) UpdateOrInsert(ShipmentType);
+            foreach (var Shipment in Shipments) UpdateOrInsert(Shipment);
         }
 
         /// <summary>
-        ///     Update ShipmentType
+        ///     Update Shipment
         /// </summary>
-        /// <param name="ShipmentType"></param>
-        public void Update(ShipmentType ShipmentType)
+        /// <param name="Shipment"></param>
+        public void Update(Shipment Shipment)
         {
-            if (ShipmentType.ShipmentTypeId == 0 ||
-                GetById(ShipmentType.ShipmentTypeId) is null) return;
+            if (Shipment.ShipmentId == 0 || GetById(Shipment.ShipmentId) is null) return;
 
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @ShipmentTypeId, @Name, @Description ",
-                        ShipmentType);
+                    con.Execute(
+                        $"dbo.{TableName}_Update @ShipmentId, @ShipmentDate, @ShipmentNumber, @RefSalesOrderId, @RefShipmentTypeId",
+                        Shipment);
                 }
             }
             catch (Exception e)
@@ -200,7 +208,7 @@ namespace FinancialAnalysis.Datalayer.ShipmentManagement
         }
 
         /// <summary>
-        ///     Delete ShipmentType by Id
+        ///     Delete Shipment by Id
         /// </summary>
         /// <param name="id"></param>
         public void Delete(int id)
@@ -210,7 +218,7 @@ namespace FinancialAnalysis.Datalayer.ShipmentManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @ShipmentTypeId", new {ShipmentTypeId = id});
+                    con.Execute($"dbo.{TableName}_Delete @ShipmentId", new {ShipmentId = id});
                 }
             }
             catch (Exception e)
@@ -220,12 +228,40 @@ namespace FinancialAnalysis.Datalayer.ShipmentManagement
         }
 
         /// <summary>
-        ///     Delete ShipmentType by Item
+        ///     Delete Shipment by Item
         /// </summary>
         /// <param name="id"></param>
-        public void Delete(ShipmentType ShipmentType)
+        public void Delete(Shipment Shipment)
         {
-            Delete(ShipmentType.ShipmentTypeId);
+            Delete(Shipment.ShipmentId);
+        }
+
+
+        public void AddReferences()
+        {
+            AddShipmentTypesReference();
+        }
+
+        private void AddShipmentTypesReference()
+        {
+            try
+            {
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_{TableName}_ShipmentTypes', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_ShipmentTypes FOREIGN KEY(RefShipmentTypeId) REFERENCES ShipmentTypes(ShipmentTypeId) ON DELETE CASCADE";
+
+                using (var command = new SqlCommand(commandStr, con))
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while creating reference between '{TableName}' and ShipmentTypes",
+                    e);
+            }
         }
     }
 }

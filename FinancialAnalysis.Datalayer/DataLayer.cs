@@ -3,13 +3,10 @@ using System.Linq;
 using FinancialAnalysis.Datalayer.Accounting;
 using FinancialAnalysis.Datalayer.Administration;
 using FinancialAnalysis.Datalayer.Configurations;
-using FinancialAnalysis.Datalayer.InvoiceManagement;
-using FinancialAnalysis.Datalayer.PaymentManagement;
 using FinancialAnalysis.Datalayer.ProductManagement;
 using FinancialAnalysis.Datalayer.ProjectManagement;
 using FinancialAnalysis.Datalayer.PurchaseManagement;
 using FinancialAnalysis.Datalayer.SalesManagement;
-using FinancialAnalysis.Datalayer.ShipmentManagement;
 using FinancialAnalysis.Datalayer.Tables;
 using FinancialAnalysis.Datalayer.WarehouseManagement;
 using FinancialAnalysis.Logic;
@@ -52,12 +49,14 @@ namespace FinancialAnalysis.Datalayer
         public InvoiceTypes InvoiceTypes { get; set; } = new InvoiceTypes();
         public Invoices Invoices { get; set; } = new Invoices();
         public ShipmentTypes ShipmentTypes { get; set; } = new ShipmentTypes();
-        public PaymentTypes PaymentTypes { get; set; } = new PaymentTypes();
         public PurchaseTypes PurchaseTypes { get; set; } = new PurchaseTypes();
         public GoodsReceivedNotes GoodsReceivedNotes { get; set; } = new GoodsReceivedNotes();
         public PurchaseOrderPositions PurchaseOrderPositions { get; set; } = new PurchaseOrderPositions();
         public PurchaseOrders PurchaseOrders { get; set; } = new PurchaseOrders();
         public SalesTypes SalesTypes { get; set; } = new SalesTypes();
+        public Shipments Shipments { get; set; } = new Shipments();
+        public SalesOrderPositions SalesOrderPositions { get; set; } = new SalesOrderPositions();
+        public SalesOrders SalesOrders { get; set; } = new SalesOrders();
 
         public void Dispose()
         {
@@ -113,10 +112,12 @@ namespace FinancialAnalysis.Datalayer
             ShipmentTypes.CheckAndCreateStoredProcedures();
             PurchaseTypes.CheckAndCreateStoredProcedures();
             SalesTypes.CheckAndCreateStoredProcedures();
-            PaymentTypes.CheckAndCreateStoredProcedures();
             GoodsReceivedNotes.CheckAndCreateStoredProcedures();
             PurchaseOrderPositions.CheckAndCreateStoredProcedures();
             PurchaseOrders.CheckAndCreateStoredProcedures();
+            Shipments.CheckAndCreateStoredProcedures();
+            SalesOrderPositions.CheckAndCreateStoredProcedures();
+            SalesOrders.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()
@@ -140,6 +141,9 @@ namespace FinancialAnalysis.Datalayer
             GoodsReceivedNotes.AddReferences();
             PurchaseOrderPositions.AddReferences();
             PurchaseOrders.AddReferences();
+            Shipments.AddReferences();
+            SalesOrderPositions.AddReferences();
+            SalesOrders.AddReferences();
         }
 
         private void Seed()

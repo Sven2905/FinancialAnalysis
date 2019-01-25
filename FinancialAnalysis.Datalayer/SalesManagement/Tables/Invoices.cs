@@ -4,19 +4,18 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
-using FinancialAnalysis.Models.Accounting;
-using FinancialAnalysis.Models.InvoiceManagement;
+using FinancialAnalysis.Models.SalesManagement;
 using Serilog;
 
-namespace FinancialAnalysis.Datalayer.InvoiceManagement
+namespace FinancialAnalysis.Datalayer.SalesManagement
 {
-    public class InvoiceTypes : ITable
+    public class Invoices : ITable
     {
-        private readonly InvoiceTypesStoredProcedures sp = new InvoiceTypesStoredProcedures();
+        private readonly InvoicesStoredProcedures sp = new InvoicesStoredProcedures();
 
-        public InvoiceTypes()
+        public Invoices()
         {
-            TableName = "InvoiceTypes";
+            TableName = "Invoices";
             CheckAndCreateTable();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -38,10 +37,14 @@ namespace FinancialAnalysis.Datalayer.InvoiceManagement
             {
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') " +
-                                 $"CREATE TABLE {TableName}" +
-                                 "(InvoiceTypeId int IDENTITY(1,1) PRIMARY KEY, " +
-                                 "Name nvarchar(150) NOT NULL, " +
-                                 "Description nvarchar(150))";
+                                 $"CREATE TABLE {TableName}(" +
+                                 $"InvoiceId int IDENTITY(1,1) PRIMARY KEY, " +
+                                 "InvoiceDate datetime, " +
+                                 "InvoiceDueDate datetime, " +
+                                 "RefSalesOrderId int, " +
+                                 "Content varbinary(MAX), " +
+                                 "IsPaid bit," + 
+                                 "RefInvoiceTypeId int )";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -57,18 +60,24 @@ namespace FinancialAnalysis.Datalayer.InvoiceManagement
         }
 
         /// <summary>
-        ///     Returns all InvoiceType records
+        ///     Returns all Invoice records
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<InvoiceType> GetAll()
+        public IEnumerable<Invoice> GetAll()
         {
-            IEnumerable<InvoiceType> output = new List<InvoiceType>();
+            IEnumerable<Invoice> output = new List<Invoice>();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<InvoiceType>($"dbo.{TableName}_GetAll");
+                    output = con.Query<Invoice, InvoiceType, Invoice>($"dbo.{TableName}_GetAll",
+                        (objInvoice, objInvoiceType) =>
+                        {
+                            objInvoice.InvoiceType = objInvoiceType;
+                            return objInvoice;
+                        }, splitOn: "InvoiceId, InvoiceTypeId",
+                        commandType: CommandType.StoredProcedure).ToList();
                 }
             }
             catch (Exception e)
@@ -80,11 +89,11 @@ namespace FinancialAnalysis.Datalayer.InvoiceManagement
         }
 
         /// <summary>
-        ///     Inserts the InvoiceType item
+        ///     Inserts the Invoice item
         /// </summary>
-        /// <param name="InvoiceType"></param>
+        /// <param name="Invoice"></param>
         /// <returns>Id of inserted item</returns>
-        public int Insert(InvoiceType InvoiceType)
+        public int Insert(Invoice Invoice)
         {
             var id = 0;
             try
@@ -92,8 +101,10 @@ namespace FinancialAnalysis.Datalayer.InvoiceManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @Description ",
-                        InvoiceType);
+                    var result =
+                        con.Query<int>(
+                            $"dbo.{TableName}_Insert @InvoiceDate, @InvoiceDueDate, @RefSalesOrderId, @Content, @IsPaid, @RefInvoiceTypeId ",
+                            Invoice);
                     return result.Single();
                 }
             }
@@ -106,17 +117,17 @@ namespace FinancialAnalysis.Datalayer.InvoiceManagement
         }
 
         /// <summary>
-        ///     Inserts the list of InvoiceType items
+        ///     Inserts the list of Invoice items
         /// </summary>
-        /// <param name="InvoiceTypes"></param>
-        public void Insert(IEnumerable<InvoiceType> InvoiceTypes)
+        /// <param name="Invoices"></param>
+        public void Insert(IEnumerable<Invoice> Invoices)
         {
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var InvoiceType in InvoiceTypes) Insert(InvoiceType);
+                    foreach (var Invoice in Invoices) Insert(Invoice);
                 }
             }
             catch (Exception e)
@@ -126,20 +137,20 @@ namespace FinancialAnalysis.Datalayer.InvoiceManagement
         }
 
         /// <summary>
-        ///     Returns InvoiceType by Id
+        ///     Returns Invoice by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public InvoiceType GetById(int id)
+        public Invoice GetById(int id)
         {
-            var output = new InvoiceType();
+            var output = new Invoice();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<InvoiceType>(
-                        $"dbo.{TableName}_GetById @InvoiceTypeId", new {InvoiceTypeId = id});
+                    output = con.QuerySingleOrDefault<Invoice>($"dbo.{TableName}_GetById @InvoiceId",
+                        new {InvoiceId = id});
                 }
             }
             catch (Exception e)
@@ -151,46 +162,45 @@ namespace FinancialAnalysis.Datalayer.InvoiceManagement
         }
 
         /// <summary>
-        ///     Update InvoiceType, if not exist, insert it
+        ///     Update Invoice, if not exist, insert it
         /// </summary>
-        /// <param name="InvoiceType"></param>
-        public void UpdateOrInsert(InvoiceType InvoiceType)
+        /// <param name="Invoice"></param>
+        public void UpdateOrInsert(Invoice Invoice)
         {
-            if (InvoiceType.InvoiceTypeId == 0 ||
-                GetById(InvoiceType.InvoiceTypeId) is null)
+            if (Invoice.InvoiceId == 0 || GetById(Invoice.InvoiceId) is null)
             {
-                Insert(InvoiceType);
+                Insert(Invoice);
                 return;
             }
 
-            Update(InvoiceType);
+            Update(Invoice);
         }
 
         /// <summary>
-        ///     Update InvoiceTypes, if not exist insert them
+        ///     Update Invoices, if not exist insert them
         /// </summary>
-        /// <param name="InvoiceTypes"></param>
-        public void UpdateOrInsert(IEnumerable<InvoiceType> InvoiceTypes)
+        /// <param name="Invoices"></param>
+        public void UpdateOrInsert(IEnumerable<Invoice> Invoices)
         {
-            foreach (var InvoiceType in InvoiceTypes) UpdateOrInsert(InvoiceType);
+            foreach (var Invoice in Invoices) UpdateOrInsert(Invoice);
         }
 
         /// <summary>
-        ///     Update InvoiceType
+        ///     Update Invoice
         /// </summary>
-        /// <param name="InvoiceType"></param>
-        public void Update(InvoiceType InvoiceType)
+        /// <param name="Invoice"></param>
+        public void Update(Invoice Invoice)
         {
-            if (InvoiceType.InvoiceTypeId == 0 ||
-                GetById(InvoiceType.InvoiceTypeId) is null) return;
+            if (Invoice.InvoiceId == 0 || GetById(Invoice.InvoiceId) is null) return;
 
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @InvoiceTypeId, @Name, @Description ",
-                        InvoiceType);
+                    con.Execute(
+                        $"dbo.{TableName}_Update @InvoiceId, @InvoiceDate, @InvoiceDueDate, @RefSalesOrderId, @Content, @IsPaid, @RefInvoiceTypeId",
+                        Invoice);
                 }
             }
             catch (Exception e)
@@ -200,7 +210,7 @@ namespace FinancialAnalysis.Datalayer.InvoiceManagement
         }
 
         /// <summary>
-        ///     Delete InvoiceType by Id
+        ///     Delete Invoice by Id
         /// </summary>
         /// <param name="id"></param>
         public void Delete(int id)
@@ -210,7 +220,7 @@ namespace FinancialAnalysis.Datalayer.InvoiceManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @InvoiceTypeId", new {InvoiceTypeId = id});
+                    con.Execute($"dbo.{TableName}_Delete @InvoiceId", new {InvoiceId = id});
                 }
             }
             catch (Exception e)
@@ -220,12 +230,40 @@ namespace FinancialAnalysis.Datalayer.InvoiceManagement
         }
 
         /// <summary>
-        ///     Delete InvoiceType by Item
+        ///     Delete Invoice by Item
         /// </summary>
         /// <param name="id"></param>
-        public void Delete(InvoiceType InvoiceType)
+        public void Delete(Invoice Invoice)
         {
-            Delete(InvoiceType.InvoiceTypeId);
+            Delete(Invoice.InvoiceId);
+        }
+
+
+        public void AddReferences()
+        {
+            AddInvoiceTypesReference();
+        }
+
+        private void AddInvoiceTypesReference()
+        {
+            try
+            {
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_{TableName}_InvoiceTypes', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_InvoiceTypes FOREIGN KEY(RefInvoiceTypeId) REFERENCES InvoiceTypes(InvoiceTypeId) ON DELETE CASCADE";
+
+                using (var command = new SqlCommand(commandStr, con))
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while creating reference between '{TableName}' and InvoiceTypes",
+                    e);
+            }
         }
     }
 }

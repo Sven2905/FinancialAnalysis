@@ -31,6 +31,9 @@ namespace FinancialAnalysis.Models.Administration
 
         // WarehouseManagement 300 - 399
         AccessWarehouseManagement = 300,
+        AccessWarehouse = 301,
+        AccessStockyard = 302,
+
 
         // PurchaseManagement 400 - 499
         AccessPurchaseManagement = 400,
@@ -40,10 +43,19 @@ namespace FinancialAnalysis.Models.Administration
         AccessPurchaseOrders = 404,
         AccessPurchaseTypes = 405,
 
-        // ProductManagement 500 - 599
-        AccessProductManagement = 500,
-        AccessProducts = 501,
-        AccessProductCategories = 502,
+        // PurchaseManagement 500 - 599
+        AccessSalesManagement = 500,
+        AccessInvoice = 501,
+        AccessInvoiceTypes = 502,
+        AccessShipment = 503,
+        AccessShipmentType = 504,
+        AccessSalesOrders = 505,
+        AccessSalesTypes = 506,
+
+        // ProductManagement 600 - 699
+        AccessProductManagement = 600,
+        AccessProducts = 601,
+        AccessProductCategories = 602,
 
 
     }

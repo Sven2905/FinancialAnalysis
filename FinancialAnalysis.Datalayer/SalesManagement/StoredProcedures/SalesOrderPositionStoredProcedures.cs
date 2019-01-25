@@ -2,13 +2,13 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.PaymentManagement
+namespace FinancialAnalysis.Datalayer.SalesManagement
 {
-    public class PaymentTypesStoredProcedures : IStoredProcedures
+    public class SalesOrderPositionsStoredProcedures : IStoredProcedures
     {
-        public PaymentTypesStoredProcedures()
+        public SalesOrderPositionsStoredProcedures()
         {
-            TableName = "PaymentTypes";
+            TableName = "SalesOrderPositions";
         }
 
         public string TableName { get; }
@@ -32,7 +32,9 @@ namespace FinancialAnalysis.Datalayer.PaymentManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; SELECT PaymentTypeId, Name, Description FROM {TableName} END");
+                    $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
+                    $"SELECT SalesOrderPositionId, RefSalesOrderId, RefProductId, RefTaxTypeId, Description, Quantity, Price, DiscountPercentage, IsShipped, IsCanceled " +
+                    $"FROM {TableName} END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -54,9 +56,9 @@ namespace FinancialAnalysis.Datalayer.PaymentManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, Description) " +
-                    "VALUES (@Name, @Description); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @RefSalesOrderId int, @RefProductId int, @RefTaxTypeId int, @Description nvarchar(150), @Quantity int, @Price money, @DiscountPercentage money, @IsShipped bit, @IsCanceled bit AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (RefSalesOrderId, RefProductId, RefTaxTypeId, Description, Quantity, Price, DiscountPercentage, IsShipped, IsCanceled ) " +
+                    "VALUES (@RefSalesOrderId, @RefProductId, @RefTaxTypeId, @Description, @Quantity, @Price, @DiscountPercentage, @IsShipped, @IsCanceled ); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -79,9 +81,9 @@ namespace FinancialAnalysis.Datalayer.PaymentManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @PaymentTypeId int AS BEGIN SET NOCOUNT ON; SELECT PaymentTypeId, Name, Description " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @SalesOrderPositionId int AS BEGIN SET NOCOUNT ON; SELECT SalesOrderPositionId, RefSalesOrderId, RefProductId, RefTaxTypeId, Description, Quantity, Price, DiscountPercentage, IsShipped, IsCanceled " +
                     $"FROM {TableName} " +
-                    "WHERE PaymentTypeId = @PaymentTypeId END");
+                    "WHERE SalesOrderPositionId = @SalesOrderPositionId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -103,12 +105,18 @@ namespace FinancialAnalysis.Datalayer.PaymentManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @PaymentTypeId int, @Name nvarchar(150), @Description nvarchar(150) " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @SalesOrderPositionId int, @RefSalesOrderId int, @RefProductId int, @RefTaxTypeId int, @Description nvarchar(150), @Quantity int, @Price money, @DiscountPercentage money, @IsShipped bit, @IsCanceled bit " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
-                    "SET Description = @Description, " +
-                    "Name = @Name " +
-                    "WHERE PaymentTypeId = @PaymentTypeId END");
+                    "SET RefProductId = @RefProductId, " +
+                    "RefTaxTypeId = @RefTaxTypeId, " +
+                    "Description = @Description, " +
+                    "Quantity = @Quantity, " +
+                    "Price = @Price, " +
+                    "DiscountPercentage = @DiscountPercentage, " +
+                    "IsShipped = @IsShipped, " +
+                    "IsCanceled = @IsCanceled " +
+                    "WHERE SalesOrderPositionId = @SalesOrderPositionId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -130,7 +138,8 @@ namespace FinancialAnalysis.Datalayer.PaymentManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @PaymentTypeId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE PaymentTypeId = @PaymentTypeId END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @SalesOrderPositionId int AS BEGIN SET NOCOUNT ON; " +
+                    $"DELETE FROM {TableName} WHERE SalesOrderPositionId = @SalesOrderPositionId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

@@ -83,20 +83,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private SvenTechCollection<User> LoadAllUsers()
         {
-            SvenTechCollection<User> allUsers = new SvenTechCollection<User>();
-            try
-            {
-                using (var db = new DataLayer())
-                {
-                    allUsers = db.Users.GetAll().ToSvenTechCollection();
-                }
-            }
-            catch (System.Exception ex)
-            {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
-            }
-
-            return allUsers;
+            return UserManager.Instance.Users;
         }
 
         private void NewUser()
@@ -270,7 +257,16 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _SelectedUser = value;
                 if (value != null)
                 {
-                    UserRightUserMappingFlatStructure = UserManager.Instance.GetUserRightUserMappingFlatStructure(_SelectedUser);
+                    UserRightUserMappingFlatStructure.OnItemPropertyChanged -= UserRightUserMappingFlatStructure_OnItemPropertyChanged;
+                    try
+                    {
+                        UserRightUserMappingFlatStructure = UserManager.Instance.GetUserRightUserMappingFlatStructure(_SelectedUser);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        System.Console.WriteLine(ex.Message);
+                        throw;
+                    }
                     UserRightUserMappingFlatStructure.OnItemPropertyChanged += UserRightUserMappingFlatStructure_OnItemPropertyChanged;
                 }
                 if (_SelectedUser != null && _SelectedUser.Picture != null)

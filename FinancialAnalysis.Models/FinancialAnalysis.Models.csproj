@@ -74,13 +74,10 @@
     <Compile Include="CompanyManagement\Company.cs" />
     <Compile Include="Accounting\Creditor.cs" />
     <Compile Include="PurchaseManagement\GoodsReceivedNote.cs" />
-    <Compile Include="InvoiceManagement\Invoice.cs" />
-    <Compile Include="InvoiceManagement\InvoiceType.cs" />
+    <Compile Include="SalesManagement\Invoice.cs" />
+    <Compile Include="SalesManagement\InvoiceType.cs" />
     <Compile Include="Mail\MailConfiguration.cs" />
     <Compile Include="Mail\MailData.cs" />
-    <Compile Include="PaymentManagement\PaymentReceive.cs" />
-    <Compile Include="PaymentManagement\PaymentType.cs" />
-    <Compile Include="PaymentManagement\PaymentVoucher.cs" />
     <Compile Include="ProductManagement\StockedProduct.cs" />
     <Compile Include="ProjectManagement\Employee.cs" />
     <Compile Include="Enums.cs" />
@@ -103,8 +100,8 @@
     <Compile Include="SalesManagement\SalesOrder.cs" />
     <Compile Include="SalesManagement\SalesOrderPosition.cs" />
     <Compile Include="SalesManagement\SalesType.cs" />
-    <Compile Include="ShipmentManagement\Shipment.cs" />
-    <Compile Include="ShipmentManagement\ShipmentType.cs" />
+    <Compile Include="SalesManagement\Shipment.cs" />
+    <Compile Include="SalesManagement\ShipmentType.cs" />
     <Compile Include="UnitOfMeasure.cs" />
     <Compile Include="WarehouseManagement\Stockyard.cs" />
     <Compile Include="WarehouseManagement\Warehouse.cs" />

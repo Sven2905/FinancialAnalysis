@@ -39,7 +39,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                     var user = new User()
                     {
                         IsAdministrator = true,
-                        Firstname = "Admin",
+                        Firstname = "Mr.",
                         Lastname = "Admin",
                         LoginUser = "Admin",
                         Password = "Password",
@@ -55,7 +55,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     var _Import = new Import();
                     _Import.ImportUserRights();
+                    _Import.SeedTypes();
                 }
+
             }
         }
 

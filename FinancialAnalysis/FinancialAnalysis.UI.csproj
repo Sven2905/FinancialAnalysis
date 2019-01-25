@@ -153,10 +153,10 @@
     <Compile Include="UserControls\WarehouseManagement\WarehouseControl.xaml.cs">
       <DependentUpon>WarehouseControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\WarehouseManagement\ProductControl.xaml.cs">
+    <Compile Include="UserControls\ProductManagement\ProductControl.xaml.cs">
       <DependentUpon>ProductControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\WarehouseManagement\ProductCategoryControl.xaml.cs">
+    <Compile Include="UserControls\ProductManagement\ProductCategoryControl.xaml.cs">
       <DependentUpon>ProductCategoryControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\WarehouseManagement\WarehouseManagementControl.xaml.cs">
@@ -241,11 +241,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\WarehouseManagement\ProductControl.xaml">
+    <Page Include="UserControls\ProductManagement\ProductControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\WarehouseManagement\ProductCategoryControl.xaml">
+    <Page Include="UserControls\ProductManagement\ProductCategoryControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

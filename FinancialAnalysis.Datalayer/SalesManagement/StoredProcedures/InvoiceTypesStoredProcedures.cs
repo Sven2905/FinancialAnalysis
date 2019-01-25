@@ -2,13 +2,13 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.Accounting
+namespace FinancialAnalysis.Datalayer.SalesManagement
 {
-    internal class InvoicesStoredProcedures : IStoredProcedures
+    public class InvoiceTypesStoredProcedures : IStoredProcedures
     {
-        public InvoicesStoredProcedures()
+        public InvoiceTypesStoredProcedures()
         {
-            TableName = "Invoices";
+            TableName = "InvoiceTypes";
         }
 
         public string TableName { get; }
@@ -18,8 +18,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// </summary>
         public void CheckAndCreateProcedures()
         {
-            GetAllData();
             InsertData();
+            GetAllData();
             GetById();
             UpdateData();
             DeleteData();
@@ -31,12 +31,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
             {
                 var sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT i.InvoiceId, i.InvoiceDate, i.InvoiceDueDate, i.RefShipmentId, i.RefInvoiceTypeId, " +
-                                $"t.InvoiceTypeId, t.Name, t.Description " +
-                                $"FROM {TableName} i " +
-                                "LEFT JOIN InvoiceTypes t ON i.RefInvoiceTypeId = t.InvoiceTypeId " +
-                                "END");
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
+                    $"SELECT InvoiceTypeId, Name, Description " +
+                    $"FROM {TableName} END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -58,9 +56,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @InvoiceDate datetime, @InvoiceDueDate datetime, @RefShipmentId int, @RefInvoiceTypeId int AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (InvoiceDate, InvoiceDueDate, RefShipmentId, RefInvoiceTypeId) " +
-                    "VALUES (@InvoiceDate, @InvoiceDueDate, @RefShipmentId, @RefInvoiceTypeId); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Name, Description) " +
+                    "VALUES (@Name, @Description); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -83,9 +81,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @InvoiceId int AS BEGIN SET NOCOUNT ON; SELECT InvoiceId, InvoiceDate, InvoiceDueDate, RefShipmentId, RefInvoiceTypeId " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @InvoiceTypeId int AS BEGIN SET NOCOUNT ON; SELECT InvoiceTypeId, Name, Description " +
                     $"FROM {TableName} " +
-                    "WHERE InvoiceId = @InvoiceId END");
+                    "WHERE InvoiceTypeId = @InvoiceTypeId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -107,14 +105,12 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @InvoiceId int, @InvoiceDate datetime, @InvoiceDueDate datetime, @RefShipmentId int, @RefInvoiceTypeId int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @InvoiceTypeId int, @Name nvarchar(150), @Description nvarchar(150) " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
-                    "SET InvoiceDate = @InvoiceDate, " +
-                    "InvoiceDueDate = @InvoiceDueDate, " +
-                    "RefShipmentId = @RefShipmentId, " +
-                    "RefInvoiceTypeId = @RefInvoiceTypeId " +
-                    "WHERE InvoiceId = @InvoiceId END");
+                    "SET Description = @Description, " +
+                    "Name = @Name " +
+                    "WHERE InvoiceTypeId = @InvoiceTypeId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -136,7 +132,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @InvoiceId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE InvoiceId = @InvoiceId END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @InvoiceTypeId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE InvoiceTypeId = @InvoiceTypeId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

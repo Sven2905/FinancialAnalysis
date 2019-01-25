@@ -2,7 +2,7 @@
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
-using FinancialAnalysis.Models.InvoiceManagement;
+using FinancialAnalysis.Models.SalesManagement;
 using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
@@ -10,43 +10,43 @@ using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
-    public class InvoiceTypeViewModel : ViewModelBase
+    public class ShipmentTypeViewModel : ViewModelBase
     {
         #region Fields
 
-        private readonly InvoiceType _SelectedInvoiceType;
-        private SvenTechCollection<InvoiceType> _InvoiceTypes = new SvenTechCollection<InvoiceType>();
+        private readonly ShipmentType _SelectedShipmentType;
+        private SvenTechCollection<ShipmentType> _ShipmentTypes = new SvenTechCollection<ShipmentType>();
         private string _FilterText;
 
         #endregion Fields
 
         #region Constructor
 
-        public InvoiceTypeViewModel()
+        public ShipmentTypeViewModel()
         {
             if (IsInDesignMode)
             {
                 return;
             }
 
-            _InvoiceTypes = LoadAllInvoiceTypes();
-            NewInvoiceTypeCommand = new DelegateCommand(NewInvoiceType);
-            SaveInvoiceTypeCommand = new DelegateCommand(SaveInvoiceType, () => Validation());
-            DeleteInvoiceTypeCommand = new DelegateCommand(DeleteInvoiceType, () => (SelectedInvoiceType != null));
+            _ShipmentTypes = LoadAllShipmentTypes();
+            NewShipmentTypeCommand = new DelegateCommand(NewShipmentType);
+            SaveShipmentTypeCommand = new DelegateCommand(SaveShipmentType, () => Validation());
+            DeleteShipmentTypeCommand = new DelegateCommand(DeleteShipmentType, () => (SelectedShipmentType != null));
         }
 
         #endregion Constructor
 
         #region Methods
 
-        private SvenTechCollection<InvoiceType> LoadAllInvoiceTypes()
+        private SvenTechCollection<ShipmentType> LoadAllShipmentTypes()
         {
-            SvenTechCollection<InvoiceType> allInvoiceTypes = new SvenTechCollection<InvoiceType>();
+            SvenTechCollection<ShipmentType> allShipmentTypes = new SvenTechCollection<ShipmentType>();
             try
             {
                 using (var db = new DataLayer())
                 {
-                    allInvoiceTypes = db.InvoiceTypes.GetAll().ToSvenTechCollection();
+                    allShipmentTypes = db.ShipmentTypes.GetAll().ToSvenTechCollection();
                 }
             }
             catch (System.Exception ex)
@@ -54,26 +54,26 @@ namespace FinancialAnalysis.Logic.ViewModels
                 Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
             }
 
-            return allInvoiceTypes;
+            return allShipmentTypes;
         }
 
-        private void NewInvoiceType()
+        private void NewShipmentType()
         {
-            SelectedInvoiceType = new InvoiceType();
-            _InvoiceTypes.Add(SelectedInvoiceType);
+            SelectedShipmentType = new ShipmentType();
+            _ShipmentTypes.Add(SelectedShipmentType);
         }
 
-        private void DeleteInvoiceType()
+        private void DeleteShipmentType()
         {
-            if (SelectedInvoiceType == null)
+            if (SelectedShipmentType == null)
             {
                 return;
             }
 
-            if (SelectedInvoiceType.InvoiceTypeId == 0)
+            if (SelectedShipmentType.ShipmentTypeId == 0)
             {
-                _InvoiceTypes.Remove(SelectedInvoiceType);
-                SelectedInvoiceType = null;
+                _ShipmentTypes.Remove(SelectedShipmentType);
+                SelectedShipmentType = null;
                 return;
             }
 
@@ -81,9 +81,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 using (var db = new DataLayer())
                 {
-                    db.InvoiceTypes.Delete(SelectedInvoiceType.InvoiceTypeId);
-                    _InvoiceTypes.Remove(SelectedInvoiceType);
-                    SelectedInvoiceType = null;
+                    db.ShipmentTypes.Delete(SelectedShipmentType.ShipmentTypeId);
+                    _ShipmentTypes.Remove(SelectedShipmentType);
+                    SelectedShipmentType = null;
                 }
             }
             catch (System.Exception ex)
@@ -92,22 +92,22 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
-        private void SaveInvoiceType()
+        private void SaveShipmentType()
         {
             try
             {
-                if (SelectedInvoiceType.InvoiceTypeId != 0)
+                if (SelectedShipmentType.ShipmentTypeId != 0)
                 {
                     using (var db = new DataLayer())
                     {
-                        db.InvoiceTypes.Update(SelectedInvoiceType);
+                        db.ShipmentTypes.Update(SelectedShipmentType);
                     }
                 }
                 else
                 {
                     using (var db = new DataLayer())
                     {
-                        db.InvoiceTypes.Insert(SelectedInvoiceType);
+                        db.ShipmentTypes.Insert(SelectedShipmentType);
                     }
                 }
             }
@@ -119,11 +119,11 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private bool Validation()
         {
-            if (SelectedInvoiceType == null)
+            if (SelectedShipmentType == null)
             {
                 return false;
             }
-            if (string.IsNullOrEmpty(SelectedInvoiceType.Name))
+            if (string.IsNullOrEmpty(SelectedShipmentType.Name))
             {
                 return false;
             }
@@ -134,10 +134,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Properties
 
-        public SvenTechCollection<InvoiceType> FilteredInvoiceTypes { get; set; } = new SvenTechCollection<InvoiceType>();
-        public DelegateCommand NewInvoiceTypeCommand { get; set; }
-        public DelegateCommand SaveInvoiceTypeCommand { get; set; }
-        public DelegateCommand DeleteInvoiceTypeCommand { get; set; }
+        public SvenTechCollection<ShipmentType> FilteredShipmentTypes { get; set; } = new SvenTechCollection<ShipmentType>();
+        public DelegateCommand NewShipmentTypeCommand { get; set; }
+        public DelegateCommand SaveShipmentTypeCommand { get; set; }
+        public DelegateCommand DeleteShipmentTypeCommand { get; set; }
         public string FilterText
         {
             get { return _FilterText; }
@@ -146,22 +146,22 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _FilterText = value;
                 if (!string.IsNullOrEmpty(_FilterText))
                 {
-                    FilteredInvoiceTypes = new SvenTechCollection<InvoiceType>();
-                    foreach (var item in _InvoiceTypes)
+                    FilteredShipmentTypes = new SvenTechCollection<ShipmentType>();
+                    foreach (var item in _ShipmentTypes)
                     {
                         if (item.Name.Contains(FilterText))
                         {
-                            FilteredInvoiceTypes.Add(item);
+                            FilteredShipmentTypes.Add(item);
                         }
                     }
                 }
                 else
                 {
-                    FilteredInvoiceTypes = _InvoiceTypes;
+                    FilteredShipmentTypes = _ShipmentTypes;
                 }
             }
         }
-        public InvoiceType SelectedInvoiceType { get; set; }
+        public ShipmentType SelectedShipmentType { get; set; }
 
         public User ActualUser { get { return Globals.ActualUser; } }
 

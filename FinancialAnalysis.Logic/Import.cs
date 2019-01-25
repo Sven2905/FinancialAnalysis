@@ -247,25 +247,40 @@ namespace FinancialAnalysis.Logic
                 new UserRight(Permission.AccessWarehouseManagement, "Lagerverwaltung", 0, "Erlaubt den Zugriff auf den Menüpunkt Lagerverwaltung"),
                 new UserRight(Permission.AccessProductManagement, "Produktverwaltung", 0, "Erlaubt den Zugriff auf den Menüpunkt Produktverwaltung"),
                 new UserRight(Permission.AccessPurchaseManagement, "Bestellverwaltung", 0, "Erlaubt den Zugriff auf den Menüpunkt Bestellverwaltung"),
+                new UserRight(Permission.AccessSalesManagement, "Verkaufsverwaltung", 0, "Erlaubt den Zugriff auf den Menüpunkt Verkaufsverwaltung"),
 
                 new UserRight(Permission.AccessBooking, "Buchungen", (int)Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Buchungen"),
                 new UserRight(Permission.AccessBookingHistory, "Buchungshistorie", (int)Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Buchungshistorie"),
                 new UserRight(Permission.AccessCreditorDebitor, "Kreditoren und Debitoren", (int)Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Kreditoren und Debitoren"),
                 new UserRight(Permission.AccessTaxType, "Steuersätze", (int)Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Steuersätze"),
                 new UserRight(Permission.AccessCostAccount, "Kontenrahmen", (int)Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Kontenrahmen"),
+                new UserRight(Permission.AccessPaymentCondidition, "Zahlungsbedingungen", (int)Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Zahlungsbedingungen"),
+
                 new UserRight(Permission.AccessCostCenter, "Kostenstellen", (int)Permission.AccessProjectManagement, "Erlaubt den Zugriff auf den Menüpunkt Kostenstellen"),
                 new UserRight(Permission.AccessEmployee, "Mitarbeiter", (int)Permission.AccessProjectManagement, "Erlaubt den Zugriff auf den Menüpunkt Mitarbeiter"),
                 new UserRight(Permission.AccessProject, "Projekte", (int)Permission.AccessProjectManagement, "Erlaubt den Zugriff auf den Menüpunkt Projekte"),
                 new UserRight(Permission.AccessProjectWorkingTime, "Zeiterfassungen", (int)Permission.AccessProjectManagement, "Erlaubt den Zugriff auf den Menüpunkt Zeiterfassungen"),
+
                 new UserRight(Permission.AccessMail, "Mailkonfiguration", (int)Permission.AccessConfiguration, "Erlaubt den Zugriff auf den Menüpunkt Mailkonfiguration"),
                 new UserRight(Permission.AccessUsers, "Benutzer", (int)Permission.AccessConfiguration, "Erlaubt den Zugriff auf den Menüpunkt Benutzer"),
-                new UserRight(Permission.AccessPaymentCondidition, "Zahlungsbedingungen", (int)Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Zahlungsbedingungen"),
+
+                new UserRight(Permission.AccessWarehouse, "Lager", (int)Permission.AccessWarehouseManagement, "Erlaubt den Zugriff auf den Menüpunkt Lager"),
+                new UserRight(Permission.AccessStockyard, "Lagerplätze", (int)Permission.AccessWarehouseManagement, "Erlaubt den Zugriff auf den Menüpunkt Lagerplätze"),
+
                 new UserRight(Permission.AccessProducts, "Produkte", (int)Permission.AccessProductManagement, "Erlaubt den Zugriff auf den Menüpunkt Produkte"),
                 new UserRight(Permission.AccessProductCategories, "Produktkategorien", (int)Permission.AccessProductManagement, "Erlaubt den Zugriff auf den Menüpunkt Produktkategorien"),
-                new UserRight(Permission.AccessBills, "Rechnungen", (int)Permission.AccessPurchaseManagement, "Erlaubt den Zugriff auf den Menüpunkt Rechnungen"),
-                new UserRight(Permission.AccessBillTypes, "Rechnungsart", (int)Permission.AccessPurchaseManagement, "Erlaubt den Zugriff auf den Menüpunkt Rechnungsart"),
+
                 new UserRight(Permission.AccessPurchaseOrders, "Bestellungen", (int)Permission.AccessPurchaseManagement, "Erlaubt den Zugriff auf den Menüpunkt Bestellungen"),
                 new UserRight(Permission.AccessPurchaseTypes, "Bestellungsart", (int)Permission.AccessPurchaseManagement, "Erlaubt den Zugriff auf den Menüpunkt Bestellungsart"),
+                new UserRight(Permission.AccessBills, "Rechnungen", (int)Permission.AccessPurchaseManagement, "Erlaubt den Zugriff auf den Menüpunkt Rechnungen"),
+                new UserRight(Permission.AccessBillTypes, "Rechnungsarten", (int)Permission.AccessPurchaseManagement, "Erlaubt den Zugriff auf den Menüpunkt Rechnungsart"),
+
+                new UserRight(Permission.AccessSalesOrders, "Verkäufe", (int)Permission.AccessSalesManagement, "Erlaubt den Zugriff auf den Menüpunkt Verkäufe"),
+                new UserRight(Permission.AccessSalesTypes, "Verkaufsarten", (int)Permission.AccessSalesManagement, "Erlaubt den Zugriff auf den Menüpunkt Verkaufsart"),
+                new UserRight(Permission.AccessInvoice, "Rechnung", (int)Permission.AccessSalesManagement, "Erlaubt den Zugriff auf den Menüpunkt Rechnung"),
+                new UserRight(Permission.AccessInvoiceTypes, "Rechnungarten", (int)Permission.AccessSalesManagement, "Erlaubt den Zugriff auf den Menüpunkt Rechnungart"),
+                new UserRight(Permission.AccessShipmentType, "Versand", (int)Permission.AccessSalesManagement, "Erlaubt den Zugriff auf den Menüpunkt Versand"),
+                new UserRight(Permission.AccessShipment, "Versandtyp", (int)Permission.AccessSalesManagement, "Erlaubt den Zugriff auf den Menüpunkt Versandtyp"),
             };
 
             using (DataLayer db = new DataLayer())
@@ -275,6 +290,18 @@ namespace FinancialAnalysis.Logic
                     item.UserRightId = db.UserRights.Insert(item);
                     db.UserRightUserMappings.Insert(new UserRightUserMapping() { RefUserId = 1, RefUserRightId = item.UserRightId, IsGranted = true });
                 }
+            }
+        }
+
+        public void SeedTypes()
+        {
+            using (DataLayer db = new DataLayer())
+            {
+                db.BillTypes.Insert(new Models.PurchaseManagement.BillType() { Name = "Allgemein" });
+                db.InvoiceTypes.Insert(new Models.SalesManagement.InvoiceType() { Name = "Allgemein" });
+                db.PurchaseTypes.Insert(new Models.PurchaseManagement.PurchaseType() { Name = "Allgemein" });
+                db.SalesTypes.Insert(new Models.SalesManagement.SalesType() { Name = "Allgemein" });
+                db.ShipmentTypes.Insert(new Models.SalesManagement.ShipmentType() { Name = "Allgemein" });
             }
         }
     }

@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
-using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.SalesManagement;
 using Serilog;
 

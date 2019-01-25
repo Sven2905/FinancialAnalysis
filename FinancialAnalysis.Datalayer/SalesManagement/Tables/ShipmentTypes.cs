@@ -4,19 +4,18 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
-using FinancialAnalysis.Models.Accounting;
-using FinancialAnalysis.Models.PaymentManagement;
+using FinancialAnalysis.Models.SalesManagement;
 using Serilog;
 
-namespace FinancialAnalysis.Datalayer.PaymentManagement
+namespace FinancialAnalysis.Datalayer.SalesManagement
 {
-    public class PaymentTypes : ITable
+    public class ShipmentTypes : ITable
     {
-        private readonly PaymentTypesStoredProcedures sp = new PaymentTypesStoredProcedures();
+        private readonly ShipmentTypesStoredProcedures sp = new ShipmentTypesStoredProcedures();
 
-        public PaymentTypes()
+        public ShipmentTypes()
         {
-            TableName = "PaymentTypes";
+            TableName = "ShipmentTypes";
             CheckAndCreateTable();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -39,7 +38,7 @@ namespace FinancialAnalysis.Datalayer.PaymentManagement
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') " +
                                  $"CREATE TABLE {TableName}" +
-                                 "(PaymentTypeId int IDENTITY(1,1) PRIMARY KEY, " +
+                                 "(ShipmentTypeId int IDENTITY(1,1) PRIMARY KEY, " +
                                  "Name nvarchar(150) NOT NULL, " +
                                  "Description nvarchar(150))";
 
@@ -57,18 +56,18 @@ namespace FinancialAnalysis.Datalayer.PaymentManagement
         }
 
         /// <summary>
-        ///     Returns all PaymentType records
+        ///     Returns all ShipmentType records
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<PaymentType> GetAll()
+        public IEnumerable<ShipmentType> GetAll()
         {
-            IEnumerable<PaymentType> output = new List<PaymentType>();
+            IEnumerable<ShipmentType> output = new List<ShipmentType>();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<PaymentType>($"dbo.{TableName}_GetAll");
+                    output = con.Query<ShipmentType>($"dbo.{TableName}_GetAll");
                 }
             }
             catch (Exception e)
@@ -80,11 +79,11 @@ namespace FinancialAnalysis.Datalayer.PaymentManagement
         }
 
         /// <summary>
-        ///     Inserts the PaymentType item
+        ///     Inserts the ShipmentType item
         /// </summary>
-        /// <param name="PaymentType"></param>
+        /// <param name="ShipmentType"></param>
         /// <returns>Id of inserted item</returns>
-        public int Insert(PaymentType PaymentType)
+        public int Insert(ShipmentType ShipmentType)
         {
             var id = 0;
             try
@@ -93,7 +92,7 @@ namespace FinancialAnalysis.Datalayer.PaymentManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @Description ",
-                        PaymentType);
+                        ShipmentType);
                     return result.Single();
                 }
             }
@@ -106,17 +105,17 @@ namespace FinancialAnalysis.Datalayer.PaymentManagement
         }
 
         /// <summary>
-        ///     Inserts the list of PaymentType items
+        ///     Inserts the list of ShipmentType items
         /// </summary>
-        /// <param name="PaymentTypes"></param>
-        public void Insert(IEnumerable<PaymentType> PaymentTypes)
+        /// <param name="ShipmentTypes"></param>
+        public void Insert(IEnumerable<ShipmentType> ShipmentTypes)
         {
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var PaymentType in PaymentTypes) Insert(PaymentType);
+                    foreach (var ShipmentType in ShipmentTypes) Insert(ShipmentType);
                 }
             }
             catch (Exception e)
@@ -126,20 +125,20 @@ namespace FinancialAnalysis.Datalayer.PaymentManagement
         }
 
         /// <summary>
-        ///     Returns PaymentType by Id
+        ///     Returns ShipmentType by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public PaymentType GetById(int id)
+        public ShipmentType GetById(int id)
         {
-            var output = new PaymentType();
+            var output = new ShipmentType();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<PaymentType>(
-                        $"dbo.{TableName}_GetById @PaymentTypeId", new {PaymentTypeId = id});
+                    output = con.QuerySingleOrDefault<ShipmentType>(
+                        $"dbo.{TableName}_GetById @ShipmentTypeId", new {ShipmentTypeId = id});
                 }
             }
             catch (Exception e)
@@ -151,46 +150,46 @@ namespace FinancialAnalysis.Datalayer.PaymentManagement
         }
 
         /// <summary>
-        ///     Update PaymentType, if not exist, insert it
+        ///     Update ShipmentType, if not exist, insert it
         /// </summary>
-        /// <param name="PaymentType"></param>
-        public void UpdateOrInsert(PaymentType PaymentType)
+        /// <param name="ShipmentType"></param>
+        public void UpdateOrInsert(ShipmentType ShipmentType)
         {
-            if (PaymentType.PaymentTypeId == 0 ||
-                GetById(PaymentType.PaymentTypeId) is null)
+            if (ShipmentType.ShipmentTypeId == 0 ||
+                GetById(ShipmentType.ShipmentTypeId) is null)
             {
-                Insert(PaymentType);
+                Insert(ShipmentType);
                 return;
             }
 
-            Update(PaymentType);
+            Update(ShipmentType);
         }
 
         /// <summary>
-        ///     Update PaymentTypes, if not exist insert them
+        ///     Update ShipmentTypes, if not exist insert them
         /// </summary>
-        /// <param name="PaymentTypes"></param>
-        public void UpdateOrInsert(IEnumerable<PaymentType> PaymentTypes)
+        /// <param name="ShipmentTypes"></param>
+        public void UpdateOrInsert(IEnumerable<ShipmentType> ShipmentTypes)
         {
-            foreach (var PaymentType in PaymentTypes) UpdateOrInsert(PaymentType);
+            foreach (var ShipmentType in ShipmentTypes) UpdateOrInsert(ShipmentType);
         }
 
         /// <summary>
-        ///     Update PaymentType
+        ///     Update ShipmentType
         /// </summary>
-        /// <param name="PaymentType"></param>
-        public void Update(PaymentType PaymentType)
+        /// <param name="ShipmentType"></param>
+        public void Update(ShipmentType ShipmentType)
         {
-            if (PaymentType.PaymentTypeId == 0 ||
-                GetById(PaymentType.PaymentTypeId) is null) return;
+            if (ShipmentType.ShipmentTypeId == 0 ||
+                GetById(ShipmentType.ShipmentTypeId) is null) return;
 
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @PaymentTypeId, @Name, @Description ",
-                        PaymentType);
+                    con.Execute($"dbo.{TableName}_Update @ShipmentTypeId, @Name, @Description ",
+                        ShipmentType);
                 }
             }
             catch (Exception e)
@@ -200,7 +199,7 @@ namespace FinancialAnalysis.Datalayer.PaymentManagement
         }
 
         /// <summary>
-        ///     Delete PaymentType by Id
+        ///     Delete ShipmentType by Id
         /// </summary>
         /// <param name="id"></param>
         public void Delete(int id)
@@ -210,7 +209,7 @@ namespace FinancialAnalysis.Datalayer.PaymentManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @PaymentTypeId", new {PaymentTypeId = id});
+                    con.Execute($"dbo.{TableName}_Delete @ShipmentTypeId", new {ShipmentTypeId = id});
                 }
             }
             catch (Exception e)
@@ -220,12 +219,12 @@ namespace FinancialAnalysis.Datalayer.PaymentManagement
         }
 
         /// <summary>
-        ///     Delete PaymentType by Item
+        ///     Delete ShipmentType by Item
         /// </summary>
         /// <param name="id"></param>
-        public void Delete(PaymentType PaymentType)
+        public void Delete(ShipmentType ShipmentType)
         {
-            Delete(PaymentType.PaymentTypeId);
+            Delete(ShipmentType.ShipmentTypeId);
         }
     }
 }

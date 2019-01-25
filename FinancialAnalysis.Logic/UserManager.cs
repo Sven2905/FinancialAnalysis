@@ -14,26 +14,10 @@ namespace FinancialAnalysis.Logic
 {
     public class UserManager : ViewModelBase
     {
-        #region Fields
-
-        private readonly static UserManager instance = new UserManager();
-        private SvenTechCollection<User> _Users;
-
-        #endregion Fields
-
         #region Properties
 
-        public static UserManager Instance => instance;
-        public List<UserRight> UserRights
-        {
-            get
-            {
-                using (var db = new DataLayer())
-                {
-                    return db.UserRights.GetAll();
-                }
-            }
-        }
+        public static UserManager Instance { get; } = new UserManager();
+        public List<UserRight> UserRights { get; }
 
         #endregion Properties
 
@@ -41,6 +25,7 @@ namespace FinancialAnalysis.Logic
 
         private UserManager()
         {
+            UserRights = LoadUserRightsFromDB();
             Users = LoadUsersFromDB();
         }
 
@@ -48,11 +33,7 @@ namespace FinancialAnalysis.Logic
 
         #region Methods
 
-        public SvenTechCollection<User> Users
-        {
-            get { return _Users; }
-            set { _Users = value; }
-        }
+        public SvenTechCollection<User> Users { get; set; }
 
         private SvenTechCollection<User> LoadUsersFromDB()
         {
@@ -97,7 +78,7 @@ namespace FinancialAnalysis.Logic
                 {
                     db.Users.Delete(user.UserId);
                 }
-                _Users.Remove(user);
+                Users.Remove(user);
 
             }
             catch (Exception ex)
@@ -141,7 +122,7 @@ namespace FinancialAnalysis.Logic
                     db.UserRightUserMappings.UpdateOrInsert(user.UserRightUserMappings);
                 }
 
-                _Users.Add(user);
+                Users.Add(user);
             }
             catch (System.Exception ex)
             {
@@ -185,6 +166,11 @@ namespace FinancialAnalysis.Logic
             return UserRightUserMappingFlatStructure;
         }
 
+        public void RefreshUsers()
+        {
+            LoadUsersFromDB();
+        }
+
         /// <summary>
         /// Returns null if no user is found
         /// </summary>
@@ -202,6 +188,14 @@ namespace FinancialAnalysis.Logic
             }
 
             return user;
+        }
+
+        private List<UserRight> LoadUserRightsFromDB()
+        {
+            using (var db = new DataLayer())
+            {
+                return db.UserRights.GetAll();
+            }
         }
 
         #endregion Methods

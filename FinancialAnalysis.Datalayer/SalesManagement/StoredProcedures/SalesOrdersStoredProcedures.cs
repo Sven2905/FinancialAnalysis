@@ -2,19 +2,19 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.PurchaseManagement
+namespace FinancialAnalysis.Datalayer.SalesManagement
 {
-    public class PurchaseOrdersStoredProcedures : IStoredProcedures
+    public class SalesOrdersStoredProcedures : IStoredProcedures
     {
-        public PurchaseOrdersStoredProcedures()
+        public SalesOrdersStoredProcedures()
         {
-            TableName = "PurchaseOrders";
+            TableName = "SalesOrders";
         }
 
         public string TableName { get; }
 
         /// <summary>
-        ///     Check if all Stored Procedures are created, otherwise create them
+        /// Check if all Stored Procedures are created, otherwise create them
         /// </summary>
         public void CheckAndCreateProcedures()
         {
@@ -33,20 +33,20 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT po.PurchaseOrderId, po.PurchaseInvoiceNumber, po.RefCreditorId, po.OrderDate, po.DeliveryDate, po.RefPurchaseTypeId, po.Remarks, po.IsClosed, " +
-                    "pt.PurchaseTypeId, pt.Name, pt.Description, " +
-                    "b.BillId, b.CreditorInvoiceNumber, b.BillDate, b.BillDueDate, b.Content, b.RefPurchaseOrderId, b.RefBillTypeId, " +
-                    "grn.RefPurchaseOrderId, grn.Content, " +
-                    "c.CreditorId, c.RefCompanyId, c.RefCostAccountId, " +
-                    "pop.PurchaseOrderPositionId, pop.RefPurchaseOrderId, pop.RefProductId, pop.RefTaxTypeId, pop.Description, pop.Quantity, pop.Price, pop.DiscountPercentage, pop.IsDelivered, pop.IsCanceled , " +
+                    "SELECT so.SalesOrderId, so.RefDebitorId, so.OrderDate, so.RefSalesTypeId, so.Remarks, so.IsClosed, " +
+                    "st.SalesTypeId, st.Name, st.Description, " +
+                    "i.InvoiceId, i.InvoiceDate, i.InvoiceDueDate, i.Content, i.RefSalesOrderId, i.RefInvoiceTypeId, i.IsPaid" +
+                    "sh.ShipmentId, sh.ShipmentNumber, sh.RefSalesOrderId, sh.ShipmentDate, sh.ShipmentTypeId, " +
+                    "d.DebitorId, d.RefCompanyId, d.RefCostAccountId, " +
+                    "sop.SalesOrderPositionId, sop.RefSalesOrderId, sop.RefProductId, sop.RefTaxTypeId, sop.Description, sop.Quantity, sop.Price, sop.DiscountPercentage, sop.IsDelivered, sop.IsCanceled , " +
                     "p.ProductId, p.Name, p.Description, p.Barcode, p.DimensionX, p.DimensionY, p.DimensionZ, p.Weight, p.IsStackable, p.Picture, p.PackageUnit, p.BuyingPrice, p.SalePrice, p.RefProductCategoryId " +
-                    $"FROM {TableName} po " +
-                    $"LEFT JOIN PurchaseTypes pt ON po.RefPurchaseTypeId = pt.PurchaseTypeId " +
-                    $"LEFT JOIN Bills b ON po.PurchaseOrderId = b.RefPurchaseOrderId " +
-                    $"LEFT JOIN GoodsReceivedNotes grn ON po.PurchaseOrderId = grn.RefPurchaseOrderId " +
-                    $"LEFT JOIN Creditors c ON po.RefCreditorId = c.CreditorId " +
-                    $"LEFT JOIN PurchaseOrderPositions pop ON po.PurchaseOrderId = pop.RefPurchaseOrderId " +
-                    $"LEFT JOIN Product p ON pop.RefProductID = p.ProductId " +
+                    $"FROM {TableName} so " +
+                    $"LEFT JOIN SalesTypes st ON so.RefSalesTypeId = st.SalesTypeId " +
+                    $"LEFT JOIN Invoices i ON so.SalesOrderId = i.RefSalesOrderId " +
+                    $"LEFT JOIN Shipments sh ON so.SalesOrderId = sh.RefSalesOrderId " +
+                    $"LEFT JOIN Debitors d ON so.RefDebitorId = d.DebitorId " +
+                    $"LEFT JOIN SalesOrderPositions sop ON so.SalesOrderId = sop.RefSalesOrderId " +
+                    $"LEFT JOIN Product p ON sop.RefProductID = p.ProductId " +
                     "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -69,9 +69,9 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @PurchaseInvoiceNumber nvarchar(150), @RefCreditorId int, @OrderDate datetime, @DeliveryDate datetime, @RefPurchaseTypeId int, @Remarks nvarchar(150), @DiscountPercentage money, @IsClosed bit AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (PurchaseInvoiceNumber, RefCreditorId, OrderDate, DeliveryDate, RefPurchaseTypeId, Remarks, IsClosed ) " +
-                    "VALUES (@PurchaseInvoiceNumber, @RefCreditorId, @OrderDate, @DeliveryDate, @RefPurchaseTypeId, @Remarks, @IsClosed ); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @RefDebitorId int, @OrderDate datetime, @RefSalesTypeId int, @Remarks nvarchar(150), @DiscountPercentage money, @IsClosed bit AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (RefDebitorId, OrderDate, RefSalesTypeId, Remarks, IsClosed ) " +
+                    "VALUES (@RefDebitorId, @OrderDate, @RefSalesTypeId, @Remarks, @IsClosed ); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -94,22 +94,22 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @PurchaseOrderId int AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT po.PurchaseOrderId, po.PurchaseInvoiceNumber, po.RefCreditorId, po.OrderDate, po.DeliveryDate, po.RefPurchaseTypeId, po.Remarks, po.IsClosed, " +
-                    "pt.PurchaseTypeId, pt.Name, pt.Description, " +
-                    "b.BillId, b.CreditorInvoiceNumber, b.BillDate, b.BillDueDate, b.Content, b.RefPurchaseOrderId, b.RefBillTypeId, " +
-                    "grn.RefPurchaseOrderId, grn.Content, " +
-                    "c.CreditorId, c.RefCompanyId, c.RefCostAccountId, " +
-                    "pop.PurchaseOrderPositionId, pop.RefPurchaseOrderId, pop.RefProductId, pop.RefTaxTypeId, pop.Description, pop.Quantity, pop.Price, pop.DiscountPercentage, pop.IsDelivered, pop.IsCanceled , " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @SalesOrderId int AS BEGIN SET NOCOUNT ON; " +
+                    "SELECT so.SalesOrderId, so.RefDebitorId, so.OrderDate, so.RefSalesTypeId, so.Remarks, so.IsClosed, " +
+                    "st.SalesTypeId, st.Name, st.Description, " +
+                    "i.InvoiceId, i.InvoiceDate, i.InvoiceDueDate, i.Content, i.RefSalesOrderId, i.RefInvoiceTypeId, i.IsPaid" +
+                    "sh.ShipmentId, sh.ShipmentNumber, sh.RefSalesOrderId, sh.ShipmentDate, sh.ShipmentTypeId, " +
+                    "d.DebitorId, d.RefCompanyId, d.RefCostAccountId, " +
+                    "sop.SalesOrderPositionId, sop.RefSalesOrderId, sop.RefProductId, sop.RefTaxTypeId, sop.Description, sop.Quantity, sop.Price, sop.DiscountPercentage, sop.IsDelivered, sop.IsCanceled , " +
                     "p.ProductId, p.Name, p.Description, p.Barcode, p.DimensionX, p.DimensionY, p.DimensionZ, p.Weight, p.IsStackable, p.Picture, p.PackageUnit, p.BuyingPrice, p.SalePrice, p.RefProductCategoryId " +
-                    $"FROM {TableName} po " +
-                     $"LEFT JOIN PurchaseTypes pt ON po.RefPurchaseTypeId = pt.PurchaseTypeId " +
-                    $"LEFT JOIN Bills b ON po.PurchaseOrderId = b.RefPurchaseOrderId " +
-                    $"LEFT JOIN GoodsReceivedNotes grn ON po.PurchaseOrderId = grn.RefPurchaseOrderId " +
-                    $"LEFT JOIN Creditor c ON po.RefCreditorId = c.CreditorId " +
-                    $"LEFT JOIN PurchaseOrderPositions pop ON po.PurchaseOrderId = pop.RefPurchaseOrderId " +
-                    $"LEFT JOIN Product p ON pop.RefProductID = p.ProductId " +
-                    $"WHERE pt.PurchaseOrderId = @PurchaseOrderId " +
+                    $"FROM {TableName} so " +
+                    $"LEFT JOIN SalesTypes st ON so.RefSalesTypeId = st.SalesTypeId " +
+                    $"LEFT JOIN Invoices i ON so.SalesOrderId = i.RefSalesOrderId " +
+                    $"LEFT JOIN Shipments sh ON so.SalesOrderId = sh.RefSalesOrderId " +
+                    $"LEFT JOIN Debitors d ON so.RefDebitorId = d.DebitorId " +
+                    $"LEFT JOIN SalesOrderPositions sop ON so.SalesOrderId = sop.RefSalesOrderId " +
+                    $"LEFT JOIN Product p ON sop.RefProductID = p.ProductId " +
+                    $"WHERE pt.SalesOrderId = @SalesOrderId " +
                     "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -132,17 +132,15 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @PurchaseOrderId int, @PurchaseInvoiceNumber nvarchar(150), @RefCreditorId int, @OrderDate datetime, @DeliveryDate datetime, @RefPurchaseTypeId int, @Remarks nvarchar(150), @IsClosed bit " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @SalesOrderId int, @RefDebitorId int, @OrderDate datetime, @RefSalesTypeId int, @Remarks nvarchar(150), @IsClosed bit " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
-                    "SET PurchaseInvoiceNumber = @PurchaseInvoiceNumber, " +
-                    "RefCreditorId = @RefCreditorId, " +
+                    "SET RefDebitorId = @RefDebitorId, " +
                     "OrderDate = @OrderDate, " +
-                    "DeliveryDate = @DeliveryDate, " +
-                    "RefPurchaseTypeId = @RefPurchaseTypeId, " +
+                    "RefSalesTypeId = @RefSalesTypeId, " +
                     "Remarks = @Remarks, " +
                     "IsClosed = @IsClosed " +
-                    "WHERE PurchaseOrderId = @PurchaseOrderId END");
+                    "WHERE SalesOrderId = @SalesOrderId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -164,8 +162,8 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @PurchaseOrderId int AS BEGIN SET NOCOUNT ON; " +
-                    $"DELETE FROM {TableName} WHERE PurchaseOrderId = @PurchaseOrderId END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @SalesOrderId int AS BEGIN SET NOCOUNT ON; " +
+                    $"DELETE FROM {TableName} WHERE SalesOrderId = @SalesOrderId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
