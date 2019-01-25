@@ -16,6 +16,9 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         public MailViewModel()
         {
+            if (IsInDesignMode)
+                return;
+
             SaveMailConfigCommand = new DelegateCommand(SaveMailConfiguration);
             SendTestMailCommand = new DelegateCommand(SendTestMail);
             MailConfiguration = new MailConfiguration();
@@ -38,14 +41,12 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveMailConfiguration()
         {
             if (MailConfiguration.MailConfigurationId == 0)
-                using (var db = new DataLayer())
-                    MailConfiguration.MailConfigurationId = db.MailConfigurations.Insert(MailConfiguration);
+                MailConfiguration.MailConfigurationId = DataLayer.Instance.MailConfigurations.Insert(MailConfiguration);
         }
 
         private void LoadMailConfiguration()
         {
-            using (var db = new DataLayer())
-                MailConfiguration = db.MailConfigurations.GetAll().FirstOrDefault();
+            MailConfiguration = DataLayer.Instance.MailConfigurations.GetAll().FirstOrDefault();
 
             if (MailConfiguration == null)
                 MailConfiguration = new MailConfiguration();

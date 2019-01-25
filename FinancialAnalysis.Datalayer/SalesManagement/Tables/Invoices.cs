@@ -242,6 +242,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         public void AddReferences()
         {
             AddInvoiceTypesReference();
+            AddSalesOrdersReference();
         }
 
         private void AddInvoiceTypesReference()
@@ -262,6 +263,30 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
             catch (Exception e)
             {
                 Log.Error($"Exception occured while creating reference between '{TableName}' and InvoiceTypes",
+                    e);
+            }
+        }
+
+        private void AddSalesOrdersReference()
+        {
+            string refTable = "SalesOrders";
+
+            try
+            {
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefSalesOrderId) REFERENCES {refTable}(SalesOrderId) ON DELETE CASCADE";
+
+                using (var command = new SqlCommand(commandStr, con))
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while creating reference between '{TableName}' and {TableName}",
                     e);
             }
         }

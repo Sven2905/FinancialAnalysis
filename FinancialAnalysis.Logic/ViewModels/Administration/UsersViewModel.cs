@@ -25,9 +25,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public UsersViewModel()
         {
             if (IsInDesignMode)
-            {
                 return;
-            }
 
             _Users = LoadAllUsers();
             NewUserCommand = new DelegateCommand(NewUser);
@@ -258,15 +256,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 if (value != null)
                 {
                     UserRightUserMappingFlatStructure.OnItemPropertyChanged -= UserRightUserMappingFlatStructure_OnItemPropertyChanged;
-                    try
-                    {
-                        UserRightUserMappingFlatStructure = UserManager.Instance.GetUserRightUserMappingFlatStructure(_SelectedUser);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        System.Console.WriteLine(ex.Message);
-                        throw;
-                    }
+                    UserRightUserMappingFlatStructure = UserManager.Instance.GetUserRightUserMappingFlatStructure(_SelectedUser);
                     UserRightUserMappingFlatStructure.OnItemPropertyChanged += UserRightUserMappingFlatStructure_OnItemPropertyChanged;
                 }
                 if (_SelectedUser != null && _SelectedUser.Picture != null)

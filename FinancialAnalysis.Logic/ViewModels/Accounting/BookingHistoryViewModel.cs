@@ -9,21 +9,19 @@ namespace FinancialAnalysis.Logic.ViewModels
 {
     public class BookingHistoryViewModel : ViewModelBase
     {
-        public User ActualUser { get { return Globals.ActualUser; } }
-
         public BookingHistoryViewModel()
         {
-            using (var db = new DataLayer())
-            {
+            if (IsInDesignMode)
+                return;
+
                 try
                 {
-                    var bookings = db.Bookings.GetByConditions(new DateTime(2018, 11, 24), DateTime.Now, 2);
+                    var bookings = DataLayer.Instance.Bookings.GetByConditions(new DateTime(2018, 11, 24), DateTime.Now, 2);
                 }
                 catch (Exception ex)
                 {
                     Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
                 }
-            }
         }
     }
 }

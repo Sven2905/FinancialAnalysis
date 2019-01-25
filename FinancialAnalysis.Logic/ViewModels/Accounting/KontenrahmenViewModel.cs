@@ -14,6 +14,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public KontenrahmenViewModel()
         {
+            if (IsInDesignMode)
+                return;
+
             RefreshCostAccounts();
             RefreshCommand = new DelegateCommand(() => { RefreshCostAccounts(); });
             SelectedCommand = new DelegateCommand(() =>
@@ -39,8 +42,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void RefreshCostAccounts()
         {
-            var db = new DataLayer();
-            _CostAccounts = db.CostAccounts.GetAll().ToList();
+            _CostAccounts = DataLayer.Instance.CostAccounts.GetAll().ToList();
         }
 
         private void FilterList()

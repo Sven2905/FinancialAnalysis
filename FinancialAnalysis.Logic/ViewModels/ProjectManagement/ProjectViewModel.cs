@@ -14,6 +14,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public ProjectViewModel()
         {
+            if (IsInDesignMode)
+                return;
+
             LoadProjects();
             LoadEmployees();
             LoadCostCenters();
@@ -47,10 +50,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    Projects = db.Projects.GetAll().ToSvenTechCollection();
-                }
+                Projects = DataLayer.Instance.Projects.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -62,10 +62,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    CostCenters = db.CostCenters.GetAll().ToSvenTechCollection();
-                }
+                CostCenters = DataLayer.Instance.CostCenters.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -77,10 +74,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    Employees = db.Employees.GetAll().ToSvenTechCollection();
-                }
+                Employees = DataLayer.Instance.Employees.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -110,12 +104,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.CostCenters.Delete(SelectedProject.ProjectId);
-                    Projects.Remove(SelectedProject);
-                    SelectedProject = null;
-                }
+                DataLayer.Instance.CostCenters.Delete(SelectedProject.ProjectId);
+                Projects.Remove(SelectedProject);
+                SelectedProject = null;
             }
             catch (System.Exception ex)
             {
@@ -128,19 +119,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedProject.ProjectId != 0)
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.Projects.Update(SelectedProject);
-                    }
-                }
+                    DataLayer.Instance.Projects.Update(SelectedProject);
                 else
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.Projects.Insert(SelectedProject);
-                    }
-                }
+                    DataLayer.Instance.Projects.Insert(SelectedProject);
 
             }
             catch (System.Exception ex)

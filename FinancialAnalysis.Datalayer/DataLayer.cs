@@ -16,6 +16,8 @@ namespace FinancialAnalysis.Datalayer
 {
     public class DataLayer : IDisposable
     {
+        public static DataLayer Instance { get; } = new DataLayer();
+
         public TableVersions TableVersions { get; set; } = new TableVersions();
         public Companies Companies { get; set; } = new Companies();
         public CostAccountCategories CostAccountCategories { get; set; } = new CostAccountCategories();
@@ -148,14 +150,11 @@ namespace FinancialAnalysis.Datalayer
 
         private void Seed()
         {
-            using (var db = new DataLayer())
+            if (Instance.TaxTypes.GetAll().Count() == 0)
             {
-                if (db.TaxTypes.GetAll().Count() == 0)
-                {
-                    var _Import = new Import();
-                    _Import.ImportCostAccounts(Standardkontenrahmen.SKR03);
-                    db.TaxTypes.Seed();
-                }
+                var _Import = new Import();
+                _Import.ImportCostAccounts(Standardkontenrahmen.SKR03);
+                Instance.TaxTypes.Seed();
             }
         }
     }

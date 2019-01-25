@@ -25,6 +25,7 @@
             <Setter Property="Foreground" Value="#3f729b" />
         </Style>
         <local:NullToIsEnabledConverter x:Key="NullConverter"></local:NullToIsEnabledConverter>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </UserControl.Resources>
 
     <Grid>
@@ -109,11 +110,11 @@
 
             <VirtualizingStackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,15,0,15" >
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Neu"
-                                 Foreground="#3F729B" Command="{Binding NewWarehouseCommand}" FontFamily="Tahoma" />
+                                 Foreground="#3F729B" Command="{Binding NewWarehouseCommand}" FontFamily="Tahoma" IsEnabled="{Binding AllowSave}"/>
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Speichern" Foreground="#3F729B"
-                                 Command="{Binding SaveWarehouseCommand}" FontFamily="Tahoma" />
+                                 Command="{Binding SaveWarehouseCommand}" FontFamily="Tahoma" IsEnabled="{Binding AllowSave}"/>
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Löschen" Foreground="#3F729B"
-                                 Command="{Binding DeleteWarehouseCommand}" FontFamily="Tahoma" />
+                                 Command="{Binding DeleteWarehouseCommand}" FontFamily="Tahoma" IsEnabled="{Binding AllowDelete}"/>
             </VirtualizingStackPanel>
 
             <Grid Grid.Row="1" Grid.RowSpan="3" Grid.Column="2" Margin="0,12,0,0">
@@ -135,17 +136,17 @@
                         </dxlc:LayoutGroup.Header>
                         <dxlc:LayoutGroup>
                             <dxlc:LayoutItem Label="Name" FontFamily="Tahoma" >
-                                <dxe:TextEdit Text="{Binding SelectedWarehouse.Name}" FontFamily="Tahoma" />
+                                <dxe:TextEdit Text="{Binding SelectedWarehouse.Name, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>
                             <dxlc:LayoutItem Label="Beschreibung" FontFamily="Tahoma" >
-                                <dxe:TextEdit TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" VerticalContentAlignment="Top" Text="{Binding SelectedWarehouse.Description}" Height="150" FontFamily="Tahoma" />
+                                <dxe:TextEdit TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" VerticalContentAlignment="Top" Text="{Binding SelectedWarehouse.Description, UpdateSourceTrigger=PropertyChanged}" Height="150" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>
                             <dxlc:LayoutItem Label="Anzahl Lagerplätze" FontFamily="Tahoma" >
-                                <dxe:TextEdit Text="{Binding SelectedWarehouse.Stockyards.Count, Mode=OneWay}" FontFamily="Tahoma" IsReadOnly="True" />
+                                <dxe:TextEdit Text="{Binding SelectedWarehouse.Stockyards.Count, Mode=OneWay}" FontFamily="Tahoma" IsReadOnly="True" IsEnabled="False" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                     </dxlc:LayoutGroup>

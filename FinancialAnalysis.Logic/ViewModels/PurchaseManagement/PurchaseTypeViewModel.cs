@@ -25,9 +25,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public PurchaseTypeViewModel()
         {
             if (IsInDesignMode)
-            {
                 return;
-            }
 
             _PurchaseTypes = LoadAllPurchaseTypes();
             NewPurchaseTypeCommand = new DelegateCommand(NewPurchaseType);
@@ -44,10 +42,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<PurchaseType> allPurchaseTypes = new SvenTechCollection<PurchaseType>();
             try
             {
-                using (var db = new DataLayer())
-                {
-                    allPurchaseTypes = db.PurchaseTypes.GetAll().ToSvenTechCollection();
-                }
+                allPurchaseTypes = DataLayer.Instance.PurchaseTypes.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -79,12 +74,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.PurchaseTypes.Delete(SelectedPurchaseType.PurchaseTypeId);
-                    _PurchaseTypes.Remove(SelectedPurchaseType);
-                    SelectedPurchaseType = null;
-                }
+                DataLayer.Instance.PurchaseTypes.Delete(SelectedPurchaseType.PurchaseTypeId);
+                _PurchaseTypes.Remove(SelectedPurchaseType);
+                SelectedPurchaseType = null;
             }
             catch (System.Exception ex)
             {
@@ -97,19 +89,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedPurchaseType.PurchaseTypeId != 0)
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.PurchaseTypes.Update(SelectedPurchaseType);
-                    }
-                }
+                    DataLayer.Instance.PurchaseTypes.Update(SelectedPurchaseType);
                 else
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.PurchaseTypes.Insert(SelectedPurchaseType);
-                    }
-                }
+                    DataLayer.Instance.PurchaseTypes.Insert(SelectedPurchaseType);
             }
             catch (System.Exception ex)
             {

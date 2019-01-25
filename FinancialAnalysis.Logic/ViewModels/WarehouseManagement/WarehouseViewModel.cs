@@ -13,9 +13,13 @@ namespace FinancialAnalysis.Logic.ViewModels
 {
     public class WarehouseViewModel : ViewModelBase
     {
+        #region UserRights
+        public bool AllowSave { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessWarehouseSave) || Globals.ActualUser.IsAdministrator; } }
+        public bool AllowDelete { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessWarehouseDelete) || Globals.ActualUser.IsAdministrator; } }
+        #endregion UserRights
+
         #region Fields
 
-        private Warehouse _SelectedWarehouse;
         private SvenTechCollection<Warehouse> _Warehouses = new SvenTechCollection<Warehouse>();
         private string _FilterText;
 
@@ -45,10 +49,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<Warehouse> allWarehouses = new SvenTechCollection<Warehouse>();
             try
             {
-                using (var db = new DataLayer())
-                {
-                    allWarehouses = db.Warehouses.GetAll().ToSvenTechCollection();
-                }
+                allWarehouses = DataLayer.Instance.Warehouses.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -80,12 +81,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.Warehouses.Delete(SelectedWarehouse.WarehouseId);
-                    _Warehouses.Remove(SelectedWarehouse);
-                    SelectedWarehouse = null;
-                }
+                DataLayer.Instance.Warehouses.Delete(SelectedWarehouse.WarehouseId);
+                _Warehouses.Remove(SelectedWarehouse);
+                SelectedWarehouse = null;
             }
             catch (System.Exception ex)
             {
@@ -98,19 +96,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedWarehouse.WarehouseId != 0)
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.Warehouses.Update(SelectedWarehouse);
-                    }
-                }
+                    DataLayer.Instance.Warehouses.Update(SelectedWarehouse);
                 else
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.Warehouses.Insert(SelectedWarehouse);
-                    }
-                }
+                    DataLayer.Instance.Warehouses.Insert(SelectedWarehouse);
             }
             catch (System.Exception ex)
             {
@@ -163,15 +151,8 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
-        public Warehouse SelectedWarehouse
-        {
-            get { return _SelectedWarehouse; }
-            set { _SelectedWarehouse = value; }
-        }
-
+        public Warehouse SelectedWarehouse { get; set; }
         public int SelectedWarehouseStockyardCount { get; set; } = 0;
-
-        public User ActualUser { get { return Globals.ActualUser; } }
 
         #endregion Properties
     }

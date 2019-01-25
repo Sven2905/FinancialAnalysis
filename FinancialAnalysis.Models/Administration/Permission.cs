@@ -32,7 +32,9 @@ namespace FinancialAnalysis.Models.Administration
         // WarehouseManagement 300 - 399
         AccessWarehouseManagement = 300,
         AccessWarehouse = 301,
-        AccessStockyard = 302,
+        AccessWarehouseSave = 302,
+        AccessWarehouseDelete = 303,
+        AccessStockyard = 304,
 
 
         // PurchaseManagement 400 - 499

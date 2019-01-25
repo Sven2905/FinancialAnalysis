@@ -16,6 +16,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public CreditorDebitorViewModel()
         {
+            if (IsInDesignMode)
+                return;
+
             Creditor = new Creditor();
             Debitor = new Debitor();
             Creditor.Company.PropertyChanged += CreditorCompany_PropertyChanged;
@@ -66,18 +69,15 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    var creditorNumber = db.CostAccounts.GetNextCreditorNumber();
-                    Creditor.CostAccount.AccountNumber = creditorNumber;
-                    Creditor.CostAccount.RefCostAccountCategoryId = db.CostAccountCategories.GetCreditorId();
-                    Creditor.CostAccount.Description = Creditor.Company.Name;
-                    Creditor.CostAccount.IsVisible = true;
-                    var costAccountId = db.CostAccounts.Insert(Creditor.CostAccount);
-                    var creditor = new Creditor
-                    { RefCompanyId = SelectedCompany.CompanyId, RefCostAccountId = costAccountId };
-                    db.Creditors.Insert(creditor);
-                }
+                var creditorNumber = DataLayer.Instance.CostAccounts.GetNextCreditorNumber();
+                Creditor.CostAccount.AccountNumber = creditorNumber;
+                Creditor.CostAccount.RefCostAccountCategoryId = DataLayer.Instance.CostAccountCategories.GetCreditorId();
+                Creditor.CostAccount.Description = Creditor.Company.Name;
+                Creditor.CostAccount.IsVisible = true;
+                var costAccountId = DataLayer.Instance.CostAccounts.Insert(Creditor.CostAccount);
+                var creditor = new Creditor
+                { RefCompanyId = SelectedCompany.CompanyId, RefCostAccountId = costAccountId };
+                DataLayer.Instance.Creditors.Insert(creditor);
             }
             catch (System.Exception ex)
             {
@@ -94,10 +94,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.Creditors.Update(Creditor);
-                }
+                DataLayer.Instance.Creditors.Update(Creditor);
             }
             catch (System.Exception ex)
             {
@@ -109,13 +106,10 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    Creditors = db.Creditors.GetAll().ToSvenTechCollection();
-                    Debitors = db.Debitors.GetAll().ToSvenTechCollection();
-                    TaxTypes = db.TaxTypes.GetAll().ToSvenTechCollection();
-                    Companies = db.Companies.GetAll().ToSvenTechCollection();
-                }
+                Creditors = DataLayer.Instance.Creditors.GetAll().ToSvenTechCollection();
+                Debitors = DataLayer.Instance.Debitors.GetAll().ToSvenTechCollection();
+                TaxTypes = DataLayer.Instance.TaxTypes.GetAll().ToSvenTechCollection();
+                Companies = DataLayer.Instance.Companies.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -127,18 +121,15 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    var companyId = db.Companies.Insert(Creditor.Company);
-                    var creditorNumber = db.CostAccounts.GetNextCreditorNumber();
-                    Creditor.CostAccount.AccountNumber = creditorNumber;
-                    Creditor.CostAccount.RefCostAccountCategoryId = db.CostAccountCategories.GetCreditorId();
-                    Creditor.CostAccount.Description = Creditor.Company.Name;
-                    Creditor.CostAccount.IsVisible = true;
-                    var costAccountId = db.CostAccounts.Insert(Creditor.CostAccount);
-                    var creditor = new Creditor { RefCompanyId = companyId, RefCostAccountId = costAccountId };
-                    db.Creditors.Insert(creditor);
-                }
+                var companyId = DataLayer.Instance.Companies.Insert(Creditor.Company);
+                var creditorNumber = DataLayer.Instance.CostAccounts.GetNextCreditorNumber();
+                Creditor.CostAccount.AccountNumber = creditorNumber;
+                Creditor.CostAccount.RefCostAccountCategoryId = DataLayer.Instance.CostAccountCategories.GetCreditorId();
+                Creditor.CostAccount.Description = Creditor.Company.Name;
+                Creditor.CostAccount.IsVisible = true;
+                var costAccountId = DataLayer.Instance.CostAccounts.Insert(Creditor.CostAccount);
+                var creditor = new Creditor { RefCompanyId = companyId, RefCostAccountId = costAccountId };
+                DataLayer.Instance.Creditors.Insert(creditor);
             }
             catch (System.Exception ex)
             {
@@ -173,17 +164,14 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    var debitorNumber = db.CostAccounts.GetNextDebitorNumber();
-                    Debitor.CostAccount.AccountNumber = debitorNumber;
-                    Debitor.CostAccount.RefCostAccountCategoryId = db.CostAccountCategories.GetDebitorId();
-                    Debitor.CostAccount.Description = Debitor.Company.Name;
-                    Debitor.CostAccount.IsVisible = true;
-                    var costAccountId = db.CostAccounts.Insert(Debitor.CostAccount);
-                    var debitor = new Debitor { RefCompanyId = SelectedCompany.CompanyId, RefCostAccountId = costAccountId };
-                    db.Debitors.Insert(debitor);
-                }
+                var debitorNumber = DataLayer.Instance.CostAccounts.GetNextDebitorNumber();
+                Debitor.CostAccount.AccountNumber = debitorNumber;
+                Debitor.CostAccount.RefCostAccountCategoryId = DataLayer.Instance.CostAccountCategories.GetDebitorId();
+                Debitor.CostAccount.Description = Debitor.Company.Name;
+                Debitor.CostAccount.IsVisible = true;
+                var costAccountId = DataLayer.Instance.CostAccounts.Insert(Debitor.CostAccount);
+                var debitor = new Debitor { RefCompanyId = SelectedCompany.CompanyId, RefCostAccountId = costAccountId };
+                DataLayer.Instance.Debitors.Insert(debitor);
             }
             catch (System.Exception ex)
             {
@@ -200,10 +188,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.Debitors.Update(Debitor);
-                }
+                DataLayer.Instance.Debitors.Update(Debitor);
             }
             catch (System.Exception ex)
             {
@@ -215,18 +200,15 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    var companyId = db.Companies.Insert(Debitor.Company);
-                    var debitorNumber = db.CostAccounts.GetNextDebitorNumber();
-                    Debitor.CostAccount.AccountNumber = debitorNumber;
-                    Debitor.CostAccount.RefCostAccountCategoryId = db.CostAccountCategories.GetDebitorId();
-                    Debitor.CostAccount.Description = Debitor.Company.Name;
-                    Debitor.CostAccount.IsVisible = true;
-                    var costAccountId = db.CostAccounts.Insert(Debitor.CostAccount);
-                    var creditor = new Creditor { RefCompanyId = companyId, RefCostAccountId = costAccountId };
-                    db.Creditors.Insert(creditor);
-                }
+                var companyId = DataLayer.Instance.Companies.Insert(Debitor.Company);
+                var debitorNumber = DataLayer.Instance.CostAccounts.GetNextDebitorNumber();
+                Debitor.CostAccount.AccountNumber = debitorNumber;
+                Debitor.CostAccount.RefCostAccountCategoryId = DataLayer.Instance.CostAccountCategories.GetDebitorId();
+                Debitor.CostAccount.Description = Debitor.Company.Name;
+                Debitor.CostAccount.IsVisible = true;
+                var costAccountId = DataLayer.Instance.CostAccounts.Insert(Debitor.CostAccount);
+                var creditor = new Creditor { RefCompanyId = companyId, RefCostAccountId = costAccountId };
+                DataLayer.Instance.Creditors.Insert(creditor);
             }
             catch (System.Exception ex)
             {
@@ -243,10 +225,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.Companies.Update(company);
-                }
+                DataLayer.Instance.Companies.Update(company);
             }
             catch (System.Exception ex)
             {
@@ -263,10 +242,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.Creditors.Delete(Creditor.CreditorId);
-                }
+                DataLayer.Instance.Creditors.Delete(Creditor.CreditorId);
             }
             catch (System.Exception ex)
             {
@@ -280,10 +256,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.Debitors.Delete(Debitor.DebitorId);
-                }
+                DataLayer.Instance.Debitors.Delete(Debitor.DebitorId);
             }
             catch (System.Exception ex)
             {
@@ -373,10 +346,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (Creditor.IsNull()) Creditor = new Creditor();
 
             if (Creditor.CreditorId != 0)
-                using (var db = new DataLayer())
-                {
-                    DeleteCreditorButtonEnabled = !db.Creditors.IsCreditorInUse(Creditor.CreditorId);
-                }
+                DeleteCreditorButtonEnabled = !DataLayer.Instance.Creditors.IsCreditorInUse(Creditor.CreditorId);
             else
                 DeleteCreditorButtonEnabled = false;
         }
@@ -400,10 +370,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (Debitor.IsNull()) Debitor = new Debitor();
 
             if (Debitor.DebitorId != 0)
-                using (var db = new DataLayer())
-                {
-                    DeleteDebitorButtonEnabled = !db.Debitors.IsDebitorInUse(Debitor.DebitorId);
-                }
+                DeleteDebitorButtonEnabled = !DataLayer.Instance.Debitors.IsDebitorInUse(Debitor.DebitorId);
             else
                 DeleteDebitorButtonEnabled = false;
         }

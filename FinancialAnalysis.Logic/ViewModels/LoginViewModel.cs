@@ -14,6 +14,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public LoginViewModel()
         {
+            if (IsInDesignMode)
+                return;
+
             Seed();
             LoginCommand = new DelegateCommand(Login, () => (!string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrEmpty(Password)));
             ExitCommand = new DelegateCommand(Exit);
@@ -31,33 +34,29 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void Seed()
         {
-            using (var db = new DataLayer())
+            DataLayer.Instance.CreateDatabaseSchema();
+            if (!DataLayer.Instance.Users.GetAll().Any())
             {
-                db.CreateDatabaseSchema();
-                if (!db.Users.GetAll().Any())
+                var user = new User()
                 {
-                    var user = new User()
-                    {
-                        IsAdministrator = true,
-                        Firstname = "Mr.",
-                        Lastname = "Admin",
-                        LoginUser = "Admin",
-                        Password = "Password",
-                        Mail = "admin@sven.tech",
-                        Contraction = "AD"
-                    };
+                    IsAdministrator = true,
+                    Firstname = "Mr.",
+                    Lastname = "Admin",
+                    LoginUser = "Admin",
+                    Password = "Password",
+                    Mail = "admin@sven.tech",
+                    Contraction = "AD"
+                };
 
-                    db.Users.Insert(user);
+                DataLayer.Instance.Users.Insert(user);
 
-                }
+            }
 
-                if (!db.UserRights.GetAll().Any())
-                {
-                    var _Import = new Import();
-                    _Import.ImportUserRights();
-                    _Import.SeedTypes();
-                }
-
+            if (!DataLayer.Instance.UserRights.GetAll().Any())
+            {
+                var _Import = new Import();
+                _Import.ImportUserRights();
+                _Import.SeedTypes();
             }
         }
 

@@ -13,6 +13,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public DialogViewModel()
         {
+            if (IsInDesignMode)
+                return;
+
             CloseCommand = new DelegateCommand(() => CloseAction());
         }
 

@@ -21,6 +21,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public BookingViewModel()
         {
+            if (IsInDesignMode)
+                return;
+
             SetCommands();
 
             Messenger.Default.Register<SelectedCostAccount>(this, ChangeSelectedCostAccount);
@@ -46,13 +49,10 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    TaxTypes = db.TaxTypes.GetAll().ToList();
-                    CostAccounts = db.CostAccounts.GetAllVisible().ToList();
-                    CostCenters = db.CostCenters.GetAll().ToSvenTechCollection();
-                    Projects = db.Projects.GetAll().ToSvenTechCollection();
-                }
+                TaxTypes = DataLayer.Instance.TaxTypes.GetAll().ToList();
+                CostAccounts = DataLayer.Instance.CostAccounts.GetAllVisible().ToList();
+                CostCenters = DataLayer.Instance.CostCenters.GetAll().ToSvenTechCollection();
+                Projects = DataLayer.Instance.Projects.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -216,10 +216,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                using (var db = new DataLayer())
-                {
-                    bookingId = db.Bookings.Insert(booking);
-                }
+                bookingId = DataLayer.Instance.Bookings.Insert(booking);
             }
             catch (System.Exception ex)
             {
@@ -232,10 +229,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
                 try
                 {
-                    using (var db = new DataLayer())
-                    {
-                        db.Credits.Insert(item);
-                    }
+                    DataLayer.Instance.Credits.Insert(item);
                 }
                 catch (System.Exception ex)
                 {
@@ -248,10 +242,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 item.RefBookingId = bookingId;
                 try
                 {
-                    using (var db = new DataLayer())
-                    {
-                        db.Debits.Insert(item);
-                    }
+                    DataLayer.Instance.Debits.Insert(item);
                 }
                 catch (System.Exception ex)
                 {
@@ -265,10 +256,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
                 try
                 {
-                    using (var db = new DataLayer())
-                    {
-                        db.ScannedDocuments.Insert(item);
-                    }
+                    DataLayer.Instance.ScannedDocuments.Insert(item);
                 }
                 catch (System.Exception ex)
                 {

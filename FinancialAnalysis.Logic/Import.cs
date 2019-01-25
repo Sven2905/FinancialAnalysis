@@ -29,8 +29,7 @@ namespace FinancialAnalysis.Logic
 
             var costAccountCategories = new List<CostAccountCategory>();
 
-            var db = new DataLayer();
-            costAccountCategories.AddRange(db.CostAccountCategories.GetAll());
+            costAccountCategories.AddRange(DataLayer.Instance.CostAccountCategories.GetAll());
 
             using (var reader = new StreamReader(_FilePath))
             {
@@ -133,7 +132,7 @@ namespace FinancialAnalysis.Logic
                     {
                         tempMainCat.Description = _Content[2];
 
-                        mainCatId = db.CostAccountCategories.Insert(tempMainCat);
+                        mainCatId = DataLayer.Instance.CostAccountCategories.Insert(tempMainCat);
                         tempMainCat.CostAccountCategoryId = mainCatId;
                         costAccountCategories.Add(tempMainCat);
                     }
@@ -144,7 +143,7 @@ namespace FinancialAnalysis.Logic
                             .CostAccountCategoryId;
                     }
 
-                    var taxTypes = db.TaxTypes.GetAll().ToList();
+                    var taxTypes = DataLayer.Instance.TaxTypes.GetAll().ToList();
 
                     var tempSubCat = new CostAccountCategory();
 
@@ -156,7 +155,7 @@ namespace FinancialAnalysis.Logic
                             tempSubCat.Description = _Content[3];
                             tempSubCat.ParentCategoryId = mainCatId;
 
-                            subCatId = db.CostAccountCategories.Insert(tempSubCat);
+                            subCatId = DataLayer.Instance.CostAccountCategories.Insert(tempSubCat);
                             tempSubCat.CostAccountCategoryId = subCatId;
                             costAccountCategories.Add(tempSubCat);
                         }
@@ -195,7 +194,7 @@ namespace FinancialAnalysis.Logic
                         costAccount.RefTaxTypeId = 1;
                     }
 
-                    db.CostAccounts.Insert(costAccount);
+                    DataLayer.Instance.CostAccounts.Insert(costAccount);
                 }
             }
         }
@@ -214,8 +213,7 @@ namespace FinancialAnalysis.Logic
                 new CostAccountCategory {Description = " 9 - Vortrags-, Kapital- und statistische Konten"}
             };
 
-            var db = new DataLayer();
-            db.CostAccountCategories.Insert(_CostAccounts);
+            DataLayer.Instance.CostAccountCategories.Insert(_CostAccounts);
         }
 
         private void CreateSKR04MainCategories()
@@ -233,8 +231,7 @@ namespace FinancialAnalysis.Logic
                 new CostAccountCategory {Description = " 9 - Vortrags-, Kapital- und statistische Konten"}
             };
 
-            var db = new DataLayer();
-            db.CostAccountCategories.Insert(_CostAccounts);
+            DataLayer.Instance.CostAccountCategories.Insert(_CostAccounts);
         }
 
         public void ImportUserRights()
@@ -265,6 +262,8 @@ namespace FinancialAnalysis.Logic
                 new UserRight(Permission.AccessUsers, "Benutzer", (int)Permission.AccessConfiguration, "Erlaubt den Zugriff auf den Menüpunkt Benutzer"),
 
                 new UserRight(Permission.AccessWarehouse, "Lager", (int)Permission.AccessWarehouseManagement, "Erlaubt den Zugriff auf den Menüpunkt Lager"),
+                new UserRight(Permission.AccessWarehouseSave, "Lager speichern", (int)Permission.AccessWarehouse, "Erlaubt Änderungen und neue Lager zu speichern"),
+                new UserRight(Permission.AccessWarehouseDelete, "Lager löschen", (int)Permission.AccessWarehouse, "Erlaubt Lager zu löschen."),
                 new UserRight(Permission.AccessStockyard, "Lagerplätze", (int)Permission.AccessWarehouseManagement, "Erlaubt den Zugriff auf den Menüpunkt Lagerplätze"),
 
                 new UserRight(Permission.AccessProducts, "Produkte", (int)Permission.AccessProductManagement, "Erlaubt den Zugriff auf den Menüpunkt Produkte"),
@@ -283,26 +282,20 @@ namespace FinancialAnalysis.Logic
                 new UserRight(Permission.AccessShipment, "Versandtyp", (int)Permission.AccessSalesManagement, "Erlaubt den Zugriff auf den Menüpunkt Versandtyp"),
             };
 
-            using (DataLayer db = new DataLayer())
+            foreach (var item in rights)
             {
-                foreach (var item in rights)
-                {
-                    item.UserRightId = db.UserRights.Insert(item);
-                    db.UserRightUserMappings.Insert(new UserRightUserMapping() { RefUserId = 1, RefUserRightId = item.UserRightId, IsGranted = true });
-                }
+                item.UserRightId = DataLayer.Instance.UserRights.Insert(item);
+                DataLayer.Instance.UserRightUserMappings.Insert(new UserRightUserMapping() { RefUserId = 1, RefUserRightId = item.UserRightId, IsGranted = true });
             }
         }
 
         public void SeedTypes()
         {
-            using (DataLayer db = new DataLayer())
-            {
-                db.BillTypes.Insert(new Models.PurchaseManagement.BillType() { Name = "Allgemein" });
-                db.InvoiceTypes.Insert(new Models.SalesManagement.InvoiceType() { Name = "Allgemein" });
-                db.PurchaseTypes.Insert(new Models.PurchaseManagement.PurchaseType() { Name = "Allgemein" });
-                db.SalesTypes.Insert(new Models.SalesManagement.SalesType() { Name = "Allgemein" });
-                db.ShipmentTypes.Insert(new Models.SalesManagement.ShipmentType() { Name = "Allgemein" });
-            }
+            DataLayer.Instance.BillTypes.Insert(new Models.PurchaseManagement.BillType() { Name = "Allgemein" });
+            DataLayer.Instance.InvoiceTypes.Insert(new Models.SalesManagement.InvoiceType() { Name = "Allgemein" });
+            DataLayer.Instance.PurchaseTypes.Insert(new Models.PurchaseManagement.PurchaseType() { Name = "Allgemein" });
+            DataLayer.Instance.SalesTypes.Insert(new Models.SalesManagement.SalesType() { Name = "Allgemein" });
+            DataLayer.Instance.ShipmentTypes.Insert(new Models.SalesManagement.ShipmentType() { Name = "Allgemein" });
         }
     }
 }

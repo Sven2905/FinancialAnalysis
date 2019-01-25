@@ -15,6 +15,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public CompanyViewModel()
         {
+            if (IsInDesignMode)
+                return;
+
             InitializeButtonCommands();
             RefreshData();
         }
@@ -42,10 +45,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void RefreshData()
         {
-            using (var db = new DataLayer())
-            {
-                Companies = db.Companies.GetAll().ToSvenTechCollection();
-            }
+            Companies = DataLayer.Instance.Companies.GetAll().ToSvenTechCollection();
         }
 
         private void InitializeButtonCommands()
@@ -70,20 +70,17 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveCompany()
         {
-            using (var db = new DataLayer())
-            {
-                db.Companies.UpdateOrInsert(SelectedCompany);
-                var notificationService = this.GetRequiredService<INotificationService>();
-                INotification notification;
-                if (SelectedCompany.CompanyId == 0)
-                    notification = notificationService.CreatePredefinedNotification("Neue Firma",
-                        $"Die Firma {SelectedCompany.Name} wurde erfolgreich angelegt.", string.Empty);
-                else
-                    notification = notificationService.CreatePredefinedNotification("Firma geändert",
-                        $"Die Änderungen an der Firma {SelectedCompany.Name} wurden erfolgreich durchgeführt.",
-                        string.Empty);
-                notification.ShowAsync();
-            }
+            DataLayer.Instance.Companies.UpdateOrInsert(SelectedCompany);
+            var notificationService = this.GetRequiredService<INotificationService>();
+            INotification notification;
+            if (SelectedCompany.CompanyId == 0)
+                notification = notificationService.CreatePredefinedNotification("Neue Firma",
+                    $"Die Firma {SelectedCompany.Name} wurde erfolgreich angelegt.", string.Empty);
+            else
+                notification = notificationService.CreatePredefinedNotification("Firma geändert",
+                    $"Die Änderungen an der Firma {SelectedCompany.Name} wurden erfolgreich durchgeführt.",
+                    string.Empty);
+            notification.ShowAsync();
         }
 
         private void DeleteCompany()
@@ -92,17 +89,14 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 try
                 {
-                    using (var db = new DataLayer())
-                    {
-                        db.Companies.Delete(SelectedCompany.CompanyId);
-                    }
+                    DataLayer.Instance.Companies.Delete(SelectedCompany.CompanyId);
                 }
                 catch (System.Exception ex)
                 {
                     Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
                 }
             }
-                
+
         }
 
         private void UseExistingCompany()
@@ -128,10 +122,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void ValidateDeleteButton()
         {
             if (!SelectedCompany.IsNull() && SelectedCompany.CompanyId != 0)
-                using (var db = new DataLayer())
-                {
-                    DeleteCompanyButtonEnabled = !db.Companies.IsCompanyInUse(SelectedCompany.CompanyId);
-                }
+                DeleteCompanyButtonEnabled = !DataLayer.Instance.Companies.IsCompanyInUse(SelectedCompany.CompanyId);
         }
 
         private void SelectedCompany_PropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -125,6 +125,7 @@
     <Compile Include="ViewModels\PurchaseManagement\BillTypeViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\InvoiceTypeViewModel.cs" />
     <Compile Include="ViewModels\WarehouseManagement\StockyardViewModel.cs" />
+    <Compile Include="ViewModels\WarehouseManagement\WarehouseManagementViewModel.cs" />
     <Compile Include="ViewModels\WarehouseManagement\WarehouseViewModel.cs" />
     <Compile Include="ViewModels\ProductManagement\ProductViewModel.cs" />
     <Compile Include="ViewModels\ProductManagement\ProductCategoryViewModel.cs" />

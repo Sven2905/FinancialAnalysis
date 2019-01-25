@@ -25,9 +25,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public BillTypeViewModel()
         {
             if (IsInDesignMode)
-            {
                 return;
-            }
 
             _BillTypes = LoadAllBillTypes();
             NewBillTypeCommand = new DelegateCommand(NewBillType);
@@ -44,10 +42,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<BillType> allBillTypes = new SvenTechCollection<BillType>();
             try
             {
-                using (var db = new DataLayer())
-                {
-                    allBillTypes = db.BillTypes.GetAll().ToSvenTechCollection();
-                }
+                allBillTypes = DataLayer.Instance.BillTypes.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -79,12 +74,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.BillTypes.Delete(SelectedBillType.BillTypeId);
-                    _BillTypes.Remove(SelectedBillType);
-                    SelectedBillType = null;
-                }
+                DataLayer.Instance.BillTypes.Delete(SelectedBillType.BillTypeId);
+                _BillTypes.Remove(SelectedBillType);
+                SelectedBillType = null;
             }
             catch (System.Exception ex)
             {
@@ -97,19 +89,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedBillType.BillTypeId != 0)
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.BillTypes.Update(SelectedBillType);
-                    }
-                }
+                    DataLayer.Instance.BillTypes.Update(SelectedBillType);
                 else
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.BillTypes.Insert(SelectedBillType);
-                    }
-                }
+                    DataLayer.Instance.BillTypes.Insert(SelectedBillType);
             }
             catch (System.Exception ex)
             {

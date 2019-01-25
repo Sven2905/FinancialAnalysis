@@ -25,9 +25,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public ShipmentTypeViewModel()
         {
             if (IsInDesignMode)
-            {
                 return;
-            }
 
             _ShipmentTypes = LoadAllShipmentTypes();
             NewShipmentTypeCommand = new DelegateCommand(NewShipmentType);
@@ -44,10 +42,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<ShipmentType> allShipmentTypes = new SvenTechCollection<ShipmentType>();
             try
             {
-                using (var db = new DataLayer())
-                {
-                    allShipmentTypes = db.ShipmentTypes.GetAll().ToSvenTechCollection();
-                }
+                allShipmentTypes = DataLayer.Instance.ShipmentTypes.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -79,12 +74,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.ShipmentTypes.Delete(SelectedShipmentType.ShipmentTypeId);
-                    _ShipmentTypes.Remove(SelectedShipmentType);
-                    SelectedShipmentType = null;
-                }
+                DataLayer.Instance.ShipmentTypes.Delete(SelectedShipmentType.ShipmentTypeId);
+                _ShipmentTypes.Remove(SelectedShipmentType);
+                SelectedShipmentType = null;
             }
             catch (System.Exception ex)
             {
@@ -97,19 +89,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedShipmentType.ShipmentTypeId != 0)
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.ShipmentTypes.Update(SelectedShipmentType);
-                    }
-                }
+                    DataLayer.Instance.ShipmentTypes.Update(SelectedShipmentType);
                 else
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.ShipmentTypes.Insert(SelectedShipmentType);
-                    }
-                }
+                    DataLayer.Instance.ShipmentTypes.Insert(SelectedShipmentType);
             }
             catch (System.Exception ex)
             {

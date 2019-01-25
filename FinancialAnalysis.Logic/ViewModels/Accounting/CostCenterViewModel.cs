@@ -13,6 +13,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public CostCenterViewModel()
         {
+            if (IsInDesignMode)
+                return;
+
             LoadCostCenters();
             NewCostCenterCommand = new DelegateCommand(NewCostCenter);
             SaveCostCenterCommand = new DelegateCommand(SaveCostCenter, () => Validation());
@@ -43,10 +46,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    CostCenters = db.CostCenters.GetAll().ToSvenTechCollection();
-                }
+                CostCenters = DataLayer.Instance.CostCenters.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -76,12 +76,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.CostCenters.Delete(SelectedCostCenter.CostCenterId);
-                    CostCenters.Remove(SelectedCostCenter);
-                    SelectedCostCenter = null;
-                }
+                DataLayer.Instance.CostCenters.Delete(SelectedCostCenter.CostCenterId);
+                CostCenters.Remove(SelectedCostCenter);
+                SelectedCostCenter = null;
             }
             catch (System.Exception ex)
             {
@@ -94,19 +91,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedCostCenter.CostCenterId != 0)
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.CostCenters.Update(SelectedCostCenter);
-                    }
-                }
+                    DataLayer.Instance.CostCenters.Update(SelectedCostCenter);
                 else
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.CostCenters.Insert(SelectedCostCenter);
-                    }
-                }
+                    DataLayer.Instance.CostCenters.Insert(SelectedCostCenter);
 
             }
             catch (System.Exception ex)

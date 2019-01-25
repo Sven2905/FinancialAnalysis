@@ -1,5 +1,6 @@
 ﻿using DevExpress.Mvvm;
 using System.Collections.Generic;
+using Utilities;
 
 namespace FinancialAnalysis.Models.WarehouseManagement
 {
@@ -11,6 +12,6 @@ namespace FinancialAnalysis.Models.WarehouseManagement
         public string Street { get; set; }
         public int Postcode { get; set; }
         public string City { get; set; }
-        public List<Stockyard> Stockyards { get; set; } = new List<Stockyard>();
+        public SvenTechCollection<Stockyard> Stockyards { get; set; } = new SvenTechCollection<Stockyard>();
     }
 }

@@ -1,4 +1,5 @@
-﻿using FinancialAnalysis.Models.Administration;
+﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Models.Administration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +8,17 @@ using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
-    public class ConfigurationViewModel
+    public class ConfigurationViewModel : ViewModelBase
     {
         #region UserRights
-        public bool ShowMailConfiguration { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessMail) || ActualUser.IsAdministrator; } }
-        public bool ShowUsers { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessUsers) || ActualUser.IsAdministrator; } }
+        public bool ShowMailConfiguration { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessMail) || Globals.ActualUser.IsAdministrator; } }
+        public bool ShowUsers { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessUsers) || Globals.ActualUser.IsAdministrator; } }
         #endregion UserRights
 
-        public User ActualUser { get { return Globals.ActualUser; } }
+        public ConfigurationViewModel()
+        {
+            if (IsInDesignMode)
+                return;
+        }
     }
 }

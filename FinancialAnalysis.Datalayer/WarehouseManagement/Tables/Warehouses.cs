@@ -6,6 +6,7 @@ using System.Linq;
 using Dapper;
 using FinancialAnalysis.Models.WarehouseManagement;
 using Serilog;
+using Utilities;
 
 namespace FinancialAnalysis.Datalayer.WarehouseManagement
 {
@@ -80,7 +81,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                                 {
                                     warehouseEntry = w;
                                 warehouseDictionary.Add(warehouseEntry.WarehouseId, warehouseEntry);
-                                warehouseEntry.Stockyards = new List<Stockyard>();
+                                warehouseEntry.Stockyards = new SvenTechCollection<Stockyard>();
                                 }
                             }
                             if (s != null)
@@ -161,7 +162,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                             if (!warehouseDictionary.TryGetValue(w.WarehouseId, out warehouseEntry))
                             {
                                 warehouseEntry = w;
-                                warehouseEntry.Stockyards = new List<Stockyard>();
+                                warehouseEntry.Stockyards = new SvenTechCollection<Stockyard>();
                                 warehouseDictionary.Add(warehouseEntry.WarehouseId, warehouseEntry);
                             }
 

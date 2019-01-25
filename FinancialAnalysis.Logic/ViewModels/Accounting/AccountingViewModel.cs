@@ -10,14 +10,12 @@ namespace FinancialAnalysis.Logic.ViewModels
 {
     public class AccountingViewModel : ViewModelBase
     {
-        public User ActualUser { get { return Globals.ActualUser; } }
-
         #region UserRights
-        public bool ShowBookings { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessBooking) || ActualUser.IsAdministrator; } }
-        public bool ShowBookingHistories { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessBookingHistory) || ActualUser.IsAdministrator; } }
-        public bool ShowCostAccounts { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessCostAccount) || ActualUser.IsAdministrator; } }
-        public bool ShowCreditorDebitors { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessCreditorDebitor) || ActualUser.IsAdministrator; } }
-        public bool ShowTaxTypes { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessTaxType) || ActualUser.IsAdministrator; } }
+        public bool ShowBookings { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessBooking) || Globals.ActualUser.IsAdministrator; } }
+        public bool ShowBookingHistories { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessBookingHistory) || Globals.ActualUser.IsAdministrator; } }
+        public bool ShowCostAccounts { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessCostAccount) || Globals.ActualUser.IsAdministrator; } }
+        public bool ShowCreditorDebitors { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessCreditorDebitor) || Globals.ActualUser.IsAdministrator; } }
+        public bool ShowTaxTypes { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessTaxType) || Globals.ActualUser.IsAdministrator; } }
         #endregion UserRights
     }
 }

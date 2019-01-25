@@ -117,7 +117,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<Stockyard>($"dbo.{TableName}_GetAll @RefWarehouseId",
+                    output = con.Query<Stockyard>($"dbo.{TableName}_GetByRefWarehouseId @RefWarehouseId",
                         new { RefWarehouseId });
                 }
 

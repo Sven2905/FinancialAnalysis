@@ -26,9 +26,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public ProductCategoryViewModel()
         {
             if (IsInDesignMode)
-            {
                 return;
-            }
 
             _ProductCategories = LoadAllProductCategories();
             NewProductCategoryCommand = new DelegateCommand(NewProductCategory);
@@ -45,10 +43,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<ProductCategory> allProductCategories = new SvenTechCollection<ProductCategory>();
             try
             {
-                using (var db = new DataLayer())
-                {
-                    allProductCategories = db.ProductCategories.GetAll().ToSvenTechCollection();
-                }
+                    allProductCategories = DataLayer.Instance.ProductCategories.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -80,12 +75,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.ProductCategories.Delete(SelectedProductCategory.ProductCategoryId);
+                    DataLayer.Instance.ProductCategories.Delete(SelectedProductCategory.ProductCategoryId);
                     _ProductCategories.Remove(SelectedProductCategory);
                     SelectedProductCategory = null;
-                }
             }
             catch (System.Exception ex)
             {
@@ -98,19 +90,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedProductCategory.ProductCategoryId != 0)
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.ProductCategories.Update(SelectedProductCategory);
-                    }
-                }
+                        DataLayer.Instance.ProductCategories.Update(SelectedProductCategory);
                 else
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.ProductCategories.Insert(SelectedProductCategory);
-                    }
-                }
+                        DataLayer.Instance.ProductCategories.Insert(SelectedProductCategory);
             }
             catch (System.Exception ex)
             {

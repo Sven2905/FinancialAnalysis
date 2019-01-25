@@ -3,6 +3,7 @@ using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.WarehouseManagement;
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
@@ -14,10 +15,6 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         #region Fields
 
-        private Stockyard _SelectedStockyard;
-        private SvenTechCollection<Stockyard> _Stockyards = new SvenTechCollection<Stockyard>();
-        private string _FilterText;
-
         #endregion Fields
 
         #region Constructor
@@ -25,29 +22,39 @@ namespace FinancialAnalysis.Logic.ViewModels
         public StockyardViewModel()
         {
             if (IsInDesignMode)
-            {
                 return;
-            }
 
-            _Stockyards = LoadAllStockyards();
+            Warehouses = LoadAllWarehouses();
             NewStockyardCommand = new DelegateCommand(NewStockyard);
             SaveStockyardCommand = new DelegateCommand(SaveStockyard, () => Validation());
             DeleteStockyardCommand = new DelegateCommand(DeleteStockyard, () => (SelectedStockyard != null));
+        }
+
+        private SvenTechCollection<Warehouse> LoadAllWarehouses()
+        {
+            SvenTechCollection<Warehouse> allWarehouses = new SvenTechCollection<Warehouse>();
+            try
+            {
+                allWarehouses = DataLayer.Instance.Warehouses.GetAll().ToSvenTechCollection();
+            }
+            catch (System.Exception ex)
+            {
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+            }
+
+            return allWarehouses;
         }
 
         #endregion Constructor
 
         #region Methods
 
-        private SvenTechCollection<Stockyard> LoadAllStockyards()
+        private SvenTechCollection<Stockyard> LoadStockyards(int WarehouseId)
         {
             SvenTechCollection<Stockyard> allStockyards = new SvenTechCollection<Stockyard>();
             try
             {
-                using (var db = new DataLayer())
-                {
-                    allStockyards = db.Stockyards.GetAll().ToSvenTechCollection();
-                }
+                    allStockyards = DataLayer.Instance.Stockyards.GetByRefWarehouseId(WarehouseId).ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -59,8 +66,11 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void NewStockyard()
         {
-            SelectedStockyard = new Stockyard();
-            _Stockyards.Add(SelectedStockyard);
+            SelectedStockyard = new Stockyard
+            {
+                RefWarehouseId = SelectedWarehouse.WarehouseId
+            };
+            SelectedWarehouse.Stockyards.Add(SelectedStockyard);
         }
 
         private void DeleteStockyard()
@@ -72,19 +82,16 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             if (SelectedStockyard.StockyardId == 0)
             {
-                _Stockyards.Remove(SelectedStockyard);
+                SelectedWarehouse.Stockyards.Remove(SelectedStockyard);
                 SelectedStockyard = null;
                 return;
             }
 
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.Stockyards.Delete(SelectedStockyard.StockyardId);
-                    _Stockyards.Remove(SelectedStockyard);
-                    SelectedStockyard = null;
-                }
+                DataLayer.Instance.Stockyards.Delete(SelectedStockyard.StockyardId);
+                SelectedWarehouse.Stockyards.Remove(SelectedStockyard);
+                SelectedStockyard = null;
             }
             catch (System.Exception ex)
             {
@@ -98,17 +105,11 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 if (SelectedStockyard.StockyardId != 0)
                 {
-                    using (var db = new DataLayer())
-                    {
-                        db.Stockyards.Update(SelectedStockyard);
-                    }
+                    DataLayer.Instance.Stockyards.Update(SelectedStockyard);
                 }
                 else
                 {
-                    using (var db = new DataLayer())
-                    {
-                        db.Stockyards.Insert(SelectedStockyard);
-                    }
+                    DataLayer.Instance.Stockyards.Insert(SelectedStockyard);
                 }
             }
             catch (System.Exception ex)
@@ -139,36 +140,9 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand SaveStockyardCommand { get; set; }
         public DelegateCommand DeleteStockyardCommand { get; set; }
 
-        public string FilterText
-        {
-            get { return _FilterText; }
-            set
-            {
-                _FilterText = value;
-                if (!string.IsNullOrEmpty(_FilterText))
-                {
-                    FilteredStockyards = new SvenTechCollection<Stockyard>();
-                    foreach (var item in _Stockyards)
-                    {
-                        if (item.Name.Contains(FilterText))
-                        {
-                            FilteredStockyards.Add(item);
-                        }
-                    }
-                }
-                else
-                {
-                    FilteredStockyards = _Stockyards;
-                }
-            }
-        }
-
-        public Stockyard SelectedStockyard
-        {
-            get { return _SelectedStockyard; }
-            set { _SelectedStockyard = value; }
-        }
-
+        public SvenTechCollection<Warehouse> Warehouses { get; set; } = new SvenTechCollection<Warehouse>();
+        public Warehouse SelectedWarehouse { get; set; }
+        public Stockyard SelectedStockyard { get; set; }
         public User ActualUser { get { return Globals.ActualUser; } }
 
         #endregion Properties

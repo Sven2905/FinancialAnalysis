@@ -22,6 +22,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public HealthInsuranceViewModel()
         {
+            if (IsInDesignMode)
+                return;
+
             HealthInsurances = LoadAllHealthInsurances();
             NewHealthInsuranceCommand = new DelegateCommand(NewHealthInsurance);
             SaveHealthInsuranceCommand = new DelegateCommand(SaveUser, () => Validation());
@@ -33,10 +36,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<HealthInsurance> allHealthInsurances = new SvenTechCollection<HealthInsurance>();
             try
             {
-                using (var db = new DataLayer())
-                {
-                    allHealthInsurances = db.HealthInsurances.GetAll().ToSvenTechCollection();
-                }
+                    allHealthInsurances = DataLayer.Instance.HealthInsurances.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -68,12 +68,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.HealthInsurances.Delete(SelectedHealthInsurance.HealthInsuranceId);
+                    DataLayer.Instance.HealthInsurances.Delete(SelectedHealthInsurance.HealthInsuranceId);
                     HealthInsurances.Remove(SelectedHealthInsurance);
                     SelectedHealthInsurance = null;
-                }
             }
             catch (System.Exception ex)
             {
@@ -86,19 +83,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedHealthInsurance.HealthInsuranceId != 0)
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.HealthInsurances.Update(SelectedHealthInsurance);
-                    }
-                }
+                        DataLayer.Instance.HealthInsurances.Update(SelectedHealthInsurance);
                 else
-                {
-                    using (var db = new DataLayer())
-                    {
-                        SelectedHealthInsurance.HealthInsuranceId = db.HealthInsurances.Insert(SelectedHealthInsurance);
-                    }
-                }
+                        SelectedHealthInsurance.HealthInsuranceId = DataLayer.Instance.HealthInsurances.Insert(SelectedHealthInsurance);
             }
             catch (System.Exception ex)
             {

@@ -81,7 +81,8 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetByRefWarehouseId] @RefWarehouseId int AS BEGIN SET NOCOUNT ON; SELECT StockyardId, Name, RefWarehouseId " +
+                    $"CREATE PROCEDURE [{TableName}_GetByRefWarehouseId] @RefWarehouseId int AS BEGIN SET NOCOUNT ON; " +
+                    $"SELECT StockyardId, Name, RefWarehouseId " +
                     $"FROM {TableName} " +
                     "WHERE RefWarehouseId = @RefWarehouseId END");
                 using (var connection =

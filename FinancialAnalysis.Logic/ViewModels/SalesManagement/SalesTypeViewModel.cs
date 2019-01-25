@@ -25,9 +25,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public SalesTypeViewModel()
         {
             if (IsInDesignMode)
-            {
                 return;
-            }
 
             _SalesTypes = LoadAllSalesTypes();
             NewSalesTypeCommand = new DelegateCommand(NewSalesType);
@@ -44,10 +42,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<SalesType> allSalesTypes = new SvenTechCollection<SalesType>();
             try
             {
-                using (var db = new DataLayer())
-                {
-                    allSalesTypes = db.SalesTypes.GetAll().ToSvenTechCollection();
-                }
+                allSalesTypes = DataLayer.Instance.SalesTypes.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -79,12 +74,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.SalesTypes.Delete(SelectedSalesType.SalesTypeId);
-                    _SalesTypes.Remove(SelectedSalesType);
-                    SelectedSalesType = null;
-                }
+                DataLayer.Instance.SalesTypes.Delete(SelectedSalesType.SalesTypeId);
+                _SalesTypes.Remove(SelectedSalesType);
+                SelectedSalesType = null;
             }
             catch (System.Exception ex)
             {
@@ -97,19 +89,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedSalesType.SalesTypeId != 0)
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.SalesTypes.Update(SelectedSalesType);
-                    }
-                }
+                    DataLayer.Instance.SalesTypes.Update(SelectedSalesType);
                 else
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.SalesTypes.Insert(SelectedSalesType);
-                    }
-                }
+                    DataLayer.Instance.SalesTypes.Insert(SelectedSalesType);
             }
             catch (System.Exception ex)
             {

@@ -15,6 +15,9 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         public ProjectWorkingTimeViewModel()
         {
+            if (IsInDesignMode)
+                return;
+
             LoadData();
             SaveProjectWorkingTimeCommand = new DelegateCommand(SaveSaveProjectWorkingTime, () => Validation());
         }
@@ -23,10 +26,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.ProjectWorkingTimes.Insert(ProjectWorkingTime);
-                }
+                DataLayer.Instance.ProjectWorkingTimes.Insert(ProjectWorkingTime);
             }
             catch (System.Exception ex)
             {
@@ -45,10 +45,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    Employees = db.Employees.GetAll().ToSvenTechCollection();
-                }
+                Employees = DataLayer.Instance.Employees.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -60,10 +57,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    Projects = db.Projects.GetAll().ToSvenTechCollection();
-                }
+                Projects = DataLayer.Instance.Projects.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -75,10 +69,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    ProjectWorkingTimes = db.ProjectWorkingTimes.GetAll().ToSvenTechCollection();
-                }
+                ProjectWorkingTimes = DataLayer.Instance.ProjectWorkingTimes.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -89,7 +80,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private bool Validation()
         {
             if (ProjectWorkingTime.RefEmployeeId == 0 || ProjectWorkingTime.RefProjectId == 0 || ProjectWorkingTime.StartTime == ProjectWorkingTime.EndTime)
-            {    
+            {
                 return false;
             }
 

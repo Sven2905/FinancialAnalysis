@@ -39,41 +39,5 @@ namespace FinancialAnalysis.Logic
 
             return new SvenTechCollection<CostAccountCategory>(categories);
         }
-
-        public static void GrantPermission(this User user, Permission permission)
-        {
-            using (var db = new DataLayer())
-            {
-                var right = UserManager.Instance.UserRights.Single(x => x.Permission == permission);
-                var tempUserRightUserMapping = user.UserRightUserMappings.SingleOrDefault(x => x.RefUserRightId == right.UserRightId);
-                if (tempUserRightUserMapping != null)
-                {
-                    tempUserRightUserMapping.IsGranted = true;
-                    db.UserRightUserMappings.UpdateOrInsert(tempUserRightUserMapping);
-                }
-                else
-                {
-                    db.UserRightUserMappings.UpdateOrInsert(new UserRightUserMapping(user.UserId, right.UserRightId, true));
-                }
-            }
-        }
-
-        public static void RevokePermission(this User user, Permission permission)
-        {
-            using (var db = new DataLayer())
-            {
-                var right = UserManager.Instance.UserRights.Single(x => x.Permission == permission);
-                var tempUserRightUserMapping = user.UserRightUserMappings.SingleOrDefault(x => x.RefUserRightId == right.UserRightId);
-                if (tempUserRightUserMapping != null)
-                {
-                    tempUserRightUserMapping.IsGranted = false;
-                    db.UserRightUserMappings.UpdateOrInsert(tempUserRightUserMapping);
-                }
-                else
-                {
-                    db.UserRightUserMappings.UpdateOrInsert(new UserRightUserMapping(user.UserId, right.UserRightId, false));
-                }
-            }
-        }
     }
 }

@@ -25,9 +25,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public InvoiceTypeViewModel()
         {
             if (IsInDesignMode)
-            {
                 return;
-            }
 
             _InvoiceTypes = LoadAllInvoiceTypes();
             NewInvoiceTypeCommand = new DelegateCommand(NewInvoiceType);
@@ -44,10 +42,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<InvoiceType> allInvoiceTypes = new SvenTechCollection<InvoiceType>();
             try
             {
-                using (var db = new DataLayer())
-                {
-                    allInvoiceTypes = db.InvoiceTypes.GetAll().ToSvenTechCollection();
-                }
+                allInvoiceTypes = DataLayer.Instance.InvoiceTypes.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -79,12 +74,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.InvoiceTypes.Delete(SelectedInvoiceType.InvoiceTypeId);
-                    _InvoiceTypes.Remove(SelectedInvoiceType);
-                    SelectedInvoiceType = null;
-                }
+                DataLayer.Instance.InvoiceTypes.Delete(SelectedInvoiceType.InvoiceTypeId);
+                _InvoiceTypes.Remove(SelectedInvoiceType);
+                SelectedInvoiceType = null;
             }
             catch (System.Exception ex)
             {
@@ -97,19 +89,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedInvoiceType.InvoiceTypeId != 0)
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.InvoiceTypes.Update(SelectedInvoiceType);
-                    }
-                }
+                    DataLayer.Instance.InvoiceTypes.Update(SelectedInvoiceType);
                 else
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.InvoiceTypes.Insert(SelectedInvoiceType);
-                    }
-                }
+                    DataLayer.Instance.InvoiceTypes.Insert(SelectedInvoiceType);
             }
             catch (System.Exception ex)
             {

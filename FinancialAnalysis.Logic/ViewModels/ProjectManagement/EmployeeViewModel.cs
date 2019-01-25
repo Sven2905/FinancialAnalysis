@@ -15,6 +15,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public EmployeeViewModel()
         {
+            if (IsInDesignMode)
+                return;
+
             LoadEmployees();
             LoadHealthInsurances();
             NewUserCommand = new DelegateCommand(NewUser);
@@ -94,12 +97,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.Employees.Delete(SelectedEmployee.EmployeeId);
+                    DataLayer.Instance.Employees.Delete(SelectedEmployee.EmployeeId);
                     Employees.Remove(SelectedEmployee);
                     SelectedEmployee = null;
-                }
             }
             catch (System.Exception ex)
             {
@@ -111,17 +111,10 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
                     if (SelectedEmployee.EmployeeId == 0)
-                    {
-                        SelectedEmployee.EmployeeId = db.Employees.Insert(SelectedEmployee);
-                    }
+                        SelectedEmployee.EmployeeId = DataLayer.Instance.Employees.Insert(SelectedEmployee);
                     else
-                    {
-                        db.Employees.Update(SelectedEmployee);
-                    }
-                }
+                        DataLayer.Instance.Employees.Update(SelectedEmployee);
             }
             catch (System.Exception ex)
             {
@@ -133,10 +126,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    Employees = db.Employees.GetAll().ToSvenTechCollection();
-                }
+                    Employees = DataLayer.Instance.Employees.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -148,10 +138,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                using (var db = new DataLayer())
-                {
-                    HealthInsurances = db.HealthInsurances.GetAll().ToSvenTechCollection();
-                }
+                    HealthInsurances = DataLayer.Instance.HealthInsurances.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {

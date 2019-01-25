@@ -40,10 +40,7 @@ namespace FinancialAnalysis.Logic
             SvenTechCollection<User> allUsers = new SvenTechCollection<User>();
             try
             {
-                using (var db = new DataLayer())
-                {
-                    allUsers = db.Users.GetAll().ToSvenTechCollection();
-                }
+                allUsers = DataLayer.Instance.Users.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -74,12 +71,8 @@ namespace FinancialAnalysis.Logic
 
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.Users.Delete(user.UserId);
-                }
+                DataLayer.Instance.Users.Delete(user.UserId);
                 Users.Remove(user);
-
             }
             catch (Exception ex)
             {
@@ -103,10 +96,7 @@ namespace FinancialAnalysis.Logic
                 {
                     if (!string.IsNullOrEmpty(user.Password))
                     {
-                        using (var db = new DataLayer())
-                        {
-                            db.Users.UpdatePassword(user);
-                        }
+                        DataLayer.Instance.Users.UpdatePassword(user);
                     }
                 }
                 else
@@ -116,13 +106,8 @@ namespace FinancialAnalysis.Logic
                         throw new ArgumentException("Password is not set!");
                     }
                 }
-                using (var db = new DataLayer())
-                {
-                    user = db.Users.UpdateOrInsert(user);
-                    db.UserRightUserMappings.UpdateOrInsert(user.UserRightUserMappings);
-                }
-
-                Users.Add(user);
+                user = DataLayer.Instance.Users.UpdateOrInsert(user);
+                DataLayer.Instance.UserRightUserMappings.UpdateOrInsert(user.UserRightUserMappings);
             }
             catch (System.Exception ex)
             {
@@ -179,22 +164,44 @@ namespace FinancialAnalysis.Logic
         /// <returns></returns>
         public User GetUserByNameAndPassword(string name, string password)
         {
-            User user;
             password = Encryption.ComputeHash(password, new SHA256CryptoServiceProvider(), new byte[] { 0x6c, 0xa6, 0x27, 0x0d, 0x62, 0xd4, 0x80, 0xc7, 0x50, 0xc9, 0x93, 0xef, 0xfb, 0x64, 0x90, 0x16, 0x7d, 0xc7, 0x1d, 0x6f, 0xb0, 0xe3, 0x80, 0xdc, 0x73 });
-
-            using (var db = new DataLayer())
-            {
-                user = db.Users.GetUserByNameAndPassword(name, password);
-            }
+            User user = DataLayer.Instance.Users.GetUserByNameAndPassword(name, password);
 
             return user;
         }
 
         private List<UserRight> LoadUserRightsFromDB()
         {
-            using (var db = new DataLayer())
+            return DataLayer.Instance.UserRights.GetAll();
+        }
+
+        public void GrantPermission(User user, Permission permission)
+        {
+            var right = Instance.UserRights.Single(x => x.Permission == permission);
+            var tempUserRightUserMapping = user.UserRightUserMappings.SingleOrDefault(x => x.RefUserRightId == right.UserRightId);
+            if (tempUserRightUserMapping != null)
             {
-                return db.UserRights.GetAll();
+                tempUserRightUserMapping.IsGranted = true;
+                DataLayer.Instance.UserRightUserMappings.UpdateOrInsert(tempUserRightUserMapping);
+            }
+            else
+            {
+                DataLayer.Instance.UserRightUserMappings.UpdateOrInsert(new UserRightUserMapping(user.UserId, right.UserRightId, true));
+            }
+        }
+
+        public void RevokePermission(User user, Permission permission)
+        {
+            var right = Instance.UserRights.Single(x => x.Permission == permission);
+            var tempUserRightUserMapping = user.UserRightUserMappings.SingleOrDefault(x => x.RefUserRightId == right.UserRightId);
+            if (tempUserRightUserMapping != null)
+            {
+                tempUserRightUserMapping.IsGranted = false;
+                DataLayer.Instance.UserRightUserMappings.UpdateOrInsert(tempUserRightUserMapping);
+            }
+            else
+            {
+                DataLayer.Instance.UserRightUserMappings.UpdateOrInsert(new UserRightUserMapping(user.UserId, right.UserRightId, false));
             }
         }
 

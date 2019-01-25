@@ -25,9 +25,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public ProductViewModel()
         {
             if (IsInDesignMode)
-            {
                 return;
-            }
 
             _Products = LoadAllProducts();
             ProductCategories = LoadAllProductCategories();
@@ -45,10 +43,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<Product> allProducts = new SvenTechCollection<Product>();
             try
             {
-                using (var db = new DataLayer())
-                {
-                    allProducts = db.Products.GetAll().ToSvenTechCollection();
-                }
+                    allProducts = DataLayer.Instance.Products.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -63,10 +58,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<ProductCategory> allProductCategories = new SvenTechCollection<ProductCategory>();
             try
             {
-                using (var db = new DataLayer())
-                {
-                    allProductCategories = db.ProductCategories.GetAll().ToSvenTechCollection();
-                }
+                    allProductCategories = DataLayer.Instance.ProductCategories.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -98,12 +90,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                using (var db = new DataLayer())
-                {
-                    db.Products.Delete(SelectedProduct.ProductId);
+                    DataLayer.Instance.Products.Delete(SelectedProduct.ProductId);
                     _Products.Remove(SelectedProduct);
                     SelectedProduct = null;
-                }
             }
             catch (System.Exception ex)
             {
@@ -116,19 +105,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedProduct.ProductId != 0)
-                {
-                    using (var db = new DataLayer())
-                    {
-                        db.Products.Update(SelectedProduct);
-                    }
-                }
+                        DataLayer.Instance.Products.Update(SelectedProduct);
                 else
-                {
-                    using (var db = new DataLayer())
-                    {
-                        SelectedProduct.ProductId = db.Products.Insert(SelectedProduct);
-                    }
-                }
+                        SelectedProduct.ProductId = DataLayer.Instance.Products.Insert(SelectedProduct);
             }
             catch (System.Exception ex)
             {

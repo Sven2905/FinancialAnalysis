@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
+using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Accounting;
 using Utilities;
 
@@ -14,6 +15,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public CostAccountViewModel()
         {
+            if (IsInDesignMode)
+                return;
+
             RefreshLists();
         }
 
@@ -24,7 +28,6 @@ namespace FinancialAnalysis.Logic.ViewModels
         private SvenTechCollection<CostAccount> _CostAccounts = new SvenTechCollection<CostAccount>();
         private CostAccountCategory _SelectedCategory;
         private CostAccount _SelectedCostAccount;
-        private readonly DataLayer db = new DataLayer();
 
         #endregion Fields
 
@@ -32,11 +35,17 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public void RefreshLists()
         {
-            CostAccountCategories = db.CostAccountCategories.GetAll().ToSvenTechCollection();
-            CostAccountCategoriesHierachical = CostAccountCategories.ToHierachicalCollection<CostAccountCategory>()
-                .ToSvenTechCollection();
-            TaxTypes = db.TaxTypes.GetAll().ToSvenTechCollection();
-            _CostAccounts = db.CostAccounts.GetAll().ToSvenTechCollection();
+            try
+            {
+                CostAccountCategories = DataLayer.Instance.CostAccountCategories.GetAll().ToSvenTechCollection();
+                CostAccountCategoriesHierachical = CostAccountCategories.ToHierachicalCollection<CostAccountCategory>().ToSvenTechCollection();
+                TaxTypes = DataLayer.Instance.TaxTypes.GetAll().ToSvenTechCollection();
+                _CostAccounts = DataLayer.Instance.CostAccounts.GetAll().ToSvenTechCollection();
+            }
+            catch (System.Exception ex)
+            {
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+            }
         }
 
         private void FilterCostAccounts()
@@ -83,7 +92,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void _SelectedCostAccount_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            db.CostAccounts.Update(SelectedCostAccount);
+            DataLayer.Instance.CostAccounts.Update(SelectedCostAccount);
         }
 
         public SvenTechCollection<CostAccountCategory> CostAccountCategoriesHierachical { get; set; }

@@ -12,6 +12,9 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         public TaxTypeViewModel()
         {
+            if (IsInDesignMode)
+                return;
+
             RowUpdatedCommand = new DelegateCommand<RowEventArgs>(AddNewItem);
             DeleteFocusedRowCommand = new DelegateCommand(DeleteItem);
             RefreshCommand = new DelegateCommand(RefreshList);
@@ -26,9 +29,8 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void AddNewItem(RowEventArgs e)
         {
-            var db = new DataLayer();
             var newItem = (TaxType) e.Row;
-            db.TaxTypes.UpdateOrInsert(newItem);
+            DataLayer.Instance.TaxTypes.UpdateOrInsert(newItem);
         }
 
         private void DeleteItem()
@@ -36,15 +38,13 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (SelectedItem is null)
                 return;
 
-            var db = new DataLayer();
-            db.TaxTypes.Delete(SelectedItem);
+            DataLayer.Instance.TaxTypes.Delete(SelectedItem);
             TaxTypes.Remove(SelectedItem);
         }
 
         private void RefreshList()
         {
-            var db = new DataLayer();
-            TaxTypes = db.TaxTypes.GetAll().ToOberservableCollection();
+            TaxTypes = DataLayer.Instance.TaxTypes.GetAll().ToOberservableCollection();
         }
     }
 }
