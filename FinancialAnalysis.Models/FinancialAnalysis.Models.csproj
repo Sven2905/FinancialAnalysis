@@ -103,6 +103,7 @@
     <Compile Include="SalesManagement\Shipment.cs" />
     <Compile Include="SalesManagement\ShipmentType.cs" />
     <Compile Include="UnitOfMeasure.cs" />
+    <Compile Include="WarehouseManagement\StockedProduct.cs" />
     <Compile Include="WarehouseManagement\Stockyard.cs" />
     <Compile Include="WarehouseManagement\Warehouse.cs" />
     <Compile Include="WarehouseManagement\WarehouseBookingHistoryItem.cs" />

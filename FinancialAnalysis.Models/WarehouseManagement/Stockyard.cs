@@ -9,6 +9,6 @@ namespace FinancialAnalysis.Models.WarehouseManagement
         public int StockyardId { get; set; }
         public string Name { get; set; }
         public int RefWarehouseId { get; set; }
-        public List<Product> Products { get; set; }
+        public List<StockedProduct> StockedProducts { get; set; }
     }
 }

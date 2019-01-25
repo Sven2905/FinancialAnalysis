@@ -160,8 +160,10 @@
     <Compile Include="Accounting\Tables\ScannedDocuments.cs" />
     <Compile Include="Tables\TableVersions.cs" />
     <Compile Include="Accounting\Tables\TaxTypes.cs" />
+    <Compile Include="WarehouseManagement\StoredProcedures\StockedProductsStoredProcedures.cs" />
     <Compile Include="WarehouseManagement\StoredProcedures\StockyardsStoredProcedures.cs" />
     <Compile Include="WarehouseManagement\StoredProcedures\WarehousesStoredProcedures.cs" />
+    <Compile Include="WarehouseManagement\Tables\StockedProducts.cs" />
     <Compile Include="WarehouseManagement\Tables\Stockyards.cs" />
     <Compile Include="WarehouseManagement\Tables\Warehouses.cs" />
   </ItemGroup>

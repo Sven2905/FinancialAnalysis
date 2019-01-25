@@ -1,0 +1,73 @@
+﻿<UserControl xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxwuin="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/navigation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
+             xmlns:lc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
+             x:Class="FinancialAnalysis.UserControls.ProductManagementControl"
+             mc:Ignorable="d"
+             dx:ThemeManager.ThemeName="Office2016WhiteSE"
+             d:DesignHeight="900" d:DesignWidth="1600">
+    <UserControl.DataContext>
+        <ViewModels:ProductManagementViewModel />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="100" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <dxwui:PageAdornerControl Grid.ColumnSpan="3" Header="Produktverwaltung" Grid.Row="0" Foreground="#3F729B" FontFamily="Tahoma">
+            <dxwui:PageAdornerControl.HeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <ContentPresenter Content="{Binding}" />
+                    </Grid>
+                </DataTemplate>
+            </dxwui:PageAdornerControl.HeaderTemplate>
+        </dxwui:PageAdornerControl>
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Margin="0,0,0,0" Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
+                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
+                                 Content="Produktkategorien" HorizontalContentAlignment="Center" HorizontalAlignment="Center" dxwuin:Navigation.NavigateTo="ProductCategoryControl" FontFamily="Tahoma"
+                                 VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2"
+                                 Visibility="{Binding Path=ShowProductCategories, Converter={StaticResource BoolToVis}}">
+                    <dx:SimpleButton.Glyph>
+                        <dx:SvgImageSource Uri="/Images/light/Boxes.svg" Size="100,100" />
+                    </dx:SimpleButton.Glyph>
+                </dx:SimpleButton>
+                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
+                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
+                                 Content="Produkte" HorizontalContentAlignment="Center" HorizontalAlignment="Center" dxwuin:Navigation.NavigateTo="ProductControl" FontFamily="Tahoma"
+                                 VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2"
+                                 Visibility="{Binding Path=ShowProducts, Converter={StaticResource BoolToVis}}">
+                    <dx:SimpleButton.Glyph>
+                        <dx:SvgImageSource Uri="/Images/light/Box.svg" Size="100,100" />
+                    </dx:SimpleButton.Glyph>
+                </dx:SimpleButton>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

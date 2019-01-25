@@ -10,6 +10,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         #region UserRights
         public bool ShowAccounting { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessAccounting) || Globals.ActualUser.IsAdministrator; } }
         public bool ShowProjectManagement { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessProjectManagement) || Globals.ActualUser.IsAdministrator; } }
+        public bool ShowProductManagement { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessProductManagement) || Globals.ActualUser.IsAdministrator; } }
         public bool ShowWarehouseManagement { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessWarehouseManagement) || Globals.ActualUser.IsAdministrator; } }
         public bool ShowConfiguration { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessConfiguration) || Globals.ActualUser.IsAdministrator; } }
         #endregion UserRights

@@ -119,6 +119,7 @@
     <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="ViewModels\Accounting\KontenrahmenViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\ProductManagement\ProductManagementViewModel.cs" />
     <Compile Include="ViewModels\PurchaseManagement\PurchaseTypeViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\SalesTypeViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\ShipmentTypeViewModel.cs" />
