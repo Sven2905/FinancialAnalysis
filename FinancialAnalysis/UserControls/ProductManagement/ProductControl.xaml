@@ -146,7 +146,7 @@
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Beschreibung" FontFamily="Tahoma" >
-                                    <dxe:TextEdit TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" VerticalContentAlignment="Top" Text="{Binding SelectedProduct.Description}" Height="150" FontFamily="Tahoma" />
+                                    <dxe:TextEdit TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" VerticalContentAlignment="Top" Text="{Binding SelectedProduct.Description, UpdateSourceTrigger=PropertyChanged}" Height="150" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
@@ -172,12 +172,12 @@
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Einkaufspreis" FontFamily="Tahoma" >
-                                    <dxe:TextEdit Text="{Binding SelectedProduct.BuyingPrice}" FontFamily="Tahoma" Mask="C" MaskType="Numeric" DisplayFormatString="C2" />
+                                    <dxe:TextEdit Text="{Binding SelectedProduct.DefaultBuyingPrice}" FontFamily="Tahoma" Mask="C" MaskType="Numeric" DisplayFormatString="C2" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Verkaufspreis" FontFamily="Tahoma" >
-                                    <dxe:TextEdit Text="{Binding SelectedProduct.SalePrice}" FontFamily="Tahoma" Mask="C" MaskType="Numeric" DisplayFormatString="C2" />
+                                    <dxe:TextEdit Text="{Binding SelectedProduct.DefaultSellingPrice}" FontFamily="Tahoma" Mask="C" MaskType="Numeric" DisplayFormatString="C2" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>

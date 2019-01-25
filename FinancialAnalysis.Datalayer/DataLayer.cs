@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using FinancialAnalysis.Datalayer.Accounting;
+﻿using FinancialAnalysis.Datalayer.Accounting;
 using FinancialAnalysis.Datalayer.Administration;
 using FinancialAnalysis.Datalayer.Configurations;
 using FinancialAnalysis.Datalayer.ProductManagement;
@@ -11,6 +9,9 @@ using FinancialAnalysis.Datalayer.Tables;
 using FinancialAnalysis.Datalayer.WarehouseManagement;
 using FinancialAnalysis.Logic;
 using FinancialAnalysis.Models;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Datalayer
 {
@@ -68,14 +69,12 @@ namespace FinancialAnalysis.Datalayer
 
         public void CreateDatabaseSchema()
         {
-            //if (TableVersions.GetById(1) == null || TableVersions.GetById(1).Version != 1)
-            //{
             CheckAndCreateStoredProcedures();
-            Seed();
-            AddReferences();
-
-            //TableVersions.Insert(new Models.TableVersion() { Name = "Alpha", Version = 1, LastModified = DateTime.Now });
-            //}
+            Task.Run(() =>
+            {
+                Seed();
+                AddReferences();
+            });
         }
 
         private void CheckAndCreateStoredProcedures()

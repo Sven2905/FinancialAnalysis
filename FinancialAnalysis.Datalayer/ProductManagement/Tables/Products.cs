@@ -40,7 +40,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                     "DimensionX int, " +
                     "DimensionY int, " +
                     "DimensionZ int, " +
-                    "Weight decimal, " +
+                    "Weight real, " +
                     "IsStackable bit, " +
                     "Picture varbinary(MAX), " +
                     "PackageUnit int, " +
