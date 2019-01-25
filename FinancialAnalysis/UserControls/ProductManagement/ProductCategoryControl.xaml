@@ -135,12 +135,12 @@
                         </dxlc:LayoutGroup.Header>
                         <dxlc:LayoutGroup>
                             <dxlc:LayoutItem Label="Name" FontFamily="Tahoma" >
-                                <dxe:TextEdit Text="{Binding SelectedProductCategory.Name}" FontFamily="Tahoma" />
+                                <dxe:TextEdit Text="{Binding SelectedProductCategory.Name, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>
                             <dxlc:LayoutItem Label="Beschreibung" FontFamily="Tahoma" >
-                                <dxe:TextEdit TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" VerticalContentAlignment="Top" Text="{Binding SelectedProductCategory.Description}" Height="150" FontFamily="Tahoma" />
+                                <dxe:TextEdit TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" VerticalContentAlignment="Top" Text="{Binding SelectedProductCategory.Description, UpdateSourceTrigger=PropertyChanged}" Height="150" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                     </dxlc:LayoutGroup>

@@ -43,8 +43,8 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                                 "IsStackable, " +
                                 "Picture, " +
                                 "PackageUnit, " +
-                                "BuyingPrice, " +
-                                "SalePrice, " +
+                                "DefaultBuyingPrice, " +
+                                "DefaultSellingPrice, " +
                                 "RefProductCategoryId " +
                                 $"FROM {TableName} " +
                                 "END");
@@ -69,9 +69,9 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150), @Barcode nvarchar(150), @DimensionX decimal, @DimensionY decimal, @DimensionZ decimal, @Weight decimal, @IsStackable bit, @Picture varbinary(MAX), @PackageUnit int, @BuyingPrice money, @SalePrice money, @RefProductCategoryId int AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, Description, Barcode, DimensionX, DimensionY, DimensionZ, Weight, IsStackable, Picture, PackageUnit, BuyingPrice, SalePrice, RefProductCategoryId) " +
-                    "VALUES (@Name, @Description, @Barcode, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @BuyingPrice, @SalePrice, @RefProductCategoryId); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150), @Barcode nvarchar(150), @DimensionX decimal, @DimensionY decimal, @DimensionZ decimal, @Weight decimal, @IsStackable bit, @Picture varbinary(MAX), @PackageUnit int, @DefaultBuyingPrice money, @DefaultSellingPrice money, @RefProductCategoryId int AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Name, Description, Barcode, DimensionX, DimensionY, DimensionZ, Weight, IsStackable, Picture, PackageUnit, DefaultBuyingPrice, DefaultSellingPrice, RefProductCategoryId) " +
+                    "VALUES (@Name, @Description, @Barcode, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @DefaultBuyingPrice, @DefaultSellingPrice, @RefProductCategoryId); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -118,7 +118,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @ProductId int, @Name nvarchar(150), @Description nvarchar(150), @Barcode nvarchar(150), @DimensionX decimal, @DimensionY decimal, @DimensionZ decimal, @Weight decimal, @IsStackable bit, @Picture varbinary(MAX), @PackageUnit int, @BuyingPrice money, @SalePrice money, @RefProductCategoryId int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @ProductId int, @Name nvarchar(150), @Description nvarchar(150), @Barcode nvarchar(150), @DimensionX decimal, @DimensionY decimal, @DimensionZ decimal, @Weight decimal, @IsStackable bit, @Picture varbinary(MAX), @PackageUnit int, @DefaultBuyingPrice money, @DefaultSellingPrice money, @RefProductCategoryId int " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "SET Name = @Name, " +
@@ -131,8 +131,8 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                     "IsStackable = @IsStackable, " +
                     "Picture = @Picture, " +
                     "PackageUnit = @PackageUnit, " +
-                    "BuyingPrice = @BuyingPrice, " +
-                    "SalePrice = @SalePrice, " +
+                    "DefaultBuyingPrice = @DefaultBuyingPrice, " +
+                    "DefaultSellingPrice = @DefaultSellingPrice, " +
                     "RefProductCategoryId = @RefProductCategoryId " +
                     "WHERE ProductId = @ProductId END");
                 using (var connection =

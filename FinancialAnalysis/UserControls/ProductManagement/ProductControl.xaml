@@ -136,7 +136,7 @@
                             </dxlc:LayoutGroup.Header>
                             <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Name" FontFamily="Tahoma" >
-                                    <dxe:TextEdit Text="{Binding SelectedProduct.Name}" FontFamily="Tahoma" />
+                                    <dxe:TextEdit Text="{Binding SelectedProduct.Name, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>

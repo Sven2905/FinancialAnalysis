@@ -51,7 +51,7 @@
             <StackPanel Orientation="Horizontal">
                 <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
                                  VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
-                                 Content="Produktkategorien" HorizontalContentAlignment="Center" HorizontalAlignment="Center" dxwuin:Navigation.NavigateTo="ProductCategoryControl" FontFamily="Tahoma"
+                                 Content="Produktkategorie" HorizontalContentAlignment="Center" HorizontalAlignment="Center" dxwuin:Navigation.NavigateTo="ProductCategoryControl" FontFamily="Tahoma"
                                  VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2"
                                  Visibility="{Binding Path=ShowProductCategories, Converter={StaticResource BoolToVis}}">
                     <dx:SimpleButton.Glyph>

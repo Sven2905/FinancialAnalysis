@@ -44,8 +44,8 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                     "IsStackable bit, " +
                     "Picture varbinary(MAX), " +
                     "PackageUnit int, " +
-                    "BuyingPrice money, " +
-                    "SalePrice money, " +
+                    "DefaultBuyingPrice money, " +
+                    "DefaultSellingPrice money, " +
                     "RefProductCategoryId int NOT NULL)";
 
                 using (var command = new SqlCommand(commandStr, con))
@@ -104,7 +104,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Name, @Description, @Barcode, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @BuyingPrice, @SalePrice, @RefProductCategoryId",
+                            $"dbo.{TableName}_Insert @Name, @Description, @Barcode, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @DefaultBuyingPrice, @DefaultSellingPrice, @RefProductCategoryId",
                             Product);
                     id = result.Single();
                 }
@@ -205,7 +205,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @ProductId, @Name, @Description, @Barcode, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @BuyingPrice, @SalePrice, @RefProductCategoryId", Product);
+                    con.Execute($"dbo.{TableName}_Update @ProductId, @Name, @Description, @Barcode, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @DefaultBuyingPrice, @DefaultSellingPrice, @RefProductCategoryId", Product);
                 }
             }
             catch (Exception e)
