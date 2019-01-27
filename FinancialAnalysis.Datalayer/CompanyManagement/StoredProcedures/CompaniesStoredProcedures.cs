@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.StoredProcedures
+namespace FinancialAnalysis.Datalayer.CompanyManagement
 {
     internal class CompaniesStoredProcedures : IStoredProcedures
     {
@@ -30,8 +30,9 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT CompanyId, Name, Street, Postcode, City, ContactPerson, UStID, TaxNumber, Phone, Fax, eMail, Website, IBAN, BIC, BankName, FederalState " +
+                                "SELECT CompanyId, Name, Street, Postcode, City, ContactPerson, UStID, TaxNumber, Phone, Fax, eMail, Website, IBAN, BIC, BankName, FederalState, CEO, Logo " +
                                 $"FROM {TableName} " +
+                                $"WHERE CompanyId > 1" +
                                 "ORDER BY Name END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -54,9 +55,9 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_Insert] " +
-                                "@Name nvarchar(50), @Street nvarchar(50), @Postcode int, @City nvarchar(50), @ContactPerson nvarchar(50), @UStID nvarchar(50), @TaxNumber nvarchar(50), @Phone nvarchar(50), @Fax nvarchar(50), @eMail nvarchar(50), @Website nvarchar(50), @IBAN nvarchar(50), @BIC nvarchar(50), @BankName nvarchar(50), @FederalState int " +
-                                $"AS BEGIN SET NOCOUNT ON; INSERT into {TableName} (Name,Street,Postcode,City,ContactPerson,UStID,TaxNumber,Phone,Fax,eMail,Website,IBAN,BIC,BankName,FederalState) " +
-                                "VALUES (@Name,@Street,@Postcode,@City,@ContactPerson,@UStID,@TaxNumber,@Phone,@Fax,@eMail,@Website,@IBAN,@BIC,@BankName,@FederalState); " +
+                                "@Name nvarchar(50), @Street nvarchar(50), @Postcode int, @City nvarchar(50), @ContactPerson nvarchar(50), @UStID nvarchar(50), @TaxNumber nvarchar(50), @Phone nvarchar(50), @Fax nvarchar(50), @eMail nvarchar(50), @Website nvarchar(50), @IBAN nvarchar(50), @BIC nvarchar(50), @BankName nvarchar(50), @FederalState int, @CEO nvarchar(150), @Logo varbinary(MAX) " +
+                                $"AS BEGIN SET NOCOUNT ON; INSERT into {TableName} (Name, Street, Postcode, City, ContactPerson, UStID, TaxNumber, Phone, Fax, eMail, Website, IBAN, BIC, BankName, FederalState, CEO, Logo) " +
+                                "VALUES (@Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState, @CEO, @Logo); " +
                                 "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -101,7 +102,7 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @CompanyId int, @Name nvarchar(50), @Street nvarchar(50), @Postcode int, @City nvarchar(50), @ContactPerson nvarchar(50), @UStID nvarchar(50), @TaxNumber nvarchar(50), @Phone nvarchar(50), @Fax nvarchar(50), @eMail nvarchar(50), @Website nvarchar(50), @IBAN nvarchar(50), @BIC nvarchar(50), @BankName nvarchar(50), @FederalState int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @CompanyId int, @Name nvarchar(50), @Street nvarchar(50), @Postcode int, @City nvarchar(50), @ContactPerson nvarchar(50), @UStID nvarchar(50), @TaxNumber nvarchar(50), @Phone nvarchar(50), @Fax nvarchar(50), @eMail nvarchar(50), @Website nvarchar(50), @IBAN nvarchar(50), @BIC nvarchar(50), @BankName nvarchar(50), @FederalState int, @CEO nvarchar(150), @Logo varbinary(MAX)  " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} SET " +
                     "Name = @Name, " +
@@ -118,6 +119,8 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                     "IBAN = @IBAN, " +
                     "BIC = @BIC, " +
                     "BankName = @BankName, " +
+                    "CEO = @CEO, " +
+                    "Logo = @Logo, " +
                     "FederalState = @FederalState " +
                     "WHERE CompanyId = @CompanyId END");
                 using (var connection =
@@ -141,7 +144,8 @@ namespace FinancialAnalysis.Datalayer.StoredProcedures
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @CompanyId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE CompanyId = @CompanyId END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @CompanyId int AS BEGIN SET NOCOUNT ON; " +
+                    $"DELETE FROM {TableName} WHERE CompanyId = @CompanyId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

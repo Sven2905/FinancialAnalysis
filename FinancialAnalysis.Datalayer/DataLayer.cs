@@ -1,5 +1,6 @@
 ﻿using FinancialAnalysis.Datalayer.Accounting;
 using FinancialAnalysis.Datalayer.Administration;
+using FinancialAnalysis.Datalayer.CompanyManagement;
 using FinancialAnalysis.Datalayer.Configurations;
 using FinancialAnalysis.Datalayer.ProductManagement;
 using FinancialAnalysis.Datalayer.ProjectManagement;
@@ -156,7 +157,8 @@ namespace FinancialAnalysis.Datalayer
             {
                 var _Import = new Import();
                 _Import.ImportCostAccounts(Standardkontenrahmen.SKR03);
-                Instance.TaxTypes.Seed();
+                _Import.SeedTaxTypes();
+                _Import.SeedCompany();
             }
         }
     }

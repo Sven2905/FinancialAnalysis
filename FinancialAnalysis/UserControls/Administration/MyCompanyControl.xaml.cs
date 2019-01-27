@@ -3,11 +3,11 @@
 namespace FinancialAnalysis.UserControls
 {
     /// <summary>
-    ///     Interaktionslogik für ProductCategoryControl.xaml
+    ///     Interaktionslogik für MyCompanyControl.xaml
     /// </summary>
-    public partial class ProductCategoryControl : UserControl
+    public partial class MyCompanyControl : UserControl
     {
-        public ProductCategoryControl()
+        public MyCompanyControl()
         {
             InitializeComponent();
         }

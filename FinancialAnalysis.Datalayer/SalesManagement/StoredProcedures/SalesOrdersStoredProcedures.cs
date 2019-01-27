@@ -39,7 +39,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     "sh.ShipmentId, sh.ShipmentNumber, sh.RefSalesOrderId, sh.ShipmentDate, sh.ShipmentTypeId, " +
                     "d.DebitorId, d.RefCompanyId, d.RefCostAccountId, " +
                     "sop.SalesOrderPositionId, sop.RefSalesOrderId, sop.RefProductId, sop.RefTaxTypeId, sop.Description, sop.Quantity, sop.Price, sop.DiscountPercentage, sop.IsDelivered, sop.IsCanceled , " +
-                    "p.ProductId, p.Name, p.Description, p.Barcode, p.DimensionX, p.DimensionY, p.DimensionZ, p.Weight, p.IsStackable, p.Picture, p.PackageUnit, p.BuyingPrice, p.SalePrice, p.RefProductCategoryId " +
+                    "p.ProductId, p.Name, p.Description, p.Barcode, p.RefTaxTypeId, p.DimensionX, p.DimensionY, p.DimensionZ, p.Weight, p.IsStackable, p.Picture, p.PackageUnit, p.BuyingPrice, p.SalePrice, p.RefProductCategoryId " +
                     $"FROM {TableName} so " +
                     $"LEFT JOIN SalesTypes st ON so.RefSalesTypeId = st.SalesTypeId " +
                     $"LEFT JOIN Invoices i ON so.SalesOrderId = i.RefSalesOrderId " +
@@ -101,7 +101,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     "sh.ShipmentId, sh.ShipmentNumber, sh.RefSalesOrderId, sh.ShipmentDate, sh.ShipmentTypeId, " +
                     "d.DebitorId, d.RefCompanyId, d.RefCostAccountId, " +
                     "sop.SalesOrderPositionId, sop.RefSalesOrderId, sop.RefProductId, sop.RefTaxTypeId, sop.Description, sop.Quantity, sop.Price, sop.DiscountPercentage, sop.IsDelivered, sop.IsCanceled , " +
-                    "p.ProductId, p.Name, p.Description, p.Barcode, p.DimensionX, p.DimensionY, p.DimensionZ, p.Weight, p.IsStackable, p.Picture, p.PackageUnit, p.BuyingPrice, p.SalePrice, p.RefProductCategoryId " +
+                    "p.ProductId, p.Name, p.Description, p.Barcode, p.RefTaxTypeId, p.DimensionX, p.DimensionY, p.DimensionZ, p.Weight, p.IsStackable, p.Picture, p.PackageUnit, p.BuyingPrice, p.SalePrice, p.RefProductCategoryId " +
                     $"FROM {TableName} so " +
                     $"LEFT JOIN SalesTypes st ON so.RefSalesTypeId = st.SalesTypeId " +
                     $"LEFT JOIN Invoices i ON so.SalesOrderId = i.RefSalesOrderId " +

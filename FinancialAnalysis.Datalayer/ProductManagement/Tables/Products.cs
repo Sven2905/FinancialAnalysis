@@ -6,6 +6,7 @@ using System.Linq;
 using Dapper;
 using Serilog;
 using FinancialAnalysis.Models.ProductManagement;
+using FinancialAnalysis.Models.Accounting;
 
 namespace FinancialAnalysis.Datalayer.ProductManagement
 {
@@ -37,10 +38,11 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                     "Name nvarchar(150) NOT NULL," +
                     "Description nvarchar(150)," +
                     "Barcode nvarchar(150)," +
-                    "DimensionX int, " +
-                    "DimensionY int, " +
-                    "DimensionZ int, " +
-                    "Weight real, " +
+                    "RefTaxTypeId int, " +
+                    "DimensionX decimal(7,2), " +
+                    "DimensionY decimal(7,2), " +
+                    "DimensionZ decimal(7,2), " +
+                    "Weight decimal(7,3), " +
                     "IsStackable bit, " +
                     "Picture varbinary(MAX), " +
                     "PackageUnit int, " +
@@ -78,7 +80,14 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<Product>($"dbo.{TableName}_GetAll");
+                    output = con.Query<Product, ProductCategory, TaxType, Product>($"dbo.{TableName}_GetAll",
+                        (objProduct, objProductCategory, objTaxType) =>
+                        {
+                            objProduct.ProductCategory = objProductCategory;
+                            objProduct.TaxType = objTaxType;
+                            return objProduct;
+                        }, splitOn: "ProductId, ProductCategoryId, TaxTypeId",
+                        commandType: CommandType.StoredProcedure).ToList();
                 }
             }
             catch (Exception e)
@@ -104,7 +113,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Name, @Description, @Barcode, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @DefaultBuyingPrice, @DefaultSellingPrice, @RefProductCategoryId",
+                            $"dbo.{TableName}_Insert @Name, @Description, @Barcode, @RefTaxTypeId, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @DefaultBuyingPrice, @DefaultSellingPrice, @RefProductCategoryId",
                             Product);
                     id = result.Single();
                 }
@@ -144,22 +153,29 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
         /// <returns></returns>
         public Product GetById(int id)
         {
-            var output = new Product();
+            IEnumerable<Product> output = new List<Product>();
+
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<Product>($"dbo.{TableName}_GetById @ProductId",
-                        new {ProductId = id});
+                    output = con.Query<Product, ProductCategory, TaxType, Product>($"dbo.{TableName}_GetById @ProductId",
+                        (objProduct, objProductCategory, objTaxType) =>
+                        {
+                            objProduct.ProductCategory = objProductCategory;
+                            objProduct.TaxType = objTaxType;
+                            return objProduct;
+                        }, new { ProductId = id }, splitOn: "ProductId, ProductCategoryId, TaxTypeId",
+                        commandType: CommandType.StoredProcedure).ToList();
                 }
             }
             catch (Exception e)
             {
-                Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
+                Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
             }
 
-            return output;
+            return output.FirstOrDefault();
         }
 
         /// <summary>
@@ -205,7 +221,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @ProductId, @Name, @Description, @Barcode, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @DefaultBuyingPrice, @DefaultSellingPrice, @RefProductCategoryId", Product);
+                    con.Execute($"dbo.{TableName}_Update @ProductId, @Name, @Description, @Barcode, @RefTaxTypeId, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @DefaultBuyingPrice, @DefaultSellingPrice, @RefProductCategoryId", Product);
                 }
             }
             catch (Exception e)
@@ -237,6 +253,8 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
         public void AddReferences()
         {
             AddCostAccountsReference();
+            AddProductCategoriesReference();
+            AddTaxTypesReference();
         }
 
         private void AddCostAccountsReference()
@@ -257,6 +275,54 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
             catch (Exception e)
             {
                 Log.Error($"Exception occured while creating reference between '{TableName}' and ProductCategories", e);
+            }
+        }
+
+        private void AddProductCategoriesReference()
+        {
+            string refTable = "ProductCategories";
+
+            try
+            {
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefProductCategoryId) REFERENCES {refTable}(ProductCategoryId) ON DELETE CASCADE";
+
+                using (var command = new SqlCommand(commandStr, con))
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while creating reference between '{TableName}' and {TableName}",
+                    e);
+            }
+        }
+
+        private void AddTaxTypesReference()
+        {
+            string refTable = "TaxTypes";
+
+            try
+            {
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefTaxTypeId) REFERENCES {refTable}(TaxTypeId) ON DELETE CASCADE";
+
+                using (var command = new SqlCommand(commandStr, con))
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while creating reference between '{TableName}' and {TableName}",
+                    e);
             }
         }
     }

@@ -137,7 +137,7 @@
     <Compile Include="SalesManagement\Tables\SalesTypes.cs" />
     <Compile Include="SalesManagement\StoredProcedures\ShipmentTypesStoredProcedures.cs" />
     <Compile Include="SalesManagement\Tables\ShipmentTypes.cs" />
-    <Compile Include="StoredProcedures\CompaniesStoredProcedures.cs" />
+    <Compile Include="CompanyManagement\StoredProcedures\CompaniesStoredProcedures.cs" />
     <Compile Include="Accounting\StoredProcedures\CostAccountCategoriesStoredProcedures.cs" />
     <Compile Include="Accounting\StoredProcedures\CostAccountsStoredProcedures.cs" />
     <Compile Include="Accounting\StoredProcedures\CreditorsStoredProcedures.cs" />
@@ -149,7 +149,7 @@
     <Compile Include="StoredProcedures\TableVersionsStoredProcedures.cs" />
     <Compile Include="Accounting\StoredProcedures\TaxTypesStoredProcedures.cs" />
     <Compile Include="Accounting\Tables\Bookings.cs" />
-    <Compile Include="Tables\Companies.cs" />
+    <Compile Include="CompanyManagement\Tables\Companies.cs" />
     <Compile Include="Accounting\Tables\CostAccountCategories.cs" />
     <Compile Include="Accounting\Tables\CostAccounts.cs" />
     <Compile Include="Accounting\Tables\Creditors.cs" />

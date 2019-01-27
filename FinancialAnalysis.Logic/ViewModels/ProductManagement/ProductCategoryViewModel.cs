@@ -3,8 +3,7 @@ using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.ProductManagement;
-using System.IO;
-using System.Linq;
+using System;
 using System.Windows.Media.Imaging;
 using Utilities;
 
@@ -15,9 +14,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         #region Fields
 
         private readonly ProductCategory _SelectedProductCategory;
-        private readonly BitmapImage _Image;
         private SvenTechCollection<ProductCategory> _ProductCategories = new SvenTechCollection<ProductCategory>();
-        private string _FilterText;
+        private string _FilterText = string.Empty;
 
         #endregion Fields
 
@@ -26,12 +24,19 @@ namespace FinancialAnalysis.Logic.ViewModels
         public ProductCategoryViewModel()
         {
             if (IsInDesignMode)
+            {
                 return;
+            }
 
-            _ProductCategories = LoadAllProductCategories();
+            FilteredProductCategories = _ProductCategories = LoadAllProductCategories();
             NewProductCategoryCommand = new DelegateCommand(NewProductCategory);
             SaveProductCategoryCommand = new DelegateCommand(SaveProductCategory, () => Validation());
             DeleteProductCategoryCommand = new DelegateCommand(DeleteProductCategory, () => (SelectedProductCategory != null));
+            SelectedCommand = new DelegateCommand(() =>
+            {
+                SendSelectedToParent();
+                CloseAction();
+            });
         }
 
         #endregion Constructor
@@ -43,7 +48,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<ProductCategory> allProductCategories = new SvenTechCollection<ProductCategory>();
             try
             {
-                    allProductCategories = DataLayer.Instance.ProductCategories.GetAll().ToSvenTechCollection();
+                allProductCategories = DataLayer.Instance.ProductCategories.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -75,9 +80,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                    DataLayer.Instance.ProductCategories.Delete(SelectedProductCategory.ProductCategoryId);
-                    _ProductCategories.Remove(SelectedProductCategory);
-                    SelectedProductCategory = null;
+                DataLayer.Instance.ProductCategories.Delete(SelectedProductCategory.ProductCategoryId);
+                _ProductCategories.Remove(SelectedProductCategory);
+                SelectedProductCategory = null;
             }
             catch (System.Exception ex)
             {
@@ -90,9 +95,13 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedProductCategory.ProductCategoryId != 0)
-                        DataLayer.Instance.ProductCategories.Update(SelectedProductCategory);
+                {
+                    DataLayer.Instance.ProductCategories.Update(SelectedProductCategory);
+                }
                 else
-                        DataLayer.Instance.ProductCategories.Insert(SelectedProductCategory);
+                {
+                    SelectedProductCategory.ProductCategoryId = DataLayer.Instance.ProductCategories.Insert(SelectedProductCategory);
+                }
             }
             catch (System.Exception ex)
             {
@@ -113,6 +122,21 @@ namespace FinancialAnalysis.Logic.ViewModels
             return true;
         }
 
+        public void SendSelectedToParent()
+        {
+            if (SelectedProductCategory == null)
+            {
+                return;
+            }
+
+            if (SelectedProductCategory.ProductCategoryId == 0)
+            {
+                SaveProductCategory();
+            }
+
+            Messenger.Default.Send(new SelectedProductCategory { ProductCategory = SelectedProductCategory });
+        }
+
         #endregion Methods
 
         #region Properties
@@ -121,6 +145,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand NewProductCategoryCommand { get; set; }
         public DelegateCommand SaveProductCategoryCommand { get; set; }
         public DelegateCommand DeleteProductCategoryCommand { get; set; }
+        public DelegateCommand SelectedCommand { get; }
+
         public string FilterText
         {
             get { return _FilterText; }
@@ -141,11 +167,12 @@ namespace FinancialAnalysis.Logic.ViewModels
                 else
                 {
                     FilteredProductCategories = _ProductCategories;
+                    RaisePropertiesChanged("FilteredProductCategories");
                 }
             }
         }
         public ProductCategory SelectedProductCategory { get; set; }
-
+        public Action CloseAction { get; set; }
         public User ActualUser { get { return Globals.ActualUser; } }
 
         #endregion Properties

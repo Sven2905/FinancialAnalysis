@@ -3,34 +3,40 @@ using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.SalesManagement;
-using System.IO;
-using System.Linq;
+using System;
 using System.Windows.Media.Imaging;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
-    public class SalesTypeViewModel : ViewModelBase
+    public class SalesTypesViewModel : ViewModelBase
     {
         #region Fields
 
         private readonly SalesType _SelectedSalesType;
         private SvenTechCollection<SalesType> _SalesTypes = new SvenTechCollection<SalesType>();
-        private string _FilterText;
+        private string _FilterText = string.Empty;
 
         #endregion Fields
 
         #region Constructor
 
-        public SalesTypeViewModel()
+        public SalesTypesViewModel()
         {
             if (IsInDesignMode)
+            {
                 return;
+            }
 
-            _SalesTypes = LoadAllSalesTypes();
+            FilteredSalesTypes = _SalesTypes = LoadAllSalesTypes();
             NewSalesTypeCommand = new DelegateCommand(NewSalesType);
             SaveSalesTypeCommand = new DelegateCommand(SaveSalesType, () => Validation());
             DeleteSalesTypeCommand = new DelegateCommand(DeleteSalesType, () => (SelectedSalesType != null));
+            SelectedCommand = new DelegateCommand(() =>
+            {
+                SendSelectedToParent();
+                CloseAction();
+            });
         }
 
         #endregion Constructor
@@ -89,9 +95,13 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedSalesType.SalesTypeId != 0)
+                {
                     DataLayer.Instance.SalesTypes.Update(SelectedSalesType);
+                }
                 else
-                    DataLayer.Instance.SalesTypes.Insert(SelectedSalesType);
+                {
+                    SelectedSalesType.SalesTypeId = DataLayer.Instance.SalesTypes.Insert(SelectedSalesType);
+                }
             }
             catch (System.Exception ex)
             {
@@ -112,6 +122,21 @@ namespace FinancialAnalysis.Logic.ViewModels
             return true;
         }
 
+        public void SendSelectedToParent()
+        {
+            if (SelectedSalesType == null)
+            {
+                return;
+            }
+
+            if (SelectedSalesType.SalesTypeId == 0)
+            {
+                SaveSalesType();
+            }
+
+            Messenger.Default.Send(new SelectedSalesType { SalesType = SelectedSalesType });
+        }
+
         #endregion Methods
 
         #region Properties
@@ -120,6 +145,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand NewSalesTypeCommand { get; set; }
         public DelegateCommand SaveSalesTypeCommand { get; set; }
         public DelegateCommand DeleteSalesTypeCommand { get; set; }
+        public DelegateCommand SelectedCommand { get; }
+
         public string FilterText
         {
             get { return _FilterText; }
@@ -140,11 +167,12 @@ namespace FinancialAnalysis.Logic.ViewModels
                 else
                 {
                     FilteredSalesTypes = _SalesTypes;
+                    RaisePropertiesChanged("FilteredSalesTypes");
                 }
             }
         }
         public SalesType SelectedSalesType { get; set; }
-
+        public Action CloseAction { get; set; }
         public User ActualUser { get { return Globals.ActualUser; } }
 
         #endregion Properties

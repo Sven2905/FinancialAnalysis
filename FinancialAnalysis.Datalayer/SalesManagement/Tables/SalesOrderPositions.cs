@@ -41,7 +41,6 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                                  "(SalesOrderPositionId int IDENTITY(1,1) PRIMARY KEY, " +
                                  "RefSalesOrderId int, " +
                                  "RefProductId int, " +
-                                 "RefTaxTypeId int, " +
                                  "Description nvarchar(150), " +
                                  "Quantity int, " +
                                  "Price money, " +
@@ -98,7 +97,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @RefSalesOrderId, @RefProductId, @RefTaxTypeId, @Description, @Quantity, @Price, @DiscountPercentage, @IsShipped, @IsCanceled ",
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @RefSalesOrderId, @RefProductId, @Description, @Quantity, @Price, @DiscountPercentage, @IsShipped, @IsCanceled ",
                         SalesOrderPosition);
                     return result.Single();
                 }
@@ -195,7 +194,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @SalesOrderPositionId, @RefSalesOrderId, @RefProductId, @RefTaxTypeId, @Description, @Quantity, @Price, @DiscountPercentage, @IsShipped, @IsCanceled ",
+                    con.Execute($"dbo.{TableName}_Update @SalesOrderPositionId, @RefSalesOrderId, @RefProductId, @Description, @Quantity, @Price, @DiscountPercentage, @IsShipped, @IsCanceled ",
                         SalesOrderPosition);
                 }
             }
@@ -236,33 +235,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
         public void AddReferences()
         {
-            AddTaxTypesReference();
             AddProductsReference();
             AddSalesOrdersReference();
-        }
-
-        private void AddTaxTypesReference()
-        {
-            string refTable = "TaxTypes";
-
-            try
-            {
-                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr =
-                    $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefTaxTypeId) REFERENCES {refTable}(TaxTypeId) ON DELETE CASCADE";
-
-                using (var command = new SqlCommand(commandStr, con))
-                {
-                    con.Open();
-                    command.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while creating reference between '{TableName}' and {TableName}",
-                    e);
-            }
         }
 
         private void AddProductsReference()

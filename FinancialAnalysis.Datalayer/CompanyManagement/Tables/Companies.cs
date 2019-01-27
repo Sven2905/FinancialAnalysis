@@ -9,7 +9,7 @@ using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.CompanyManagement;
 using Serilog;
 
-namespace FinancialAnalysis.Datalayer.Tables
+namespace FinancialAnalysis.Datalayer.CompanyManagement
 {
     public class Companies : ITable
     {
@@ -55,6 +55,8 @@ namespace FinancialAnalysis.Datalayer.Tables
                     "IBAN nvarchar(50)," +
                     "BIC nvarchar(50)," +
                     "BankName nvarchar(50)," +
+                    "Logo varbinary(MAX), " +
+                    "CEO nvarchar(50)," +
                     "FederalState int)";
 
                 using (var command = new SqlCommand(commandStr, con))
@@ -108,7 +110,7 @@ namespace FinancialAnalysis.Datalayer.Tables
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState",
+                            $"dbo.{TableName}_Insert @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState, @CEO, @Logo",
                             company);
                     id = result.Single();
                 }
@@ -134,7 +136,7 @@ namespace FinancialAnalysis.Datalayer.Tables
                 {
                     foreach (var company in companies)
                         con.Query(
-                            $"dbo.{TableName}_Insert @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState",
+                            $"dbo.{TableName}_Insert @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState, @CEO, @Logo",
                             company);
                 }
             }
@@ -207,7 +209,7 @@ namespace FinancialAnalysis.Datalayer.Tables
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     con.Execute(
-                        $"dbo.{TableName}_Update @CompanyId, @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState",
+                        $"dbo.{TableName}_Update @CompanyId, @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState, @CEO, @Logo",
                         company);
                 }
             }

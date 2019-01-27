@@ -141,7 +141,18 @@
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Kategorie" FontFamily="Tahoma" >
-                                    <dxe:ComboBoxEdit ValueMember="ProductCategoryId" DisplayMember="Name" ItemsSource="{Binding ProductCategories}" EditValue="{Binding SelectedProduct.RefProductCategoryId}" FontFamily="Tahoma" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <dxe:ComboBoxEdit NullText="Bitte wählen" ValueMember="ProductCategoryId" DisplayMember="Name" ItemsSource="{Binding ProductCategories}" EditValue="{Binding SelectedProduct.RefProductCategoryId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                                        <dx:SimpleButton Grid.Column="1" Width="30" Margin="5,0,0,0" Command="{Binding OpenProductCategoriesWindowCommand}" IsEnabled="{Binding AllowProductCategories}">
+                                            <dx:SimpleButton.Glyph>
+                                                <dx:SvgImageSource Uri="/Images/light/Cog.svg" Size="14,14"  />
+                                            </dx:SimpleButton.Glyph>
+                                        </dx:SimpleButton>
+                                    </Grid>
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
@@ -155,29 +166,34 @@
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Steuer" FontFamily="Tahoma" >
+                                    <dxe:ComboBoxEdit NullText="Bitte wählen" ValueMember="TaxTypeId" DisplayMember="Description" ItemsSource="{Binding TaxTypes}" EditValue="{Binding SelectedProduct.RefTaxTypeId}" FontFamily="Tahoma" />
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                            <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Gewicht (kg)" FontFamily="Tahoma" >
                                     <dxe:TextEdit Text="{Binding SelectedProduct.Weight, ConverterCulture='de-DE'}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Breite (cm)" FontFamily="Tahoma" >
-                                    <dxe:TextEdit Text="{Binding SelectedProduct.DimensionX}" FontFamily="Tahoma" />
+                                    <dxe:TextEdit Text="{Binding SelectedProduct.DimensionX, ConverterCulture='de-DE'}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                                 <dxlc:LayoutItem Label="Höhe (cm)" FontFamily="Tahoma" >
-                                    <dxe:TextEdit Text="{Binding SelectedProduct.DimensionY}" FontFamily="Tahoma" />
+                                    <dxe:TextEdit Text="{Binding SelectedProduct.DimensionY, ConverterCulture='de-DE'}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                                 <dxlc:LayoutItem Label="Tiefe (cm)" FontFamily="Tahoma" >
-                                    <dxe:TextEdit Text="{Binding SelectedProduct.DimensionZ}" FontFamily="Tahoma" />
+                                    <dxe:TextEdit Text="{Binding SelectedProduct.DimensionZ, ConverterCulture='de-DE'}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Einkaufspreis" FontFamily="Tahoma" >
-                                    <dxe:TextEdit Text="{Binding SelectedProduct.DefaultBuyingPrice}" FontFamily="Tahoma" Mask="C" MaskType="Numeric" DisplayFormatString="C2" />
+                                    <dxe:TextEdit Text="{Binding SelectedProduct.DefaultBuyingPrice}" FontFamily="Tahoma" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True"/>
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Verkaufspreis" FontFamily="Tahoma" >
-                                    <dxe:TextEdit Text="{Binding SelectedProduct.DefaultSellingPrice}" FontFamily="Tahoma" Mask="C" MaskType="Numeric" DisplayFormatString="C2" />
+                                    <dxe:TextEdit Text="{Binding SelectedProduct.DefaultSellingPrice}" FontFamily="Tahoma" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True"/>
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>

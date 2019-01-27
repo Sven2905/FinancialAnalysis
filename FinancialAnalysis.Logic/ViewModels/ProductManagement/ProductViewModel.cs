@@ -1,6 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
+using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.ProductManagement;
 using System.IO;
@@ -11,6 +12,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 {
     public class ProductViewModel : ViewModelBase
     {
+        #region UserRights
+        public bool AllowProductCategories { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessProductCategories) || Globals.ActualUser.IsAdministrator; } }
+        #endregion UserRights
+
         #region Fields
 
         private Product _SelectedProduct;
@@ -25,25 +30,35 @@ namespace FinancialAnalysis.Logic.ViewModels
         public ProductViewModel()
         {
             if (IsInDesignMode)
+            {
                 return;
+            }
+
+            Messenger.Default.Register<SelectedProductCategory>(this, ChangeSelectedProductCategory);
 
             _Products = LoadAllProducts();
             ProductCategories = LoadAllProductCategories();
             NewProductCommand = new DelegateCommand(NewProduct);
             SaveProductCommand = new DelegateCommand(SaveProduct, () => Validation());
             DeleteProductCommand = new DelegateCommand(DeleteProduct, () => (SelectedProduct != null));
+            OpenProductCategoriesWindowCommand = new DelegateCommand(OpenProductCategoriesWindow);
         }
 
         #endregion Constructor
 
         #region Methods
 
+        private void OpenProductCategoriesWindow()
+        {
+            Messenger.Default.Send(new OpenProductCategoriesWindowMessage());
+        }
+
         private SvenTechCollection<Product> LoadAllProducts()
         {
             SvenTechCollection<Product> allProducts = new SvenTechCollection<Product>();
             try
             {
-                    allProducts = DataLayer.Instance.Products.GetAll().ToSvenTechCollection();
+                allProducts = DataLayer.Instance.Products.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -58,7 +73,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<ProductCategory> allProductCategories = new SvenTechCollection<ProductCategory>();
             try
             {
-                    allProductCategories = DataLayer.Instance.ProductCategories.GetAll().ToSvenTechCollection();
+                allProductCategories = DataLayer.Instance.ProductCategories.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -90,9 +105,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                    DataLayer.Instance.Products.Delete(SelectedProduct.ProductId);
-                    _Products.Remove(SelectedProduct);
-                    SelectedProduct = null;
+                DataLayer.Instance.Products.Delete(SelectedProduct.ProductId);
+                _Products.Remove(SelectedProduct);
+                SelectedProduct = null;
             }
             catch (System.Exception ex)
             {
@@ -105,9 +120,13 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedProduct.ProductId != 0)
-                        DataLayer.Instance.Products.Update(SelectedProduct);
+                {
+                    DataLayer.Instance.Products.Update(SelectedProduct);
+                }
                 else
-                        SelectedProduct.ProductId = DataLayer.Instance.Products.Insert(SelectedProduct);
+                {
+                    SelectedProduct.ProductId = DataLayer.Instance.Products.Insert(SelectedProduct);
+                }
             }
             catch (System.Exception ex)
             {
@@ -162,8 +181,16 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 return false;
             }
-            
+
             return true;
+        }
+
+        private void ChangeSelectedProductCategory(SelectedProductCategory SelectedProductCategory)
+        {
+            ProductCategories = DataLayer.Instance.ProductCategories.GetAll().ToSvenTechCollection();
+            SelectedProduct.ProductCategory = SelectedProductCategory.ProductCategory;
+            SelectedProduct.RefProductCategoryId = SelectedProductCategory.ProductCategory.ProductCategoryId;
+            RaisePropertyChanged("SelectedProduct");
         }
 
         #endregion Methods
@@ -172,9 +199,11 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public SvenTechCollection<Product> FilteredProducts { get; set; } = new SvenTechCollection<Product>();
         public SvenTechCollection<ProductCategory> ProductCategories { get; set; } = new SvenTechCollection<ProductCategory>();
+        public SvenTechCollection<TaxType> TaxTypes { get => Globals.CoreData.TaxTypes; }
         public DelegateCommand NewProductCommand { get; set; }
         public DelegateCommand SaveProductCommand { get; set; }
         public DelegateCommand DeleteProductCommand { get; set; }
+        public DelegateCommand OpenProductCategoriesWindowCommand { get; set; }
         public string Password { get; set; } = string.Empty;
         public string PasswordRepeat { get; set; } = string.Empty;
         public string FilterText
@@ -188,7 +217,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                     FilteredProducts = new SvenTechCollection<Product>();
                     foreach (var item in _Products)
                     {
-                        if (item.Name.Contains(FilterText))
+                        if (item.Name.ToLower().Contains(FilterText.ToLower()))
                         {
                             FilteredProducts.Add(item);
                         }

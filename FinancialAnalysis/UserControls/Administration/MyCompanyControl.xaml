@@ -1,0 +1,186 @@
+﻿<UserControl x:Class="FinancialAnalysis.UserControls.MyCompanyControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+             xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:models="clr-namespace:FinancialAnalysis.Models;assembly=FinancialAnalysis.Models"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             mc:Ignorable="d"
+             d:DesignHeight="1000" d:DesignWidth="1900">
+    <UserControl.DataContext>
+        <ViewModels:MyCompanyViewModel />
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+        <Style x:Key="labelStyle" TargetType="{x:Type dxlc:LayoutItemLabel}">
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="#3f729b" />
+        </Style>
+        <Style x:Key="itemStyle" TargetType="{x:Type dxlc:LayoutItem}">
+            <Setter Property="LabelPosition" Value="Top" />
+            <Setter Property="LabelStyle" Value="{StaticResource labelStyle}" />
+            <Setter Property="Foreground" Value="#3f729b" />
+        </Style>
+        <local:NullToIsEnabledConverter x:Key="NullConverter"></local:NullToIsEnabledConverter>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="100" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <dxwui:PageAdornerControl Header="Eigene Firma" Grid.ColumnSpan="2" Foreground="#3f729b" FontFamily="Tahoma" >
+            <dxwui:PageAdornerControl.HeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <ContentPresenter Content="{Binding}" />
+                    </Grid>
+                </DataTemplate>
+            </dxwui:PageAdornerControl.HeaderTemplate>
+        </dxwui:PageAdornerControl>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+
+            <VirtualizingStackPanel Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="15" >
+                <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Speichern" Foreground="#3F729B"
+                                 Command="{Binding SaveCompanyCommand}" FontFamily="Tahoma" />
+            </VirtualizingStackPanel>
+
+            <Grid Grid.Column="0" Margin="0,50,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10"
+                                        Grid.Column="0" Grid.Row="1" Width="350" Margin="0,-13,0,0">
+
+                    <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
+                        <dxlc:LayoutGroup.Header>
+                            <TextBlock Text="Anschrift" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                        </dxlc:LayoutGroup.Header>
+                        <dxlc:LayoutItem Label="Firma" FontFamily="Tahoma">
+                            <dxe:TextEdit
+                                    Text="{Binding Company.Name, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Strasse" FontFamily="Tahoma" >
+                            <dxe:TextEdit
+                                    Text="{Binding Company.Street, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutGroup>
+                            <dxlc:LayoutItem Label="Postleitzahl" Width="100" FontFamily="Tahoma" >
+                                <dxe:TextEdit
+                                        Text="{Binding Company.Postcode, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                            </dxlc:LayoutItem>
+                            <dxlc:LayoutItem Label="Ort" FontFamily="Tahoma" >
+                                <dxe:TextEdit
+                                        Text="{Binding Company.City, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                            </dxlc:LayoutItem>
+                        </dxlc:LayoutGroup>
+                        <dxlc:LayoutGroup>
+                            <dxlc:LayoutItem Label="Ansprechpartner" FontFamily="Tahoma" >
+                                <dxe:TextEdit Text="{Binding Company.ContactPerson}" FontFamily="Tahoma" />
+                            </dxlc:LayoutItem>
+                        </dxlc:LayoutGroup>
+                        <dxlc:LayoutItem Label="Bundesland" FontFamily="Tahoma" >
+                            <dxe:ComboBoxEdit
+                                    ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:FederalState}, SplitNames=True}"
+                                    EditValue="{Binding Company.FederalState, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                        </dxlc:LayoutItem>
+                    </dxlc:LayoutGroup>
+
+                    <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
+                        <dxlc:LayoutGroup.Header>
+                            <TextBlock Text="Bankdaten" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                        </dxlc:LayoutGroup.Header>
+                        <dxlc:LayoutGroup>
+                            <dxlc:LayoutItem Label="Bank" FontFamily="Tahoma" >
+                                <dxe:TextEdit Text="{Binding Company.BankName}" FontFamily="Tahoma" />
+                            </dxlc:LayoutItem>
+                        </dxlc:LayoutGroup>
+                        <dxlc:LayoutGroup>
+                            <dxlc:LayoutItem Label="IBAN" FontFamily="Tahoma" >
+                                <dxe:TextEdit Text="{Binding Company.IBAN}" FontFamily="Tahoma" />
+                            </dxlc:LayoutItem>
+                            <dxlc:LayoutItem Label="BIC" FontFamily="Tahoma" >
+                                <dxe:TextEdit Text="{Binding Company.BIC}" FontFamily="Tahoma" />
+                            </dxlc:LayoutItem>
+                        </dxlc:LayoutGroup>
+                    </dxlc:LayoutGroup>
+
+                   
+
+                    <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
+                        <dxlc:LayoutGroup.Header>
+                            <TextBlock Text="Allgemeines" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                        </dxlc:LayoutGroup.Header>
+                        <dxlc:LayoutGroup>
+                            <dxlc:LayoutItem Label="Geschäftsführer" FontFamily="Tahoma" >
+                                <dxe:TextEdit Text="{Binding Company.CEO}" FontFamily="Tahoma" />
+                            </dxlc:LayoutItem>
+                        </dxlc:LayoutGroup>
+                        <dxlc:LayoutGroup>
+                            <dxlc:LayoutItem Label="Telefon Zentrale" FontFamily="Tahoma" >
+                                <dxe:TextEdit Text="{Binding Company.Phone}" FontFamily="Tahoma" />
+                            </dxlc:LayoutItem>
+                            <dxlc:LayoutItem Label="Fax" FontFamily="Tahoma" >
+                                <dxe:TextEdit Text="{Binding Company.Fax}" FontFamily="Tahoma" />
+                            </dxlc:LayoutItem>
+                        </dxlc:LayoutGroup>
+                        <dxlc:LayoutGroup>
+                            <dxlc:LayoutItem Label="E-Mail" FontFamily="Tahoma" >
+                                <dxe:TextEdit Text="{Binding Company.eMail}" FontFamily="Tahoma" />
+                            </dxlc:LayoutItem>
+                            <dxlc:LayoutItem Label="Website" FontFamily="Tahoma" >
+                                <dxe:TextEdit Text="{Binding Company.Website}" FontFamily="Tahoma" />
+                            </dxlc:LayoutItem>
+                        </dxlc:LayoutGroup>
+                    </dxlc:LayoutGroup>
+
+                </dxlc:LayoutControl>
+
+                <dxe:ImageEdit Grid.Column="2" Grid.RowSpan="2" Width="400" Height="400" VerticalAlignment="Top" Source="{Binding Image, Mode=TwoWay}" AllowNullInput="True" >
+                    <dxe:ImageEdit.MenuTemplate>
+                        <ControlTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <dxe:ImageEditClearToolButton/>
+                                <dxe:ImageEditLoadToolButton/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </dxe:ImageEdit.MenuTemplate>
+                </dxe:ImageEdit>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</UserControl>

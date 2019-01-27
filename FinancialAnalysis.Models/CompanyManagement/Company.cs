@@ -19,6 +19,8 @@ namespace FinancialAnalysis.Models.CompanyManagement
         public string IBAN { get; set; }
         public string BIC { get; set; }
         public string BankName { get; set; }
+        public string CEO { get; set; }
+        public byte[] Logo { get; set; }
         public FederalState FederalState { get; set; }
         public string Address => $"{Street}, {Postcode} {City}";
     }

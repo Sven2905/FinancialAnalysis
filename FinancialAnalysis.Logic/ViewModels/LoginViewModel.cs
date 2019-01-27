@@ -2,8 +2,8 @@
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
-using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -17,7 +17,11 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (IsInDesignMode)
                 return;
 
-            Seed();
+            Task.Run(() =>
+            {
+                Seed();
+            });
+
             LoginCommand = new DelegateCommand(Login, () => (!string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrEmpty(Password)));
             ExitCommand = new DelegateCommand(Exit);
         }

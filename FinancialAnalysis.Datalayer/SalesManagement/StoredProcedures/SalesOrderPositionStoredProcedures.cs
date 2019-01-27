@@ -33,7 +33,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                    $"SELECT SalesOrderPositionId, RefSalesOrderId, RefProductId, RefTaxTypeId, Description, Quantity, Price, DiscountPercentage, IsShipped, IsCanceled " +
+                    $"SELECT SalesOrderPositionId, RefSalesOrderId, RefProductId, Description, Quantity, Price, DiscountPercentage, IsShipped, IsCanceled " +
                     $"FROM {TableName} END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -56,9 +56,9 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @RefSalesOrderId int, @RefProductId int, @RefTaxTypeId int, @Description nvarchar(150), @Quantity int, @Price money, @DiscountPercentage money, @IsShipped bit, @IsCanceled bit AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (RefSalesOrderId, RefProductId, RefTaxTypeId, Description, Quantity, Price, DiscountPercentage, IsShipped, IsCanceled ) " +
-                    "VALUES (@RefSalesOrderId, @RefProductId, @RefTaxTypeId, @Description, @Quantity, @Price, @DiscountPercentage, @IsShipped, @IsCanceled ); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @RefSalesOrderId int, @RefProductId int, @Description nvarchar(150), @Quantity int, @Price money, @DiscountPercentage money, @IsShipped bit, @IsCanceled bit AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (RefSalesOrderId, RefProductId, Description, Quantity, Price, DiscountPercentage, IsShipped, IsCanceled ) " +
+                    "VALUES (@RefSalesOrderId, @RefProductId, @Description, @Quantity, @Price, @DiscountPercentage, @IsShipped, @IsCanceled ); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -81,7 +81,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @SalesOrderPositionId int AS BEGIN SET NOCOUNT ON; SELECT SalesOrderPositionId, RefSalesOrderId, RefProductId, RefTaxTypeId, Description, Quantity, Price, DiscountPercentage, IsShipped, IsCanceled " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @SalesOrderPositionId int AS BEGIN SET NOCOUNT ON; SELECT SalesOrderPositionId, RefSalesOrderId, RefProductId, Description, Quantity, Price, DiscountPercentage, IsShipped, IsCanceled " +
                     $"FROM {TableName} " +
                     "WHERE SalesOrderPositionId = @SalesOrderPositionId END");
                 using (var connection =
@@ -105,11 +105,10 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @SalesOrderPositionId int, @RefSalesOrderId int, @RefProductId int, @RefTaxTypeId int, @Description nvarchar(150), @Quantity int, @Price money, @DiscountPercentage money, @IsShipped bit, @IsCanceled bit " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @SalesOrderPositionId int, @RefSalesOrderId int, @RefProductId int, @Description nvarchar(150), @Quantity int, @Price money, @DiscountPercentage money, @IsShipped bit, @IsCanceled bit " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "SET RefProductId = @RefProductId, " +
-                    "RefTaxTypeId = @RefTaxTypeId, " +
                     "Description = @Description, " +
                     "Quantity = @Quantity, " +
                     "Price = @Price, " +

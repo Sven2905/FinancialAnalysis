@@ -57,6 +57,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                     "RefHealthInsuranceId int," +
                     "Mail nvarchar(150)," +
                     "Phone nvarchar(150)," +
+                    "Mobile nvarchar(150)," +
                     "RefTariffId int)";
 
                 using (var command = new SqlCommand(commandStr, con))
@@ -114,7 +115,8 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     var result = con.Query<int>(
-                        $"dbo.{TableName}_Insert @Firstname, @Lastname, @Birthdate, @Street, @City, @Postcode, @Gender, @CivilStatus, @RefTariffId, @TaxId, @RefHealthInsuranceId, @HasDrivingLicence, @Nationality, @Confession, @BankName, @BIC, @IBAN, @NationalInsuranceNumber, @Salary, @WorkHoursPerWeek, @VacationDays, @Picture, @Mail, @Phone",
+                        $"dbo.{TableName}_Insert @Firstname, @Lastname, @Birthdate, @Street, @City, @Postcode, @Gender, @CivilStatus, @RefTariffId, @TaxId, @RefHealthInsuranceId, @HasDrivingLicence, @Nationality, " +
+                        $"@Confession, @BankName, @BIC, @IBAN, @NationalInsuranceNumber, @Salary, @WorkHoursPerWeek, @VacationDays, @Picture, @Mail, @Phone, @Mobile",
                         Employee);
                     id = result.Single();
                 }
@@ -211,7 +213,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 {
                     con.Execute($"dbo.{TableName}_Update @EmployeeId, @Firstname, @Lastname, @Birthdate, @Street, @City, @Postcode, @Gender, @CivilStatus, @RefTariffId, @TaxId, " +
                         $"@RefHealthInsuranceId, @HasDrivingLicence, @Nationality, @Confession, @BankName, @BIC, @IBAN, @NationalInsuranceNumber, @Salary, @WorkHoursPerWeek, " +
-                        $"@VacationDays, @Picture, @Mail, @Phone", Employee);
+                        $"@VacationDays, @Picture, @Mail, @Phone, @Mobile", Employee);
                 }
             }
             catch (Exception e)

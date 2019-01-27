@@ -2,6 +2,7 @@
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
+using FinancialAnalysis.Models.CompanyManagement;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -260,6 +261,7 @@ namespace FinancialAnalysis.Logic
 
                 new UserRight(Permission.AccessMail, "Mailkonfiguration", (int)Permission.AccessConfiguration, "Erlaubt den Zugriff auf den Menüpunkt Mailkonfiguration"),
                 new UserRight(Permission.AccessUsers, "Benutzer", (int)Permission.AccessConfiguration, "Erlaubt den Zugriff auf den Menüpunkt Benutzer"),
+                new UserRight(Permission.AccessMyCompany, "Eigene Firma", (int)Permission.AccessConfiguration, "Erlaubt den Zugriff auf den Menüpunkt Eigene Firma"),
 
                 new UserRight(Permission.AccessWarehouse, "Lager", (int)Permission.AccessWarehouseManagement, "Erlaubt den Zugriff auf den Menüpunkt Lager"),
                 new UserRight(Permission.AccessWarehouseSave, "Lager speichern", (int)Permission.AccessWarehouse, "Erlaubt Änderungen und neue Lager zu speichern"),
@@ -296,6 +298,128 @@ namespace FinancialAnalysis.Logic
             DataLayer.Instance.PurchaseTypes.Insert(new Models.PurchaseManagement.PurchaseType() { Name = "Allgemein" });
             DataLayer.Instance.SalesTypes.Insert(new Models.SalesManagement.SalesType() { Name = "Allgemein" });
             DataLayer.Instance.ShipmentTypes.Insert(new Models.SalesManagement.ShipmentType() { Name = "Allgemein" });
+            DataLayer.Instance.ProductCategories.Insert(new Models.ProductManagement.ProductCategory() { Name = "Allgemein" });
+        }
+
+        /// <summary>
+        ///     Seeds the table with initial data
+        /// </summary>
+        public void SeedTaxTypes()
+        {
+            var taxTypes = new List<TaxType>
+            {
+                new TaxType
+                {
+                    DescriptionShort = "Keine", Description = "Keine", AmountOfTax = 0, TaxCategory = TaxCategory.None
+                },
+                new TaxType
+                {
+                    DescriptionShort = "Bau 7%", Description = "Bau mit 7% USt/VSt", AmountOfTax = 7,
+                    TaxCategory = TaxCategory.thirteenB, RefCostAccount = GetIdOfCostAccount(1785)
+                },
+                new TaxType
+                {
+                    DescriptionShort = "I.g.E 7% USt/VSt", Description = "I.g.E 7% USt/VSt", AmountOfTax = 7,
+                    TaxCategory = TaxCategory.igE, RefCostAccount = GetIdOfCostAccount(1773)
+                },
+                new TaxType
+                {
+                    DescriptionShort = "I.g.E 16% USt/VSt", Description = "I.g.E 16% USt/VSt", AmountOfTax = 16,
+                    TaxCategory = TaxCategory.igE, RefCostAccount = GetIdOfCostAccount(1774)
+                },
+                new TaxType
+                {
+                    DescriptionShort = "I.g.E 19% USt/VSt", Description = "I.g.E 19% USt/VSt", AmountOfTax = 19,
+                    TaxCategory = TaxCategory.igE, RefCostAccount = GetIdOfCostAccount(1772)
+                },
+                new TaxType
+                {
+                    DescriptionShort = "I.g.E Neufahrzeug", Description = "I.g.E Neufahrzeuge 19% USt/VSt",
+                    AmountOfTax = 19, TaxCategory = TaxCategory.igE, RefCostAccount = GetIdOfCostAccount(1784)
+                },
+                new TaxType
+                {
+                    DescriptionShort = "Kfz 19% VSt. 50%", Description = "Kfz 19% Vorsteuer. 50%", AmountOfTax = 19,
+                    TaxCategory = TaxCategory.fiftyPercent, RefCostAccount = GetIdOfCostAccount(1570)
+                },
+                new TaxType
+                {
+                    DescriptionShort = "Kfz VSt. 50%", Description = "Kfz Vorsteuer. 50%", AmountOfTax = 16,
+                    TaxCategory = TaxCategory.fiftyPercent, RefCostAccount = GetIdOfCostAccount(1570)
+                },
+                new TaxType
+                {
+                    DescriptionShort = "USt. 15%", Description = "Umsatzsteuer 15%", AmountOfTax = 15,
+                    TaxCategory = TaxCategory.Netto, RefCostAccount = GetIdOfCostAccount(1770)
+                },
+                new TaxType
+                {
+                    DescriptionShort = "USt. 16%", Description = "Umsatzsteuer 16%", AmountOfTax = 16,
+                    TaxCategory = TaxCategory.Netto, RefCostAccount = GetIdOfCostAccount(1775)
+                },
+                new TaxType
+                {
+                    DescriptionShort = "USt. 19%", Description = "Umsatzsteuer 19%", AmountOfTax = 19,
+                    TaxCategory = TaxCategory.Netto, RefCostAccount = GetIdOfCostAccount(1776)
+                },
+                new TaxType
+                {
+                    DescriptionShort = "USt. 7%", Description = "Umsatzsteuer 7%", AmountOfTax = 7,
+                    TaxCategory = TaxCategory.Netto, RefCostAccount = GetIdOfCostAccount(1771)
+                },
+                new TaxType
+                {
+                    DescriptionShort = "USt/VSt 19%",
+                    Description = "Reverse Charge (Steuerschuld Leistungsempf.) 19% USt/VSt", AmountOfTax = 19,
+                    TaxCategory = TaxCategory.thirteenB, RefCostAccount = GetIdOfCostAccount(1787)
+                },
+                new TaxType
+                {
+                    DescriptionShort = "USt/VSt 7%",
+                    Description = "Reverse Charge (Steuerschuld Leistungsempf.) 7% USt/VSt", AmountOfTax = 7,
+                    TaxCategory = TaxCategory.thirteenB, RefCostAccount = GetIdOfCostAccount(1785)
+                },
+                new TaxType
+                {
+                    DescriptionShort = "VSt. 15%", Description = "Vorsteuer 15%", AmountOfTax = 15,
+                    TaxCategory = TaxCategory.Netto, RefCostAccount = GetIdOfCostAccount(1771)
+                },
+                new TaxType
+                {
+                    DescriptionShort = "VSt. 16%", Description = "Vorsteuer 16%", AmountOfTax = 16,
+                    TaxCategory = TaxCategory.Netto, RefCostAccount = GetIdOfCostAccount(1575)
+                },
+                new TaxType
+                {
+                    DescriptionShort = "VSt. 19%", Description = "Vorsteuer 19%", AmountOfTax = 19,
+                    TaxCategory = TaxCategory.Netto, RefCostAccount = GetIdOfCostAccount(1576)
+                },
+                new TaxType
+                {
+                    DescriptionShort = "VSt. 7%", Description = "Vorsteuer 7%", AmountOfTax = 7,
+                    TaxCategory = TaxCategory.Netto, RefCostAccount = GetIdOfCostAccount(1571)
+                },
+            };
+
+            DataLayer.Instance.TaxTypes.Insert(taxTypes);
+        }
+
+        public void SeedCompany()
+        {
+            var company = new Company()
+            {
+                Name = "Max Mustermann GmbH",
+                Street = "Beispielstrasse 1",
+                City = "Musterhausen",
+                Postcode = 12345
+            };
+
+            DataLayer.Instance.Companies.Insert(company);
+        }
+
+        private int GetIdOfCostAccount(int AccountNumber)
+        {
+            return DataLayer.Instance.CostAccounts.GetByAccountNumber(AccountNumber);
         }
     }
 }

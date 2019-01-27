@@ -141,6 +141,9 @@
     <Compile Include="UserControls\Accounting\AccountingControl.xaml.cs">
       <DependentUpon>AccountingControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Administration\MyCompanyControl.xaml.cs">
+      <DependentUpon>MyCompanyControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Administration\MailControl.xaml.cs">
       <DependentUpon>MailControl.xaml</DependentUpon>
     </Compile>
@@ -150,6 +153,9 @@
     <Compile Include="UserControls\ProductManagement\ProductManagementControl.xaml.cs">
       <DependentUpon>ProductManagementControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\SalesManagement\SalesOrderControl.xaml.cs">
+      <DependentUpon>SalesOrderControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\WarehouseManagement\StockyardControl.xaml.cs">
       <DependentUpon>StockyardControl.xaml</DependentUpon>
     </Compile>
@@ -158,9 +164,6 @@
     </Compile>
     <Compile Include="UserControls\ProductManagement\ProductControl.xaml.cs">
       <DependentUpon>ProductControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ProductManagement\ProductCategoryControl.xaml.cs">
-      <DependentUpon>ProductCategoryControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\WarehouseManagement\WarehouseManagementControl.xaml.cs">
       <DependentUpon>WarehouseManagementControl.xaml</DependentUpon>
@@ -216,6 +219,12 @@
     <Compile Include="Windows\PDFViewerWindow.xaml.cs">
       <DependentUpon>PDFViewerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\TypesWindows\SalesTypesWindow.xaml.cs">
+      <DependentUpon>SalesTypesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TypesWindows\ProductCategoriesWindow.xaml.cs">
+      <DependentUpon>ProductCategoriesWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Resources\Style.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -225,6 +234,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Accounting\AccountingControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Administration\MyCompanyControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -240,6 +253,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UserControls\SalesManagement\SalesOrderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\WarehouseManagement\StockyardControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -249,10 +266,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\ProductManagement\ProductControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\ProductManagement\ProductCategoryControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -344,6 +357,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\PDFViewerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TypesWindows\SalesTypesWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\TypesWindows\ProductCategoriesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

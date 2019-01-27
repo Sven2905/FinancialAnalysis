@@ -33,7 +33,7 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                    $"SELECT PurchaseOrderPositionId, RefPurchaseOrderId, RefProductId, RefTaxTypeId, Description, Quantity, Price, DiscountPercentage, IsDelivered, IsCanceled " +
+                    $"SELECT PurchaseOrderPositionId, RefPurchaseOrderId, RefProductId, Description, Quantity, Price, DiscountPercentage, IsDelivered, IsCanceled " +
                     $"FROM {TableName} END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -56,9 +56,9 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @RefPurchaseOrderId int, @RefProductId int, @RefTaxTypeId int, @Description nvarchar(150), @Quantity int, @Price money, @DiscountPercentage money, @IsDelivered bit, @IsCanceled bit AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (RefPurchaseOrderId, RefProductId, RefTaxTypeId, Description, Quantity, Price, DiscountPercentage, IsDelivered, IsCanceled ) " +
-                    "VALUES (@RefPurchaseOrderId, @RefProductId, @RefTaxTypeId, @Description, @Quantity, @Price, @DiscountPercentage, @IsDelivered, @IsCanceled ); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @RefPurchaseOrderId int, @RefProductId int, @Description nvarchar(150), @Quantity int, @Price money, @DiscountPercentage money, @IsDelivered bit, @IsCanceled bit AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (RefPurchaseOrderId, RefProductId, Description, Quantity, Price, DiscountPercentage, IsDelivered, IsCanceled ) " +
+                    "VALUES (@RefPurchaseOrderId, @RefProductId, @Description, @Quantity, @Price, @DiscountPercentage, @IsDelivered, @IsCanceled ); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -81,7 +81,8 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @PurchaseOrderPositionId int AS BEGIN SET NOCOUNT ON; SELECT PurchaseOrderPositionId, RefPurchaseOrderId, RefProductId, RefTaxTypeId, Description, Quantity, Price, DiscountPercentage, IsDelivered, IsCanceled " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @PurchaseOrderPositionId int AS BEGIN SET NOCOUNT ON; " +
+                    $"SELECT PurchaseOrderPositionId, RefPurchaseOrderId, RefProductId, Description, Quantity, Price, DiscountPercentage, IsDelivered, IsCanceled " +
                     $"FROM {TableName} " +
                     "WHERE PurchaseOrderPositionId = @PurchaseOrderPositionId END");
                 using (var connection =
@@ -105,11 +106,10 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @PurchaseOrderPositionId int, @RefPurchaseOrderId int, @RefProductId int, @RefTaxTypeId int, @Description nvarchar(150), @Quantity int, @Price money, @DiscountPercentage money, @IsDelivered bit, @IsCanceled bit " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @PurchaseOrderPositionId int, @RefPurchaseOrderId int, @RefProductId int, @Description nvarchar(150), @Quantity int, @Price money, @DiscountPercentage money, @IsDelivered bit, @IsCanceled bit " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "SET RefProductId = @RefProductId, " +
-                    "RefTaxTypeId = @RefTaxTypeId, " +
                     "Description = @Description, " +
                     "Quantity = @Quantity, " +
                     "Price = @Price, " +

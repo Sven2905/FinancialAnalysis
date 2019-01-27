@@ -8,6 +8,7 @@ namespace FinancialAnalysis.Logic
     public class Globals : ViewModelBase
     {
         public static User ActualUser { get; set; }
+        public static CoreData CoreData { get; } = new CoreData();
 
         //public static TableVersion Versions { get; }
 

@@ -32,7 +32,8 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT EmployeeId, Firstname, Lastname, Birthdate, Street, City, Postcode, Gender, CivilStatus, RefTariffId, TaxId, RefHealthInsuranceId, HasDrivingLicence, Nationality, Confession, BankName, BIC, IBAN, NationalInsuranceNumber, Salary, WorkHoursPerWeek, VacationDays, Picture, Mail, Phone " +
+                                "SELECT EmployeeId, Firstname, Lastname, Birthdate, Street, City, Postcode, Gender, CivilStatus, RefTariffId, TaxId, RefHealthInsuranceId, HasDrivingLicence, Nationality, Confession, " +
+                                "BankName, BIC, IBAN, NationalInsuranceNumber, Salary, WorkHoursPerWeek, VacationDays, Picture, Mail, Phone, Mobile " +
                                 $"FROM {TableName} " +
                                 "END");
                 using (var connection =
@@ -56,9 +57,9 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Firstname nvarchar(150), @Lastname nvarchar(150), @Birthdate date, @Street nvarchar(150), @City nvarchar(150), @Postcode int, @Gender int, @CivilStatus int, @RefTariffId int, @TaxId nvarchar(150), @RefHealthInsuranceId int, @HasDrivingLicence bit, @Nationality nvarchar(150), @Confession nvarchar(150), @BankName nvarchar(150), @BIC nvarchar(150), @IBAN nvarchar(150), @NationalInsuranceNumber nvarchar(150), @Salary money, @WorkHoursPerWeek real, @VacationDays real, @Picture varbinary(MAX), @Mail nvarchar(150), @Phone nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Firstname, Lastname, Birthdate, Street, City, Postcode, Gender, CivilStatus, RefTariffId, TaxId, RefHealthInsuranceId, HasDrivingLicence, Nationality, Confession, BankName, BIC, IBAN, NationalInsuranceNumber, Salary, WorkHoursPerWeek, VacationDays, Picture, Mail, Phone) " +
-                    "VALUES (@Firstname, @Lastname, @Birthdate, @Street, @City, @Postcode, @Gender, @CivilStatus, @RefTariffId, @TaxId, @RefHealthInsuranceId, @HasDrivingLicence, @Nationality, @Confession, @BankName, @BIC, @IBAN, @NationalInsuranceNumber, @Salary, @WorkHoursPerWeek, @VacationDays, @Picture, @Mail, @Phone); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Firstname nvarchar(150), @Lastname nvarchar(150), @Birthdate date, @Street nvarchar(150), @City nvarchar(150), @Postcode int, @Gender int, @CivilStatus int, @RefTariffId int, @TaxId nvarchar(150), @RefHealthInsuranceId int, @HasDrivingLicence bit, @Nationality nvarchar(150), @Confession nvarchar(150), @BankName nvarchar(150), @BIC nvarchar(150), @IBAN nvarchar(150), @NationalInsuranceNumber nvarchar(150), @Salary money, @WorkHoursPerWeek real, @VacationDays real, @Picture varbinary(MAX), @Mail nvarchar(150), @Phone nvarchar(150), @Mobile nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Firstname, Lastname, Birthdate, Street, City, Postcode, Gender, CivilStatus, RefTariffId, TaxId, RefHealthInsuranceId, HasDrivingLicence, Nationality, Confession, BankName, BIC, IBAN, NationalInsuranceNumber, Salary, WorkHoursPerWeek, VacationDays, Picture, Mail, Phone, Mobile) " +
+                    "VALUES (@Firstname, @Lastname, @Birthdate, @Street, @City, @Postcode, @Gender, @CivilStatus, @RefTariffId, @TaxId, @RefHealthInsuranceId, @HasDrivingLicence, @Nationality, @Confession, @BankName, @BIC, @IBAN, @NationalInsuranceNumber, @Salary, @WorkHoursPerWeek, @VacationDays, @Picture, @Mail, @Phone, @Mobile); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -81,7 +82,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @EmployeeId int AS BEGIN SET NOCOUNT ON; SELECT EmployeeId, Firstname, Lastname, Birthdate, Street, City, Postcode, Gender, CivilStatus, RefTariffId, TaxId, RefHealthInsuranceId, HasDrivingLicence, Nationality, Confession, BankName, BIC, IBAN, NationalInsuranceNumber, Salary, WorkHoursPerWeek, VacationDays, Picture, Mail, Phone " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @EmployeeId int AS BEGIN SET NOCOUNT ON; SELECT EmployeeId, Firstname, Lastname, Birthdate, Street, City, Postcode, Gender, CivilStatus, RefTariffId, TaxId, RefHealthInsuranceId, HasDrivingLicence, Nationality, Confession, BankName, BIC, IBAN, NationalInsuranceNumber, Salary, WorkHoursPerWeek, VacationDays, Picture, Mail, Phone, Mobile " +
                     $"FROM {TableName} " +
                     "WHERE EmployeeId = @EmployeeId END");
                 using (var connection =
@@ -108,7 +109,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                     $"CREATE PROCEDURE [{TableName}_Update] @EmployeeId int, @Firstname nvarchar(150), @Lastname nvarchar(150), @Birthdate date, @Street nvarchar(150), @City nvarchar(150), " +
                     $"@Postcode int, @Gender int, @CivilStatus int, @RefTariffId int, @TaxId nvarchar(150), @RefHealthInsuranceId int, @HasDrivingLicence bit, @Nationality nvarchar(150), " +
                     $"@Confession nvarchar(150), @BankName nvarchar(150), @BIC nvarchar(150), @IBAN nvarchar(150), " +
-                    $"@NationalInsuranceNumber nvarchar(150), @Salary money, @WorkHoursPerWeek real, @VacationDays real, @Picture varbinary(MAX), @Mail nvarchar(150), @Phone nvarchar(150) " +
+                    $"@NationalInsuranceNumber nvarchar(150), @Salary money, @WorkHoursPerWeek real, @VacationDays real, @Picture varbinary(MAX), @Mail nvarchar(150), @Phone nvarchar(150), @Mobile nvarchar(150) " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "SET Birthdate = @Birthdate, " +
@@ -134,6 +135,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                     "Salary = @Salary, " +
                     "WorkHoursPerWeek = @WorkHoursPerWeek, " +
                     "VacationDays = @VacationDays, " +
+                    "Mobile = @Mobile, " +
                     "Picture = @Picture " +
                     "WHERE EmployeeId = @EmployeeId END");
                 using (var connection =

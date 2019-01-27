@@ -40,6 +40,7 @@ namespace FinancialAnalysis.Models.ProjectManagement
         public string NationalInsuranceNumber { get; set; }
         public byte[] Picture { get; set; }
         public string Phone { get; set; }
+        public string Mobile { get; set; }
         public string Mail { get; set; }
 
         public virtual List<ProjectEmployeeMapping> ProjectEmployeeMappings { get; set; }

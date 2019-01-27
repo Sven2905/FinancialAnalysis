@@ -92,6 +92,8 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
 
                             PurchaseOrderEntry.Bills.Add(b);
                             PurchaseOrderEntry.GoodsReceivedNotes.Add(grn);
+                            p.TaxType = DataLayer.Instance.TaxTypes.GetById(p.RefTaxTypeId);
+                            pop.Product = p;
                             PurchaseOrderEntry.PurchaseOrderPositions.Add(pop);
 
                             return po;
@@ -176,6 +178,8 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
 
                             PurchaseOrderEntry.Bills.Add(b);
                             PurchaseOrderEntry.GoodsReceivedNotes.Add(grn);
+                            p.TaxType = DataLayer.Instance.TaxTypes.GetById(p.RefTaxTypeId);
+                            pop.Product = p;
                             PurchaseOrderEntry.PurchaseOrderPositions.Add(pop);
 
                             return po;

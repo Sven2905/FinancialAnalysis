@@ -90,6 +90,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
                             SalesOrderEntry.Invoices.Add(i);
                             SalesOrderEntry.Shipments.Add(s);
+                            p.TaxType = DataLayer.Instance.TaxTypes.GetById(p.RefTaxTypeId);
+                            sop.Product = p;
                             SalesOrderEntry.SalesOrderPositions.Add(sop);
 
                             return so;
@@ -174,6 +176,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
                             SalesOrderEntry.Invoices.Add(i);
                             SalesOrderEntry.Shipments.Add(s);
+                            p.TaxType = DataLayer.Instance.TaxTypes.GetById(p.RefTaxTypeId);
+                            sop.Product = p;
                             SalesOrderEntry.SalesOrderPositions.Add(sop);
 
                             return so;

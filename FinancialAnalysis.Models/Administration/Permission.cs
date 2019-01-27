@@ -22,6 +22,7 @@ namespace FinancialAnalysis.Models.Administration
         AccessConfiguration = 100,
         AccessMail = 101,
         AccessUsers = 102,
+        AccessMyCompany = 103,
 
         // ProjectManagement 200 - 299
         AccessProjectManagement = 200,

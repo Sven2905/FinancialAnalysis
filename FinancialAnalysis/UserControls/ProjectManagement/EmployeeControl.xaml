@@ -195,11 +195,16 @@
                                 <TextBlock Text="Allgemeines" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                             </dxlc:LayoutGroup.Header>
                             <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Telefon" FontFamily="Tahoma" >
+                                <dxlc:LayoutItem Label="Telefon Büro" FontFamily="Tahoma" >
                                     <dxe:TextEdit Text="{Binding SelectedEmployee.Phone}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
-                            <dxlc:LayoutGroup>
+                        <dxlc:LayoutGroup>
+                            <dxlc:LayoutItem Label="Mobil" FontFamily="Tahoma" >
+                                <dxe:TextEdit Text="{Binding SelectedEmployee.Mobile}" FontFamily="Tahoma" />
+                            </dxlc:LayoutItem>
+                        </dxlc:LayoutGroup>
+                        <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="E-Mail" FontFamily="Tahoma" >
                                     <dxe:TextEdit Text="{Binding SelectedEmployee.Mail}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>

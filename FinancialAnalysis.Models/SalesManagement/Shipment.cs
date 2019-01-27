@@ -11,9 +11,6 @@ namespace FinancialAnalysis.Models.SalesManagement
     {
         public int ShipmentId { get; set; }
         public string ShipmentNumber { get; set; }
-        public int RefSalesOrderId { get; set; }
         public DateTime ShipmentDate { get; set; }
-        public int ShipmentTypeId { get; set; }
-        public ShipmentType ShipmentType { get; set; }
     }
 }

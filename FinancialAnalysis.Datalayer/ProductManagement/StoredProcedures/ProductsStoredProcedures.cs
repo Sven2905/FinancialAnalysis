@@ -31,23 +31,15 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
             {
                 var sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT ProductId, " +
-                                "Name, " +
-                                "Description, " +
-                                "Barcode, " +
-                                "DimensionX, " +
-                                "DimensionY, " +
-                                "DimensionZ, " +
-                                "Weight, " +
-                                "IsStackable, " +
-                                "Picture, " +
-                                "PackageUnit, " +
-                                "DefaultBuyingPrice, " +
-                                "DefaultSellingPrice, " +
-                                "RefProductCategoryId " +
-                                $"FROM {TableName} " +
-                                "END");
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
+                    "SELECT ProductId, p.Name, p.Description, p.Barcode, p.RefTaxTypeId, p.DimensionX, p.DimensionY, p.DimensionZ, p.Weight, p.IsStackable, p.Picture, p.PackageUnit, p.DefaultBuyingPrice, p.DefaultSellingPrice, p.RefProductCategoryId, " +
+                    "pc.ProductCategoryId, pc.Name, pc.Description, " +
+                    "t.TaxTypeId, t.Description, t.DescriptionShort, t.AmountOfTax, t.TaxCategory, t.RefCostAccount, t.RefAccountNotPayable " +
+                    $"FROM {TableName} p " +
+                    $"LEFT JOIN ProductCategories pc ON p.RefProductCategoryId = pc.ProductCategoryId " +
+                    $"LEFT JOIN TaxTypes t ON p.RefTaxTypeID = t.TaxTypeId " +
+                    "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -69,9 +61,9 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150), @Barcode nvarchar(150), @DimensionX decimal, @DimensionY decimal, @DimensionZ decimal, @Weight decimal, @IsStackable bit, @Picture varbinary(MAX), @PackageUnit int, @DefaultBuyingPrice money, @DefaultSellingPrice money, @RefProductCategoryId int AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, Description, Barcode, DimensionX, DimensionY, DimensionZ, Weight, IsStackable, Picture, PackageUnit, DefaultBuyingPrice, DefaultSellingPrice, RefProductCategoryId) " +
-                    "VALUES (@Name, @Description, @Barcode, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @DefaultBuyingPrice, @DefaultSellingPrice, @RefProductCategoryId); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150), @Barcode nvarchar(150), @RefTaxTypeId int, @DimensionX decimal(7,2), @DimensionY decimal(7,2), @DimensionZ decimal(7,2), @Weight decimal(7,3), @IsStackable bit, @Picture varbinary(MAX), @PackageUnit int, @DefaultBuyingPrice money, @DefaultSellingPrice money, @RefProductCategoryId int AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Name, Description, Barcode, RefTaxTypeId, DimensionX, DimensionY, DimensionZ, Weight, IsStackable, Picture, PackageUnit, DefaultBuyingPrice, DefaultSellingPrice, RefProductCategoryId) " +
+                    "VALUES (@Name, @Description, @Barcode, @RefTaxTypeId, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @DefaultBuyingPrice, @DefaultSellingPrice, @RefProductCategoryId); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -94,8 +86,13 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @ProductId int AS BEGIN SET NOCOUNT ON; SELECT Name, Description, Barcode, DimensionX, DimensionY, DimensionZ, Weight, IsStackable, RefProductCategoryId " +
-                    $"FROM {TableName} " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @ProductId int AS BEGIN SET NOCOUNT ON; " +
+                    "SELECT ProductId, p.Name, p.Description, p.Barcode, p.RefTaxTypeId, p.DimensionX, p.DimensionY, p.DimensionZ, p.Weight, p.IsStackable, p.Picture, p.PackageUnit, p.DefaultBuyingPrice, p.DefaultSellingPrice, p.RefProductCategoryId, " +
+                    "pc.ProductCategoryId, pc.Name, pc.Description, " +
+                    "t.TaxTypeId, t.Description, t.DescriptionShort, t.AmountOfTax, t.TaxCategory, t.RefCostAccount, t.RefAccountNotPayable " +
+                    $"FROM {TableName} p " +
+                    $"LEFT JOIN ProductCategories pc ON p.RefProductCategoryId = pc.ProductCategoryId " +
+                    $"LEFT JOIN TaxTypes t ON p.RefTaxTypeID = t.TaxTypeId " +
                     "WHERE ProductId = @ProductId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -118,12 +115,13 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @ProductId int, @Name nvarchar(150), @Description nvarchar(150), @Barcode nvarchar(150), @DimensionX decimal, @DimensionY decimal, @DimensionZ decimal, @Weight decimal, @IsStackable bit, @Picture varbinary(MAX), @PackageUnit int, @DefaultBuyingPrice money, @DefaultSellingPrice money, @RefProductCategoryId int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @ProductId int, @Name nvarchar(150), @Description nvarchar(150), @Barcode nvarchar(150), @RefTaxTypeId int, @DimensionX decimal(7,2), @DimensionY decimal(7,2), @DimensionZ decimal(7,2), @Weight decimal(7,3), @IsStackable bit, @Picture varbinary(MAX), @PackageUnit int, @DefaultBuyingPrice money, @DefaultSellingPrice money, @RefProductCategoryId int " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "SET Name = @Name, " +
                     "Description = @Description, " +
                     "Barcode = @Barcode, " +
+                    "RefTaxTypeId = @RefTaxTypeId, " +
                     "DimensionX = @DimensionX, " +
                     "DimensionY = @DimensionY, " +
                     "DimensionZ = @DimensionZ, " +

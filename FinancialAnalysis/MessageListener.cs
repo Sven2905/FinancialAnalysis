@@ -95,6 +95,18 @@ namespace FinancialAnalysis.UI
                 {
                     DXSplashScreen.Show<SplashScreenView>();
                 });
+            Messenger.Default.Register<OpenProductCategoriesWindowMessage>(this,
+               msg =>
+               {
+                   var window = new ProductCategoriesWindow();
+                   window.ShowDialog();
+               });
+            Messenger.Default.Register<OpenSalesTypesWindowMessage>(this,
+               msg =>
+               {
+                   var window = new ProductCategoriesWindow();
+                   window.ShowDialog();
+               });
         }
 
         #endregion

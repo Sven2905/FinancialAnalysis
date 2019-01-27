@@ -72,7 +72,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     output = con.Query<Shipment, ShipmentType, Shipment>($"dbo.{TableName}_GetAll",
                         (objShipment, objShipmentType) =>
                         {
-                            objShipment.ShipmentType = objShipmentType;
+                            //objShipment.ShipmentType = objShipmentType;
                             return objShipment;
                         }, splitOn: "ShipmentId, ShipmentTypeId",
                         commandType: CommandType.StoredProcedure).ToList();

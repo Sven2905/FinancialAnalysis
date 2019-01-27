@@ -77,7 +77,7 @@
                 </dxg:GridControl.View>
                 <dxg:GridColumn FieldName="IsVisible" Header="Sichtbar" Width="50" />
                 <dxg:GridColumn FieldName="AccountNumber" Header="Nummer" Width="60"
-                                AllowEditing="{Binding SelectedCostAccount.IsEditable}" />
+                                AllowEditing="False" />
                 <dxg:GridColumn FieldName="Description" Header="Beschreibung" Width="400"
                                 AllowEditing="{Binding SelectedCostAccount.IsEditable}" />
                 <dxg:GridColumn FieldName="RefTaxTypeId" Header="Steuer" Width="110"
