@@ -1,5 +1,6 @@
 ﻿using FinancialAnalysis.Datalayer.Accounting;
 using FinancialAnalysis.Datalayer.Administration;
+using FinancialAnalysis.Datalayer.ClientManagement;
 using FinancialAnalysis.Datalayer.CompanyManagement;
 using FinancialAnalysis.Datalayer.Configurations;
 using FinancialAnalysis.Datalayer.ProductManagement;
@@ -21,6 +22,7 @@ namespace FinancialAnalysis.Datalayer
         public static DataLayer Instance { get; } = new DataLayer();
 
         public TableVersions TableVersions { get; set; } = new TableVersions();
+        public Clients Clients { get; set; }
         public Companies Companies { get; set; } = new Companies();
         public CostAccountCategories CostAccountCategories { get; set; } = new CostAccountCategories();
         public CostAccounts CostAccounts { get; set; } = new CostAccounts();
@@ -48,15 +50,9 @@ namespace FinancialAnalysis.Datalayer
         public UserRightUserMappings UserRightUserMappings { get; set; } = new UserRightUserMappings();
         public Warehouses Warehouses { get; set; } = new Warehouses();
         public Stockyards Stockyards { get; set; } = new Stockyards();
-        public BillTypes BillTypes { get; set; } = new BillTypes();
-        public Bills Bills { get; set; } = new Bills();
         public InvoiceTypes InvoiceTypes { get; set; } = new InvoiceTypes();
         public Invoices Invoices { get; set; } = new Invoices();
         public ShipmentTypes ShipmentTypes { get; set; } = new ShipmentTypes();
-        public PurchaseTypes PurchaseTypes { get; set; } = new PurchaseTypes();
-        public GoodsReceivedNotes GoodsReceivedNotes { get; set; } = new GoodsReceivedNotes();
-        public PurchaseOrderPositions PurchaseOrderPositions { get; set; } = new PurchaseOrderPositions();
-        public PurchaseOrders PurchaseOrders { get; set; } = new PurchaseOrders();
         public SalesTypes SalesTypes { get; set; } = new SalesTypes();
         public Shipments Shipments { get; set; } = new Shipments();
         public SalesOrderPositions SalesOrderPositions { get; set; } = new SalesOrderPositions();
@@ -108,16 +104,10 @@ namespace FinancialAnalysis.Datalayer
             UserRightUserMappings.CheckAndCreateStoredProcedures();
             Warehouses.CheckAndCreateStoredProcedures();
             Stockyards.CheckAndCreateStoredProcedures();
-            BillTypes.CheckAndCreateStoredProcedures();
-            Bills.CheckAndCreateStoredProcedures();
             InvoiceTypes.CheckAndCreateStoredProcedures();
             Invoices.CheckAndCreateStoredProcedures();
             ShipmentTypes.CheckAndCreateStoredProcedures();
-            PurchaseTypes.CheckAndCreateStoredProcedures();
             SalesTypes.CheckAndCreateStoredProcedures();
-            GoodsReceivedNotes.CheckAndCreateStoredProcedures();
-            PurchaseOrderPositions.CheckAndCreateStoredProcedures();
-            PurchaseOrders.CheckAndCreateStoredProcedures();
             Shipments.CheckAndCreateStoredProcedures();
             SalesOrderPositions.CheckAndCreateStoredProcedures();
             SalesOrders.CheckAndCreateStoredProcedures();

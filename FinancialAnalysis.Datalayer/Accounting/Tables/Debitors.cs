@@ -6,7 +6,7 @@ using System.Linq;
 using Dapper;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
-using FinancialAnalysis.Models.CompanyManagement;
+using FinancialAnalysis.Models.ClientManagement;
 using Serilog;
 
 namespace FinancialAnalysis.Datalayer.Accounting
@@ -36,7 +36,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var commandStr =
                     $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
                     "DebitorId int IDENTITY(1,1) PRIMARY KEY," +
-                    "RefCompanyId int NOT NULL," +
+                    "RefClientId int NOT NULL," +
                     "RefCostAccountId int NOT NULL)";
 
                 using (var command = new SqlCommand(commandStr, con))
@@ -69,13 +69,13 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<Debitor, Company, CostAccount, Debitor>($"dbo.{TableName}_GetAll",
-                        (debitor, company, costaccount) =>
+                    output = con.Query<Debitor, Client, CostAccount, Debitor>($"dbo.{TableName}_GetAll",
+                        (debitor, Client, costaccount) =>
                         {
-                            debitor.Company = company;
+                            debitor.Client = Client;
                             debitor.CostAccount = costaccount;
                             return debitor;
-                        }, splitOn: "CompanyId, CostAccountId",
+                        }, splitOn: "ClientId, CostAccountId",
                         commandType: CommandType.StoredProcedure).ToList();
                 }
             }
@@ -100,7 +100,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @RefCompanyId, @RefCostAccountId", debitor);
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @RefClientId, @RefCostAccountId", debitor);
                     id = result.Single();
                 }
             }
@@ -194,7 +194,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @RefCompanyId, @RefCostAccountId", debitor);
+                    con.Execute($"dbo.{TableName}_Update @RefClientId, @RefCostAccountId", debitor);
                 }
             }
             catch (Exception e)
@@ -256,7 +256,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
             {
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
-                    $"IF(OBJECT_ID('FK_Debitors_Companies', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_Debitors_Companies FOREIGN KEY(RefCompanyId) REFERENCES Companies(CompanyId)";
+                    $"IF(OBJECT_ID('FK_Debitors_Companies', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_Debitors_Companies FOREIGN KEY(RefClientId) REFERENCES Companies(ClientId)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {

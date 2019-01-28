@@ -13,6 +13,5 @@ namespace FinancialAnalysis.Models.SalesManagement
         public int RefShipmentId { get; set; }
         public int RefSalesOrderPositionId { get; set; }
         public int Quantity { get; set; }
-
     }
 }

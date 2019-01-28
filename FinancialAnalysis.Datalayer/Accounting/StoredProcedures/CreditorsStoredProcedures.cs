@@ -33,11 +33,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT c.CreditorId, c.RefCompanyId, c.RefCostAccountId, " +
-                                "co.CompanyId, co.Name, co.Street, co.Postcode, co.City, co.ContactPerson, co.UStID, co.TaxNumber, co.Phone, co.Fax, co.eMail, co.Website, co.IBAN, co.BIC, co.BankName, co.FederalState, " +
-                                "a.CostAccountId, a.Description, a.AccountNumber, a.RefTaxTypeId, a.RefCostAccountCategoryId, a.IsVisible " +
+                                "SELECT c.*, cl.*, a.* " +
                                 $"FROM {TableName} c " +
-                                "INNER JOIN Companies co ON RefCompanyId = co.CompanyId " +
+                                "INNER JOIN Clients cl ON RefClientId = cl.ClientId " +
                                 "INNER JOIN CostAccounts a ON RefCostAccountId = a.CostAccountId " +
                                 "ORDER BY a.AccountNumber END");
                 using (var connection =
@@ -61,9 +59,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @RefCompanyId int, @RefCostAccountId int AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (RefCompanyId, RefCostAccountId) " +
-                    "VALUES (@RefCompanyId, @RefCostAccountId); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @RefClientId int, @RefCostAccountId int AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (RefClientId, RefCostAccountId) " +
+                    "VALUES (@RefClientId, @RefCostAccountId); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -86,7 +84,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @CreditorId int AS BEGIN SET NOCOUNT ON; SELECT CreditorId, RefCompanyId, RefCostAccountId " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @CreditorId int AS BEGIN SET NOCOUNT ON; SELECT CreditorId, RefClientId, RefCostAccountId " +
                     $"FROM {TableName} " +
                     "WHERE CreditorId = @CreditorId END");
                 using (var connection =
@@ -110,10 +108,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @CreditorId int, @RefCompanyId int, @RefCostAccountId int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @CreditorId int, @RefClientId int, @RefCostAccountId int " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
-                    "SET RefCompanyId = @RefCompanyId, RefCostAccountId = @RefCostAccountId " +
+                    "SET RefClientId = @RefClientId, RefCostAccountId = @RefCostAccountId " +
                     "WHERE CreditorId = @CreditorId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

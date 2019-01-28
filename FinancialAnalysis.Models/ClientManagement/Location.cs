@@ -1,6 +1,6 @@
 ﻿using DevExpress.Mvvm;
 
-namespace FinancialAnalysis.Models.CompanyManagement
+namespace FinancialAnalysis.Models.ClientManagement
 {
     public class Location : BindableBase
     {

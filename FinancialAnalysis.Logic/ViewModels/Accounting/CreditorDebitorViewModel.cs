@@ -5,7 +5,7 @@ using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
-using FinancialAnalysis.Models.CompanyManagement;
+using FinancialAnalysis.Models.ClientManagement;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -21,8 +21,8 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             Creditor = new Creditor();
             Debitor = new Debitor();
-            Creditor.Company.PropertyChanged += CreditorCompany_PropertyChanged;
-            Debitor.Company.PropertyChanged += DebitorCompany_PropertyChanged;
+            Creditor.Client.PropertyChanged += CreditorClient_PropertyChanged;
+            Debitor.Client.PropertyChanged += DebitorClient_PropertyChanged;
 
             RefreshData();
             InitializeButtonCommands();
@@ -34,7 +34,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private Creditor _creditor = new Creditor();
         private Debitor _debitor = new Debitor();
-        private Company _selectedCompany = new Company();
+        private Client _selectedClient = new Client();
         private bool _saveCreditorButtonEnabled;
         private bool _saveDebitorButtonEnabled;
         private bool _deleteCreditorButtonEnabled;
@@ -49,9 +49,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveCreditor()
         {
-            if (Creditor.Company.CompanyId != 0)
+            if (Creditor.Client.ClientId != 0)
             {
-                UpdateCompany(Creditor.Company);
+                UpdateClient(Creditor.Client);
                 if (Creditor.CreditorId != 0)
                     UpdateCreditor();
                 else
@@ -59,7 +59,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             else
             {
-                CreateCreditorWithCompany();
+                CreateCreditorWithClient();
             }
 
             RefreshData();
@@ -72,11 +72,11 @@ namespace FinancialAnalysis.Logic.ViewModels
                 var creditorNumber = DataLayer.Instance.CostAccounts.GetNextCreditorNumber();
                 Creditor.CostAccount.AccountNumber = creditorNumber;
                 Creditor.CostAccount.RefCostAccountCategoryId = DataLayer.Instance.CostAccountCategories.GetCreditorId();
-                Creditor.CostAccount.Description = Creditor.Company.Name;
+                Creditor.CostAccount.Description = Creditor.Client.Name;
                 Creditor.CostAccount.IsVisible = true;
                 var costAccountId = DataLayer.Instance.CostAccounts.Insert(Creditor.CostAccount);
                 var creditor = new Creditor
-                { RefCompanyId = SelectedCompany.CompanyId, RefCostAccountId = costAccountId };
+                { RefClientId = SelectedClient.ClientId, RefCostAccountId = costAccountId };
                 DataLayer.Instance.Creditors.Insert(creditor);
             }
             catch (System.Exception ex)
@@ -86,7 +86,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             var notificationService = this.GetRequiredService<INotificationService>();
             var notification = notificationService.CreatePredefinedNotification("Neuer Kreditor",
-                $"Der Kreditor {Creditor.Company.Name} wurde erfolgreich angelegt.", string.Empty);
+                $"Der Kreditor {Creditor.Client.Name} wurde erfolgreich angelegt.", string.Empty);
             notification.ShowAsync();
         }
 
@@ -117,18 +117,18 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
-        private void CreateCreditorWithCompany()
+        private void CreateCreditorWithClient()
         {
             try
             {
-                var companyId = DataLayer.Instance.Companies.Insert(Creditor.Company);
+                var ClientId = DataLayer.Instance.Companies.Insert(Creditor.Client);
                 var creditorNumber = DataLayer.Instance.CostAccounts.GetNextCreditorNumber();
                 Creditor.CostAccount.AccountNumber = creditorNumber;
                 Creditor.CostAccount.RefCostAccountCategoryId = DataLayer.Instance.CostAccountCategories.GetCreditorId();
-                Creditor.CostAccount.Description = Creditor.Company.Name;
+                Creditor.CostAccount.Description = Creditor.Client.Name;
                 Creditor.CostAccount.IsVisible = true;
                 var costAccountId = DataLayer.Instance.CostAccounts.Insert(Creditor.CostAccount);
-                var creditor = new Creditor { RefCompanyId = companyId, RefCostAccountId = costAccountId };
+                var creditor = new Creditor { RefClientId = ClientId, RefCostAccountId = costAccountId };
                 DataLayer.Instance.Creditors.Insert(creditor);
             }
             catch (System.Exception ex)
@@ -138,15 +138,15 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             var notificationService = this.GetRequiredService<INotificationService>();
             var notification = notificationService.CreatePredefinedNotification("Neuer Kreditor",
-                $"Der Kreditor {Creditor.Company.Name} wurde erfolgreich angelegt.", string.Empty);
+                $"Der Kreditor {Creditor.Client.Name} wurde erfolgreich angelegt.", string.Empty);
             notification.ShowAsync();
         }
 
         private void SaveDebitor()
         {
-            if (Debitor.Company.CompanyId != 0)
+            if (Debitor.Client.ClientId != 0)
             {
-                UpdateCompany(Debitor.Company);
+                UpdateClient(Debitor.Client);
                 if (Debitor.DebitorId != 0)
                     UpdateDebitor();
                 else
@@ -154,7 +154,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             else
             {
-                CreateDebitorWithCompany();
+                CreateDebitorWithClient();
             }
 
             RefreshData();
@@ -167,10 +167,10 @@ namespace FinancialAnalysis.Logic.ViewModels
                 var debitorNumber = DataLayer.Instance.CostAccounts.GetNextDebitorNumber();
                 Debitor.CostAccount.AccountNumber = debitorNumber;
                 Debitor.CostAccount.RefCostAccountCategoryId = DataLayer.Instance.CostAccountCategories.GetDebitorId();
-                Debitor.CostAccount.Description = Debitor.Company.Name;
+                Debitor.CostAccount.Description = Debitor.Client.Name;
                 Debitor.CostAccount.IsVisible = true;
                 var costAccountId = DataLayer.Instance.CostAccounts.Insert(Debitor.CostAccount);
-                var debitor = new Debitor { RefCompanyId = SelectedCompany.CompanyId, RefCostAccountId = costAccountId };
+                var debitor = new Debitor { RefClientId = SelectedClient.ClientId, RefCostAccountId = costAccountId };
                 DataLayer.Instance.Debitors.Insert(debitor);
             }
             catch (System.Exception ex)
@@ -180,7 +180,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             var notificationService = this.GetRequiredService<INotificationService>();
             var notification = notificationService.CreatePredefinedNotification("Neuer Debitor",
-                $"Der Debitor {Debitor.Company.Name} wurde erfolgreich angelegt.", string.Empty);
+                $"Der Debitor {Debitor.Client.Name} wurde erfolgreich angelegt.", string.Empty);
             notification.ShowAsync();
         }
 
@@ -196,18 +196,18 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
-        private void CreateDebitorWithCompany()
+        private void CreateDebitorWithClient()
         {
             try
             {
-                var companyId = DataLayer.Instance.Companies.Insert(Debitor.Company);
+                var ClientId = DataLayer.Instance.Companies.Insert(Debitor.Client);
                 var debitorNumber = DataLayer.Instance.CostAccounts.GetNextDebitorNumber();
                 Debitor.CostAccount.AccountNumber = debitorNumber;
                 Debitor.CostAccount.RefCostAccountCategoryId = DataLayer.Instance.CostAccountCategories.GetDebitorId();
-                Debitor.CostAccount.Description = Debitor.Company.Name;
+                Debitor.CostAccount.Description = Debitor.Client.Name;
                 Debitor.CostAccount.IsVisible = true;
                 var costAccountId = DataLayer.Instance.CostAccounts.Insert(Debitor.CostAccount);
-                var creditor = new Creditor { RefCompanyId = companyId, RefCostAccountId = costAccountId };
+                var creditor = new Creditor { RefClientId = ClientId, RefCostAccountId = costAccountId };
                 DataLayer.Instance.Creditors.Insert(creditor);
             }
             catch (System.Exception ex)
@@ -217,15 +217,15 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             var notificationService = this.GetRequiredService<INotificationService>();
             var notification = notificationService.CreatePredefinedNotification("Neuer Debitor",
-                $"Der Debitor {Debitor.Company.Name} wurde erfolgreich angelegt.", string.Empty);
+                $"Der Debitor {Debitor.Client.Name} wurde erfolgreich angelegt.", string.Empty);
             notification.ShowAsync();
         }
 
-        private void UpdateCompany(Company company)
+        private void UpdateClient(Client Client)
         {
             try
             {
-                DataLayer.Instance.Companies.Update(company);
+                DataLayer.Instance.Companies.Update(Client);
             }
             catch (System.Exception ex)
             {
@@ -234,7 +234,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             var notificationService = this.GetRequiredService<INotificationService>();
             var notification = notificationService.CreatePredefinedNotification("Änderungen",
-                $"Die Änderungen am Debitor {company.Name} wurde erfolgreich gespeichert.", string.Empty);
+                $"Die Änderungen am Debitor {Client.Name} wurde erfolgreich gespeichert.", string.Empty);
             notification.ShowAsync();
         }
 
@@ -275,39 +275,39 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             NewCreditorCommand = new DelegateCommand(() => { Creditor = new Creditor(); });
             NewDebitorCommand = new DelegateCommand(() => { Debitor = new Debitor(); });
-            OpenCompanyWindowCommand = new DelegateCommand(() =>
+            OpenClientWindowCommand = new DelegateCommand(() =>
             {
-                Messenger.Default.Send(new OpenCompanyWindowMessage());
+                Messenger.Default.Send(new OpenClientWindowMessage());
             });
         }
 
-        private void CreditorCompany_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void CreditorClient_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             ValidateCreditor();
         }
 
-        private void DebitorCompany_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void DebitorClient_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             ValidateDebitor();
         }
 
-        private void UseExistingCompany()
+        private void UseExistingClient()
         {
             if (SelectedTab == 0)
             {
-                Creditor.Company.PropertyChanged -= CreditorCompany_PropertyChanged;
-                Creditor.Company = SelectedCompany;
-                if (Creditor.Company.IsNull()) Creditor.Company = new Company();
-                Creditor.Company.PropertyChanged += CreditorCompany_PropertyChanged;
+                Creditor.Client.PropertyChanged -= CreditorClient_PropertyChanged;
+                Creditor.Client = SelectedClient;
+                if (Creditor.Client.IsNull()) Creditor.Client = new Client();
+                Creditor.Client.PropertyChanged += CreditorClient_PropertyChanged;
 
                 ValidateCreditor();
             }
             else if (SelectedTab == 1)
             {
-                Debitor.Company.PropertyChanged -= DebitorCompany_PropertyChanged;
-                Debitor.Company = SelectedCompany;
-                if (Debitor.Company.IsNull()) Debitor.Company = new Company();
-                Debitor.Company.PropertyChanged += DebitorCompany_PropertyChanged;
+                Debitor.Client.PropertyChanged -= DebitorClient_PropertyChanged;
+                Debitor.Client = SelectedClient;
+                if (Debitor.Client.IsNull()) Debitor.Client = new Client();
+                Debitor.Client.PropertyChanged += DebitorClient_PropertyChanged;
 
                 ValidateSaveDebitor();
             }
@@ -331,8 +331,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (Creditor.IsNull()) Creditor = new Creditor();
 
-            if (!string.IsNullOrEmpty(Creditor.Company.Name) && !string.IsNullOrEmpty(Creditor.Company.Street) &&
-                Creditor.Company.Postcode != 0 && !string.IsNullOrEmpty(Creditor.Company.City))
+            if (!string.IsNullOrEmpty(Creditor.Client.Name) && !string.IsNullOrEmpty(Creditor.Client.Street) &&
+                Creditor.Client.Postcode != 0 && !string.IsNullOrEmpty(Creditor.Client.City))
             {
                 SaveCreditorButtonEnabled = true;
                 return;
@@ -355,8 +355,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (Debitor.IsNull()) Debitor = new Debitor();
 
-            if (!string.IsNullOrEmpty(Debitor.Company.Name) && !string.IsNullOrEmpty(Debitor.Company.Street) &&
-                Debitor.Company.Postcode != 0 && !string.IsNullOrEmpty(Debitor.Company.City))
+            if (!string.IsNullOrEmpty(Debitor.Client.Name) && !string.IsNullOrEmpty(Debitor.Client.Street) &&
+                Debitor.Client.Postcode != 0 && !string.IsNullOrEmpty(Debitor.Client.City))
             {
                 SaveDebitorButtonEnabled = true;
                 return;
@@ -387,10 +387,10 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand DeleteDebitorCommand { get; set; }
         public DelegateCommand NewCreditorCommand { get; set; }
         public DelegateCommand NewDebitorCommand { get; set; }
-        public DelegateCommand OpenCompanyWindowCommand { get; set; }
+        public DelegateCommand OpenClientWindowCommand { get; set; }
 
         public SvenTechCollection<TaxType> TaxTypes { get; set; }
-        public SvenTechCollection<Company> Companies { get; set; } = new SvenTechCollection<Company>();
+        public SvenTechCollection<Client> Companies { get; set; } = new SvenTechCollection<Client>();
         public SvenTechCollection<Creditor> Creditors { get; set; } = new SvenTechCollection<Creditor>();
         public SvenTechCollection<Debitor> Debitors { get; set; } = new SvenTechCollection<Debitor>();
 
@@ -416,13 +416,13 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
-        public Company SelectedCompany
+        public Client SelectedClient
         {
-            get => _selectedCompany;
+            get => _selectedClient;
             set
             {
-                _selectedCompany = value;
-                UseExistingCompany();
+                _selectedClient = value;
+                UseExistingClient();
             }
         }
 

@@ -33,13 +33,7 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT po.PurchaseOrderId, po.PurchaseInvoiceNumber, po.RefCreditorId, po.OrderDate, po.DeliveryDate, po.RefPurchaseTypeId, po.Remarks, po.IsClosed, " +
-                    "pt.PurchaseTypeId, pt.Name, pt.Description, " +
-                    "b.BillId, b.CreditorInvoiceNumber, b.BillDate, b.BillDueDate, b.Content, b.RefPurchaseOrderId, b.RefBillTypeId, " +
-                    "grn.RefPurchaseOrderId, grn.Content, " +
-                    "c.CreditorId, c.RefCompanyId, c.RefCostAccountId, " +
-                    "pop.PurchaseOrderPositionId, pop.RefPurchaseOrderId, pop.RefProductId, pop.RefTaxTypeId, pop.Description, pop.Quantity, pop.Price, pop.DiscountPercentage, pop.IsDelivered, pop.IsCanceled , " +
-                    "p.ProductId, p.Name, p.Description, p.Barcode, p.RefTaxTypeId, p.DimensionX, p.DimensionY, p.DimensionZ, p.Weight, p.IsStackable, p.Picture, p.PackageUnit, p.BuyingPrice, p.SalePrice, p.RefProductCategoryId " +
+                    "SELECT po.*, pt.*, b.*, grn.*, c.*, pop.* , p.* " +
                     $"FROM {TableName} po " +
                     $"LEFT JOIN PurchaseTypes pt ON po.RefPurchaseTypeId = pt.PurchaseTypeId " +
                     $"LEFT JOIN Bills b ON po.PurchaseOrderId = b.RefPurchaseOrderId " +
@@ -95,13 +89,7 @@ namespace FinancialAnalysis.Datalayer.PurchaseManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetById] @PurchaseOrderId int AS BEGIN SET NOCOUNT ON; " +
-                   "SELECT po.PurchaseOrderId, po.PurchaseInvoiceNumber, po.RefCreditorId, po.OrderDate, po.DeliveryDate, po.RefPurchaseTypeId, po.Remarks, po.IsClosed, " +
-                    "pt.PurchaseTypeId, pt.Name, pt.Description, " +
-                    "b.BillId, b.CreditorInvoiceNumber, b.BillDate, b.BillDueDate, b.Content, b.RefPurchaseOrderId, b.RefBillTypeId, " +
-                    "grn.RefPurchaseOrderId, grn.Content, " +
-                    "c.CreditorId, c.RefCompanyId, c.RefCostAccountId, " +
-                    "pop.PurchaseOrderPositionId, pop.RefPurchaseOrderId, pop.RefProductId, pop.RefTaxTypeId, pop.Description, pop.Quantity, pop.Price, pop.DiscountPercentage, pop.IsDelivered, pop.IsCanceled , " +
-                    "p.ProductId, p.Name, p.Description, p.Barcode, p.RefTaxTypeId, p.DimensionX, p.DimensionY, p.DimensionZ, p.Weight, p.IsStackable, p.Picture, p.PackageUnit, p.BuyingPrice, p.SalePrice, p.RefProductCategoryId " +
+                   "SELECT po.*, pt.*, b.*, grn.*, c.*, pop.* , p.* " +
                     $"FROM {TableName} po " +
                     $"LEFT JOIN PurchaseTypes pt ON po.RefPurchaseTypeId = pt.PurchaseTypeId " +
                     $"LEFT JOIN Bills b ON po.PurchaseOrderId = b.RefPurchaseOrderId " +

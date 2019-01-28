@@ -137,11 +137,9 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\Administration\MyCompanyViewModel.cs" />
     <Compile Include="ViewModels\ProductManagement\ProductManagementViewModel.cs" />
-    <Compile Include="ViewModels\PurchaseManagement\PurchaseTypeViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\SalesTypesViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\SalesOrderViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\ShipmentTypeViewModel.cs" />
-    <Compile Include="ViewModels\PurchaseManagement\BillTypeViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\InvoiceTypeViewModel.cs" />
     <Compile Include="ViewModels\WarehouseManagement\StockTransferViewModel.cs" />
     <Compile Include="ViewModels\WarehouseManagement\StockyardViewModel.cs" />

@@ -2,27 +2,25 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.SalesManagement
+namespace FinancialAnalysis.Datalayer.ClientManagement
 {
-    public class SalesOrdersStoredProcedures : IStoredProcedures
+    internal class ClientsStoredProcedures : IStoredProcedures
     {
-        public SalesOrdersStoredProcedures()
+        public ClientsStoredProcedures()
         {
-            TableName = "SalesOrders";
+            TableName = "Clients";
         }
 
         public string TableName { get; }
 
-        /// <summary>
-        /// Check if all Stored Procedures are created, otherwise create them
-        /// </summary>
         public void CheckAndCreateProcedures()
         {
-            GetAllData();
             InsertData();
+            GetAllData();
             GetById();
             UpdateData();
             DeleteData();
+            IsClientInUse();
         }
 
         private void GetAllData()
@@ -31,18 +29,11 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
             {
                 var sbSP = new StringBuilder();
 
-                sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT so.*, " +
-                    "st.*, i.*, sh.*, d.*, sop.*, p.* " +
-                    $"FROM {TableName} so " +
-                    $"LEFT JOIN SalesTypes st ON so.RefSalesTypeId = st.SalesTypeId " +
-                    $"LEFT JOIN Invoices i ON so.SalesOrderId = i.RefSalesOrderId " +
-                    $"LEFT JOIN Shipments sh ON so.SalesOrderId = sh.RefSalesOrderId " +
-                    $"LEFT JOIN Debitors d ON so.RefDebitorId = d.DebitorId " +
-                    $"LEFT JOIN SalesOrderPositions sop ON so.SalesOrderId = sop.RefSalesOrderId " +
-                    $"LEFT JOIN Product p ON sop.RefProductID = p.ProductId " +
-                    "END");
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
+                                "SELECT ClientId, Name, Street, Postcode, City, Phone, Fax, Mail, IBAN, BIC, BankName, FederalState " +
+                                $"FROM {TableName} " +
+                                $"WHERE ClientId > 1" +
+                                "ORDER BY Name END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -63,11 +54,11 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
             {
                 var sbSP = new StringBuilder();
 
-                sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @RefDebitorId int, @OrderDate datetime, @RefSalesTypeId int, @Remarks nvarchar(150), @DiscountPercentage money, @IsClosed bit AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (RefDebitorId, OrderDate, RefSalesTypeId, Remarks, IsClosed ) " +
-                    "VALUES (@RefDebitorId, @OrderDate, @RefSalesTypeId, @Remarks, @IsClosed ); " +
-                    "SELECT CAST(SCOPE_IDENTITY() as int) END");
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_Insert] " +
+                                "@Name nvarchar(50), @Street nvarchar(50), @Postcode int, @City nvarchar(50), @Phone nvarchar(50), @Fax nvarchar(50), @Mail nvarchar(50), @IBAN nvarchar(50), @BIC nvarchar(50), @BankName nvarchar(50), @FederalState int " +
+                                $"AS BEGIN SET NOCOUNT ON; INSERT into {TableName} (Name, Street, Postcode, City, Phone, Fax, Mail, IBAN, BIC, BankName, FederalState) " +
+                                "VALUES (@Name, @Street, @Postcode, @City, @Phone, @Fax, @Mail, @IBAN, @BIC, @BankName, @FederalState); " +
+                                "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -89,18 +80,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @SalesOrderId int AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT so.*, " +
-                    "st.*, i.*, sh.*, d.*, sop.*, p.* " +
-                    $"FROM {TableName} so " +
-                    $"LEFT JOIN SalesTypes st ON so.RefSalesTypeId = st.SalesTypeId " +
-                    $"LEFT JOIN Invoices i ON so.SalesOrderId = i.RefSalesOrderId " +
-                    $"LEFT JOIN Shipments sh ON so.SalesOrderId = sh.RefSalesOrderId " +
-                    $"LEFT JOIN Debitors d ON so.RefDebitorId = d.DebitorId " +
-                    $"LEFT JOIN SalesOrderPositions sop ON so.SalesOrderId = sop.RefSalesOrderId " +
-                    $"LEFT JOIN Product p ON sop.RefProductID = p.ProductId " +
-                    $"WHERE pt.SalesOrderId = @SalesOrderId " +
-                    "END");
+                    $"CREATE PROCEDURE [{TableName}_GetById] @ClientId int AS BEGIN SET NOCOUNT ON; SELECT * FROM {TableName} WHERE ClientId = @ClientId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -122,15 +102,21 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @SalesOrderId int, @RefDebitorId int, @OrderDate datetime, @RefSalesTypeId int, @Remarks nvarchar(150), @IsClosed bit " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @ClientId int, @Name nvarchar(50), @Street nvarchar(50), @Postcode int, @City nvarchar(50), @Phone nvarchar(50), @Fax nvarchar(50), @Mail nvarchar(50), @IBAN nvarchar(50), @BIC nvarchar(50), @BankName nvarchar(50), @FederalState int " +
                     "AS BEGIN SET NOCOUNT ON; " +
-                    $"UPDATE {TableName} " +
-                    "SET RefDebitorId = @RefDebitorId, " +
-                    "OrderDate = @OrderDate, " +
-                    "RefSalesTypeId = @RefSalesTypeId, " +
-                    "Remarks = @Remarks, " +
-                    "IsClosed = @IsClosed " +
-                    "WHERE SalesOrderId = @SalesOrderId END");
+                    $"UPDATE {TableName} SET " +
+                    "Name = @Name, " +
+                    "Street = @Street, " +
+                    "Postcode = @Postcode, " +
+                    "City = @City, " +
+                    "Phone = @Phone, " +
+                    "Fax = @Fax, " +
+                    "Mail = @Mail, " +
+                    "IBAN = @IBAN, " +
+                    "BIC = @BIC, " +
+                    "BankName = @BankName, " +
+                    "FederalState = @FederalState " +
+                    "WHERE ClientId = @ClientId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -152,8 +138,37 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @SalesOrderId int AS BEGIN SET NOCOUNT ON; " +
-                    $"DELETE FROM {TableName} WHERE SalesOrderId = @SalesOrderId END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @ClientId int AS BEGIN SET NOCOUNT ON; " +
+                    $"DELETE FROM {TableName} WHERE ClientId = @ClientId END");
+                using (var connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void IsClientInUse()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_IsClientInUse", DatabaseNames.FinancialAnalysisDB))
+            {
+                var sbSP = new StringBuilder();
+
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_IsClientInUse] @ClientId int AS " +
+                    "SELECT CASE WHEN EXISTS ( " +
+                    $"SELECT * FROM {TableName} " +
+                    $"RIGHT JOIN Creditors ON {TableName}.ClientId = Creditors.RefClientId " +
+                    $"RIGHT JOIN Debitors ON {TableName}.ClientId = Debitors.RefClientId " +
+                    "WHERE ClientId = @ClientId) " +
+                    "THEN CAST(1 AS BIT) " +
+                    "ELSE CAST(0 AS BIT) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

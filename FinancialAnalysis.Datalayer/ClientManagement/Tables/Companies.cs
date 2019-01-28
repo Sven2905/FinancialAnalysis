@@ -6,10 +6,10 @@ using System.Linq;
 using Dapper;
 using FinancialAnalysis.Datalayer.StoredProcedures;
 using FinancialAnalysis.Models;
-using FinancialAnalysis.Models.CompanyManagement;
+using FinancialAnalysis.Models.ClientManagement;
 using Serilog;
 
-namespace FinancialAnalysis.Datalayer.CompanyManagement
+namespace FinancialAnalysis.Datalayer.ClientManagement
 {
     public class Companies : ITable
     {
@@ -41,23 +41,12 @@ namespace FinancialAnalysis.Datalayer.CompanyManagement
                 var commandStr =
                     $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
                     "CompanyId int IDENTITY(1,1) PRIMARY KEY," +
-                    "Name nvarchar(50) NOT NULL," +
-                    "Street nvarchar(50) NOT NULL," +
-                    "Postcode int NOT NULL," +
-                    "City nvarchar(50) NOT NULL," +
                     "ContactPerson nvarchar(50)," +
                     "UStID nvarchar(50)," +
                     "TaxNumber nvarchar(50)," +
-                    "Phone nvarchar(50)," +
-                    "Fax nvarchar(50)," +
-                    "eMail nvarchar(50)," +
                     "Website nvarchar(50)," +
-                    "IBAN nvarchar(50)," +
-                    "BIC nvarchar(50)," +
-                    "BankName nvarchar(50)," +
                     "Logo varbinary(MAX), " +
-                    "CEO nvarchar(50)," +
-                    "FederalState int)";
+                    "CEO nvarchar(50))";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -110,7 +99,7 @@ namespace FinancialAnalysis.Datalayer.CompanyManagement
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState, @CEO, @Logo",
+                            $"dbo.{TableName}_Insert @ContactPerson, @UStID, @TaxNumber, @Website, @IBAN, @BIC, @CEO, @Logo",
                             company);
                     id = result.Single();
                 }
@@ -136,7 +125,7 @@ namespace FinancialAnalysis.Datalayer.CompanyManagement
                 {
                     foreach (var company in companies)
                         con.Query(
-                            $"dbo.{TableName}_Insert @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState, @CEO, @Logo",
+                            $"dbo.{TableName}_Insert @ContactPerson, @UStID, @TaxNumber, @Website, @IBAN, @BIC, @BankName, @FederalState, @CEO, @Logo",
                             company);
                 }
             }
@@ -209,7 +198,7 @@ namespace FinancialAnalysis.Datalayer.CompanyManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     con.Execute(
-                        $"dbo.{TableName}_Update @CompanyId, @Name, @Street, @Postcode, @City, @ContactPerson, @UStID, @TaxNumber, @Phone, @Fax, @eMail, @Website, @IBAN, @BIC, @BankName, @FederalState, @CEO, @Logo",
+                        $"dbo.{TableName}_Update @CompanyId, @ContactPerson, @UStID, @TaxNumber, @Website, @CEO, @Logo",
                         company);
                 }
             }
