@@ -95,11 +95,15 @@
     <Compile Include="DataLayer.cs" />
     <Compile Include="Helper\DatabaseNames.cs" />
     <Compile Include="Helper\Helper.cs" />
+    <Compile Include="SalesManagement\StoredProcedures\ShippedProductsStoredProcedures.cs" />
+    <Compile Include="SalesManagement\StoredProcedures\InvoicePositionsStoredProcedures.cs" />
     <Compile Include="SalesManagement\StoredProcedures\SalesOrdersStoredProcedures.cs" />
-    <Compile Include="SalesManagement\StoredProcedures\SalesOrderPositionStoredProcedures.cs" />
+    <Compile Include="SalesManagement\StoredProcedures\SalesOrderPositionsStoredProcedures.cs" />
     <Compile Include="SalesManagement\StoredProcedures\ShipmentsStoredProcedures.cs" />
     <Compile Include="SalesManagement\StoredProcedures\InvoicesStoredProcedures.cs" />
     <Compile Include="SalesManagement\StoredProcedures\InvoiceTypesStoredProcedures.cs" />
+    <Compile Include="SalesManagement\Tables\ShippedProducts.cs" />
+    <Compile Include="SalesManagement\Tables\InvoicePositions.cs" />
     <Compile Include="SalesManagement\Tables\SalesOrders.cs" />
     <Compile Include="SalesManagement\Tables\SalesOrderPositions.cs" />
     <Compile Include="SalesManagement\Tables\Shipments.cs" />

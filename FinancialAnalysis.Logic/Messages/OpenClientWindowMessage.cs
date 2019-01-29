@@ -1,6 +1,6 @@
 ﻿namespace FinancialAnalysis.Logic.Messages
 {
-    public class OpenCompanyWindowMessage
+    public class OpenClientWindowMessage
     {
     }
 }

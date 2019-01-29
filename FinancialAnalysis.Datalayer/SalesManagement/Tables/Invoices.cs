@@ -41,10 +41,11 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                                  $"InvoiceId int IDENTITY(1,1) PRIMARY KEY, " +
                                  "InvoiceDate datetime, " +
                                  "InvoiceDueDate datetime, " +
-                                 "RefSalesOrderId int, " +
-                                 "Content varbinary(MAX), " +
-                                 "IsPaid bit," + 
-                                 "RefInvoiceTypeId int )";
+                                 "RefInvoiceTypeId int, " +
+                                 "RefPaymentConditionId int, " +
+                                 "RefInvoicePositionId int, " +
+                                 "PaidAmount money, " +
+                                 "IsPaid bit)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -103,7 +104,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @InvoiceDate, @InvoiceDueDate, @RefSalesOrderId, @Content, @IsPaid, @RefInvoiceTypeId ",
+                            $"dbo.{TableName}_Insert @InvoiceDate, @InvoiceDueDate, @RefInvoiceTypeId, @RefPaymentConditionId, @RefInvoicePositionId, @PaidAmount, @IsPaid ",
                             Invoice);
                     return result.Single();
                 }
@@ -150,7 +151,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.QuerySingleOrDefault<Invoice>($"dbo.{TableName}_GetById @InvoiceId",
-                        new {InvoiceId = id});
+                        new { InvoiceId = id });
                 }
             }
             catch (Exception e)
@@ -199,7 +200,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     con.Execute(
-                        $"dbo.{TableName}_Update @InvoiceId, @InvoiceDate, @InvoiceDueDate, @RefSalesOrderId, @Content, @IsPaid, @RefInvoiceTypeId",
+                        $"dbo.{TableName}_Update @InvoiceId, @InvoiceDate, @InvoiceDueDate, @RefInvoiceTypeId, @RefPaymentConditionId, @RefInvoicePositionId, @PaidAmount, @IsPaid",
                         Invoice);
                 }
             }
@@ -220,7 +221,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @InvoiceId", new {InvoiceId = id});
+                    con.Execute($"dbo.{TableName}_Delete @InvoiceId", new { InvoiceId = id });
                 }
             }
             catch (Exception e)
@@ -241,8 +242,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
         public void AddReferences()
         {
+            AddPaymentConditionsReference();
             AddInvoiceTypesReference();
-            AddSalesOrdersReference();
         }
 
         private void AddInvoiceTypesReference()
@@ -267,15 +268,15 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
             }
         }
 
-        private void AddSalesOrdersReference()
+        private void AddPaymentConditionsReference()
         {
-            string refTable = "SalesOrders";
+            string refTable = "PaymentConditions";
 
             try
             {
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
-                    $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefSalesOrderId) REFERENCES {refTable}(SalesOrderId) ON DELETE CASCADE";
+                    $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefPaymentConditionId) REFERENCES {refTable}(PaymentConditionId) ON DELETE CASCADE";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {

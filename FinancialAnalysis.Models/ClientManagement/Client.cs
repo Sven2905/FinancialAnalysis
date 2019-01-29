@@ -20,6 +20,7 @@ namespace FinancialAnalysis.Models.ClientManagement
         public string IBAN { get; set; }
         public string BIC { get; set; }
         public string BankName { get; set; }
+        public bool IsCompany { get; set; }
         public FederalState FederalState { get; set; }
         public string Address => $"{Street}, {Postcode} {City}";
         public Company Company { get; set; }

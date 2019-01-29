@@ -32,10 +32,15 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT s.ShipmentId, s.ShipmentDate, s.ShipmentNumber, s.RefSalesOrderId, s.RefShipmentTypeId, " +
-                                $"t.ShipmentTypeId, t.Name, t.Description " +
+                                "SELECT s.*, sp.*, spos.*, so.*, p.*, d.*, cl.*, c.* " +
                                 $"FROM {TableName} s " +
-                                "LEFT JOIN ShipmentTypes t ON s.RefShipmentTypeId = t.ShipmentTypeId " +
+                                "LEFT JOIN ShippedProducts sp ON s.ShipmentId = sp.RefShipmentId " +
+                                "LEFT JOIN SalesOrderPositions spos ON sp.RefSalesOrderPositionId = spos.SalesOrderPositionId " +
+                                "LEFT JOIN SalesOrders so ON spos.RefSalesOrderId = so.SalesOrderId " +
+                                "LEFT JOIN Products p ON spos.RefProductId = p.ProductId " +
+                                "LEFT JOIN Debitors d ON so.RefDebitorId = d.DebitorId " +
+                                "LEFT JOIN Clients cl ON d.RefClientId = d.RefClientId " +
+                                "LEFT JOIN Company c ON cl.ClientId = c.RefClientId " +
                                 "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -58,9 +63,9 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @ShipmentDate datetime, @ShipmentNumber nvarchar(150), @RefSalesOrderId int, @RefShipmentTypeId int AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (ShipmentDate, ShipmentNumber, RefSalesOrderId, RefShipmentTypeId) " +
-                    "VALUES (@ShipmentDate, @ShipmentNumber, @RefSalesOrderId, @RefShipmentTypeId); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @ShipmentDate datetime, @ShipmentNumber nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (ShipmentDate, ShipmentNumber) " +
+                    "VALUES (@ShipmentDate, @ShipmentNumber); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -84,8 +89,15 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetById] @ShipmentId int AS BEGIN SET NOCOUNT ON; " +
-                    $"SELECT ShipmentId, ShipmentDate, ShipmentNumber, RefSalesOrderId, RefShipmentTypeId " +
-                    $"FROM {TableName} " +
+                    "SELECT s.*, sp.*, spos.*, so.*, p.*, d.*, cl.*, c.* " +
+                    $"FROM {TableName} s " +
+                    "LEFT JOIN ShippedProducts sp ON s.ShipmentId = sp.RefShipmentId " +
+                    "LEFT JOIN SalesOrderPositions spos ON sp.RefSalesOrderPositionId = spos.SalesOrderPositionId " +
+                    "LEFT JOIN SalesOrders so ON spos.RefSalesOrderId = so.SalesOrderId " +
+                    "LEFT JOIN Products p ON spos.RefProductId = p.ProductId " +
+                    "LEFT JOIN Debitors d ON so.RefDebitorId = d.DebitorId " +
+                    "LEFT JOIN Clients cl ON d.RefClientId = d.RefClientId " +
+                    "LEFT JOIN Company c ON cl.ClientId = c.RefClientId " +
                     "WHERE ShipmentId = @ShipmentId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -108,13 +120,11 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @ShipmentId int, @ShipmentDate datetime, @ShipmentNumber nvarchar(150), @RefSalesOrderId int, @RefShipmentTypeId int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @ShipmentId int, @ShipmentDate datetime, @ShipmentNumber nvarchar(150) " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "SET ShipmentDate = @ShipmentDate, " +
-                    "ShipmentNumber = @ShipmentNumber, " +
-                    "RefSalesOrderId = @RefSalesOrderId, " +
-                    "RefShipmentTypeId = @RefShipmentTypeId " +
+                    "ShipmentNumber = @ShipmentNumber " +
                     "WHERE ShipmentId = @ShipmentId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

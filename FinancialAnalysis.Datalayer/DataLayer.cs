@@ -1,11 +1,9 @@
 ﻿using FinancialAnalysis.Datalayer.Accounting;
 using FinancialAnalysis.Datalayer.Administration;
 using FinancialAnalysis.Datalayer.ClientManagement;
-using FinancialAnalysis.Datalayer.CompanyManagement;
 using FinancialAnalysis.Datalayer.Configurations;
 using FinancialAnalysis.Datalayer.ProductManagement;
 using FinancialAnalysis.Datalayer.ProjectManagement;
-using FinancialAnalysis.Datalayer.PurchaseManagement;
 using FinancialAnalysis.Datalayer.SalesManagement;
 using FinancialAnalysis.Datalayer.Tables;
 using FinancialAnalysis.Datalayer.WarehouseManagement;
@@ -22,7 +20,7 @@ namespace FinancialAnalysis.Datalayer
         public static DataLayer Instance { get; } = new DataLayer();
 
         public TableVersions TableVersions { get; set; } = new TableVersions();
-        public Clients Clients { get; set; }
+        public Clients Clients { get; set; } = new Clients();
         public Companies Companies { get; set; } = new Companies();
         public CostAccountCategories CostAccountCategories { get; set; } = new CostAccountCategories();
         public CostAccounts CostAccounts { get; set; } = new CostAccounts();
@@ -58,6 +56,7 @@ namespace FinancialAnalysis.Datalayer
         public SalesOrderPositions SalesOrderPositions { get; set; } = new SalesOrderPositions();
         public SalesOrders SalesOrders { get; set; } = new SalesOrders();
         public StockedProducts StockedProducts { get; set; } = new StockedProducts();
+        public ShippedProducts ShippedProducts { get; set; } = new ShippedProducts();
 
         public void Dispose()
         {
@@ -78,6 +77,7 @@ namespace FinancialAnalysis.Datalayer
         {
             TableVersions.CheckAndCreateStoredProcedures();
             Users.CheckAndCreateStoredProcedures();
+            Clients.CheckAndCreateStoredProcedures();
             Companies.CheckAndCreateStoredProcedures();
             CostAccountCategories.CheckAndCreateStoredProcedures();
             CostAccounts.CheckAndCreateStoredProcedures();
@@ -112,6 +112,7 @@ namespace FinancialAnalysis.Datalayer
             SalesOrderPositions.CheckAndCreateStoredProcedures();
             SalesOrders.CheckAndCreateStoredProcedures();
             StockedProducts.CheckAndCreateStoredProcedures();
+            ShippedProducts.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()
@@ -130,15 +131,12 @@ namespace FinancialAnalysis.Datalayer
             ProjectWorkingTimes.AddReferences();
             UserRightUserMappings.AddReferences();
             Stockyards.AddReferences();
-            Bills.AddReferences();
             Invoices.AddReferences();
-            GoodsReceivedNotes.AddReferences();
-            PurchaseOrderPositions.AddReferences();
-            PurchaseOrders.AddReferences();
-            Shipments.AddReferences();
             SalesOrderPositions.AddReferences();
             SalesOrders.AddReferences();
             StockedProducts.AddReferences();
+            Companies.AddReferences();
+            ShippedProducts.AddReferences();
         }
 
         private void Seed()
@@ -146,9 +144,9 @@ namespace FinancialAnalysis.Datalayer
             if (Instance.TaxTypes.GetAll().Count() == 0)
             {
                 var _Import = new Import();
+                _Import.SeedCompany();
                 _Import.ImportCostAccounts(Standardkontenrahmen.SKR03);
                 _Import.SeedTaxTypes();
-                _Import.SeedCompany();
             }
         }
     }

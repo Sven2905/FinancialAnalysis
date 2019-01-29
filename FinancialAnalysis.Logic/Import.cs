@@ -2,7 +2,7 @@
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
-using FinancialAnalysis.Models.CompanyManagement;
+using FinancialAnalysis.Models.ClientManagement;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -293,9 +293,7 @@ namespace FinancialAnalysis.Logic
 
         public void SeedTypes()
         {
-            DataLayer.Instance.BillTypes.Insert(new Models.PurchaseManagement.BillType() { Name = "Allgemein" });
             DataLayer.Instance.InvoiceTypes.Insert(new Models.SalesManagement.InvoiceType() { Name = "Allgemein" });
-            DataLayer.Instance.PurchaseTypes.Insert(new Models.PurchaseManagement.PurchaseType() { Name = "Allgemein" });
             DataLayer.Instance.SalesTypes.Insert(new Models.SalesManagement.SalesType() { Name = "Allgemein" });
             DataLayer.Instance.ShipmentTypes.Insert(new Models.SalesManagement.ShipmentType() { Name = "Allgemein" });
             DataLayer.Instance.ProductCategories.Insert(new Models.ProductManagement.ProductCategory() { Name = "Allgemein" });
@@ -406,12 +404,21 @@ namespace FinancialAnalysis.Logic
 
         public void SeedCompany()
         {
-            var company = new Company()
+            var client = new Client()
             {
                 Name = "Max Mustermann GmbH",
                 Street = "Beispielstrasse 1",
                 City = "Musterhausen",
                 Postcode = 12345
+            };
+
+            client.ClientId = DataLayer.Instance.Clients.Insert(client);
+
+            var company = new Company()
+            {
+                CEO = "Sven Fuhrmann",
+                ContactPerson = "Sven Fuhrmann",
+                RefClientId = client.ClientId
             };
 
             DataLayer.Instance.Companies.Insert(company);

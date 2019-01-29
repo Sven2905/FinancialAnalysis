@@ -23,6 +23,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
             GetById();
             UpdateData();
             DeleteData();
+            GetOpenedSalesOrders();
         }
 
         private void GetAllData()
@@ -33,15 +34,19 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT so.*, " +
-                    "st.*, i.*, sh.*, d.*, sop.*, p.* " +
+                    "SELECT so.*, t.*, spo.*, d.*, cl.*, c.*, p.*, ipos.*, i.*, sp.*, s.* " +
                     $"FROM {TableName} so " +
-                    $"LEFT JOIN SalesTypes st ON so.RefSalesTypeId = st.SalesTypeId " +
-                    $"LEFT JOIN Invoices i ON so.SalesOrderId = i.RefSalesOrderId " +
-                    $"LEFT JOIN Shipments sh ON so.SalesOrderId = sh.RefSalesOrderId " +
-                    $"LEFT JOIN Debitors d ON so.RefDebitorId = d.DebitorId " +
-                    $"LEFT JOIN SalesOrderPositions sop ON so.SalesOrderId = sop.RefSalesOrderId " +
-                    $"LEFT JOIN Product p ON sop.RefProductID = p.ProductId " +
+                    "LEFT JOIN SalesOrderTypes t ON so.RefSalesOrderTypeId = t.SalesOrderTypeId " +
+                    "LEFT JOIN SalesOrderPositions spos ON so.SalesOrderId = spos.RefSalesOrderId " +
+                    "LEFT JOIN Debitors d ON so.RefDebitorId = d.DebitorId " +
+                    "LEFT JOIN Clients cl ON d.RefClientId = d.RefClientId " +
+                    "LEFT JOIN Company c ON cl.ClientId = c.RefClientId " +
+                    "LEFT JOIN Products p ON spos.RefProductId = p.ProductId " +
+                    "LEFT JOIN InvoicePositions ipos ON spos.SalesOrderPositionId = ipos.RefSalesOrderPositionId " +
+                    "LEFT JOIN Invoices i ON ipos.RefInvoiceId = i.InvoiceId " +
+                    "LEFT JOIN ShippedProducts sp ON spos.SalesOrderPositionId = sp.RefSalesOrderPositionId " +
+                    "LEFT JOIN Shipments s ON sp.RefShipmentId = s.ShipmentId " +
+
                     "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -64,9 +69,9 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @RefDebitorId int, @OrderDate datetime, @RefSalesTypeId int, @Remarks nvarchar(150), @DiscountPercentage money, @IsClosed bit AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (RefDebitorId, OrderDate, RefSalesTypeId, Remarks, IsClosed ) " +
-                    "VALUES (@RefDebitorId, @OrderDate, @RefSalesTypeId, @Remarks, @IsClosed ); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @RefDebitorId int, @OrderDate datetime, @RefSalesTypeId int, @RefShipmentTypeId int, @Remarks nvarchar(150), @IsClosed bit AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (RefDebitorId, OrderDate, RefSalesTypeId, RefShipmentTypeId, Remarks, IsClosed ) " +
+                    "VALUES (@RefDebitorId, @OrderDate, @RefSalesTypeId, @RefShipmentTypeId, @Remarks, @IsClosed ); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -90,16 +95,55 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetById] @SalesOrderId int AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT so.*, " +
-                    "st.*, i.*, sh.*, d.*, sop.*, p.* " +
+                   "SELECT so.*, t.*, spo.*, d.*, cl.*, c.*, p.*, ipos.*, i.*, sp.*, s.* " +
                     $"FROM {TableName} so " +
-                    $"LEFT JOIN SalesTypes st ON so.RefSalesTypeId = st.SalesTypeId " +
-                    $"LEFT JOIN Invoices i ON so.SalesOrderId = i.RefSalesOrderId " +
-                    $"LEFT JOIN Shipments sh ON so.SalesOrderId = sh.RefSalesOrderId " +
-                    $"LEFT JOIN Debitors d ON so.RefDebitorId = d.DebitorId " +
-                    $"LEFT JOIN SalesOrderPositions sop ON so.SalesOrderId = sop.RefSalesOrderId " +
-                    $"LEFT JOIN Product p ON sop.RefProductID = p.ProductId " +
-                    $"WHERE pt.SalesOrderId = @SalesOrderId " +
+                    "LEFT JOIN SalesOrderTypes t ON so.RefSalesOrderTypeId = t.SalesOrderTypeId " +
+                    "LEFT JOIN SalesOrderPositions spos ON so.SalesOrderId = spos.RefSalesOrderId " +
+                    "LEFT JOIN Debitors d ON so.RefDebitorId = d.DebitorId " +
+                    "LEFT JOIN Clients cl ON d.RefClientId = d.RefClientId " +
+                    "LEFT JOIN Company c ON cl.ClientId = c.RefClientId " +
+                    "LEFT JOIN Products p ON spos.RefProductId = p.ProductId " +
+                    "LEFT JOIN InvoicePositions ipos ON spos.SalesOrderPositionId = ipos.RefSalesOrderPositionId " +
+                    "LEFT JOIN Invoices i ON ipos.RefInvoiceId = i.InvoiceId " +
+                    "LEFT JOIN ShippedProducts sp ON spos.SalesOrderPositionId = sp.RefSalesOrderPositionId " +
+                    "LEFT JOIN Shipments s ON sp.RefShipmentId = s.ShipmentId " +
+                    $"WHERE so.SalesOrderId = @SalesOrderId " +
+                    "END");
+                using (var connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void GetOpenedSalesOrders()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetById", DatabaseNames.FinancialAnalysisDB))
+            {
+                var sbSP = new StringBuilder();
+
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_GetById] @SalesOrderId int AS BEGIN SET NOCOUNT ON; " +
+                   "SELECT so.*, t.*, spo.*, d.*, cl.*, c.*, p.*, ipos.*, i.*, sp.*, s.* " +
+                    $"FROM {TableName} so " +
+                    "LEFT JOIN SalesOrderTypes t ON so.RefSalesOrderTypeId = t.SalesOrderTypeId " +
+                    "LEFT JOIN SalesOrderPositions spos ON so.SalesOrderId = spos.RefSalesOrderId " +
+                    "LEFT JOIN Debitors d ON so.RefDebitorId = d.DebitorId " +
+                    "LEFT JOIN Clients cl ON d.RefClientId = d.RefClientId " +
+                    "LEFT JOIN Company c ON cl.ClientId = c.RefClientId " +
+                    "LEFT JOIN Products p ON spos.RefProductId = p.ProductId " +
+                    "LEFT JOIN InvoicePositions ipos ON spos.SalesOrderPositionId = ipos.RefSalesOrderPositionId " +
+                    "LEFT JOIN Invoices i ON ipos.RefInvoiceId = i.InvoiceId " +
+                    "LEFT JOIN ShippedProducts sp ON spos.SalesOrderPositionId = sp.RefSalesOrderPositionId " +
+                    "LEFT JOIN Shipments s ON sp.RefShipmentId = s.ShipmentId " +
+                    $"WHERE so.IsOpened = 0 " +
                     "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -122,12 +166,13 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @SalesOrderId int, @RefDebitorId int, @OrderDate datetime, @RefSalesTypeId int, @Remarks nvarchar(150), @IsClosed bit " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @SalesOrderId int, @RefDebitorId int, @OrderDate datetime, @RefSalesTypeId int, @RefShipmentTypeId int, @Remarks nvarchar(150), @IsClosed bit " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "SET RefDebitorId = @RefDebitorId, " +
                     "OrderDate = @OrderDate, " +
                     "RefSalesTypeId = @RefSalesTypeId, " +
+                    "RefShipmentTypeId = @RefShipmentTypeId, " +
                     "Remarks = @Remarks, " +
                     "IsClosed = @IsClosed " +
                     "WHERE SalesOrderId = @SalesOrderId END");

@@ -5,7 +5,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
 using FinancialAnalysis.Models.Accounting;
-using FinancialAnalysis.Models.CompanyManagement;
 using FinancialAnalysis.Models.ProductManagement;
 using FinancialAnalysis.Models.SalesManagement;
 using Serilog;
@@ -46,6 +45,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                                  "RefDebitorId int, " +
                                  "OrderDate datetime, " +
                                  "RefSalesTypeId int, " +
+                                 "RefShipmentTypeId int, " +
                                  "Remarks nvarchar(150), " +
                                  "IsClosed bit)";
 
@@ -114,7 +114,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @RefDebitorId, @OrderDate, @RefSalesTypeId, @Remarks, @IsClosed ",
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @RefDebitorId, @OrderDate, @RefSalesTypeId, @RefShipmentTypeId, @Remarks, @IsClosed ",
                         SalesOrder);
                     return result.Single();
                 }
@@ -226,7 +226,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @SalesOrderId, @RefDebitorId, @OrderDate, @RefSalesTypeId, @Remarks, @IsClosed ",
+                    con.Execute($"dbo.{TableName}_Update @SalesOrderId, @RefDebitorId, @OrderDate, @RefSalesTypeId, @RefShipmentTypeId, @Remarks, @IsClosed ",
                         SalesOrder);
                 }
             }
@@ -269,6 +269,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         {
             AddSalesTypesReference();
             AddDebitorsReference();
+            AddShipmentTypesReference();
         }
 
         private void AddSalesTypesReference()
@@ -304,6 +305,30 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
                     $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefDebitorId) REFERENCES {refTable}(DebitorId) ON DELETE CASCADE";
+
+                using (var command = new SqlCommand(commandStr, con))
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while creating reference between '{TableName}' and {TableName}",
+                    e);
+            }
+        }
+
+        private void AddShipmentTypesReference()
+        {
+            string refTable = "ShipmentTypes";
+
+            try
+            {
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefShipmentTypeId) REFERENCES {refTable}(ShipmentTypeId) ON DELETE CASCADE";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {

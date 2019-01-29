@@ -62,8 +62,8 @@
             </StackPanel>-->
             <StackPanel Orientation="Horizontal">
                 <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
-                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1" Content="Eigene Firma" FontFamily="Tahoma"
-                                 dxwuin:Navigation.NavigateTo="MyCompanyControl" VerticalAlignment="Center" Width="180"
+                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1" Content="Meine Firma" FontFamily="Tahoma"
+                                 dxwuin:Navigation.NavigateTo="MyClientControl" VerticalAlignment="Center" Width="180"
                                  Height="180" FontSize="20" Margin="2" 
                                  Visibility="{Binding Path=ShowMyCompany, Converter={StaticResource BoolToVis}}">
                     <dx:SimpleButton.Glyph>
@@ -90,36 +90,7 @@
                 </dx:SimpleButton>
             </StackPanel>
         </StackPanel>
-        <TextBox Grid.Row="1" Grid.Column="1" Name="myTextBox" HorizontalAlignment="Left" Height="24"
-                 Margin="107,104,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="319"
-                 Visibility="Hidden" >
-            <dxb:BarManager.DXContextMenu>
-                <dxb:RadialContextMenu
-                    DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}"
-                    dxb:ImageColorizer.Color="#3f729b">
-                    <dxb:BarButtonItem Content="Copy" Glyph="{dx:DXImage Image=Copy_16x16.png}"
-                                       Command="{Binding CopyCommand}" CommandTarget="{Binding}" />
-                    <dxb:BarButtonItem Content="Cut" Glyph="{dx:DXImage Image=Cut_16x16.png}"
-                                       Command="{Binding CutCommand}" CommandTarget="{Binding}" />
-                    <dxb:BarButtonItem Content="Paste" Glyph="{dx:DXImage Image=Paste_16x16.png}"
-                                       Command="{x:Static ApplicationCommands.Paste}" CommandTarget="{Binding}" />
-                    <dxb:BarSplitButtonItem Content="Select All" Glyph="{dx:DXImage Image=SelectAll_16x16.png}"
-                                            LargeGlyph="{dx:DXImage Image=SelectAll_32x32.png}"
-                                            Command="{Binding SelectAllCommand}">
-                        <dxb:BarSplitButtonItem.PopupControl>
-                            <dxb:PopupMenu>
-                                <dxb:BarButtonItem x:Name="bClear" CategoryName="Edit" Content="Clear"
-                                                   Glyph="{dx:DXImage Image=Delete_16x16.png}"
-                                                   Command="{Binding ClearSelectionCommand}" />
-                                <dxb:BarButtonItem Content="Select All" Glyph="{dx:DXImage Image=SelectAll_16x16.png}"
-                                                   LargeGlyph="{dx:DXImage Image=SelectAll_32x32.png}"
-                                                   Command="{Binding SelectAllCommand}" />
-                            </dxb:PopupMenu>
-                        </dxb:BarSplitButtonItem.PopupControl>
-                    </dxb:BarSplitButtonItem>
-                </dxb:RadialContextMenu>
-            </dxb:BarManager.DXContextMenu>
-        </TextBox>
+        
         <Grid Grid.Row="1" />
     </Grid>
 </UserControl>

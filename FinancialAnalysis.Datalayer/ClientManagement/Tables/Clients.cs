@@ -40,17 +40,18 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
                     $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
-                    "ClientId int IDENTITY(1,1) PRIMARY KEY," +
-                    "Name nvarchar(50) NOT NULL," +
-                    "Street nvarchar(50) NOT NULL," +
-                    "Postcode int NOT NULL," +
-                    "City nvarchar(50) NOT NULL," +
-                    "Phone nvarchar(50)," +
-                    "Fax nvarchar(50)," +
-                    "Mail nvarchar(50)," +
-                    "IBAN nvarchar(50)," +
-                    "BIC nvarchar(50)," +
-                    "BankName nvarchar(50)," +
+                    "ClientId int IDENTITY(1,1) PRIMARY KEY, " +
+                    "Name nvarchar(50) NOT NULL, " +
+                    "Street nvarchar(50) NOT NULL, " +
+                    "Postcode int NOT NULL, " +
+                    "City nvarchar(50) NOT NULL, " +
+                    "Phone nvarchar(50), " +
+                    "Fax nvarchar(50), " +
+                    "Mail nvarchar(50), " +
+                    "IBAN nvarchar(50), " +
+                    "BIC nvarchar(50), " +
+                    "BankName nvarchar(50), " +
+                    "IsCompany bit, " +
                     "FederalState int)";
 
                 using (var command = new SqlCommand(commandStr, con))
@@ -78,7 +79,13 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<Client>($"dbo.{TableName}_GetAll");
+                    output = con.Query<Client, Company, Client>($"dbo.{TableName}_GetAll",
+                        (objClient, objCompany) =>
+                        {
+                            objClient.Company = objCompany;
+                            return objClient;
+                        }, splitOn: "CompanyId",
+                        commandType: CommandType.StoredProcedure).ToList();
                 }
             }
             catch (Exception e)
@@ -104,7 +111,7 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Name, @Street, @Postcode, @City, @Phone, @Fax, @Mail, @IBAN, @BIC, @BankName, @FederalState",
+                            $"dbo.{TableName}_Insert @Name, @Street, @Postcode, @City, @Phone, @Fax, @Mail, @IBAN, @BIC, @BankName, @IsCompany, @FederalState",
                             Client);
                     id = result.Single();
                 }
@@ -130,7 +137,7 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                 {
                     foreach (var Client in Clients)
                         con.Query(
-                            $"dbo.{TableName}_Insert @Name, @Street, @Postcode, @City, @Phone, @Fax, @Mail, @IBAN, @BIC, @BankName, @FederalState",
+                            $"dbo.{TableName}_Insert @Name, @Street, @Postcode, @City, @Phone, @Fax, @Mail, @IBAN, @BIC, @BankName, @IsCompany, @FederalState",
                             Client);
                 }
             }
@@ -147,22 +154,49 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
         /// <returns></returns>
         public Client GetById(int id)
         {
-            var output = new Client();
-            try
-            {
-                using (IDbConnection con =
+            string sql = "SELECT cl.*, co.* " +
+                    $"FROM {TableName} cl " +
+                    $"LEFT JOIN Companies co ON cl.ClientId = co.RefClientId " +
+                    $"WHERE ClientId = {id}";
+
+            using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    output = con.QuerySingleOrDefault<Client>($"dbo.{TableName}_GetById @ClientId",
-                        new {ClientId = id});
-                }
-            }
-            catch (Exception e)
             {
-                Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
+                con.Open();
+
+                var clients = con.Query<Client, Company, Client>(
+                        sql,
+                        (client, Company) =>
+                        {
+                            client.Company = Company;
+                            return client;
+                        },
+                        splitOn: "CompanyId");
+
+                return clients.FirstOrDefault();
             }
 
-            return output;
+            //IEnumerable<Client> output = new List<Client>();
+            //try
+            //{
+            //    using (IDbConnection con =
+            //        new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+            //    {
+            //        output = con.Query<Client, Company, Client>($"dbo.{TableName}_GetById @ClientId",
+            //            (objClient, objCompany) =>
+            //            {
+            //                objClient.Company = objCompany;
+            //                return objClient;
+            //            }, new { ClientId = id }, splitOn: "CompanyId",
+            //            commandType: CommandType.StoredProcedure).ToList();
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
+            //}
+
+            //return output.FirstOrDefault();
         }
 
         /// <summary>
@@ -203,7 +237,7 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     con.Execute(
-                        $"dbo.{TableName}_Update @ClientId, @Name, @Street, @Postcode, @City, @Phone, @Fax, @Mail, @IBAN, @BIC, @BankName, @FederalState",
+                        $"dbo.{TableName}_Update @ClientId, @Name, @Street, @Postcode, @City, @Phone, @Fax, @Mail, @IBAN, @BIC, @BankName, @IsCompany, @FederalState",
                         Client);
                 }
             }
@@ -224,7 +258,7 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @ClientId", new {ClientId = id});
+                    con.Execute($"dbo.{TableName}_Delete @ClientId", new { ClientId = id });
                 }
             }
             catch (Exception e)
@@ -246,7 +280,7 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     IsInUse = con.ExecuteScalar<bool>($"dbo.{TableName}_IsClientInUse @ClientId",
-                        new {ClientId = id});
+                        new { ClientId = id });
                 }
             }
             catch (Exception e)

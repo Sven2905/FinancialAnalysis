@@ -109,7 +109,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 Creditors = DataLayer.Instance.Creditors.GetAll().ToSvenTechCollection();
                 Debitors = DataLayer.Instance.Debitors.GetAll().ToSvenTechCollection();
                 TaxTypes = DataLayer.Instance.TaxTypes.GetAll().ToSvenTechCollection();
-                Companies = DataLayer.Instance.Companies.GetAll().ToSvenTechCollection();
+                Clients = DataLayer.Instance.Clients.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -121,7 +121,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                var ClientId = DataLayer.Instance.Companies.Insert(Creditor.Client);
+                var ClientId = DataLayer.Instance.Clients.Insert(Creditor.Client);
                 var creditorNumber = DataLayer.Instance.CostAccounts.GetNextCreditorNumber();
                 Creditor.CostAccount.AccountNumber = creditorNumber;
                 Creditor.CostAccount.RefCostAccountCategoryId = DataLayer.Instance.CostAccountCategories.GetCreditorId();
@@ -200,7 +200,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                var ClientId = DataLayer.Instance.Companies.Insert(Debitor.Client);
+                var ClientId = DataLayer.Instance.Clients.Insert(Debitor.Client);
                 var debitorNumber = DataLayer.Instance.CostAccounts.GetNextDebitorNumber();
                 Debitor.CostAccount.AccountNumber = debitorNumber;
                 Debitor.CostAccount.RefCostAccountCategoryId = DataLayer.Instance.CostAccountCategories.GetDebitorId();
@@ -225,7 +225,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                DataLayer.Instance.Companies.Update(Client);
+                DataLayer.Instance.Clients.Update(Client);
             }
             catch (System.Exception ex)
             {
@@ -390,7 +390,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand OpenClientWindowCommand { get; set; }
 
         public SvenTechCollection<TaxType> TaxTypes { get; set; }
-        public SvenTechCollection<Client> Companies { get; set; } = new SvenTechCollection<Client>();
+        public SvenTechCollection<Client> Clients { get; set; } = new SvenTechCollection<Client>();
         public SvenTechCollection<Creditor> Creditors { get; set; } = new SvenTechCollection<Creditor>();
         public SvenTechCollection<Debitor> Debitors { get; set; } = new SvenTechCollection<Debitor>();
 

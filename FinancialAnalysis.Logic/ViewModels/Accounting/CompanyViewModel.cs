@@ -4,16 +4,16 @@ using DevExpress.Mvvm.POCO;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models;
-using FinancialAnalysis.Models.CompanyManagement;
+using FinancialAnalysis.Models.ClientManagement;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
-    public class CompanyViewModel : ViewModelBase
+    public class ClientViewModel : ViewModelBase
     {
-        private Company _SelectedCompany = new Company();
+        private Client _SelectedClient = new Client();
 
-        public CompanyViewModel()
+        public ClientViewModel()
         {
             if (IsInDesignMode)
                 return;
@@ -25,71 +25,71 @@ namespace FinancialAnalysis.Logic.ViewModels
         private IDocumentManagerService SingleObjectDocumentManagerService =>
             GetService<IDocumentManagerService>("SignleObjectDocumentManagerService");
 
-        public DelegateCommand NewCompanyCommand { get; set; }
-        public DelegateCommand SaveCompanyCommand { get; set; }
-        public DelegateCommand DeleteCompanyCommand { get; set; }
+        public DelegateCommand NewClientCommand { get; set; }
+        public DelegateCommand SaveClientCommand { get; set; }
+        public DelegateCommand DeleteClientCommand { get; set; }
 
-        public Company SelectedCompany
+        public Client SelectedClient
         {
-            get => _SelectedCompany;
+            get => _SelectedClient;
             set
             {
-                _SelectedCompany = value;
-                UseExistingCompany();
+                _SelectedClient = value;
+                UseExistingClient();
             }
         }
 
-        public SvenTechCollection<Company> Companies { get; set; }
-        public bool SaveCompanyButtonEnabled { get; set; }
-        public bool DeleteCompanyButtonEnabled { get; set; }
+        public SvenTechCollection<Client> Clients { get; set; }
+        public bool SaveClientButtonEnabled { get; set; }
+        public bool DeleteClientButtonEnabled { get; set; }
 
         private void RefreshData()
         {
-            Companies = DataLayer.Instance.Companies.GetAll().ToSvenTechCollection();
+            Clients = DataLayer.Instance.Clients.GetAll().ToSvenTechCollection();
         }
 
         private void InitializeButtonCommands()
         {
-            NewCompanyCommand = new DelegateCommand(() =>
+            NewClientCommand = new DelegateCommand(() =>
             {
-                SelectedCompany = new Company();
-                DeleteCompanyButtonEnabled = false;
+                SelectedClient = new Client();
+                DeleteClientButtonEnabled = false;
             });
-            SaveCompanyCommand = new DelegateCommand(() =>
+            SaveClientCommand = new DelegateCommand(() =>
             {
-                SaveCompany();
+                SaveClient();
                 RefreshData();
             });
-            DeleteCompanyCommand = new DelegateCommand(() =>
+            DeleteClientCommand = new DelegateCommand(() =>
             {
-                DeleteCompany();
+                DeleteClient();
                 RefreshData();
-                DeleteCompanyButtonEnabled = false;
+                DeleteClientButtonEnabled = false;
             });
         }
 
-        private void SaveCompany()
+        private void SaveClient()
         {
-            DataLayer.Instance.Companies.UpdateOrInsert(SelectedCompany);
+            DataLayer.Instance.Clients.UpdateOrInsert(SelectedClient);
             var notificationService = this.GetRequiredService<INotificationService>();
             INotification notification;
-            if (SelectedCompany.CompanyId == 0)
+            if (SelectedClient.ClientId == 0)
                 notification = notificationService.CreatePredefinedNotification("Neue Firma",
-                    $"Die Firma {SelectedCompany.Name} wurde erfolgreich angelegt.", string.Empty);
+                    $"Die Firma {SelectedClient.Name} wurde erfolgreich angelegt.", string.Empty);
             else
                 notification = notificationService.CreatePredefinedNotification("Firma geändert",
-                    $"Die Änderungen an der Firma {SelectedCompany.Name} wurden erfolgreich durchgeführt.",
+                    $"Die Änderungen an der Firma {SelectedClient.Name} wurden erfolgreich durchgeführt.",
                     string.Empty);
             notification.ShowAsync();
         }
 
-        private void DeleteCompany()
+        private void DeleteClient()
         {
-            if (DeleteCompanyButtonEnabled)
+            if (DeleteClientButtonEnabled)
             {
                 try
                 {
-                    DataLayer.Instance.Companies.Delete(SelectedCompany.CompanyId);
+                    DataLayer.Instance.Clients.Delete(SelectedClient.ClientId);
                 }
                 catch (System.Exception ex)
                 {
@@ -99,35 +99,35 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         }
 
-        private void UseExistingCompany()
+        private void UseExistingClient()
         {
-            if (SelectedCompany.IsNull()) SelectedCompany = new Company();
-            SelectedCompany.PropertyChanged += SelectedCompany_PropertyChanged;
-            ValidateCompany();
+            if (SelectedClient.IsNull()) SelectedClient = new Client();
+            SelectedClient.PropertyChanged += SelectedClient_PropertyChanged;
+            ValidateClient();
             ValidateDeleteButton();
         }
 
-        private void ValidateCompany()
+        private void ValidateClient()
         {
-            if (!string.IsNullOrEmpty(SelectedCompany.Name) && !string.IsNullOrEmpty(SelectedCompany.Street) &&
-                SelectedCompany.Postcode != 0 && !string.IsNullOrEmpty(SelectedCompany.City))
+            if (!string.IsNullOrEmpty(SelectedClient.Name) && !string.IsNullOrEmpty(SelectedClient.Street) &&
+                SelectedClient.Postcode != 0 && !string.IsNullOrEmpty(SelectedClient.City))
             {
-                SaveCompanyButtonEnabled = true;
+                SaveClientButtonEnabled = true;
                 return;
             }
 
-            SaveCompanyButtonEnabled = false;
+            SaveClientButtonEnabled = false;
         }
 
         private void ValidateDeleteButton()
         {
-            if (!SelectedCompany.IsNull() && SelectedCompany.CompanyId != 0)
-                DeleteCompanyButtonEnabled = !DataLayer.Instance.Companies.IsCompanyInUse(SelectedCompany.CompanyId);
+            if (!SelectedClient.IsNull() && SelectedClient.ClientId != 0)
+                DeleteClientButtonEnabled = !DataLayer.Instance.Clients.IsClientInUse(SelectedClient.ClientId);
         }
 
-        private void SelectedCompany_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void SelectedClient_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            ValidateCompany();
+            ValidateClient();
         }
     }
 }

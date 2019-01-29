@@ -30,8 +30,9 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT ClientId, Name, Street, Postcode, City, Phone, Fax, Mail, IBAN, BIC, BankName, FederalState " +
-                                $"FROM {TableName} " +
+                                "SELECT cl.*, co.* " +
+                                $"FROM {TableName} cl " +
+                                $"LEFT JOIN Companies co ON cl.ClientId = co.RefClientId " +
                                 $"WHERE ClientId > 1" +
                                 "ORDER BY Name END");
                 using (var connection =
@@ -55,9 +56,9 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_Insert] " +
-                                "@Name nvarchar(50), @Street nvarchar(50), @Postcode int, @City nvarchar(50), @Phone nvarchar(50), @Fax nvarchar(50), @Mail nvarchar(50), @IBAN nvarchar(50), @BIC nvarchar(50), @BankName nvarchar(50), @FederalState int " +
-                                $"AS BEGIN SET NOCOUNT ON; INSERT into {TableName} (Name, Street, Postcode, City, Phone, Fax, Mail, IBAN, BIC, BankName, FederalState) " +
-                                "VALUES (@Name, @Street, @Postcode, @City, @Phone, @Fax, @Mail, @IBAN, @BIC, @BankName, @FederalState); " +
+                                "@Name nvarchar(50), @Street nvarchar(50), @Postcode int, @City nvarchar(50), @Phone nvarchar(50), @Fax nvarchar(50), @Mail nvarchar(50), @IBAN nvarchar(50), @BIC nvarchar(50), @BankName nvarchar(50), @IsCompany bit, @FederalState int " +
+                                $"AS BEGIN SET NOCOUNT ON; INSERT into {TableName} (Name, Street, Postcode, City, Phone, Fax, Mail, IBAN, BIC, BankName, IsCompany, FederalState) " +
+                                "VALUES (@Name, @Street, @Postcode, @City, @Phone, @Fax, @Mail, @IBAN, @BIC, @BankName, @IsCompany, @FederalState); " +
                                 "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -80,7 +81,11 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @ClientId int AS BEGIN SET NOCOUNT ON; SELECT * FROM {TableName} WHERE ClientId = @ClientId END");
+                    $"CREATE PROCEDURE [{TableName}_GetById] @ClientId int AS BEGIN SET NOCOUNT ON; " +
+                    "SELECT cl.*, co.* " +
+                    $"FROM {TableName} cl " +
+                    $"LEFT JOIN Companies co ON cl.ClientId = co.RefClientId " +
+                    $"WHERE ClientId = @ClientId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -102,7 +107,7 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @ClientId int, @Name nvarchar(50), @Street nvarchar(50), @Postcode int, @City nvarchar(50), @Phone nvarchar(50), @Fax nvarchar(50), @Mail nvarchar(50), @IBAN nvarchar(50), @BIC nvarchar(50), @BankName nvarchar(50), @FederalState int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @ClientId int, @Name nvarchar(50), @Street nvarchar(50), @Postcode int, @City nvarchar(50), @Phone nvarchar(50), @Fax nvarchar(50), @Mail nvarchar(50), @IBAN nvarchar(50), @BIC nvarchar(50), @BankName nvarchar(50), @IsCompany bit, @FederalState int " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} SET " +
                     "Name = @Name, " +
@@ -115,6 +120,7 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                     "IBAN = @IBAN, " +
                     "BIC = @BIC, " +
                     "BankName = @BankName, " +
+                    "IsCompany = @IsCompany, " +
                     "FederalState = @FederalState " +
                     "WHERE ClientId = @ClientId END");
                 using (var connection =

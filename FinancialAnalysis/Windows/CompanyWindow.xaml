@@ -31,7 +31,7 @@
         </Style>
     </dx:DXWindow.Resources>
     <dx:DXWindow.DataContext>
-        <ViewModels:CompanyViewModel />
+        <ViewModels:ClientViewModel />
     </dx:DXWindow.DataContext>
 
     <dxmvvm:Interaction.Behaviors>

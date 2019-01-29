@@ -1,7 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic;
-using FinancialAnalysis.Models.CompanyManagement;
+using FinancialAnalysis.Models.ClientManagement;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,39 +12,39 @@ using System.Windows.Media.Imaging;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
-    public class MyCompanyViewModel : ViewModelBase
+    public class MyClientViewModel : ViewModelBase
     {
         #region Constructor
 
-        public MyCompanyViewModel()
+        public MyClientViewModel()
         {
             if (IsInDesignMode)
                 return;
 
-            Company = Globals.CoreData.MyCompany;
-            SaveCompanyCommand = new DelegateCommand(SaveCompany, Validation);
+            Client = Globals.CoreData.MyCompany;
+            SaveClientCommand = new DelegateCommand(SaveClient, Validation);
         }
 
         #endregion Constructor
 
         #region Fields
 
-        private Company _Company = new Company();
+        private Client _Client = new Client();
         private BitmapImage _Image;
 
         #endregion Fields
 
         #region Properties
 
-        public Company Company
+        public Client Client
         {
-            get { return _Company; }
+            get { return _Client; }
             set
             {
-                _Company = value;
-                if (_Company != null && _Company.Logo != null)
+                _Client = value;
+                if (_Client != null && _Client.Company.Logo != null)
                 {
-                    Image = ConvertToImage(_Company.Logo);
+                    Image = ConvertToImage(_Client.Company.Logo);
                 }
                 else
                 {
@@ -61,19 +61,20 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             set
             {
-                _Image = value; _Company.Logo = ConvertToByteArray(value);
+                _Image = value; _Client.Company.Logo = ConvertToByteArray(value);
             }
         }
 
-        public DelegateCommand SaveCompanyCommand { get; set; }
+        public DelegateCommand SaveClientCommand { get; set; }
 
         #endregion Properties
 
         #region Methods
 
-        private void SaveCompany()
+        private void SaveClient()
         {
-            DataLayer.Instance.Companies.Update(Company);
+            DataLayer.Instance.Companies.Update(Client.Company);
+            DataLayer.Instance.Clients.Update(Client);
             Globals.CoreData.RefreshData();
         }
 
@@ -116,10 +117,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private bool Validation()
         {
-            if (Company == null)
+            if (Client == null)
                 return false;
 
-            return (!string.IsNullOrEmpty(Company.Name) && !string.IsNullOrEmpty(Company.Street) && !string.IsNullOrEmpty(Company.City));
+            return (!string.IsNullOrEmpty(Client.Name) && !string.IsNullOrEmpty(Client.Street) && !string.IsNullOrEmpty(Client.City));
         }
 
         #endregion Methods

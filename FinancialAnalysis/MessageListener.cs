@@ -60,7 +60,7 @@ namespace FinancialAnalysis.UI
 
                     window.ShowDialog();
                 });
-            Messenger.Default.Register<OpenCompanyWindowMessage>(this,
+            Messenger.Default.Register<OpenClientWindowMessage>(this,
                 msg =>
                 {
                     var window = new CompanyWindow();

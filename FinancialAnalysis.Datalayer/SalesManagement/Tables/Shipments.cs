@@ -40,9 +40,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                                  $"CREATE TABLE {TableName}(" +
                                  $"ShipmentId int IDENTITY(1,1) PRIMARY KEY, " +
                                  "ShipmentNumber nvarchar(150), " +
-                                 "ShipmentDate datetime, " +
-                                 "RefSalesOrderId int, " +
-                                 "RefShipmentTypeId int )";
+                                 "ShipmentDate datetime)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -101,7 +99,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @ShipmentDate, @ShipmentNumber, @RefSalesOrderId, @RefShipmentTypeId ",
+                            $"dbo.{TableName}_Insert @ShipmentDate, @ShipmentNumber",
                             Shipment);
                     return result.Single();
                 }
@@ -197,7 +195,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     con.Execute(
-                        $"dbo.{TableName}_Update @ShipmentId, @ShipmentDate, @ShipmentNumber, @RefSalesOrderId, @RefShipmentTypeId",
+                        $"dbo.{TableName}_Update @ShipmentId, @ShipmentDate, @ShipmentNumber",
                         Shipment);
                 }
             }
@@ -234,59 +232,6 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         public void Delete(Shipment Shipment)
         {
             Delete(Shipment.ShipmentId);
-        }
-
-
-        public void AddReferences()
-        {
-            AddShipmentTypesReference();
-            AddSalesOrdersReference();
-        }
-
-        private void AddShipmentTypesReference()
-        {
-            try
-            {
-                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr =
-                    $"IF(OBJECT_ID('FK_{TableName}_ShipmentTypes', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_ShipmentTypes FOREIGN KEY(RefShipmentTypeId) REFERENCES ShipmentTypes(ShipmentTypeId) ON DELETE CASCADE";
-
-                using (var command = new SqlCommand(commandStr, con))
-                {
-                    con.Open();
-                    command.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while creating reference between '{TableName}' and ShipmentTypes",
-                    e);
-            }
-        }
-
-        private void AddSalesOrdersReference()
-        {
-            string refTable = "SalesOrders";
-
-            try
-            {
-                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr =
-                    $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefSalesOrderId) REFERENCES {refTable}(SalesOrderId) ON DELETE CASCADE";
-
-                using (var command = new SqlCommand(commandStr, con))
-                {
-                    con.Open();
-                    command.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while creating reference between '{TableName}' and {TableName}",
-                    e);
-            }
         }
     }
 }

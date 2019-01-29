@@ -46,6 +46,7 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                     "TaxNumber nvarchar(50)," +
                     "Website nvarchar(50)," +
                     "Logo varbinary(MAX), " +
+                    "RefClientId int, " +
                     "CEO nvarchar(50))";
 
                 using (var command = new SqlCommand(commandStr, con))
@@ -59,29 +60,6 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
             {
                 Log.Error($"Exception occured while creating table '{TableName}'", e);
             }
-        }
-
-        /// <summary>
-        ///     Returns all Company records
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Company> GetAll()
-        {
-            IEnumerable<Company> output = new List<Company>();
-            try
-            {
-                using (IDbConnection con =
-                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    output = con.Query<Company>($"dbo.{TableName}_GetAll");
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
-            }
-
-            return output;
         }
 
         /// <summary>
@@ -99,7 +77,7 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @ContactPerson, @UStID, @TaxNumber, @Website, @IBAN, @BIC, @CEO, @Logo",
+                            $"dbo.{TableName}_Insert @ContactPerson, @UStID, @TaxNumber, @Website, @CEO, @Logo, @RefClientId",
                             company);
                     id = result.Single();
                 }
@@ -125,7 +103,7 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                 {
                     foreach (var company in companies)
                         con.Query(
-                            $"dbo.{TableName}_Insert @ContactPerson, @UStID, @TaxNumber, @Website, @IBAN, @BIC, @BankName, @FederalState, @CEO, @Logo",
+                            $"dbo.{TableName}_Insert @ContactPerson, @UStID, @TaxNumber, @Website,@CEO, @Logo, @RefClientId",
                             company);
                 }
             }
@@ -136,37 +114,12 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
         }
 
         /// <summary>
-        ///     Returns Company by Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public Company GetById(int id)
-        {
-            var output = new Company();
-            try
-            {
-                using (IDbConnection con =
-                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    output = con.QuerySingleOrDefault<Company>($"dbo.{TableName}_GetById @CompanyId",
-                        new {CompanyId = id});
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
-            }
-
-            return output;
-        }
-
-        /// <summary>
         ///     Update Company, if not exist, insert it
         /// </summary>
         /// <param name="company"></param>
         public void UpdateOrInsert(Company company)
         {
-            if (company.CompanyId == 0 || GetById(company.CompanyId) is null)
+            if (company.CompanyId == 0)
             {
                 Insert(company);
                 return;
@@ -190,7 +143,7 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
         /// <param name="company"></param>
         public void Update(Company company)
         {
-            if (company.CompanyId == 0 || GetById(company.CompanyId) is null) return;
+            if (company.CompanyId == 0) return;
 
             try
             {
@@ -198,7 +151,7 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     con.Execute(
-                        $"dbo.{TableName}_Update @CompanyId, @ContactPerson, @UStID, @TaxNumber, @Website, @CEO, @Logo",
+                        $"dbo.{TableName}_Update @CompanyId, @ContactPerson, @UStID, @TaxNumber, @Website, @CEO, @Logo, @RefClientId",
                         company);
                 }
             }
@@ -250,6 +203,35 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
             }
 
             return IsInUse;
+        }
+
+        public void AddReferences()
+        {
+            AddClientsReference();
+        }
+
+        private void AddClientsReference()
+        {
+            string refTable = "Clients";
+
+            try
+            {
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefClientId) REFERENCES {refTable}(ClientId) ON DELETE CASCADE";
+
+                using (var command = new SqlCommand(commandStr, con))
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while creating reference between '{TableName}' and {TableName}",
+                    e);
+            }
         }
     }
 }

@@ -256,7 +256,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
             {
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
-                    $"IF(OBJECT_ID('FK_Debitors_Companies', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_Debitors_Companies FOREIGN KEY(RefClientId) REFERENCES Companies(ClientId)";
+                    $"IF(OBJECT_ID('FK_Debitors_Clients', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_Debitors_Clients FOREIGN KEY(RefClientId) REFERENCES Clients(ClientId)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -267,7 +267,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
             }
             catch (Exception e)
             {
-                Log.Error($"Exception occured while creating reference between '{TableName}' and Companies", e);
+                Log.Error($"Exception occured while creating reference between '{TableName}' and Clients", e);
             }
         }
 

@@ -2,23 +2,27 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.ClientManagement
+namespace FinancialAnalysis.Datalayer.SalesManagement
 {
-    internal class CompaniesStoredProcedures : IStoredProcedures
+    public class ShippedProductsStoredProcedures : IStoredProcedures
     {
-        public CompaniesStoredProcedures()
+        public ShippedProductsStoredProcedures()
         {
-            TableName = "Companies";
+            TableName = "ShippedProducts";
         }
 
         public string TableName { get; }
 
+        /// <summary>
+        ///     Check if all Stored Procedures are created, otherwise create them
+        /// </summary>
         public void CheckAndCreateProcedures()
         {
             InsertData();
             UpdateData();
             DeleteData();
         }
+    
 
         private void InsertData()
         {
@@ -26,11 +30,11 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
             {
                 var sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_Insert] " +
-                                "@ContactPerson nvarchar(50), @UStID nvarchar(50), @TaxNumber nvarchar(50), @Website nvarchar(50), @CEO nvarchar(150), @Logo varbinary(MAX), @RefClientId int " +
-                                $"AS BEGIN SET NOCOUNT ON; INSERT into {TableName} (ContactPerson, UStID, TaxNumber, Website, CEO, Logo, RefClientId) " +
-                                "VALUES (@ContactPerson, @UStID, @TaxNumber, @Website, @CEO, @Logo, @RefClientId); " +
-                                "SELECT CAST(SCOPE_IDENTITY() as int) END");
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_Insert] @RefShipmentId int, @RefSalesOrderPositionId int, @Quantity int AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (RefShipmentId, RefSalesOrderPositionId, Quantity) " +
+                    "VALUES (@RefShipmentId, @RefSalesOrderPositionId, @Quantity ); " +
+                    "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -52,17 +56,13 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @CompanyId int, @ContactPerson nvarchar(50), @UStID nvarchar(50), @TaxNumber nvarchar(50), @Website nvarchar(50), @CEO nvarchar(150), @Logo varbinary(MAX), @RefClientId int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @ShippedProductId int, @RefShipmentId int, @RefSalesOrderPositionId int, @Quantity int " +
                     "AS BEGIN SET NOCOUNT ON; " +
-                    $"UPDATE {TableName} SET " +
-                    "ContactPerson = @ContactPerson, " +
-                    "UStID = @UStID, " +
-                    "TaxNumber = @TaxNumber, " +
-                    "Website = @Website, " +
-                    "CEO = @CEO, " +
-                    "RefClientId = @RefClientId, " +
-                    "Logo = @Logo " +
-                    "WHERE CompanyId = @CompanyId END");
+                    $"UPDATE {TableName} " +
+                    "SET RefShipmentId  = @RefShipmentId , " +
+                    "RefSalesOrderPositionId = @RefSalesOrderPositionId, " +
+                    "Quantity = @Quantity " +
+                    "WHERE ShippedProductId = @ShippedProductId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -84,8 +84,8 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @CompanyId int AS BEGIN SET NOCOUNT ON; " +
-                    $"DELETE FROM {TableName} WHERE CompanyId = @CompanyId END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @ShippedProductId int AS BEGIN SET NOCOUNT ON; " +
+                    $"DELETE FROM {TableName} WHERE ShippedProductId = @ShippedProductId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

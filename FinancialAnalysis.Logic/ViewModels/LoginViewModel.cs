@@ -17,6 +17,11 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (IsInDesignMode)
                 return;
 
+#if (DEBUG)
+            UserName = "Admin";
+            Password = "Password";
+#endif
+
             Task.Run(() =>
             {
                 Seed();

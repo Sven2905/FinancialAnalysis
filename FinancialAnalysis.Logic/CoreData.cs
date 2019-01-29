@@ -1,6 +1,6 @@
 ﻿using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models.Accounting;
-using FinancialAnalysis.Models.CompanyManagement;
+using FinancialAnalysis.Models.ClientManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +15,16 @@ namespace FinancialAnalysis.Logic
         public static CoreData Instance { get; } = new CoreData();
 
         public SvenTechCollection<TaxType> TaxTypes { get; private set; } = new SvenTechCollection<TaxType>();
-        public Company MyCompany { get; private set; }
+        public Client MyCompany { get; private set; }
 
         public CoreData()
         {
             RefreshData();
         }
 
-        private Company LoadMyCompanyFromDb()
+        private Client LoadMyCompanyFromDb()
         {
-            return DataLayer.Instance.Companies.GetById(1);
+            return DataLayer.Instance.Clients.GetById(1);
         }
 
         private SvenTechCollection<TaxType> LoadTaxTypesFromDb()

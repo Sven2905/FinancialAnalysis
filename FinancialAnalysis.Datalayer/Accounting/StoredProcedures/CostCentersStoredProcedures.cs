@@ -81,7 +81,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @CostCenterId int AS BEGIN SET NOCOUNT ON; SELECT CostCenterId, Name, Identifier, Description " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @CostCenterId int AS BEGIN SET NOCOUNT ON; " +
+                    $"SELECT CostCenterId, Name, Identifier, Description " +
                     $"FROM {TableName} " +
                     "WHERE CostCenterId = @CostCenterId END");
                 using (var connection =

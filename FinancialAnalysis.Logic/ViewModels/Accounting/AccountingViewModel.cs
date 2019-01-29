@@ -11,11 +11,17 @@ namespace FinancialAnalysis.Logic.ViewModels
     public class AccountingViewModel : ViewModelBase
     {
         #region UserRights
-        public bool ShowBookings { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessBooking) || Globals.ActualUser.IsAdministrator; } }
-        public bool ShowBookingHistories { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessBookingHistory) || Globals.ActualUser.IsAdministrator; } }
-        public bool ShowCostAccounts { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessCostAccount) || Globals.ActualUser.IsAdministrator; } }
-        public bool ShowCreditorDebitors { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessCreditorDebitor) || Globals.ActualUser.IsAdministrator; } }
-        public bool ShowTaxTypes { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessTaxType) || Globals.ActualUser.IsAdministrator; } }
+        public bool ShowBookings { get { return Globals.ActualUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessBooking); } }
+        public bool ShowBookingHistories { get { return Globals.ActualUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessBookingHistory); } }
+        public bool ShowCostAccounts { get { return Globals.ActualUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessCostAccount); } }
+        public bool ShowCreditorDebitors { get { return Globals.ActualUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessCreditorDebitor); } }
+        public bool ShowTaxTypes { get { return Globals.ActualUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessTaxType); } }
         #endregion UserRights
+
+        public AccountingViewModel()
+        {
+            if (IsInDesignMode)
+                return;
+        }
     }
 }

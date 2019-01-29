@@ -114,7 +114,7 @@
     <Compile Include="Mail\Mail.cs" />
     <Compile Include="Messages\OpenSplashScreenMessage.cs" />
     <Compile Include="Messages\OpenMainWindowMessage.cs" />
-    <Compile Include="Messages\OpenCompanyWindowMessage.cs" />
+    <Compile Include="Messages\OpenClientWindowMessage.cs" />
     <Compile Include="Messages\OpenDialogWindowMessage.cs" />
     <Compile Include="Messages\OpenKontenrahmenWindowMessage.cs" />
     <Compile Include="Messages\OpenPDFViewerWindowMessage.cs" />

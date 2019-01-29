@@ -8,11 +8,11 @@ namespace FinancialAnalysis.Logic.ViewModels
     public class MainViewModel : ViewModelBase
     {
         #region UserRights
-        public bool ShowAccounting { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessAccounting) || Globals.ActualUser.IsAdministrator; } }
-        public bool ShowProjectManagement { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessProjectManagement) || Globals.ActualUser.IsAdministrator; } }
-        public bool ShowProducts { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessProducts) || Globals.ActualUser.IsAdministrator; } }
-        public bool ShowWarehouseManagement { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessWarehouseManagement) || Globals.ActualUser.IsAdministrator; } }
-        public bool ShowConfiguration { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessConfiguration) || Globals.ActualUser.IsAdministrator; } }
+        public bool ShowAccounting { get { return Globals.ActualUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessAccounting); } }
+        public bool ShowProjectManagement { get { return Globals.ActualUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessProjectManagement); } }
+        public bool ShowProducts { get { return Globals.ActualUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessProducts); } }
+        public bool ShowWarehouseManagement { get { return Globals.ActualUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessWarehouseManagement); } }
+        public bool ShowConfiguration { get { return Globals.ActualUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessConfiguration); } }
         #endregion UserRights
 
         public string CurrentTime
@@ -21,7 +21,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             set { _currentTime = value; RaisePropertiesChanged(); }
         }
 
-        private string _currentTime;
+        public User ActualUser { get => Globals.ActualUser; }
 
         /// <summary>
         ///     Initializes a new instance of the MainViewModel class.
@@ -34,6 +34,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             UpdateTime();
         }
 
+        private string _currentTime;
         private void UpdateTime()
         {
             Task.Run(() =>

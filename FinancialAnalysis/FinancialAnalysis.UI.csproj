@@ -141,8 +141,8 @@
     <Compile Include="UserControls\Accounting\AccountingControl.xaml.cs">
       <DependentUpon>AccountingControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Administration\MyCompanyControl.xaml.cs">
-      <DependentUpon>MyCompanyControl.xaml</DependentUpon>
+    <Compile Include="UserControls\Administration\MyClientControl.xaml.cs">
+      <DependentUpon>MyClientControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Administration\MailControl.xaml.cs">
       <DependentUpon>MailControl.xaml</DependentUpon>
@@ -237,7 +237,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\Administration\MyCompanyControl.xaml">
+    <Page Include="UserControls\Administration\MyClientControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
