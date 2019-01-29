@@ -57,6 +57,7 @@ namespace FinancialAnalysis.Datalayer
         public SalesOrders SalesOrders { get; set; } = new SalesOrders();
         public StockedProducts StockedProducts { get; set; } = new StockedProducts();
         public ShippedProducts ShippedProducts { get; set; } = new ShippedProducts();
+        public InvoicePositions InvoicePositions { get; set; } = new InvoicePositions();
 
         public void Dispose()
         {
@@ -113,6 +114,7 @@ namespace FinancialAnalysis.Datalayer
             SalesOrders.CheckAndCreateStoredProcedures();
             StockedProducts.CheckAndCreateStoredProcedures();
             ShippedProducts.CheckAndCreateStoredProcedures();
+            InvoicePositions.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()
@@ -137,6 +139,7 @@ namespace FinancialAnalysis.Datalayer
             StockedProducts.AddReferences();
             Companies.AddReferences();
             ShippedProducts.AddReferences();
+            InvoicePositions.AddReferences();
         }
 
         private void Seed()
