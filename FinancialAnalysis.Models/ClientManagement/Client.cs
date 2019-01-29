@@ -9,6 +9,11 @@ namespace FinancialAnalysis.Models.ClientManagement
 {
     public class Client : ViewModelBase
     {
+        public Client()
+        {
+            Company = new Company();
+        }
+
         public int ClientId { get; set; }
         public string Name { get; set; }
         public string Street { get; set; }

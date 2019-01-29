@@ -42,6 +42,12 @@ namespace FinancialAnalysis.Models
         [Display(Name = "Bestimmter Tag")] NextSpecificDay
     }
 
+    public enum ClientType
+    {
+        [Display(Name = "Geschäftskunde")] Business,
+        [Display(Name = "Privatkunde")] Private,
+    }
+
     /// <summary>
     ///     Enum with Federal States of Germany (ISO 3166-2:DE)
     ///     <para />

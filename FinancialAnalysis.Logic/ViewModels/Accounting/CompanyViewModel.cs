@@ -1,133 +1,30 @@
-﻿using System.ComponentModel;
-using DevExpress.Mvvm;
-using DevExpress.Mvvm.POCO;
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
-using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models;
+using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.ClientManagement;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Utilities;
 
-namespace FinancialAnalysis.Logic.ViewModels
+namespace FinancialAnalysis.Logic.ViewModels.Accounting
 {
-    public class ClientViewModel : ViewModelBase
+    public class CompanyViewModel : ViewModelBase
     {
-        private Client _SelectedClient = new Client();
-
-        public ClientViewModel()
+        public CompanyViewModel()
         {
             if (IsInDesignMode)
                 return;
 
-            InitializeButtonCommands();
-            RefreshData();
+            TaxTypes = DataLayer.Instance.TaxTypes.GetAll().ToSvenTechCollection();
         }
 
-        private IDocumentManagerService SingleObjectDocumentManagerService =>
-            GetService<IDocumentManagerService>("SignleObjectDocumentManagerService");
-
-        public DelegateCommand NewClientCommand { get; set; }
-        public DelegateCommand SaveClientCommand { get; set; }
-        public DelegateCommand DeleteClientCommand { get; set; }
-
-        public Client SelectedClient
-        {
-            get => _SelectedClient;
-            set
-            {
-                _SelectedClient = value;
-                UseExistingClient();
-            }
-        }
-
-        public SvenTechCollection<Client> Clients { get; set; }
-        public bool SaveClientButtonEnabled { get; set; }
-        public bool DeleteClientButtonEnabled { get; set; }
-
-        private void RefreshData()
-        {
-            Clients = DataLayer.Instance.Clients.GetAll().ToSvenTechCollection();
-        }
-
-        private void InitializeButtonCommands()
-        {
-            NewClientCommand = new DelegateCommand(() =>
-            {
-                SelectedClient = new Client();
-                DeleteClientButtonEnabled = false;
-            });
-            SaveClientCommand = new DelegateCommand(() =>
-            {
-                SaveClient();
-                RefreshData();
-            });
-            DeleteClientCommand = new DelegateCommand(() =>
-            {
-                DeleteClient();
-                RefreshData();
-                DeleteClientButtonEnabled = false;
-            });
-        }
-
-        private void SaveClient()
-        {
-            DataLayer.Instance.Clients.UpdateOrInsert(SelectedClient);
-            var notificationService = this.GetRequiredService<INotificationService>();
-            INotification notification;
-            if (SelectedClient.ClientId == 0)
-                notification = notificationService.CreatePredefinedNotification("Neue Firma",
-                    $"Die Firma {SelectedClient.Name} wurde erfolgreich angelegt.", string.Empty);
-            else
-                notification = notificationService.CreatePredefinedNotification("Firma geändert",
-                    $"Die Änderungen an der Firma {SelectedClient.Name} wurden erfolgreich durchgeführt.",
-                    string.Empty);
-            notification.ShowAsync();
-        }
-
-        private void DeleteClient()
-        {
-            if (DeleteClientButtonEnabled)
-            {
-                try
-                {
-                    DataLayer.Instance.Clients.Delete(SelectedClient.ClientId);
-                }
-                catch (System.Exception ex)
-                {
-                    Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
-                }
-            }
-
-        }
-
-        private void UseExistingClient()
-        {
-            if (SelectedClient.IsNull()) SelectedClient = new Client();
-            SelectedClient.PropertyChanged += SelectedClient_PropertyChanged;
-            ValidateClient();
-            ValidateDeleteButton();
-        }
-
-        private void ValidateClient()
-        {
-            if (!string.IsNullOrEmpty(SelectedClient.Name) && !string.IsNullOrEmpty(SelectedClient.Street) &&
-                SelectedClient.Postcode != 0 && !string.IsNullOrEmpty(SelectedClient.City))
-            {
-                SaveClientButtonEnabled = true;
-                return;
-            }
-
-            SaveClientButtonEnabled = false;
-        }
-
-        private void ValidateDeleteButton()
-        {
-            if (!SelectedClient.IsNull() && SelectedClient.ClientId != 0)
-                DeleteClientButtonEnabled = !DataLayer.Instance.Clients.IsClientInUse(SelectedClient.ClientId);
-        }
-
-        private void SelectedClient_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            ValidateClient();
-        }
+        public Client Client { get; set; }
+        public ClientType SelectedClientType { get; set; } = ClientType.Business;
+        public TaxType SelectedTaxType { get; set; }
+        public SvenTechCollection<TaxType> TaxTypes { get; set; } = new SvenTechCollection<TaxType>();
     }
 }

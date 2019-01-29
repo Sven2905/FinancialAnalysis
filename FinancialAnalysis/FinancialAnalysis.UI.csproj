@@ -131,6 +131,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\BaseValueConverter.cs" />
+    <Compile Include="Converter\ClientTypeToVisiblityConverter.cs" />
     <Compile Include="Converter\BooleanToVisiblityConverter.cs" />
     <Compile Include="Converter\NullToVisConverter.cs" />
     <Compile Include="Converter\NullToIsEnabledConverter.cs" />
@@ -140,6 +141,9 @@
     <Compile Include="Converter\BrushColorConverter.cs" />
     <Compile Include="UserControls\Accounting\AccountingControl.xaml.cs">
       <DependentUpon>AccountingControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Accounting\CompanyControl.xaml.cs">
+      <DependentUpon>CompanyControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Administration\MyClientControl.xaml.cs">
       <DependentUpon>MyClientControl.xaml</DependentUpon>
@@ -236,6 +240,10 @@
     <Page Include="UserControls\Accounting\AccountingControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Accounting\CompanyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Administration\MyClientControl.xaml">
       <Generator>MSBuild:Compile</Generator>

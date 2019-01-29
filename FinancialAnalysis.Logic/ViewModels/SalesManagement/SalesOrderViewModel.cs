@@ -60,7 +60,6 @@ namespace FinancialAnalysis.Logic.ViewModels
         #region Fields
 
         private Product _SelectedProduct;
-        private TaxType[] _TaxTypes;
 
         #endregion Fields
 
@@ -135,7 +134,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             Products = DataLayer.Instance.Products.GetAll().ToSvenTechCollection();
             SalesTypes = DataLayer.Instance.SalesTypes.GetAll().ToSvenTechCollection();
             Employees = DataLayer.Instance.Employees.GetAll().ToSvenTechCollection();
-            _TaxTypes = DataLayer.Instance.TaxTypes.GetAll().ToArray();
         }
 
         private void ChangeSelectedSalesType(SelectedSalesType SelectedSalesType)

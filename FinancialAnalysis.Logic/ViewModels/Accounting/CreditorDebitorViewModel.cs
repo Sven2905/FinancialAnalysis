@@ -3,6 +3,7 @@ using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
+using FinancialAnalysis.Logic.ViewModels.Accounting;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.ClientManagement;
@@ -393,6 +394,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         public SvenTechCollection<Client> Clients { get; set; } = new SvenTechCollection<Client>();
         public SvenTechCollection<Creditor> Creditors { get; set; } = new SvenTechCollection<Creditor>();
         public SvenTechCollection<Debitor> Debitors { get; set; } = new SvenTechCollection<Debitor>();
+        public CompanyViewModel CreditorViewModel { get; set; } = new CompanyViewModel();
+        public CompanyViewModel DebitorViewModel { get; set; } = new CompanyViewModel();
 
         public int SelectedTab { get; set; } = 0;
 
