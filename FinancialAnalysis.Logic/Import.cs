@@ -3,6 +3,7 @@ using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.ClientManagement;
+using FinancialAnalysis.Models.ProjectManagement;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -447,6 +448,13 @@ namespace FinancialAnalysis.Logic
             };
 
             DataLayer.Instance.Companies.Insert(company);
+        }
+
+        public void SeedHealthInsurance()
+        {
+            var healthInsurance = new HealthInsurance() { Name = "Keine" };
+
+            DataLayer.Instance.HealthInsurances.Insert(healthInsurance);
         }
 
         private int GetIdOfCostAccount(int AccountNumber)

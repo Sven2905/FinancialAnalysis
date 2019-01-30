@@ -113,12 +113,12 @@
                                     <dxe:TextEditSettings ShowNullTextForEmptyValue="False" />
                                 </dxg:GridColumn.EditSettings>
                             </dxg:GridColumn>
-                            <dxg:GridColumn Binding="{Binding Company.Name}" Header="Name" Width="250">
+                            <dxg:GridColumn Binding="{Binding Client.Name}" Header="Name" Width="250">
                                 <dxg:GridColumn.EditSettings>
                                     <dxe:TextEditSettings ShowNullTextForEmptyValue="False" />
                                 </dxg:GridColumn.EditSettings>
                             </dxg:GridColumn>
-                            <dxg:GridColumn Binding="{Binding Company.Address}" Header="Adresse" Width="450">
+                            <dxg:GridColumn Binding="{Binding Client.Address}" Header="Adresse" Width="450">
                                 <dxg:GridColumn.EditSettings>
                                     <dxe:TextEditSettings ShowNullTextForEmptyValue="False" />
                                 </dxg:GridColumn.EditSettings>

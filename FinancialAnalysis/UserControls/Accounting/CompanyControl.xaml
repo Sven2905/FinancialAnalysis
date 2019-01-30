@@ -22,6 +22,8 @@
             <Setter Property="Foreground" Value="#3f729b" />
         </Style>
         <local:ClientTypeToVisiblityConverter x:Key="TypeVisConverter"></local:ClientTypeToVisiblityConverter>
+        <local:BooleanToVisiblityConverter x:Key="BoolVisConverter"></local:BooleanToVisiblityConverter>
+        
     </UserControl.Resources>
     <UserControl.DataContext>
         <ViewModels:CompanyViewModel />
@@ -37,21 +39,32 @@
                     <dxlc:LayoutGroup.Header>
                         <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                     </dxlc:LayoutGroup.Header>
-                    <dxlc:LayoutItem Label="Kundentyp" FontFamily="Tahoma">
-                        <dxe:ListBoxEdit  ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:ClientType}, SplitNames=True}"
+                    <dxlc:LayoutGroup>
+                        <dxlc:LayoutItem Label="Typ" FontFamily="Tahoma"  Visibility="{Binding ShowCustomerType, Converter={StaticResource BoolVisConverter}}">
+                            <dxe:ListBoxEdit  ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:CustomerType}, SplitNames=True}" BorderBrush="Transparent" 
+                                     EditValue="{Binding SelectedCustomerType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma">
+                                <dxe:ListBoxEdit.StyleSettings>
+                                    <dxe:RadioListBoxEditStyleSettings   />
+                                </dxe:ListBoxEdit.StyleSettings>
+                            </dxe:ListBoxEdit>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Kundentyp" FontFamily="Tahoma" >
+                            <dxe:ListBoxEdit  ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:ClientType}, SplitNames=True}" BorderBrush="Transparent"
                                      EditValue="{Binding SelectedClientType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma">
-                            <dxe:ListBoxEdit.StyleSettings>
-                                <dxe:RadioListBoxEditStyleSettings   />
-                            </dxe:ListBoxEdit.StyleSettings>
-                        </dxe:ListBoxEdit>
-                    </dxlc:LayoutItem>
+                                <dxe:ListBoxEdit.StyleSettings>
+                                    <dxe:RadioListBoxEditStyleSettings   />
+                                </dxe:ListBoxEdit.StyleSettings>
+                            </dxe:ListBoxEdit>
+
+                        </dxlc:LayoutItem>
+                    </dxlc:LayoutGroup>
                 </dxlc:LayoutGroup>
 
-                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" IsCollapsible="True">
+                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" IsCollapsible="True" IsEnabled="{Binding CompanyIsNotNull}">
                     <dxlc:LayoutGroup.Header>
                         <TextBlock Text="Anschrift" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                     </dxlc:LayoutGroup.Header>
-                    <dxlc:LayoutItem Label="Firma" FontFamily="Tahoma">
+                    <dxlc:LayoutItem Label="Name" FontFamily="Tahoma">
                         <dxe:TextEdit Text="{Binding Client.Name, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                     </dxlc:LayoutItem>
                     <dxlc:LayoutGroup>
@@ -79,7 +92,7 @@
 
                 </dxlc:LayoutGroup>
 
-                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" IsCollapsible="True">
+                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" IsCollapsible="True" IsEnabled="{Binding CompanyIsNotNull}">
                     <dxlc:LayoutGroup.Header>
                         <TextBlock Text="Bankdaten" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                     </dxlc:LayoutGroup.Header>
@@ -98,14 +111,14 @@
                     </dxlc:LayoutGroup>
                 </dxlc:LayoutGroup>
 
-                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" IsCollapsible="True">
+                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" IsCollapsible="True" IsEnabled="{Binding CompanyIsNotNull}">
                     <dxlc:LayoutGroup.Header>
                         <TextBlock Text="Steuern" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                     </dxlc:LayoutGroup.Header>
                     <dxlc:LayoutGroup>
                         <dxlc:LayoutItem Label="Vorausgewählte Steuer" FontFamily="Tahoma" >
-                            <dxe:ComboBoxEdit ItemsSource="{Binding TaxTypes}" DisplayMember="Description" 
-                                              FontFamily="Tahoma" EditValue="{Binding SelectedTaxType}" Foreground="#3f729b" />
+                            <dxe:ComboBoxEdit ItemsSource="{Binding TaxTypes}" DisplayMember="Description" ValueMember="TaxTypeId"
+                                              FontFamily="Tahoma" EditValue="{Binding SelectedTaxTypeId}" Foreground="#3f729b" />
                         </dxlc:LayoutItem>
                     </dxlc:LayoutGroup>
                     <dxlc:LayoutGroup Visibility="{Binding SelectedClientType, Converter={StaticResource TypeVisConverter}}">
@@ -113,12 +126,12 @@
                             <dxe:TextEdit Text="{Binding Client.Company.UStID}" FontFamily="Tahoma" />
                         </dxlc:LayoutItem>
                         <dxlc:LayoutItem Label="Steuernummer" FontFamily="Tahoma" >
-                            <dxe:TextEdit Text="{Binding Company.Company.TaxNumber}" FontFamily="Tahoma" />
+                            <dxe:TextEdit Text="{Binding Client.Company.TaxNumber}" FontFamily="Tahoma" />
                         </dxlc:LayoutItem>
                     </dxlc:LayoutGroup>
                 </dxlc:LayoutGroup>
 
-                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" IsCollapsible="True">
+                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" IsCollapsible="True" IsEnabled="{Binding CompanyIsNotNull}">
                     <dxlc:LayoutGroup.Header>
                         <TextBlock Text="Allgemeines" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                     </dxlc:LayoutGroup.Header>

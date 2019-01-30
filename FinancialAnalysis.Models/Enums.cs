@@ -48,6 +48,12 @@ namespace FinancialAnalysis.Models
         [Display(Name = "Privatkunde")] Private,
     }
 
+    public enum CustomerType
+    {
+        Creditor,
+        Debitor,
+    }
+
     /// <summary>
     ///     Enum with Federal States of Germany (ISO 3166-2:DE)
     ///     <para />

@@ -20,9 +20,11 @@ namespace FinancialAnalysis.Logic.ViewModels.Accounting
                 return;
 
             TaxTypes = DataLayer.Instance.TaxTypes.GetAll().ToSvenTechCollection();
+            SelectedTaxTypeId = 1;
         }
 
         private Client _Client;
+        private CustomerType _SelectedCustomerType = CustomerType.Creditor;
 
         public Client Client
         {
@@ -36,10 +38,25 @@ namespace FinancialAnalysis.Logic.ViewModels.Accounting
             }
         }
 
-
+        public event SelectedCustomerTypeChangedEvent SelectedCustomerTypeChanged;
+        public delegate void SelectedCustomerTypeChangedEvent(CustomerType customerType);
         public ClientType SelectedClientType { get; set; } = ClientType.Business;
-        public TaxType SelectedTaxType { get; set; }
+        public bool ShowCustomerType { get; set; }
+        public int SelectedTaxTypeId { get; set; }
         public SvenTechCollection<TaxType> TaxTypes { get; set; } = new SvenTechCollection<TaxType>();
         public bool ShowTaxType { get; set; }
+        public bool CompanyIsNotNull { get; set; } = false;
+
+        public CustomerType SelectedCustomerType
+        {
+            get { return _SelectedCustomerType; }
+            set { _SelectedCustomerType = value; SelectedCustomerTypeChanged.Invoke(value); }
+        }
+
+        internal void Clear()
+        {
+            Client = new Client();
+            CompanyIsNotNull = true;
+        }
     }
 }

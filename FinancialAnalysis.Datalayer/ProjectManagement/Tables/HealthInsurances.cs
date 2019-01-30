@@ -98,7 +98,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Name, @Description, @Budget, @StartDate, @ExpectedEndDate, @TotalEndDate, @IsEnded, @RefCostCenterId, @RefEmployeeId",
+                            $"dbo.{TableName}_Insert @Name, @Street, @Postcode, @City, @ContactName, @Phone, @Mail",
                             HealthInsurance);
                     id = result.Single();
                 }
@@ -193,7 +193,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @HealthInsuranceId, @Name, @Description, @Budget, @StartDate, @ExpectedEndDate, @TotalEndDate, @IsEnded, @RefCostCenterId, @RefEmployeeId", HealthInsurance);
+                    con.Execute($"dbo.{TableName}_Update @HealthInsuranceId, @Name, @Street, @Postcode, @City, @ContactName, @Phone, @Mail", HealthInsurance);
                 }
             }
             catch (Exception e)
