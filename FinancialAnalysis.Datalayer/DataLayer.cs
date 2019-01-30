@@ -150,6 +150,7 @@ namespace FinancialAnalysis.Datalayer
                 _Import.SeedCompany();
                 _Import.ImportCostAccounts(Standardkontenrahmen.SKR03);
                 _Import.SeedTaxTypes();
+                _Import.SeedCostCenters();
             }
         }
     }

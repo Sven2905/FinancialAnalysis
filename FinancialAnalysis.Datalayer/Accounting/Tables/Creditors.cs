@@ -69,13 +69,14 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<Creditor, Client, CostAccount, Creditor>($"dbo.{TableName}_GetAll",
-                        (creditor, Client, costaccount) =>
+                    output = con.Query<Creditor, Client, Company, CostAccount, Creditor>($"dbo.{TableName}_GetAll",
+                        (creditor, Client, company, costaccount) =>
                         {
                             creditor.Client = Client;
+                            creditor.Client.Company = company;
                             creditor.CostAccount = costaccount;
                             return creditor;
-                        }, splitOn: "ClientId, CostAccountId",
+                        }, splitOn: "CreditorId, ClientId, CompanyId, CostAccountId",
                         commandType: CommandType.StoredProcedure).ToList();
                 }
             }

@@ -17,6 +17,11 @@ namespace FinancialAnalysis.Logic
         public SvenTechCollection<TaxType> TaxTypes { get; private set; } = new SvenTechCollection<TaxType>();
         public Client MyCompany { get; private set; }
 
+        public TaxType GetTaxTypeById(int taxTypeId)
+        {
+            return TaxTypes.SingleOrDefault(x => x.TaxTypeId == taxTypeId);
+        }
+
         public CoreData()
         {
             RefreshData();

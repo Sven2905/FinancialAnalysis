@@ -49,7 +49,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                TaxTypes = DataLayer.Instance.TaxTypes.GetAll().ToList();
+                TaxTypes = Globals.CoreData.TaxTypes;
                 CostAccounts = DataLayer.Instance.CostAccounts.GetAllVisible().ToList();
                 CostCenters = DataLayer.Instance.CostCenters.GetAll().ToSvenTechCollection();
                 Projects = DataLayer.Instance.Projects.GetAll().ToSvenTechCollection();
@@ -337,13 +337,12 @@ namespace FinancialAnalysis.Logic.ViewModels
         public List<CostAccount> CostAccounts { get; set; }
         public SvenTechCollection<CostCenter> CostCenters { get; set; } = new SvenTechCollection<CostCenter>();
         public SvenTechCollection<Project> Projects { get; set; } = new SvenTechCollection<Project>();
-        public List<TaxType> TaxTypes { get; set; }
+        public SvenTechCollection<TaxType> TaxTypes { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
         public GrossNetType GrossNetType { get; set; }
         public ScannedDocument SelectedScannedDocument { get; set; }
 
-        public ObservableCollection<ScannedDocument> ScannedDocuments { get; set; } =
-            new ObservableCollection<ScannedDocument>();
+        public ObservableCollection<ScannedDocument> ScannedDocuments { get; set; } = new ObservableCollection<ScannedDocument>();
 
         public decimal Amount
         {

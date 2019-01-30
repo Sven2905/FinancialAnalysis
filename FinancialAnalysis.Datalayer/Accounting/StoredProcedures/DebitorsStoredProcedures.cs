@@ -33,10 +33,11 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT d.*, cl.*, a.* " +
+                                "SELECT d.*, cl.*, co.* , a.* " +
                                 $"FROM {TableName} d " +
-                                "JOIN Clients cl ON d.RefClientId = cl.ClientId " +
-                                "JOIN CostAccounts a ON d.RefCostAccountId = a.CostAccountId " +
+                                "LEFT JOIN Clients cl ON d.RefClientId = cl.ClientId " +
+                                "LEFT JOIN Companies co ON cl.ClientId = co.RefClientId " +
+                                "LEFT JOIN CostAccounts a ON d.RefCostAccountId = a.CostAccountId " +
                                 "ORDER BY a.AccountNumber END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

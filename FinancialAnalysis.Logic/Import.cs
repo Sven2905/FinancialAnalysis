@@ -200,6 +200,31 @@ namespace FinancialAnalysis.Logic
             }
         }
 
+        internal void SeedCostCenters()
+        {
+            var _CostCenters = new List<CostCenter>()
+           {
+               new CostCenter() { Identifier="1", Name = "Material - Beschaffung"},
+               new CostCenter() { Identifier="2", Name = "Material - Disposition"},
+               new CostCenter() { Identifier="3", Name = "Material - Lagerhaltung"},
+               new CostCenter() { Identifier="4", Name = "Fertigung - Produktion / Montage"},
+               new CostCenter() { Identifier="5", Name = "Fertigung - Qualitätssicherung"},
+               new CostCenter() { Identifier="6", Name = "Fertigung - Arbeitsvorbereitung"},
+               new CostCenter() { Identifier="7", Name = "Fertigung - Forschung und Entwicklung"},
+               new CostCenter() { Identifier="8", Name = "Verwaltung - Geschäftsführung"},
+               new CostCenter() { Identifier="9", Name = "Verwaltung - Buchhaltung / Finanzwesen / Controlling"},
+               new CostCenter() { Identifier="10", Name = "Verwaltung - Personalwesen"},
+               new CostCenter() { Identifier="11", Name = "Vertrieb - Marketing"},
+               new CostCenter() { Identifier="12", Name = "Vertrieb - Vertrieb"},
+               new CostCenter() { Identifier="13", Name = "Vertrieb - Fakturierung"},
+               new CostCenter() { Identifier="14", Name = "Vertrieb - Auftragswesen"},
+               new CostCenter() { Identifier="15", Name = "Handel - Fabrikverkauf /Direktverkauf"},
+               new CostCenter() { Identifier="16", Name = "Handel - Absatzmittler"},
+           };
+
+            DataLayer.Instance.CostCenters.Insert(_CostCenters);
+        }
+
         private void CreateSKR03MainCategories()
         {
             var _CostAccounts = new List<CostAccountCategory>

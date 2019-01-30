@@ -22,9 +22,24 @@ namespace FinancialAnalysis.Logic.ViewModels.Accounting
             TaxTypes = DataLayer.Instance.TaxTypes.GetAll().ToSvenTechCollection();
         }
 
-        public Client Client { get; set; }
+        private Client _Client;
+
+        public Client Client
+        {
+            get { return _Client; }
+            set
+            {
+                _Client = value;
+                if (Client != null)
+                    if (Client.IsCompany)
+                        SelectedClientType = ClientType.Business;
+            }
+        }
+
+
         public ClientType SelectedClientType { get; set; } = ClientType.Business;
         public TaxType SelectedTaxType { get; set; }
         public SvenTechCollection<TaxType> TaxTypes { get; set; } = new SvenTechCollection<TaxType>();
+        public bool ShowTaxType { get; set; }
     }
 }
