@@ -135,6 +135,7 @@
     <Compile Include="Converter\BaseValueConverter.cs" />
     <Compile Include="Converter\ClientTypeToVisiblityConverter.cs" />
     <Compile Include="Converter\BooleanToVisiblityConverter.cs" />
+    <Compile Include="Converter\ColorToBrushConverter.cs" />
     <Compile Include="Converter\NullToVisConverter.cs" />
     <Compile Include="Converter\NullToIsEnabledConverter.cs" />
     <Compile Include="UserControls\Accounting\BookingHistoryControl.xaml.cs">
@@ -158,6 +159,12 @@
     </Compile>
     <Compile Include="UserControls\ProductManagement\ProductManagementControl.xaml.cs">
       <DependentUpon>ProductManagementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SalesManagement\PendingSalesOrderControl.xaml.cs">
+      <DependentUpon>PendingSalesOrderControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SalesManagement\SalesManagementControl.xaml.cs">
+      <DependentUpon>SalesManagementControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SalesManagement\SalesOrderControl.xaml.cs">
       <DependentUpon>SalesOrderControl.xaml</DependentUpon>
@@ -260,6 +267,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ProductManagement\ProductManagementControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\SalesManagement\PendingSalesOrderControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\SalesManagement\SalesManagementControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -427,6 +442,10 @@
     <Resource Include="Images\Emblem\SmallLogoBW.jpg" />
     <Resource Include="Images\Emblem\SmallLogoBW.png" />
     <Resource Include="Images\Emblem\svg\readme.txt" />
+    <Resource Include="Images\ApplicationLogo\financialanalysis_logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ApplicationLogo\financialanalysis_logo-small.png" />
     <Content Include="Images\Emblem\svg\SVGlogo.svg" />
     <Content Include="Images\Emblem\svg\SVGlogoAI.svg" />
     <Resource Include="Images\SmallLogoDark.png" />

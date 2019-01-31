@@ -1,6 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models.Administration;
+using FinancialAnalysis.Models.General;
 using System.Collections.Generic;
 
 namespace FinancialAnalysis.Logic
@@ -9,6 +10,8 @@ namespace FinancialAnalysis.Logic
     {
         public static User ActualUser { get; set; }
         public static CoreData CoreData { get; } = new CoreData();
+        public static Colors Colors { get; }
+
 
         //public static TableVersion Versions { get; }
 

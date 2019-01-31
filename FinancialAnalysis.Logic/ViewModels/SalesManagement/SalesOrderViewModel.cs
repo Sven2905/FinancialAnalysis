@@ -7,6 +7,7 @@ using FinancialAnalysis.Models.ProductManagement;
 using FinancialAnalysis.Models.ProjectManagement;
 using FinancialAnalysis.Models.Reports;
 using FinancialAnalysis.Models.SalesManagement;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,7 +38,16 @@ namespace FinancialAnalysis.Logic.ViewModels
         public Product SelectedProduct
         {
             get { return _SelectedProduct; }
-            set { _SelectedProduct = value; SalesOrderPosition.Product = _SelectedProduct; SalesOrderPosition.Price = _SelectedProduct.DefaultSellingPrice; }
+            set
+            {
+                _SelectedProduct = value;
+                if (value != null)
+                {
+                    SalesOrderPosition.Product = _SelectedProduct;
+                    SalesOrderPosition.RefProductId = _SelectedProduct.ProductId;
+                    SalesOrderPosition.Price = _SelectedProduct.DefaultSellingPrice;
+                }
+            }
         }
 
         public Employee Employee { get; set; }
@@ -67,11 +77,39 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SetCommands()
         {
-            CreatePDFCommand = new DelegateCommand(CreatePDFFile);
-            SavePositionCommand = new DelegateCommand(SaveSalesOrderPosition);
-            DeletePositionCommand = new DelegateCommand(DeleteSalesOrderPosition);
-            SaveSalesOrderCommand = new DelegateCommand(SaveSalesOrder);
+            CreatePDFCommand = new DelegateCommand(CreatePDFFile, () => ValidatePDFCreation());
+            SavePositionCommand = new DelegateCommand(SaveSalesOrderPosition, () => ValidateSalesOrderPosition());
+            DeletePositionCommand = new DelegateCommand(DeleteSalesOrderPosition, () => SelectedSalesOrderPosition != null);
+            SaveSalesOrderCommand = new DelegateCommand(SaveSalesOrder, () => ValidateSalesOrder());
             OpenSalesTypesWindowCommand = new DelegateCommand(OpenSalesTypesWindow);
+        }
+
+        private bool ValidatePDFCreation()
+        {
+            if (SalesOrder.SalesOrderPositions.Count < 1)
+                return false;
+            if (!ValidateSalesOrder())
+                return false;
+            return true;
+        }
+
+        private bool ValidateSalesOrderPosition()
+        {
+            if (SalesOrderPosition.RefProductId == 0)
+                return false;
+            return true;
+        }
+
+        private bool ValidateSalesOrder()
+        {
+            if (SalesOrder == null)
+                return false;
+            if (SalesOrder.SalesOrderPositions.Count < 1)
+                return false;
+            if (SalesOrder.RefDebitorId == 0 || SalesOrder.RefSalesTypeId == 0)
+                return false;
+
+            return true;
         }
 
         private void OpenSalesTypesWindow()
@@ -118,6 +156,14 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveSalesOrder()
         {
+            SalesOrder.RefShipmentTypeId = 1;
+            SalesOrder.SalesOrderId = DataLayer.Instance.SalesOrders.Insert(SalesOrder);
+
+            foreach (var item in SalesOrder.SalesOrderPositions)
+            {
+                item.RefSalesOrderId = SalesOrder.SalesOrderId;
+                DataLayer.Instance.SalesOrderPositions.Insert(item);
+            }
             Clear();
         }
 

@@ -34,13 +34,13 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT so.*, t.*, spo.*, d.*, cl.*, c.*, p.*, ipos.*, i.*, sp.*, s.* " +
+                    "SELECT so.*, t.*, spos.*, d.*, cl.*, c.*, p.*, ipos.*, i.*, sp.*, s.* " +
                     $"FROM {TableName} so " +
-                    "LEFT JOIN SalesOrderTypes t ON so.RefSalesOrderTypeId = t.SalesOrderTypeId " +
+                    "LEFT JOIN SalesTypes t ON so.RefSalesTypeId = t.SalesTypeId " +
                     "LEFT JOIN SalesOrderPositions spos ON so.SalesOrderId = spos.RefSalesOrderId " +
                     "LEFT JOIN Debitors d ON so.RefDebitorId = d.DebitorId " +
                     "LEFT JOIN Clients cl ON d.RefClientId = d.RefClientId " +
-                    "LEFT JOIN Company c ON cl.ClientId = c.RefClientId " +
+                    "LEFT JOIN Companies c ON cl.ClientId = c.RefClientId " +
                     "LEFT JOIN Products p ON spos.RefProductId = p.ProductId " +
                     "LEFT JOIN InvoicePositions ipos ON spos.SalesOrderPositionId = ipos.RefSalesOrderPositionId " +
                     "LEFT JOIN Invoices i ON ipos.RefInvoiceId = i.InvoiceId " +
@@ -95,13 +95,13 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetById] @SalesOrderId int AS BEGIN SET NOCOUNT ON; " +
-                   "SELECT so.*, t.*, spo.*, d.*, cl.*, c.*, p.*, ipos.*, i.*, sp.*, s.* " +
+                   "SELECT so.*, t.*, spos.*, d.*, cl.*, c.*, p.*, ipos.*, i.*, sp.*, s.* " +
                     $"FROM {TableName} so " +
-                    "LEFT JOIN SalesOrderTypes t ON so.RefSalesOrderTypeId = t.SalesOrderTypeId " +
+                    "LEFT JOIN SalesTypes t ON so.RefSalesTypeId = t.SalesTypeId " +
                     "LEFT JOIN SalesOrderPositions spos ON so.SalesOrderId = spos.RefSalesOrderId " +
                     "LEFT JOIN Debitors d ON so.RefDebitorId = d.DebitorId " +
                     "LEFT JOIN Clients cl ON d.RefClientId = d.RefClientId " +
-                    "LEFT JOIN Company c ON cl.ClientId = c.RefClientId " +
+                    "LEFT JOIN Companies c ON cl.ClientId = c.RefClientId " +
                     "LEFT JOIN Products p ON spos.RefProductId = p.ProductId " +
                     "LEFT JOIN InvoicePositions ipos ON spos.SalesOrderPositionId = ipos.RefSalesOrderPositionId " +
                     "LEFT JOIN Invoices i ON ipos.RefInvoiceId = i.InvoiceId " +
@@ -125,25 +125,25 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
         private void GetOpenedSalesOrders()
         {
-            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetById", DatabaseNames.FinancialAnalysisDB))
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetOpenedSalesOrders", DatabaseNames.FinancialAnalysisDB))
             {
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @SalesOrderId int AS BEGIN SET NOCOUNT ON; " +
-                   "SELECT so.*, t.*, spo.*, d.*, cl.*, c.*, p.*, ipos.*, i.*, sp.*, s.* " +
+                    $"CREATE PROCEDURE [{TableName}_GetOpenedSalesOrders] AS BEGIN SET NOCOUNT ON; " +
+                   "SELECT so.*, t.*, spos.*, d.*, cl.*, c.*, p.*, ipos.*, i.*, sp.*, s.* " +
                     $"FROM {TableName} so " +
-                    "LEFT JOIN SalesOrderTypes t ON so.RefSalesOrderTypeId = t.SalesOrderTypeId " +
+                    "LEFT JOIN SalesTypes t ON so.RefSalesTypeId = t.SalesTypeId " +
                     "LEFT JOIN SalesOrderPositions spos ON so.SalesOrderId = spos.RefSalesOrderId " +
                     "LEFT JOIN Debitors d ON so.RefDebitorId = d.DebitorId " +
                     "LEFT JOIN Clients cl ON d.RefClientId = d.RefClientId " +
-                    "LEFT JOIN Company c ON cl.ClientId = c.RefClientId " +
+                    "LEFT JOIN Companies c ON cl.ClientId = c.RefClientId " +
                     "LEFT JOIN Products p ON spos.RefProductId = p.ProductId " +
                     "LEFT JOIN InvoicePositions ipos ON spos.SalesOrderPositionId = ipos.RefSalesOrderPositionId " +
                     "LEFT JOIN Invoices i ON ipos.RefInvoiceId = i.InvoiceId " +
                     "LEFT JOIN ShippedProducts sp ON spos.SalesOrderPositionId = sp.RefSalesOrderPositionId " +
                     "LEFT JOIN Shipments s ON sp.RefShipmentId = s.ShipmentId " +
-                    $"WHERE so.IsOpened = 0 " +
+                    $"WHERE so.IsClosed = 0 " +
                     "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

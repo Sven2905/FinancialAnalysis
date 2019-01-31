@@ -46,7 +46,7 @@ namespace FinancialAnalysis.Models.Administration
         AccessPurchaseOrders = 404,
         AccessPurchaseTypes = 405,
 
-        // PurchaseManagement 500 - 599
+        // SaleManagement 500 - 599
         AccessSalesManagement = 500,
         AccessInvoice = 501,
         AccessInvoiceTypes = 502,
@@ -54,6 +54,8 @@ namespace FinancialAnalysis.Models.Administration
         AccessShipmentType = 504,
         AccessSalesOrders = 505,
         AccessSalesTypes = 506,
+        AccessPendingSaleOrders = 507,
+
 
         // ProductManagement 600 - 699
         AccessProductManagement = 600,

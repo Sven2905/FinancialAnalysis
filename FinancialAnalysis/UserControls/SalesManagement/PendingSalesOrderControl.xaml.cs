@@ -1,5 +1,4 @@
-﻿using DevExpress.Xpf.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FinancialAnalysis.Windows
+namespace FinancialAnalysis.UserControls.SalesManagement
 {
     /// <summary>
-    /// Interaktionslogik für LoginWindow.xaml
+    /// Interaktionslogik für PendingSalesOrderControl.xaml
     /// </summary>
-    public partial class LoginWindow : DXWindow
+    public partial class PendingSalesOrderControl : UserControl
     {
-        public LoginWindow()
+        public PendingSalesOrderControl()
         {
             InitializeComponent();
         }

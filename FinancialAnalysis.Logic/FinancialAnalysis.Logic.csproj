@@ -138,6 +138,8 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\Administration\MyCompanyViewModel.cs" />
     <Compile Include="ViewModels\ProductManagement\ProductManagementViewModel.cs" />
+    <Compile Include="ViewModels\SalesManagement\PendingSaleOrdersViewModel.cs" />
+    <Compile Include="ViewModels\SalesManagement\SalesManagementViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\SalesTypesViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\SalesOrderViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\ShipmentTypeViewModel.cs" />

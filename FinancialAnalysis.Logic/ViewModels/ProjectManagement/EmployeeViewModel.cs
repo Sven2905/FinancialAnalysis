@@ -77,7 +77,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void NewUser()
         {
-            SelectedEmployee = new Employee();
+            SelectedEmployee = new Employee
+            {
+                RefHealthInsuranceId = 1
+            };
             Employees.Add(SelectedEmployee);
         }
 

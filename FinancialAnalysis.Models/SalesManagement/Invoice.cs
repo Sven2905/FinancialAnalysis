@@ -5,11 +5,17 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Utilities;
 
 namespace FinancialAnalysis.Models.SalesManagement
 {
     public class Invoice : BindableBase
     {
+        public Invoice()
+        {
+            InvoicePositions = new SvenTechCollection<InvoicePosition>();
+        }
+
         public int InvoiceId { get; set; }
         public DateTime InvoiceDate { get; set; }
         public DateTime InvoiceDueDate { get; set; }
@@ -20,5 +26,7 @@ namespace FinancialAnalysis.Models.SalesManagement
         public int RefInvoicePositionId { get; set; }
         public bool IsPaid { get; set; }
         public decimal PaidAmount { get; set; }
+
+        public SvenTechCollection<InvoicePosition> InvoicePositions { get; set; }
     }
 }
