@@ -1,12 +1,13 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
+using FinancialAnalysis.Models.General;
 using FinancialAnalysis.Models.SalesManagement;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -28,6 +29,5 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public SvenTechCollection<SalesOrder> SalesOrders { get; set; }
         public SalesOrder SelectedSalesOrder { get; set; }
-
     }
 }

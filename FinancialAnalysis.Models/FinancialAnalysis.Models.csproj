@@ -85,7 +85,7 @@
     <Compile Include="Administration\UserRightUserMappingFlatStructure.cs" />
     <Compile Include="BaseClasses\OrderPositionItem.cs" />
     <Compile Include="ClientManagement\Client.cs" />
-    <Compile Include="General\Colors.cs" />
+    <Compile Include="General\SvenTechColors.cs" />
     <Compile Include="Interfaces\IOrderPositionItem.cs" />
     <Compile Include="ProductManagement\SelectedProductCategory.cs" />
     <Compile Include="ClientManagement\Company.cs" />

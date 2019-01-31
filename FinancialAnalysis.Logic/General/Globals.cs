@@ -10,8 +10,6 @@ namespace FinancialAnalysis.Logic
     {
         public static User ActualUser { get; set; }
         public static CoreData CoreData { get; } = new CoreData();
-        public static Colors Colors { get; }
-
 
         //public static TableVersion Versions { get; }
 
