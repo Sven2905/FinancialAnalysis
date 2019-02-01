@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <ApplicationIcon>icon_color.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
@@ -417,6 +417,9 @@
     <None Include="Images\Emblem\292049459.pdf" />
     <None Include="Images\Emblem\EPSLogo.eps" />
     <None Include="Images\Emblem\PSLogo.ps" />
+    <None Include="Images\Emblem\horizontal\292049459.pdf" />
+    <None Include="Images\Emblem\horizontal\EPSLogo.eps" />
+    <None Include="Images\Emblem\horizontal\PSLogo.ps" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -446,6 +449,23 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\ApplicationLogo\financialanalysis_logo-small.png" />
+    <Resource Include="icon.ico" />
+    <Resource Include="icon_color.ico" />
+    <Resource Include="Images\Emblem\horizontal\400dpiLogo.jpg" />
+    <Resource Include="Images\Emblem\horizontal\400dpiLogo.png" />
+    <Resource Include="Images\Emblem\horizontal\400dpiLogoCropped.jpg" />
+    <Resource Include="Images\Emblem\horizontal\400dpiLogoCropped.png" />
+    <Resource Include="Images\Emblem\horizontal\FaviconLogo.jpg" />
+    <Resource Include="Images\Emblem\horizontal\FaviconLogo.png" />
+    <Resource Include="Images\Emblem\horizontal\MediumSquareLogo.jpg" />
+    <Resource Include="Images\Emblem\horizontal\MediumSquareLogo.png" />
+    <Resource Include="Images\Emblem\horizontal\SmallLogo.jpg" />
+    <Resource Include="Images\Emblem\horizontal\SmallLogo.png" />
+    <Resource Include="Images\Emblem\horizontal\SmallLogoBW.jpg" />
+    <Resource Include="Images\Emblem\horizontal\SmallLogoBW.png" />
+    <Content Include="Images\Emblem\horizontal\SVGLogo.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\Emblem\svg\SVGlogo.svg" />
     <Content Include="Images\Emblem\svg\SVGlogoAI.svg" />
     <Resource Include="Images\SmallLogoDark.png" />

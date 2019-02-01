@@ -9,13 +9,14 @@
         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
-        IsEnabled="{Binding BindableProperty, Source={StaticResource MessageListener}}" 
+    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+    IsEnabled="{Binding BindableProperty, Source={StaticResource MessageListener}}" 
         mc:Ignorable="d"
         WindowStyle="None" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         BorderThickness="1" Padding="0"
         BorderBrush="#FAFAFA"
-        Title="Finanzanalyse - Login" Height="200" Width="550">
+        Title="Finanzanalyse - Login" Height="220" Width="550">
     <Window.DataContext>
         <ViewModels:LoginViewModel />
     </Window.DataContext>
@@ -35,6 +36,7 @@
             <RowDefinition Height="5" />
             <RowDefinition Height="24" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="25" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.ColumnSpan="9">
@@ -42,7 +44,7 @@
             <Separator />
         </StackPanel>
 
-        <Image Grid.Row="0" Grid.RowSpan="6" Grid.Column="0" Margin="15,30,0,0" VerticalAlignment="Center" Height="100" Source="/Images/ApplicationLogo/financialanalysis_logo-small.png" />
+        <Image Grid.Row="0" Grid.RowSpan="6" Grid.Column="0" Margin="15,25,0,0" VerticalAlignment="Center" Height="120" Source="/Images/ApplicationLogo/financialanalysis_logo-small.png" />
 
         <Label Grid.Row="0" Grid.Column="3" Content="{Binding ErrorText}" Foreground="Red" VerticalAlignment="Bottom" Margin="3,5" Visibility="{Binding Path=ShowError, Converter={StaticResource BoolToVis}}"/>
 
@@ -57,5 +59,6 @@
         <dx:SimpleButton Grid.Row="4" Grid.Column="3" Grid.RowSpan="2" Height="22" Width="100" HorizontalAlignment="Left" Content="Abbrechen" Command="{Binding ExitCommand}" Margin="120,5,2,5"/>
         <!--</StackPanel>-->
 
+        <svgc:SvgViewbox Grid.Row="5" Grid.Column="3" HorizontalAlignment="Right" Height="20" Width="140" Stretch="Uniform" Source="/Images/Emblem/horizontal/SVGLogo.svg"/>
     </Grid>
 </dx:DXWindow>
