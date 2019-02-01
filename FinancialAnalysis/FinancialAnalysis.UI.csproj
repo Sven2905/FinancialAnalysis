@@ -448,7 +448,6 @@
     <Resource Include="Images\ApplicationLogo\financialanalysis_logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\ApplicationLogo\financialanalysis_logo-small.png" />
     <Resource Include="icon.ico" />
     <Resource Include="icon_color.ico" />
     <Resource Include="Images\Emblem\horizontal\400dpiLogo.jpg" />
@@ -463,6 +462,10 @@
     <Resource Include="Images\Emblem\horizontal\SmallLogo.png" />
     <Resource Include="Images\Emblem\horizontal\SmallLogoBW.jpg" />
     <Resource Include="Images\Emblem\horizontal\SmallLogoBW.png" />
+    <Resource Include="Images\ApplicationLogo\icon_color.ico" />
+    <Resource Include="Images\ApplicationLogo\financialanalysis_logo_small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Images\Emblem\horizontal\SVGLogo.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
