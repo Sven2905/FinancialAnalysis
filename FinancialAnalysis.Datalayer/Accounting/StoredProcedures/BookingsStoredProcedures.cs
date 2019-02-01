@@ -31,10 +31,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT b.BookingId, b.Description, b.Amount, b.Date, " +
-                                "s.ScannedDocumentId AS ScannedDocuments_ScannedDocumentId, s.Content AS ScannedDocuments_Content, s.Date AS ScannedDocuments_Date, s.FileName AS ScannedDocuments_FileName, s.RefBookingId AS ScannedDocuments_RefBookingId, " +
-                                "c.CreditId AS Credits_CreditId, c.Amount AS Credits_Amount, c.RefCostAccountId AS Credits_RefCostAccountId, c.RefBookingId AS Credits_RefBookingId, " +
-                                $"d.DebitId AS Debits_DebitId, d.Amount AS Debits_Amount, d.RefCostAccountId AS Debits_RefCostAccountId, d.RefBookingId AS Debits_RefBookingId FROM {TableName} b " +
+                                "SELECT b.*, s.*, c.*, d.* " +
+                                $"FROM {TableName} b " +
                                 "INNER JOIN Credits c ON b.BookingId = c.RefBookingId " +
                                 "INNER JOIN Debits d ON b.BookingId = d.RefBookingId " +
                                 "LEFT JOIN ScannedDocuments s ON b.BookingId = s.RefBookingId " +
@@ -60,10 +58,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Description nvarchar(150), @Amount money, @Date datetime " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Description nvarchar(150), @Amount money, @RefCostCenterId int, @Date datetime " +
                     "AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Description, Amount, Date) " +
-                    "VALUES (@Description, @Amount, @Date); " +
+                    $"INSERT into {TableName} (Description, Amount, RefCostCenterId, Date) " +
+                    "VALUES (@Description, @Amount, @RefCostCenterId, @Date); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -87,10 +85,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetById] @BookingId int AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT b.BookingId, b.Description, b.Amount, b.Date, " +
-                    "s.ScannedDocumentId AS ScannedDocuments_ScannedDocumentId, s.Content AS ScannedDocuments_Content, s.Date AS ScannedDocuments_Date, s.FileName AS ScannedDocuments_FileName, s.RefBookingId AS ScannedDocuments_RefBookingId, " +
-                    "c.CreditId AS Credits_CreditId, c.Amount AS Credits_Amount, c.RefCostAccountId AS Credits_RefCostAccountId, c.RefBookingId AS Credits_RefBookingId, " +
-                    $"d.DebitId AS Debits_DebitId, d.Amount AS Debits_Amount, d.RefCostAccountId AS Debits_RefCostAccountId, d.RefBookingId AS Debits_RefBookingId FROM {TableName} b " +
+                    "SELECT b.*, s.*, c.*, d.* " +
+                    $"FROM {TableName} b " +
                     "INNER JOIN Credits c ON b.BookingId = c.RefBookingId " +
                     "INNER JOIN Debits d ON b.BookingId = d.RefBookingId " +
                     "LEFT JOIN ScannedDocuments s ON b.BookingId = s.RefBookingId " +
@@ -117,10 +113,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetByConditions] @StartDate datetime, @EndDate datetime, @CreditId int, @DebitId int AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT b.BookingId, b.Description, b.Amount, b.Date, " +
-                    "s.ScannedDocumentId AS ScannedDocuments_ScannedDocumentId, s.Content AS ScannedDocuments_Content, s.Date AS ScannedDocuments_Date, s.FileName AS ScannedDocuments_FileName, s.RefBookingId AS ScannedDocuments_RefBookingId, " +
-                    "c.CreditId AS Credits_CreditId, c.Amount AS Credits_Amount, c.RefCostAccountId AS Credits_RefCostAccountId, c.RefBookingId AS Credits_RefBookingId, " +
-                    $"d.DebitId AS Debits_DebitId, d.Amount AS Debits_Amount, d.RefCostAccountId AS Debits_RefCostAccountId, d.RefBookingId AS Debits_RefBookingId FROM {TableName} b " +
+                    "SELECT b.*, s.*, c.*, d.* " +
+                    $"FROM {TableName} b " +
                     "INNER JOIN Credits c ON b.BookingId = c.RefBookingId " +
                     "INNER JOIN Debits d ON b.BookingId = d.RefBookingId " +
                     "LEFT JOIN ScannedDocuments s ON b.BookingId = s.RefBookingId " +

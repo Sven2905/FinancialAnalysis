@@ -39,7 +39,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                                 "LEFT JOIN PaymentConditions pay ON i.RefPaymentConditionId = pay.PaymentConditionId " +
                                 "LEFT JOIN SalesOrderPositions spos ON pos.RefSalesOrderPositionId = spos.SalesOrderPositionId " +
                                 "LEFT JOIN SalesOrders s ON spos.RefSalesOrderId = s.SalesOrderId " +
-                                "LEFT JOIN Debitors d ON s.RefDebitorId = d.DebitorId" +
+                                "LEFT JOIN Debitors d ON s.RefDebitorId = d.DebitorId " +
                                 "LEFT JOIN Products p ON spos.RefProductId = p.ProductId " +
                                 "END");
                 using (var connection =
@@ -96,7 +96,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     "LEFT JOIN PaymentConditions pay ON i.RefPaymentConditionId = pay.PaymentConditionId " +
                     "LEFT JOIN SalesOrderPositions spos ON pos.RefSalesOrderPositionId = spos.SalesOrderPositionId " +
                     "LEFT JOIN SalesOrders s ON spos.RefSalesOrderId = s.SalesOrderId " +
-                    "LEFT JOIN Debitors d ON s.RefDebitorId = d.DebitorId" +
+                    "LEFT JOIN Debitors d ON s.RefDebitorId = d.DebitorId " +
                     "LEFT JOIN Products p ON spos.RefProductId = p.ProductId " +
                     "WHERE i.InvoiceId = @InvoiceId END");
                 using (var connection =
@@ -128,7 +128,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     "LEFT JOIN PaymentConditions pay ON i.RefPaymentConditionId = pay.PaymentConditionId " +
                     "LEFT JOIN SalesOrderPositions spos ON pos.RefSalesOrderPositionId = spos.SalesOrderPositionId " +
                     "LEFT JOIN SalesOrders s ON spos.RefSalesOrderId = s.SalesOrderId " +
-                    "LEFT JOIN Debitors d ON s.RefDebitorId = d.DebitorId" +
+                    "LEFT JOIN Debitors d ON s.RefDebitorId = d.DebitorId " +
                     "LEFT JOIN Products p ON spos.RefProductId = p.ProductId " +
                     "WHERE i.IsClosed = 1 END");
                 using (var connection =

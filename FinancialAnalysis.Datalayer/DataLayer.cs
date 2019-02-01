@@ -140,6 +140,7 @@ namespace FinancialAnalysis.Datalayer
             Companies.AddReferences();
             ShippedProducts.AddReferences();
             InvoicePositions.AddReferences();
+            Bookings.AddReferences();
         }
 
         private void Seed()

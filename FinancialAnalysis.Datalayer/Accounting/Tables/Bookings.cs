@@ -42,6 +42,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                                  "(BookingId int IDENTITY(1,1) PRIMARY KEY, " +
                                  "Description nvarchar(150) NOT NULL, " +
                                  "Amount money, " +
+                                 "RefCostCenterId int, " +
                                  "Date datetime )";
 
                 using (var command = new SqlCommand(commandStr, con))
@@ -105,7 +106,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Description, @Amount, @Date", Booking);
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @Description, @Amount, @RefCostCenterId, @Date", Booking);
                     return result.Single();
                 }
             }
@@ -210,6 +211,35 @@ namespace FinancialAnalysis.Datalayer.Accounting
                         }, new { StartDate = startDate, EndDate = endDate, CreditId = creditId, DebitId = debitId }, splitOn: "BookingId, ScannedDocumentId, CreditId, DebitId")
                     .AsQueryable();
                 return query.ToList();
+            }
+        }
+
+        public void AddReferences()
+        {
+            AddCostCentersReference();
+        }
+
+        private void AddCostCentersReference()
+        {
+            string refTable = "CostCenters";
+
+            try
+            {
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefCostCenterId) REFERENCES {refTable}(CostCenterId) ON DELETE CASCADE";
+
+                using (var command = new SqlCommand(commandStr, con))
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while creating reference between '{TableName}' and {TableName}",
+                    e);
             }
         }
     }
