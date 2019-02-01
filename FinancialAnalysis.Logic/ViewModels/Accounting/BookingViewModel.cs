@@ -22,7 +22,9 @@ namespace FinancialAnalysis.Logic.ViewModels
         public BookingViewModel()
         {
             if (IsInDesignMode)
+            {
                 return;
+            }
 
             SetCommands();
 
@@ -188,18 +190,56 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
             }
 
-            var credit = new Credit(amountWithoutTax, CostAccountCreditorId, booking.BookingId);
-            booking.Credits.Add(credit);
+            Debit debit = new Debit();
+            Credit credit = new Credit();
 
-            if (tax > 0)
+            if (!IsCreditAdvice)
             {
-                var creditTax = new Credit(tax, SelectedTax.RefCostAccount, booking.BookingId);
-                booking.Credits.Add(creditTax);
+                if (SelectedTax.Description.ToLower().Contains("Vorsteuer"))
+                {
+                    credit = new Credit(amountWithoutTax, CostAccountDebitorId, booking.BookingId);
+                    debit = new Debit(amountWithoutTax + tax, CostAccountDebitorId, booking.BookingId);
+                    var creditTax = new Credit(tax, SelectedTax.RefCostAccount, booking.BookingId);
+                    booking.Credits.Add(creditTax);
+                }
+                else if (SelectedTax.Description.ToLower().Contains("Umsatzsteuer"))
+                {
+                    credit = new Credit(amountWithoutTax + tax, CostAccountDebitorId, booking.BookingId);
+                    debit = new Debit(amountWithoutTax + tax, CostAccountDebitorId, booking.BookingId);
+                    var debitTax = new Debit(tax, SelectedTax.RefCostAccount, booking.BookingId);
+                    booking.Debits.Add(debitTax);
+                }
+                else
+                {
+                    credit = new Credit(Amount, CostAccountDebitorId, booking.BookingId);
+                    debit = new Debit(Amount, CostAccountDebitorId, booking.BookingId);
+                }
+            }
+            else
+            {
+                if (SelectedTax.Description.ToLower().Contains("Vorsteuer"))
+                {
+                    credit = new Credit(amountWithoutTax + tax, CostAccountDebitorId, booking.BookingId);
+                    debit = new Debit(amountWithoutTax, CostAccountDebitorId, booking.BookingId);
+                    var debitTax = new Debit(tax, SelectedTax.RefCostAccount, booking.BookingId);
+                    booking.Debits.Add(debitTax);
+                }
+                else if (SelectedTax.Description.ToLower().Contains("Umsatzsteuer"))
+                {
+                    credit = new Credit(amountWithoutTax + tax, CostAccountDebitorId, booking.BookingId);
+                    debit = new Debit(amountWithoutTax + tax, CostAccountDebitorId, booking.BookingId);
+                    var creditTax = new Credit(tax, SelectedTax.RefCostAccount, booking.BookingId);
+                    booking.Credits.Add(creditTax);
+                }
+                else
+                {
+                    credit = new Credit(Amount, CostAccountDebitorId, booking.BookingId);
+                    debit = new Debit(Amount, CostAccountDebitorId, booking.BookingId);
+                }
             }
 
-            var debit = new Debit(amountWithoutTax + tax, CostAccountDebitorId, booking.BookingId);
-
             booking.Debits.Add(debit);
+            booking.Credits.Add(credit);
             booking.ScannedDocuments = ScannedDocuments.ToList();
 
             return booking;
@@ -341,6 +381,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DateTime Date { get; set; } = DateTime.Now;
         public GrossNetType GrossNetType { get; set; }
         public ScannedDocument SelectedScannedDocument { get; set; }
+        public bool IsCreditAdvice { get; set; } = false;
 
         public ObservableCollection<ScannedDocument> ScannedDocuments { get; set; } = new ObservableCollection<ScannedDocument>();
 
