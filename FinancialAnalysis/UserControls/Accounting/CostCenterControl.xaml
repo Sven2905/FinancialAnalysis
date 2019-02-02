@@ -82,7 +82,7 @@
                                 <Border Grid.Column="2" Padding="0 0 8 0" >
                                     <StackPanel VerticalAlignment="Center" >
                                         <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#000" TextTrimming="CharacterEllipsis" />
-                                        <TextBlock Margin="10,0,0,0" Text="{Binding Description}" Foreground="#9e9e9e" TextTrimming="CharacterEllipsis" />
+                                        <TextBlock Margin="10,0,0,0" Text="{Binding CostCenterCategory.Name}" Foreground="#9e9e9e" TextTrimming="CharacterEllipsis" />
                                     </StackPanel>
                                 </Border>
                             </Grid>
@@ -125,6 +125,23 @@
                         <dxlc:LayoutGroup>
                             <dxlc:LayoutItem Label="Name" FontFamily="Tahoma" >
                                 <dxe:TextEdit Text="{Binding SelectedCostCenter.Name}" FontFamily="Tahoma" />
+                            </dxlc:LayoutItem>
+                        </dxlc:LayoutGroup>
+                        <dxlc:LayoutGroup>
+                            <dxlc:LayoutItem Label="Kategorie" FontFamily="Tahoma" >
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <dxe:ComboBoxEdit NullText="Bitte wählen" ValueMember="CostCenterCategoryId" DisplayMember="Name" ItemsSource="{Binding CostCenterCategories}" EditValue="{Binding SelectedCostCenter.RefCostCenterCategoryId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                                    <dx:SimpleButton Grid.Column="1" Width="30" Margin="5,0,0,0" Command="{Binding OpenCostCenterCategoriesWindowCommand}" >
+                                        <!--IsEnabled="{Binding AllowCostCenterCategories}">-->
+                                        <dx:SimpleButton.Glyph>
+                                            <dx:SvgImageSource Uri="/Images/light/Cog.svg" Size="14,14"  />
+                                        </dx:SimpleButton.Glyph>
+                                    </dx:SimpleButton>
+                                </Grid>
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>

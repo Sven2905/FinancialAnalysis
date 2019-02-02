@@ -11,11 +11,11 @@ namespace FinancialAnalysis.Logic.ViewModels
     public class AccountingViewModel : ViewModelBase
     {
         #region UserRights
-        public bool ShowBookings { get { return Globals.ActualUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessBooking); } }
+        public bool ShowBookings { get { return Globals.ActualUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessBookings); } }
         public bool ShowBookingHistories { get { return Globals.ActualUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessBookingHistory); } }
-        public bool ShowCostAccounts { get { return Globals.ActualUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessCostAccount); } }
-        public bool ShowCreditorDebitors { get { return Globals.ActualUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessCreditorDebitor); } }
-        public bool ShowTaxTypes { get { return Globals.ActualUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessTaxType); } }
+        public bool ShowCostAccounts { get { return Globals.ActualUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessCostAccounts); } }
+        public bool ShowCreditorDebitors { get { return Globals.ActualUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessCreditorDebitors); } }
+        public bool ShowTaxTypes { get { return Globals.ActualUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessTaxTypes); } }
         #endregion UserRights
 
         public AccountingViewModel()

@@ -9,13 +9,13 @@ using Serilog;
 
 namespace FinancialAnalysis.Datalayer.Accounting
 {
-    public class CostCenters : ITable
+    public class CostCenterCategories : ITable
     {
-        private readonly CostCentersStoredProcedures sp = new CostCentersStoredProcedures();
+        private readonly CostCenterCategoriesStoredProcedures sp = new CostCenterCategoriesStoredProcedures();
 
-        public CostCenters()
+        public CostCenterCategories()
         {
-            TableName = "CostCenters";
+            TableName = "CostCenterCategories";
             CheckAndCreateTable();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -33,10 +33,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
                     $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}" +
-                    "(CostCenterId int IDENTITY(1,1) PRIMARY KEY," +
+                    "(CostCenterCategoryId int IDENTITY(1,1) PRIMARY KEY," +
                     "Name nvarchar(150) NOT NULL," +
-                    "Identifier nvarchar(150) NOT NULL, " +
-                    "RefCostCenterCategoryId int, " +
                     "Description nvarchar(MAX))";
 
                 using (var command = new SqlCommand(commandStr, con))
@@ -58,24 +56,29 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        ///     Returns all CostCenter records
+        ///     Returns all CostCenterCategory records
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<CostCenter> GetAll()
+        public IEnumerable<CostCenterCategory> GetAll()
         {
-            IEnumerable<CostCenter> output = new List<CostCenter>();
+            Dictionary<int, CostCenterCategory> output = new Dictionary<int, CostCenterCategory>();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<CostCenter, CostCenterCategory, CostCenter>($"dbo.{TableName}_GetAll",
-                        (objCostCenter, objCostCenterCategory) =>
+                    var query = con.Query<CostCenterCategory, CostCenter, CostCenterCategory>($"dbo.{TableName}_GetAll",
+                        (objCostCenterCategory, objCostCenter) =>
                         {
-                            objCostCenter.CostCenterCategory = objCostCenterCategory;
+                            if (!output.TryGetValue(objCostCenterCategory.CostCenterCategoryId, out CostCenterCategory CostCenterCategoryEntry))
+                            {
+                                CostCenterCategoryEntry = objCostCenterCategory;
+                                output.Add(objCostCenterCategory.CostCenterCategoryId, objCostCenterCategory);
+                            }
+                            CostCenterCategoryEntry.CostCenters.Add(objCostCenter);
 
-                            return objCostCenter;
-                        }, splitOn: "CostCenterCategoryId",
+                            return objCostCenterCategory;
+                        }, splitOn: "CostCenterCategoryId, CostCenterId",
                         commandType: CommandType.StoredProcedure).ToList();
                 }
             }
@@ -84,15 +87,15 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
             }
 
-            return output;
+            return output.Values;
         }
 
         /// <summary>
-        ///     Inserts the CostCenter item
+        ///     Inserts the CostCenterCategory item
         /// </summary>
-        /// <param name="CostCenter"></param>
+        /// <param name="CostCenterCategory"></param>
         /// <returns>Id of inserted item</returns>
-        public int Insert(CostCenter CostCenter)
+        public int Insert(CostCenterCategory CostCenterCategory)
         {
             var id = 0;
             try
@@ -100,7 +103,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @Identifier, @RefCostCenterCategoryId, @Description ", CostCenter);
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @Description ", CostCenterCategory);
                     id = result.Single();
                 }
             }
@@ -113,17 +116,17 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        ///     Inserts the list of CostCenter items
+        ///     Inserts the list of CostCenterCategory items
         /// </summary>
         /// <param name="creditor"></param>
-        public void Insert(IEnumerable<CostCenter> CostCenters)
+        public void Insert(IEnumerable<CostCenterCategory> CostCenterCategories)
         {
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var CostCenter in CostCenters) Insert(CostCenter);
+                    foreach (var CostCenterCategory in CostCenterCategories) Insert(CostCenterCategory);
                 }
             }
             catch (Exception e)
@@ -133,25 +136,30 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        ///     Returns CostCenter by Id
+        ///     Returns CostCenterCategory by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public CostCenter GetById(int id)
+        public CostCenterCategory GetById(int id)
         {
-            IEnumerable<CostCenter> output = new List<CostCenter>();
+            Dictionary<int, CostCenterCategory> output = new Dictionary<int, CostCenterCategory>();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<CostCenter, CostCenterCategory, CostCenter>($"dbo.{TableName}_GetById @CostCenterId",
-                        (objCostCenter, objCostCenterCategory) =>
+                    var query = con.Query<CostCenterCategory, CostCenter, CostCenterCategory>($"dbo.{TableName}_GetById @CostCenterCategoryId",
+                        (objCostCenterCategory, objCostCenter) =>
                         {
-                            objCostCenter.CostCenterCategory = objCostCenterCategory;
+                            if (!output.TryGetValue(objCostCenterCategory.CostCenterCategoryId, out CostCenterCategory CostCenterCategoryEntry))
+                            {
+                                CostCenterCategoryEntry = objCostCenterCategory;
+                                output.Add(objCostCenterCategory.CostCenterCategoryId, objCostCenterCategory);
+                            }
+                            CostCenterCategoryEntry.CostCenters.Add(objCostCenter);
 
-                            return objCostCenter;
-                        }, new { CostCenterId = id }, splitOn: "CostCenterCategoryId",
+                            return objCostCenterCategory;
+                        }, new { CostCenterCategoryId = id }, splitOn: "CostCenterCategoryId, CostCenterId",
                         commandType: CommandType.StoredProcedure).ToList();
                 }
             }
@@ -160,47 +168,47 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
             }
 
-            return output.FirstOrDefault();
+            return output.Values.FirstOrDefault();
         }
 
         /// <summary>
-        ///     Update CostCenter, if not exist, insert it
+        ///     Update CostCenterCategory, if not exist, insert it
         /// </summary>
-        /// <param name="CostCenter"></param>
-        public void UpdateOrInsert(CostCenter CostCenter)
+        /// <param name="CostCenterCategory"></param>
+        public void UpdateOrInsert(CostCenterCategory CostCenterCategory)
         {
-            if (CostCenter.CostCenterId == 0 || GetById(CostCenter.CostCenterId) is null)
+            if (CostCenterCategory.CostCenterCategoryId == 0 || GetById(CostCenterCategory.CostCenterCategoryId) is null)
             {
-                Insert(CostCenter);
+                Insert(CostCenterCategory);
                 return;
             }
 
-            Update(CostCenter);
+            Update(CostCenterCategory);
         }
 
         /// <summary>
-        ///     Update CostCenters, if not exist insert them
+        ///     Update CostCenterCategories, if not exist insert them
         /// </summary>
         /// <param name="User"></param>
-        public void UpdateOrInsert(IEnumerable<CostCenter> CostCenters)
+        public void UpdateOrInsert(IEnumerable<CostCenterCategory> CostCenterCategories)
         {
-            foreach (var CostCenter in CostCenters) UpdateOrInsert(CostCenter);
+            foreach (var CostCenterCategory in CostCenterCategories) UpdateOrInsert(CostCenterCategory);
         }
 
         /// <summary>
-        ///     Update CostCenter
+        ///     Update CostCenterCategory
         /// </summary>
-        /// <param name="CostCenter"></param>
-        public void Update(CostCenter CostCenter)
+        /// <param name="CostCenterCategory"></param>
+        public void Update(CostCenterCategory CostCenterCategory)
         {
-            if (CostCenter.CostCenterId == 0 || GetById(CostCenter.CostCenterId) is null) return;
+            if (CostCenterCategory.CostCenterCategoryId == 0 || GetById(CostCenterCategory.CostCenterCategoryId) is null) return;
 
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @CostCenterId, @Name, @Identifier, @RefCostCenterCategoryId, @Description", CostCenter);
+                    con.Execute($"dbo.{TableName}_Update @CostCenterCategoryId, @Name,@Description", CostCenterCategory);
                 }
             }
             catch (Exception e)
@@ -210,7 +218,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        ///     Delete CostCenter by Id
+        ///     Delete CostCenterCategory by Id
         /// </summary>
         /// <param name="id"></param>
         public void Delete(int id)
@@ -220,41 +228,12 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @CostCenterId", new { CostCenterId = id });
+                    con.Execute($"dbo.{TableName}_Delete @CostCenterCategoryId", new { CostCenterCategoryId = id });
                 }
             }
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'Delete' from table '{TableName}'", e);
-            }
-        }
-
-        public void AddReferences()
-        {
-            AddCostCenterCategoriesReference();
-        }
-
-        private void AddCostCenterCategoriesReference()
-        {
-            string refTable = "CostCenterCategories";
-
-            try
-            {
-                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr =
-                    $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefCostCenterCategoryId) REFERENCES {refTable}(CostCenterCategoryId) ON DELETE CASCADE";
-
-                using (var command = new SqlCommand(commandStr, con))
-                {
-                    con.Open();
-                    command.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while creating reference between '{TableName}' and {TableName}",
-                    e);
             }
         }
     }

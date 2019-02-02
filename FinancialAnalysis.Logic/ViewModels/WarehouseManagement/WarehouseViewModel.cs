@@ -34,10 +34,15 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            _Warehouses = LoadAllWarehouses();
+            FilteredWarehouses = _Warehouses = LoadAllWarehouses();
             NewWarehouseCommand = new DelegateCommand(NewWarehouse);
             SaveWarehouseCommand = new DelegateCommand(SaveWarehouse, () => Validation());
             DeleteWarehouseCommand = new DelegateCommand(DeleteWarehouse, () => (SelectedWarehouse != null));
+            SelectedCommand = new DelegateCommand(() =>
+            {
+                SendSelectedToParent();
+                CloseAction();
+            });
         }
 
         #endregion Constructor
@@ -119,6 +124,21 @@ namespace FinancialAnalysis.Logic.ViewModels
             return true;
         }
 
+        public void SendSelectedToParent()
+        {
+            if (SelectedWarehouse == null)
+            {
+                return;
+            }
+
+            if (SelectedWarehouse.WarehouseId == 0)
+            {
+                SaveWarehouse();
+            }
+
+            Messenger.Default.Send(new SelectedWarehouse { Warehouse = SelectedWarehouse });
+        }
+
         #endregion Methods
 
         #region Properties
@@ -127,6 +147,9 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand NewWarehouseCommand { get; set; }
         public DelegateCommand SaveWarehouseCommand { get; set; }
         public DelegateCommand DeleteWarehouseCommand { get; set; }
+        public DelegateCommand SelectedCommand { get; }
+        public Action CloseAction { get; set; }
+
         public string FilterText
         {
             get { return _FilterText; }

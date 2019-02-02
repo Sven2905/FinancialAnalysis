@@ -32,8 +32,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT CostCenterId, Name, Identifier, Description " +
-                                $"FROM {TableName} " +
+                                "SELECT cc.*, ccc.* " +
+                                $"FROM {TableName} cc " +
+                                $"LEFT JOIN CostCenterCategories ccc ON cc.RefCostCenterCategoryId = ccc.CostCenterCategoryId " +
                                 "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -56,9 +57,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Identifier nvarchar(150), @Description nvarchar(MAX) AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, Identifier, Description) " +
-                    "VALUES (@Name, @Identifier, @Description); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Identifier nvarchar(150), @RefCostCenterCategoryId int, @Description nvarchar(MAX) AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Name, Identifier, RefCostCenterCategoryId, Description) " +
+                    "VALUES (@Name, @Identifier, @RefCostCenterCategoryId, @Description); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -82,8 +83,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetById] @CostCenterId int AS BEGIN SET NOCOUNT ON; " +
-                    $"SELECT CostCenterId, Name, Identifier, Description " +
-                    $"FROM {TableName} " +
+                    "SELECT cc.*, ccc.* " +
+                    $"FROM {TableName} cc " +
+                    $"LEFT JOIN CostCenterCategories ccc ON cc.RefCostCenterCategoryId = ccc.CostCenterCategoryId " +
                     "WHERE CostCenterId = @CostCenterId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -106,11 +108,12 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @CostCenterId int, @Name nvarchar(150),@Identifier nvarchar(150), @Description nvarchar(MAX) " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @CostCenterId int, @Name nvarchar(150), @Identifier nvarchar(150), @RefCostCenterCategoryId int, @Description nvarchar(MAX) " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "SET Name = @Name, " +
                     "Identifier = @Identifier, " +
+                    "RefCostCenterCategoryId = @RefCostCenterCategoryId," +
                     "Description = @Description " +
                     "WHERE CostCenterId = @CostCenterId END");
                 using (var connection =
@@ -134,7 +137,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @CostCenterId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE CostCenterId = @CostCenterId END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @CostCenterId int AS BEGIN SET NOCOUNT ON; " +
+                    $"DELETE FROM {TableName} " +
+                    $"WHERE CostCenterId = @CostCenterId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

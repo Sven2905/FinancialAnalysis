@@ -2,13 +2,13 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace FinancialAnalysis.Datalayer.Administration
+namespace FinancialAnalysis.Datalayer.Accounting
 {
-    public class UserRightUserMappingsStoredProcedures : IStoredProcedures
+    public class CostCenterCategoriesStoredProcedures : IStoredProcedures
     {
-        public UserRightUserMappingsStoredProcedures()
+        public CostCenterCategoriesStoredProcedures()
         {
-            TableName = "UserRightUserMappings";
+            TableName = "CostCenterCategories";
         }
 
         public string TableName { get; }
@@ -20,7 +20,7 @@ namespace FinancialAnalysis.Datalayer.Administration
         {
             InsertData();
             GetAllData();
-            GetByIds();
+            GetById();
             UpdateData();
             DeleteData();
         }
@@ -32,11 +32,9 @@ namespace FinancialAnalysis.Datalayer.Administration
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT UserRightUserMappingId, " +
-                                "IsGranted, " +
-                                "RefUserId, " +
-                                "RefUserRightId " +
-                                $"FROM {TableName} " +
+                                "SELECT ccc.*, cc.* " +
+                                $"FROM {TableName} ccc " +
+                                $"LEFT JOIN CostCenters cc ON ccc.CostCenterCategoryId = cc.RefCostCenterCategoryId " +
                                 "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -59,9 +57,9 @@ namespace FinancialAnalysis.Datalayer.Administration
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @IsGranted bit, @RefUserId int, @RefUserRightId int AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (IsGranted, RefUserId, RefUserRightId ) " +
-                    "VALUES (@IsGranted, @RefUserId, @RefUserRightId ); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(MAX) AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Name, Description) " +
+                    "VALUES (@Name, @Description); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -77,17 +75,18 @@ namespace FinancialAnalysis.Datalayer.Administration
             }
         }
 
-        private void GetByIds()
+        private void GetById()
         {
-            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetByIds", DatabaseNames.FinancialAnalysisDB))
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetById", DatabaseNames.FinancialAnalysisDB))
             {
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetByIds] @RefUserRightId int, @RefUserId int AS BEGIN SET NOCOUNT ON; SELECT UserRightUserMappingId, IsGranted, RefUserId, RefUserRightId " +
-                    $"FROM {TableName} " +
-                    "WHERE RefUserRightId = @RefUserRightId " +
-                    "AND RefUserId = @RefUserId END");
+                    $"CREATE PROCEDURE [{TableName}_GetById] @CostCenterCategoryId int AS BEGIN SET NOCOUNT ON; " +
+                    "SELECT ccc.*, cc.* " +
+                    $"FROM {TableName} ccc " +
+                    $"LEFT JOIN CostCenters cc ON ccc.CostCenterCategoryId = cc.RefCostCenterCategoryId " +
+                    "WHERE ccc.CostCenterCategoryId = @CostCenterCategoryId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -109,13 +108,12 @@ namespace FinancialAnalysis.Datalayer.Administration
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @UserRightUserMappingId int, @IsGranted bit, @RefUserId int, @RefUserRightId int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @CostCenterCategoryId int, @Name nvarchar(150), @Description nvarchar(MAX) " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
-                    "SET IsGranted = @IsGranted, " +
-                    "RefUserId = @RefUserId, " +
-                    "RefUserRightId = @RefUserRightId " +
-                    "WHERE UserRightUserMappingId = @UserRightUserMappingId END");
+                    "SET Name = @Name, " +
+                    "Description = @Description " +
+                    "WHERE CostCenterCategoryId = @CostCenterCategoryId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -137,9 +135,9 @@ namespace FinancialAnalysis.Datalayer.Administration
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @RefUserId int AS BEGIN SET NOCOUNT ON; " +
+                    $"CREATE PROCEDURE [{TableName}_Delete] @CostCenterCategoryId int AS BEGIN SET NOCOUNT ON; " +
                     $"DELETE FROM {TableName} " +
-                    $"WHERE RefUserId = @RefUserId END");
+                    $"WHERE CostCenterCategoryId = @CostCenterCategoryId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

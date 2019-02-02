@@ -14,10 +14,10 @@ namespace FinancialAnalysis.UI.Desktop
             InitializeComponent();
         }
 
-        private void DXWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            DXSplashScreen.Close();
-            Activate();
-        }
+        //private void DXWindow_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    DXSplashScreen.Close();
+        //    Activate();
+        //}
     }
 }

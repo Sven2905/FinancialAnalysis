@@ -49,7 +49,7 @@
         <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
                     Margin="0,0,0,0" Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
-                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
+                <!--<dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
                                  VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
                                  Content="Lager" HorizontalContentAlignment="Center" HorizontalAlignment="Center" dxwuin:Navigation.NavigateTo="WarehouseControl" FontFamily="Tahoma"
                                  VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2"
@@ -57,7 +57,7 @@
                     <dx:SimpleButton.Glyph>
                         <dx:SvgImageSource Uri="/Images/light/Warehouse.svg" Size="100,100" />
                     </dx:SimpleButton.Glyph>
-                </dx:SimpleButton>
+                </dx:SimpleButton>-->
                 <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
                                  VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
                                  Content="Lagerplätze" HorizontalContentAlignment="Center" HorizontalAlignment="Center" dxwuin:Navigation.NavigateTo="StockyardControl" FontFamily="Tahoma"

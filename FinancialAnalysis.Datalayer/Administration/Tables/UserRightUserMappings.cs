@@ -157,37 +157,42 @@ namespace FinancialAnalysis.Datalayer.Administration
         ///     Update UserRightUserMapping, if not exist, insert it
         /// </summary>
         /// <param name="UserRight"></param>
-        public void UpdateOrInsert(UserRightUserMapping UserRightUserMapping)
+        public UserRightUserMapping UpdateOrInsert(UserRightUserMapping UserRightUserMapping)
         {
             if (UserRightUserMapping.UserRightUserMappingId != 0)
             {
-                Update(UserRightUserMapping);
+                UserRightUserMapping = Update(UserRightUserMapping);
             }
 
             var temp = GetByIds(UserRightUserMapping.RefUserRightId, UserRightUserMapping.RefUserId);
             if (temp is null)
             {
-                Insert(UserRightUserMapping);
-                return;
+                UserRightUserMapping.UserRightUserMappingId = Insert(UserRightUserMapping);
+                return UserRightUserMapping;
             }
 
-            Update(temp);
+            UserRightUserMapping = Update(temp);
+            return UserRightUserMapping;
         }
 
         /// <summary>
         ///     Update UserRightUserMappings, if not exist insert them
         /// </summary>
         /// <param name="UserRightUserMappings"></param>
-        public void UpdateOrInsert(IEnumerable<UserRightUserMapping> UserRightUserMappings)
+        public List<UserRightUserMapping> UpdateOrInsert(List<UserRightUserMapping> UserRightUserMappings)
         {
-            foreach (var UserRightUserMapping in UserRightUserMappings) UpdateOrInsert(UserRightUserMapping);
+            for (int i = 0; i < UserRightUserMappings.Count; i++)
+            {
+                UserRightUserMappings[i] = UpdateOrInsert(UserRightUserMappings[i]);
+            }
+            return UserRightUserMappings;
         }
 
         /// <summary>
         ///     Update UserRightUserMapping
         /// </summary>
         /// <param name="UserRightUserMapping"></param>
-        private void Update(UserRightUserMapping UserRightUserMapping)
+        private UserRightUserMapping Update(UserRightUserMapping UserRightUserMapping)
         {
             try
             {
@@ -201,20 +206,21 @@ namespace FinancialAnalysis.Datalayer.Administration
             {
                 Log.Error($"Exception occured while 'Update' from table '{TableName}'", e);
             }
+            return UserRightUserMapping;
         }
 
         /// <summary>
         ///     Delete UserRightUserMapping by Id
         /// </summary>
         /// <param name="id"></param>
-        public void Delete(int id)
+        public void Delete(int UserId)
         {
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @UserRightUserMappingId", new { UserRightUserMappingId = id });
+                    con.Execute($"dbo.{TableName}_Delete @RefUserId", new { RefUserId = UserId });
                 }
             }
             catch (Exception e)

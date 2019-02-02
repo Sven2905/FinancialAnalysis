@@ -11,6 +11,7 @@
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
+             xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
              x:Class="FinancialAnalysis.UserControls.MainControl"
              mc:Ignorable="d"
              dx:ThemeManager.ThemeName="Office2016WhiteSE"
@@ -32,12 +33,61 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        
+        <Grid Grid.Column="1" Grid.Row="1" Margin="20,100,0,0" Width="350" Height="120" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0">
+                <Label Content="Offene Aufträge" FontFamily="Roboto,Helvetica,Arial,sans-serif" Foreground="#999" />
+                <Label Content="2" FontSize="36" FontFamily="Roboto" HorizontalAlignment="Right" Foreground="#3c4858"/>
+            </StackPanel>
+
+            <Separator Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="10,0"/>
+            
+            <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="20,0,0,0" Content="Aktualisiert: 02.02.2019 13:08" FontFamily="Roboto,Helvetica,Arial,sans-serif" Foreground="#999" />
+
+            <Border BorderThickness="0.5" BorderBrush="#bdbdbd" Grid.ColumnSpan="2" Grid.RowSpan="3" CornerRadius="5">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="1" BlurRadius="2" Color="#e0e0e0"/>
+                </Border.Effect>
+            </Border>
+        </Grid>
+
+        
+        <Border Grid.Column="1" Grid.Row="1" CornerRadius="3" Height="80" Width="80" Margin="40,80,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#ffa726" Offset="0.0" />
+                    <GradientStop Color="#fb8c00" Offset="1.0" />
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+
+        <Viewbox Grid.Column="1" Grid.Row="1" Width="50" Height="50" Stretch="Uniform" StretchDirection="DownOnly" VerticalAlignment="Top" HorizontalAlignment="Left"
+                 Margin="55,95,0,0">
+            <Canvas Width="50" Height="50">
+                <Path
+                    Data="M506 114H198c-3.3 0-6-2.7-6-6V84c0-3.3 2.7-6 6-6h308c3.3 0 6 2.7 6 6v24c0 3.3-2.7 6-6 6zm6 154v-24c0-3.3-2.7-6-6-6H198c-3.3 0-6 2.7-6 6v24c0 3.3 2.7 6 6 6h308c3.3 0 6-2.7 6-6zm0 160v-24c0-3.3-2.7-6-6-6H198c-3.3 0-6 2.7-6 6v24c0 3.3 2.7 6 6 6h308c3.3 0 6-2.7 6-6zM68.4 376c-19.9 0-36 16.1-36 36s16.1 36 36 36 35.6-16.1 35.6-36-15.7-36-35.6-36zM170.9 42.9l-7.4-7.4c-4.7-4.7-12.3-4.7-17 0l-78.8 79.2-38.4-38.4c-4.7-4.7-12.3-4.7-17 0l-8.9 8.9c-4.7 4.7-4.7 12.3 0 17l54.3 54.3c4.7 4.7 12.3 4.7 17 0l.2-.2L170.8 60c4.8-4.8 4.8-12.4.1-17.1zm.4 160l-7.4-7.4c-4.7-4.7-12.3-4.7-17 0l-78.8 79.2-38.4-38.4c-4.7-4.7-12.3-4.7-17 0L4 245.2c-4.7 4.7-4.7 12.3 0 17l54.3 54.3c4.7 4.7 12.3 4.7 17 0l-.2-.2 96.3-96.3c4.6-4.8 4.6-12.4-.1-17.1z"
+                    Fill="White" Height="50" Width="50" Stretch="Fill" />
+            </Canvas>
+        </Viewbox>
+
         <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Margin="0,0,0,0" Background="#3f729b">
             <!--<dx:SimpleButton Glyph="{dx:SvgImageSource Uri=/Images/light/analytics.svg}" Width="80" HorizontalAlignment="Left" Focusable="False" />-->
-            <TextBlock Text="Finanzanalyse" VerticalAlignment="Center" Foreground="White" FontSize="36"
-                       Margin="110,0,0,0" FontFamily="Tahoma" />
+            <TextBlock Text="Financial Analysis" VerticalAlignment="Center" Foreground="White" FontSize="36" FontFamily="/Resources/Fonts/trajan-pro-3.otf#Trajan Pro 3"
+                       Margin="110,0,0,0"  />
         </Grid>
         <!--<Image Source="/Images/SmallLogo.png" HorizontalAlignment="Left" Margin="3,3,3,3"/>-->
+
+
         <Viewbox Width="60" Height="60" Stretch="Uniform" StretchDirection="DownOnly" HorizontalAlignment="Left"
                  Margin="15,0,0,0">
             <Canvas Width="60" Height="60">

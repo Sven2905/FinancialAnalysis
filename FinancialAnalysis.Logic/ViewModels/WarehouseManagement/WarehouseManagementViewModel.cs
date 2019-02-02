@@ -11,8 +11,8 @@ namespace FinancialAnalysis.Logic.ViewModels
     public class WarehouseManagementViewModel : ViewModelBase
     {
         #region UserRights
-        public bool ShowWarehouses { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessWarehouse) || Globals.ActualUser.IsAdministrator; } }
-        public bool ShowStockyards { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessStockyard) || Globals.ActualUser.IsAdministrator; } }
+        public bool ShowWarehouses { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessWarehouses) || Globals.ActualUser.IsAdministrator; } }
+        public bool ShowStockyards { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessStockyards) || Globals.ActualUser.IsAdministrator; } }
         #endregion UserRights
 
         public WarehouseManagementViewModel()

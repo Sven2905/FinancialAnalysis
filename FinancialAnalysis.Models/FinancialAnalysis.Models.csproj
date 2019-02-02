@@ -72,10 +72,12 @@
     <Compile Include="Accounting\Cashback.cs" />
     <Compile Include="Accounting\CostAccount.cs" />
     <Compile Include="Accounting\CostAccountCategory.cs" />
+    <Compile Include="Accounting\CostCenterCategory.cs" />
     <Compile Include="Accounting\CostCenter.cs" />
     <Compile Include="Accounting\Credit.cs" />
     <Compile Include="Accounting\Debit.cs" />
     <Compile Include="Accounting\ScannedDocument.cs" />
+    <Compile Include="Accounting\SelectedCostCenterCategory.cs" />
     <Compile Include="Accounting\TaxType.cs" />
     <Compile Include="Accounting\PaymentCondition.cs" />
     <Compile Include="Administration\Permission.cs" />
@@ -121,11 +123,13 @@
     <Compile Include="SalesManagement\SalesOrderPosition.cs" />
     <Compile Include="SalesManagement\SalesOrderReportData.cs" />
     <Compile Include="SalesManagement\SalesType.cs" />
+    <Compile Include="SalesManagement\SelectedInvoiceType.cs" />
     <Compile Include="SalesManagement\SelectedSalesType.cs" />
     <Compile Include="SalesManagement\Shipment.cs" />
     <Compile Include="SalesManagement\ShipmentType.cs" />
     <Compile Include="SalesManagement\ShippedProduct.cs" />
     <Compile Include="UnitOfMeasure.cs" />
+    <Compile Include="WarehouseManagement\SelectedWarehouse.cs" />
     <Compile Include="WarehouseManagement\StockedProduct.cs" />
     <Compile Include="WarehouseManagement\Stockyard.cs" />
     <Compile Include="WarehouseManagement\Warehouse.cs" />

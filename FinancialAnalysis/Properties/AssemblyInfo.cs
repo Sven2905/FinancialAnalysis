@@ -5,13 +5,13 @@ using System.Windows;
 // Allgemeine Informationen über eine Assembly werden über die folgenden
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("FinancialAnalysis")]
+[assembly: AssemblyTitle("Financial Analysis")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FinancialAnalysis")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("Sven Technology")]
+[assembly: AssemblyProduct("Financial Analysis")]
+[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyTrademark("Sven Technology")]
 [assembly: AssemblyCulture("")]
 
 // Durch Festlegen von ComVisible auf FALSE werden die Typen in dieser Assembly

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Models.Administration
 {
-    public class UserRightUserMapping : ViewModelBase
+    public class UserRightUserMapping
     {
         public UserRightUserMapping()
         {

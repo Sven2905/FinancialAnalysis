@@ -10,32 +10,33 @@ namespace FinancialAnalysis.Models.Administration
     {
         // Accounting 1 - 99
         AccessAccounting = 1,
-        AccessBooking = 2,
-        AccessPaymentCondidition = 3,
-        AccessCostAccount = 4,
-        AccessCostCenter = 5,
-        AccessCreditorDebitor = 6,
-        AccessTaxType = 7,
+        AccessBookings = 2,
+        AccessPaymentCondiditions = 3,
+        AccessCostAccounts = 4,
+        AccessCostCenters = 5,
+        AccessCreditorDebitors = 6,
+        AccessTaxTypes = 7,
         AccessBookingHistory = 8,
+        AccessCostCenterCategories = 9,
 
         // Configuration 100 - 199
         AccessConfiguration = 100,
         AccessMail = 101,
         AccessUsers = 102,
-        AccessMyCompany = 103,
+        AccessMyCompanies = 103,
 
         // ProjectManagement 200 - 299
         AccessProjectManagement = 200,
-        AccessEmployee = 201,
-        AccessProject = 202,
-        AccessProjectWorkingTime = 203,
+        AccessEmployees = 201,
+        AccessProjects = 202,
+        AccessProjectWorkingTimes = 203,
 
         // WarehouseManagement 300 - 399
         AccessWarehouseManagement = 300,
-        AccessWarehouse = 301,
+        AccessWarehouses = 301,
         AccessWarehouseSave = 302,
         AccessWarehouseDelete = 303,
-        AccessStockyard = 304,
+        AccessStockyards = 304,
 
 
         // PurchaseManagement 400 - 499
@@ -48,10 +49,10 @@ namespace FinancialAnalysis.Models.Administration
 
         // SaleManagement 500 - 599
         AccessSalesManagement = 500,
-        AccessInvoice = 501,
+        AccessInvoices = 501,
         AccessInvoiceTypes = 502,
-        AccessShipment = 503,
-        AccessShipmentType = 504,
+        AccessShipments = 503,
+        AccessShipmentTypes = 504,
         AccessSalesOrders = 505,
         AccessSalesTypes = 506,
         AccessPendingSaleOrders = 507,

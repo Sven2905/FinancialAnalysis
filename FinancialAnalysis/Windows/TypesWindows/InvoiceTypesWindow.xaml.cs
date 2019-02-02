@@ -17,14 +17,14 @@ using System.Windows.Shapes;
 namespace FinancialAnalysis.Windows
 {
     /// <summary>
-    /// Interaktionslogik für SalesTypesWindow.xaml
+    /// Interaktionslogik für InvoiceTypesWindow.xaml
     /// </summary>
-    public partial class SalesTypesWindow : DXWindow
+    public partial class InvoiceTypesWindow : DXWindow
     {
-        public SalesTypesWindow()
+        public InvoiceTypesWindow()
         {
             InitializeComponent();
-            var vm = new SalesTypesViewModel();
+            var vm = new InvoiceTypeViewModel();
             DataContext = vm;
             if (vm.CloseAction == null)
                 vm.CloseAction = () => { };

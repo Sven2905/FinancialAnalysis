@@ -17,12 +17,12 @@
     dxc:ThemeManager.ThemeName="Office2016WhiteSE"
     Background="#FAFAFA"
     WindowState="Maximized"
-    Title="Finanzanalyse"
+    Title="Financial Analysis"
     WindowStyle="ThreeDBorderWindow"
     WindowStartupLocation="CenterScreen"
     xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
     IsEnabled="{Binding BindableProperty, Source={StaticResource MessageListener}}" Width="1200" Height="800"
-    ResizeMode="CanResizeWithGrip" Loaded="DXWindow_Loaded">
+    ResizeMode="CanResizeWithGrip">
     <Window.DataContext>
         <ViewModels:MainViewModel />
     </Window.DataContext>
@@ -33,42 +33,10 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!--<dxb:BarManager ToolbarGlyphSize="Small">
-            <dxb:BarManager.Bars>
-                <dxb:Bar Caption="File" IsMainMenu="True">
-                    <dxb:BarSubItem x:Name="biFile" Content="File">
-                        <dxb:BarButtonItem x:Name="biFileOpen" Content="Open" Glyph="{dxc:DXImage Image=Open_16x16.png}" LargeGlyph="{dxc:DXImage Image=Open_32x32.png}" Command="{Binding OpenFileCommand}" />
-                        <dxb:BarButtonItem x:Name="biFileNew" Content="New" Glyph="{dxc:DXImage Image=New_16x16.png}" LargeGlyph="{dxc:DXImage Image=New_32x32.png}" Command="{Binding NewFileCommand}" />
-                    </dxb:BarSubItem>
-                    <dxb:BarSubItem x:Name="biEdit" Content="Edit">
-                        <dxb:BarButtonItemLink BarItemName="biCut"/>
-                        <dxb:BarButtonItemLink BarItemName="biCopy"/>
-                        <dxb:BarButtonItemLink BarItemName="biPaste"/>
-                    </dxb:BarSubItem>
-                </dxb:Bar>
-                <dxb:Bar Caption="StatusBar" IsStatusBar="True" ShowSizeGrip="True">
-                    <dxb:Bar.DockInfo>
-                        <dxb:BarDockInfo ContainerType="Bottom"/>
-                    </dxb:Bar.DockInfo>
-                    <dxb:BarStaticItem x:Name="biRow" Content="Row:" ShowBorder="False"/>
-                    <dxb:BarStaticItem x:Name="biRowValue" Content="1" ShowBorder="False"/>
-                    <dxb:BarCheckItem x:Name="biLeft" Alignment="Far" Glyph="{dxc:DXImage Image=AlignLeft_16x16.png}" GroupIndex="1" IsChecked="True" Command="{Binding SetAlignmentCommand}" CommandParameter="{x:Static TextAlignment.Left}" />
-                    <dxb:BarCheckItem x:Name="biCenter" Alignment="Far" Glyph="{dxc:DXImage Image=AlignCenter_16x16.png}" GroupIndex="1" Command="{Binding SetAlignmentCommand}" CommandParameter="{x:Static TextAlignment.Center}" />
-                    <dxb:BarCheckItem x:Name="biRight" Alignment="Far" Glyph="{dxc:DXImage Image=AlignRight_16x16.png}" GroupIndex="1" Command="{Binding SetAlignmentCommand}" CommandParameter="{x:Static TextAlignment.Right}" />
-                </dxb:Bar>
-            </dxb:BarManager.Bars>
-        </dxb:BarManager>-->
-
         <StatusBar Grid.Row="1" Height="28" Margin="0" VerticalAlignment="Bottom" Grid.ColumnSpan="3" Background="#3f729b">
             <StatusBarItem HorizontalAlignment="Left" Height="24" Content="{Binding CurrentTime}" Foreground="White" Margin="0,0,5,0" FontSize="14" FontFamily="Tahoma"/>
             <StatusBarItem HorizontalAlignment="Right" Height="24" Content="{Binding ActualUser.Name}" Foreground="White" Margin="0,0,5,0" FontSize="14" FontFamily="Tahoma"/>
         </StatusBar>
-
-        <!--<dxb:BarManager Grid.Row="1" CreateStandardLayout="True" dxc:ThemeManager.ThemeName="Office2016Colorful" Margin="-7,-7">
-            <dxb:BarManager.Bars>
-                <dxb:Bar UseWholeRow="True" IsStatusBar="True" IsMultiLine="False" ShowDragWidget="False" AllowQuickCustomization="False" AllowRename="False" AllowHide="False" AllowCollapse="False" />
-            </dxb:BarManager.Bars>
-        </dxb:BarManager>-->
 
         <dxwui:NavigationFrame Source="MainControl" AnimationType="SlideHorizontal" />
 

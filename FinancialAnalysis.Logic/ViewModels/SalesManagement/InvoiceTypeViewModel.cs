@@ -3,6 +3,7 @@ using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.SalesManagement;
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
@@ -31,6 +32,11 @@ namespace FinancialAnalysis.Logic.ViewModels
             NewInvoiceTypeCommand = new DelegateCommand(NewInvoiceType);
             SaveInvoiceTypeCommand = new DelegateCommand(SaveInvoiceType, () => Validation());
             DeleteInvoiceTypeCommand = new DelegateCommand(DeleteInvoiceType, () => (SelectedInvoiceType != null));
+            SelectedCommand = new DelegateCommand(() =>
+            {
+                SendSelectedToParent();
+                CloseAction();
+            });
         }
 
         #endregion Constructor
@@ -112,6 +118,21 @@ namespace FinancialAnalysis.Logic.ViewModels
             return true;
         }
 
+        public void SendSelectedToParent()
+        {
+            if (SelectedInvoiceType == null)
+            {
+                return;
+            }
+
+            if (SelectedInvoiceType.InvoiceTypeId == 0)
+            {
+                SaveInvoiceType();
+            }
+
+            Messenger.Default.Send(new SelectedInvoiceType { InvoiceType = SelectedInvoiceType });
+        }
+
         #endregion Methods
 
         #region Properties
@@ -120,6 +141,9 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand NewInvoiceTypeCommand { get; set; }
         public DelegateCommand SaveInvoiceTypeCommand { get; set; }
         public DelegateCommand DeleteInvoiceTypeCommand { get; set; }
+        public DelegateCommand SelectedCommand { get; }
+        public Action CloseAction { get; set; }
+
         public string FilterText
         {
             get { return _FilterText; }

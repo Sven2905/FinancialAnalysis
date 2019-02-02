@@ -24,10 +24,18 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (IsInDesignMode)
                 return;
 
+            Messenger.Default.Register<SelectedWarehouse>(this, ChangeSelectedWarehouse);
+
             Warehouses = LoadAllWarehouses();
             NewStockyardCommand = new DelegateCommand(NewStockyard);
             SaveStockyardCommand = new DelegateCommand(SaveStockyard, () => Validation());
             DeleteStockyardCommand = new DelegateCommand(DeleteStockyard, () => (SelectedStockyard != null));
+            OpenWarehousesWindowCommand = new DelegateCommand(OpenProductCategoriesWindow);
+        }
+
+        private void OpenProductCategoriesWindow()
+        {
+            Messenger.Default.Send(new OpenWarehousesWindowMessage());
         }
 
         private SvenTechCollection<Warehouse> LoadAllWarehouses()
@@ -131,6 +139,14 @@ namespace FinancialAnalysis.Logic.ViewModels
             return true;
         }
 
+        private void ChangeSelectedWarehouse(SelectedWarehouse SelectedWarehouse)
+        {
+            Warehouses = DataLayer.Instance.Warehouses.GetAll().ToSvenTechCollection();
+            SelectedStockyard.Warehouse = SelectedWarehouse.Warehouse;
+            SelectedStockyard.RefWarehouseId = SelectedWarehouse.Warehouse.WarehouseId;
+            RaisePropertyChanged("SelectedStockyard");
+        }
+
         #endregion Methods
 
         #region Properties
@@ -139,6 +155,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand NewStockyardCommand { get; set; }
         public DelegateCommand SaveStockyardCommand { get; set; }
         public DelegateCommand DeleteStockyardCommand { get; set; }
+        public DelegateCommand OpenWarehousesWindowCommand { get; set; }
 
         public SvenTechCollection<Warehouse> Warehouses { get; set; } = new SvenTechCollection<Warehouse>();
         public Warehouse SelectedWarehouse { get; set; }

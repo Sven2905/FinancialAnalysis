@@ -1,6 +1,4 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
-using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using System.IO;
 using System.Linq;
@@ -25,12 +23,14 @@ namespace FinancialAnalysis.Logic.ViewModels
         public UsersViewModel()
         {
             if (IsInDesignMode)
+            {
                 return;
+            }
 
             _Users = LoadAllUsers();
             NewUserCommand = new DelegateCommand(NewUser);
             SaveUserCommand = new DelegateCommand(SaveUser, () => Validation());
-            DeleteUserCommand = new DelegateCommand(DeleteUser, () => (SelectedUser != null));
+            DeleteUserCommand = new DelegateCommand(DeleteUser, () => (SelectedUser != null && SelectedUser.UserId != Globals.ActualUser.UserId));
         }
 
         #endregion Constructor
@@ -108,29 +108,20 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             UserManager.Instance.DeleteUser(SelectedUser);
             _Users.Remove(SelectedUser);
+            SelectedUser = null;
         }
 
         private void SaveUser()
         {
             SelectedUser.Password = Password;
+            SelectedUser.UserRightUserMappings = UserManager.Instance.ConvertUserRightUserMappingFlatStructureToNormal(UserRightUserMappingFlatStructure);
+            SelectedUser = UserManager.Instance.InsertOrUpdateUser(SelectedUser);
+            var selectedUserId = SelectedUser.UserId;
+            FilteredUsers = _Users = UserManager.Instance.Users;
 
-            foreach (var item in SelectedUser.UserRightUserMappings)
-            {
-                item.RefUserId = SelectedUser.UserId;
-            }
-            foreach (var item in UserRightUserMappingFlatStructure)
-            {
-                SelectedUser.UserRightUserMappings.SingleOrDefault(x => x.RefUserRightId == item.RefUserRightId).IsGranted = item.IsGranted;
-            }
+            SelectedUser = _Users.Single(x => x.UserId == selectedUserId);
 
-            UserManager.Instance.InsertOrUpdateUser(SelectedUser);
-
-            foreach (var item in UserRightUserMappingFlatStructure)
-            {
-                SelectedUser.UserRightUserMappings.SingleOrDefault(x => x.UserRightUserMappingId == item.UserRightUserMappingId).IsGranted = item.IsGranted;
-            }
-
-            if (SelectedUser.UserId == Globals.ActualUser.UserId)
+            if (selectedUserId == Globals.ActualUser.UserId)
             {
                 Globals.ActualUser = SelectedUser;
             }

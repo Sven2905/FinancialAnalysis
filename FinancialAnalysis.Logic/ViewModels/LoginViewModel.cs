@@ -74,7 +74,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (CheckCredentials())
             {
                 ShowError = false;
-                Messenger.Default.Send(new OpenSplashScreenMessage());
+                //Messenger.Default.Send(new OpenSplashScreenMessage());
                 Messenger.Default.Send(new OpenMainWindowMessage());
             }
             else

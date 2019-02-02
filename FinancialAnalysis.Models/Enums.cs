@@ -54,6 +54,12 @@ namespace FinancialAnalysis.Models
         Debitor,
     }
 
+    public enum BookingType
+    {
+        [Display(Name = "Rechnung")] Invoice,
+        [Display(Name = "Gutschrift")] CreditAdvice
+    }
+
     public enum Status
     {
         [Display(Name = "Nicht gestartet")] NotStarted,

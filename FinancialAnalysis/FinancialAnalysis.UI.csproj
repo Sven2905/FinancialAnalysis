@@ -13,6 +13,21 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,6 +50,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>icon_color.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
@@ -172,9 +190,6 @@
     <Compile Include="UserControls\WarehouseManagement\StockyardControl.xaml.cs">
       <DependentUpon>StockyardControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\WarehouseManagement\WarehouseControl.xaml.cs">
-      <DependentUpon>WarehouseControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\ProductManagement\ProductControl.xaml.cs">
       <DependentUpon>ProductControl.xaml</DependentUpon>
     </Compile>
@@ -232,6 +247,15 @@
     <Compile Include="Windows\PDFViewerWindow.xaml.cs">
       <DependentUpon>PDFViewerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\TypesWindows\CostCenterCategoriesWindow.xaml.cs">
+      <DependentUpon>CostCenterCategoriesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TypesWindows\WarehousesWindow.xaml.cs">
+      <DependentUpon>WarehousesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TypesWindows\InvoiceTypesWindow.xaml.cs">
+      <DependentUpon>InvoiceTypesWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\TypesWindows\SalesTypesWindow.xaml.cs">
       <DependentUpon>SalesTypesWindow.xaml</DependentUpon>
     </Compile>
@@ -283,10 +307,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\WarehouseManagement\StockyardControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\WarehouseManagement\WarehouseControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -385,6 +405,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\TypesWindows\CostCenterCategoriesWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\TypesWindows\WarehousesWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\TypesWindows\InvoiceTypesWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Windows\TypesWindows\SalesTypesWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -414,6 +446,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Resources\Fonts\trajan-pro-3.otf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <None Include="Images\Emblem\292049459.pdf" />
     <None Include="Images\Emblem\EPSLogo.eps" />
     <None Include="Images\Emblem\PSLogo.ps" />
@@ -466,6 +501,12 @@
     <Resource Include="Images\ApplicationLogo\financialanalysis_logo_small.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Content Include="Images\ApplicationLogo\financialanalysis_logo.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\ApplicationLogo\financialanalysis_logo_text.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\Emblem\horizontal\SVGLogo.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -4467,6 +4508,18 @@
       <Project>{3bcf7383-9805-4bd4-a8cd-fd978e348e15}</Project>
       <Name>FinancialAnalysis.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 und x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

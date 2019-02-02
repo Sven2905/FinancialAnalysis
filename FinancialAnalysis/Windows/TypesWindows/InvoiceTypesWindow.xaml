@@ -1,20 +1,24 @@
-﻿<UserControl x:Class="FinancialAnalysis.UserControls.StockyardControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
-             xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
-             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
-             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
-             xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
-             mc:Ignorable="d"
-             d:DesignHeight="1000" d:DesignWidth="1900">
-    <UserControl.DataContext>
-        <ViewModels:StockyardViewModel />
-    </UserControl.DataContext>
-    <UserControl.Resources>
+﻿<dx:DXWindow
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+        x:Class="FinancialAnalysis.Windows.InvoiceTypesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FinancialAnalysis.Windows"
+        xmlns:usercontrols="clr-namespace:FinancialAnalysis.UserControls"
+        xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+        xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+        mc:Ignorable="d"
+        dx:ThemeManager.ThemeName="Office2016WhiteSE"
+        Title="Produktkategorien" Height="1000" Width="1080" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <ViewModels:InvoiceTypeViewModel />
+    </Window.DataContext>
+    <Window.Resources>
         <Style x:Key="labelStyle" TargetType="{x:Type dxlc:LayoutItemLabel}">
             <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="Foreground" Value="#3f729b" />
@@ -24,8 +28,8 @@
             <Setter Property="LabelStyle" Value="{StaticResource labelStyle}" />
             <Setter Property="Foreground" Value="#3f729b" />
         </Style>
-        <local:NullToIsEnabledConverter x:Key="NullConverter"></local:NullToIsEnabledConverter>
-    </UserControl.Resources>
+        <usercontrols:NullToIsEnabledConverter x:Key="NullConverter"></usercontrols:NullToIsEnabledConverter>
+    </Window.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -38,7 +42,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <dxwui:PageAdornerControl Header="Lagerplätze" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="Tahoma" >
+        <dxwui:PageAdornerControl Header="Rechnungsarten" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="Tahoma" >
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
@@ -66,24 +70,23 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="Vorhandene Lagerplätze" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="12,30,12,0"/>
+            <TextBlock Grid.Row="0" Text="Vorhandene Kategorien" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="12,30,12,0"/>
 
             <dxlc:LayoutControl Grid.Row="1" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" VerticalAlignment="Top" >
                 <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
                     <dxlc:LayoutGroup.Header>
-                        <TextBlock Text="Lager" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                        <TextBlock Text="Filter" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                     </dxlc:LayoutGroup.Header>
                     <dxlc:LayoutGroup>
-                        <dxlc:LayoutItem Label="Lager" FontFamily="Tahoma" >
-                            <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="8" Margin="0,3,0,3" ItemsSource="{Binding Warehouses}"
-                              DisplayMember="Name" EditValue="{Binding SelectedWarehouse, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
+                        <dxlc:LayoutItem Label="Filtertext" FontFamily="Tahoma" >
+                            <dxe:TextEdit Text="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                         </dxlc:LayoutItem>
                     </dxlc:LayoutGroup>
                 </dxlc:LayoutGroup>
             </dxlc:LayoutControl>
 
             <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="12,0,12,0">
-                <ListView ItemsSource="{Binding SelectedWarehouse.Stockyards}" SelectedItem="{Binding SelectedStockyard}" x:Name="Projects" BorderThickness="1" BorderBrush="DarkGray" FontSize="14" >
+                <ListView ItemsSource="{Binding FilteredInvoiceTypes}" SelectedItem="{Binding SelectedInvoiceType}" BorderThickness="1" BorderBrush="DarkGray" FontSize="14" >
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel />
@@ -97,25 +100,27 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Border Grid.Column="2" Padding="0 0 8 0" >
-                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                        <Label Content="Lagerplatznr.: " VerticalAlignment="Center" />
-                                        <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#000" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
-                                        <!--<TextBlock Margin="10,0,0,0" Text="{Binding Description}" Foreground="#9e9e9e" TextTrimming="CharacterEllipsis" />-->
+                                    <StackPanel VerticalAlignment="Center" >
+                                        <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#000" TextTrimming="CharacterEllipsis" />
+                                        <TextBlock Margin="10,0,0,0" Text="{Binding Description}" Foreground="#9e9e9e" TextTrimming="CharacterEllipsis" />
                                     </StackPanel>
                                 </Border>
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
+                    <dxmvvm:Interaction.Behaviors>
+                        <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding SelectedCommand}" />
+                    </dxmvvm:Interaction.Behaviors>
                 </ListView>
             </ScrollViewer>
 
             <VirtualizingStackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,15,0,15" >
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Neu"
-                                 Foreground="#3F729B" Command="{Binding NewStockyardCommand}" FontFamily="Tahoma" />
+                                 Foreground="#3F729B" Command="{Binding NewInvoiceTypeCommand}" FontFamily="Tahoma" />
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Speichern" Foreground="#3F729B"
-                                 Command="{Binding SaveStockyardCommand}" FontFamily="Tahoma" />
+                                 Command="{Binding SaveInvoiceTypeCommand}" FontFamily="Tahoma" />
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Löschen" Foreground="#3F729B"
-                                 Command="{Binding DeleteStockyardCommand}" FontFamily="Tahoma" />
+                                 Command="{Binding DeleteInvoiceTypeCommand}" FontFamily="Tahoma" />
             </VirtualizingStackPanel>
 
             <Grid Grid.Row="1" Grid.RowSpan="3" Grid.Column="2" Margin="0,12,0,0">
@@ -130,37 +135,24 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <dxlc:LayoutControl Grid.Row="0" Grid.RowSpan="3" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,-12,0,0" IsEnabled="{Binding SelectedProductCategory, Converter={StaticResource NullConverter}}">
+                <dxlc:LayoutControl Grid.Row="0" Grid.RowSpan="3" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,-12,0,0" IsEnabled="{Binding SelectedInvoiceType, Converter={StaticResource NullConverter}}">
                     <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
                         <dxlc:LayoutGroup.Header>
                             <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                         </dxlc:LayoutGroup.Header>
                         <dxlc:LayoutGroup>
                             <dxlc:LayoutItem Label="Name" FontFamily="Tahoma" >
-                                <dxe:TextEdit Text="{Binding SelectedStockyard.Name, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                                <dxe:TextEdit Text="{Binding SelectedInvoiceType.Name, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Lager" FontFamily="Tahoma" >
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <dxe:ComboBoxEdit NullText="Bitte wählen" ValueMember="WarehouseId" DisplayMember="Name" ItemsSource="{Binding Warehouses}" EditValue="{Binding SelectedStockyard.RefWarehouseId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
-                                    <dx:SimpleButton Grid.Column="1" Width="30" Margin="5,0,0,0" Command="{Binding OpenWarehousesWindowCommand}" IsEnabled="{Binding AllowWarehouses}">
-                                        <dx:SimpleButton.Glyph>
-                                            <dx:SvgImageSource Uri="/Images/light/Cog.svg" Size="14,14"  />
-                                        </dx:SimpleButton.Glyph>
-                                    </dx:SimpleButton>
-                                </Grid>
+                            <dxlc:LayoutItem Label="Beschreibung" FontFamily="Tahoma" >
+                                <dxe:TextEdit TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" VerticalContentAlignment="Top" Text="{Binding SelectedInvoiceType.Description, UpdateSourceTrigger=PropertyChanged}" Height="150" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                     </dxlc:LayoutGroup>
                 </dxlc:LayoutControl>
-
             </Grid>
-
         </Grid>
     </Grid>
-</UserControl>
+</dx:DXWindow>

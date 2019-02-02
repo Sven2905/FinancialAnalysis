@@ -13,6 +13,8 @@ namespace FinancialAnalysis.Models.Accounting
         public string Name { get; set; }
         public string Description { get; set; }
         public string Identifier { get; set; }
+        public int RefCostCenterCategoryId { get; set; }
+        public CostCenterCategory CostCenterCategory { get; set; }
 
         public List<Project> Projects { get; set; }
     }

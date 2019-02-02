@@ -58,6 +58,7 @@ namespace FinancialAnalysis.Datalayer
         public StockedProducts StockedProducts { get; set; } = new StockedProducts();
         public ShippedProducts ShippedProducts { get; set; } = new ShippedProducts();
         public InvoicePositions InvoicePositions { get; set; } = new InvoicePositions();
+        public CostCenterCategories CostCenterCategories { get; set; } = new CostCenterCategories();
 
         public void Dispose()
         {
@@ -115,6 +116,7 @@ namespace FinancialAnalysis.Datalayer
             StockedProducts.CheckAndCreateStoredProcedures();
             ShippedProducts.CheckAndCreateStoredProcedures();
             InvoicePositions.CheckAndCreateStoredProcedures();
+            CostCenterCategories.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()
@@ -141,6 +143,7 @@ namespace FinancialAnalysis.Datalayer
             ShippedProducts.AddReferences();
             InvoicePositions.AddReferences();
             Bookings.AddReferences();
+            CostCenters.AddReferences();
         }
 
         private void Seed()
@@ -153,6 +156,7 @@ namespace FinancialAnalysis.Datalayer
                 _Import.SeedTaxTypes();
                 _Import.SeedCostCenters();
                 _Import.SeedHealthInsurance();
+                _Import.SeedCostCenters();
             }
         }
     }

@@ -14,7 +14,7 @@ namespace FinancialAnalysis.Logic
     {
         public static CoreData Instance { get; } = new CoreData();
 
-        public SvenTechCollection<TaxType> TaxTypes { get; private set; } = new SvenTechCollection<TaxType>();
+        public SvenTechCollection<TaxType> TaxTypes { get; private set; }
         public Client MyCompany { get; private set; }
 
         public TaxType GetTaxTypeById(int taxTypeId)

@@ -31,7 +31,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             Messenger.Default.Register<SelectedCostAccount>(this, ChangeSelectedCostAccount);
 
             LoadLists();
-            SelectedTax = TaxTypes.SingleOrDefault(x => x.TaxTypeId == 1);
+            SelectedTax = FilteredTaxTypes.SingleOrDefault(x => x.TaxTypeId == 1);
         }
 
         #endregion Constructor
@@ -51,7 +51,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                TaxTypes = Globals.CoreData.TaxTypes;
+                FilteredTaxTypes = new SvenTechCollection<TaxType>(Globals.CoreData.TaxTypes);
                 CostAccounts = DataLayer.Instance.CostAccounts.GetAllVisible().ToList();
                 CostCenters = DataLayer.Instance.CostCenters.GetAll().ToSvenTechCollection();
                 Projects = DataLayer.Instance.Projects.GetAll().ToSvenTechCollection();
@@ -193,7 +193,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             Debit debit = new Debit();
             Credit credit = new Credit();
 
-            if (!IsCreditAdvice)
+            if (SelectedBookingType == BookingType.Invoice)
             {
                 if (SelectedTax.Description.ToLower().Contains("Vorsteuer"))
                 {
@@ -215,7 +215,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                     debit = new Debit(Amount, CostAccountDebitorId, booking.BookingId);
                 }
             }
-            else
+            else if(SelectedBookingType == BookingType.CreditAdvice)
             {
                 if (SelectedTax.Description.ToLower().Contains("Vorsteuer"))
                 {
@@ -325,6 +325,25 @@ namespace FinancialAnalysis.Logic.ViewModels
             BookingsOnStack.Clear();
         }
 
+        private void FilterTaxType()
+        {
+            FilteredTaxTypes = new SvenTechCollection<TaxType>();
+            if (CostAccountCreditor != null && CostAccountCreditor.AccountNumber > 69999)
+            {
+                FilteredTaxTypes.Add(Globals.CoreData.TaxTypes[0]);
+                FilteredTaxTypes.AddRange(Globals.CoreData.TaxTypes.Where(x => x.Description.ToLower().Contains("vorsteuer")));
+            }
+            else if (CostAccountDebitor != null && CostAccountDebitor.AccountNumber > 9999)
+            {
+                FilteredTaxTypes.Add(Globals.CoreData.TaxTypes[0]);
+                FilteredTaxTypes.AddRange(Globals.CoreData.TaxTypes.Where(x => x.Description.ToLower().Contains("umsatzsteuer")));
+            }
+            else
+            {
+                FilteredTaxTypes = Globals.CoreData.TaxTypes;
+            }
+        }
+
         #endregion Methods
 
         #region Properties
@@ -336,6 +355,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 _costAccountCreditorId = value;
                 CostAccountCreditor = CostAccounts.Single(x => x.CostAccountId == value);
+                
             }
         }
 
@@ -366,7 +386,8 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 _costAccountCreditor = value;
-                SelectedTax = TaxTypes.Single(x => x.TaxTypeId == _costAccountCreditor.RefTaxTypeId);
+                FilterTaxType();
+                SelectedTax = FilteredTaxTypes.Single(x => x.TaxTypeId == _costAccountCreditor.RefTaxTypeId);
             }
         }
 
@@ -377,11 +398,11 @@ namespace FinancialAnalysis.Logic.ViewModels
         public List<CostAccount> CostAccounts { get; set; }
         public SvenTechCollection<CostCenter> CostCenters { get; set; } = new SvenTechCollection<CostCenter>();
         public SvenTechCollection<Project> Projects { get; set; } = new SvenTechCollection<Project>();
-        public SvenTechCollection<TaxType> TaxTypes { get; set; }
+        public SvenTechCollection<TaxType> FilteredTaxTypes { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
         public GrossNetType GrossNetType { get; set; }
         public ScannedDocument SelectedScannedDocument { get; set; }
-        public bool IsCreditAdvice { get; set; } = false;
+        public BookingType SelectedBookingType { get; set; } = BookingType.Invoice;
 
         public ObservableCollection<ScannedDocument> ScannedDocuments { get; set; } = new ObservableCollection<ScannedDocument>();
 

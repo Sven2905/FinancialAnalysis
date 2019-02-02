@@ -5,6 +5,7 @@ using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.ProductManagement;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Utilities;
 
@@ -36,8 +37,8 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             Messenger.Default.Register<SelectedProductCategory>(this, ChangeSelectedProductCategory);
 
-            _Products = LoadAllProducts();
-            ProductCategories = LoadAllProductCategories();
+            Task.Run(() => GetData());
+
             NewProductCommand = new DelegateCommand(NewProduct);
             SaveProductCommand = new DelegateCommand(SaveProduct, () => Validation());
             DeleteProductCommand = new DelegateCommand(DeleteProduct, () => (SelectedProduct != null));
@@ -47,6 +48,12 @@ namespace FinancialAnalysis.Logic.ViewModels
         #endregion Constructor
 
         #region Methods
+
+        private void GetData()
+        {
+            FilteredProducts = LoadAllProducts();
+            ProductCategories = LoadAllProductCategories();
+        }
 
         private void OpenProductCategoriesWindow()
         {

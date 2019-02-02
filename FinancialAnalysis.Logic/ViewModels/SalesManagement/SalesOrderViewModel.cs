@@ -25,6 +25,8 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public SalesOrderViewModel()
         {
+            Messenger.Default.Register<SelectedSalesType>(this, ChangeSelectedSalesType);
+
             Task.Run(() => GetData());
             Messenger.Default.Register<SelectedSalesType>(this, ChangeSelectedSalesType);
             SetCommands();

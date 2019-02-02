@@ -87,7 +87,7 @@
             </dxlc:LayoutControl>
 
             <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="12,0,12,0">
-                <ListView ItemsSource="{Binding FilteredUsers}" SelectedItem="{Binding SelectedUser}" x:Name="Users" BorderThickness="1" BorderBrush="DarkGray" FontSize="14" >
+                <ListView ItemsSource="{Binding FilteredUsers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="Users" BorderThickness="1" BorderBrush="DarkGray" FontSize="14" >
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel />
@@ -176,10 +176,10 @@
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Vorname" FontFamily="Tahoma" >
-                                    <dxe:TextEdit Text="{Binding SelectedUser.Firstname, Mode=TwoWay}" FontFamily="Tahoma" />
+                                    <dxe:TextEdit Text="{Binding SelectedUser.Firstname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                                 <dxlc:LayoutItem Label="Nachname" FontFamily="Tahoma" >
-                                    <dxe:TextEdit Text="{Binding SelectedUser.Lastname, Mode=TwoWay}" FontFamily="Tahoma" />
+                                    <dxe:TextEdit Text="{Binding SelectedUser.Lastname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>

@@ -6,13 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using Utilities;
 
 namespace FinancialAnalysis.Logic
 {
-    public class UserManager : ViewModelBase
+    public class UserManager
     {
         #region Properties
 
@@ -71,6 +69,7 @@ namespace FinancialAnalysis.Logic
 
             try
             {
+                DataLayer.Instance.UserRightUserMappings.Delete(user.UserId);
                 DataLayer.Instance.Users.Delete(user.UserId);
                 Users.Remove(user);
             }
@@ -90,9 +89,11 @@ namespace FinancialAnalysis.Logic
                 throw new NullReferenceException("User is null!");
             }
 
+            bool IsNewUser = user.UserId == 0;
+
             try
             {
-                if (user.UserId != 0)
+                if (!IsNewUser)
                 {
                     if (!string.IsNullOrEmpty(user.Password))
                     {
@@ -106,8 +107,19 @@ namespace FinancialAnalysis.Logic
                         throw new ArgumentException("Password is not set!");
                     }
                 }
-                user = DataLayer.Instance.Users.UpdateOrInsert(user);
+
+                DataLayer.Instance.Users.UpdateOrInsert(user);
+
+                if (IsNewUser)
+                {
+                    foreach (var item in user.UserRightUserMappings)
+                    {
+                        item.RefUserId = user.UserId;
+                    }
+                }
+
                 DataLayer.Instance.UserRightUserMappings.UpdateOrInsert(user.UserRightUserMappings);
+                RefreshUsers();
             }
             catch (System.Exception ex)
             {
@@ -151,9 +163,21 @@ namespace FinancialAnalysis.Logic
             return UserRightUserMappingFlatStructure;
         }
 
+        public List<UserRightUserMapping> ConvertUserRightUserMappingFlatStructureToNormal(SvenTechCollection<UserRightUserMappingFlatStructure> UserRightUserMappingFlatStructure)
+        {
+            List<UserRightUserMapping> userRightUserMappings = new List<UserRightUserMapping>();
+
+            foreach (var item in UserRightUserMappingFlatStructure)
+            {
+                userRightUserMappings.Add(new UserRightUserMapping(item.RefUserId, item.RefUserRightId, item.IsGranted));
+            }
+
+            return userRightUserMappings;
+        }
+
         public void RefreshUsers()
         {
-            LoadUsersFromDB();
+            Users = LoadUsersFromDB();
         }
 
         /// <summary>

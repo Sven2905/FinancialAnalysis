@@ -16,10 +16,10 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (IsInDesignMode)
                 return;
 
+            Messenger.Default.Register<SelectedCostCenterCategory>(this, ChangeSelectedCostCenterCategory);
+
+            SetCommands();
             LoadCostCenters();
-            NewCostCenterCommand = new DelegateCommand(NewCostCenter);
-            SaveCostCenterCommand = new DelegateCommand(SaveCostCenter, () => Validation());
-            DeleteCostCenterCommand = new DelegateCommand(DeleteCostCenter, () => (SelectedCostCenter != null));
         }
 
         #endregion Constructor
@@ -33,20 +33,36 @@ namespace FinancialAnalysis.Logic.ViewModels
         #region Properties
 
         public SvenTechCollection<CostCenter> CostCenters { get; set; }
+        public SvenTechCollection<CostCenterCategory> CostCenterCategories { get; set; }
         public CostCenter SelectedCostCenter { get; set; }
         public DelegateCommand NewCostCenterCommand { get; set; }
         public DelegateCommand SaveCostCenterCommand { get; set; }
         public DelegateCommand DeleteCostCenterCommand { get; set; }
+        public DelegateCommand OpenCostCenterCategoriesWindowCommand { get; set; }
 
         #endregion Properties
 
         #region Methods
+
+        private void SetCommands()
+        {
+            NewCostCenterCommand = new DelegateCommand(NewCostCenter);
+            SaveCostCenterCommand = new DelegateCommand(SaveCostCenter, () => Validation());
+            DeleteCostCenterCommand = new DelegateCommand(DeleteCostCenter, () => (SelectedCostCenter != null));
+            OpenCostCenterCategoriesWindowCommand = new DelegateCommand(OpenCostCenterCategoriesWindow);
+        }
+
+        private void OpenCostCenterCategoriesWindow()
+        {
+            Messenger.Default.Send(new OpenCostCenterCategoriesWindowMessage());
+        }
 
         private void LoadCostCenters()
         {
             try
             {
                 CostCenters = DataLayer.Instance.CostCenters.GetAll().ToSvenTechCollection();
+                CostCenterCategories = DataLayer.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -109,6 +125,14 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return false;
             }
             return !string.IsNullOrEmpty(SelectedCostCenter.Name);
+        }
+
+        private void ChangeSelectedCostCenterCategory(SelectedCostCenterCategory SelectedCostCenterCategory)
+        {
+            CostCenterCategories = DataLayer.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
+            SelectedCostCenter.CostCenterCategory = SelectedCostCenterCategory.CostCenterCategory;
+            SelectedCostCenter.RefCostCenterCategoryId = SelectedCostCenterCategory.CostCenterCategory.CostCenterCategoryId;
+            RaisePropertyChanged("SelectedCostCenter");
         }
 
         #endregion Methods

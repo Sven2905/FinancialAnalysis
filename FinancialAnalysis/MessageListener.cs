@@ -1,5 +1,4 @@
 ﻿using DevExpress.Mvvm;
-using DevExpress.Xpf.Core;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Logic.ViewModels;
 using FinancialAnalysis.UI.Desktop;
@@ -42,7 +41,10 @@ namespace FinancialAnalysis.UI
                 msg =>
                 {
                     var window = new KontenrahmenWindow();
-                    if (window.DataContext is KontenrahmenViewModel model) model.AccountingType = msg.AccountingType;
+                    if (window.DataContext is KontenrahmenViewModel model)
+                    {
+                        model.AccountingType = msg.AccountingType;
+                    }
 
                     window.ShowDialog();
                 });
@@ -73,9 +75,13 @@ namespace FinancialAnalysis.UI
                     if (window.DataContext is PDFViewerViewModel model)
                     {
                         if (msg.ScannedDocumentId != 0)
+                        {
                             model.ScannedDocumentId = msg.ScannedDocumentId;
+                        }
                         else
+                        {
                             model.Path = msg.Path;
+                        }
                     }
 
                     window.ShowDialog();
@@ -90,21 +96,39 @@ namespace FinancialAnalysis.UI
                      Application.Current.MainWindow = window;
                      window.Show();
                  });
-            Messenger.Default.Register<OpenSplashScreenMessage>(this,
-                msg =>
-                {
-                    DXSplashScreen.Show<SplashScreenView>();
-                });
+            //Messenger.Default.Register<OpenSplashScreenMessage>(this,
+            //    msg =>
+            //    {
+            //        DXSplashScreen.Show<SplashScreenView>();
+            //    });
             Messenger.Default.Register<OpenProductCategoriesWindowMessage>(this,
                msg =>
                {
                    var window = new ProductCategoriesWindow();
                    window.ShowDialog();
                });
+            Messenger.Default.Register<OpenCostCenterCategoriesWindowMessage>(this,
+               msg =>
+               {
+                   var window = new CostCenterCategoriesWindow();
+                   window.ShowDialog();
+               });
             Messenger.Default.Register<OpenSalesTypesWindowMessage>(this,
                msg =>
                {
-                   var window = new ProductCategoriesWindow();
+                   var window = new SalesTypesWindow();
+                   window.ShowDialog();
+               });
+            Messenger.Default.Register<OpenInvoiceTypesWindowMessage>(this,
+               msg =>
+               {
+                   var window = new InvoiceTypesWindow();
+                   window.ShowDialog();
+               });
+            Messenger.Default.Register<OpenWarehousesWindowMessage>(this,
+               msg =>
+               {
+                   var window = new WarehousesWindow();
                    window.ShowDialog();
                });
         }

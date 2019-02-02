@@ -42,7 +42,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <dxwui:PageAdornerControl Header="Rechnungsarten" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="Tahoma" >
+        <dxwui:PageAdornerControl Header="Auftragsarten" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="Tahoma" >
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>

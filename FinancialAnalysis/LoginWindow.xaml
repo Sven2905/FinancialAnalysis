@@ -11,60 +11,66 @@
         xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
         xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
         IsEnabled="{Binding BindableProperty, Source={StaticResource MessageListener}}" 
+        xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/core"
         mc:Ignorable="d"
         WindowStyle="None" ResizeMode="NoResize"
+        dxc:ThemeManager.ThemeName="Office2016WhiteSE"
         WindowStartupLocation="CenterScreen"
         BorderThickness="1" Padding="-2"
-        BorderBrush="#FAFAFA" 
+        BorderBrush="#9e9e9e " 
+        Background="#fafafa" 
         Title="Financial Analysis - Login" Height="250" Width="600">
     <Window.DataContext>
         <ViewModels:LoginViewModel />
     </Window.DataContext>
+
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </Window.Resources>
-    <Grid FocusManager.FocusedElement="{Binding ElementName=User}" Margin="5,0" Background="#fafafa">
+    <Grid FocusManager.FocusedElement="{Binding ElementName=User}" Margin="5,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="10" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="*" />
             <RowDefinition Height="25" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.ColumnSpan="9">
-            <TextBlock Text="Financial Analysis" FontSize="25" FontFamily="Calibri Light" Foreground="#4B515D" Margin="0,0,0,0"/>
+            <TextBlock Text="Login" FontSize="25" FontFamily="/Resources/Fonts/trajan-pro-3.otf#Trajan Pro 3" Foreground="#4B515D" Margin="0,6,0,0"/>
             <Separator />
         </StackPanel>
-        <Image Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="150" Source="/Images/ApplicationLogo/financialanalysis_logo_small.png" />
+
+        <svgc:SvgViewbox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="280" Stretch="Uniform" Source="/Images/ApplicationLogo/financialanalysis_logo_text.svg" Margin="15,0,0,0"/>
+        <!--<Image Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="150" Source="/Images/ApplicationLogo/financialanalysis_logo_small.png" />-->
 
         <Grid Grid.Column="2" Grid.Row="1">
 
-            <Label Grid.Row="1" Grid.Column="1" Content="Login" FontSize="24" Margin="35,25,0,0" />
-            
+            <!--<Label Grid.Row="1" Grid.Column="1" Content="Login" FontSize="24" Margin="35,25,0,0" />-->
+
             <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,50,0,0">
-            <Label Content="{Binding ErrorText}" Foreground="Red" VerticalAlignment="Bottom" Margin="3,5" Visibility="{Binding Path=ShowError, Converter={StaticResource BoolToVis}}"/>
+                <Label Content="{Binding ErrorText}" Foreground="Red" VerticalAlignment="Bottom" Margin="3,5" Visibility="{Binding Path=ShowError, Converter={StaticResource BoolToVis}}"/>
 
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Benutzer" Grid.Row="1" Grid.Column="2" Height="22" Margin="3,1,18,1" FontFamily="Tahoma" />
-                <dxe:TextEdit Name="User" Grid.Row="1" Grid.Column="3" Height="22" Width="150" Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1" />
-            </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Benutzer" Grid.Row="1" Grid.Column="2" Height="22" Margin="3,1,18,1" FontFamily="Tahoma" />
+                    <dxe:TextEdit Name="User" Grid.Row="1" Grid.Column="3" Height="22" Width="150" Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1" />
+                </StackPanel>
 
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Passwort" Grid.Row="3" Grid.Column="2" Height="22" Margin="3,1,18,1" FontFamily="Tahoma" />
-                <dxe:PasswordBoxEdit Grid.Row="3" Grid.Column="3" Height="22" Width="150" Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1"/>
-            </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Passwort" Grid.Row="3" Grid.Column="2" Height="22" Margin="3,1,18,1" FontFamily="Tahoma" />
+                    <dxe:PasswordBoxEdit Grid.Row="3" Grid.Column="3" Height="22" Width="150" Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1"/>
+                </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                <dx:SimpleButton Height="22" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Login" Command="{Binding LoginCommand}" Margin="2,5,2,5"/>
-                <dx:SimpleButton Height="22" Width="100" HorizontalAlignment="Left" Content="Abbrechen" Command="{Binding ExitCommand}" Margin="15,5,2,5"/>
+                <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                    <dx:SimpleButton Height="25" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Login" Command="{Binding LoginCommand}" Margin="2,5,2,5"/>
+                    <dx:SimpleButton Height="25" Width="100" HorizontalAlignment="Left" Content="Abbrechen" Command="{Binding ExitCommand}" Margin="15,5,2,5"/>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
         </Grid>
 
-        <svgc:SvgViewbox Grid.Row="5" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" Height="20" Width="140" Stretch="Uniform" Source="/Images/Emblem/horizontal/SVGLogo.svg" Margin="0,0,10,0"/>
+        <svgc:SvgViewbox Grid.Row="5" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" Width="140" Stretch="Uniform" Source="/Images/Emblem/horizontal/SVGLogo.svg" Margin="0,0,10,5"/>
     </Grid>
 </dx:DXWindow>

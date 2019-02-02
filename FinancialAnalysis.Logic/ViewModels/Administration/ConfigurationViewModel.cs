@@ -13,7 +13,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         #region UserRights
         public bool ShowMailConfiguration { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessMail) || Globals.ActualUser.IsAdministrator; } }
         public bool ShowUsers { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessUsers) || Globals.ActualUser.IsAdministrator; } }
-        public bool ShowMyCompany { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessMyCompany) || Globals.ActualUser.IsAdministrator; } }
+        public bool ShowMyCompany { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessMyCompanies) || Globals.ActualUser.IsAdministrator; } }
         #endregion UserRights
 
         public ConfigurationViewModel()
