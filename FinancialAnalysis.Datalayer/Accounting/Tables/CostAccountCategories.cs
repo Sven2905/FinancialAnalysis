@@ -181,7 +181,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
         public void Update(CostAccountCategory costAccountCategory)
         {
             if (costAccountCategory.CostAccountCategoryId == 0 ||
-                GetById(costAccountCategory.CostAccountCategoryId) is null) return;
+                GetById(costAccountCategory.CostAccountCategoryId) is null)
+                return;
 
             try
             {

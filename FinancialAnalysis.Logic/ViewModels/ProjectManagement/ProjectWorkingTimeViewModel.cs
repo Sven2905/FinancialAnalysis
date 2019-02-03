@@ -1,12 +1,9 @@
-﻿using DevExpress.Mvvm;
+﻿using System;
+using System.Windows;
+using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.ProjectManagement;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -15,12 +12,17 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         public ProjectWorkingTimeViewModel()
         {
-            if (IsInDesignMode)
-                return;
+            if (IsInDesignMode) return;
 
             LoadData();
             SaveProjectWorkingTimeCommand = new DelegateCommand(SaveSaveProjectWorkingTime, () => Validation());
         }
+
+        public SvenTechCollection<ProjectWorkingTime> ProjectWorkingTimes { get; set; }
+        public SvenTechCollection<Employee> Employees { get; set; }
+        public SvenTechCollection<Project> Projects { get; set; }
+        public ProjectWorkingTime ProjectWorkingTime { get; set; } = new ProjectWorkingTime();
+        public DelegateCommand SaveProjectWorkingTimeCommand { get; set; }
 
         private void SaveSaveProjectWorkingTime()
         {
@@ -28,9 +30,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 DataContext.Instance.ProjectWorkingTimes.Insert(ProjectWorkingTime);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -47,9 +49,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -59,9 +61,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 Projects = DataContext.Instance.Projects.GetAll().ToSvenTechCollection();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -71,26 +73,18 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 ProjectWorkingTimes = DataContext.Instance.ProjectWorkingTimes.GetAll().ToSvenTechCollection();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
         private bool Validation()
         {
-            if (ProjectWorkingTime.RefEmployeeId == 0 || ProjectWorkingTime.RefProjectId == 0 || ProjectWorkingTime.StartTime == ProjectWorkingTime.EndTime)
-            {
-                return false;
-            }
+            if (ProjectWorkingTime.RefEmployeeId == 0 || ProjectWorkingTime.RefProjectId == 0 ||
+                ProjectWorkingTime.StartTime == ProjectWorkingTime.EndTime) return false;
 
             return true;
         }
-
-        public SvenTechCollection<ProjectWorkingTime> ProjectWorkingTimes { get; set; }
-        public SvenTechCollection<Employee> Employees { get; set; }
-        public SvenTechCollection<Project> Projects { get; set; }
-        public ProjectWorkingTime ProjectWorkingTime { get; set; } = new ProjectWorkingTime();
-        public DelegateCommand SaveProjectWorkingTimeCommand { get; set; }
     }
 }

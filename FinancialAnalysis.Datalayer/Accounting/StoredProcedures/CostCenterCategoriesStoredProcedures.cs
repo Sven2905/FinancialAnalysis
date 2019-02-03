@@ -34,7 +34,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
                                 "SELECT ccc.*, cc.* " +
                                 $"FROM {TableName} ccc " +
-                                $"LEFT JOIN CostCenters cc ON ccc.CostCenterCategoryId = cc.RefCostCenterCategoryId " +
+                                "LEFT JOIN CostCenters cc ON ccc.CostCenterCategoryId = cc.RefCostCenterCategoryId " +
                                 "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -85,7 +85,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     $"CREATE PROCEDURE [{TableName}_GetById] @CostCenterCategoryId int AS BEGIN SET NOCOUNT ON; " +
                     "SELECT ccc.*, cc.* " +
                     $"FROM {TableName} ccc " +
-                    $"LEFT JOIN CostCenters cc ON ccc.CostCenterCategoryId = cc.RefCostCenterCategoryId " +
+                    "LEFT JOIN CostCenters cc ON ccc.CostCenterCategoryId = cc.RefCostCenterCategoryId " +
                     "WHERE ccc.CostCenterCategoryId = @CostCenterCategoryId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -137,7 +137,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_Delete] @CostCenterCategoryId int AS BEGIN SET NOCOUNT ON; " +
                     $"DELETE FROM {TableName} " +
-                    $"WHERE CostCenterCategoryId = @CostCenterCategoryId END");
+                    "WHERE CostCenterCategoryId = @CostCenterCategoryId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

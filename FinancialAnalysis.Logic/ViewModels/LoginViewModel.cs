@@ -1,43 +1,40 @@
-﻿using DevExpress.Mvvm;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
+        #region Fields
+
+        private int _Counter;
+
+        #endregion Fields
+
         #region Constructor
 
         public LoginViewModel()
         {
-            if (IsInDesignMode)
-                return;
+            if (IsInDesignMode) return;
 
 #if (DEBUG)
             UserName = "Admin";
             Password = "Password";
 #endif
 
-            Task.Run(() =>
-            {
-                Seed();
-            });
+            Task.Run(() => { Seed(); });
 
-            LoginCommand = new DelegateCommand(Login, () => (!string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrEmpty(Password)));
+            LoginCommand = new DelegateCommand(Login,
+                () => !string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrEmpty(Password));
             ExitCommand = new DelegateCommand(Exit);
         }
 
         #endregion Constructor
-
-        #region Fields
-
-        private int _Counter = 0;
-
-        #endregion Fields
 
         #region Methods
 
@@ -46,7 +43,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             DataContext.Instance.CreateDatabaseSchema();
             if (!DataContext.Instance.Users.GetAll().Any())
             {
-                var user = new User()
+                var user = new User
                 {
                     IsAdministrator = true,
                     Firstname = "Mr.",
@@ -58,7 +55,6 @@ namespace FinancialAnalysis.Logic.ViewModels
                 };
 
                 DataContext.Instance.Users.Insert(user);
-
             }
 
             if (!DataContext.Instance.UserRights.GetAll().Any())
@@ -82,17 +78,17 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _Counter++;
             }
 
-            if (_Counter >= 3)
-            {
-                Exit();
-            }
+            if (_Counter >= 3) Exit();
         }
 
-        private void Exit() => Application.Current.Shutdown();
+        private void Exit()
+        {
+            Application.Current.Shutdown();
+        }
 
         private bool CheckCredentials()
         {
-            User foundUser = UserManager.Instance.GetUserByNameAndPassword(UserName, Password);
+            var foundUser = UserManager.Instance.GetUserByNameAndPassword(UserName, Password);
 
             if (foundUser == null)
             {

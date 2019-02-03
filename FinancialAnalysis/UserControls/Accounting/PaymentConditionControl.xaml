@@ -32,7 +32,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <dxwui:PageAdornerControl Header="Zahlungskonditionen" Grid.Row="0" Foreground="#3f729b" FontFamily="Tahoma" >
+        <dxwui:PageAdornerControl Header="Zahlungskonditionen" Grid.Row="0" Foreground="#3f729b" FontFamily="Tahoma">
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
@@ -58,8 +58,9 @@
         </dxlc:LayoutControl>
 
         <Grid Grid.Row="4" Margin="45,0,45,20">
-            <dxg:GridControl ItemsSource="{Binding PaymentConditions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             SelectedItem="{Binding SelectedItem}" SelectionMode="Row">
+            <dxg:GridControl
+                ItemsSource="{Binding PaymentConditions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding SelectedItem}" SelectionMode="Row">
                 <dxg:GridControl.View>
                     <dxg:TableView EditFormColumnCount="2" EditFormShowMode="Inline" NewItemRowPosition="Top"
                                    AutoWidth="True" ShowGroupPanel="False" ShowTotalSummary="True"

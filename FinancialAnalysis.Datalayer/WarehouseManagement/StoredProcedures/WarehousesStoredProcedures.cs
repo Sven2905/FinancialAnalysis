@@ -32,7 +32,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT w.*, s.*, sp.* "+
+                                "SELECT w.*, s.*, sp.* " +
                                 $"FROM {TableName} w " +
                                 "LEFT JOIN Stockyards s on WarehouseId = RefWarehouseId " +
                                 "LEFT JOIN StockedProducts sp ON s.StockyardId = sp.RefStockyardId " +

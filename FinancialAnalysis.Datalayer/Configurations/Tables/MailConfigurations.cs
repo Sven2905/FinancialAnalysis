@@ -141,8 +141,9 @@ namespace FinancialAnalysis.Datalayer.Configurations
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<MailConfiguration>($"dbo.{TableName}_GetById @MailConfigurationId",
-                        new { MailConfigurationId = id});
+                    output = con.QuerySingleOrDefault<MailConfiguration>(
+                        $"dbo.{TableName}_GetById @MailConfigurationId",
+                        new {MailConfigurationId = id});
                 }
             }
             catch (Exception e)

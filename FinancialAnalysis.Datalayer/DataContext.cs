@@ -1,4 +1,7 @@
-﻿using FinancialAnalysis.Datalayer.Accounting;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using FinancialAnalysis.Datalayer.Accounting;
 using FinancialAnalysis.Datalayer.Administration;
 using FinancialAnalysis.Datalayer.ClientManagement;
 using FinancialAnalysis.Datalayer.Configurations;
@@ -9,9 +12,6 @@ using FinancialAnalysis.Datalayer.Tables;
 using FinancialAnalysis.Datalayer.WarehouseManagement;
 using FinancialAnalysis.Logic;
 using FinancialAnalysis.Models;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Datalayer
 {

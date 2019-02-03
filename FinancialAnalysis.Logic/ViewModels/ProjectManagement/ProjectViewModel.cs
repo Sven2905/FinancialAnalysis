@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
@@ -14,22 +15,17 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public ProjectViewModel()
         {
-            if (IsInDesignMode)
-                return;
+            if (IsInDesignMode) return;
 
             LoadProjects();
             LoadEmployees();
             LoadCostCenters();
             NewProjectCommand = new DelegateCommand(NewProject);
             SaveProjectCommand = new DelegateCommand(SaveProject, () => Validation());
-            DeleteProjectCommand = new DelegateCommand(DeleteProject, () => (SelectedProject != null));
+            DeleteProjectCommand = new DelegateCommand(DeleteProject, () => SelectedProject != null);
         }
 
         #endregion Constructor
-
-        #region Fields
-
-        #endregion Fields
 
         #region Properties
 
@@ -52,9 +48,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 Projects = DataContext.Instance.Projects.GetAll().ToSvenTechCollection();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -64,9 +60,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 CostCenters = DataContext.Instance.CostCenters.GetAll().ToSvenTechCollection();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -76,9 +72,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -90,10 +86,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteProject()
         {
-            if (SelectedProject == null)
-            {
-                return;
-            }
+            if (SelectedProject == null) return;
 
             if (SelectedProject.ProjectId == 0)
             {
@@ -108,9 +101,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 Projects.Remove(SelectedProject);
                 SelectedProject = null;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -122,20 +115,17 @@ namespace FinancialAnalysis.Logic.ViewModels
                     DataContext.Instance.Projects.Update(SelectedProject);
                 else
                     DataContext.Instance.Projects.Insert(SelectedProject);
-
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
         private bool Validation()
         {
-            if (SelectedProject == null || SelectedProject.RefCostCenterId == 0 || string.IsNullOrEmpty(SelectedProject.Name))
-            {
-                return false;
-            }
+            if (SelectedProject == null || SelectedProject.RefCostCenterId == 0 ||
+                string.IsNullOrEmpty(SelectedProject.Name)) return false;
             return true;
         }
 
@@ -175,6 +165,5 @@ namespace FinancialAnalysis.Logic.ViewModels
         }
 
         #endregion Methods
-
     }
 }

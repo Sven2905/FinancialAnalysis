@@ -1,15 +1,15 @@
 ﻿<UserControl x:Class="FinancialAnalysis.UserControls.Accounting.CompanyControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:models="clr-namespace:FinancialAnalysis.Models;assembly=FinancialAnalysis.Models"
              xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels.Accounting;assembly=FinancialAnalysis.Logic"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="900" d:DesignWidth="500">
     <UserControl.Resources>
         <Style x:Key="labelStyle" TargetType="{x:Type dxlc:LayoutItemLabel}">
@@ -21,9 +21,8 @@
             <Setter Property="LabelStyle" Value="{StaticResource labelStyle}" />
             <Setter Property="Foreground" Value="#3f729b" />
         </Style>
-        <local:ClientTypeToVisiblityConverter x:Key="TypeVisConverter"></local:ClientTypeToVisiblityConverter>
-        <local:BooleanToVisiblityConverter x:Key="BoolVisConverter"></local:BooleanToVisiblityConverter>
-        
+        <local:ClientTypeToVisiblityConverter x:Key="TypeVisConverter" />
+        <local:BooleanToVisiblityConverter x:Key="BoolVisConverter" />
     </UserControl.Resources>
     <UserControl.DataContext>
         <ViewModels:CompanyViewModel />
@@ -35,124 +34,143 @@
         </Grid.RowDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10">
-                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" >
+                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
                     <dxlc:LayoutGroup.Header>
                         <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                     </dxlc:LayoutGroup.Header>
                     <dxlc:LayoutGroup>
-                        <dxlc:LayoutItem Label="Typ" FontFamily="Tahoma"  Visibility="{Binding ShowCustomerType, Converter={StaticResource BoolVisConverter}}">
-                            <dxe:ListBoxEdit  ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:CustomerType}, SplitNames=True}" BorderBrush="Transparent" 
-                                     EditValue="{Binding SelectedCustomerType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma">
+                        <dxlc:LayoutItem Label="Typ" FontFamily="Tahoma"
+                                         Visibility="{Binding ShowCustomerType, Converter={StaticResource BoolVisConverter}}">
+                            <dxe:ListBoxEdit
+                                ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:CustomerType}, SplitNames=True}"
+                                BorderBrush="Transparent"
+                                EditValue="{Binding SelectedCustomerType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                FontFamily="Tahoma">
                                 <dxe:ListBoxEdit.StyleSettings>
-                                    <dxe:RadioListBoxEditStyleSettings   />
+                                    <dxe:RadioListBoxEditStyleSettings />
                                 </dxe:ListBoxEdit.StyleSettings>
                             </dxe:ListBoxEdit>
                         </dxlc:LayoutItem>
-                        <dxlc:LayoutItem Label="Kundentyp" FontFamily="Tahoma" >
-                            <dxe:ListBoxEdit  ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:ClientType}, SplitNames=True}" BorderBrush="Transparent"
-                                     EditValue="{Binding SelectedClientType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma">
+                        <dxlc:LayoutItem Label="Kundentyp" FontFamily="Tahoma">
+                            <dxe:ListBoxEdit
+                                ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:ClientType}, SplitNames=True}"
+                                BorderBrush="Transparent"
+                                EditValue="{Binding SelectedClientType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                FontFamily="Tahoma">
                                 <dxe:ListBoxEdit.StyleSettings>
-                                    <dxe:RadioListBoxEditStyleSettings   />
+                                    <dxe:RadioListBoxEditStyleSettings />
                                 </dxe:ListBoxEdit.StyleSettings>
                             </dxe:ListBoxEdit>
-
                         </dxlc:LayoutItem>
                     </dxlc:LayoutGroup>
                 </dxlc:LayoutGroup>
 
-                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" IsCollapsible="True" IsEnabled="{Binding CompanyIsNotNull}">
+                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" IsCollapsible="True"
+                                  IsEnabled="{Binding CompanyIsNotNull}">
                     <dxlc:LayoutGroup.Header>
                         <TextBlock Text="Anschrift" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                     </dxlc:LayoutGroup.Header>
                     <dxlc:LayoutItem Label="Name" FontFamily="Tahoma">
-                        <dxe:TextEdit Text="{Binding Client.Name, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                        <dxe:TextEdit Text="{Binding Client.Name, UpdateSourceTrigger=PropertyChanged}"
+                                      FontFamily="Tahoma" />
                     </dxlc:LayoutItem>
                     <dxlc:LayoutGroup>
-                        <dxlc:LayoutItem Label="Strasse" FontFamily="Tahoma" >
-                        <dxe:TextEdit Text="{Binding Client.Street, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="Bundesland" FontFamily="Tahoma" >
-                        <dxe:ComboBoxEdit ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:FederalState}, SplitNames=True}"
-                                    EditValue="{Binding Client.FederalState, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
-                    </dxlc:LayoutItem>
-                        </dxlc:LayoutGroup>
-                            <dxlc:LayoutGroup>
-                        <dxlc:LayoutItem Label="Postleitzahl" Width="100" FontFamily="Tahoma" >
-                            <dxe:TextEdit Text="{Binding Client.Postcode, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                        <dxlc:LayoutItem Label="Strasse" FontFamily="Tahoma">
+                            <dxe:TextEdit Text="{Binding Client.Street, UpdateSourceTrigger=PropertyChanged}"
+                                          FontFamily="Tahoma" />
                         </dxlc:LayoutItem>
-                        <dxlc:LayoutItem Label="Ort" FontFamily="Tahoma" >
-                            <dxe:TextEdit Text="{Binding Client.City, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                        <dxlc:LayoutItem Label="Bundesland" FontFamily="Tahoma">
+                            <dxe:ComboBoxEdit
+                                ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:FederalState}, SplitNames=True}"
+                                EditValue="{Binding Client.FederalState, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                FontFamily="Tahoma" />
                         </dxlc:LayoutItem>
                     </dxlc:LayoutGroup>
-                    <dxlc:LayoutGroup Visibility="{Binding SelectedClientType, Converter={StaticResource TypeVisConverter}}">
-                        <dxlc:LayoutItem Label="Ansprechpartner" FontFamily="Tahoma" >
+                    <dxlc:LayoutGroup>
+                        <dxlc:LayoutItem Label="Postleitzahl" Width="100" FontFamily="Tahoma">
+                            <dxe:TextEdit Text="{Binding Client.Postcode, UpdateSourceTrigger=PropertyChanged}"
+                                          FontFamily="Tahoma" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Ort" FontFamily="Tahoma">
+                            <dxe:TextEdit Text="{Binding Client.City, UpdateSourceTrigger=PropertyChanged}"
+                                          FontFamily="Tahoma" />
+                        </dxlc:LayoutItem>
+                    </dxlc:LayoutGroup>
+                    <dxlc:LayoutGroup
+                        Visibility="{Binding SelectedClientType, Converter={StaticResource TypeVisConverter}}">
+                        <dxlc:LayoutItem Label="Ansprechpartner" FontFamily="Tahoma">
                             <dxe:TextEdit Text="{Binding Client.Company.ContactPerson}" FontFamily="Tahoma" />
                         </dxlc:LayoutItem>
                     </dxlc:LayoutGroup>
-
                 </dxlc:LayoutGroup>
 
-                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" IsCollapsible="True" IsEnabled="{Binding CompanyIsNotNull}">
+                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" IsCollapsible="True"
+                                  IsEnabled="{Binding CompanyIsNotNull}">
                     <dxlc:LayoutGroup.Header>
                         <TextBlock Text="Bankdaten" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                     </dxlc:LayoutGroup.Header>
                     <dxlc:LayoutGroup>
-                        <dxlc:LayoutItem Label="Bank" FontFamily="Tahoma" >
+                        <dxlc:LayoutItem Label="Bank" FontFamily="Tahoma">
                             <dxe:TextEdit Text="{Binding Client.BankName}" FontFamily="Tahoma" />
                         </dxlc:LayoutItem>
                     </dxlc:LayoutGroup>
                     <dxlc:LayoutGroup>
-                        <dxlc:LayoutItem Label="IBAN" FontFamily="Tahoma" >
+                        <dxlc:LayoutItem Label="IBAN" FontFamily="Tahoma">
                             <dxe:TextEdit Text="{Binding Client.IBAN}" FontFamily="Tahoma" />
                         </dxlc:LayoutItem>
-                        <dxlc:LayoutItem Label="BIC" FontFamily="Tahoma" >
+                        <dxlc:LayoutItem Label="BIC" FontFamily="Tahoma">
                             <dxe:TextEdit Text="{Binding Client.BIC}" FontFamily="Tahoma" />
                         </dxlc:LayoutItem>
                     </dxlc:LayoutGroup>
                 </dxlc:LayoutGroup>
 
-                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" IsCollapsible="True" IsEnabled="{Binding CompanyIsNotNull}">
+                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" IsCollapsible="True"
+                                  IsEnabled="{Binding CompanyIsNotNull}">
                     <dxlc:LayoutGroup.Header>
                         <TextBlock Text="Steuern" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                     </dxlc:LayoutGroup.Header>
                     <dxlc:LayoutGroup>
-                        <dxlc:LayoutItem Label="Vorausgewählte Steuer" FontFamily="Tahoma" >
-                            <dxe:ComboBoxEdit ItemsSource="{Binding TaxTypes}" DisplayMember="Description" ValueMember="TaxTypeId"
-                                              FontFamily="Tahoma" EditValue="{Binding SelectedTaxTypeId}" Foreground="#3f729b" />
+                        <dxlc:LayoutItem Label="Vorausgewählte Steuer" FontFamily="Tahoma">
+                            <dxe:ComboBoxEdit ItemsSource="{Binding TaxTypes}" DisplayMember="Description"
+                                              ValueMember="TaxTypeId"
+                                              FontFamily="Tahoma" EditValue="{Binding SelectedTaxTypeId}"
+                                              Foreground="#3f729b" />
                         </dxlc:LayoutItem>
                     </dxlc:LayoutGroup>
-                    <dxlc:LayoutGroup Visibility="{Binding SelectedClientType, Converter={StaticResource TypeVisConverter}}">
-                        <dxlc:LayoutItem Label="Umsatzsteuer-Id" FontFamily="Tahoma" >
+                    <dxlc:LayoutGroup
+                        Visibility="{Binding SelectedClientType, Converter={StaticResource TypeVisConverter}}">
+                        <dxlc:LayoutItem Label="Umsatzsteuer-Id" FontFamily="Tahoma">
                             <dxe:TextEdit Text="{Binding Client.Company.UStID}" FontFamily="Tahoma" />
                         </dxlc:LayoutItem>
-                        <dxlc:LayoutItem Label="Steuernummer" FontFamily="Tahoma" >
+                        <dxlc:LayoutItem Label="Steuernummer" FontFamily="Tahoma">
                             <dxe:TextEdit Text="{Binding Client.Company.TaxNumber}" FontFamily="Tahoma" />
                         </dxlc:LayoutItem>
                     </dxlc:LayoutGroup>
                 </dxlc:LayoutGroup>
 
-                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" IsCollapsible="True" IsEnabled="{Binding CompanyIsNotNull}">
+                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" IsCollapsible="True"
+                                  IsEnabled="{Binding CompanyIsNotNull}">
                     <dxlc:LayoutGroup.Header>
                         <TextBlock Text="Allgemeines" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                     </dxlc:LayoutGroup.Header>
                     <dxlc:LayoutGroup>
-                        <dxlc:LayoutItem Label="Telefon" FontFamily="Tahoma" >
+                        <dxlc:LayoutItem Label="Telefon" FontFamily="Tahoma">
                             <dxe:TextEdit Text="{Binding Client.Phone}" FontFamily="Tahoma" />
                         </dxlc:LayoutItem>
-                        <dxlc:LayoutItem Label="Fax" FontFamily="Tahoma" >
+                        <dxlc:LayoutItem Label="Fax" FontFamily="Tahoma">
                             <dxe:TextEdit Text="{Binding Client.Fax}" FontFamily="Tahoma" />
                         </dxlc:LayoutItem>
                     </dxlc:LayoutGroup>
-                    <dxlc:LayoutGroup >
-                        <dxlc:LayoutItem Label="E-Mail" FontFamily="Tahoma" >
+                    <dxlc:LayoutGroup>
+                        <dxlc:LayoutItem Label="E-Mail" FontFamily="Tahoma">
                             <dxe:TextEdit Text="{Binding Client.Mail}" FontFamily="Tahoma" />
                         </dxlc:LayoutItem>
-                        <dxlc:LayoutItem Label="Website" FontFamily="Tahoma" Visibility="{Binding SelectedClientType, Converter={StaticResource TypeVisConverter}}">
+                        <dxlc:LayoutItem Label="Website" FontFamily="Tahoma"
+                                         Visibility="{Binding SelectedClientType, Converter={StaticResource TypeVisConverter}}">
                             <dxe:TextEdit Text="{Binding Client.Company.Website}" FontFamily="Tahoma" />
                         </dxlc:LayoutItem>
                     </dxlc:LayoutGroup>
                 </dxlc:LayoutGroup>
-
             </dxlc:LayoutControl>
         </ScrollViewer>
     </Grid>

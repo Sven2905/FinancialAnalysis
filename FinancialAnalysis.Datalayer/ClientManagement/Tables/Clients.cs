@@ -4,8 +4,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
-using FinancialAnalysis.Datalayer.StoredProcedures;
-using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.ClientManagement;
 using Serilog;
 
@@ -154,24 +152,24 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
         /// <returns></returns>
         public Client GetById(int id)
         {
-            string sql = "SELECT cl.*, co.* " +
-                    $"FROM {TableName} cl " +
-                    $"LEFT JOIN Companies co ON cl.ClientId = co.RefClientId " +
-                    $"WHERE ClientId = {id}";
+            var sql = "SELECT cl.*, co.* " +
+                      $"FROM {TableName} cl " +
+                      "LEFT JOIN Companies co ON cl.ClientId = co.RefClientId " +
+                      $"WHERE ClientId = {id}";
 
             using (IDbConnection con =
-                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
             {
                 con.Open();
 
                 var clients = con.Query<Client, Company, Client>(
-                        sql,
-                        (client, Company) =>
-                        {
-                            client.Company = Company;
-                            return client;
-                        },
-                        splitOn: "CompanyId");
+                    sql,
+                    (client, Company) =>
+                    {
+                        client.Company = Company;
+                        return client;
+                    },
+                    splitOn: "CompanyId");
 
                 return clients.FirstOrDefault();
             }
@@ -258,7 +256,7 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @ClientId", new { ClientId = id });
+                    con.Execute($"dbo.{TableName}_Delete @ClientId", new {ClientId = id});
                 }
             }
             catch (Exception e)
@@ -280,7 +278,7 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     IsInUse = con.ExecuteScalar<bool>($"dbo.{TableName}_IsClientInUse @ClientId",
-                        new { ClientId = id });
+                        new {ClientId = id});
                 }
             }
             catch (Exception e)

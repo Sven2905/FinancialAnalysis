@@ -14,8 +14,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public KontenrahmenViewModel()
         {
-            if (IsInDesignMode)
-                return;
+            if (IsInDesignMode) return;
 
             RefreshCostAccounts();
             RefreshCommand = new DelegateCommand(() => { RefreshCostAccounts(); });
@@ -80,6 +79,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 if (_Filter == value) return;
+
                 _Filter = value;
                 RaisePropertyChanged();
                 FilterList();

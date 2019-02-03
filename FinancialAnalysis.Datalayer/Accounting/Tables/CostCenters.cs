@@ -100,7 +100,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @Identifier, @RefCostCenterCategoryId, @Description ", CostCenter);
+                    var result =
+                        con.Query<int>(
+                            $"dbo.{TableName}_Insert @Name, @Identifier, @RefCostCenterCategoryId, @Description ",
+                            CostCenter);
                     id = result.Single();
                 }
             }
@@ -145,13 +148,14 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<CostCenter, CostCenterCategory, CostCenter>($"dbo.{TableName}_GetById @CostCenterId",
+                    output = con.Query<CostCenter, CostCenterCategory, CostCenter>(
+                        $"dbo.{TableName}_GetById @CostCenterId",
                         (objCostCenter, objCostCenterCategory) =>
                         {
                             objCostCenter.CostCenterCategory = objCostCenterCategory;
 
                             return objCostCenter;
-                        }, new { CostCenterId = id }, splitOn: "CostCenterCategoryId",
+                        }, new {CostCenterId = id}, splitOn: "CostCenterCategoryId",
                         commandType: CommandType.StoredProcedure).ToList();
                 }
             }
@@ -200,7 +204,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @CostCenterId, @Name, @Identifier, @RefCostCenterCategoryId, @Description", CostCenter);
+                    con.Execute(
+                        $"dbo.{TableName}_Update @CostCenterId, @Name, @Identifier, @RefCostCenterCategoryId, @Description",
+                        CostCenter);
                 }
             }
             catch (Exception e)
@@ -220,7 +226,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @CostCenterId", new { CostCenterId = id });
+                    con.Execute($"dbo.{TableName}_Delete @CostCenterId", new {CostCenterId = id});
                 }
             }
             catch (Exception e)
@@ -236,7 +242,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
 
         private void AddCostCenterCategoriesReference()
         {
-            string refTable = "CostCenterCategories";
+            var refTable = "CostCenterCategories";
 
             try
             {

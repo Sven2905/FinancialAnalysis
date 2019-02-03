@@ -1,4 +1,10 @@
-﻿using DevExpress.Mvvm;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using DevExpress.Mvvm;
 using DevExpress.Xpf.Dialogs;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
@@ -6,11 +12,6 @@ using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.ProjectManagement;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -21,10 +22,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public BookingViewModel()
         {
-            if (IsInDesignMode)
-            {
-                return;
-            }
+            if (IsInDesignMode) return;
 
             SetCommands();
 
@@ -56,9 +54,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 CostCenters = DataContext.Instance.CostCenters.GetAll().ToSvenTechCollection();
                 Projects = DataContext.Instance.Projects.GetAll().ToSvenTechCollection();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -73,29 +71,24 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             GetCreditorCommand = new DelegateCommand(() =>
             {
-                Messenger.Default.Send(new OpenKontenrahmenWindowMessage { AccountingType = AccountingType.Credit });
+                Messenger.Default.Send(new OpenKontenrahmenWindowMessage {AccountingType = AccountingType.Credit});
             });
 
             GetDebitorCommand = new DelegateCommand(() =>
             {
-                Messenger.Default.Send(new OpenKontenrahmenWindowMessage { AccountingType = AccountingType.Debit });
+                Messenger.Default.Send(new OpenKontenrahmenWindowMessage {AccountingType = AccountingType.Debit});
             });
 
             OpenFileCommand = new DelegateCommand(() =>
             {
                 var fileDialog = new DXOpenFileDialog();
-                if (fileDialog.ShowDialog().Value)
-                {
-                    CreateScannedDocumentItem(fileDialog.FileName);
-                }
+                if (fileDialog.ShowDialog().Value) CreateScannedDocumentItem(fileDialog.FileName);
             });
 
             DoubleClickListBoxCommand = new DelegateCommand(() =>
             {
                 if (SelectedScannedDocument != null)
-                {
                     Messenger.Default.Send(new OpenPDFViewerWindowMessage(SelectedScannedDocument.Path));
-                }
             });
 
             AddToStackCommand = new DelegateCommand(() =>
@@ -112,17 +105,15 @@ namespace FinancialAnalysis.Logic.ViewModels
                 ClearForm();
             }, () => ValidateBooking());
 
-            DeleteSelectedScannedDocumentCommand = new DelegateCommand(DeleteSelectedScannedDocument, () => (ScannedDocuments.Count > 0));
+            DeleteSelectedScannedDocumentCommand =
+                new DelegateCommand(DeleteSelectedScannedDocument, () => ScannedDocuments.Count > 0);
 
             CancelCommand = new DelegateCommand(ClearForm);
         }
 
         private void DeleteSelectedScannedDocument()
         {
-            if (SelectedScannedDocument != null)
-            {
-                ScannedDocuments.Remove(SelectedScannedDocument);
-            }
+            if (SelectedScannedDocument != null) ScannedDocuments.Remove(SelectedScannedDocument);
         }
 
         private void CreateScannedDocumentItem(string path)
@@ -153,6 +144,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                     CostAccountCreditor = selectedCostAccount.CostAccount;
                     CostAccountCreditorId = selectedCostAccount.CostAccount.CostAccountId;
                     break;
+
                 case AccountingType.Debit:
                     CostAccountDebitor = selectedCostAccount.CostAccount;
                     CostAccountDebitorId = selectedCostAccount.CostAccount.CostAccountId;
@@ -167,10 +159,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private Booking CreateBookingItem()
         {
-            if (!ValidateBooking())
-            {
-                return null;
-            }
+            if (!ValidateBooking()) return null;
 
             var booking = new Booking(Amount, Date, Description);
 
@@ -190,8 +179,8 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
             }
 
-            Debit debit = new Debit();
-            Credit credit = new Credit();
+            var debit = new Debit();
+            var credit = new Credit();
 
             if (SelectedBookingType == BookingType.Invoice)
             {
@@ -215,7 +204,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                     debit = new Debit(Amount, CostAccountDebitorId, booking.BookingId);
                 }
             }
-            else if(SelectedBookingType == BookingType.CreditAdvice)
+            else if (SelectedBookingType == BookingType.CreditAdvice)
             {
                 if (SelectedTax.Description.ToLower().Contains("Vorsteuer"))
                 {
@@ -247,10 +236,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveBookingToDB(Booking booking)
         {
-            if (booking == null)
-            {
-                return;
-            }
+            if (booking == null) return;
 
             var bookingId = 0;
 
@@ -258,9 +244,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 bookingId = DataContext.Instance.Bookings.Insert(booking);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
 
             foreach (var item in booking.Credits)
@@ -271,9 +257,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     DataContext.Instance.Credits.Insert(item);
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
-                    Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                    Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
                 }
             }
 
@@ -284,9 +270,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     DataContext.Instance.Debits.Insert(item);
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
-                    Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                    Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
                 }
             }
 
@@ -298,9 +284,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     DataContext.Instance.ScannedDocuments.Insert(item);
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
-                    Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                    Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
                 }
             }
         }
@@ -309,18 +295,12 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             var bookingItem = CreateBookingItem();
 
-            if (bookingItem != null)
-            {
-                BookingsOnStack.Add(bookingItem);
-            }
+            if (bookingItem != null) BookingsOnStack.Add(bookingItem);
         }
 
         private void SaveStackToDb()
         {
-            foreach (var item in BookingsOnStack)
-            {
-                SaveBookingToDB(item);
-            }
+            foreach (var item in BookingsOnStack) SaveBookingToDB(item);
 
             BookingsOnStack.Clear();
         }
@@ -331,12 +311,14 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (CostAccountCreditor != null && CostAccountCreditor.AccountNumber > 69999)
             {
                 FilteredTaxTypes.Add(Globals.CoreData.TaxTypes[0]);
-                FilteredTaxTypes.AddRange(Globals.CoreData.TaxTypes.Where(x => x.Description.ToLower().Contains("vorsteuer")));
+                FilteredTaxTypes.AddRange(
+                    Globals.CoreData.TaxTypes.Where(x => x.Description.ToLower().Contains("vorsteuer")));
             }
             else if (CostAccountDebitor != null && CostAccountDebitor.AccountNumber > 9999)
             {
                 FilteredTaxTypes.Add(Globals.CoreData.TaxTypes[0]);
-                FilteredTaxTypes.AddRange(Globals.CoreData.TaxTypes.Where(x => x.Description.ToLower().Contains("umsatzsteuer")));
+                FilteredTaxTypes.AddRange(
+                    Globals.CoreData.TaxTypes.Where(x => x.Description.ToLower().Contains("umsatzsteuer")));
             }
             else
             {
@@ -355,7 +337,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 _costAccountCreditorId = value;
                 CostAccountCreditor = CostAccounts.Single(x => x.CostAccountId == value);
-                
             }
         }
 
@@ -378,7 +359,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand OpenFileCommand { get; set; }
         public DelegateCommand DoubleClickListBoxCommand { get; set; }
         public DelegateCommand DeleteSelectedScannedDocumentCommand { get; set; }
-        public User ActualUser { get { return Globals.ActualUser; } }
+        public User ActualUser => Globals.ActualUser;
 
         public CostAccount CostAccountCreditor
         {
@@ -404,7 +385,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         public ScannedDocument SelectedScannedDocument { get; set; }
         public BookingType SelectedBookingType { get; set; } = BookingType.Invoice;
 
-        public ObservableCollection<ScannedDocument> ScannedDocuments { get; set; } = new ObservableCollection<ScannedDocument>();
+        public ObservableCollection<ScannedDocument> ScannedDocuments { get; set; } =
+            new ObservableCollection<ScannedDocument>();
 
         public decimal Amount
         {

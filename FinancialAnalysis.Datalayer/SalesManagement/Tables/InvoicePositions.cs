@@ -69,7 +69,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @RefInvoiceId, @RefSalesOrderPositionId, @Quantity ",
+                    var result = con.Query<int>(
+                        $"dbo.{TableName}_Insert @RefInvoiceId, @RefSalesOrderPositionId, @Quantity ",
                         InvoicePosition);
                     return result.Single();
                 }
@@ -102,14 +103,13 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
             }
         }
 
-
         /// <summary>
         ///     Update InvoicePosition, if not exist, insert it
         /// </summary>
         /// <param name="InvoicePosition"></param>
         public void UpdateOrInsert(InvoicePosition InvoicePosition)
         {
-            if (InvoicePosition.InvoicePositionId == 0 )
+            if (InvoicePosition.InvoicePositionId == 0)
             {
                 Insert(InvoicePosition);
                 return;
@@ -133,15 +133,15 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         /// <param name="InvoicePosition"></param>
         public void Update(InvoicePosition InvoicePosition)
         {
-            if (InvoicePosition.InvoicePositionId == 0)
-                return;
+            if (InvoicePosition.InvoicePositionId == 0) return;
 
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @InvoicePositionId, @RefInvoiceId, @RefSalesOrderPositionId, @Quantity ",
+                    con.Execute(
+                        $"dbo.{TableName}_Update @InvoicePositionId, @RefInvoiceId, @RefSalesOrderPositionId, @Quantity ",
                         InvoicePosition);
                 }
             }
@@ -188,7 +188,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
         private void AddSalesOrderPositionsReference()
         {
-            string refTable = "SalesOrderPositions";
+            var refTable = "SalesOrderPositions";
 
             try
             {
@@ -212,7 +212,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
         private void AddInvoicesReference()
         {
-            string refTable = "Invoices";
+            var refTable = "Invoices";
 
             try
             {

@@ -1,37 +1,26 @@
-﻿using DevExpress.Mvvm;
+﻿using System;
+using System.Windows;
+using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.SalesManagement;
-using System;
-using System.Windows.Media.Imaging;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
     public class SalesTypesViewModel : ViewModelBase
     {
-        #region Fields
-
-        private readonly SalesType _SelectedSalesType;
-        private SvenTechCollection<SalesType> _SalesTypes = new SvenTechCollection<SalesType>();
-        private string _FilterText = string.Empty;
-
-        #endregion Fields
-
         #region Constructor
 
         public SalesTypesViewModel()
         {
-            if (IsInDesignMode)
-            {
-                return;
-            }
+            if (IsInDesignMode) return;
 
             FilteredSalesTypes = _SalesTypes = LoadAllSalesTypes();
             NewSalesTypeCommand = new DelegateCommand(NewSalesType);
             SaveSalesTypeCommand = new DelegateCommand(SaveSalesType, () => Validation());
-            DeleteSalesTypeCommand = new DelegateCommand(DeleteSalesType, () => (SelectedSalesType != null));
+            DeleteSalesTypeCommand = new DelegateCommand(DeleteSalesType, () => SelectedSalesType != null);
             SelectedCommand = new DelegateCommand(() =>
             {
                 SendSelectedToParent();
@@ -41,18 +30,26 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #endregion Constructor
 
+        #region Fields
+
+        private readonly SalesType _SelectedSalesType;
+        private readonly SvenTechCollection<SalesType> _SalesTypes = new SvenTechCollection<SalesType>();
+        private string _FilterText = string.Empty;
+
+        #endregion Fields
+
         #region Methods
 
         private SvenTechCollection<SalesType> LoadAllSalesTypes()
         {
-            SvenTechCollection<SalesType> allSalesTypes = new SvenTechCollection<SalesType>();
+            var allSalesTypes = new SvenTechCollection<SalesType>();
             try
             {
                 allSalesTypes = DataContext.Instance.SalesTypes.GetAll().ToSvenTechCollection();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
 
             return allSalesTypes;
@@ -66,10 +63,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteSalesType()
         {
-            if (SelectedSalesType == null)
-            {
-                return;
-            }
+            if (SelectedSalesType == null) return;
 
             if (SelectedSalesType.SalesTypeId == 0)
             {
@@ -84,9 +78,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _SalesTypes.Remove(SelectedSalesType);
                 SelectedSalesType = null;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -95,46 +89,30 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedSalesType.SalesTypeId != 0)
-                {
                     DataContext.Instance.SalesTypes.Update(SelectedSalesType);
-                }
                 else
-                {
                     SelectedSalesType.SalesTypeId = DataContext.Instance.SalesTypes.Insert(SelectedSalesType);
-                }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
         private bool Validation()
         {
-            if (SelectedSalesType == null)
-            {
-                return false;
-            }
-            if (string.IsNullOrEmpty(SelectedSalesType.Name))
-            {
-                return false;
-            }
+            if (SelectedSalesType == null) return false;
+            if (string.IsNullOrEmpty(SelectedSalesType.Name)) return false;
             return true;
         }
 
         public void SendSelectedToParent()
         {
-            if (SelectedSalesType == null)
-            {
-                return;
-            }
+            if (SelectedSalesType == null) return;
 
-            if (SelectedSalesType.SalesTypeId == 0)
-            {
-                SaveSalesType();
-            }
+            if (SelectedSalesType.SalesTypeId == 0) SaveSalesType();
 
-            Messenger.Default.Send(new SelectedSalesType { SalesType = SelectedSalesType });
+            Messenger.Default.Send(new SelectedSalesType {SalesType = SelectedSalesType});
         }
 
         #endregion Methods
@@ -149,7 +127,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public string FilterText
         {
-            get { return _FilterText; }
+            get => _FilterText;
             set
             {
                 _FilterText = value;
@@ -157,12 +135,8 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     FilteredSalesTypes = new SvenTechCollection<SalesType>();
                     foreach (var item in _SalesTypes)
-                    {
                         if (item.Name.Contains(FilterText))
-                        {
                             FilteredSalesTypes.Add(item);
-                        }
-                    }
                 }
                 else
                 {
@@ -171,9 +145,10 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
             }
         }
+
         public SalesType SelectedSalesType { get; set; }
         public Action CloseAction { get; set; }
-        public User ActualUser { get { return Globals.ActualUser; } }
+        public User ActualUser => Globals.ActualUser;
 
         #endregion Properties
     }

@@ -94,7 +94,7 @@
     <Compile Include="ClientManagement\Tables\Clients.cs" />
     <Compile Include="Configurations\StoredProcedures\MailConfigurationsStoredProcedures.cs" />
     <Compile Include="Configurations\Tables\MailConfigurations.cs" />
-    <Compile Include="DataLayer.cs" />
+    <Compile Include="DataContext.cs" />
     <Compile Include="Helper\DatabaseNames.cs" />
     <Compile Include="Helper\Helper.cs" />
     <Compile Include="SalesManagement\StoredProcedures\ShippedProductsStoredProcedures.cs" />
@@ -115,7 +115,7 @@
     <Compile Include="ProductManagement\StoredProcedures\ProductsStoredProcedures.cs" />
     <Compile Include="ProductManagement\Tables\ProductCategories.cs" />
     <Compile Include="ProductManagement\Tables\Products.cs" />
-    <Compile Include="ProjectManagement\StoredProcedures\ProjectRolesStoredProcedures .cs" />
+    <Compile Include="ProjectManagement\StoredProcedures\ProjectRolesStoredProcedures.cs" />
     <Compile Include="ProjectManagement\StoredProcedures\HealthInsurancesStoredProcedures.cs" />
     <Compile Include="ProjectManagement\StoredProcedures\EmployeesStoredProcedures.cs" />
     <Compile Include="ProjectManagement\StoredProcedures\ProjectEmployeeMappingsStoredProcedures.cs" />

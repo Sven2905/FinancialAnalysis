@@ -138,7 +138,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<PaymentCondition>($"dbo.{TableName}_GetById @PaymentConditionId", new { PaymentConditionId = id});
+                    output = con.QuerySingleOrDefault<PaymentCondition>($"dbo.{TableName}_GetById @PaymentConditionId",
+                        new {PaymentConditionId = id});
                 }
             }
             catch (Exception e)

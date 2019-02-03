@@ -33,7 +33,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                    $"SELECT InvoiceTypeId, Name, Description " +
+                    "SELECT InvoiceTypeId, Name, Description " +
                     $"FROM {TableName} END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

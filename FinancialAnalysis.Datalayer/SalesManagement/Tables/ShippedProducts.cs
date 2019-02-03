@@ -69,7 +69,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @RefShipmentId, @RefSalesOrderPositionId, @Quantity ",
+                    var result = con.Query<int>(
+                        $"dbo.{TableName}_Insert @RefShipmentId, @RefSalesOrderPositionId, @Quantity ",
                         ShippedProduct);
                     return result.Single();
                 }
@@ -102,14 +103,13 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
             }
         }
 
-
         /// <summary>
         ///     Update ShippedProduct, if not exist, insert it
         /// </summary>
         /// <param name="ShippedProduct"></param>
         public void UpdateOrInsert(ShippedProduct ShippedProduct)
         {
-            if (ShippedProduct.ShippedProductId == 0 )
+            if (ShippedProduct.ShippedProductId == 0)
             {
                 Insert(ShippedProduct);
                 return;
@@ -133,15 +133,15 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         /// <param name="ShippedProduct"></param>
         public void Update(ShippedProduct ShippedProduct)
         {
-            if (ShippedProduct.ShippedProductId == 0)
-                return;
+            if (ShippedProduct.ShippedProductId == 0) return;
 
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @ShippedProductId, @RefShipmentId, @RefSalesOrderPositionId, @Quantity ",
+                    con.Execute(
+                        $"dbo.{TableName}_Update @ShippedProductId, @RefShipmentId, @RefSalesOrderPositionId, @Quantity ",
                         ShippedProduct);
                 }
             }
@@ -188,7 +188,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
         private void AddSalesOrderPositionsReference()
         {
-            string refTable = "SalesOrderPositions";
+            var refTable = "SalesOrderPositions";
 
             try
             {
@@ -212,7 +212,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
         private void AddShipmentsReference()
         {
-            string refTable = "Shipments";
+            var refTable = "Shipments";
 
             try
             {

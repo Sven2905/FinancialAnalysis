@@ -1,11 +1,11 @@
-﻿using Dapper;
-using FinancialAnalysis.Models.Administration;
-using Serilog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using Dapper;
+using FinancialAnalysis.Models.Administration;
+using Serilog;
 
 namespace FinancialAnalysis.Datalayer.Administration
 {
@@ -75,38 +75,38 @@ namespace FinancialAnalysis.Datalayer.Administration
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     var query = con.Query<User, UserRightUserMapping, UserRight, User>
-                    ($"dbo.{TableName}_GetAll",
-                        (u, m, r) =>
-                        {
-                            User userEntry = new User();
-
-                            if (!userDictionary.TryGetValue(u.UserId, out userEntry))
+                        ($"dbo.{TableName}_GetAll",
+                            (u, m, r) =>
                             {
-                                userEntry = u;
-                                if (m != null)
-                                {
-                                    userEntry.UserRights.Add(r, m.IsGranted);
-                                    m.User = u;
-                                    m.UserRight = r;
-                                    userEntry.UserRightUserMappings.Add(m);
-                                }
-                                userDictionary.Add(userEntry.UserId, userEntry);
-                            }
-                            else
-                            {
-                                if (m != null)
-                                {
-                                    userEntry.UserRights.Add(r, m.IsGranted);
-                                    m.User = u;
-                                    m.UserRight = r;
-                                    userEntry.UserRightUserMappings.Add(m);
-                                }
-                            }
+                                var userEntry = new User();
 
-                            return u;
+                                if (!userDictionary.TryGetValue(u.UserId, out userEntry))
+                                {
+                                    userEntry = u;
+                                    if (m != null)
+                                    {
+                                        userEntry.UserRights.Add(r, m.IsGranted);
+                                        m.User = u;
+                                        m.UserRight = r;
+                                        userEntry.UserRightUserMappings.Add(m);
+                                    }
 
-                        }, splitOn: "UserId, UserRightUserMappingId, UserRightId")
-                    .AsQueryable();
+                                    userDictionary.Add(userEntry.UserId, userEntry);
+                                }
+                                else
+                                {
+                                    if (m != null)
+                                    {
+                                        userEntry.UserRights.Add(r, m.IsGranted);
+                                        m.User = u;
+                                        m.UserRight = r;
+                                        userEntry.UserRightUserMappings.Add(m);
+                                    }
+                                }
+
+                                return u;
+                            }, splitOn: "UserId, UserRightUserMappingId, UserRightId")
+                        .AsQueryable();
 
                     return userDictionary.Values;
                 }
@@ -142,6 +142,7 @@ namespace FinancialAnalysis.Datalayer.Administration
             {
                 Log.Error($"Exception occured while 'Insert item' into table '{TableName}'", e);
             }
+
             return User;
         }
 
@@ -156,10 +157,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var User in Users)
-                    {
-                        Insert(User);
-                    }
+                    foreach (var User in Users) Insert(User);
                 }
             }
             catch (Exception e)
@@ -182,38 +180,38 @@ namespace FinancialAnalysis.Datalayer.Administration
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     var query = con.Query<User, UserRightUserMapping, UserRight, User>
-                    ($"dbo.{TableName}_GetById @UserId",
-                        (u, m, r) =>
-                        {
-                            User userEntry = new User();
-
-                            if (!userDictionary.TryGetValue(u.UserId, out userEntry))
+                        ($"dbo.{TableName}_GetById @UserId",
+                            (u, m, r) =>
                             {
-                                userEntry = u;
-                                if (m != null)
-                                {
-                                    userEntry.UserRights.Add(r, m.IsGranted);
-                                    m.User = u;
-                                    m.UserRight = r;
-                                    userEntry.UserRightUserMappings.Add(m);
-                                }
-                                userDictionary.Add(userEntry.UserId, userEntry);
-                            }
-                            else
-                            {
-                                if (m != null)
-                                {
-                                    userEntry.UserRights.Add(r, m.IsGranted);
-                                    m.User = u;
-                                    m.UserRight = r;
-                                    userEntry.UserRightUserMappings.Add(m);
-                                }
-                            }
+                                var userEntry = new User();
 
-                            return u;
+                                if (!userDictionary.TryGetValue(u.UserId, out userEntry))
+                                {
+                                    userEntry = u;
+                                    if (m != null)
+                                    {
+                                        userEntry.UserRights.Add(r, m.IsGranted);
+                                        m.User = u;
+                                        m.UserRight = r;
+                                        userEntry.UserRightUserMappings.Add(m);
+                                    }
 
-                        }, new { UserId = id }, splitOn: "UserId, UserRightUserMappingId, UserRightId")
-                    .AsQueryable();
+                                    userDictionary.Add(userEntry.UserId, userEntry);
+                                }
+                                else
+                                {
+                                    if (m != null)
+                                    {
+                                        userEntry.UserRights.Add(r, m.IsGranted);
+                                        m.User = u;
+                                        m.UserRight = r;
+                                        userEntry.UserRightUserMappings.Add(m);
+                                    }
+                                }
+
+                                return u;
+                            }, new {UserId = id}, splitOn: "UserId, UserRightUserMappingId, UserRightId")
+                        .AsQueryable();
 
                     return userDictionary.Values.First();
                 }
@@ -222,6 +220,7 @@ namespace FinancialAnalysis.Datalayer.Administration
             {
                 Log.Error($"Exception occured while '_GetUserByNameAndPassword' from table '{TableName}'", e);
             }
+
             return null;
         }
 
@@ -237,38 +236,38 @@ namespace FinancialAnalysis.Datalayer.Administration
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     var query = con.Query<User, UserRightUserMapping, UserRight, User>
-                    ($"dbo.{TableName}_GetUserByNameAndPassword @LoginUser, @Password",
-                        (u, m, r) =>
-                        {
-                            User userEntry = new User();
-
-                            if (!userDictionary.TryGetValue(u.UserId, out userEntry))
+                        ($"dbo.{TableName}_GetUserByNameAndPassword @LoginUser, @Password",
+                            (u, m, r) =>
                             {
-                                userEntry = u;
-                                if (m != null)
-                                {
-                                    userEntry.UserRights.Add(r, m.IsGranted);
-                                    m.User = u;
-                                    m.UserRight = r;
-                                    userEntry.UserRightUserMappings.Add(m);
-                                }
-                                userDictionary.Add(userEntry.UserId, userEntry);
-                            }
-                            else
-                            {
-                                if (m != null)
-                                {
-                                    userEntry.UserRights.Add(r, m.IsGranted);
-                                    m.User = u;
-                                    m.UserRight = r;
-                                    userEntry.UserRightUserMappings.Add(m);
-                                }
-                            }
+                                var userEntry = new User();
 
-                            return u;
+                                if (!userDictionary.TryGetValue(u.UserId, out userEntry))
+                                {
+                                    userEntry = u;
+                                    if (m != null)
+                                    {
+                                        userEntry.UserRights.Add(r, m.IsGranted);
+                                        m.User = u;
+                                        m.UserRight = r;
+                                        userEntry.UserRightUserMappings.Add(m);
+                                    }
 
-                        }, new { LoginUser, Password }, splitOn: "UserId, UserRightUserMappingId, UserRightId")
-                    .AsQueryable();
+                                    userDictionary.Add(userEntry.UserId, userEntry);
+                                }
+                                else
+                                {
+                                    if (m != null)
+                                    {
+                                        userEntry.UserRights.Add(r, m.IsGranted);
+                                        m.User = u;
+                                        m.UserRight = r;
+                                        userEntry.UserRightUserMappings.Add(m);
+                                    }
+                                }
+
+                                return u;
+                            }, new {LoginUser, Password}, splitOn: "UserId, UserRightUserMappingId, UserRightId")
+                        .AsQueryable();
 
                     return userDictionary.Values.FirstOrDefault();
                 }
@@ -277,6 +276,7 @@ namespace FinancialAnalysis.Datalayer.Administration
             {
                 Log.Error($"Exception occured while '_GetUserByNameAndPassword' from table '{TableName}'", e);
             }
+
             return null;
         }
 
@@ -286,10 +286,7 @@ namespace FinancialAnalysis.Datalayer.Administration
         /// <param name="User"></param>
         public User UpdateOrInsert(User User)
         {
-            if (User.UserId == 0 || GetById(User.UserId) is null)
-            {
-                return Insert(User);
-            }
+            if (User.UserId == 0 || GetById(User.UserId) is null) return Insert(User);
 
             Update(User);
             return User;
@@ -301,10 +298,7 @@ namespace FinancialAnalysis.Datalayer.Administration
         /// <param name="User"></param>
         public void UpdateOrInsert(IEnumerable<User> Users)
         {
-            foreach (var User in Users)
-            {
-                UpdateOrInsert(User);
-            }
+            foreach (var User in Users) UpdateOrInsert(User);
         }
 
         /// <summary>
@@ -313,17 +307,16 @@ namespace FinancialAnalysis.Datalayer.Administration
         /// <param name="User"></param>
         public void Update(User User)
         {
-            if (User.UserId == 0)
-            {
-                return;
-            }
+            if (User.UserId == 0) return;
 
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @UserId, @Picture, @Firstname, @Lastname, @Contraction, @Mail, @IsActive, @IsAdministrator, @LoginUser", User);
+                    con.Execute(
+                        $"dbo.{TableName}_Update @UserId, @Picture, @Firstname, @Lastname, @Contraction, @Mail, @IsActive, @IsAdministrator, @LoginUser",
+                        User);
                 }
             }
             catch (Exception e)
@@ -338,10 +331,7 @@ namespace FinancialAnalysis.Datalayer.Administration
         /// <param name="User"></param>
         public void UpdatePassword(User User)
         {
-            if (User.UserId == 0 || GetById(User.UserId) is null)
-            {
-                return;
-            }
+            if (User.UserId == 0 || GetById(User.UserId) is null) return;
 
             try
             {
@@ -368,7 +358,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @UserId", new { UserId = id });
+                    con.Execute($"dbo.{TableName}_Delete @UserId", new {UserId = id});
                 }
             }
             catch (Exception e)

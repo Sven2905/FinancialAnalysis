@@ -37,8 +37,8 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                     "pc.ProductCategoryId, pc.Name, pc.Description, " +
                     "t.TaxTypeId, t.Description, t.DescriptionShort, t.AmountOfTax, t.TaxCategory, t.RefCostAccount, t.RefAccountNotPayable " +
                     $"FROM {TableName} p " +
-                    $"LEFT JOIN ProductCategories pc ON p.RefProductCategoryId = pc.ProductCategoryId " +
-                    $"LEFT JOIN TaxTypes t ON p.RefTaxTypeID = t.TaxTypeId " +
+                    "LEFT JOIN ProductCategories pc ON p.RefProductCategoryId = pc.ProductCategoryId " +
+                    "LEFT JOIN TaxTypes t ON p.RefTaxTypeID = t.TaxTypeId " +
                     "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -91,8 +91,8 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                     "pc.ProductCategoryId, pc.Name, pc.Description, " +
                     "t.TaxTypeId, t.Description, t.DescriptionShort, t.AmountOfTax, t.TaxCategory, t.RefCostAccount, t.RefAccountNotPayable " +
                     $"FROM {TableName} p " +
-                    $"LEFT JOIN ProductCategories pc ON p.RefProductCategoryId = pc.ProductCategoryId " +
-                    $"LEFT JOIN TaxTypes t ON p.RefTaxTypeID = t.TaxTypeId " +
+                    "LEFT JOIN ProductCategories pc ON p.RefProductCategoryId = pc.ProductCategoryId " +
+                    "LEFT JOIN TaxTypes t ON p.RefTaxTypeID = t.TaxTypeId " +
                     "WHERE ProductId = @ProductId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

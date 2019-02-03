@@ -1,9 +1,4 @@
 ﻿using DevExpress.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Logic.ViewModels.Accounting
 {
@@ -11,8 +6,7 @@ namespace FinancialAnalysis.Logic.ViewModels.Accounting
     {
         public PaymentConditionViewModel()
         {
-            if (IsInDesignMode)
-                return;
+            if (IsInDesignMode) return;
         }
     }
 }

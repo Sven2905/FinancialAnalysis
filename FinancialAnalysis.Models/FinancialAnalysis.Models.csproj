@@ -86,9 +86,18 @@
     <Compile Include="Administration\UserRightUserMapping.cs" />
     <Compile Include="Administration\UserRightUserMappingFlatStructure.cs" />
     <Compile Include="BaseClasses\OrderPositionItem.cs" />
+    <Compile Include="Enums\BookingType.cs" />
+    <Compile Include="Enums\CivilStatus.cs" />
     <Compile Include="ClientManagement\Client.cs" />
+    <Compile Include="Enums\ClientType.cs" />
+    <Compile Include="Enums\CostAccountType.cs" />
+    <Compile Include="Enums\CustomerType.cs" />
+    <Compile Include="Enums\FederalState.cs" />
+    <Compile Include="Enums\Gender.cs" />
     <Compile Include="General\SvenTechColors.cs" />
+    <Compile Include="Enums\GrossNetType.cs" />
     <Compile Include="Interfaces\IOrderPositionItem.cs" />
+    <Compile Include="Enums\PayType.cs" />
     <Compile Include="ProductManagement\SelectedProductCategory.cs" />
     <Compile Include="ClientManagement\Company.cs" />
     <Compile Include="Accounting\Creditor.cs" />
@@ -105,7 +114,7 @@
     <Compile Include="Mail\MailData.cs" />
     <Compile Include="ProductManagement\StockedProduct.cs" />
     <Compile Include="ProjectManagement\Employee.cs" />
-    <Compile Include="Enums.cs" />
+    <Compile Include="Enums\AccountingType.cs" />
     <Compile Include="ProjectManagement\HealthInsurance.cs" />
     <Compile Include="ProductManagement\Product.cs" />
     <Compile Include="ClientManagement\Location.cs" />
@@ -128,6 +137,9 @@
     <Compile Include="SalesManagement\Shipment.cs" />
     <Compile Include="SalesManagement\ShipmentType.cs" />
     <Compile Include="SalesManagement\ShippedProduct.cs" />
+    <Compile Include="Enums\Standardkontenrahmen.cs" />
+    <Compile Include="Enums\Status.cs" />
+    <Compile Include="Enums\TaxCategory.cs" />
     <Compile Include="UnitOfMeasure.cs" />
     <Compile Include="WarehouseManagement\SelectedWarehouse.cs" />
     <Compile Include="WarehouseManagement\StockedProduct.cs" />

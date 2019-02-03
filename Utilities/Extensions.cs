@@ -21,13 +21,13 @@ namespace Utilities
 
         public static void AddRange<T>(this ObservableCollection<T> destination, IEnumerable<T> source)
         {
-            foreach (var item in source)
-                destination.Add(item);
+            foreach (var item in source) destination.Add(item);
         }
 
         public static bool In<T>(this T source, params T[] list)
         {
             if (null == source) throw new ArgumentNullException("source");
+
             return list.Contains(source);
         }
 
@@ -49,32 +49,32 @@ namespace Utilities
         public static int ToInt(this string input)
         {
             int result;
-            if (!int.TryParse(input, out result))
-                result = 0;
+            if (!int.TryParse(input, out result)) result = 0;
+
             return result;
         }
 
         public static decimal ToDecimal(this string input)
         {
             decimal result;
-            if (!decimal.TryParse(input, out result))
-                result = 0;
+            if (!decimal.TryParse(input, out result)) result = 0;
+
             return result;
         }
 
         public static double ToDouble(this string input)
         {
             double result;
-            if (!double.TryParse(input, out result))
-                result = 0;
+            if (!double.TryParse(input, out result)) result = 0;
+
             return result;
         }
 
         public static float ToFloat(this string input)
         {
             float result;
-            if (!float.TryParse(input, out result))
-                result = 0;
+            if (!float.TryParse(input, out result)) result = 0;
+
             return result;
         }
 
@@ -92,18 +92,15 @@ namespace Utilities
 
                 if (u != null)
                 {
-                    if (value == null || value.Equals(""))
-                        return default(T);
+                    if (value == null || value.Equals("")) return default(T);
 
                     return (T) Convert.ChangeType(value, u);
                 }
 
-                if (value == null || value.Equals(""))
-                    return default(T);
+                if (value == null || value.Equals("")) return default(T);
 
                 return (T) Convert.ChangeType(value, t);
             }
-
             catch
             {
                 return default(T);

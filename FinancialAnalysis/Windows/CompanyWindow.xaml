@@ -147,7 +147,6 @@
                     </dxlc:LayoutItem>
                 </dxlc:LayoutGroup>
             </dxlc:LayoutGroup>
-
         </dxlc:LayoutControl>
 
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Height="30" HorizontalAlignment="Center">
@@ -157,6 +156,5 @@
             <dx:SimpleButton IsEnabled="{Binding DeleteCompanyButtonEnabled}" Content="Löschen" Margin="10,0,0,0"
                              Command="{Binding DeleteCompanyCommand}" />
         </StackPanel>
-
     </Grid>
 </dx:DXWindow>

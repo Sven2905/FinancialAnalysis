@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Dapper;
+using FinancialAnalysis.Models.SalesManagement;
+using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using Dapper;
-using FinancialAnalysis.Models.SalesManagement;
-using Serilog;
 
 namespace FinancialAnalysis.Datalayer.SalesManagement
 {
@@ -128,7 +128,10 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var Invoice in Invoices) Insert(Invoice);
+                    foreach (var Invoice in Invoices)
+                    {
+                        Insert(Invoice);
+                    }
                 }
             }
             catch (Exception e)
@@ -183,7 +186,10 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         /// <param name="Invoices"></param>
         public void UpdateOrInsert(IEnumerable<Invoice> Invoices)
         {
-            foreach (var Invoice in Invoices) UpdateOrInsert(Invoice);
+            foreach (var Invoice in Invoices)
+            {
+                UpdateOrInsert(Invoice);
+            }
         }
 
         /// <summary>
@@ -192,7 +198,10 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         /// <param name="Invoice"></param>
         public void Update(Invoice Invoice)
         {
-            if (Invoice.InvoiceId == 0 || GetById(Invoice.InvoiceId) is null) return;
+            if (Invoice.InvoiceId == 0 || GetById(Invoice.InvoiceId) is null)
+            {
+                return;
+            }
 
             try
             {
@@ -238,7 +247,6 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         {
             Delete(Invoice.InvoiceId);
         }
-
 
         public void AddReferences()
         {

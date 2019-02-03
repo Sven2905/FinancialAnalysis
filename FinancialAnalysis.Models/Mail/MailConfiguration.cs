@@ -17,16 +17,12 @@ namespace FinancialAnalysis.Models.Mail
         {
             get
             {
-                if (_Password != string.Empty)
-                {
-                    return Encryption.DecryptText(_Password, @"G*ZCx[WD;d<k3*Gc");
-                }
+                if (_Password != string.Empty) return Encryption.DecryptText(_Password, @"G*ZCx[WD;d<k3*Gc");
                 return "";
             }
             set
             {
-                if (value != "")
-                    _Password = Encryption.EncryptText(value, @"G*ZCx[WD;d<k3*Gc");
+                if (value != "") _Password = Encryption.EncryptText(value, @"G*ZCx[WD;d<k3*Gc");
             }
         }
     }

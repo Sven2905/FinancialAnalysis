@@ -17,6 +17,5 @@
             <!--<Logic:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />-->
             <UI:MessageListener x:Key="MessageListener" />
         </ResourceDictionary>
-
     </Application.Resources>
 </Application>

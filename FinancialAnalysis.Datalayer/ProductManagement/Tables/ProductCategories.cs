@@ -172,10 +172,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
         /// <param name="ProductCategories"></param>
         public void UpdateOrInsert(IEnumerable<ProductCategory> ProductCategories)
         {
-            foreach (var ProductCategory in ProductCategories)
-            {
-                UpdateOrInsert(ProductCategory);
-            }
+            foreach (var ProductCategory in ProductCategories) UpdateOrInsert(ProductCategory);
         }
 
         /// <summary>
@@ -184,10 +181,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
         /// <param name="ProductCategory"></param>
         public void Update(ProductCategory ProductCategory)
         {
-            if (ProductCategory.ProductCategoryId == 0)
-            {
-                return;
-            }
+            if (ProductCategory.ProductCategoryId == 0) return;
 
             try
             {
@@ -214,7 +208,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @ProductCategoryId", new { ProductCategoryId = id });
+                    con.Execute($"dbo.{TableName}_Delete @ProductCategoryId", new {ProductCategoryId = id});
                 }
             }
             catch (Exception e)

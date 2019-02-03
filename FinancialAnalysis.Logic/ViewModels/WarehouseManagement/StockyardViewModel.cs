@@ -1,36 +1,29 @@
-﻿using DevExpress.Mvvm;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.WarehouseManagement;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Windows.Media.Imaging;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
     public class StockyardViewModel : ViewModelBase
     {
-        #region Fields
-
-        #endregion Fields
-
         #region Constructor
 
         public StockyardViewModel()
         {
-            if (IsInDesignMode)
-                return;
+            if (IsInDesignMode) return;
 
             Messenger.Default.Register<SelectedWarehouse>(this, ChangeSelectedWarehouse);
 
             SetCommands();
-             LoadAllWarehouses();
+            LoadAllWarehouses();
         }
-
 
         #endregion Constructor
 
@@ -40,9 +33,11 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             NewStockyardCommand = new DelegateCommand(NewStockyard);
             SaveStockyardCommand = new DelegateCommand(SaveStockyard, () => Validation());
-            DeleteStockyardCommand = new DelegateCommand(DeleteStockyard, () => (SelectedStockyard != null && SelectedStockyard.IsEmpty));
+            DeleteStockyardCommand = new DelegateCommand(DeleteStockyard,
+                () => SelectedStockyard != null && SelectedStockyard.IsEmpty);
             OpenWarehousesWindowCommand = new DelegateCommand(OpenProductCategoriesWindow);
-            StockyardsGenerationCommand = new DelegateCommand(GenerateStockyards, () => (NumberOfStockyardsToCreate > 0 && SelectedWarehouse != null));
+            StockyardsGenerationCommand = new DelegateCommand(GenerateStockyards,
+                () => NumberOfStockyardsToCreate > 0 && SelectedWarehouse != null);
         }
 
         private void OpenProductCategoriesWindow()
@@ -52,28 +47,27 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void LoadAllWarehouses()
         {
-            SvenTechCollection<Warehouse> allWarehouses = new SvenTechCollection<Warehouse>();
+            var allWarehouses = new SvenTechCollection<Warehouse>();
             try
             {
                 Warehouses = DataContext.Instance.Warehouses.GetAll().ToSvenTechCollection();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
-
         }
 
         private SvenTechCollection<Stockyard> LoadStockyards(int WarehouseId)
         {
-            SvenTechCollection<Stockyard> allStockyards = new SvenTechCollection<Stockyard>();
+            var allStockyards = new SvenTechCollection<Stockyard>();
             try
             {
-                    allStockyards = DataContext.Instance.Stockyards.GetByRefWarehouseId(WarehouseId).ToSvenTechCollection();
+                allStockyards = DataContext.Instance.Stockyards.GetByRefWarehouseId(WarehouseId).ToSvenTechCollection();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
 
             return allStockyards;
@@ -90,10 +84,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteStockyard()
         {
-            if (SelectedStockyard == null)
-            {
-                return;
-            }
+            if (SelectedStockyard == null) return;
 
             if (SelectedStockyard.StockyardId == 0)
             {
@@ -108,9 +99,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 SelectedWarehouse.Stockyards.Remove(SelectedStockyard);
                 SelectedStockyard = null;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -119,30 +110,20 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedStockyard.StockyardId != 0)
-                {
                     DataContext.Instance.Stockyards.Update(SelectedStockyard);
-                }
                 else
-                {
                     DataContext.Instance.Stockyards.Insert(SelectedStockyard);
-                }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
         private bool Validation()
         {
-            if (SelectedStockyard == null)
-            {
-                return false;
-            }
-            if (string.IsNullOrEmpty(SelectedStockyard.Name))
-            {
-                return false;
-            }
+            if (SelectedStockyard == null) return false;
+            if (string.IsNullOrEmpty(SelectedStockyard.Name)) return false;
             return true;
         }
 
@@ -158,30 +139,27 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             var newStockyards = new List<Stockyard>();
 
-            var lastStockyard = SelectedWarehouse.Stockyards.LastOrDefault(x => x.Name.ToLower().Contains(Prefix.ToLower()) && x.Name.ToLower().Contains(Suffix.ToLower()));
+            var lastStockyard = SelectedWarehouse.Stockyards.LastOrDefault(x =>
+                x.Name.ToLower().Contains(Prefix.ToLower()) && x.Name.ToLower().Contains(Suffix.ToLower()));
 
-            int lastNumber = 1;
+            var lastNumber = 1;
 
             if (lastStockyard != null)
             {
-                string lastNumberString = lastStockyard.Name.ToLower();
-                if (!string.IsNullOrEmpty(Prefix))
-                {
-                    lastNumberString = lastNumberString.Replace(Prefix.ToLower(), "");
-                }
+                var lastNumberString = lastStockyard.Name.ToLower();
+                if (!string.IsNullOrEmpty(Prefix)) lastNumberString = lastNumberString.Replace(Prefix.ToLower(), "");
 
-                if (!string.IsNullOrEmpty(Suffix))
-                {
-                    lastNumberString = lastNumberString.Replace(Suffix.ToLower(), "");
-                }
+                if (!string.IsNullOrEmpty(Suffix)) lastNumberString = lastNumberString.Replace(Suffix.ToLower(), "");
                 lastNumber = Convert.ToInt32(lastNumberString) + 1;
             }
 
-            for (int i = 0; i < NumberOfStockyardsToCreate; i++)
+            for (var i = 0; i < NumberOfStockyardsToCreate; i++)
             {
-                newStockyards.Add(new Stockyard() { Name = Prefix + lastNumber + Suffix, RefWarehouseId = SelectedWarehouse.WarehouseId });
+                newStockyards.Add(new Stockyard
+                    {Name = Prefix + lastNumber + Suffix, RefWarehouseId = SelectedWarehouse.WarehouseId});
                 lastNumber++;
             }
+
             DataContext.Instance.Stockyards.Insert(newStockyards);
 
             var selectedWarehouseId = SelectedWarehouse.WarehouseId;
@@ -204,7 +182,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public SvenTechCollection<Warehouse> Warehouses { get; set; } = new SvenTechCollection<Warehouse>();
         public Warehouse SelectedWarehouse { get; set; }
         public Stockyard SelectedStockyard { get; set; }
-        public User ActualUser { get { return Globals.ActualUser; } }
+        public User ActualUser => Globals.ActualUser;
 
         #region For stockyard generation
 
@@ -213,7 +191,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public string Prefix { get; set; }
         public string Suffix { get; set; }
 
-        #endregion
+        #endregion For stockyard generation
 
         #endregion Properties
     }

@@ -181,7 +181,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         public void Update(ShipmentType ShipmentType)
         {
             if (ShipmentType.ShipmentTypeId == 0 ||
-                GetById(ShipmentType.ShipmentTypeId) is null) return;
+                GetById(ShipmentType.ShipmentTypeId) is null)
+                return;
 
             try
             {

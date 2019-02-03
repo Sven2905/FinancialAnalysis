@@ -1,6 +1,6 @@
-﻿using DevExpress.Mvvm;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using DevExpress.Mvvm;
 
 namespace FinancialAnalysis.Models.ProjectManagement
 {
@@ -23,6 +23,7 @@ namespace FinancialAnalysis.Models.ProjectManagement
 
         // Steuer-Id
         public string TaxId { get; set; }
+
         public int RefHealthInsuranceId { get; set; }
         public HealthInsurance HealthInsurance { get; set; }
         public bool HasDrivingLicence { get; set; }
@@ -38,6 +39,7 @@ namespace FinancialAnalysis.Models.ProjectManagement
 
         // Sozialversicherungsnummer
         public string NationalInsuranceNumber { get; set; }
+
         public byte[] Picture { get; set; }
         public string Phone { get; set; }
         public string Mobile { get; set; }

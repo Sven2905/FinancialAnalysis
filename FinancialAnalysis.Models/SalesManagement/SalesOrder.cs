@@ -1,12 +1,8 @@
-﻿using DevExpress.Mvvm;
+﻿using System;
+using System.Windows.Media;
+using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.General;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Media;
 using Utilities;
 
 namespace FinancialAnalysis.Models.SalesManagement
@@ -22,7 +18,10 @@ namespace FinancialAnalysis.Models.SalesManagement
         public int RefShipmentTypeId { get; set; }
         public ShipmentType ShipmentType { get; set; }
         public string Remarks { get; set; } // Bemerkung
-        public SvenTechCollection<SalesOrderPosition> SalesOrderPositions { get; set; } = new SvenTechCollection<SalesOrderPosition>();
+
+        public SvenTechCollection<SalesOrderPosition> SalesOrderPositions { get; set; } =
+            new SvenTechCollection<SalesOrderPosition>();
+
         public SvenTechCollection<Shipment> Shipments { get; set; } = new SvenTechCollection<Shipment>();
         public SvenTechCollection<Invoice> Invoices { get; set; } = new SvenTechCollection<Invoice>();
         public Color InvoiceStatusColor { get; set; } = SvenTechColors.Green;

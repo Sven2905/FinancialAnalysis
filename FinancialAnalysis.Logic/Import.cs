@@ -1,13 +1,15 @@
-﻿using FinancialAnalysis.Datalayer;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.ClientManagement;
+using FinancialAnalysis.Models.ProductManagement;
 using FinancialAnalysis.Models.ProjectManagement;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using FinancialAnalysis.Models.SalesManagement;
 
 namespace FinancialAnalysis.Logic
 {
@@ -23,6 +25,7 @@ namespace FinancialAnalysis.Logic
                     _FilePath = @".\Data\SKR03.txt";
                     CreateSKR03MainCategories();
                     break;
+
                 case Standardkontenrahmen.SKR04:
                     _FilePath = @".\Data\SKR04.txt";
                     CreateSKR04MainCategories();
@@ -39,22 +42,19 @@ namespace FinancialAnalysis.Logic
 
                 foreach (var line in document)
                 {
-                    if (string.IsNullOrEmpty(line))
-                    {
-                        continue;
-                    }
+                    if (string.IsNullOrEmpty(line)) continue;
 
-                    // [0] Konto-Nummer	
-                    // [1] Kontenbezeichnung	
-                    // [2] Kontenkategorie	
-                    // [3] Kontenunterart	
-                    // [4] USt.Pos	
-                    // [5] USt.	
-                    // [6] Steuer	
-                    // [7] USt.PosE	
-                    // [8] Zuordnung EÜ	
-                    // [9] Zuordnung Aktiva	
-                    // [10] Zuordnung Passiva	
+                    // [0] Konto-Nummer
+                    // [1] Kontenbezeichnung
+                    // [2] Kontenkategorie
+                    // [3] Kontenunterart
+                    // [4] USt.Pos
+                    // [5] USt.
+                    // [6] Steuer
+                    // [7] USt.PosE
+                    // [8] Zuordnung EÜ
+                    // [9] Zuordnung Aktiva
+                    // [10] Zuordnung Passiva
                     // [11] Zuordnung GuV
 
                     var _Content = line.Split('\t');
@@ -66,68 +66,79 @@ namespace FinancialAnalysis.Logic
 
                     // Get parent category
                     if (standardkontenrahmen == Standardkontenrahmen.SKR03)
-                    {
                         switch (_Content[0][0])
                         {
                             case '0':
                                 tempMainCat.ParentCategoryId = 1;
                                 break;
+
                             case '1':
                                 tempMainCat.ParentCategoryId = 2;
                                 break;
+
                             case '2':
                                 tempMainCat.ParentCategoryId = 3;
                                 break;
+
                             case '3':
                                 tempMainCat.ParentCategoryId = 4;
                                 break;
+
                             case '4':
                                 tempMainCat.ParentCategoryId = 5;
                                 break;
+
                             case '7':
                                 tempMainCat.ParentCategoryId = 6;
                                 break;
+
                             case '8':
                                 tempMainCat.ParentCategoryId = 7;
                                 break;
+
                             case '9':
                                 tempMainCat.ParentCategoryId = 8;
                                 break;
                         }
-                    }
                     else
-                    {
                         switch (_Content[0][0])
                         {
                             case '0':
                                 tempMainCat.ParentCategoryId = 1;
                                 break;
+
                             case '1':
                                 tempMainCat.ParentCategoryId = 2;
                                 break;
+
                             case '2':
                                 tempMainCat.ParentCategoryId = 3;
                                 break;
+
                             case '3':
                                 tempMainCat.ParentCategoryId = 4;
                                 break;
+
                             case '4':
                                 tempMainCat.ParentCategoryId = 5;
                                 break;
+
                             case '5':
                                 tempMainCat.ParentCategoryId = 6;
                                 break;
+
                             case '6':
                                 tempMainCat.ParentCategoryId = 7;
                                 break;
+
                             case '7':
                                 tempMainCat.ParentCategoryId = 8;
                                 break;
+
                             case '9':
                                 tempMainCat.ParentCategoryId = 9;
                                 break;
                         }
-                    }
 
                     if (costAccountCategories.SingleOrDefault(x =>
                             x.Description == _Content[2] && x.ParentCategoryId == tempMainCat.ParentCategoryId) == null)
@@ -173,7 +184,6 @@ namespace FinancialAnalysis.Logic
                         subCatId = mainCatId;
                     }
 
-
                     var costAccount = new CostAccount
                     {
                         AccountNumber = Convert.ToInt32(_Content[0]),
@@ -188,13 +198,9 @@ namespace FinancialAnalysis.Logic
 
                     var taxType = taxTypes.SingleOrDefault(x => x.DescriptionShort == _Content[6].Trim());
                     if (taxType != null)
-                    {
                         costAccount.RefTaxTypeId = taxType.TaxTypeId;
-                    }
                     else
-                    {
                         costAccount.RefTaxTypeId = 1;
-                    }
 
                     DataContext.Instance.CostAccounts.Insert(costAccount);
                 }
@@ -203,33 +209,34 @@ namespace FinancialAnalysis.Logic
 
         internal void SeedCostCenters()
         {
-            var costCenterCategories = new List<CostCenterCategory>()
+            var costCenterCategories = new List<CostCenterCategory>
             {
-                new CostCenterCategory() { Name = "Material"},
-                new CostCenterCategory() { Name = "Fertigung"},
-                new CostCenterCategory() { Name = "Verwaltung"},
-                new CostCenterCategory() { Name = "Vertrieb"},
+                new CostCenterCategory {Name = "Material"},
+                new CostCenterCategory {Name = "Fertigung"},
+                new CostCenterCategory {Name = "Verwaltung"},
+                new CostCenterCategory {Name = "Vertrieb"}
             };
 
             DataContext.Instance.CostCenterCategories.Insert(costCenterCategories);
 
-            var costCenters = new List<CostCenter>()
-           {
-               new CostCenter() { RefCostCenterCategoryId = 1, Identifier="1", Name = "Beschaffung"},
-               new CostCenter() { RefCostCenterCategoryId = 1, Identifier="2", Name = "Disposition"},
-               new CostCenter() { RefCostCenterCategoryId = 1, Identifier="3", Name = "Lagerhaltung"},
-               new CostCenter() { RefCostCenterCategoryId = 2, Identifier="4", Name = "Produktion / Montage"},
-               new CostCenter() { RefCostCenterCategoryId = 2, Identifier="5", Name = "Qualitätssicherung"},
-               new CostCenter() { RefCostCenterCategoryId = 2, Identifier="6", Name = "Arbeitsvorbereitung"},
-               new CostCenter() { RefCostCenterCategoryId = 2, Identifier="7", Name = "Forschung und Entwicklung"},
-               new CostCenter() { RefCostCenterCategoryId = 3, Identifier="8", Name = "Geschäftsführung"},
-               new CostCenter() { RefCostCenterCategoryId = 3, Identifier="9", Name = "Buchhaltung / Finanzwesen / Controlling"},
-               new CostCenter() { RefCostCenterCategoryId = 3, Identifier="10", Name = "Personalwesen"},
-               new CostCenter() { RefCostCenterCategoryId = 4, Identifier="11", Name = "Marketing"},
-               new CostCenter() { RefCostCenterCategoryId = 4, Identifier="12", Name = "Vertrieb"},
-               new CostCenter() { RefCostCenterCategoryId = 4, Identifier="13", Name = "Fakturierung"},
-               new CostCenter() { RefCostCenterCategoryId = 4, Identifier="14", Name = "Auftragswesen"},
-           };
+            var costCenters = new List<CostCenter>
+            {
+                new CostCenter {RefCostCenterCategoryId = 1, Identifier = "1", Name = "Beschaffung"},
+                new CostCenter {RefCostCenterCategoryId = 1, Identifier = "2", Name = "Disposition"},
+                new CostCenter {RefCostCenterCategoryId = 1, Identifier = "3", Name = "Lagerhaltung"},
+                new CostCenter {RefCostCenterCategoryId = 2, Identifier = "4", Name = "Produktion / Montage"},
+                new CostCenter {RefCostCenterCategoryId = 2, Identifier = "5", Name = "Qualitätssicherung"},
+                new CostCenter {RefCostCenterCategoryId = 2, Identifier = "6", Name = "Arbeitsvorbereitung"},
+                new CostCenter {RefCostCenterCategoryId = 2, Identifier = "7", Name = "Forschung und Entwicklung"},
+                new CostCenter {RefCostCenterCategoryId = 3, Identifier = "8", Name = "Geschäftsführung"},
+                new CostCenter
+                    {RefCostCenterCategoryId = 3, Identifier = "9", Name = "Buchhaltung / Finanzwesen / Controlling"},
+                new CostCenter {RefCostCenterCategoryId = 3, Identifier = "10", Name = "Personalwesen"},
+                new CostCenter {RefCostCenterCategoryId = 4, Identifier = "11", Name = "Marketing"},
+                new CostCenter {RefCostCenterCategoryId = 4, Identifier = "12", Name = "Vertrieb"},
+                new CostCenter {RefCostCenterCategoryId = 4, Identifier = "13", Name = "Fakturierung"},
+                new CostCenter {RefCostCenterCategoryId = 4, Identifier = "14", Name = "Auftragswesen"}
+            };
 
             DataContext.Instance.CostCenters.Insert(costCenters);
         }
@@ -271,67 +278,108 @@ namespace FinancialAnalysis.Logic
 
         public void ImportUserRights()
         {
-            List<UserRight> rights = new List<UserRight>()
+            var rights = new List<UserRight>
             {
-                new UserRight(Permission.AccessAccounting, "Buchhaltung", 0, "Erlaubt den Zugriff auf den Menüpunkt Buchhaltung"),
-                new UserRight(Permission.AccessProjectManagement, "Projektmanagement", 0, "Erlaubt den Zugriff auf den Menüpunkt Projektmanagement"),
-                new UserRight(Permission.AccessConfiguration, "Konfiguration", 0, "Erlaubt den Zugriff auf den Menüpunkt Konfiguration"),
-                new UserRight(Permission.AccessWarehouseManagement, "Lagerverwaltung", 0, "Erlaubt den Zugriff auf den Menüpunkt Lagerverwaltung"),
-                new UserRight(Permission.AccessProductManagement, "Produktverwaltung", 0, "Erlaubt den Zugriff auf den Menüpunkt Produktverwaltung"),
-                new UserRight(Permission.AccessPurchaseManagement, "Bestellverwaltung", 0, "Erlaubt den Zugriff auf den Menüpunkt Bestellverwaltung"),
-                new UserRight(Permission.AccessSalesManagement, "Verkaufsverwaltung", 0, "Erlaubt den Zugriff auf den Menüpunkt Verkaufsverwaltung"),
+                new UserRight(Permission.AccessAccounting, "Buchhaltung", 0,
+                    "Erlaubt den Zugriff auf den Menüpunkt Buchhaltung"),
+                new UserRight(Permission.AccessProjectManagement, "Projektmanagement", 0,
+                    "Erlaubt den Zugriff auf den Menüpunkt Projektmanagement"),
+                new UserRight(Permission.AccessConfiguration, "Konfiguration", 0,
+                    "Erlaubt den Zugriff auf den Menüpunkt Konfiguration"),
+                new UserRight(Permission.AccessWarehouseManagement, "Lagerverwaltung", 0,
+                    "Erlaubt den Zugriff auf den Menüpunkt Lagerverwaltung"),
+                new UserRight(Permission.AccessProductManagement, "Produktverwaltung", 0,
+                    "Erlaubt den Zugriff auf den Menüpunkt Produktverwaltung"),
+                new UserRight(Permission.AccessPurchaseManagement, "Bestellverwaltung", 0,
+                    "Erlaubt den Zugriff auf den Menüpunkt Bestellverwaltung"),
+                new UserRight(Permission.AccessSalesManagement, "Verkaufsverwaltung", 0,
+                    "Erlaubt den Zugriff auf den Menüpunkt Verkaufsverwaltung"),
 
-                new UserRight(Permission.AccessBookings, "Buchungen", (int)Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Buchungen"),
-                new UserRight(Permission.AccessBookingHistory, "Buchungshistorie", (int)Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Buchungshistorie"),
-                new UserRight(Permission.AccessCreditorDebitors, "Kreditoren und Debitoren", (int)Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Kreditoren und Debitoren"),
-                new UserRight(Permission.AccessTaxTypes, "Steuersätze", (int)Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Steuersätze"),
-                new UserRight(Permission.AccessCostAccounts, "Kontenrahmen", (int)Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Kontenrahmen"),
-                new UserRight(Permission.AccessPaymentCondiditions, "Zahlungsbedingungen", (int)Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Zahlungsbedingungen"),
+                new UserRight(Permission.AccessBookings, "Buchungen", (int) Permission.AccessAccounting,
+                    "Erlaubt den Zugriff auf den Menüpunkt Buchungen"),
+                new UserRight(Permission.AccessBookingHistory, "Buchungshistorie", (int) Permission.AccessAccounting,
+                    "Erlaubt den Zugriff auf den Menüpunkt Buchungshistorie"),
+                new UserRight(Permission.AccessCreditorDebitors, "Kreditoren und Debitoren",
+                    (int) Permission.AccessAccounting,
+                    "Erlaubt den Zugriff auf den Menüpunkt Kreditoren und Debitoren"),
+                new UserRight(Permission.AccessTaxTypes, "Steuersätze", (int) Permission.AccessAccounting,
+                    "Erlaubt den Zugriff auf den Menüpunkt Steuersätze"),
+                new UserRight(Permission.AccessCostAccounts, "Kontenrahmen", (int) Permission.AccessAccounting,
+                    "Erlaubt den Zugriff auf den Menüpunkt Kontenrahmen"),
+                new UserRight(Permission.AccessPaymentCondiditions, "Zahlungsbedingungen",
+                    (int) Permission.AccessAccounting, "Erlaubt den Zugriff auf den Menüpunkt Zahlungsbedingungen"),
 
-                new UserRight(Permission.AccessCostCenters, "Kostenstellen", (int)Permission.AccessProjectManagement, "Erlaubt den Zugriff auf den Menüpunkt Kostenstellen"),
-                new UserRight(Permission.AccessCostCenterCategories, "Kostenstellenkategorien", (int)Permission.AccessProjectManagement, "Erlaubt den Zugriff auf den Menüpunkt Kostenstellenkategorien"),
-                new UserRight(Permission.AccessEmployees, "Mitarbeiter", (int)Permission.AccessProjectManagement, "Erlaubt den Zugriff auf den Menüpunkt Mitarbeiter"),
-                new UserRight(Permission.AccessProjects, "Projekte", (int)Permission.AccessProjectManagement, "Erlaubt den Zugriff auf den Menüpunkt Projekte"),
-                new UserRight(Permission.AccessProjectWorkingTimes, "Zeiterfassungen", (int)Permission.AccessProjectManagement, "Erlaubt den Zugriff auf den Menüpunkt Zeiterfassungen"),
+                new UserRight(Permission.AccessCostCenters, "Kostenstellen", (int) Permission.AccessProjectManagement,
+                    "Erlaubt den Zugriff auf den Menüpunkt Kostenstellen"),
+                new UserRight(Permission.AccessCostCenterCategories, "Kostenstellenkategorien",
+                    (int) Permission.AccessProjectManagement,
+                    "Erlaubt den Zugriff auf den Menüpunkt Kostenstellenkategorien"),
+                new UserRight(Permission.AccessEmployees, "Mitarbeiter", (int) Permission.AccessProjectManagement,
+                    "Erlaubt den Zugriff auf den Menüpunkt Mitarbeiter"),
+                new UserRight(Permission.AccessProjects, "Projekte", (int) Permission.AccessProjectManagement,
+                    "Erlaubt den Zugriff auf den Menüpunkt Projekte"),
+                new UserRight(Permission.AccessProjectWorkingTimes, "Zeiterfassungen",
+                    (int) Permission.AccessProjectManagement, "Erlaubt den Zugriff auf den Menüpunkt Zeiterfassungen"),
 
-                new UserRight(Permission.AccessMail, "Mailkonfiguration", (int)Permission.AccessConfiguration, "Erlaubt den Zugriff auf den Menüpunkt Mailkonfiguration"),
-                new UserRight(Permission.AccessUsers, "Benutzer", (int)Permission.AccessConfiguration, "Erlaubt den Zugriff auf den Menüpunkt Benutzer"),
-                new UserRight(Permission.AccessMyCompanies, "Eigene Firma", (int)Permission.AccessConfiguration, "Erlaubt den Zugriff auf den Menüpunkt Eigene Firma"),
+                new UserRight(Permission.AccessMail, "Mailkonfiguration", (int) Permission.AccessConfiguration,
+                    "Erlaubt den Zugriff auf den Menüpunkt Mailkonfiguration"),
+                new UserRight(Permission.AccessUsers, "Benutzer", (int) Permission.AccessConfiguration,
+                    "Erlaubt den Zugriff auf den Menüpunkt Benutzer"),
+                new UserRight(Permission.AccessMyCompanies, "Eigene Firma", (int) Permission.AccessConfiguration,
+                    "Erlaubt den Zugriff auf den Menüpunkt Eigene Firma"),
 
-                new UserRight(Permission.AccessWarehouses, "Lager", (int)Permission.AccessWarehouseManagement, "Erlaubt den Zugriff auf den Menüpunkt Lager"),
-                new UserRight(Permission.AccessWarehouseSave, "Lager speichern", (int)Permission.AccessWarehouses, "Erlaubt Änderungen und neue Lager zu speichern"),
-                new UserRight(Permission.AccessWarehouseDelete, "Lager löschen", (int)Permission.AccessWarehouses, "Erlaubt Lager zu löschen."),
-                new UserRight(Permission.AccessStockyards, "Lagerplätze", (int)Permission.AccessWarehouseManagement, "Erlaubt den Zugriff auf den Menüpunkt Lagerplätze"),
+                new UserRight(Permission.AccessWarehouses, "Lager", (int) Permission.AccessWarehouseManagement,
+                    "Erlaubt den Zugriff auf den Menüpunkt Lager"),
+                new UserRight(Permission.AccessWarehouseSave, "Lager speichern", (int) Permission.AccessWarehouses,
+                    "Erlaubt Änderungen und neue Lager zu speichern"),
+                new UserRight(Permission.AccessWarehouseDelete, "Lager löschen", (int) Permission.AccessWarehouses,
+                    "Erlaubt Lager zu löschen."),
+                new UserRight(Permission.AccessStockyards, "Lagerplätze", (int) Permission.AccessWarehouseManagement,
+                    "Erlaubt den Zugriff auf den Menüpunkt Lagerplätze"),
 
-                new UserRight(Permission.AccessProducts, "Produkte", (int)Permission.AccessProductManagement, "Erlaubt den Zugriff auf den Menüpunkt Produkte"),
-                new UserRight(Permission.AccessProductCategories, "Produktkategorien", (int)Permission.AccessProductManagement, "Erlaubt den Zugriff auf den Menüpunkt Produktkategorien"),
+                new UserRight(Permission.AccessProducts, "Produkte", (int) Permission.AccessProductManagement,
+                    "Erlaubt den Zugriff auf den Menüpunkt Produkte"),
+                new UserRight(Permission.AccessProductCategories, "Produktkategorien",
+                    (int) Permission.AccessProductManagement,
+                    "Erlaubt den Zugriff auf den Menüpunkt Produktkategorien"),
 
-                new UserRight(Permission.AccessPurchaseOrders, "Bestellungen", (int)Permission.AccessPurchaseManagement, "Erlaubt den Zugriff auf den Menüpunkt Bestellungen"),
-                new UserRight(Permission.AccessPurchaseTypes, "Bestellungsart", (int)Permission.AccessPurchaseManagement, "Erlaubt den Zugriff auf den Menüpunkt Bestellungsart"),
-                new UserRight(Permission.AccessBills, "Rechnungen", (int)Permission.AccessPurchaseManagement, "Erlaubt den Zugriff auf den Menüpunkt Rechnungen"),
-                new UserRight(Permission.AccessBillTypes, "Rechnungsarten", (int)Permission.AccessPurchaseManagement, "Erlaubt den Zugriff auf den Menüpunkt Rechnungsart"),
+                new UserRight(Permission.AccessPurchaseOrders, "Bestellungen",
+                    (int) Permission.AccessPurchaseManagement, "Erlaubt den Zugriff auf den Menüpunkt Bestellungen"),
+                new UserRight(Permission.AccessPurchaseTypes, "Bestellungsart",
+                    (int) Permission.AccessPurchaseManagement, "Erlaubt den Zugriff auf den Menüpunkt Bestellungsart"),
+                new UserRight(Permission.AccessBills, "Rechnungen", (int) Permission.AccessPurchaseManagement,
+                    "Erlaubt den Zugriff auf den Menüpunkt Rechnungen"),
+                new UserRight(Permission.AccessBillTypes, "Rechnungsarten", (int) Permission.AccessPurchaseManagement,
+                    "Erlaubt den Zugriff auf den Menüpunkt Rechnungsart"),
 
-                new UserRight(Permission.AccessSalesOrders, "Verkäufe", (int)Permission.AccessSalesManagement, "Erlaubt den Zugriff auf den Menüpunkt Verkäufe"),
-                new UserRight(Permission.AccessSalesTypes, "Verkaufsarten", (int)Permission.AccessSalesManagement, "Erlaubt den Zugriff auf den Menüpunkt Verkaufsart"),
-                new UserRight(Permission.AccessInvoices, "Rechnung", (int)Permission.AccessSalesManagement, "Erlaubt den Zugriff auf den Menüpunkt Rechnung"),
-                new UserRight(Permission.AccessInvoiceTypes, "Rechnungarten", (int)Permission.AccessSalesManagement, "Erlaubt den Zugriff auf den Menüpunkt Rechnungart"),
-                new UserRight(Permission.AccessShipmentTypes, "Versand", (int)Permission.AccessSalesManagement, "Erlaubt den Zugriff auf den Menüpunkt Versand"),
-                new UserRight(Permission.AccessShipments, "Versandtyp", (int)Permission.AccessSalesManagement, "Erlaubt den Zugriff auf den Menüpunkt Versandtyp"),
+                new UserRight(Permission.AccessSalesOrders, "Verkäufe", (int) Permission.AccessSalesManagement,
+                    "Erlaubt den Zugriff auf den Menüpunkt Verkäufe"),
+                new UserRight(Permission.AccessSalesTypes, "Verkaufsarten", (int) Permission.AccessSalesManagement,
+                    "Erlaubt den Zugriff auf den Menüpunkt Verkaufsart"),
+                new UserRight(Permission.AccessInvoices, "Rechnung", (int) Permission.AccessSalesManagement,
+                    "Erlaubt den Zugriff auf den Menüpunkt Rechnung"),
+                new UserRight(Permission.AccessInvoiceTypes, "Rechnungarten", (int) Permission.AccessSalesManagement,
+                    "Erlaubt den Zugriff auf den Menüpunkt Rechnungart"),
+                new UserRight(Permission.AccessShipmentTypes, "Versand", (int) Permission.AccessSalesManagement,
+                    "Erlaubt den Zugriff auf den Menüpunkt Versand"),
+                new UserRight(Permission.AccessShipments, "Versandtyp", (int) Permission.AccessSalesManagement,
+                    "Erlaubt den Zugriff auf den Menüpunkt Versandtyp")
             };
 
             foreach (var item in rights)
             {
                 item.UserRightId = DataContext.Instance.UserRights.Insert(item);
-                DataContext.Instance.UserRightUserMappings.Insert(new UserRightUserMapping() { RefUserId = 1, RefUserRightId = item.UserRightId, IsGranted = true });
+                DataContext.Instance.UserRightUserMappings.Insert(new UserRightUserMapping
+                    {RefUserId = 1, RefUserRightId = item.UserRightId, IsGranted = true});
             }
         }
 
         public void SeedTypes()
         {
-            DataContext.Instance.InvoiceTypes.Insert(new Models.SalesManagement.InvoiceType() { Name = "Allgemein" });
-            DataContext.Instance.SalesTypes.Insert(new Models.SalesManagement.SalesType() { Name = "Allgemein" });
-            DataContext.Instance.ShipmentTypes.Insert(new Models.SalesManagement.ShipmentType() { Name = "Allgemein" });
-            DataContext.Instance.ProductCategories.Insert(new Models.ProductManagement.ProductCategory() { Name = "Allgemein" });
+            DataContext.Instance.InvoiceTypes.Insert(new InvoiceType {Name = "Allgemein"});
+            DataContext.Instance.SalesTypes.Insert(new SalesType {Name = "Allgemein"});
+            DataContext.Instance.ShipmentTypes.Insert(new ShipmentType {Name = "Allgemein"});
+            DataContext.Instance.ProductCategories.Insert(new ProductCategory {Name = "Allgemein"});
         }
 
         /// <summary>
@@ -431,7 +479,7 @@ namespace FinancialAnalysis.Logic
                 {
                     DescriptionShort = "VSt. 7%", Description = "Vorsteuer 7%", AmountOfTax = 7,
                     TaxCategory = TaxCategory.Netto, RefCostAccount = GetIdOfCostAccount(1571)
-                },
+                }
             };
 
             DataContext.Instance.TaxTypes.Insert(taxTypes);
@@ -439,7 +487,7 @@ namespace FinancialAnalysis.Logic
 
         public void SeedCompany()
         {
-            var client = new Client()
+            var client = new Client
             {
                 Name = "Max Mustermann GmbH",
                 Street = "Beispielstrasse 1",
@@ -449,7 +497,7 @@ namespace FinancialAnalysis.Logic
 
             client.ClientId = DataContext.Instance.Clients.Insert(client);
 
-            var company = new Company()
+            var company = new Company
             {
                 CEO = "Sven Fuhrmann",
                 ContactPerson = "Sven Fuhrmann",
@@ -461,7 +509,7 @@ namespace FinancialAnalysis.Logic
 
         public void SeedHealthInsurance()
         {
-            var healthInsurance = new HealthInsurance() { Name = "Keine" };
+            var healthInsurance = new HealthInsurance {Name = "Keine"};
 
             DataContext.Instance.HealthInsurances.Insert(healthInsurance);
         }

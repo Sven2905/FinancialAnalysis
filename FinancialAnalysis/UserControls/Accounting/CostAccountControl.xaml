@@ -26,7 +26,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <dxwui:PageAdornerControl Header="Kontenrahmen" Grid.Row="0" Foreground="#3F729B" FontFamily="Tahoma" >
+        <dxwui:PageAdornerControl Header="Kontenrahmen" Grid.Row="0" Foreground="#3F729B" FontFamily="Tahoma">
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
@@ -39,7 +39,6 @@
                 </DataTemplate>
             </dxwui:PageAdornerControl.HeaderTemplate>
         </dxwui:PageAdornerControl>
-
 
         <dxa:AccordionControl Grid.Row="1" Grid.Column="0" Margin="10,0" Foreground="#3F729B" ShowSearchControl="True"
                               ItemsSource="{Binding CostAccountCategoriesHierachical}" DisplayMemberPath="Description"
@@ -95,6 +94,5 @@
                 </dxg:GridColumn>
             </dxg:GridControl>
         </Grid>
-
     </Grid>
 </UserControl>

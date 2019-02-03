@@ -202,7 +202,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.QuerySingleOrDefault<int>($"dbo.{TableName}_GetByAccountNumber @AccountNumber",
-                        new { AccountNumber });
+                        new {AccountNumber});
                 }
             }
             catch (Exception e)

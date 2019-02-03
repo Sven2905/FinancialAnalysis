@@ -1,24 +1,25 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Administration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
     public class WarehouseManagementViewModel : ViewModelBase
     {
-        #region UserRights
-        public bool ShowWarehouses { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessWarehouses) || Globals.ActualUser.IsAdministrator; } }
-        public bool ShowStockyards { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessStockyards) || Globals.ActualUser.IsAdministrator; } }
-        #endregion UserRights
-
         public WarehouseManagementViewModel()
         {
-            if (IsInDesignMode)
-                return;
+            if (IsInDesignMode) return;
         }
+
+        #region UserRights
+
+        public bool ShowWarehouses =>
+            UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessWarehouses) ||
+            Globals.ActualUser.IsAdministrator;
+
+        public bool ShowStockyards =>
+            UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessStockyards) ||
+            Globals.ActualUser.IsAdministrator;
+
+        #endregion UserRights
     }
 }

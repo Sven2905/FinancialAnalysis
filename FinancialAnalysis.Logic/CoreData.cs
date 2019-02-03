@@ -1,17 +1,18 @@
-﻿using FinancialAnalysis.Datalayer;
+﻿using System.Linq;
+using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.ClientManagement;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utilities;
 
 namespace FinancialAnalysis.Logic
 {
     public class CoreData
     {
+        public CoreData()
+        {
+            RefreshData();
+        }
+
         public static CoreData Instance { get; } = new CoreData();
 
         public SvenTechCollection<TaxType> TaxTypes { get; private set; }
@@ -20,11 +21,6 @@ namespace FinancialAnalysis.Logic
         public TaxType GetTaxTypeById(int taxTypeId)
         {
             return TaxTypes.SingleOrDefault(x => x.TaxTypeId == taxTypeId);
-        }
-
-        public CoreData()
-        {
-            RefreshData();
         }
 
         private Client LoadMyCompanyFromDb()

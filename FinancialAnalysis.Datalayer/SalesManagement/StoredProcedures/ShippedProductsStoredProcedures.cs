@@ -22,7 +22,6 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
             UpdateData();
             DeleteData();
         }
-    
 
         private void InsertData()
         {

@@ -181,7 +181,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         public void Update(SalesType SalesType)
         {
             if (SalesType.SalesTypeId == 0 ||
-                GetById(SalesType.SalesTypeId) is null) return;
+                GetById(SalesType.SalesTypeId) is null)
+                return;
 
             try
             {

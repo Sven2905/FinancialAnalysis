@@ -107,9 +107,9 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_Update] @EmployeeId int, @Firstname nvarchar(150), @Lastname nvarchar(150), @Birthdate date, @Street nvarchar(150), @City nvarchar(150), " +
-                    $"@Postcode int, @Gender int, @CivilStatus int, @RefTariffId int, @TaxId nvarchar(150), @RefHealthInsuranceId int, @HasDrivingLicence bit, @Nationality nvarchar(150), " +
-                    $"@Confession nvarchar(150), @BankName nvarchar(150), @BIC nvarchar(150), @IBAN nvarchar(150), " +
-                    $"@NationalInsuranceNumber nvarchar(150), @Salary money, @WorkHoursPerWeek real, @VacationDays real, @Picture varbinary(MAX), @Mail nvarchar(150), @Phone nvarchar(150), @Mobile nvarchar(150) " +
+                    "@Postcode int, @Gender int, @CivilStatus int, @RefTariffId int, @TaxId nvarchar(150), @RefHealthInsuranceId int, @HasDrivingLicence bit, @Nationality nvarchar(150), " +
+                    "@Confession nvarchar(150), @BankName nvarchar(150), @BIC nvarchar(150), @IBAN nvarchar(150), " +
+                    "@NationalInsuranceNumber nvarchar(150), @Salary money, @WorkHoursPerWeek real, @VacationDays real, @Picture varbinary(MAX), @Mail nvarchar(150), @Phone nvarchar(150), @Mobile nvarchar(150) " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "SET Birthdate = @Birthdate, " +

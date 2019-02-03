@@ -24,7 +24,7 @@
             <Setter Property="LabelStyle" Value="{StaticResource labelStyle}" />
             <Setter Property="Foreground" Value="#3f729b" />
         </Style>
-        <local:NullToIsEnabledConverter x:Key="NullConverter"></local:NullToIsEnabledConverter>
+        <local:NullToIsEnabledConverter x:Key="NullConverter" />
     </UserControl.Resources>
 
     <Grid>
@@ -38,7 +38,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <dxwui:PageAdornerControl Header="Zeiterfassung" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="Tahoma" >
+        <dxwui:PageAdornerControl Header="Zeiterfassung" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="Tahoma">
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
@@ -61,7 +61,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <VirtualizingStackPanel Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="15" >
+            <VirtualizingStackPanel Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="15">
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Speichern" Foreground="#3F729B"
                                  Command="{Binding SaveProjectWorkingTimeCommand}" FontFamily="Tahoma" />
             </VirtualizingStackPanel>
@@ -78,47 +78,62 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,-12,0,0" IsEnabled="{Binding ProjectWorkingTime, Converter={StaticResource NullConverter}}">
+                <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10"
+                                    Margin="0,-12,0,0"
+                                    IsEnabled="{Binding ProjectWorkingTime, Converter={StaticResource NullConverter}}">
                     <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
                         <dxlc:LayoutGroup.Header>
                             <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                         </dxlc:LayoutGroup.Header>
                         <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Geburtsdatum" FontFamily="Tahoma" >
-                                <dxe:DateEdit DateTime="{Binding ProjectWorkingTime.StartTime}" FontFamily="Tahoma" DisplayFormatString="dd.MM.yyyy HH:mm:ss" Mask="dd.MM.yyyy HH:mm">
+                            <dxlc:LayoutItem Label="Geburtsdatum" FontFamily="Tahoma">
+                                <dxe:DateEdit DateTime="{Binding ProjectWorkingTime.StartTime}" FontFamily="Tahoma"
+                                              DisplayFormatString="dd.MM.yyyy HH:mm:ss" Mask="dd.MM.yyyy HH:mm">
                                     <dxe:DateEdit.StyleSettings>
-                                        <dxe:DateEditPickerStyleSettings/>
+                                        <dxe:DateEditPickerStyleSettings />
                                     </dxe:DateEdit.StyleSettings>
                                 </dxe:DateEdit>
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Geburtsdatum" FontFamily="Tahoma" >
-                                <dxe:DateEdit DateTime="{Binding ProjectWorkingTime.EndTime}" FontFamily="Tahoma" DisplayFormatString="dd.MM.yyyy HH:mm:ss" Mask="dd.MM.yyyy HH:mm">
+                            <dxlc:LayoutItem Label="Geburtsdatum" FontFamily="Tahoma">
+                                <dxe:DateEdit DateTime="{Binding ProjectWorkingTime.EndTime}" FontFamily="Tahoma"
+                                              DisplayFormatString="dd.MM.yyyy HH:mm:ss" Mask="dd.MM.yyyy HH:mm">
                                     <dxe:DateEdit.StyleSettings>
-                                        <dxe:DateEditPickerStyleSettings/>
+                                        <dxe:DateEditPickerStyleSettings />
                                     </dxe:DateEdit.StyleSettings>
                                 </dxe:DateEdit>
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Beschreibung" FontFamily="Tahoma" >
-                                <dxe:TextEdit TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" VerticalContentAlignment="Top" Text="{Binding ProjectWorkingTime.Description}" Height="150" FontFamily="Tahoma" />
+                            <dxlc:LayoutItem Label="Beschreibung" FontFamily="Tahoma">
+                                <dxe:TextEdit TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                                              AcceptsReturn="True" VerticalContentAlignment="Top"
+                                              Text="{Binding ProjectWorkingTime.Description}" Height="150"
+                                              FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Projekt" FontFamily="Tahoma" >
-                                <dxe:ComboBoxEdit ValueMember="ProjectId" DisplayMember="Name" ItemsSource="{Binding Projects}" EditValue="{Binding ProjectWorkingTime.RefProjectId}" FontFamily="Tahoma" />
+                            <dxlc:LayoutItem Label="Projekt" FontFamily="Tahoma">
+                                <dxe:ComboBoxEdit ValueMember="ProjectId" DisplayMember="Name"
+                                                  ItemsSource="{Binding Projects}"
+                                                  EditValue="{Binding ProjectWorkingTime.RefProjectId}"
+                                                  FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Mitarbeiter" FontFamily="Tahoma" >
-                                <dxe:ComboBoxEdit ValueMember="EmployeeId" DisplayMember="Name" ItemsSource="{Binding Employees}" EditValue="{Binding ProjectWorkingTime.RefEmployeeId}" FontFamily="Tahoma" />
+                            <dxlc:LayoutItem Label="Mitarbeiter" FontFamily="Tahoma">
+                                <dxe:ComboBoxEdit ValueMember="EmployeeId" DisplayMember="Name"
+                                                  ItemsSource="{Binding Employees}"
+                                                  EditValue="{Binding ProjectWorkingTime.RefEmployeeId}"
+                                                  FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Pause (Minuten)" FontFamily="Tahoma" >
-                                <dxe:TextEdit Text="{Binding ProjectWorkingTime.Breaktime, ConverterCulture='de-DE', StringFormat='N0'}" FontFamily="Tahoma" />
+                            <dxlc:LayoutItem Label="Pause (Minuten)" FontFamily="Tahoma">
+                                <dxe:TextEdit
+                                    Text="{Binding ProjectWorkingTime.Breaktime, ConverterCulture='de-DE', StringFormat='N0'}"
+                                    FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                     </dxlc:LayoutGroup>

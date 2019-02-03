@@ -1,20 +1,20 @@
 ﻿<dx:DXWindow
-        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
-        x:Class="FinancialAnalysis.Windows.ProductCategoriesWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FinancialAnalysis.Windows"
-        xmlns:usercontrols="clr-namespace:FinancialAnalysis.UserControls"
-        xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
-        xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
-        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
-        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
-        xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
-        mc:Ignorable="d"
-        dx:ThemeManager.ThemeName="Office2016WhiteSE"
-        Title="Produktkategorien" Height="1000" Width="1080" WindowStartupLocation="CenterScreen">
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    x:Class="FinancialAnalysis.Windows.ProductCategoriesWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:FinancialAnalysis.Windows"
+    xmlns:usercontrols="clr-namespace:FinancialAnalysis.UserControls"
+    xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+    xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
+    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    mc:Ignorable="d"
+    dx:ThemeManager.ThemeName="Office2016WhiteSE"
+    Title="Produktkategorien" Height="1000" Width="1080" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <ViewModels:ProductCategoryViewModel />
     </Window.DataContext>
@@ -28,7 +28,7 @@
             <Setter Property="LabelStyle" Value="{StaticResource labelStyle}" />
             <Setter Property="Foreground" Value="#3f729b" />
         </Style>
-        <usercontrols:NullToIsEnabledConverter x:Key="NullConverter"></usercontrols:NullToIsEnabledConverter>
+        <usercontrols:NullToIsEnabledConverter x:Key="NullConverter" />
     </Window.Resources>
 
     <Grid>
@@ -42,7 +42,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <dxwui:PageAdornerControl Header="Produktkategorien" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="Tahoma" >
+        <dxwui:PageAdornerControl Header="Produktkategorien" Grid.ColumnSpan="3" Foreground="#3f729b"
+                                  FontFamily="Tahoma">
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
@@ -70,23 +71,29 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="Vorhandene Kategorien" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="12,30,12,0"/>
+            <TextBlock Grid.Row="0" Text="Vorhandene Kategorien" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b"
+                       Margin="12,30,12,0" />
 
-            <dxlc:LayoutControl Grid.Row="1" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" VerticalAlignment="Top" >
+            <dxlc:LayoutControl Grid.Row="1" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}"
+                                ItemSpace="10" VerticalAlignment="Top">
                 <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
                     <dxlc:LayoutGroup.Header>
                         <TextBlock Text="Filter" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                     </dxlc:LayoutGroup.Header>
                     <dxlc:LayoutGroup>
-                        <dxlc:LayoutItem Label="Filtertext" FontFamily="Tahoma" >
-                            <dxe:TextEdit Text="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                        <dxlc:LayoutItem Label="Filtertext" FontFamily="Tahoma">
+                            <dxe:TextEdit Text="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          FontFamily="Tahoma" />
                         </dxlc:LayoutItem>
                     </dxlc:LayoutGroup>
                 </dxlc:LayoutGroup>
             </dxlc:LayoutControl>
 
-            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="12,0,12,0">
-                <ListView ItemsSource="{Binding FilteredProductCategories}" SelectedItem="{Binding SelectedProductCategory}" x:Name="Projects" BorderThickness="1" BorderBrush="DarkGray" FontSize="14" >
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                          Margin="12,0,12,0">
+                <ListView ItemsSource="{Binding FilteredProductCategories}"
+                          SelectedItem="{Binding SelectedProductCategory}" x:Name="Projects" BorderThickness="1"
+                          BorderBrush="DarkGray" FontSize="14">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel />
@@ -99,10 +106,12 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <Border Grid.Column="2" Padding="0 0 8 0" >
-                                    <StackPanel VerticalAlignment="Center" >
-                                        <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#000" TextTrimming="CharacterEllipsis" />
-                                        <TextBlock Margin="10,0,0,0" Text="{Binding Description}" Foreground="#9e9e9e" TextTrimming="CharacterEllipsis" />
+                                <Border Grid.Column="2" Padding="0 0 8 0">
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#000"
+                                                   TextTrimming="CharacterEllipsis" />
+                                        <TextBlock Margin="10,0,0,0" Text="{Binding Description}" Foreground="#9e9e9e"
+                                                   TextTrimming="CharacterEllipsis" />
                                     </StackPanel>
                                 </Border>
                             </Grid>
@@ -114,7 +123,7 @@
                 </ListView>
             </ScrollViewer>
 
-            <VirtualizingStackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,15,0,15" >
+            <VirtualizingStackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,15,0,15">
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Neu"
                                  Foreground="#3F729B" Command="{Binding NewProductCategoryCommand}" FontFamily="Tahoma" />
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Speichern" Foreground="#3F729B"
@@ -135,19 +144,26 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <dxlc:LayoutControl Grid.Row="0" Grid.RowSpan="3" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,-12,0,0" IsEnabled="{Binding SelectedProductCategory, Converter={StaticResource NullConverter}}">
+                <dxlc:LayoutControl Grid.Row="0" Grid.RowSpan="3" Orientation="Vertical"
+                                    ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,-12,0,0"
+                                    IsEnabled="{Binding SelectedProductCategory, Converter={StaticResource NullConverter}}">
                     <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
                         <dxlc:LayoutGroup.Header>
                             <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                         </dxlc:LayoutGroup.Header>
                         <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Name" FontFamily="Tahoma" >
-                                <dxe:TextEdit Text="{Binding SelectedProductCategory.Name, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                            <dxlc:LayoutItem Label="Name" FontFamily="Tahoma">
+                                <dxe:TextEdit
+                                    Text="{Binding SelectedProductCategory.Name, UpdateSourceTrigger=PropertyChanged}"
+                                    FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Beschreibung" FontFamily="Tahoma" >
-                                <dxe:TextEdit TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" VerticalContentAlignment="Top" Text="{Binding SelectedProductCategory.Description, UpdateSourceTrigger=PropertyChanged}" Height="150" FontFamily="Tahoma" />
+                            <dxlc:LayoutItem Label="Beschreibung" FontFamily="Tahoma">
+                                <dxe:TextEdit TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                                              AcceptsReturn="True" VerticalContentAlignment="Top"
+                                              Text="{Binding SelectedProductCategory.Description, UpdateSourceTrigger=PropertyChanged}"
+                                              Height="150" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                     </dxlc:LayoutGroup>

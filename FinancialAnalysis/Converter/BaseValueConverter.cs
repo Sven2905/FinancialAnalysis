@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Markup;
 
 namespace FinancialAnalysis.UserControls
 {
     /// <summary>
-    /// A base value converter that allows direct XAML usage
+    ///     A base value converter that allows direct XAML usage
     /// </summary>
     /// <typeparam name="T">The type of this value converter</typeparam>
     public abstract class BaseValueConverter<T> : MarkupExtension, IValueConverter
@@ -19,16 +15,16 @@ namespace FinancialAnalysis.UserControls
         #region Private Members
 
         /// <summary>
-        /// A single static instance of this value converter
+        ///     A single static instance of this value converter
         /// </summary>
-        private static T mConverter = null;
+        private static T mConverter;
 
-        #endregion
+        #endregion Private Members
 
         #region Markup Extension Methods
 
         /// <summary>
-        /// Provides a static instance of the value converter 
+        ///     Provides a static instance of the value converter
         /// </summary>
         /// <param name="serviceProvider">The service provider</param>
         /// <returns></returns>
@@ -37,12 +33,12 @@ namespace FinancialAnalysis.UserControls
             return mConverter ?? (mConverter = new T());
         }
 
-        #endregion
+        #endregion Markup Extension Methods
 
         #region Value Converter Methods
 
         /// <summary>
-        /// The method to convert one type to another
+        ///     The method to convert one type to another
         /// </summary>
         /// <param name="value"></param>
         /// <param name="targetType"></param>
@@ -52,7 +48,7 @@ namespace FinancialAnalysis.UserControls
         public abstract object Convert(object value, Type targetType, object parameter, CultureInfo culture);
 
         /// <summary>
-        /// The method to convert a value back to it's source type
+        ///     The method to convert a value back to it's source type
         /// </summary>
         /// <param name="value"></param>
         /// <param name="targetType"></param>
@@ -61,6 +57,6 @@ namespace FinancialAnalysis.UserControls
         /// <returns></returns>
         public abstract object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture);
 
-        #endregion
+        #endregion Value Converter Methods
     }
 }

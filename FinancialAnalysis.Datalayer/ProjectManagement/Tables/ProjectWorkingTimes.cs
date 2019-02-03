@@ -143,8 +143,9 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<ProjectWorkingTime>($"dbo.{TableName}_GetById @ProjectWorkingTimeId",
-                        new { ProjectWorkingTimeId = id});
+                    output = con.QuerySingleOrDefault<ProjectWorkingTime>(
+                        $"dbo.{TableName}_GetById @ProjectWorkingTimeId",
+                        new {ProjectWorkingTimeId = id});
                 }
             }
             catch (Exception e)
@@ -161,7 +162,8 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         /// <param name="ProjectWorkingTime"></param>
         public void UpdateOrInsert(ProjectWorkingTime ProjectWorkingTime)
         {
-            if (ProjectWorkingTime.ProjectWorkingTimeId == 0 || GetById(ProjectWorkingTime.ProjectWorkingTimeId) is null)
+            if (ProjectWorkingTime.ProjectWorkingTimeId == 0 ||
+                GetById(ProjectWorkingTime.ProjectWorkingTimeId) is null)
             {
                 Insert(ProjectWorkingTime);
                 return;
@@ -185,14 +187,17 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
         /// <param name="ProjectWorkingTime"></param>
         public void Update(ProjectWorkingTime ProjectWorkingTime)
         {
-            if (ProjectWorkingTime.ProjectWorkingTimeId == 0 || GetById(ProjectWorkingTime.ProjectWorkingTimeId) is null) return;
+            if (ProjectWorkingTime.ProjectWorkingTimeId == 0 ||
+                GetById(ProjectWorkingTime.ProjectWorkingTimeId) is null) return;
 
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @ProjectWorkingTimeId, @Description, @StartTime, @EndTime, @Breaktime, @RefEmployeeId, @RefProjectId", ProjectWorkingTime);
+                    con.Execute(
+                        $"dbo.{TableName}_Update @ProjectWorkingTimeId, @Description, @StartTime, @EndTime, @Breaktime, @RefEmployeeId, @RefProjectId",
+                        ProjectWorkingTime);
                 }
             }
             catch (Exception e)
@@ -212,7 +217,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @ProjectWorkingTimeId", new { ProjectWorkingTimeId = id });
+                    con.Execute($"dbo.{TableName}_Delete @ProjectWorkingTimeId", new {ProjectWorkingTimeId = id});
                 }
             }
             catch (Exception e)

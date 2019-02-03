@@ -1,37 +1,27 @@
-﻿using DevExpress.Mvvm;
+﻿using System;
+using System.Windows;
+using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
-using System;
-using System.Windows.Media.Imaging;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
     public class CostCenterCategoryViewModel : ViewModelBase
     {
-        #region Fields
-
-        private readonly CostCenterCategory _SelectedCostCenterCategory;
-        private SvenTechCollection<CostCenterCategory> _CostCenterCategories = new SvenTechCollection<CostCenterCategory>();
-        private string _FilterText = string.Empty;
-
-        #endregion Fields
-
         #region Constructor
 
         public CostCenterCategoryViewModel()
         {
-            if (IsInDesignMode)
-            {
-                return;
-            }
+            if (IsInDesignMode) return;
 
             FilteredCostCenterCategories = _CostCenterCategories = LoadAllCostCenterCategories();
             NewCostCenterCategoryCommand = new DelegateCommand(NewCostCenterCategory);
             SaveCostCenterCategoryCommand = new DelegateCommand(SaveCostCenterCategory, () => Validation());
-            DeleteCostCenterCategoryCommand = new DelegateCommand(DeleteCostCenterCategory, () => (SelectedCostCenterCategory != null));
+            DeleteCostCenterCategoryCommand =
+                new DelegateCommand(DeleteCostCenterCategory, () => SelectedCostCenterCategory != null);
             SelectedCommand = new DelegateCommand(() =>
             {
                 SendSelectedToParent();
@@ -41,18 +31,29 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #endregion Constructor
 
+        #region Fields
+
+        private readonly CostCenterCategory _SelectedCostCenterCategory;
+
+        private readonly SvenTechCollection<CostCenterCategory> _CostCenterCategories =
+            new SvenTechCollection<CostCenterCategory>();
+
+        private string _FilterText = string.Empty;
+
+        #endregion Fields
+
         #region Methods
 
         private SvenTechCollection<CostCenterCategory> LoadAllCostCenterCategories()
         {
-            SvenTechCollection<CostCenterCategory> allCostCenterCategories = new SvenTechCollection<CostCenterCategory>();
+            var allCostCenterCategories = new SvenTechCollection<CostCenterCategory>();
             try
             {
                 allCostCenterCategories = DataContext.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
 
             return allCostCenterCategories;
@@ -66,10 +67,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteCostCenterCategory()
         {
-            if (SelectedCostCenterCategory == null)
-            {
-                return;
-            }
+            if (SelectedCostCenterCategory == null) return;
 
             if (SelectedCostCenterCategory.CostCenterCategoryId == 0)
             {
@@ -84,9 +82,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _CostCenterCategories.Remove(SelectedCostCenterCategory);
                 SelectedCostCenterCategory = null;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -95,53 +93,40 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedCostCenterCategory.CostCenterCategoryId != 0)
-                {
                     DataContext.Instance.CostCenterCategories.Update(SelectedCostCenterCategory);
-                }
                 else
-                {
-                    SelectedCostCenterCategory.CostCenterCategoryId = DataContext.Instance.CostCenterCategories.Insert(SelectedCostCenterCategory);
-                }
+                    SelectedCostCenterCategory.CostCenterCategoryId =
+                        DataContext.Instance.CostCenterCategories.Insert(SelectedCostCenterCategory);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
         private bool Validation()
         {
-            if (SelectedCostCenterCategory == null)
-            {
-                return false;
-            }
-            if (string.IsNullOrEmpty(SelectedCostCenterCategory.Name))
-            {
-                return false;
-            }
+            if (SelectedCostCenterCategory == null) return false;
+            if (string.IsNullOrEmpty(SelectedCostCenterCategory.Name)) return false;
             return true;
         }
 
         public void SendSelectedToParent()
         {
-            if (SelectedCostCenterCategory == null)
-            {
-                return;
-            }
+            if (SelectedCostCenterCategory == null) return;
 
-            if (SelectedCostCenterCategory.CostCenterCategoryId == 0)
-            {
-                SaveCostCenterCategory();
-            }
+            if (SelectedCostCenterCategory.CostCenterCategoryId == 0) SaveCostCenterCategory();
 
-            Messenger.Default.Send(new SelectedCostCenterCategory { CostCenterCategory = SelectedCostCenterCategory });
+            Messenger.Default.Send(new SelectedCostCenterCategory {CostCenterCategory = SelectedCostCenterCategory});
         }
 
         #endregion Methods
 
         #region Properties
 
-        public SvenTechCollection<CostCenterCategory> FilteredCostCenterCategories { get; set; } = new SvenTechCollection<CostCenterCategory>();
+        public SvenTechCollection<CostCenterCategory> FilteredCostCenterCategories { get; set; } =
+            new SvenTechCollection<CostCenterCategory>();
+
         public DelegateCommand NewCostCenterCategoryCommand { get; set; }
         public DelegateCommand SaveCostCenterCategoryCommand { get; set; }
         public DelegateCommand DeleteCostCenterCategoryCommand { get; set; }
@@ -149,7 +134,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public string FilterText
         {
-            get { return _FilterText; }
+            get => _FilterText;
             set
             {
                 _FilterText = value;
@@ -157,12 +142,8 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     FilteredCostCenterCategories = new SvenTechCollection<CostCenterCategory>();
                     foreach (var item in _CostCenterCategories)
-                    {
                         if (item.Name.Contains(FilterText))
-                        {
                             FilteredCostCenterCategories.Add(item);
-                        }
-                    }
                 }
                 else
                 {
@@ -171,9 +152,10 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
             }
         }
+
         public CostCenterCategory SelectedCostCenterCategory { get; set; }
         public Action CloseAction { get; set; }
-        public User ActualUser { get { return Globals.ActualUser; } }
+        public User ActualUser => Globals.ActualUser;
 
         #endregion Properties
     }

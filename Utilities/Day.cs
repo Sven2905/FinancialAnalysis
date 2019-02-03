@@ -7,11 +7,9 @@ namespace Utilities
         public static bool IsWeekendHoliday(DateTime date, EnumFederalState enumFederalState,
             bool includeSaturday = true)
         {
-            if (IsWeekend(date, includeSaturday))
-                return true;
+            if (IsWeekend(date, includeSaturday)) return true;
 
-            if (IsHoliday(date, enumFederalState))
-                return true;
+            if (IsHoliday(date, enumFederalState)) return true;
 
             return false;
         }
@@ -21,8 +19,8 @@ namespace Utilities
             var result = date.DayOfWeek == DayOfWeek.Sunday;
 
             if (!includeSaturday) return result;
-            if (date.DayOfWeek == DayOfWeek.Saturday)
-                result = true;
+
+            if (date.DayOfWeek == DayOfWeek.Saturday) result = true;
 
             return result;
         }
@@ -32,8 +30,7 @@ namespace Utilities
             var easterSunday = GetEasterSunday(date.Year);
 
             // Neujahr
-            if (date.Day == 1 && date.Month == 1)
-                return true;
+            if (date.Day == 1 && date.Month == 1) return true;
 
             // Heilige Drei Könige
             if (enumFederalState == EnumFederalState.BW || enumFederalState == EnumFederalState.BY ||
@@ -42,24 +39,19 @@ namespace Utilities
                     return true;
 
             // Karfreitag
-            if (date == easterSunday.AddDays(-2))
-                return true;
+            if (date == easterSunday.AddDays(-2)) return true;
 
             // Ostersonntag
-            if (date == easterSunday)
-                return true;
+            if (date == easterSunday) return true;
 
             // Ostermontag
-            if (date == easterSunday.AddDays(1))
-                return true;
+            if (date == easterSunday.AddDays(1)) return true;
 
             // Tag der Arbeit
-            if (date.Day == 1 && date.Month == 5)
-                return true;
+            if (date.Day == 1 && date.Month == 5) return true;
 
             // Christi Himmelfahrt
-            if (date == easterSunday.AddDays(1))
-                return true;
+            if (date == easterSunday.AddDays(1)) return true;
 
             // Pfingstsonntag
             if (date == easterSunday.AddDays(49))
@@ -67,12 +59,10 @@ namespace Utilities
                     return true;
 
             // Pfingstmontag
-            if (date == easterSunday.AddDays(50))
-                return true;
+            if (date == easterSunday.AddDays(50)) return true;
 
             // Frohnleichnam
-            if (date == easterSunday.AddDays(60))
-                return true;
+            if (date == easterSunday.AddDays(60)) return true;
 
             // Mariä Himmelfahrt
             if (enumFederalState == EnumFederalState.BY || enumFederalState == EnumFederalState.SL)
@@ -80,8 +70,7 @@ namespace Utilities
                     return true;
 
             // Tag der deutschen Einheit
-            if (date.Day == 3 && date.Month == 10)
-                return true;
+            if (date.Day == 3 && date.Month == 10) return true;
 
             // Reformationstag
             if (enumFederalState == EnumFederalState.BB || enumFederalState == EnumFederalState.MV ||
@@ -103,12 +92,10 @@ namespace Utilities
                     return true;
 
             // 1. Weihnachtstag
-            if (date.Day == 25 && date.Month == 12)
-                return true;
+            if (date.Day == 25 && date.Month == 12) return true;
 
             // 2. Weihnachtstag
-            if (date.Day == 26 && date.Month == 12)
-                return true;
+            if (date.Day == 26 && date.Month == 12) return true;
 
             return false;
         }
@@ -166,10 +153,12 @@ namespace Utilities
         {
             var startDayOfWeek = startDate.DayOfWeek;
             if (startDayOfWeek == targetDayOfWeek) return startDate;
+
             var diff = 0;
             if (startDayOfWeek < targetDayOfWeek)
                 diff = targetDayOfWeek - startDayOfWeek - 7;
             else if (startDayOfWeek > targetDayOfWeek) diff = targetDayOfWeek - startDayOfWeek;
+
             return startDate.AddDays(diff);
         }
     }

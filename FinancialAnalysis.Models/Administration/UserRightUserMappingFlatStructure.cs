@@ -6,14 +6,14 @@ namespace FinancialAnalysis.Models.Administration
     {
         public UserRightUserMappingFlatStructure(UserRightUserMapping userRightUserMapping)
         {
-            this.UserRightUserMappingId = userRightUserMapping.UserRightUserMappingId;
-            this.RefUserId = userRightUserMapping.RefUserId;
-            this.IsGranted = userRightUserMapping.IsGranted;
-            this.RefUserRightId = userRightUserMapping.RefUserRightId;
-            this.ParentCategory = userRightUserMapping.UserRight.ParentCategory;
-            this.Name = userRightUserMapping.UserRight.Name;
-            this.Description = userRightUserMapping.UserRight.Description;
-            this.HierachicalId = (int)userRightUserMapping.UserRight.Permission;
+            UserRightUserMappingId = userRightUserMapping.UserRightUserMappingId;
+            RefUserId = userRightUserMapping.RefUserId;
+            IsGranted = userRightUserMapping.IsGranted;
+            RefUserRightId = userRightUserMapping.RefUserRightId;
+            ParentCategory = userRightUserMapping.UserRight.ParentCategory;
+            Name = userRightUserMapping.UserRight.Name;
+            Description = userRightUserMapping.UserRight.Description;
+            HierachicalId = (int) userRightUserMapping.UserRight.Permission;
         }
 
         public int UserRightUserMappingId { get; set; }

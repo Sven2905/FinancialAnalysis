@@ -1,4 +1,6 @@
-﻿using DevExpress.Mvvm;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Accounting;
@@ -7,19 +9,17 @@ using FinancialAnalysis.Models.ProductManagement;
 using FinancialAnalysis.Models.ProjectManagement;
 using FinancialAnalysis.Models.Reports;
 using FinancialAnalysis.Models.SalesManagement;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
     public class SalesOrderViewModel : ViewModelBase
     {
-        #region UserRights
-        public bool AllowSalesTypes { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessSalesTypes) || Globals.ActualUser.IsAdministrator; } }
-        #endregion UserRights
+        #region Fields
+
+        private Product _SelectedProduct;
+
+        #endregion Fields
 
         #region Constructor
 
@@ -32,14 +32,23 @@ namespace FinancialAnalysis.Logic.ViewModels
             SetCommands();
         }
 
-        #endregion
+        #endregion Constructor
+
+        #region UserRights
+
+        public bool AllowSalesTypes =>
+            UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessSalesTypes) ||
+            Globals.ActualUser.IsAdministrator;
+
+        #endregion UserRights
 
         #region Properties
 
         public SalesOrder SalesOrder { get; set; } = new SalesOrder();
+
         public Product SelectedProduct
         {
-            get { return _SelectedProduct; }
+            get => _SelectedProduct;
             set
             {
                 _SelectedProduct = value;
@@ -59,7 +68,10 @@ namespace FinancialAnalysis.Logic.ViewModels
         public SvenTechCollection<Employee> Employees { get; set; } = new SvenTechCollection<Employee>();
         public SvenTechCollection<Product> Products { get; set; } = new SvenTechCollection<Product>();
         public SvenTechCollection<SalesType> SalesTypes { get; set; } = new SvenTechCollection<SalesType>();
-        public SvenTechCollection<SalesOrderPosition> SalesOrderPositions { get; set; } = new SvenTechCollection<SalesOrderPosition>();
+
+        public SvenTechCollection<SalesOrderPosition> SalesOrderPositions { get; set; } =
+            new SvenTechCollection<SalesOrderPosition>();
+
         public DelegateCommand NewSalesOrderCommand { get; set; }
         public DelegateCommand CreatePDFCommand { get; set; }
         public DelegateCommand SavePositionCommand { get; set; }
@@ -69,47 +81,41 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #endregion Properties
 
-        #region Fields
-
-        private Product _SelectedProduct;
-
-        #endregion Fields
-
         #region Methods
 
         private void SetCommands()
         {
             CreatePDFCommand = new DelegateCommand(CreatePDFFile, () => ValidatePDFCreation());
             SavePositionCommand = new DelegateCommand(SaveSalesOrderPosition, () => ValidateSalesOrderPosition());
-            DeletePositionCommand = new DelegateCommand(DeleteSalesOrderPosition, () => SelectedSalesOrderPosition != null);
+            DeletePositionCommand =
+                new DelegateCommand(DeleteSalesOrderPosition, () => SelectedSalesOrderPosition != null);
             SaveSalesOrderCommand = new DelegateCommand(SaveSalesOrder, () => ValidateSalesOrder());
             OpenSalesTypesWindowCommand = new DelegateCommand(OpenSalesTypesWindow);
         }
 
         private bool ValidatePDFCreation()
         {
-            if (SalesOrder.SalesOrderPositions.Count < 1)
-                return false;
-            if (!ValidateSalesOrder())
-                return false;
+            if (SalesOrder.SalesOrderPositions.Count < 1) return false;
+
+            if (!ValidateSalesOrder()) return false;
+
             return true;
         }
 
         private bool ValidateSalesOrderPosition()
         {
-            if (SalesOrderPosition.RefProductId == 0)
-                return false;
+            if (SalesOrderPosition.RefProductId == 0) return false;
+
             return true;
         }
 
         private bool ValidateSalesOrder()
         {
-            if (SalesOrder == null)
-                return false;
-            if (SalesOrder.SalesOrderPositions.Count < 1)
-                return false;
-            if (SalesOrder.RefDebitorId == 0 || SalesOrder.RefSalesTypeId == 0)
-                return false;
+            if (SalesOrder == null) return false;
+
+            if (SalesOrder.SalesOrderPositions.Count < 1) return false;
+
+            if (SalesOrder.RefDebitorId == 0 || SalesOrder.RefSalesTypeId == 0) return false;
 
             return true;
         }
@@ -121,10 +127,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteSalesOrderPosition()
         {
-            if (SelectedSalesOrderPosition != null)
-            {
-                SalesOrder.SalesOrderPositions.Remove(SelectedSalesOrderPosition);
-            }
+            if (SelectedSalesOrderPosition != null) SalesOrder.SalesOrderPositions.Remove(SelectedSalesOrderPosition);
         }
 
         private void SaveSalesOrderPosition()
@@ -136,24 +139,23 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void CreatePDFFile()
         {
-            SalesOrderReportData salesOrderReportData = new SalesOrderReportData
+            var salesOrderReportData = new SalesOrderReportData
             {
                 MyCompany = Globals.CoreData.MyCompany,
                 SalesOrder = SalesOrder,
                 Employee = Employee
             };
 
-            List<SalesOrderReportData> listReportData = new List<SalesOrderReportData>() { salesOrderReportData };
+            var listReportData = new List<SalesOrderReportData> {salesOrderReportData};
 
-            SalesOrderReport sor = new SalesOrderReport
+            var sor = new SalesOrderReport
             {
                 DataSource = listReportData
             };
             sor.CreateDocument();
-            string path = @"C:\Users\fuhrm\OneDrive\Dokumente\test.pdf";
+            var path = @"C:\Users\fuhrm\OneDrive\Dokumente\test.pdf";
             sor.PrintingSystem.ExportToPdf(path);
             Messenger.Default.Send(new OpenPDFViewerWindowMessage(path));
-
         }
 
         private void SaveSalesOrder()
@@ -166,6 +168,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 item.RefSalesOrderId = SalesOrder.SalesOrderId;
                 DataContext.Instance.SalesOrderPositions.Insert(item);
             }
+
             Clear();
         }
 

@@ -37,7 +37,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                     "Name nvarchar(150) NOT NULL, " +
                     "ParentCategory int, " +
                     "Description nvarchar(150) NOT NULL, " +
-                    "Permission int NOT NULL)"; 
+                    "Permission int NOT NULL)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -63,7 +63,7 @@ namespace FinancialAnalysis.Datalayer.Administration
         /// <returns></returns>
         public List<UserRight> GetAll()
         {
-            List<UserRight> output = new List<UserRight>();
+            var output = new List<UserRight>();
             try
             {
                 using (IDbConnection con =
@@ -142,7 +142,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.QuerySingleOrDefault<UserRight>($"dbo.{TableName}_GetById @UserRightId",
-                        new { UserRightId = id});
+                        new {UserRightId = id});
                 }
             }
             catch (Exception e)
@@ -190,7 +190,9 @@ namespace FinancialAnalysis.Datalayer.Administration
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @UserRightId, @Name, @Description, @@ParentCategory, @Permission", UserRight);
+                    con.Execute(
+                        $"dbo.{TableName}_Update @UserRightId, @Name, @Description, @@ParentCategory, @Permission",
+                        UserRight);
                 }
             }
             catch (Exception e)
@@ -210,7 +212,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @UserRightId", new { UserRightId = id });
+                    con.Execute($"dbo.{TableName}_Delete @UserRightId", new {UserRightId = id});
                 }
             }
             catch (Exception e)

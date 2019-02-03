@@ -1,14 +1,30 @@
-﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Models.Administration;
+﻿using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
+using DevExpress.Mvvm;
+using FinancialAnalysis.Models.Administration;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
     public class UsersViewModel : ViewModelBase
     {
+        #region Constructor
+
+        public UsersViewModel()
+        {
+            if (IsInDesignMode) return;
+
+            _Users = LoadAllUsers();
+            NewUserCommand = new DelegateCommand(NewUser);
+            SaveUserCommand = new DelegateCommand(SaveUser, () => Validation());
+            DeleteUserCommand = new DelegateCommand(DeleteUser,
+                () => SelectedUser != null && SelectedUser.UserId != Globals.ActualUser.UserId);
+        }
+
+        #endregion Constructor
+
         #region Fields
 
         private User _SelectedUser;
@@ -18,51 +34,31 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #endregion Fields
 
-        #region Constructor
-
-        public UsersViewModel()
-        {
-            if (IsInDesignMode)
-            {
-                return;
-            }
-
-            _Users = LoadAllUsers();
-            NewUserCommand = new DelegateCommand(NewUser);
-            SaveUserCommand = new DelegateCommand(SaveUser, () => Validation());
-            DeleteUserCommand = new DelegateCommand(DeleteUser, () => (SelectedUser != null && SelectedUser.UserId != Globals.ActualUser.UserId));
-        }
-
-        #endregion Constructor
-
         #region Methods
 
-        private void UserRightUserMappingFlatStructure_OnItemPropertyChanged(object sender, object item, System.ComponentModel.PropertyChangedEventArgs e)
+        private void UserRightUserMappingFlatStructure_OnItemPropertyChanged(object sender, object item,
+            PropertyChangedEventArgs e)
         {
-            UserRightUserMappingFlatStructure.OnItemPropertyChanged -= UserRightUserMappingFlatStructure_OnItemPropertyChanged;
-            var right = (UserRightUserMappingFlatStructure)item;
+            UserRightUserMappingFlatStructure.OnItemPropertyChanged -=
+                UserRightUserMappingFlatStructure_OnItemPropertyChanged;
+            var right = (UserRightUserMappingFlatStructure) item;
             foreach (var UserRightUserMapping in UserRightUserMappingFlatStructure)
             {
-                if (UserRightUserMapping.ParentCategory == right.HierachicalId && right.IsGranted == true)
-                {
+                if (UserRightUserMapping.ParentCategory == right.HierachicalId && right.IsGranted)
                     UserRightUserMapping.IsGranted = true;
-                }
                 else if (UserRightUserMapping.ParentCategory == right.HierachicalId && right.IsGranted == false)
-                {
                     UserRightUserMapping.IsGranted = false;
-                }
-                if (UserRightUserMapping.RefUserRightId == right.HierachicalId && right.IsGranted == true)
-                {
+                if (UserRightUserMapping.RefUserRightId == right.HierachicalId && right.IsGranted)
                     UserRightUserMapping.IsGranted = true;
-                }
             }
 
             if (right.IsGranted)
             {
-                int parentId = right.ParentCategory;
+                var parentId = right.ParentCategory;
                 do
                 {
-                    var parentRight = UserRightUserMappingFlatStructure.SingleOrDefault(x => x.HierachicalId == parentId);
+                    var parentRight =
+                        UserRightUserMappingFlatStructure.SingleOrDefault(x => x.HierachicalId == parentId);
                     if (parentRight != null)
                     {
                         parentRight.IsGranted = true;
@@ -75,7 +71,8 @@ namespace FinancialAnalysis.Logic.ViewModels
                 } while (parentId != 0);
             }
 
-            UserRightUserMappingFlatStructure.OnItemPropertyChanged += UserRightUserMappingFlatStructure_OnItemPropertyChanged;
+            UserRightUserMappingFlatStructure.OnItemPropertyChanged +=
+                UserRightUserMappingFlatStructure_OnItemPropertyChanged;
             RaisePropertyChanged("UserRightUserMappingFlatStructure");
         }
 
@@ -88,16 +85,14 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             SelectedUser = UserManager.Instance.NewUser();
             UserRightUserMappingFlatStructure = UserManager.Instance.GetUserRightUserMappingFlatStructure(SelectedUser);
-            UserRightUserMappingFlatStructure.OnItemPropertyChanged += UserRightUserMappingFlatStructure_OnItemPropertyChanged;
+            UserRightUserMappingFlatStructure.OnItemPropertyChanged +=
+                UserRightUserMappingFlatStructure_OnItemPropertyChanged;
             _Users.Add(SelectedUser);
         }
 
         private void DeleteUser()
         {
-            if (SelectedUser == null)
-            {
-                return;
-            }
+            if (SelectedUser == null) return;
 
             if (SelectedUser.UserId == 0)
             {
@@ -114,27 +109,23 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveUser()
         {
             SelectedUser.Password = Password;
-            SelectedUser.UserRightUserMappings = UserManager.Instance.ConvertUserRightUserMappingFlatStructureToNormal(UserRightUserMappingFlatStructure);
+            SelectedUser.UserRightUserMappings =
+                UserManager.Instance
+                    .ConvertUserRightUserMappingFlatStructureToNormal(UserRightUserMappingFlatStructure);
             SelectedUser = UserManager.Instance.InsertOrUpdateUser(SelectedUser);
             var selectedUserId = SelectedUser.UserId;
             FilteredUsers = _Users = UserManager.Instance.Users;
 
             SelectedUser = _Users.Single(x => x.UserId == selectedUserId);
 
-            if (selectedUserId == Globals.ActualUser.UserId)
-            {
-                Globals.ActualUser = SelectedUser;
-            }
+            if (selectedUserId == Globals.ActualUser.UserId) Globals.ActualUser = SelectedUser;
         }
 
         public BitmapImage ConvertToImage(byte[] array)
         {
-            if (array == null)
-            {
-                return null;
-            }
+            if (array == null) return null;
 
-            using (var ms = new System.IO.MemoryStream(array))
+            using (var ms = new MemoryStream(array))
             {
                 var image = new BitmapImage();
                 image.BeginInit();
@@ -147,15 +138,12 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private byte[] ConvertToByteArray(BitmapImage bitmapImage)
         {
-            if (bitmapImage == null)
-            {
-                return null;
-            }
+            if (bitmapImage == null) return null;
 
             byte[] data;
-            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+            var encoder = new JpegBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
-            using (MemoryStream ms = new MemoryStream())
+            using (var ms = new MemoryStream())
             {
                 encoder.Save(ms);
                 data = ms.ToArray();
@@ -166,58 +154,48 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private bool Validation()
         {
-            if (SelectedUser == null)
-            {
-                return false;
-            }
-            if (string.IsNullOrEmpty(SelectedUser.Firstname) || string.IsNullOrEmpty(SelectedUser.Lastname) || string.IsNullOrEmpty(SelectedUser.LoginUser))
-            {
-                return false;
-            }
+            if (SelectedUser == null) return false;
+            if (string.IsNullOrEmpty(SelectedUser.Firstname) || string.IsNullOrEmpty(SelectedUser.Lastname) ||
+                string.IsNullOrEmpty(SelectedUser.LoginUser)) return false;
             if (SelectedUser.UserId == 0)
-            {
                 if (string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(PasswordRepeat))
-                {
                     return false;
-                }
-            }
-            if (!string.IsNullOrEmpty(Password) && string.IsNullOrEmpty(PasswordRepeat))
-            {
-                return false;
-            }
-            if (string.IsNullOrEmpty(Password) && !string.IsNullOrEmpty(PasswordRepeat))
-            {
-                return false;
-            }
+            if (!string.IsNullOrEmpty(Password) && string.IsNullOrEmpty(PasswordRepeat)) return false;
+            if (string.IsNullOrEmpty(Password) && !string.IsNullOrEmpty(PasswordRepeat)) return false;
             if (IsPasswordSet())
-            {
                 if (!IsPasswordIdentical())
-                {
                     return false;
-                }
-            }
 
             return true;
         }
 
-        private bool IsPasswordIdentical() => (Password == PasswordRepeat);
+        private bool IsPasswordIdentical()
+        {
+            return Password == PasswordRepeat;
+        }
 
-        private bool IsPasswordSet() => (!string.IsNullOrEmpty(Password) && !string.IsNullOrEmpty(PasswordRepeat));
+        private bool IsPasswordSet()
+        {
+            return !string.IsNullOrEmpty(Password) && !string.IsNullOrEmpty(PasswordRepeat);
+        }
 
         #endregion Methods
 
         #region Properties
 
-        public SvenTechCollection<UserRightUserMappingFlatStructure> UserRightUserMappingFlatStructure { get; set; } = new SvenTechCollection<UserRightUserMappingFlatStructure>();
+        public SvenTechCollection<UserRightUserMappingFlatStructure> UserRightUserMappingFlatStructure { get; set; } =
+            new SvenTechCollection<UserRightUserMappingFlatStructure>();
+
         public SvenTechCollection<User> FilteredUsers { get; set; } = new SvenTechCollection<User>();
         public DelegateCommand NewUserCommand { get; set; }
         public DelegateCommand SaveUserCommand { get; set; }
         public DelegateCommand DeleteUserCommand { get; set; }
         public string Password { get; set; } = string.Empty;
         public string PasswordRepeat { get; set; } = string.Empty;
+
         public string FilterText
         {
-            get { return _FilterText; }
+            get => _FilterText;
             set
             {
                 _FilterText = value;
@@ -225,12 +203,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     FilteredUsers = new SvenTechCollection<User>();
                     foreach (var item in _Users)
-                    {
-                        if (item.LoginUser.Contains(FilterText) || item.Firstname.Contains(FilterText) || item.Lastname.Contains(FilterText))
-                        {
+                        if (item.LoginUser.Contains(FilterText) || item.Firstname.Contains(FilterText) ||
+                            item.Lastname.Contains(FilterText))
                             FilteredUsers.Add(item);
-                        }
-                    }
                 }
                 else
                 {
@@ -238,44 +213,41 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
             }
         }
+
         public User SelectedUser
         {
-            get { return _SelectedUser; }
+            get => _SelectedUser;
             set
             {
                 _SelectedUser = value;
                 if (value != null)
                 {
-                    UserRightUserMappingFlatStructure.OnItemPropertyChanged -= UserRightUserMappingFlatStructure_OnItemPropertyChanged;
-                    UserRightUserMappingFlatStructure = UserManager.Instance.GetUserRightUserMappingFlatStructure(_SelectedUser);
-                    UserRightUserMappingFlatStructure.OnItemPropertyChanged += UserRightUserMappingFlatStructure_OnItemPropertyChanged;
+                    UserRightUserMappingFlatStructure.OnItemPropertyChanged -=
+                        UserRightUserMappingFlatStructure_OnItemPropertyChanged;
+                    UserRightUserMappingFlatStructure =
+                        UserManager.Instance.GetUserRightUserMappingFlatStructure(_SelectedUser);
+                    UserRightUserMappingFlatStructure.OnItemPropertyChanged +=
+                        UserRightUserMappingFlatStructure_OnItemPropertyChanged;
                 }
+
                 if (_SelectedUser != null && _SelectedUser.Picture != null)
-                {
                     Image = ConvertToImage(SelectedUser.Picture);
-                }
                 else
-                {
                     Image = null;
-                }
             }
         }
+
         public BitmapImage Image
         {
-            get
-            {
-                return _Image;
-            }
+            get => _Image;
             set
             {
                 _Image = value;
-                if (SelectedUser != null)
-                {
-                    _SelectedUser.Picture = ConvertToByteArray(value);
-                }
+                if (SelectedUser != null) _SelectedUser.Picture = ConvertToByteArray(value);
             }
         }
-        public User ActualUser { get { return Globals.ActualUser; } }
+
+        public User ActualUser => Globals.ActualUser;
 
         #endregion Properties
     }

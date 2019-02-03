@@ -33,7 +33,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                    $"SELECT SalesOrderPositionId, RefSalesOrderId, RefProductId, Description, Quantity, Price, DiscountPercentage, IsShipped, IsCanceled " +
+                    "SELECT SalesOrderPositionId, RefSalesOrderId, RefProductId, Description, Quantity, Price, DiscountPercentage, IsShipped, IsCanceled " +
                     $"FROM {TableName} END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

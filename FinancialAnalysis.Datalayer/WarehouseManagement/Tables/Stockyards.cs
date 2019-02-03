@@ -1,11 +1,11 @@
-﻿using Dapper;
-using FinancialAnalysis.Models.WarehouseManagement;
-using Serilog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using Dapper;
+using FinancialAnalysis.Models.WarehouseManagement;
+using Serilog;
 
 namespace FinancialAnalysis.Datalayer.WarehouseManagement
 {
@@ -69,18 +69,14 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                     ($"dbo.{TableName}_GetAll",
                         (s, sp) =>
                         {
-                            if (!stockyardDictionary.TryGetValue(s.StockyardId, out Stockyard stockyardEntry))
-                            {
+                            if (!stockyardDictionary.TryGetValue(s.StockyardId, out var stockyardEntry))
                                 if (stockyardEntry == null)
                                 {
                                     stockyardEntry = s;
                                     stockyardDictionary.Add(stockyardEntry.StockyardId, stockyardEntry);
                                 }
-                            }
-                            if (sp != null)
-                            {
-                                stockyardEntry.StockedProducts.Add(sp);
-                            }
+
+                            if (sp != null) stockyardEntry.StockedProducts.Add(sp);
 
                             return stockyardEntry;
                         }, splitOn: "StockyardId, StockedProductId")
@@ -103,21 +99,17 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                     ($"dbo.{TableName}_GetById @StockyardId",
                         (s, sp) =>
                         {
-                            if (!stockyardDictionary.TryGetValue(s.StockyardId, out Stockyard stockyardEntry))
-                            {
+                            if (!stockyardDictionary.TryGetValue(s.StockyardId, out var stockyardEntry))
                                 if (stockyardEntry == null)
                                 {
                                     stockyardEntry = s;
                                     stockyardDictionary.Add(stockyardEntry.StockyardId, stockyardEntry);
                                 }
-                            }
-                            if (sp != null)
-                            {
-                                stockyardEntry.StockedProducts.Add(sp);
-                            }
+
+                            if (sp != null) stockyardEntry.StockedProducts.Add(sp);
 
                             return stockyardEntry;
-                        }, new { StockyardId = id }, splitOn: "StockyardId, StockedProductId")
+                        }, new {StockyardId = id}, splitOn: "StockyardId, StockedProductId")
                     .AsQueryable();
                 return stockyardDictionary.Values.FirstOrDefault();
             }
@@ -137,21 +129,17 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                     ($"dbo.{TableName}_GetByRefWarehouseId @RefWarehouseId",
                         (s, sp) =>
                         {
-                            if (!stockyardDictionary.TryGetValue(s.StockyardId, out Stockyard stockyardEntry))
-                            {
+                            if (!stockyardDictionary.TryGetValue(s.StockyardId, out var stockyardEntry))
                                 if (stockyardEntry == null)
                                 {
                                     stockyardEntry = s;
                                     stockyardDictionary.Add(stockyardEntry.StockyardId, stockyardEntry);
                                 }
-                            }
-                            if (sp != null)
-                            {
-                                stockyardEntry.StockedProducts.Add(sp);
-                            }
+
+                            if (sp != null) stockyardEntry.StockedProducts.Add(sp);
 
                             return stockyardEntry;
-                        }, new { RefWarehouseId }, splitOn: "StockyardId, StockedProductId")
+                        }, new {RefWarehouseId}, splitOn: "StockyardId, StockedProductId")
                     .AsQueryable();
                 return stockyardDictionary.Values.ToList();
             }
@@ -195,10 +183,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var Stockyard in Stockyards)
-                    {
-                        Insert(Stockyard);
-                    }
+                    foreach (var Stockyard in Stockyards) Insert(Stockyard);
                 }
             }
             catch (Exception e)
@@ -228,10 +213,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
         /// <param name="Stockyards"></param>
         public void UpdateOrInsert(IEnumerable<Stockyard> Stockyards)
         {
-            foreach (var Stockyard in Stockyards)
-            {
-                UpdateOrInsert(Stockyard);
-            }
+            foreach (var Stockyard in Stockyards) UpdateOrInsert(Stockyard);
         }
 
         /// <summary>
@@ -240,10 +222,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
         /// <param name="Stockyard"></param>
         public void Update(Stockyard Stockyard)
         {
-            if (Stockyard.StockyardId == 0 || GetById(Stockyard.StockyardId) is null)
-            {
-                return;
-            }
+            if (Stockyard.StockyardId == 0 || GetById(Stockyard.StockyardId) is null) return;
 
             try
             {
@@ -270,7 +249,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @StockyardId", new { StockyardId = id });
+                    con.Execute($"dbo.{TableName}_Delete @StockyardId", new {StockyardId = id});
                 }
             }
             catch (Exception e)

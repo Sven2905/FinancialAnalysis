@@ -6,7 +6,6 @@ using System.Linq;
 using Dapper;
 using FinancialAnalysis.Models.Accounting;
 using Serilog;
-using Utilities;
 
 namespace FinancialAnalysis.Datalayer.Accounting
 {
@@ -106,7 +105,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Description, @Amount, @RefCostCenterId, @Date", Booking);
+                    var result =
+                        con.Query<int>($"dbo.{TableName}_Insert @Description, @Amount, @RefCostCenterId, @Date",
+                            Booking);
                     return result.Single();
                 }
             }
@@ -168,7 +169,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                             bookingEntry.ScannedDocuments.Add(s);
 
                             return b;
-                        }, new { BookingId = id }, splitOn: "BookingId, ScannedDocumentId, CreditId, DebitId")
+                        }, new {BookingId = id}, splitOn: "BookingId, ScannedDocumentId, CreditId, DebitId")
                     .AsQueryable();
                 return query.FirstOrDefault();
             }
@@ -208,7 +209,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
                             bookingEntry.ScannedDocuments.Add(s);
 
                             return b;
-                        }, new { StartDate = startDate, EndDate = endDate, CreditId = creditId, DebitId = debitId }, splitOn: "BookingId, ScannedDocumentId, CreditId, DebitId")
+                        }, new {StartDate = startDate, EndDate = endDate, CreditId = creditId, DebitId = debitId},
+                        splitOn: "BookingId, ScannedDocumentId, CreditId, DebitId")
                     .AsQueryable();
                 return query.ToList();
             }
@@ -221,7 +223,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
 
         private void AddCostCentersReference()
         {
-            string refTable = "CostCenters";
+            var refTable = "CostCenters";
 
             try
             {

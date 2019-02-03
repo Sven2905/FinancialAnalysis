@@ -14,7 +14,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         public string TableName { get; }
 
         /// <summary>
-        /// Check if all Stored Procedures are created, otherwise create them
+        ///     Check if all Stored Procedures are created, otherwise create them
         /// </summary>
         public void CheckAndCreateProcedures()
         {
@@ -46,7 +46,6 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     "LEFT JOIN Invoices i ON ipos.RefInvoiceId = i.InvoiceId " +
                     "LEFT JOIN ShippedProducts sp ON spos.SalesOrderPositionId = sp.RefSalesOrderPositionId " +
                     "LEFT JOIN Shipments s ON sp.RefShipmentId = s.ShipmentId " +
-
                     "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -95,7 +94,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetById] @SalesOrderId int AS BEGIN SET NOCOUNT ON; " +
-                   "SELECT so.*, t.*, spos.*, d.*, cl.*, c.*, p.*, ipos.*, i.*, sp.*, s.* " +
+                    "SELECT so.*, t.*, spos.*, d.*, cl.*, c.*, p.*, ipos.*, i.*, sp.*, s.* " +
                     $"FROM {TableName} so " +
                     "LEFT JOIN SalesTypes t ON so.RefSalesTypeId = t.SalesTypeId " +
                     "LEFT JOIN SalesOrderPositions spos ON so.SalesOrderId = spos.RefSalesOrderId " +
@@ -107,7 +106,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     "LEFT JOIN Invoices i ON ipos.RefInvoiceId = i.InvoiceId " +
                     "LEFT JOIN ShippedProducts sp ON spos.SalesOrderPositionId = sp.RefSalesOrderPositionId " +
                     "LEFT JOIN Shipments s ON sp.RefShipmentId = s.ShipmentId " +
-                    $"WHERE so.SalesOrderId = @SalesOrderId " +
+                    "WHERE so.SalesOrderId = @SalesOrderId " +
                     "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -125,13 +124,14 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
         private void GetOpenedSalesOrders()
         {
-            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetOpenedSalesOrders", DatabaseNames.FinancialAnalysisDB))
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetOpenedSalesOrders",
+                DatabaseNames.FinancialAnalysisDB))
             {
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetOpenedSalesOrders] AS BEGIN SET NOCOUNT ON; " +
-                   "SELECT so.*, t.*, spos.*, d.*, cl.*, c.*, p.*, ipos.*, i.*, sp.*, s.* " +
+                    "SELECT so.*, t.*, spos.*, d.*, cl.*, c.*, p.*, ipos.*, i.*, sp.*, s.* " +
                     $"FROM {TableName} so " +
                     "LEFT JOIN SalesTypes t ON so.RefSalesTypeId = t.SalesTypeId " +
                     "LEFT JOIN SalesOrderPositions spos ON so.SalesOrderId = spos.RefSalesOrderId " +
@@ -143,7 +143,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     "LEFT JOIN Invoices i ON ipos.RefInvoiceId = i.InvoiceId " +
                     "LEFT JOIN ShippedProducts sp ON spos.SalesOrderPositionId = sp.RefSalesOrderPositionId " +
                     "LEFT JOIN Shipments s ON sp.RefShipmentId = s.ShipmentId " +
-                    $"WHERE so.IsClosed = 0 " +
+                    "WHERE so.IsClosed = 0 " +
                     "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

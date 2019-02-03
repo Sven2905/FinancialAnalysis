@@ -1,10 +1,11 @@
-﻿using DevExpress.Mvvm;
+﻿using System;
+using System.IO;
+using System.Windows;
+using System.Windows.Media.Imaging;
+using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.ProjectManagement;
-using System;
-using System.IO;
-using System.Windows.Media.Imaging;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -15,52 +16,48 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public EmployeeViewModel()
         {
-            if (IsInDesignMode)
-                return;
+            if (IsInDesignMode) return;
 
             LoadEmployees();
             LoadHealthInsurances();
             NewUserCommand = new DelegateCommand(NewUser);
             SaveUserCommand = new DelegateCommand(SaveUser, () => Validation());
-            DeleteUserCommand = new DelegateCommand(DeleteUser, () => (SelectedEmployee != null));
+            DeleteUserCommand = new DelegateCommand(DeleteUser, () => SelectedEmployee != null);
         }
-
 
         #endregion Constructor
 
         #region Properties
 
         public SvenTechCollection<Employee> Employees { get; set; } = new SvenTechCollection<Employee>();
-        public SvenTechCollection<HealthInsurance> HealthInsurances { get; set; } = new SvenTechCollection<HealthInsurance>();
-        public DelegateCommand NewUserCommand { get; set; } 
+
+        public SvenTechCollection<HealthInsurance> HealthInsurances { get; set; } =
+            new SvenTechCollection<HealthInsurance>();
+
+        public DelegateCommand NewUserCommand { get; set; }
         public DelegateCommand SaveUserCommand { get; set; }
         public DelegateCommand DeleteUserCommand { get; set; }
+
         public Employee SelectedEmployee
         {
-            get { return _SelectedEmployee; }
+            get => _SelectedEmployee;
             set
             {
                 _SelectedEmployee = value;
                 if (_SelectedEmployee != null && _SelectedEmployee.Picture != null)
-                {
                     Image = ConvertToImage(_SelectedEmployee.Picture);
-                }
                 else
-                {
                     Image = null;
-                }
             }
         }
 
         public BitmapImage Image
         {
-            get
-            {
-                return _Image;
-            }
+            get => _Image;
             set
             {
-                _Image = value; _SelectedEmployee.Picture = ConvertToByteArray(value);
+                _Image = value;
+                _SelectedEmployee.Picture = ConvertToByteArray(value);
             }
         }
 
@@ -86,10 +83,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteUser()
         {
-            if (SelectedEmployee == null)
-            {
-                return;
-            }
+            if (SelectedEmployee == null) return;
 
             if (SelectedEmployee.EmployeeId == 0)
             {
@@ -100,13 +94,13 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                    DataContext.Instance.Employees.Delete(SelectedEmployee.EmployeeId);
-                    Employees.Remove(SelectedEmployee);
-                    SelectedEmployee = null;
+                DataContext.Instance.Employees.Delete(SelectedEmployee.EmployeeId);
+                Employees.Remove(SelectedEmployee);
+                SelectedEmployee = null;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -114,14 +108,14 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                    if (SelectedEmployee.EmployeeId == 0)
-                        SelectedEmployee.EmployeeId = DataContext.Instance.Employees.Insert(SelectedEmployee);
-                    else
-                        DataContext.Instance.Employees.Update(SelectedEmployee);
+                if (SelectedEmployee.EmployeeId == 0)
+                    SelectedEmployee.EmployeeId = DataContext.Instance.Employees.Insert(SelectedEmployee);
+                else
+                    DataContext.Instance.Employees.Update(SelectedEmployee);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -129,11 +123,11 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                    Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
+                Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -141,36 +135,29 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                    HealthInsurances = DataContext.Instance.HealthInsurances.GetAll().ToSvenTechCollection();
+                HealthInsurances = DataContext.Instance.HealthInsurances.GetAll().ToSvenTechCollection();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
         private bool Validation()
         {
-            if (SelectedEmployee == null)
-            {
-                return false;
-            }
-            if (string.IsNullOrEmpty(SelectedEmployee.Firstname) || string.IsNullOrEmpty(SelectedEmployee.Lastname) || string.IsNullOrEmpty(SelectedEmployee.Street)
+            if (SelectedEmployee == null) return false;
+            if (string.IsNullOrEmpty(SelectedEmployee.Firstname) || string.IsNullOrEmpty(SelectedEmployee.Lastname) ||
+                string.IsNullOrEmpty(SelectedEmployee.Street)
                 || string.IsNullOrEmpty(SelectedEmployee.City) || SelectedEmployee.Postcode == 0)
-            {
                 return false;
-            }
             return true;
         }
 
         public BitmapImage ConvertToImage(byte[] array)
         {
-            if (array == null)
-            {
-                return null;
-            }
+            if (array == null) return null;
 
-            using (var ms = new System.IO.MemoryStream(array))
+            using (var ms = new MemoryStream(array))
             {
                 var image = new BitmapImage();
                 image.BeginInit();
@@ -183,15 +170,12 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private byte[] ConvertToByteArray(BitmapImage bitmapImage)
         {
-            if (bitmapImage == null)
-            {
-                return null;
-            }
+            if (bitmapImage == null) return null;
 
             byte[] data;
-            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+            var encoder = new JpegBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
-            using (MemoryStream ms = new MemoryStream())
+            using (var ms = new MemoryStream())
             {
                 encoder.Save(ms);
                 data = ms.ToArray();

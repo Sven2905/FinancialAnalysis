@@ -58,7 +58,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetById] @StockedProductId int AS BEGIN SET NOCOUNT ON; " +
-                    $"SELECT StockedProductId, RefProductId, Quantity, RefStockyardId " +
+                    "SELECT StockedProductId, RefProductId, Quantity, RefStockyardId " +
                     $"FROM {TableName} " +
                     "WHERE StockedProductId = @StockedProductId END");
                 using (var connection =
@@ -77,13 +77,14 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
 
         private void GetByRefStockyardId()
         {
-            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetByRefStockyardId", DatabaseNames.FinancialAnalysisDB))
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetByRefStockyardId",
+                DatabaseNames.FinancialAnalysisDB))
             {
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetByRefStockyardId] @RefStockyardId int AS BEGIN SET NOCOUNT ON; " +
-                    $"SELECT StockedProductId, RefProductId, Quantity, RefStockyardId " +
+                    "SELECT StockedProductId, RefProductId, Quantity, RefStockyardId " +
                     $"FROM {TableName} " +
                     "WHERE RefStockyardId = @RefStockyardId END");
                 using (var connection =

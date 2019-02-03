@@ -1,14 +1,8 @@
-﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
-using FinancialAnalysis.Logic;
-using FinancialAnalysis.Models.ClientManagement;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using DevExpress.Mvvm;
+using FinancialAnalysis.Datalayer;
+using FinancialAnalysis.Models.ClientManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -18,8 +12,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public MyClientViewModel()
         {
-            if (IsInDesignMode)
-                return;
+            if (IsInDesignMode) return;
 
             Client = Globals.CoreData.MyCompany;
             SaveClientCommand = new DelegateCommand(SaveClient, Validation);
@@ -38,30 +31,24 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public Client Client
         {
-            get { return _Client; }
+            get => _Client;
             set
             {
                 _Client = value;
                 if (_Client != null && _Client.Company.Logo != null)
-                {
                     Image = ConvertToImage(_Client.Company.Logo);
-                }
                 else
-                {
                     Image = null;
-                }
             }
         }
 
         public BitmapImage Image
         {
-            get
-            {
-                return _Image;
-            }
+            get => _Image;
             set
             {
-                _Image = value; _Client.Company.Logo = ConvertToByteArray(value);
+                _Image = value;
+                _Client.Company.Logo = ConvertToByteArray(value);
             }
         }
 
@@ -80,12 +67,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public BitmapImage ConvertToImage(byte[] array)
         {
-            if (array == null)
-            {
-                return null;
-            }
+            if (array == null) return null;
 
-            using (var ms = new System.IO.MemoryStream(array))
+            using (var ms = new MemoryStream(array))
             {
                 var image = new BitmapImage();
                 image.BeginInit();
@@ -98,15 +82,12 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private byte[] ConvertToByteArray(BitmapImage bitmapImage)
         {
-            if (bitmapImage == null)
-            {
-                return null;
-            }
+            if (bitmapImage == null) return null;
 
             byte[] data;
-            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+            var encoder = new JpegBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
-            using (MemoryStream ms = new MemoryStream())
+            using (var ms = new MemoryStream())
             {
                 encoder.Save(ms);
                 data = ms.ToArray();
@@ -117,10 +98,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private bool Validation()
         {
-            if (Client == null)
-                return false;
+            if (Client == null) return false;
 
-            return (!string.IsNullOrEmpty(Client.Name) && !string.IsNullOrEmpty(Client.Street) && !string.IsNullOrEmpty(Client.City));
+            return !string.IsNullOrEmpty(Client.Name) && !string.IsNullOrEmpty(Client.Street) &&
+                   !string.IsNullOrEmpty(Client.City);
         }
 
         #endregion Methods

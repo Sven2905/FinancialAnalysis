@@ -61,7 +61,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// <returns></returns>
         public IEnumerable<CostCenterCategory> GetAll()
         {
-            Dictionary<int, CostCenterCategory> output = new Dictionary<int, CostCenterCategory>();
+            var output = new Dictionary<int, CostCenterCategory>();
             try
             {
                 using (IDbConnection con =
@@ -70,11 +70,13 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     var query = con.Query<CostCenterCategory, CostCenter, CostCenterCategory>($"dbo.{TableName}_GetAll",
                         (objCostCenterCategory, objCostCenter) =>
                         {
-                            if (!output.TryGetValue(objCostCenterCategory.CostCenterCategoryId, out CostCenterCategory CostCenterCategoryEntry))
+                            if (!output.TryGetValue(objCostCenterCategory.CostCenterCategoryId,
+                                out var CostCenterCategoryEntry))
                             {
                                 CostCenterCategoryEntry = objCostCenterCategory;
                                 output.Add(objCostCenterCategory.CostCenterCategoryId, objCostCenterCategory);
                             }
+
                             CostCenterCategoryEntry.CostCenters.Add(objCostCenter);
 
                             return objCostCenterCategory;
@@ -142,24 +144,27 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// <returns></returns>
         public CostCenterCategory GetById(int id)
         {
-            Dictionary<int, CostCenterCategory> output = new Dictionary<int, CostCenterCategory>();
+            var output = new Dictionary<int, CostCenterCategory>();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var query = con.Query<CostCenterCategory, CostCenter, CostCenterCategory>($"dbo.{TableName}_GetById @CostCenterCategoryId",
+                    var query = con.Query<CostCenterCategory, CostCenter, CostCenterCategory>(
+                        $"dbo.{TableName}_GetById @CostCenterCategoryId",
                         (objCostCenterCategory, objCostCenter) =>
                         {
-                            if (!output.TryGetValue(objCostCenterCategory.CostCenterCategoryId, out CostCenterCategory CostCenterCategoryEntry))
+                            if (!output.TryGetValue(objCostCenterCategory.CostCenterCategoryId,
+                                out var CostCenterCategoryEntry))
                             {
                                 CostCenterCategoryEntry = objCostCenterCategory;
                                 output.Add(objCostCenterCategory.CostCenterCategoryId, objCostCenterCategory);
                             }
+
                             CostCenterCategoryEntry.CostCenters.Add(objCostCenter);
 
                             return objCostCenterCategory;
-                        }, new { CostCenterCategoryId = id }, splitOn: "CostCenterCategoryId, CostCenterId",
+                        }, new {CostCenterCategoryId = id}, splitOn: "CostCenterCategoryId, CostCenterId",
                         commandType: CommandType.StoredProcedure).ToList();
                 }
             }
@@ -177,7 +182,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// <param name="CostCenterCategory"></param>
         public void UpdateOrInsert(CostCenterCategory CostCenterCategory)
         {
-            if (CostCenterCategory.CostCenterCategoryId == 0 || GetById(CostCenterCategory.CostCenterCategoryId) is null)
+            if (CostCenterCategory.CostCenterCategoryId == 0 ||
+                GetById(CostCenterCategory.CostCenterCategoryId) is null)
             {
                 Insert(CostCenterCategory);
                 return;
@@ -201,14 +207,16 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// <param name="CostCenterCategory"></param>
         public void Update(CostCenterCategory CostCenterCategory)
         {
-            if (CostCenterCategory.CostCenterCategoryId == 0 || GetById(CostCenterCategory.CostCenterCategoryId) is null) return;
+            if (CostCenterCategory.CostCenterCategoryId == 0 ||
+                GetById(CostCenterCategory.CostCenterCategoryId) is null) return;
 
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @CostCenterCategoryId, @Name,@Description", CostCenterCategory);
+                    con.Execute($"dbo.{TableName}_Update @CostCenterCategoryId, @Name,@Description",
+                        CostCenterCategory);
                 }
             }
             catch (Exception e)
@@ -228,7 +236,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @CostCenterCategoryId", new { CostCenterCategoryId = id });
+                    con.Execute($"dbo.{TableName}_Delete @CostCenterCategoryId", new {CostCenterCategoryId = id});
                 }
             }
             catch (Exception e)

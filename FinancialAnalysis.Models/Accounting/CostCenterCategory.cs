@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using DevExpress.Mvvm;
-using FinancialAnalysis.Models.ProjectManagement;
 
 namespace FinancialAnalysis.Models.Accounting
 {

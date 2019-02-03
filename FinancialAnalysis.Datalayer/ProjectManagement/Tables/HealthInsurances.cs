@@ -193,7 +193,9 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @HealthInsuranceId, @Name, @Street, @Postcode, @City, @ContactName, @Phone, @Mail", HealthInsurance);
+                    con.Execute(
+                        $"dbo.{TableName}_Update @HealthInsuranceId, @Name, @Street, @Postcode, @City, @ContactName, @Phone, @Mail",
+                        HealthInsurance);
                 }
             }
             catch (Exception e)
@@ -213,7 +215,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @HealthInsurance", new { HealthInsurance = id });
+                    con.Execute($"dbo.{TableName}_Delete @HealthInsurance", new {HealthInsurance = id});
                 }
             }
             catch (Exception e)

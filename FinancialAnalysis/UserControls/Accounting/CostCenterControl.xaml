@@ -25,7 +25,7 @@
             <Setter Property="LabelStyle" Value="{StaticResource labelStyle}" />
             <Setter Property="Foreground" Value="#3f729b" />
         </Style>
-        <local:NullToIsEnabledConverter x:Key="NullConverter"></local:NullToIsEnabledConverter>
+        <local:NullToIsEnabledConverter x:Key="NullConverter" />
     </UserControl.Resources>
 
     <Grid>
@@ -39,7 +39,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <dxwui:PageAdornerControl Header="Kostenstellen" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="Tahoma" >
+        <dxwui:PageAdornerControl Header="Kostenstellen" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="Tahoma">
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
@@ -66,7 +66,8 @@
             </Grid.RowDefinitions>
 
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,50,0,0">
-                <ListView ItemsSource="{Binding CostCenters}" SelectedItem="{Binding SelectedCostCenter}" x:Name="Users" BorderThickness="1" BorderBrush="DarkGray" FontSize="14" >
+                <ListView ItemsSource="{Binding CostCenters}" SelectedItem="{Binding SelectedCostCenter}"
+                          x:Name="Users" BorderThickness="1" BorderBrush="DarkGray" FontSize="14">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel />
@@ -79,10 +80,12 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <Border Grid.Column="2" Padding="0 0 8 0" >
-                                    <StackPanel VerticalAlignment="Center" >
-                                        <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#000" TextTrimming="CharacterEllipsis" />
-                                        <TextBlock Margin="10,0,0,0" Text="{Binding CostCenterCategory.Name}" Foreground="#9e9e9e" TextTrimming="CharacterEllipsis" />
+                                <Border Grid.Column="2" Padding="0 0 8 0">
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#000"
+                                                   TextTrimming="CharacterEllipsis" />
+                                        <TextBlock Margin="10,0,0,0" Text="{Binding CostCenterCategory.Name}"
+                                                   Foreground="#9e9e9e" TextTrimming="CharacterEllipsis" />
                                     </StackPanel>
                                 </Border>
                             </Grid>
@@ -91,7 +94,7 @@
                 </ListView>
             </ScrollViewer>
 
-            <VirtualizingStackPanel Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="15" >
+            <VirtualizingStackPanel Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="15">
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Neu"
                                  Foreground="#3F729B" Command="{Binding NewCostCenterCommand}" FontFamily="Tahoma" />
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Speichern" Foreground="#3F729B"
@@ -112,48 +115,55 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,-12,0,0" IsEnabled="{Binding SelectedCostCenter, Converter={StaticResource NullConverter}}">
+                <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10"
+                                    Margin="0,-12,0,0"
+                                    IsEnabled="{Binding SelectedCostCenter, Converter={StaticResource NullConverter}}">
                     <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
                         <dxlc:LayoutGroup.Header>
                             <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                         </dxlc:LayoutGroup.Header>
                         <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Kostenstelle-ID" FontFamily="Tahoma" >
+                            <dxlc:LayoutItem Label="Kostenstelle-ID" FontFamily="Tahoma">
                                 <dxe:TextEdit Text="{Binding SelectedCostCenter.Identifier}" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Name" FontFamily="Tahoma" >
+                            <dxlc:LayoutItem Label="Name" FontFamily="Tahoma">
                                 <dxe:TextEdit Text="{Binding SelectedCostCenter.Name}" FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Kategorie" FontFamily="Tahoma" >
+                            <dxlc:LayoutItem Label="Kategorie" FontFamily="Tahoma">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <dxe:ComboBoxEdit NullText="Bitte wählen" ValueMember="CostCenterCategoryId" DisplayMember="Name" ItemsSource="{Binding CostCenterCategories}" EditValue="{Binding SelectedCostCenter.RefCostCenterCategoryId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
-                                    <dx:SimpleButton Grid.Column="1" Width="30" Margin="5,0,0,0" Command="{Binding OpenCostCenterCategoriesWindowCommand}" >
+                                    <dxe:ComboBoxEdit NullText="Bitte wählen" ValueMember="CostCenterCategoryId"
+                                                      DisplayMember="Name" ItemsSource="{Binding CostCenterCategories}"
+                                                      EditValue="{Binding SelectedCostCenter.RefCostCenterCategoryId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      FontFamily="Tahoma" />
+                                    <dx:SimpleButton Grid.Column="1" Width="30" Margin="5,0,0,0"
+                                                     Command="{Binding OpenCostCenterCategoriesWindowCommand}">
                                         <!--IsEnabled="{Binding AllowCostCenterCategories}">-->
                                         <dx:SimpleButton.Glyph>
-                                            <dx:SvgImageSource Uri="/Images/light/Cog.svg" Size="14,14"  />
+                                            <dx:SvgImageSource Uri="/Images/light/Cog.svg" Size="14,14" />
                                         </dx:SimpleButton.Glyph>
                                     </dx:SimpleButton>
                                 </Grid>
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                         <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Beschreibung" FontFamily="Tahoma" >
-                                <dxe:TextEdit TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" VerticalContentAlignment="Top" Text="{Binding SelectedCostCenter.Description}" Height="150" FontFamily="Tahoma" />
+                            <dxlc:LayoutItem Label="Beschreibung" FontFamily="Tahoma">
+                                <dxe:TextEdit TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                                              AcceptsReturn="True" VerticalContentAlignment="Top"
+                                              Text="{Binding SelectedCostCenter.Description}" Height="150"
+                                              FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                     </dxlc:LayoutGroup>
                 </dxlc:LayoutControl>
-
             </Grid>
-
         </Grid>
     </Grid>
 </UserControl>

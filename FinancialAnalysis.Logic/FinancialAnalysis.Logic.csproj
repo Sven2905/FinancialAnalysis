@@ -140,7 +140,7 @@
     <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="ViewModels\Accounting\KontenrahmenViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="ViewModels\Administration\MyCompanyViewModel.cs" />
+    <Compile Include="ViewModels\Administration\MyClientViewModel.cs" />
     <Compile Include="ViewModels\ProductManagement\ProductManagementViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\PendingSaleOrdersViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\SalesManagementViewModel.cs" />

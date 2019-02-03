@@ -38,7 +38,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr = $"If not exists (select name from sysobjects where name = '{TableName}') " +
                                  $"CREATE TABLE {TableName}(" +
-                                 $"ShipmentId int IDENTITY(1,1) PRIMARY KEY, " +
+                                 "ShipmentId int IDENTITY(1,1) PRIMARY KEY, " +
                                  "ShipmentNumber nvarchar(150), " +
                                  "ShipmentDate datetime)";
 

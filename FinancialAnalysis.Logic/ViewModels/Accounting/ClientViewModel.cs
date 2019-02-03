@@ -1,9 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
-using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.ClientManagement;
 using Utilities;
 
@@ -15,8 +16,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public ClientViewModel()
         {
-            if (IsInDesignMode)
-                return;
+            if (IsInDesignMode) return;
 
             InitializeButtonCommands();
             RefreshData();
@@ -80,28 +80,27 @@ namespace FinancialAnalysis.Logic.ViewModels
                 notification = notificationService.CreatePredefinedNotification("Firma geändert",
                     $"Die Änderungen an der Firma {SelectedClient.Name} wurden erfolgreich durchgeführt.",
                     string.Empty);
+
             notification.ShowAsync();
         }
 
         private void DeleteClient()
         {
             if (DeleteClientButtonEnabled)
-            {
                 try
                 {
                     DataContext.Instance.Clients.Delete(SelectedClient.ClientId);
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
-                    Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                    Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
                 }
-            }
-
         }
 
         private void UseExistingClient()
         {
             if (SelectedClient.IsNull()) SelectedClient = new Client();
+
             SelectedClient.PropertyChanged += SelectedClient_PropertyChanged;
             ValidateClient();
             ValidateDeleteButton();

@@ -35,21 +35,21 @@ namespace FinancialAnalysis.Datalayer
         {
             var connection = new SqlConnection(GetConnectionString(dbName));
             var cmd = new SqlCommand(@"IF EXISTS(
-                SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-                WHERE TABLE_NAME = @table) 
+                SELECT 1 FROM INFORMATION_SCHEMA.TABLES
+                WHERE TABLE_NAME = @table)
                 SELECT 1 ELSE SELECT 0", connection);
 
             cmd.Parameters.Add("@table", SqlDbType.NVarChar).Value = tableName;
             var exists = (int) cmd.ExecuteScalar();
-            if (exists == 1)
-                return true;
+            if (exists == 1) return true;
+
             return false;
         }
 
         public static TableVersion GetTableVersion(string tableName)
         {
-                var tableVersion = DataContext.Instance.TableVersions.GetAll().SingleOrDefault(x => x.Name == tableName);
-                return tableVersion;
+            var tableVersion = DataContext.Instance.TableVersions.GetAll().SingleOrDefault(x => x.Name == tableName);
+            return tableVersion;
         }
     }
 }

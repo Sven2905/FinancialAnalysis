@@ -181,7 +181,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         public void Update(InvoiceType InvoiceType)
         {
             if (InvoiceType.InvoiceTypeId == 0 ||
-                GetById(InvoiceType.InvoiceTypeId) is null) return;
+                GetById(InvoiceType.InvoiceTypeId) is null)
+                return;
 
             try
             {

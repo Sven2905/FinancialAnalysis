@@ -163,14 +163,14 @@ namespace Utilities
 
         public static string ComputeHash(string input, HashAlgorithm algorithm, byte[] salt)
         {
-            byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+            var inputBytes = Encoding.UTF8.GetBytes(input);
 
             // Combine salt and input bytes
-            byte[] saltedInput = new byte[salt.Length + inputBytes.Length];
+            var saltedInput = new byte[salt.Length + inputBytes.Length];
             salt.CopyTo(saltedInput, 0);
             inputBytes.CopyTo(saltedInput, salt.Length);
 
-            byte[] hashedBytes = algorithm.ComputeHash(saltedInput);
+            var hashedBytes = algorithm.ComputeHash(saltedInput);
 
             return BitConverter.ToString(hashedBytes);
         }

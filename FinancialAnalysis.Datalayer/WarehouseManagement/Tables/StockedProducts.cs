@@ -94,7 +94,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.QuerySingleOrDefault<StockedProduct>($"dbo.{TableName}_GetById @StockedProductId",
-                        new { StockedProductId = id });
+                        new {StockedProductId = id});
                 }
             }
             catch (Exception e)
@@ -119,9 +119,8 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.Query<StockedProduct>($"dbo.{TableName}_GetByRefStockyardId @RefStockyardId",
-                        new { RefStockyardId });
+                        new {RefStockyardId});
                 }
-
             }
             catch (Exception e)
             {
@@ -215,7 +214,8 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @StockedProductId, @RefProductId, @RefStockyardId, @Quantity", StockedProduct);
+                    con.Execute($"dbo.{TableName}_Update @StockedProductId, @RefProductId, @RefStockyardId, @Quantity",
+                        StockedProduct);
                 }
             }
             catch (Exception e)
@@ -235,7 +235,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @StockedProductId", new { StockedProductId = id });
+                    con.Execute($"dbo.{TableName}_Delete @StockedProductId", new {StockedProductId = id});
                 }
             }
             catch (Exception e)
@@ -252,7 +252,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
 
         private void AddStockyardReference()
         {
-            string refTable = "Stockyards";
+            var refTable = "Stockyards";
 
             try
             {
@@ -276,7 +276,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
 
         private void AddProductsReference()
         {
-            string refTable = "Products";
+            var refTable = "Products";
 
             try
             {

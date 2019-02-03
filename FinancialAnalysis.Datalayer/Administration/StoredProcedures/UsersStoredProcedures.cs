@@ -34,12 +34,12 @@ namespace FinancialAnalysis.Datalayer.Administration
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                 $"SELECT u.UserId, u.Picture, u.Firstname, u.Lastname, u.Contraction, u.Mail, u.IsActive, u.IsAdministrator, u.LoginUser, " +
-                    $"m.UserRightUserMappingId, m.RefUserId, m.RefUserRightId, m.IsGranted, " +
-                    $"r.UserRightId, r.Name, r.Description, r.ParentCategory, r.Permission " +
-                    $"FROM {TableName} u " +
-                    "LEFT JOIN UserRightUserMappings m ON u.UserId = m.RefUserId " +
-                    "LEFT JOIN UserRights r ON m.RefUserRightId = r.UserRightId " +
+                                "SELECT u.UserId, u.Picture, u.Firstname, u.Lastname, u.Contraction, u.Mail, u.IsActive, u.IsAdministrator, u.LoginUser, " +
+                                "m.UserRightUserMappingId, m.RefUserId, m.RefUserRightId, m.IsGranted, " +
+                                "r.UserRightId, r.Name, r.Description, r.ParentCategory, r.Permission " +
+                                $"FROM {TableName} u " +
+                                "LEFT JOIN UserRightUserMappings m ON u.UserId = m.RefUserId " +
+                                "LEFT JOIN UserRights r ON m.RefUserRightId = r.UserRightId " +
                                 "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -88,9 +88,9 @@ namespace FinancialAnalysis.Datalayer.Administration
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetById] @UserId int AS BEGIN SET NOCOUNT ON; " +
-                     $"SELECT u.UserId, u.Picture, u.Firstname, u.Lastname, u.Contraction, u.Mail, u.IsActive, u.IsAdministrator, u.LoginUser, " +
-                    $"m.UserRightUserMappingId, m.RefUserId, m.RefUserRightId, m.IsGranted, " +
-                    $"r.UserRightId, r.Name, r.Description, r.ParentCategory, r.Permission " +
+                    "SELECT u.UserId, u.Picture, u.Firstname, u.Lastname, u.Contraction, u.Mail, u.IsActive, u.IsAdministrator, u.LoginUser, " +
+                    "m.UserRightUserMappingId, m.RefUserId, m.RefUserRightId, m.IsGranted, " +
+                    "r.UserRightId, r.Name, r.Description, r.ParentCategory, r.Permission " +
                     $"FROM {TableName} u " +
                     "LEFT JOIN UserRightUserMappings m ON u.UserId = m.RefUserId " +
                     "LEFT JOIN UserRights r ON m.RefUserRightId = r.UserRightId " +
@@ -111,15 +111,16 @@ namespace FinancialAnalysis.Datalayer.Administration
 
         private void GetUserByNameAndPassword()
         {
-            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetUserByNameAndPassword", DatabaseNames.FinancialAnalysisDB))
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetUserByNameAndPassword",
+                DatabaseNames.FinancialAnalysisDB))
             {
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetUserByNameAndPassword] @LoginUser nvarchar(150), @Password nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
-                    $"SELECT u.UserId, u.Picture, u.Firstname, u.Lastname, u.Contraction, u.Mail, u.IsActive, u.IsAdministrator, u.LoginUser, " +
-                    $"m.UserRightUserMappingId, m.RefUserId, m.RefUserRightId, m.IsGranted, " +
-                    $"r.UserRightId, r.Name, r.Description, r.ParentCategory, r.Permission " +
+                    "SELECT u.UserId, u.Picture, u.Firstname, u.Lastname, u.Contraction, u.Mail, u.IsActive, u.IsAdministrator, u.LoginUser, " +
+                    "m.UserRightUserMappingId, m.RefUserId, m.RefUserRightId, m.IsGranted, " +
+                    "r.UserRightId, r.Name, r.Description, r.ParentCategory, r.Permission " +
                     $"FROM {TableName} u " +
                     "LEFT JOIN UserRightUserMappings m ON u.UserId = m.RefUserId " +
                     "LEFT JOIN UserRights r ON m.RefUserRightId = r.UserRightId " +

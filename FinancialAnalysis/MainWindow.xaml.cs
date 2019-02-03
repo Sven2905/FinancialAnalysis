@@ -1,6 +1,4 @@
-﻿using System.Windows;
-using DevExpress.Xpf.Core;
-using WinInterop = System.Windows.Interop;
+﻿using DevExpress.Xpf.Core;
 
 namespace FinancialAnalysis.UI.Desktop
 {

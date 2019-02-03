@@ -1,10 +1,5 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.ProductManagement;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Models.WarehouseManagement
 {

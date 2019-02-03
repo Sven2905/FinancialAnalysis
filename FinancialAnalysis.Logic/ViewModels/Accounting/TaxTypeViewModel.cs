@@ -1,9 +1,9 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 using DevExpress.Xpf.Grid;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models.Accounting;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -13,7 +13,9 @@ namespace FinancialAnalysis.Logic.ViewModels
         public TaxTypeViewModel()
         {
             if (IsInDesignMode)
+            {
                 return;
+            }
 
             RowUpdatedCommand = new DelegateCommand<RowEventArgs>(AddNewItem);
             DeleteFocusedRowCommand = new DelegateCommand(DeleteItem);
@@ -29,14 +31,16 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void AddNewItem(RowEventArgs e)
         {
-            var newItem = (TaxType) e.Row;
+            var newItem = (TaxType)e.Row;
             DataContext.Instance.TaxTypes.UpdateOrInsert(newItem);
         }
 
         private void DeleteItem()
         {
             if (SelectedItem is null)
+            {
                 return;
+            }
 
             DataContext.Instance.TaxTypes.Delete(SelectedItem);
             TaxTypes.Remove(SelectedItem);

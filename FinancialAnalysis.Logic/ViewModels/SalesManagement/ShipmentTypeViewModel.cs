@@ -1,52 +1,50 @@
-﻿using DevExpress.Mvvm;
+﻿using System;
+using System.Windows;
+using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.SalesManagement;
-using System.IO;
-using System.Linq;
-using System.Windows.Media.Imaging;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
     public class ShipmentTypeViewModel : ViewModelBase
     {
-        #region Fields
-
-        private readonly ShipmentType _SelectedShipmentType;
-        private SvenTechCollection<ShipmentType> _ShipmentTypes = new SvenTechCollection<ShipmentType>();
-        private string _FilterText;
-
-        #endregion Fields
-
         #region Constructor
 
         public ShipmentTypeViewModel()
         {
-            if (IsInDesignMode)
-                return;
+            if (IsInDesignMode) return;
 
             _ShipmentTypes = LoadAllShipmentTypes();
             NewShipmentTypeCommand = new DelegateCommand(NewShipmentType);
             SaveShipmentTypeCommand = new DelegateCommand(SaveShipmentType, () => Validation());
-            DeleteShipmentTypeCommand = new DelegateCommand(DeleteShipmentType, () => (SelectedShipmentType != null));
+            DeleteShipmentTypeCommand = new DelegateCommand(DeleteShipmentType, () => SelectedShipmentType != null);
         }
 
         #endregion Constructor
+
+        #region Fields
+
+        private readonly ShipmentType _SelectedShipmentType;
+        private readonly SvenTechCollection<ShipmentType> _ShipmentTypes = new SvenTechCollection<ShipmentType>();
+        private string _FilterText;
+
+        #endregion Fields
 
         #region Methods
 
         private SvenTechCollection<ShipmentType> LoadAllShipmentTypes()
         {
-            SvenTechCollection<ShipmentType> allShipmentTypes = new SvenTechCollection<ShipmentType>();
+            var allShipmentTypes = new SvenTechCollection<ShipmentType>();
             try
             {
                 allShipmentTypes = DataContext.Instance.ShipmentTypes.GetAll().ToSvenTechCollection();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
 
             return allShipmentTypes;
@@ -60,10 +58,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteShipmentType()
         {
-            if (SelectedShipmentType == null)
-            {
-                return;
-            }
+            if (SelectedShipmentType == null) return;
 
             if (SelectedShipmentType.ShipmentTypeId == 0)
             {
@@ -78,9 +73,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _ShipmentTypes.Remove(SelectedShipmentType);
                 SelectedShipmentType = null;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -93,22 +88,16 @@ namespace FinancialAnalysis.Logic.ViewModels
                 else
                     DataContext.Instance.ShipmentTypes.Insert(SelectedShipmentType);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
         private bool Validation()
         {
-            if (SelectedShipmentType == null)
-            {
-                return false;
-            }
-            if (string.IsNullOrEmpty(SelectedShipmentType.Name))
-            {
-                return false;
-            }
+            if (SelectedShipmentType == null) return false;
+            if (string.IsNullOrEmpty(SelectedShipmentType.Name)) return false;
             return true;
         }
 
@@ -116,13 +105,16 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Properties
 
-        public SvenTechCollection<ShipmentType> FilteredShipmentTypes { get; set; } = new SvenTechCollection<ShipmentType>();
+        public SvenTechCollection<ShipmentType> FilteredShipmentTypes { get; set; } =
+            new SvenTechCollection<ShipmentType>();
+
         public DelegateCommand NewShipmentTypeCommand { get; set; }
         public DelegateCommand SaveShipmentTypeCommand { get; set; }
         public DelegateCommand DeleteShipmentTypeCommand { get; set; }
+
         public string FilterText
         {
-            get { return _FilterText; }
+            get => _FilterText;
             set
             {
                 _FilterText = value;
@@ -130,12 +122,8 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     FilteredShipmentTypes = new SvenTechCollection<ShipmentType>();
                     foreach (var item in _ShipmentTypes)
-                    {
                         if (item.Name.Contains(FilterText))
-                        {
                             FilteredShipmentTypes.Add(item);
-                        }
-                    }
                 }
                 else
                 {
@@ -143,9 +131,10 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
             }
         }
+
         public ShipmentType SelectedShipmentType { get; set; }
 
-        public User ActualUser { get { return Globals.ActualUser; } }
+        public User ActualUser => Globals.ActualUser;
 
         #endregion Properties
     }

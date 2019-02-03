@@ -72,7 +72,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
             var SalesOrderDictionary = new Dictionary<int, SalesOrder>();
             using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
             {
-                var query = con.Query<SalesOrder, SalesType, Invoice, Shipment, Debitor, SalesOrderPosition, Product, SalesOrder>
+                var query = con
+                    .Query<SalesOrder, SalesType, Invoice, Shipment, Debitor, SalesOrderPosition, Product, SalesOrder>
                     ($"dbo.{TableName}_GetAll",
                         (so, st, i, s, d, sop, p) =>
                         {
@@ -96,7 +97,9 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                             SalesOrderEntry.SalesOrderPositions.Add(sop);
 
                             return so;
-                        }, splitOn: "SalesOrderId, SalesTypeId, InvoiceId, ShipmentId, DebitorId, SalesOrderPositionId, ProductId")
+                        },
+                        splitOn:
+                        "SalesOrderId, SalesTypeId, InvoiceId, ShipmentId, DebitorId, SalesOrderPositionId, ProductId")
                     .AsQueryable();
                 return SalesOrderDictionary.Values.ToList();
             }
@@ -111,97 +114,93 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
             var SalesOrderDictionary = new Dictionary<int, SalesOrder>();
             using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
             {
-                con.Query<SalesOrder>(
+                con.Query(
                     $"dbo.{TableName}_GetOpenedSalesOrders",
-   new[]
-   {
-      typeof(SalesOrder),
-      typeof(SalesType),
-      typeof(SalesOrderPosition),
-      typeof(Debitor),
-      typeof(Client),
-      typeof(Company),
-      typeof(Product),
-      typeof(InvoicePosition),
-      typeof(Invoice),
-      typeof(ShippedProduct),
-      typeof(Shipment)
-   },
-   objects =>
-   {
-       SalesOrder SalesOrder = objects[0] as SalesOrder;
-       SalesType SalesType = objects[1] as SalesType;
-       SalesOrderPosition SalesOrderPosition = objects[2] as SalesOrderPosition;
-       Debitor Debitor = objects[3] as Debitor;
-       Client Client = objects[4] as Client;
-       Company Company = objects[5] as Company;
-       Product Product = objects[6] as Product;
-       InvoicePosition InvoicePosition = objects[7] as InvoicePosition;
-       Invoice Invoice = objects[8] as Invoice;
-       ShippedProduct ShippedProduct = objects[9] as ShippedProduct;
-       Shipment Shipment = objects[10] as Shipment;
+                    new[]
+                    {
+                        typeof(SalesOrder),
+                        typeof(SalesType),
+                        typeof(SalesOrderPosition),
+                        typeof(Debitor),
+                        typeof(Client),
+                        typeof(Company),
+                        typeof(Product),
+                        typeof(InvoicePosition),
+                        typeof(Invoice),
+                        typeof(ShippedProduct),
+                        typeof(Shipment)
+                    },
+                    objects =>
+                    {
+                        var SalesOrder = objects[0] as SalesOrder;
+                        var SalesType = objects[1] as SalesType;
+                        var SalesOrderPosition = objects[2] as SalesOrderPosition;
+                        var Debitor = objects[3] as Debitor;
+                        var Client = objects[4] as Client;
+                        var Company = objects[5] as Company;
+                        var Product = objects[6] as Product;
+                        var InvoicePosition = objects[7] as InvoicePosition;
+                        var Invoice = objects[8] as Invoice;
+                        var ShippedProduct = objects[9] as ShippedProduct;
+                        var Shipment = objects[10] as Shipment;
 
-       SalesOrder SalesOrderEntry;
-       if (!SalesOrderDictionary.TryGetValue(SalesOrder.SalesOrderId, out SalesOrderEntry))
-       {
-           SalesOrderEntry = SalesOrder;
-           SalesOrderDictionary.Add(SalesOrderEntry.SalesOrderId, SalesOrderEntry);
-       }
+                        SalesOrder SalesOrderEntry;
+                        if (!SalesOrderDictionary.TryGetValue(SalesOrder.SalesOrderId, out SalesOrderEntry))
+                        {
+                            SalesOrderEntry = SalesOrder;
+                            SalesOrderDictionary.Add(SalesOrderEntry.SalesOrderId, SalesOrderEntry);
+                        }
 
-           SalesOrderEntry.SalesOrderPositions = new SvenTechCollection<SalesOrderPosition>();
-           SalesOrderEntry.Invoices = new SvenTechCollection<Invoice>();
-           SalesOrderEntry.Shipments = new SvenTechCollection<Shipment>();
-           SalesOrderEntry.SalesType = SalesType;
-           Client.Company = Company;
-           Debitor.Client = Client;
-           SalesOrderEntry.Debitor = Debitor;
+                        SalesOrderEntry.SalesOrderPositions = new SvenTechCollection<SalesOrderPosition>();
+                        SalesOrderEntry.Invoices = new SvenTechCollection<Invoice>();
+                        SalesOrderEntry.Shipments = new SvenTechCollection<Shipment>();
+                        SalesOrderEntry.SalesType = SalesType;
+                        Client.Company = Company;
+                        Debitor.Client = Client;
+                        SalesOrderEntry.Debitor = Debitor;
 
-       if (!SalesOrderEntry.SalesOrderPositions.Contains(SalesOrderPosition))
-       {
-           SalesOrderPosition.Product = Product;
-           SalesOrderEntry.SalesOrderPositions.Add(SalesOrderPosition);
-       }
+                        if (!SalesOrderEntry.SalesOrderPositions.Contains(SalesOrderPosition))
+                        {
+                            SalesOrderPosition.Product = Product;
+                            SalesOrderEntry.SalesOrderPositions.Add(SalesOrderPosition);
+                        }
 
-       if (Invoice != null)
-       {
-           var invoiceEntry = SalesOrderEntry.Invoices.SingleOrDefault(x => x.InvoiceId == Invoice.InvoiceId);
-           if (invoiceEntry != null)
-           {
-               invoiceEntry.InvoicePositions.Add(InvoicePosition);
-           }
-           else
-           {
-               SalesOrderEntry.Invoices.Add(Invoice);
-               if (InvoicePosition != null)
-               {
-                   invoiceEntry.InvoicePositions.Add(InvoicePosition);
-               }
-               SalesOrderEntry.Invoices.Add(Invoice);
-           }
-       }
+                        if (Invoice != null)
+                        {
+                            var invoiceEntry =
+                                SalesOrderEntry.Invoices.SingleOrDefault(x => x.InvoiceId == Invoice.InvoiceId);
+                            if (invoiceEntry != null)
+                            {
+                                invoiceEntry.InvoicePositions.Add(InvoicePosition);
+                            }
+                            else
+                            {
+                                SalesOrderEntry.Invoices.Add(Invoice);
+                                if (InvoicePosition != null) invoiceEntry.InvoicePositions.Add(InvoicePosition);
+                                SalesOrderEntry.Invoices.Add(Invoice);
+                            }
+                        }
 
-       if (Shipment != null)
-       {
-           var shipmentEntry = SalesOrderEntry.Shipments.SingleOrDefault(x => x.ShipmentId == Shipment.ShipmentId);
-           if (shipmentEntry != null)
-           {
-               shipmentEntry.ShippedProducts.Add(ShippedProduct);
-           }
-           else
-           {
-               SalesOrderEntry.Shipments.Add(Shipment);
-               if (ShippedProduct != null)
-               {
-                   shipmentEntry.ShippedProducts.Add(ShippedProduct);
-               }
-               SalesOrderEntry.Shipments.Add(Shipment);
-           }
-       }
+                        if (Shipment != null)
+                        {
+                            var shipmentEntry =
+                                SalesOrderEntry.Shipments.SingleOrDefault(x => x.ShipmentId == Shipment.ShipmentId);
+                            if (shipmentEntry != null)
+                            {
+                                shipmentEntry.ShippedProducts.Add(ShippedProduct);
+                            }
+                            else
+                            {
+                                SalesOrderEntry.Shipments.Add(Shipment);
+                                if (ShippedProduct != null) shipmentEntry.ShippedProducts.Add(ShippedProduct);
+                                SalesOrderEntry.Shipments.Add(Shipment);
+                            }
+                        }
 
-       return SalesOrderEntry;
-   },
-   splitOn: "SalesOrderId, SalesTypeId, SalesOrderPositionId, DebitorId, ClientId, CompanyId, ProductId, InvoicePositionId, InvoiceId, ShippedProductId, ShipmentId");
-
+                        return SalesOrderEntry;
+                    },
+                    splitOn:
+                    "SalesOrderId, SalesTypeId, SalesOrderPositionId, DebitorId, ClientId, CompanyId, ProductId, InvoicePositionId, InvoiceId, ShippedProductId, ShipmentId");
             }
 
             return SalesOrderDictionary.Values;
@@ -220,7 +219,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @RefDebitorId, @OrderDate, @RefSalesTypeId, @RefShipmentTypeId, @Remarks, @IsClosed ",
+                    var result = con.Query<int>(
+                        $"dbo.{TableName}_Insert @RefDebitorId, @OrderDate, @RefSalesTypeId, @RefShipmentTypeId, @Remarks, @IsClosed ",
                         SalesOrder);
                     return result.Single();
                 }
@@ -263,7 +263,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
             var SalesOrderDictionary = new Dictionary<int, SalesOrder>();
             using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
             {
-                var query = con.Query<SalesOrder, SalesType, Invoice, Shipment, Debitor, SalesOrderPosition, Product, SalesOrder>
+                var query = con
+                    .Query<SalesOrder, SalesType, Invoice, Shipment, Debitor, SalesOrderPosition, Product, SalesOrder>
                     ($"dbo.{TableName}_GetById @SalesOrderId",
                         (so, st, i, s, d, sop, p) =>
                         {
@@ -287,7 +288,9 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                             SalesOrderEntry.SalesOrderPositions.Add(sop);
 
                             return so;
-                        }, new { SalesOrderId = id }, splitOn: "SalesOrderId, SalesTypeId, InvoiceId, ShipmentId, DebitorId, SalesOrderPositionId, ProductId")
+                        }, new {SalesOrderId = id},
+                        splitOn:
+                        "SalesOrderId, SalesTypeId, InvoiceId, ShipmentId, DebitorId, SalesOrderPositionId, ProductId")
                     .AsQueryable();
                 return SalesOrderDictionary.Values.FirstOrDefault();
             }
@@ -325,14 +328,16 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         public void Update(SalesOrder SalesOrder)
         {
             if (SalesOrder.SalesOrderId == 0 ||
-                GetById(SalesOrder.SalesOrderId) is null) return;
+                GetById(SalesOrder.SalesOrderId) is null)
+                return;
 
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @SalesOrderId, @RefDebitorId, @OrderDate, @RefSalesTypeId, @RefShipmentTypeId, @Remarks, @IsClosed ",
+                    con.Execute(
+                        $"dbo.{TableName}_Update @SalesOrderId, @RefDebitorId, @OrderDate, @RefSalesTypeId, @RefShipmentTypeId, @Remarks, @IsClosed ",
                         SalesOrder);
                 }
             }
@@ -353,7 +358,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @SalesOrderId", new { SalesOrderId = id });
+                    con.Execute($"dbo.{TableName}_Delete @SalesOrderId", new {SalesOrderId = id});
                 }
             }
             catch (Exception e)
@@ -380,7 +385,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
         private void AddSalesTypesReference()
         {
-            string refTable = "SalesTypes";
+            var refTable = "SalesTypes";
 
             try
             {
@@ -404,7 +409,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
         private void AddDebitorsReference()
         {
-            string refTable = "Debitors";
+            var refTable = "Debitors";
 
             try
             {
@@ -428,7 +433,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
         private void AddShipmentTypesReference()
         {
-            string refTable = "ShipmentTypes";
+            var refTable = "ShipmentTypes";
 
             try
             {

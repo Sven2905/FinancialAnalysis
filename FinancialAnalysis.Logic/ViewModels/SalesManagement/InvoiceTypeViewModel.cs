@@ -1,37 +1,26 @@
-﻿using DevExpress.Mvvm;
+﻿using System;
+using System.Windows;
+using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.SalesManagement;
-using System;
-using System.IO;
-using System.Linq;
-using System.Windows.Media.Imaging;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
     public class InvoiceTypeViewModel : ViewModelBase
     {
-        #region Fields
-
-        private readonly InvoiceType _SelectedInvoiceType;
-        private SvenTechCollection<InvoiceType> _InvoiceTypes = new SvenTechCollection<InvoiceType>();
-        private string _FilterText;
-
-        #endregion Fields
-
         #region Constructor
 
         public InvoiceTypeViewModel()
         {
-            if (IsInDesignMode)
-                return;
+            if (IsInDesignMode) return;
 
             _InvoiceTypes = LoadAllInvoiceTypes();
             NewInvoiceTypeCommand = new DelegateCommand(NewInvoiceType);
             SaveInvoiceTypeCommand = new DelegateCommand(SaveInvoiceType, () => Validation());
-            DeleteInvoiceTypeCommand = new DelegateCommand(DeleteInvoiceType, () => (SelectedInvoiceType != null));
+            DeleteInvoiceTypeCommand = new DelegateCommand(DeleteInvoiceType, () => SelectedInvoiceType != null);
             SelectedCommand = new DelegateCommand(() =>
             {
                 SendSelectedToParent();
@@ -41,18 +30,26 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #endregion Constructor
 
+        #region Fields
+
+        private readonly InvoiceType _SelectedInvoiceType;
+        private readonly SvenTechCollection<InvoiceType> _InvoiceTypes = new SvenTechCollection<InvoiceType>();
+        private string _FilterText;
+
+        #endregion Fields
+
         #region Methods
 
         private SvenTechCollection<InvoiceType> LoadAllInvoiceTypes()
         {
-            SvenTechCollection<InvoiceType> allInvoiceTypes = new SvenTechCollection<InvoiceType>();
+            var allInvoiceTypes = new SvenTechCollection<InvoiceType>();
             try
             {
                 allInvoiceTypes = DataContext.Instance.InvoiceTypes.GetAll().ToSvenTechCollection();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
 
             return allInvoiceTypes;
@@ -66,10 +63,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteInvoiceType()
         {
-            if (SelectedInvoiceType == null)
-            {
-                return;
-            }
+            if (SelectedInvoiceType == null) return;
 
             if (SelectedInvoiceType.InvoiceTypeId == 0)
             {
@@ -84,9 +78,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _InvoiceTypes.Remove(SelectedInvoiceType);
                 SelectedInvoiceType = null;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -99,45 +93,35 @@ namespace FinancialAnalysis.Logic.ViewModels
                 else
                     DataContext.Instance.InvoiceTypes.Insert(SelectedInvoiceType);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
         private bool Validation()
         {
-            if (SelectedInvoiceType == null)
-            {
-                return false;
-            }
-            if (string.IsNullOrEmpty(SelectedInvoiceType.Name))
-            {
-                return false;
-            }
+            if (SelectedInvoiceType == null) return false;
+            if (string.IsNullOrEmpty(SelectedInvoiceType.Name)) return false;
             return true;
         }
 
         public void SendSelectedToParent()
         {
-            if (SelectedInvoiceType == null)
-            {
-                return;
-            }
+            if (SelectedInvoiceType == null) return;
 
-            if (SelectedInvoiceType.InvoiceTypeId == 0)
-            {
-                SaveInvoiceType();
-            }
+            if (SelectedInvoiceType.InvoiceTypeId == 0) SaveInvoiceType();
 
-            Messenger.Default.Send(new SelectedInvoiceType { InvoiceType = SelectedInvoiceType });
+            Messenger.Default.Send(new SelectedInvoiceType {InvoiceType = SelectedInvoiceType});
         }
 
         #endregion Methods
 
         #region Properties
 
-        public SvenTechCollection<InvoiceType> FilteredInvoiceTypes { get; set; } = new SvenTechCollection<InvoiceType>();
+        public SvenTechCollection<InvoiceType> FilteredInvoiceTypes { get; set; } =
+            new SvenTechCollection<InvoiceType>();
+
         public DelegateCommand NewInvoiceTypeCommand { get; set; }
         public DelegateCommand SaveInvoiceTypeCommand { get; set; }
         public DelegateCommand DeleteInvoiceTypeCommand { get; set; }
@@ -146,7 +130,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public string FilterText
         {
-            get { return _FilterText; }
+            get => _FilterText;
             set
             {
                 _FilterText = value;
@@ -154,12 +138,8 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     FilteredInvoiceTypes = new SvenTechCollection<InvoiceType>();
                     foreach (var item in _InvoiceTypes)
-                    {
                         if (item.Name.Contains(FilterText))
-                        {
                             FilteredInvoiceTypes.Add(item);
-                        }
-                    }
                 }
                 else
                 {
@@ -167,9 +147,10 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
             }
         }
+
         public InvoiceType SelectedInvoiceType { get; set; }
 
-        public User ActualUser { get { return Globals.ActualUser; } }
+        public User ActualUser => Globals.ActualUser;
 
         #endregion Properties
     }

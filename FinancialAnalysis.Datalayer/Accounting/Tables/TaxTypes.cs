@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
-using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using Serilog;
 
@@ -62,7 +61,6 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         public string TableName { get; }
-
 
         /// <summary>
         ///     Returns all TaxType records

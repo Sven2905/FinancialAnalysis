@@ -5,6 +5,7 @@
         string TableName { get; }
 
         void CheckAndCreateTable();
+
         void CheckAndCreateStoredProcedures();
     }
 }

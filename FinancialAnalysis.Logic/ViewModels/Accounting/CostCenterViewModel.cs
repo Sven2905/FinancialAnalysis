@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
@@ -13,8 +14,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public CostCenterViewModel()
         {
-            if (IsInDesignMode)
-                return;
+            if (IsInDesignMode) return;
 
             Messenger.Default.Register<SelectedCostCenterCategory>(this, ChangeSelectedCostCenterCategory);
 
@@ -23,12 +23,6 @@ namespace FinancialAnalysis.Logic.ViewModels
         }
 
         #endregion Constructor
-
-        #region Fields
-
-
-
-        #endregion Fields
 
         #region Properties
 
@@ -48,7 +42,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             NewCostCenterCommand = new DelegateCommand(NewCostCenter);
             SaveCostCenterCommand = new DelegateCommand(SaveCostCenter, () => Validation());
-            DeleteCostCenterCommand = new DelegateCommand(DeleteCostCenter, () => (SelectedCostCenter != null));
+            DeleteCostCenterCommand = new DelegateCommand(DeleteCostCenter, () => SelectedCostCenter != null);
             OpenCostCenterCategoriesWindowCommand = new DelegateCommand(OpenCostCenterCategoriesWindow);
         }
 
@@ -64,9 +58,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 CostCenters = DataContext.Instance.CostCenters.GetAll().ToSvenTechCollection();
                 CostCenterCategories = DataContext.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -78,10 +72,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteCostCenter()
         {
-            if (SelectedCostCenter == null)
-            {
-                return;
-            }
+            if (SelectedCostCenter == null) return;
 
             if (SelectedCostCenter.CostCenterId == 0)
             {
@@ -96,9 +87,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 CostCenters.Remove(SelectedCostCenter);
                 SelectedCostCenter = null;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -110,20 +101,16 @@ namespace FinancialAnalysis.Logic.ViewModels
                     DataContext.Instance.CostCenters.Update(SelectedCostCenter);
                 else
                     DataContext.Instance.CostCenters.Insert(SelectedCostCenter);
-
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
         private bool Validation()
         {
-            if (SelectedCostCenter == null)
-            {
-                return false;
-            }
+            if (SelectedCostCenter == null) return false;
             return !string.IsNullOrEmpty(SelectedCostCenter.Name);
         }
 
@@ -131,7 +118,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             CostCenterCategories = DataContext.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
             SelectedCostCenter.CostCenterCategory = SelectedCostCenterCategory.CostCenterCategory;
-            SelectedCostCenter.RefCostCenterCategoryId = SelectedCostCenterCategory.CostCenterCategory.CostCenterCategoryId;
+            SelectedCostCenter.RefCostCenterCategoryId =
+                SelectedCostCenterCategory.CostCenterCategory.CostCenterCategoryId;
             RaisePropertyChanged("SelectedCostCenter");
         }
 

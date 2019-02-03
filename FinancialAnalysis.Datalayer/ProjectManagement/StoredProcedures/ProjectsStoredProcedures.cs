@@ -92,7 +92,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetById] @ProjectId int AS BEGIN SET NOCOUNT ON; SELECT ProjectId, Name, Description, Budget, StartDate, " +
-                    $"ExpectedEndDate, TotalEndDate, IsEnded, RefCostCenterId, Identifier, RefEmployeeId " +
+                    "ExpectedEndDate, TotalEndDate, IsEnded, RefCostCenterId, Identifier, RefEmployeeId " +
                     $"FROM {TableName} " +
                     "WHERE ProjectId = @ProjectId END");
                 using (var connection =

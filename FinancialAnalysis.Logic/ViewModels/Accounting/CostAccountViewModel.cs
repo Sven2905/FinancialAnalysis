@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
@@ -15,13 +17,12 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public CostAccountViewModel()
         {
-            if (IsInDesignMode)
-                return;
+            if (IsInDesignMode) return;
 
             RefreshLists();
         }
 
-        #endregion Constructor
+        #endregion Constructur
 
         #region Fields
 
@@ -38,13 +39,14 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 CostAccountCategories = DataContext.Instance.CostAccountCategories.GetAll().ToSvenTechCollection();
-                CostAccountCategoriesHierachical = CostAccountCategories.ToHierachicalCollection<CostAccountCategory>().ToSvenTechCollection();
+                CostAccountCategoriesHierachical = CostAccountCategories.ToHierachicalCollection<CostAccountCategory>()
+                    .ToSvenTechCollection();
                 TaxTypes = DataContext.Instance.TaxTypes.GetAll().ToSvenTechCollection();
                 _CostAccounts = DataContext.Instance.CostAccounts.GetAll().ToSvenTechCollection();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -69,6 +71,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (ids.Any())
                 foreach (var id in ids)
                     result.AddRange(GetChildIds(id));
+
             return result;
         }
 

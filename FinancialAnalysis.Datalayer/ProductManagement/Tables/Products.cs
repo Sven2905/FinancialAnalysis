@@ -4,9 +4,9 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
-using Serilog;
-using FinancialAnalysis.Models.ProductManagement;
 using FinancialAnalysis.Models.Accounting;
+using FinancialAnalysis.Models.ProductManagement;
+using Serilog;
 
 namespace FinancialAnalysis.Datalayer.ProductManagement
 {
@@ -160,13 +160,14 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<Product, ProductCategory, TaxType, Product>($"dbo.{TableName}_GetById @ProductId",
+                    output = con.Query<Product, ProductCategory, TaxType, Product>(
+                        $"dbo.{TableName}_GetById @ProductId",
                         (objProduct, objProductCategory, objTaxType) =>
                         {
                             objProduct.ProductCategory = objProductCategory;
                             objProduct.TaxType = objTaxType;
                             return objProduct;
-                        }, new { ProductId = id }, splitOn: "ProductId, ProductCategoryId, TaxTypeId",
+                        }, new {ProductId = id}, splitOn: "ProductId, ProductCategoryId, TaxTypeId",
                         commandType: CommandType.StoredProcedure).ToList();
                 }
             }
@@ -199,10 +200,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
         /// <param name="User"></param>
         public void UpdateOrInsert(IEnumerable<Product> Products)
         {
-            foreach (var Product in Products)
-            {
-                UpdateOrInsert(Product);
-            }
+            foreach (var Product in Products) UpdateOrInsert(Product);
         }
 
         /// <summary>
@@ -211,17 +209,16 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
         /// <param name="Product"></param>
         public void Update(Product Product)
         {
-            if (Product.ProductId == 0)
-            {
-                return;
-            }
+            if (Product.ProductId == 0) return;
 
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @ProductId, @Name, @Description, @Barcode, @RefTaxTypeId, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @DefaultBuyingPrice, @DefaultSellingPrice, @RefProductCategoryId", Product);
+                    con.Execute(
+                        $"dbo.{TableName}_Update @ProductId, @Name, @Description, @Barcode, @RefTaxTypeId, @DimensionX, @DimensionY, @DimensionZ, @Weight, @IsStackable, @Picture, @PackageUnit, @DefaultBuyingPrice, @DefaultSellingPrice, @RefProductCategoryId",
+                        Product);
                 }
             }
             catch (Exception e)
@@ -241,7 +238,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @ProductId", new { ProductId = id });
+                    con.Execute($"dbo.{TableName}_Delete @ProductId", new {ProductId = id});
                 }
             }
             catch (Exception e)
@@ -280,7 +277,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
 
         private void AddProductCategoriesReference()
         {
-            string refTable = "ProductCategories";
+            var refTable = "ProductCategories";
 
             try
             {
@@ -304,7 +301,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
 
         private void AddTaxTypesReference()
         {
-            string refTable = "TaxTypes";
+            var refTable = "TaxTypes";
 
             try
             {

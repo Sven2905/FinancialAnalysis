@@ -97,7 +97,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @RefSalesOrderId, @RefProductId, @Description, @Quantity, @Price, @DiscountPercentage, @IsShipped, @IsCanceled ",
+                    var result = con.Query<int>(
+                        $"dbo.{TableName}_Insert @RefSalesOrderId, @RefProductId, @Description, @Quantity, @Price, @DiscountPercentage, @IsShipped, @IsCanceled ",
                         SalesOrderPosition);
                     return result.Single();
                 }
@@ -187,14 +188,16 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         public void Update(SalesOrderPosition SalesOrderPosition)
         {
             if (SalesOrderPosition.SalesOrderPositionId == 0 ||
-                GetById(SalesOrderPosition.SalesOrderPositionId) is null) return;
+                GetById(SalesOrderPosition.SalesOrderPositionId) is null)
+                return;
 
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @SalesOrderPositionId, @RefSalesOrderId, @RefProductId, @Description, @Quantity, @Price, @DiscountPercentage, @IsShipped, @IsCanceled ",
+                    con.Execute(
+                        $"dbo.{TableName}_Update @SalesOrderPositionId, @RefSalesOrderId, @RefProductId, @Description, @Quantity, @Price, @DiscountPercentage, @IsShipped, @IsCanceled ",
                         SalesOrderPosition);
                 }
             }
@@ -241,7 +244,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
         private void AddProductsReference()
         {
-            string refTable = "Products";
+            var refTable = "Products";
 
             try
             {
@@ -265,7 +268,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
         private void AddSalesOrdersReference()
         {
-            string refTable = "SalesOrders";
+            var refTable = "SalesOrders";
 
             try
             {

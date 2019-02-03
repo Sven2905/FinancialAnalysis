@@ -116,8 +116,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var Cashback in Cashbacks)
-                        Insert(Cashback);
+                    foreach (var Cashback in Cashbacks) Insert(Cashback);
                 }
             }
             catch (Exception e)
@@ -139,7 +138,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<Cashback>($"dbo.{TableName}_GetById @CashbackId", new { CashbackId = id});
+                    output = con.QuerySingleOrDefault<Cashback>($"dbo.{TableName}_GetById @CashbackId",
+                        new {CashbackId = id});
                 }
             }
             catch (Exception e)

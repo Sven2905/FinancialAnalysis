@@ -1,8 +1,8 @@
 ﻿using System;
-using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
+using System.Windows;
 using DevExpress.Mvvm;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Mail;
@@ -34,7 +34,7 @@ namespace FinancialAnalysis.Logic
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
     }

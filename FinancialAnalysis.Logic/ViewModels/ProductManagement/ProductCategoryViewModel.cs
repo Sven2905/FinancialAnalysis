@@ -1,37 +1,27 @@
-﻿using DevExpress.Mvvm;
+﻿using System;
+using System.Windows;
+using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.ProductManagement;
-using System;
-using System.Windows.Media.Imaging;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
     public class ProductCategoryViewModel : ViewModelBase
     {
-        #region Fields
-
-        private readonly ProductCategory _SelectedProductCategory;
-        private SvenTechCollection<ProductCategory> _ProductCategories = new SvenTechCollection<ProductCategory>();
-        private string _FilterText = string.Empty;
-
-        #endregion Fields
-
         #region Constructor
 
         public ProductCategoryViewModel()
         {
-            if (IsInDesignMode)
-            {
-                return;
-            }
+            if (IsInDesignMode) return;
 
             FilteredProductCategories = _ProductCategories = LoadAllProductCategories();
             NewProductCategoryCommand = new DelegateCommand(NewProductCategory);
             SaveProductCategoryCommand = new DelegateCommand(SaveProductCategory, () => Validation());
-            DeleteProductCategoryCommand = new DelegateCommand(DeleteProductCategory, () => (SelectedProductCategory != null));
+            DeleteProductCategoryCommand =
+                new DelegateCommand(DeleteProductCategory, () => SelectedProductCategory != null);
             SelectedCommand = new DelegateCommand(() =>
             {
                 SendSelectedToParent();
@@ -41,18 +31,29 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #endregion Constructor
 
+        #region Fields
+
+        private readonly ProductCategory _SelectedProductCategory;
+
+        private readonly SvenTechCollection<ProductCategory> _ProductCategories =
+            new SvenTechCollection<ProductCategory>();
+
+        private string _FilterText = string.Empty;
+
+        #endregion Fields
+
         #region Methods
 
         private SvenTechCollection<ProductCategory> LoadAllProductCategories()
         {
-            SvenTechCollection<ProductCategory> allProductCategories = new SvenTechCollection<ProductCategory>();
+            var allProductCategories = new SvenTechCollection<ProductCategory>();
             try
             {
                 allProductCategories = DataContext.Instance.ProductCategories.GetAll().ToSvenTechCollection();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
 
             return allProductCategories;
@@ -66,10 +67,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteProductCategory()
         {
-            if (SelectedProductCategory == null)
-            {
-                return;
-            }
+            if (SelectedProductCategory == null) return;
 
             if (SelectedProductCategory.ProductCategoryId == 0)
             {
@@ -84,9 +82,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _ProductCategories.Remove(SelectedProductCategory);
                 SelectedProductCategory = null;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -95,53 +93,40 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedProductCategory.ProductCategoryId != 0)
-                {
                     DataContext.Instance.ProductCategories.Update(SelectedProductCategory);
-                }
                 else
-                {
-                    SelectedProductCategory.ProductCategoryId = DataContext.Instance.ProductCategories.Insert(SelectedProductCategory);
-                }
+                    SelectedProductCategory.ProductCategoryId =
+                        DataContext.Instance.ProductCategories.Insert(SelectedProductCategory);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
         private bool Validation()
         {
-            if (SelectedProductCategory == null)
-            {
-                return false;
-            }
-            if (string.IsNullOrEmpty(SelectedProductCategory.Name))
-            {
-                return false;
-            }
+            if (SelectedProductCategory == null) return false;
+            if (string.IsNullOrEmpty(SelectedProductCategory.Name)) return false;
             return true;
         }
 
         public void SendSelectedToParent()
         {
-            if (SelectedProductCategory == null)
-            {
-                return;
-            }
+            if (SelectedProductCategory == null) return;
 
-            if (SelectedProductCategory.ProductCategoryId == 0)
-            {
-                SaveProductCategory();
-            }
+            if (SelectedProductCategory.ProductCategoryId == 0) SaveProductCategory();
 
-            Messenger.Default.Send(new SelectedProductCategory { ProductCategory = SelectedProductCategory });
+            Messenger.Default.Send(new SelectedProductCategory {ProductCategory = SelectedProductCategory});
         }
 
         #endregion Methods
 
         #region Properties
 
-        public SvenTechCollection<ProductCategory> FilteredProductCategories { get; set; } = new SvenTechCollection<ProductCategory>();
+        public SvenTechCollection<ProductCategory> FilteredProductCategories { get; set; } =
+            new SvenTechCollection<ProductCategory>();
+
         public DelegateCommand NewProductCategoryCommand { get; set; }
         public DelegateCommand SaveProductCategoryCommand { get; set; }
         public DelegateCommand DeleteProductCategoryCommand { get; set; }
@@ -149,7 +134,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public string FilterText
         {
-            get { return _FilterText; }
+            get => _FilterText;
             set
             {
                 _FilterText = value;
@@ -157,12 +142,8 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     FilteredProductCategories = new SvenTechCollection<ProductCategory>();
                     foreach (var item in _ProductCategories)
-                    {
                         if (item.Name.Contains(FilterText))
-                        {
                             FilteredProductCategories.Add(item);
-                        }
-                    }
                 }
                 else
                 {
@@ -171,9 +152,10 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
             }
         }
+
         public ProductCategory SelectedProductCategory { get; set; }
         public Action CloseAction { get; set; }
-        public User ActualUser { get { return Globals.ActualUser; } }
+        public User ActualUser => Globals.ActualUser;
 
         #endregion Properties
     }

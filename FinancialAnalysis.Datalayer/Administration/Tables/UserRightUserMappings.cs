@@ -36,7 +36,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                     "UserRightUserMappingId int IDENTITY(1,1) PRIMARY KEY, " +
                     "IsGranted bit, " +
                     "RefUserId int NOT NULL, " +
-                    "RefUserRightId int NOT NULL)"; 
+                    "RefUserRightId int NOT NULL)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -128,7 +128,7 @@ namespace FinancialAnalysis.Datalayer.Administration
         }
 
         /// <summary>
-        /// Returns UserRightUserMapping by UserRightId and UserId
+        ///     Returns UserRightUserMapping by UserRightId and UserId
         /// </summary>
         /// <param name="RefUserRightId"></param>
         /// <param name="RefUserId"></param>
@@ -141,8 +141,9 @@ namespace FinancialAnalysis.Datalayer.Administration
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<UserRightUserMapping>($"dbo.{TableName}_GetByIds @RefUserRightId, @RefUserId",
-                        new { RefUserRightId, RefUserId });
+                    output = con.QuerySingleOrDefault<UserRightUserMapping>(
+                        $"dbo.{TableName}_GetByIds @RefUserRightId, @RefUserId",
+                        new {RefUserRightId, RefUserId});
                 }
             }
             catch (Exception e)
@@ -159,10 +160,7 @@ namespace FinancialAnalysis.Datalayer.Administration
         /// <param name="UserRight"></param>
         public UserRightUserMapping UpdateOrInsert(UserRightUserMapping UserRightUserMapping)
         {
-            if (UserRightUserMapping.UserRightUserMappingId != 0)
-            {
-                UserRightUserMapping = Update(UserRightUserMapping);
-            }
+            if (UserRightUserMapping.UserRightUserMappingId != 0) UserRightUserMapping = Update(UserRightUserMapping);
 
             var temp = GetByIds(UserRightUserMapping.RefUserRightId, UserRightUserMapping.RefUserId);
             if (temp is null)
@@ -181,10 +179,8 @@ namespace FinancialAnalysis.Datalayer.Administration
         /// <param name="UserRightUserMappings"></param>
         public List<UserRightUserMapping> UpdateOrInsert(List<UserRightUserMapping> UserRightUserMappings)
         {
-            for (int i = 0; i < UserRightUserMappings.Count; i++)
-            {
+            for (var i = 0; i < UserRightUserMappings.Count; i++)
                 UserRightUserMappings[i] = UpdateOrInsert(UserRightUserMappings[i]);
-            }
             return UserRightUserMappings;
         }
 
@@ -199,13 +195,16 @@ namespace FinancialAnalysis.Datalayer.Administration
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @UserRightUserMappingId, @IsGranted, @RefUserId, @RefUserRightId", UserRightUserMapping);
+                    con.Execute(
+                        $"dbo.{TableName}_Update @UserRightUserMappingId, @IsGranted, @RefUserId, @RefUserRightId",
+                        UserRightUserMapping);
                 }
             }
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'Update' from table '{TableName}'", e);
             }
+
             return UserRightUserMapping;
         }
 
@@ -220,7 +219,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @RefUserId", new { RefUserId = UserId });
+                    con.Execute($"dbo.{TableName}_Delete @RefUserId", new {RefUserId = UserId});
                 }
             }
             catch (Exception e)

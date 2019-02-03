@@ -33,9 +33,9 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                $"SELECT s.*, sp.* " +
+                                "SELECT s.*, sp.* " +
                                 $"FROM {TableName} s " +
-                                $"LEFT JOIN StockedProducts sp ON s.StockyardId = sp.RefStockyardId " +
+                                "LEFT JOIN StockedProducts sp ON s.StockyardId = sp.RefStockyardId " +
                                 "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -59,9 +59,9 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetById] @StockyardId int AS BEGIN SET NOCOUNT ON; " +
-                    $"SELECT s.*, sp.* " +
+                    "SELECT s.*, sp.* " +
                     $"FROM {TableName} s " +
-                    $"LEFT JOIN StockedProducts sp ON s.StockyardId = sp.RefStockyardId " +
+                    "LEFT JOIN StockedProducts sp ON s.StockyardId = sp.RefStockyardId " +
                     "WHERE StockyardId = @StockyardId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -79,15 +79,16 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
 
         private void GetByRefWarehouseId()
         {
-            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetByRefWarehouseId", DatabaseNames.FinancialAnalysisDB))
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetByRefWarehouseId",
+                DatabaseNames.FinancialAnalysisDB))
             {
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetByRefWarehouseId] @RefWarehouseId int AS BEGIN SET NOCOUNT ON; " +
-                    $"SELECT s.*, sp.* " +
+                    "SELECT s.*, sp.* " +
                     $"FROM {TableName} s " +
-                    $"LEFT JOIN StockedProducts sp ON s.StockyardId = sp.RefStockyardId " +
+                    "LEFT JOIN StockedProducts sp ON s.StockyardId = sp.RefStockyardId " +
                     "WHERE RefWarehouseId = @RefWarehouseId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

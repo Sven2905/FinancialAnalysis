@@ -1,43 +1,28 @@
-﻿using DevExpress.Mvvm;
+﻿using System;
+using System.Linq;
+using System.Windows;
+using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.WarehouseManagement;
-using System;
-using System.Linq;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
     public class WarehouseViewModel : ViewModelBase
     {
-        #region UserRights
-
-        public bool AllowSave { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessWarehouseSave) || Globals.ActualUser.IsAdministrator; } }
-        public bool AllowDelete { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessWarehouseDelete) || Globals.ActualUser.IsAdministrator; } }
-
-        #endregion UserRights
-
-        #region Fields
-
-        private SvenTechCollection<Warehouse> _Warehouses = new SvenTechCollection<Warehouse>();
-        private string _FilterText;
-
-        #endregion Fields
-
         #region Constructor
 
         public WarehouseViewModel()
         {
-            if (IsInDesignMode)
-            {
-                return;
-            }
+            if (IsInDesignMode) return;
 
             FilteredWarehouses = _Warehouses = LoadAllWarehouses();
             NewWarehouseCommand = new DelegateCommand(NewWarehouse);
             SaveWarehouseCommand = new DelegateCommand(SaveWarehouse, Validation);
-            DeleteWarehouseCommand = new DelegateCommand(DeleteWarehouse, () => (SelectedWarehouse != null && SelectedWarehouse.Stockyards.All(x => x.IsEmpty)));
+            DeleteWarehouseCommand = new DelegateCommand(DeleteWarehouse,
+                () => SelectedWarehouse != null && SelectedWarehouse.Stockyards.All(x => x.IsEmpty));
             SelectedCommand = new DelegateCommand(() =>
             {
                 SendSelectedToParent();
@@ -47,18 +32,37 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #endregion Constructor
 
+        #region UserRights
+
+        public bool AllowSave =>
+            UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessWarehouseSave) ||
+            Globals.ActualUser.IsAdministrator;
+
+        public bool AllowDelete =>
+            UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessWarehouseDelete) ||
+            Globals.ActualUser.IsAdministrator;
+
+        #endregion UserRights
+
+        #region Fields
+
+        private readonly SvenTechCollection<Warehouse> _Warehouses = new SvenTechCollection<Warehouse>();
+        private string _FilterText;
+
+        #endregion Fields
+
         #region Methods
 
         private SvenTechCollection<Warehouse> LoadAllWarehouses()
         {
-            SvenTechCollection<Warehouse> allWarehouses = new SvenTechCollection<Warehouse>();
+            var allWarehouses = new SvenTechCollection<Warehouse>();
             try
             {
                 allWarehouses = DataContext.Instance.Warehouses.GetAll().ToSvenTechCollection();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
 
             return allWarehouses;
@@ -72,10 +76,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteWarehouse()
         {
-            if (SelectedWarehouse == null)
-            {
-                return;
-            }
+            if (SelectedWarehouse == null) return;
 
             if (SelectedWarehouse.WarehouseId == 0)
             {
@@ -92,7 +93,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
@@ -101,46 +102,30 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedWarehouse.WarehouseId != 0)
-                {
                     DataContext.Instance.Warehouses.Update(SelectedWarehouse);
-                }
                 else
-                {
                     DataContext.Instance.Warehouses.Insert(SelectedWarehouse);
-                }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
             }
         }
 
         private bool Validation()
         {
-            if (SelectedWarehouse == null)
-            {
-                return false;
-            }
-            if (string.IsNullOrEmpty(SelectedWarehouse.Name))
-            {
-                return false;
-            }
+            if (SelectedWarehouse == null) return false;
+            if (string.IsNullOrEmpty(SelectedWarehouse.Name)) return false;
             return true;
         }
 
         public void SendSelectedToParent()
         {
-            if (SelectedWarehouse == null)
-            {
-                return;
-            }
+            if (SelectedWarehouse == null) return;
 
-            if (SelectedWarehouse.WarehouseId == 0)
-            {
-                SaveWarehouse();
-            }
+            if (SelectedWarehouse.WarehouseId == 0) SaveWarehouse();
 
-            Messenger.Default.Send(new SelectedWarehouse { Warehouse = SelectedWarehouse });
+            Messenger.Default.Send(new SelectedWarehouse {Warehouse = SelectedWarehouse});
         }
 
         #endregion Methods
@@ -164,12 +149,8 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     FilteredWarehouses = new SvenTechCollection<Warehouse>();
                     foreach (var item in _Warehouses)
-                    {
                         if (item.Name.Contains(FilterText))
-                        {
                             FilteredWarehouses.Add(item);
-                        }
-                    }
                 }
                 else
                 {

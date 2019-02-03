@@ -1,5 +1,4 @@
 ﻿using DevExpress.Mvvm;
-using System.Collections.Generic;
 using Utilities;
 
 namespace FinancialAnalysis.Models.WarehouseManagement

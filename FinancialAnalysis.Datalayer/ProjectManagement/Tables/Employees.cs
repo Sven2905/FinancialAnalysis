@@ -116,7 +116,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 {
                     var result = con.Query<int>(
                         $"dbo.{TableName}_Insert @Firstname, @Lastname, @Birthdate, @Street, @City, @Postcode, @Gender, @CivilStatus, @RefTariffId, @TaxId, @RefHealthInsuranceId, @HasDrivingLicence, @Nationality, " +
-                        $"@Confession, @BankName, @BIC, @IBAN, @NationalInsuranceNumber, @Salary, @WorkHoursPerWeek, @VacationDays, @Picture, @Mail, @Phone, @Mobile",
+                        "@Confession, @BankName, @BIC, @IBAN, @NationalInsuranceNumber, @Salary, @WorkHoursPerWeek, @VacationDays, @Picture, @Mail, @Phone, @Mobile",
                         Employee);
                     id = result.Single();
                 }
@@ -211,9 +211,10 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @EmployeeId, @Firstname, @Lastname, @Birthdate, @Street, @City, @Postcode, @Gender, @CivilStatus, @RefTariffId, @TaxId, " +
-                        $"@RefHealthInsuranceId, @HasDrivingLicence, @Nationality, @Confession, @BankName, @BIC, @IBAN, @NationalInsuranceNumber, @Salary, @WorkHoursPerWeek, " +
-                        $"@VacationDays, @Picture, @Mail, @Phone, @Mobile", Employee);
+                    con.Execute(
+                        $"dbo.{TableName}_Update @EmployeeId, @Firstname, @Lastname, @Birthdate, @Street, @City, @Postcode, @Gender, @CivilStatus, @RefTariffId, @TaxId, " +
+                        "@RefHealthInsuranceId, @HasDrivingLicence, @Nationality, @Confession, @BankName, @BIC, @IBAN, @NationalInsuranceNumber, @Salary, @WorkHoursPerWeek, " +
+                        "@VacationDays, @Picture, @Mail, @Phone, @Mobile", Employee);
                 }
             }
             catch (Exception e)
@@ -233,7 +234,7 @@ namespace FinancialAnalysis.Datalayer.ProjectManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @EmployeeId", new { EmployeeId = id });
+                    con.Execute($"dbo.{TableName}_Delete @EmployeeId", new {EmployeeId = id});
                 }
             }
             catch (Exception e)

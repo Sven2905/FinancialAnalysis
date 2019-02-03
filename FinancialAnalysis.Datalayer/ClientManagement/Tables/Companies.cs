@@ -4,8 +4,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
-using FinancialAnalysis.Datalayer.StoredProcedures;
-using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.ClientManagement;
 using Serilog;
 
@@ -212,7 +210,7 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
 
         private void AddClientsReference()
         {
-            string refTable = "Clients";
+            var refTable = "Clients";
 
             try
             {

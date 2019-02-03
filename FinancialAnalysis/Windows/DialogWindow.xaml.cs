@@ -13,8 +13,8 @@ namespace FinancialAnalysis
             InitializeComponent();
             var vm = new DialogViewModel();
             DataContext = vm;
-            if (vm.CloseAction == null)
-                vm.CloseAction = () => { };
+            if (vm.CloseAction == null) vm.CloseAction = () => { };
+
             vm.CloseAction = Close;
         }
     }

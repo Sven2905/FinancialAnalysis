@@ -28,11 +28,6 @@ namespace FinancialAnalysis.Models.Accounting
         public List<Credit> Credits { get; set; } = new List<Credit>();
         public int RefCostCenterId { get; set; }
 
-
-        #endregion
-
-        #region Methods
-
-        #endregion
+        #endregion Properties
     }
 }

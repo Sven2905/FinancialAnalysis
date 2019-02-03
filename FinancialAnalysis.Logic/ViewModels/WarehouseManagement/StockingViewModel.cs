@@ -1,7 +1,7 @@
-﻿using DevExpress.Mvvm;
+﻿using System.Threading.Tasks;
+using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models.WarehouseManagement;
-using System.Threading.Tasks;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels.WarehouseManagement
@@ -12,15 +12,18 @@ namespace FinancialAnalysis.Logic.ViewModels.WarehouseManagement
 
         public StockingViewModel()
         {
-            if (IsInDesignMode)
-            {
-                return;
-            }
+            if (IsInDesignMode) return;
 
             Task.Run(() => GetWarehouses());
         }
 
         #endregion Constructur
+
+        #region Properties
+
+        public SvenTechCollection<Warehouse> Warehouses { get; set; }
+
+        #endregion Properties
 
         #region Methods
 
@@ -30,11 +33,5 @@ namespace FinancialAnalysis.Logic.ViewModels.WarehouseManagement
         }
 
         #endregion Methods
-
-        #region Properties
-
-        public SvenTechCollection<Warehouse> Warehouses { get; set; }
-
-        #endregion Properties
     }
 }

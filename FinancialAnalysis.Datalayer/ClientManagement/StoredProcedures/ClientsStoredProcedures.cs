@@ -32,8 +32,8 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
                                 "SELECT cl.*, co.* " +
                                 $"FROM {TableName} cl " +
-                                $"LEFT JOIN Companies co ON cl.ClientId = co.RefClientId " +
-                                $"WHERE ClientId > 1" +
+                                "LEFT JOIN Companies co ON cl.ClientId = co.RefClientId " +
+                                "WHERE ClientId > 1" +
                                 "ORDER BY Name END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -84,8 +84,8 @@ namespace FinancialAnalysis.Datalayer.ClientManagement
                     $"CREATE PROCEDURE [{TableName}_GetById] @ClientId int AS BEGIN SET NOCOUNT ON; " +
                     "SELECT cl.*, co.* " +
                     $"FROM {TableName} cl " +
-                    $"LEFT JOIN Companies co ON cl.ClientId = co.RefClientId " +
-                    $"WHERE ClientId = @ClientId END");
+                    "LEFT JOIN Companies co ON cl.ClientId = co.RefClientId " +
+                    "WHERE ClientId = @ClientId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

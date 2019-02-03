@@ -7,20 +7,19 @@ namespace FinancialAnalysis.Logic.ViewModels
 {
     public class PDFViewerViewModel : ViewModelBase
     {
-        public PDFViewerViewModel()
-        {
-            if (IsInDesignMode)
-                return;
-        }
-
         private readonly ScannedDocument _ScannedDocument;
         private string _Path;
         private int _ScannedDocumentId;
         private byte[] content;
 
+        public PDFViewerViewModel()
+        {
+            if (IsInDesignMode) return;
+        }
+
         private void LoadDocumentById()
         {
-                content = DataContext.Instance.ScannedDocuments.GetById(ScannedDocumentId).Content;
+            content = DataContext.Instance.ScannedDocuments.GetById(ScannedDocumentId).Content;
 
             var ms = new MemoryStream(content);
             ScannedDocument = ms;

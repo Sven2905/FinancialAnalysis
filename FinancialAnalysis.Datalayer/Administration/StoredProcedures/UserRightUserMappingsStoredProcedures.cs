@@ -139,7 +139,7 @@ namespace FinancialAnalysis.Datalayer.Administration
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_Delete] @RefUserId int AS BEGIN SET NOCOUNT ON; " +
                     $"DELETE FROM {TableName} " +
-                    $"WHERE RefUserId = @RefUserId END");
+                    "WHERE RefUserId = @RefUserId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
