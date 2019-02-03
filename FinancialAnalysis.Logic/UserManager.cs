@@ -38,7 +38,7 @@ namespace FinancialAnalysis.Logic
             SvenTechCollection<User> allUsers = new SvenTechCollection<User>();
             try
             {
-                allUsers = DataLayer.Instance.Users.GetAll().ToSvenTechCollection();
+                allUsers = DataContext.Instance.Users.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -69,8 +69,8 @@ namespace FinancialAnalysis.Logic
 
             try
             {
-                DataLayer.Instance.UserRightUserMappings.Delete(user.UserId);
-                DataLayer.Instance.Users.Delete(user.UserId);
+                DataContext.Instance.UserRightUserMappings.Delete(user.UserId);
+                DataContext.Instance.Users.Delete(user.UserId);
                 Users.Remove(user);
             }
             catch (Exception ex)
@@ -97,7 +97,7 @@ namespace FinancialAnalysis.Logic
                 {
                     if (!string.IsNullOrEmpty(user.Password))
                     {
-                        DataLayer.Instance.Users.UpdatePassword(user);
+                        DataContext.Instance.Users.UpdatePassword(user);
                     }
                 }
                 else
@@ -108,7 +108,7 @@ namespace FinancialAnalysis.Logic
                     }
                 }
 
-                DataLayer.Instance.Users.UpdateOrInsert(user);
+                DataContext.Instance.Users.UpdateOrInsert(user);
 
                 if (IsNewUser)
                 {
@@ -118,7 +118,7 @@ namespace FinancialAnalysis.Logic
                     }
                 }
 
-                DataLayer.Instance.UserRightUserMappings.UpdateOrInsert(user.UserRightUserMappings);
+                DataContext.Instance.UserRightUserMappings.UpdateOrInsert(user.UserRightUserMappings);
                 RefreshUsers();
             }
             catch (System.Exception ex)
@@ -189,14 +189,14 @@ namespace FinancialAnalysis.Logic
         public User GetUserByNameAndPassword(string name, string password)
         {
             password = Encryption.ComputeHash(password, new SHA256CryptoServiceProvider(), new byte[] { 0x6c, 0xa6, 0x27, 0x0d, 0x62, 0xd4, 0x80, 0xc7, 0x50, 0xc9, 0x93, 0xef, 0xfb, 0x64, 0x90, 0x16, 0x7d, 0xc7, 0x1d, 0x6f, 0xb0, 0xe3, 0x80, 0xdc, 0x73 });
-            User user = DataLayer.Instance.Users.GetUserByNameAndPassword(name, password);
+            User user = DataContext.Instance.Users.GetUserByNameAndPassword(name, password);
 
             return user;
         }
 
         private List<UserRight> LoadUserRightsFromDB()
         {
-            return DataLayer.Instance.UserRights.GetAll();
+            return DataContext.Instance.UserRights.GetAll();
         }
 
         public void GrantPermission(User user, Permission permission)
@@ -206,11 +206,11 @@ namespace FinancialAnalysis.Logic
             if (tempUserRightUserMapping != null)
             {
                 tempUserRightUserMapping.IsGranted = true;
-                DataLayer.Instance.UserRightUserMappings.UpdateOrInsert(tempUserRightUserMapping);
+                DataContext.Instance.UserRightUserMappings.UpdateOrInsert(tempUserRightUserMapping);
             }
             else
             {
-                DataLayer.Instance.UserRightUserMappings.UpdateOrInsert(new UserRightUserMapping(user.UserId, right.UserRightId, true));
+                DataContext.Instance.UserRightUserMappings.UpdateOrInsert(new UserRightUserMapping(user.UserId, right.UserRightId, true));
             }
         }
 
@@ -221,11 +221,11 @@ namespace FinancialAnalysis.Logic
             if (tempUserRightUserMapping != null)
             {
                 tempUserRightUserMapping.IsGranted = false;
-                DataLayer.Instance.UserRightUserMappings.UpdateOrInsert(tempUserRightUserMapping);
+                DataContext.Instance.UserRightUserMappings.UpdateOrInsert(tempUserRightUserMapping);
             }
             else
             {
-                DataLayer.Instance.UserRightUserMappings.UpdateOrInsert(new UserRightUserMapping(user.UserId, right.UserRightId, false));
+                DataContext.Instance.UserRightUserMappings.UpdateOrInsert(new UserRightUserMapping(user.UserId, right.UserRightId, false));
             }
         }
 

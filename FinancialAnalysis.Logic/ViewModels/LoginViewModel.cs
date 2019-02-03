@@ -43,8 +43,8 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void Seed()
         {
-            DataLayer.Instance.CreateDatabaseSchema();
-            if (!DataLayer.Instance.Users.GetAll().Any())
+            DataContext.Instance.CreateDatabaseSchema();
+            if (!DataContext.Instance.Users.GetAll().Any())
             {
                 var user = new User()
                 {
@@ -57,11 +57,11 @@ namespace FinancialAnalysis.Logic.ViewModels
                     Contraction = "AD"
                 };
 
-                DataLayer.Instance.Users.Insert(user);
+                DataContext.Instance.Users.Insert(user);
 
             }
 
-            if (!DataLayer.Instance.UserRights.GetAll().Any())
+            if (!DataContext.Instance.UserRights.GetAll().Any())
             {
                 var _Import = new Import();
                 _Import.ImportUserRights();

@@ -20,7 +20,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void LoadDocumentById()
         {
-                content = DataLayer.Instance.ScannedDocuments.GetById(ScannedDocumentId).Content;
+                content = DataContext.Instance.ScannedDocuments.GetById(ScannedDocumentId).Content;
 
             var ms = new MemoryStream(content);
             ScannedDocument = ms;

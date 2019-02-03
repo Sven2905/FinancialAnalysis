@@ -60,7 +60,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (SelectedCreditor.CreditorId != 0)
             {
-                DataLayer.Instance.Creditors.Delete(SelectedCreditor.CreditorId);
+                DataContext.Instance.Creditors.Delete(SelectedCreditor.CreditorId);
             }
             Creditors.Remove(SelectedCreditor);
         }
@@ -69,7 +69,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (SelectedDebitor.DebitorId != 0)
             {
-                DataLayer.Instance.Debitors.Delete(SelectedDebitor.DebitorId);
+                DataContext.Instance.Debitors.Delete(SelectedDebitor.DebitorId);
             }
             Debitors.Remove(SelectedDebitor);
         }
@@ -101,11 +101,11 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             if (CompanyViewModel.Client.ClientId == 0)
             {
-                CompanyViewModel.Client.ClientId = DataLayer.Instance.Clients.Insert(CompanyViewModel.Client);
+                CompanyViewModel.Client.ClientId = DataContext.Instance.Clients.Insert(CompanyViewModel.Client);
             }
             else
             {
-                DataLayer.Instance.Clients.Update(CompanyViewModel.Client);
+                DataContext.Instance.Clients.Update(CompanyViewModel.Client);
             }
 
             if (CompanyViewModel.SelectedClientType == ClientType.Business)
@@ -113,11 +113,11 @@ namespace FinancialAnalysis.Logic.ViewModels
                 if (CompanyViewModel.Client.Company.CompanyId == 0)
                 {
                     CompanyViewModel.Client.Company.RefClientId = CompanyViewModel.Client.ClientId;
-                    CompanyViewModel.Client.Company.CompanyId = DataLayer.Instance.Companies.Insert(CompanyViewModel.Client.Company);
+                    CompanyViewModel.Client.Company.CompanyId = DataContext.Instance.Companies.Insert(CompanyViewModel.Client.Company);
                 }
                 else
                 {
-                    DataLayer.Instance.Companies.Update(CompanyViewModel.Client.Company);
+                    DataContext.Instance.Companies.Update(CompanyViewModel.Client.Company);
                 }
             }
 
@@ -129,25 +129,25 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (SelectedCreditor.CreditorId == 0)
             {
 
-                var CreditorNumber = DataLayer.Instance.CostAccounts.GetNextCreditorNumber();
+                var CreditorNumber = DataContext.Instance.CostAccounts.GetNextCreditorNumber();
                 SelectedCreditor.RefClientId = CompanyViewModel.Client.ClientId;
                 SelectedCreditor.CostAccount.RefTaxTypeId = CompanyViewModel.SelectedTaxTypeId;
                 SelectedCreditor.CostAccount.AccountNumber = CreditorNumber;
-                SelectedCreditor.CostAccount.RefCostAccountCategoryId = DataLayer.Instance.CostAccountCategories.GetCreditorId();
+                SelectedCreditor.CostAccount.RefCostAccountCategoryId = DataContext.Instance.CostAccountCategories.GetCreditorId();
                 SelectedCreditor.CostAccount.Description = CompanyViewModel.Client.Name;
                 SelectedCreditor.CostAccount.IsVisible = true;
-                SelectedCreditor.RefCostAccountId = DataLayer.Instance.CostAccounts.Insert(SelectedCreditor.CostAccount);
-                DataLayer.Instance.Creditors.Insert(SelectedCreditor);
+                SelectedCreditor.RefCostAccountId = DataContext.Instance.CostAccounts.Insert(SelectedCreditor.CostAccount);
+                DataContext.Instance.Creditors.Insert(SelectedCreditor);
             }
             else
             {
-                DataLayer.Instance.Clients.Update(CompanyViewModel.Client);
+                DataContext.Instance.Clients.Update(CompanyViewModel.Client);
                 if (CompanyViewModel.SelectedClientType == ClientType.Business)
                 {
-                    DataLayer.Instance.Companies.Update(CompanyViewModel.Client.Company);
+                    DataContext.Instance.Companies.Update(CompanyViewModel.Client.Company);
                 }
-                DataLayer.Instance.CostAccounts.Update(SelectedCreditor.CostAccount);
-                DataLayer.Instance.Creditors.Update(SelectedCreditor);
+                DataContext.Instance.CostAccounts.Update(SelectedCreditor.CostAccount);
+                DataContext.Instance.Creditors.Update(SelectedCreditor);
             }
         }
 
@@ -155,25 +155,25 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (SelectedDebitor.DebitorId == 0)
             {
-                var DebitorNumber = DataLayer.Instance.CostAccounts.GetNextDebitorNumber();
+                var DebitorNumber = DataContext.Instance.CostAccounts.GetNextDebitorNumber();
                 SelectedDebitor.RefClientId = CompanyViewModel.Client.ClientId;
                 SelectedDebitor.CostAccount.RefTaxTypeId = CompanyViewModel.SelectedTaxTypeId;
                 SelectedDebitor.CostAccount.AccountNumber = DebitorNumber;
-                SelectedDebitor.CostAccount.RefCostAccountCategoryId = DataLayer.Instance.CostAccountCategories.GetDebitorId();
+                SelectedDebitor.CostAccount.RefCostAccountCategoryId = DataContext.Instance.CostAccountCategories.GetDebitorId();
                 SelectedDebitor.CostAccount.Description = CompanyViewModel.Client.Name;
                 SelectedDebitor.CostAccount.IsVisible = true;
-                SelectedDebitor.RefCostAccountId = DataLayer.Instance.CostAccounts.Insert(SelectedDebitor.CostAccount);
-                DataLayer.Instance.Debitors.Insert(SelectedDebitor);
+                SelectedDebitor.RefCostAccountId = DataContext.Instance.CostAccounts.Insert(SelectedDebitor.CostAccount);
+                DataContext.Instance.Debitors.Insert(SelectedDebitor);
             }
             else
             {
-                DataLayer.Instance.Clients.Update(CompanyViewModel.Client);
+                DataContext.Instance.Clients.Update(CompanyViewModel.Client);
                 if (CompanyViewModel.SelectedClientType == ClientType.Business)
                 {
-                    DataLayer.Instance.Companies.Update(CompanyViewModel.Client.Company);
+                    DataContext.Instance.Companies.Update(CompanyViewModel.Client.Company);
                 }
-                DataLayer.Instance.CostAccounts.Update(SelectedDebitor.CostAccount);
-                DataLayer.Instance.Debitors.Update(SelectedDebitor);
+                DataContext.Instance.CostAccounts.Update(SelectedDebitor.CostAccount);
+                DataContext.Instance.Debitors.Update(SelectedDebitor);
             }
         }
 
@@ -202,8 +202,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                Creditors = DataLayer.Instance.Creditors.GetAll().ToSvenTechCollection();
-                Debitors = DataLayer.Instance.Debitors.GetAll().ToSvenTechCollection();
+                Creditors = DataContext.Instance.Creditors.GetAll().ToSvenTechCollection();
+                Debitors = DataContext.Instance.Debitors.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -246,12 +246,12 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             if (SelectedCreditor != null)
             {
-                return !DataLayer.Instance.Creditors.IsCreditorInUse(SelectedCreditor.CreditorId);
+                return !DataContext.Instance.Creditors.IsCreditorInUse(SelectedCreditor.CreditorId);
             }
 
             if (SelectedDebitor != null)
             {
-                return !DataLayer.Instance.Debitors.IsDebitorInUse(SelectedDebitor.DebitorId);
+                return !DataContext.Instance.Debitors.IsDebitorInUse(SelectedDebitor.DebitorId);
             }
             return false;
         }

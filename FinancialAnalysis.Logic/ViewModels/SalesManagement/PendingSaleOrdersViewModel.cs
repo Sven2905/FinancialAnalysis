@@ -24,7 +24,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private SvenTechCollection<SalesOrder> GetSalesOrdersFromDb()
         {
-            return DataLayer.Instance.SalesOrders.GetOpenedSalesOrders().ToSvenTechCollection();
+            return DataContext.Instance.SalesOrders.GetOpenedSalesOrders().ToSvenTechCollection();
         }
 
         public SvenTechCollection<SalesOrder> SalesOrders { get; set; }

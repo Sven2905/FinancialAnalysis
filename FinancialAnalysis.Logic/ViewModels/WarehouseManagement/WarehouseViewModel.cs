@@ -4,9 +4,7 @@ using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.WarehouseManagement;
 using System;
-using System.IO;
 using System.Linq;
-using System.Windows.Media.Imaging;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -14,8 +12,10 @@ namespace FinancialAnalysis.Logic.ViewModels
     public class WarehouseViewModel : ViewModelBase
     {
         #region UserRights
+
         public bool AllowSave { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessWarehouseSave) || Globals.ActualUser.IsAdministrator; } }
         public bool AllowDelete { get { return UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessWarehouseDelete) || Globals.ActualUser.IsAdministrator; } }
+
         #endregion UserRights
 
         #region Fields
@@ -36,8 +36,8 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             FilteredWarehouses = _Warehouses = LoadAllWarehouses();
             NewWarehouseCommand = new DelegateCommand(NewWarehouse);
-            SaveWarehouseCommand = new DelegateCommand(SaveWarehouse, () => Validation());
-            DeleteWarehouseCommand = new DelegateCommand(DeleteWarehouse, () => (SelectedWarehouse != null));
+            SaveWarehouseCommand = new DelegateCommand(SaveWarehouse, Validation);
+            DeleteWarehouseCommand = new DelegateCommand(DeleteWarehouse, () => (SelectedWarehouse != null && SelectedWarehouse.Stockyards.All(x => x.IsEmpty)));
             SelectedCommand = new DelegateCommand(() =>
             {
                 SendSelectedToParent();
@@ -54,7 +54,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<Warehouse> allWarehouses = new SvenTechCollection<Warehouse>();
             try
             {
-                allWarehouses = DataLayer.Instance.Warehouses.GetAll().ToSvenTechCollection();
+                allWarehouses = DataContext.Instance.Warehouses.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -86,11 +86,11 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                DataLayer.Instance.Warehouses.Delete(SelectedWarehouse.WarehouseId);
+                DataContext.Instance.Warehouses.Delete(SelectedWarehouse.WarehouseId);
                 _Warehouses.Remove(SelectedWarehouse);
                 SelectedWarehouse = null;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, System.Windows.MessageBoxImage.Error));
             }
@@ -101,9 +101,13 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedWarehouse.WarehouseId != 0)
-                    DataLayer.Instance.Warehouses.Update(SelectedWarehouse);
+                {
+                    DataContext.Instance.Warehouses.Update(SelectedWarehouse);
+                }
                 else
-                    DataLayer.Instance.Warehouses.Insert(SelectedWarehouse);
+                {
+                    DataContext.Instance.Warehouses.Insert(SelectedWarehouse);
+                }
             }
             catch (System.Exception ex)
             {
@@ -152,7 +156,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public string FilterText
         {
-            get { return _FilterText; }
+            get => _FilterText;
             set
             {
                 _FilterText = value;

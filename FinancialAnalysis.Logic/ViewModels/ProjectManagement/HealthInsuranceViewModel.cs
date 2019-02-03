@@ -36,7 +36,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<HealthInsurance> allHealthInsurances = new SvenTechCollection<HealthInsurance>();
             try
             {
-                    allHealthInsurances = DataLayer.Instance.HealthInsurances.GetAll().ToSvenTechCollection();
+                    allHealthInsurances = DataContext.Instance.HealthInsurances.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -68,7 +68,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                    DataLayer.Instance.HealthInsurances.Delete(SelectedHealthInsurance.HealthInsuranceId);
+                    DataContext.Instance.HealthInsurances.Delete(SelectedHealthInsurance.HealthInsuranceId);
                     HealthInsurances.Remove(SelectedHealthInsurance);
                     SelectedHealthInsurance = null;
             }
@@ -83,9 +83,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedHealthInsurance.HealthInsuranceId != 0)
-                        DataLayer.Instance.HealthInsurances.Update(SelectedHealthInsurance);
+                        DataContext.Instance.HealthInsurances.Update(SelectedHealthInsurance);
                 else
-                        SelectedHealthInsurance.HealthInsuranceId = DataLayer.Instance.HealthInsurances.Insert(SelectedHealthInsurance);
+                        SelectedHealthInsurance.HealthInsuranceId = DataContext.Instance.HealthInsurances.Insert(SelectedHealthInsurance);
             }
             catch (System.Exception ex)
             {

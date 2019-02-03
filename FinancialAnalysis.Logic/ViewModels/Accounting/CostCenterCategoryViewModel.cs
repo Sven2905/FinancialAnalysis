@@ -48,7 +48,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<CostCenterCategory> allCostCenterCategories = new SvenTechCollection<CostCenterCategory>();
             try
             {
-                allCostCenterCategories = DataLayer.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
+                allCostCenterCategories = DataContext.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -80,7 +80,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                DataLayer.Instance.CostCenterCategories.Delete(SelectedCostCenterCategory.CostCenterCategoryId);
+                DataContext.Instance.CostCenterCategories.Delete(SelectedCostCenterCategory.CostCenterCategoryId);
                 _CostCenterCategories.Remove(SelectedCostCenterCategory);
                 SelectedCostCenterCategory = null;
             }
@@ -96,11 +96,11 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 if (SelectedCostCenterCategory.CostCenterCategoryId != 0)
                 {
-                    DataLayer.Instance.CostCenterCategories.Update(SelectedCostCenterCategory);
+                    DataContext.Instance.CostCenterCategories.Update(SelectedCostCenterCategory);
                 }
                 else
                 {
-                    SelectedCostCenterCategory.CostCenterCategoryId = DataLayer.Instance.CostCenterCategories.Insert(SelectedCostCenterCategory);
+                    SelectedCostCenterCategory.CostCenterCategoryId = DataContext.Instance.CostCenterCategories.Insert(SelectedCostCenterCategory);
                 }
             }
             catch (System.Exception ex)

@@ -32,9 +32,10 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT w.WarehouseId, w.Name, w.Description, w.Street, w.City, w.Postcode, s.StockyardId, s.Name "+
+                                "SELECT w.*, s.*, sp.* "+
                                 $"FROM {TableName} w " +
                                 "LEFT JOIN Stockyards s on WarehouseId = RefWarehouseId " +
+                                "LEFT JOIN StockedProducts sp ON s.StockyardId = sp.RefStockyardId " +
                                 "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -83,9 +84,10 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetById] @WarehouseId int AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT w.WarehouseId, w.Name, w.Description, w.Street, w.City, w.Postcode, s.StockyardId, s.Name " +
+                    "SELECT w.*, s.*, sp.* " +
                     $"FROM {TableName} w " +
                     "LEFT JOIN Stockyards s on WarehouseId = RefWarehouseId " +
+                    "LEFT JOIN StockedProducts sp ON s.StockyardId = sp.RefStockyardId " +
                     "WHERE WarehouseId = @WarehouseId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

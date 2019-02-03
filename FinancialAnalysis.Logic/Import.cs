@@ -31,7 +31,7 @@ namespace FinancialAnalysis.Logic
 
             var costAccountCategories = new List<CostAccountCategory>();
 
-            costAccountCategories.AddRange(DataLayer.Instance.CostAccountCategories.GetAll());
+            costAccountCategories.AddRange(DataContext.Instance.CostAccountCategories.GetAll());
 
             using (var reader = new StreamReader(_FilePath))
             {
@@ -134,7 +134,7 @@ namespace FinancialAnalysis.Logic
                     {
                         tempMainCat.Description = _Content[2];
 
-                        mainCatId = DataLayer.Instance.CostAccountCategories.Insert(tempMainCat);
+                        mainCatId = DataContext.Instance.CostAccountCategories.Insert(tempMainCat);
                         tempMainCat.CostAccountCategoryId = mainCatId;
                         costAccountCategories.Add(tempMainCat);
                     }
@@ -145,7 +145,7 @@ namespace FinancialAnalysis.Logic
                             .CostAccountCategoryId;
                     }
 
-                    var taxTypes = DataLayer.Instance.TaxTypes.GetAll().ToList();
+                    var taxTypes = DataContext.Instance.TaxTypes.GetAll().ToList();
 
                     var tempSubCat = new CostAccountCategory();
 
@@ -157,7 +157,7 @@ namespace FinancialAnalysis.Logic
                             tempSubCat.Description = _Content[3];
                             tempSubCat.ParentCategoryId = mainCatId;
 
-                            subCatId = DataLayer.Instance.CostAccountCategories.Insert(tempSubCat);
+                            subCatId = DataContext.Instance.CostAccountCategories.Insert(tempSubCat);
                             tempSubCat.CostAccountCategoryId = subCatId;
                             costAccountCategories.Add(tempSubCat);
                         }
@@ -196,7 +196,7 @@ namespace FinancialAnalysis.Logic
                         costAccount.RefTaxTypeId = 1;
                     }
 
-                    DataLayer.Instance.CostAccounts.Insert(costAccount);
+                    DataContext.Instance.CostAccounts.Insert(costAccount);
                 }
             }
         }
@@ -211,7 +211,7 @@ namespace FinancialAnalysis.Logic
                 new CostCenterCategory() { Name = "Vertrieb"},
             };
 
-            DataLayer.Instance.CostCenterCategories.Insert(costCenterCategories);
+            DataContext.Instance.CostCenterCategories.Insert(costCenterCategories);
 
             var costCenters = new List<CostCenter>()
            {
@@ -231,7 +231,7 @@ namespace FinancialAnalysis.Logic
                new CostCenter() { RefCostCenterCategoryId = 4, Identifier="14", Name = "Auftragswesen"},
            };
 
-            DataLayer.Instance.CostCenters.Insert(costCenters);
+            DataContext.Instance.CostCenters.Insert(costCenters);
         }
 
         private void CreateSKR03MainCategories()
@@ -248,7 +248,7 @@ namespace FinancialAnalysis.Logic
                 new CostAccountCategory {Description = " 9 - Vortrags-, Kapital- und statistische Konten"}
             };
 
-            DataLayer.Instance.CostAccountCategories.Insert(_CostAccounts);
+            DataContext.Instance.CostAccountCategories.Insert(_CostAccounts);
         }
 
         private void CreateSKR04MainCategories()
@@ -266,7 +266,7 @@ namespace FinancialAnalysis.Logic
                 new CostAccountCategory {Description = " 9 - Vortrags-, Kapital- und statistische Konten"}
             };
 
-            DataLayer.Instance.CostAccountCategories.Insert(_CostAccounts);
+            DataContext.Instance.CostAccountCategories.Insert(_CostAccounts);
         }
 
         public void ImportUserRights()
@@ -321,17 +321,17 @@ namespace FinancialAnalysis.Logic
 
             foreach (var item in rights)
             {
-                item.UserRightId = DataLayer.Instance.UserRights.Insert(item);
-                DataLayer.Instance.UserRightUserMappings.Insert(new UserRightUserMapping() { RefUserId = 1, RefUserRightId = item.UserRightId, IsGranted = true });
+                item.UserRightId = DataContext.Instance.UserRights.Insert(item);
+                DataContext.Instance.UserRightUserMappings.Insert(new UserRightUserMapping() { RefUserId = 1, RefUserRightId = item.UserRightId, IsGranted = true });
             }
         }
 
         public void SeedTypes()
         {
-            DataLayer.Instance.InvoiceTypes.Insert(new Models.SalesManagement.InvoiceType() { Name = "Allgemein" });
-            DataLayer.Instance.SalesTypes.Insert(new Models.SalesManagement.SalesType() { Name = "Allgemein" });
-            DataLayer.Instance.ShipmentTypes.Insert(new Models.SalesManagement.ShipmentType() { Name = "Allgemein" });
-            DataLayer.Instance.ProductCategories.Insert(new Models.ProductManagement.ProductCategory() { Name = "Allgemein" });
+            DataContext.Instance.InvoiceTypes.Insert(new Models.SalesManagement.InvoiceType() { Name = "Allgemein" });
+            DataContext.Instance.SalesTypes.Insert(new Models.SalesManagement.SalesType() { Name = "Allgemein" });
+            DataContext.Instance.ShipmentTypes.Insert(new Models.SalesManagement.ShipmentType() { Name = "Allgemein" });
+            DataContext.Instance.ProductCategories.Insert(new Models.ProductManagement.ProductCategory() { Name = "Allgemein" });
         }
 
         /// <summary>
@@ -434,7 +434,7 @@ namespace FinancialAnalysis.Logic
                 },
             };
 
-            DataLayer.Instance.TaxTypes.Insert(taxTypes);
+            DataContext.Instance.TaxTypes.Insert(taxTypes);
         }
 
         public void SeedCompany()
@@ -447,7 +447,7 @@ namespace FinancialAnalysis.Logic
                 Postcode = 12345
             };
 
-            client.ClientId = DataLayer.Instance.Clients.Insert(client);
+            client.ClientId = DataContext.Instance.Clients.Insert(client);
 
             var company = new Company()
             {
@@ -456,19 +456,19 @@ namespace FinancialAnalysis.Logic
                 RefClientId = client.ClientId
             };
 
-            DataLayer.Instance.Companies.Insert(company);
+            DataContext.Instance.Companies.Insert(company);
         }
 
         public void SeedHealthInsurance()
         {
             var healthInsurance = new HealthInsurance() { Name = "Keine" };
 
-            DataLayer.Instance.HealthInsurances.Insert(healthInsurance);
+            DataContext.Instance.HealthInsurances.Insert(healthInsurance);
         }
 
         private int GetIdOfCostAccount(int AccountNumber)
         {
-            return DataLayer.Instance.CostAccounts.GetByAccountNumber(AccountNumber);
+            return DataContext.Instance.CostAccounts.GetByAccountNumber(AccountNumber);
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Dapper;
+using FinancialAnalysis.Models.WarehouseManagement;
+using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using Dapper;
-using FinancialAnalysis.Models.WarehouseManagement;
-using Serilog;
 
 namespace FinancialAnalysis.Datalayer.WarehouseManagement
 {
@@ -62,21 +62,31 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
         /// <returns></returns>
         public IEnumerable<Stockyard> GetAll()
         {
-            IEnumerable<Stockyard> output = new List<Stockyard>();
-            try
+            var stockyardDictionary = new Dictionary<int, Stockyard>();
+            using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
             {
-                using (IDbConnection con =
-                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    output = con.Query<Stockyard>($"dbo.{TableName}_GetAll");
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
-            }
+                var query = con.Query<Stockyard, StockedProduct, Stockyard>
+                    ($"dbo.{TableName}_GetAll",
+                        (s, sp) =>
+                        {
+                            if (!stockyardDictionary.TryGetValue(s.StockyardId, out Stockyard stockyardEntry))
+                            {
+                                if (stockyardEntry == null)
+                                {
+                                    stockyardEntry = s;
+                                    stockyardDictionary.Add(stockyardEntry.StockyardId, stockyardEntry);
+                                }
+                            }
+                            if (sp != null)
+                            {
+                                stockyardEntry.StockedProducts.Add(sp);
+                            }
 
-            return output;
+                            return stockyardEntry;
+                        }, splitOn: "StockyardId, StockedProductId")
+                    .AsQueryable();
+                return stockyardDictionary.Values.ToList();
+            }
         }
 
         /// <summary>
@@ -86,22 +96,31 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
         /// <returns></returns>
         public Stockyard GetById(int id)
         {
-            var output = new Stockyard();
-            try
+            var stockyardDictionary = new Dictionary<int, Stockyard>();
+            using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
             {
-                using (IDbConnection con =
-                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    output = con.QuerySingleOrDefault<Stockyard>($"dbo.{TableName}_GetById @StockyardId",
-                        new { StockyardId = id });
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
-            }
+                var query = con.Query<Stockyard, StockedProduct, Stockyard>
+                    ($"dbo.{TableName}_GetById @StockyardId",
+                        (s, sp) =>
+                        {
+                            if (!stockyardDictionary.TryGetValue(s.StockyardId, out Stockyard stockyardEntry))
+                            {
+                                if (stockyardEntry == null)
+                                {
+                                    stockyardEntry = s;
+                                    stockyardDictionary.Add(stockyardEntry.StockyardId, stockyardEntry);
+                                }
+                            }
+                            if (sp != null)
+                            {
+                                stockyardEntry.StockedProducts.Add(sp);
+                            }
 
-            return output;
+                            return stockyardEntry;
+                        }, new { StockyardId = id }, splitOn: "StockyardId, StockedProductId")
+                    .AsQueryable();
+                return stockyardDictionary.Values.FirstOrDefault();
+            }
         }
 
         /// <summary>
@@ -111,23 +130,31 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
         /// <returns></returns>
         public IEnumerable<Stockyard> GetByRefWarehouseId(int RefWarehouseId)
         {
-            IEnumerable<Stockyard> output = new List<Stockyard>();
-            try
+            var stockyardDictionary = new Dictionary<int, Stockyard>();
+            using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
             {
-                using (IDbConnection con =
-                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    output = con.Query<Stockyard>($"dbo.{TableName}_GetByRefWarehouseId @RefWarehouseId",
-                        new { RefWarehouseId });
-                }
+                var query = con.Query<Stockyard, StockedProduct, Stockyard>
+                    ($"dbo.{TableName}_GetByRefWarehouseId @RefWarehouseId",
+                        (s, sp) =>
+                        {
+                            if (!stockyardDictionary.TryGetValue(s.StockyardId, out Stockyard stockyardEntry))
+                            {
+                                if (stockyardEntry == null)
+                                {
+                                    stockyardEntry = s;
+                                    stockyardDictionary.Add(stockyardEntry.StockyardId, stockyardEntry);
+                                }
+                            }
+                            if (sp != null)
+                            {
+                                stockyardEntry.StockedProducts.Add(sp);
+                            }
 
+                            return stockyardEntry;
+                        }, new { RefWarehouseId }, splitOn: "StockyardId, StockedProductId")
+                    .AsQueryable();
+                return stockyardDictionary.Values.ToList();
             }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while 'GetByRefWarehouseId' from table '{TableName}'", e);
-            }
-
-            return output;
         }
 
         /// <summary>
@@ -168,7 +195,10 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var Stockyard in Stockyards) Insert(Stockyard);
+                    foreach (var Stockyard in Stockyards)
+                    {
+                        Insert(Stockyard);
+                    }
                 }
             }
             catch (Exception e)
@@ -198,7 +228,10 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
         /// <param name="Stockyards"></param>
         public void UpdateOrInsert(IEnumerable<Stockyard> Stockyards)
         {
-            foreach (var Stockyard in Stockyards) UpdateOrInsert(Stockyard);
+            foreach (var Stockyard in Stockyards)
+            {
+                UpdateOrInsert(Stockyard);
+            }
         }
 
         /// <summary>
@@ -207,7 +240,10 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
         /// <param name="Stockyard"></param>
         public void Update(Stockyard Stockyard)
         {
-            if (Stockyard.StockyardId == 0 || GetById(Stockyard.StockyardId) is null) return;
+            if (Stockyard.StockyardId == 0 || GetById(Stockyard.StockyardId) is null)
+            {
+                return;
+            }
 
             try
             {

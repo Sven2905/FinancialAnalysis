@@ -48,7 +48,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<InvoiceType> allInvoiceTypes = new SvenTechCollection<InvoiceType>();
             try
             {
-                allInvoiceTypes = DataLayer.Instance.InvoiceTypes.GetAll().ToSvenTechCollection();
+                allInvoiceTypes = DataContext.Instance.InvoiceTypes.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -80,7 +80,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                DataLayer.Instance.InvoiceTypes.Delete(SelectedInvoiceType.InvoiceTypeId);
+                DataContext.Instance.InvoiceTypes.Delete(SelectedInvoiceType.InvoiceTypeId);
                 _InvoiceTypes.Remove(SelectedInvoiceType);
                 SelectedInvoiceType = null;
             }
@@ -95,9 +95,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedInvoiceType.InvoiceTypeId != 0)
-                    DataLayer.Instance.InvoiceTypes.Update(SelectedInvoiceType);
+                    DataContext.Instance.InvoiceTypes.Update(SelectedInvoiceType);
                 else
-                    DataLayer.Instance.InvoiceTypes.Insert(SelectedInvoiceType);
+                    DataContext.Instance.InvoiceTypes.Insert(SelectedInvoiceType);
             }
             catch (System.Exception ex)
             {

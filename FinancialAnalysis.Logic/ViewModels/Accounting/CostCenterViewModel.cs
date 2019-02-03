@@ -61,8 +61,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                CostCenters = DataLayer.Instance.CostCenters.GetAll().ToSvenTechCollection();
-                CostCenterCategories = DataLayer.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
+                CostCenters = DataContext.Instance.CostCenters.GetAll().ToSvenTechCollection();
+                CostCenterCategories = DataContext.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -92,7 +92,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                DataLayer.Instance.CostCenters.Delete(SelectedCostCenter.CostCenterId);
+                DataContext.Instance.CostCenters.Delete(SelectedCostCenter.CostCenterId);
                 CostCenters.Remove(SelectedCostCenter);
                 SelectedCostCenter = null;
             }
@@ -107,9 +107,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedCostCenter.CostCenterId != 0)
-                    DataLayer.Instance.CostCenters.Update(SelectedCostCenter);
+                    DataContext.Instance.CostCenters.Update(SelectedCostCenter);
                 else
-                    DataLayer.Instance.CostCenters.Insert(SelectedCostCenter);
+                    DataContext.Instance.CostCenters.Insert(SelectedCostCenter);
 
             }
             catch (System.Exception ex)
@@ -129,7 +129,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void ChangeSelectedCostCenterCategory(SelectedCostCenterCategory SelectedCostCenterCategory)
         {
-            CostCenterCategories = DataLayer.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
+            CostCenterCategories = DataContext.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
             SelectedCostCenter.CostCenterCategory = SelectedCostCenterCategory.CostCenterCategory;
             SelectedCostCenter.RefCostCenterCategoryId = SelectedCostCenterCategory.CostCenterCategory.CostCenterCategoryId;
             RaisePropertyChanged("SelectedCostCenter");

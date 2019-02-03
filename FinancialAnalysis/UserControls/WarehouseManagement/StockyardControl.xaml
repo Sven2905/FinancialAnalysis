@@ -109,7 +109,7 @@
                 </ListView>
             </ScrollViewer>
 
-            <VirtualizingStackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,15,0,15" >
+            <VirtualizingStackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="7,15,0,15" >
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Neu"
                                  Foreground="#3F729B" Command="{Binding NewStockyardCommand}" FontFamily="Tahoma" />
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Speichern" Foreground="#3F729B"
@@ -130,7 +130,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <dxlc:LayoutControl Grid.Row="0" Grid.RowSpan="3" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,-12,0,0" IsEnabled="{Binding SelectedProductCategory, Converter={StaticResource NullConverter}}">
+                <dxlc:LayoutControl Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,-12,0,0" IsEnabled="{Binding SelectedProductCategory, Converter={StaticResource NullConverter}}">
                     <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
                         <dxlc:LayoutGroup.Header>
                             <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
@@ -159,8 +159,37 @@
                     </dxlc:LayoutGroup>
                 </dxlc:LayoutControl>
 
+                <dxlc:LayoutControl Grid.Row="0" Grid.Column="2" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,-12,0,0" IsEnabled="{Binding SelectedProductCategory, Converter={StaticResource NullConverter}}">
+                    <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
+                        <dxlc:LayoutGroup.Header>
+                            <TextBlock Text="Automatische Generierung" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                        </dxlc:LayoutGroup.Header>
+                        <dxlc:LayoutGroup>
+                            <dxlc:LayoutItem Label="Lager" FontFamily="Tahoma" >
+                                <dxe:ComboBoxEdit NullText="Bitte wählen" DisplayMember="Name" ItemsSource="{Binding Warehouses}" EditValue="{Binding SelectedWarehouse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                            </dxlc:LayoutItem>
+                        </dxlc:LayoutGroup>
+                        <dxlc:LayoutGroup>
+                            <dxlc:LayoutItem Label="Anzahl Lagerplätze" FontFamily="Tahoma" >
+                                <dxe:TextEdit Text="{Binding NumberOfStockyardsToCreate, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                            </dxlc:LayoutItem>
+                        </dxlc:LayoutGroup>
+                        <dxlc:LayoutGroup>
+                            <dxlc:LayoutItem Label="Präfix" FontFamily="Tahoma" >
+                                <dxe:TextEdit Text="{Binding Prefix, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                            </dxlc:LayoutItem>
+                            <dxlc:LayoutItem Label="Suffix" FontFamily="Tahoma" >
+                                <dxe:TextEdit Text="{Binding Suffix, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                            </dxlc:LayoutItem>
+                        </dxlc:LayoutGroup>
+                    <dxlc:LayoutGroup>
+                        
+                    </dxlc:LayoutGroup>
+                        <dx:SimpleButton Width="150" Height="30" Margin="5,10,5,0" Content="Erstellen" HorizontalAlignment="Left"
+                                 Foreground="#3F729B" Command="{Binding StockyardsGenerationCommand}" FontFamily="Tahoma" />
+                    </dxlc:LayoutGroup>
+                </dxlc:LayoutControl>
             </Grid>
-
         </Grid>
     </Grid>
 </UserControl>

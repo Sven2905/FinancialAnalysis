@@ -42,7 +42,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void RefreshCostAccounts()
         {
-            _CostAccounts = DataLayer.Instance.CostAccounts.GetAll().ToList();
+            _CostAccounts = DataContext.Instance.CostAccounts.GetAll().ToList();
         }
 
         private void FilterList()

@@ -48,7 +48,7 @@ namespace FinancialAnalysis.Datalayer
 
         public static TableVersion GetTableVersion(string tableName)
         {
-                var tableVersion = DataLayer.Instance.TableVersions.GetAll().SingleOrDefault(x => x.Name == tableName);
+                var tableVersion = DataContext.Instance.TableVersions.GetAll().SingleOrDefault(x => x.Name == tableName);
                 return tableVersion;
         }
     }

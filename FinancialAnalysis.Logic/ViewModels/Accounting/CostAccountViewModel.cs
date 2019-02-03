@@ -37,10 +37,10 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                CostAccountCategories = DataLayer.Instance.CostAccountCategories.GetAll().ToSvenTechCollection();
+                CostAccountCategories = DataContext.Instance.CostAccountCategories.GetAll().ToSvenTechCollection();
                 CostAccountCategoriesHierachical = CostAccountCategories.ToHierachicalCollection<CostAccountCategory>().ToSvenTechCollection();
-                TaxTypes = DataLayer.Instance.TaxTypes.GetAll().ToSvenTechCollection();
-                _CostAccounts = DataLayer.Instance.CostAccounts.GetAll().ToSvenTechCollection();
+                TaxTypes = DataContext.Instance.TaxTypes.GetAll().ToSvenTechCollection();
+                _CostAccounts = DataContext.Instance.CostAccounts.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -92,7 +92,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void _SelectedCostAccount_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            DataLayer.Instance.CostAccounts.Update(SelectedCostAccount);
+            DataContext.Instance.CostAccounts.Update(SelectedCostAccount);
         }
 
         public SvenTechCollection<CostAccountCategory> CostAccountCategoriesHierachical { get; set; }

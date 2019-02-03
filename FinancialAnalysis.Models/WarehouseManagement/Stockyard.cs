@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using DevExpress.Mvvm;
-using FinancialAnalysis.Models.ProductManagement;
+﻿using DevExpress.Mvvm;
+using System.Collections.Generic;
 
 namespace FinancialAnalysis.Models.WarehouseManagement
 {
@@ -10,6 +9,7 @@ namespace FinancialAnalysis.Models.WarehouseManagement
         public string Name { get; set; }
         public int RefWarehouseId { get; set; }
         public Warehouse Warehouse { get; set; }
-        public List<StockedProduct> StockedProducts { get; set; }
+        public bool IsEmpty => StockedProducts.Count == 0;
+        public List<StockedProduct> StockedProducts { get; set; } = new List<StockedProduct>();
     }
 }

@@ -30,7 +30,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void AddNewItem(RowEventArgs e)
         {
             var newItem = (TaxType) e.Row;
-            DataLayer.Instance.TaxTypes.UpdateOrInsert(newItem);
+            DataContext.Instance.TaxTypes.UpdateOrInsert(newItem);
         }
 
         private void DeleteItem()
@@ -38,13 +38,13 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (SelectedItem is null)
                 return;
 
-            DataLayer.Instance.TaxTypes.Delete(SelectedItem);
+            DataContext.Instance.TaxTypes.Delete(SelectedItem);
             TaxTypes.Remove(SelectedItem);
         }
 
         private void RefreshList()
         {
-            TaxTypes = DataLayer.Instance.TaxTypes.GetAll().ToOberservableCollection();
+            TaxTypes = DataContext.Instance.TaxTypes.GetAll().ToOberservableCollection();
         }
     }
 }

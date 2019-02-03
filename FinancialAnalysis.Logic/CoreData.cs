@@ -29,12 +29,12 @@ namespace FinancialAnalysis.Logic
 
         private Client LoadMyCompanyFromDb()
         {
-            return DataLayer.Instance.Clients.GetById(1);
+            return DataContext.Instance.Clients.GetById(1);
         }
 
         private SvenTechCollection<TaxType> LoadTaxTypesFromDb()
         {
-            return DataLayer.Instance.TaxTypes.GetAll().ToSvenTechCollection();
+            return DataContext.Instance.TaxTypes.GetAll().ToSvenTechCollection();
         }
 
         public void RefreshData()

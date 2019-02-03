@@ -159,12 +159,12 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveSalesOrder()
         {
             SalesOrder.RefShipmentTypeId = 1;
-            SalesOrder.SalesOrderId = DataLayer.Instance.SalesOrders.Insert(SalesOrder);
+            SalesOrder.SalesOrderId = DataContext.Instance.SalesOrders.Insert(SalesOrder);
 
             foreach (var item in SalesOrder.SalesOrderPositions)
             {
                 item.RefSalesOrderId = SalesOrder.SalesOrderId;
-                DataLayer.Instance.SalesOrderPositions.Insert(item);
+                DataContext.Instance.SalesOrderPositions.Insert(item);
             }
             Clear();
         }
@@ -178,15 +178,15 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void GetData()
         {
-            Debitors = DataLayer.Instance.Debitors.GetAll().ToSvenTechCollection();
-            Products = DataLayer.Instance.Products.GetAll().ToSvenTechCollection();
-            SalesTypes = DataLayer.Instance.SalesTypes.GetAll().ToSvenTechCollection();
-            Employees = DataLayer.Instance.Employees.GetAll().ToSvenTechCollection();
+            Debitors = DataContext.Instance.Debitors.GetAll().ToSvenTechCollection();
+            Products = DataContext.Instance.Products.GetAll().ToSvenTechCollection();
+            SalesTypes = DataContext.Instance.SalesTypes.GetAll().ToSvenTechCollection();
+            Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
         }
 
         private void ChangeSelectedSalesType(SelectedSalesType SelectedSalesType)
         {
-            SalesTypes = DataLayer.Instance.SalesTypes.GetAll().ToSvenTechCollection();
+            SalesTypes = DataContext.Instance.SalesTypes.GetAll().ToSvenTechCollection();
             SalesOrder.SalesType = SelectedSalesType.SalesType;
             SalesOrder.RefSalesTypeId = SelectedSalesType.SalesType.SalesTypeId;
             RaisePropertyChanged("SalesOrder");

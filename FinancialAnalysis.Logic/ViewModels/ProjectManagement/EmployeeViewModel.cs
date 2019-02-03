@@ -100,7 +100,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                    DataLayer.Instance.Employees.Delete(SelectedEmployee.EmployeeId);
+                    DataContext.Instance.Employees.Delete(SelectedEmployee.EmployeeId);
                     Employees.Remove(SelectedEmployee);
                     SelectedEmployee = null;
             }
@@ -115,9 +115,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                     if (SelectedEmployee.EmployeeId == 0)
-                        SelectedEmployee.EmployeeId = DataLayer.Instance.Employees.Insert(SelectedEmployee);
+                        SelectedEmployee.EmployeeId = DataContext.Instance.Employees.Insert(SelectedEmployee);
                     else
-                        DataLayer.Instance.Employees.Update(SelectedEmployee);
+                        DataContext.Instance.Employees.Update(SelectedEmployee);
             }
             catch (System.Exception ex)
             {
@@ -129,7 +129,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                    Employees = DataLayer.Instance.Employees.GetAll().ToSvenTechCollection();
+                    Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -141,7 +141,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                    HealthInsurances = DataLayer.Instance.HealthInsurances.GetAll().ToSvenTechCollection();
+                    HealthInsurances = DataContext.Instance.HealthInsurances.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {

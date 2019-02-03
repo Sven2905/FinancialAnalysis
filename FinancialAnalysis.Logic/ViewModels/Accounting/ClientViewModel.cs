@@ -45,7 +45,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void RefreshData()
         {
-            Clients = DataLayer.Instance.Clients.GetAll().ToSvenTechCollection();
+            Clients = DataContext.Instance.Clients.GetAll().ToSvenTechCollection();
         }
 
         private void InitializeButtonCommands()
@@ -70,7 +70,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveClient()
         {
-            DataLayer.Instance.Clients.UpdateOrInsert(SelectedClient);
+            DataContext.Instance.Clients.UpdateOrInsert(SelectedClient);
             var notificationService = this.GetRequiredService<INotificationService>();
             INotification notification;
             if (SelectedClient.ClientId == 0)
@@ -89,7 +89,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 try
                 {
-                    DataLayer.Instance.Clients.Delete(SelectedClient.ClientId);
+                    DataContext.Instance.Clients.Delete(SelectedClient.ClientId);
                 }
                 catch (System.Exception ex)
                 {
@@ -122,7 +122,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void ValidateDeleteButton()
         {
             if (!SelectedClient.IsNull() && SelectedClient.ClientId != 0)
-                DeleteClientButtonEnabled = !DataLayer.Instance.Clients.IsClientInUse(SelectedClient.ClientId);
+                DeleteClientButtonEnabled = !DataContext.Instance.Clients.IsClientInUse(SelectedClient.ClientId);
         }
 
         private void SelectedClient_PropertyChanged(object sender, PropertyChangedEventArgs e)

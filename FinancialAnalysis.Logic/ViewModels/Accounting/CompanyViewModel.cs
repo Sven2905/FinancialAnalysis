@@ -19,7 +19,7 @@ namespace FinancialAnalysis.Logic.ViewModels.Accounting
             if (IsInDesignMode)
                 return;
 
-            TaxTypes = DataLayer.Instance.TaxTypes.GetAll().ToSvenTechCollection();
+            TaxTypes = DataContext.Instance.TaxTypes.GetAll().ToSvenTechCollection();
             SelectedTaxTypeId = 1;
         }
 

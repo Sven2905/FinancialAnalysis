@@ -26,7 +26,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                DataLayer.Instance.ProjectWorkingTimes.Insert(ProjectWorkingTime);
+                DataContext.Instance.ProjectWorkingTimes.Insert(ProjectWorkingTime);
             }
             catch (System.Exception ex)
             {
@@ -45,7 +45,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                Employees = DataLayer.Instance.Employees.GetAll().ToSvenTechCollection();
+                Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -57,7 +57,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                Projects = DataLayer.Instance.Projects.GetAll().ToSvenTechCollection();
+                Projects = DataContext.Instance.Projects.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -69,7 +69,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                ProjectWorkingTimes = DataLayer.Instance.ProjectWorkingTimes.GetAll().ToSvenTechCollection();
+                ProjectWorkingTimes = DataContext.Instance.ProjectWorkingTimes.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {

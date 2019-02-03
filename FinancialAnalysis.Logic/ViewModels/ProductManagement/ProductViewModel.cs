@@ -65,7 +65,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<Product> allProducts = new SvenTechCollection<Product>();
             try
             {
-                allProducts = DataLayer.Instance.Products.GetAll().ToSvenTechCollection();
+                allProducts = DataContext.Instance.Products.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -80,7 +80,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<ProductCategory> allProductCategories = new SvenTechCollection<ProductCategory>();
             try
             {
-                allProductCategories = DataLayer.Instance.ProductCategories.GetAll().ToSvenTechCollection();
+                allProductCategories = DataContext.Instance.ProductCategories.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -112,7 +112,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                DataLayer.Instance.Products.Delete(SelectedProduct.ProductId);
+                DataContext.Instance.Products.Delete(SelectedProduct.ProductId);
                 _Products.Remove(SelectedProduct);
                 SelectedProduct = null;
             }
@@ -128,11 +128,11 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 if (SelectedProduct.ProductId != 0)
                 {
-                    DataLayer.Instance.Products.Update(SelectedProduct);
+                    DataContext.Instance.Products.Update(SelectedProduct);
                 }
                 else
                 {
-                    SelectedProduct.ProductId = DataLayer.Instance.Products.Insert(SelectedProduct);
+                    SelectedProduct.ProductId = DataContext.Instance.Products.Insert(SelectedProduct);
                 }
             }
             catch (System.Exception ex)
@@ -194,7 +194,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void ChangeSelectedProductCategory(SelectedProductCategory SelectedProductCategory)
         {
-            ProductCategories = DataLayer.Instance.ProductCategories.GetAll().ToSvenTechCollection();
+            ProductCategories = DataContext.Instance.ProductCategories.GetAll().ToSvenTechCollection();
             SelectedProduct.ProductCategory = SelectedProductCategory.ProductCategory;
             SelectedProduct.RefProductCategoryId = SelectedProductCategory.ProductCategory.ProductCategoryId;
             RaisePropertyChanged("SelectedProduct");

@@ -73,8 +73,8 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveClient()
         {
-            DataLayer.Instance.Companies.Update(Client.Company);
-            DataLayer.Instance.Clients.Update(Client);
+            DataContext.Instance.Companies.Update(Client.Company);
+            DataContext.Instance.Clients.Update(Client);
             Globals.CoreData.RefreshData();
         }
 

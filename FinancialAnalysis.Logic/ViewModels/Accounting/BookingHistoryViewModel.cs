@@ -16,7 +16,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
                 try
                 {
-                    var bookings = DataLayer.Instance.Bookings.GetByConditions(new DateTime(2018, 11, 24), DateTime.Now, 2);
+                    var bookings = DataContext.Instance.Bookings.GetByConditions(new DateTime(2018, 11, 24), DateTime.Now, 2);
                 }
                 catch (Exception ex)
                 {

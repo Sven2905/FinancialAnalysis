@@ -48,7 +48,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<SalesType> allSalesTypes = new SvenTechCollection<SalesType>();
             try
             {
-                allSalesTypes = DataLayer.Instance.SalesTypes.GetAll().ToSvenTechCollection();
+                allSalesTypes = DataContext.Instance.SalesTypes.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -80,7 +80,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                DataLayer.Instance.SalesTypes.Delete(SelectedSalesType.SalesTypeId);
+                DataContext.Instance.SalesTypes.Delete(SelectedSalesType.SalesTypeId);
                 _SalesTypes.Remove(SelectedSalesType);
                 SelectedSalesType = null;
             }
@@ -96,11 +96,11 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 if (SelectedSalesType.SalesTypeId != 0)
                 {
-                    DataLayer.Instance.SalesTypes.Update(SelectedSalesType);
+                    DataContext.Instance.SalesTypes.Update(SelectedSalesType);
                 }
                 else
                 {
-                    SelectedSalesType.SalesTypeId = DataLayer.Instance.SalesTypes.Insert(SelectedSalesType);
+                    SelectedSalesType.SalesTypeId = DataContext.Instance.SalesTypes.Insert(SelectedSalesType);
                 }
             }
             catch (System.Exception ex)

@@ -41,12 +41,12 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveMailConfiguration()
         {
             if (MailConfiguration.MailConfigurationId == 0)
-                MailConfiguration.MailConfigurationId = DataLayer.Instance.MailConfigurations.Insert(MailConfiguration);
+                MailConfiguration.MailConfigurationId = DataContext.Instance.MailConfigurations.Insert(MailConfiguration);
         }
 
         private void LoadMailConfiguration()
         {
-            MailConfiguration = DataLayer.Instance.MailConfigurations.GetAll().FirstOrDefault();
+            MailConfiguration = DataContext.Instance.MailConfigurations.GetAll().FirstOrDefault();
 
             if (MailConfiguration == null)
                 MailConfiguration = new MailConfiguration();

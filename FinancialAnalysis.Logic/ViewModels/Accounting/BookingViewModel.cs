@@ -52,9 +52,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 FilteredTaxTypes = new SvenTechCollection<TaxType>(Globals.CoreData.TaxTypes);
-                CostAccounts = DataLayer.Instance.CostAccounts.GetAllVisible().ToList();
-                CostCenters = DataLayer.Instance.CostCenters.GetAll().ToSvenTechCollection();
-                Projects = DataLayer.Instance.Projects.GetAll().ToSvenTechCollection();
+                CostAccounts = DataContext.Instance.CostAccounts.GetAllVisible().ToList();
+                CostCenters = DataContext.Instance.CostCenters.GetAll().ToSvenTechCollection();
+                Projects = DataContext.Instance.Projects.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -256,7 +256,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                bookingId = DataLayer.Instance.Bookings.Insert(booking);
+                bookingId = DataContext.Instance.Bookings.Insert(booking);
             }
             catch (System.Exception ex)
             {
@@ -269,7 +269,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
                 try
                 {
-                    DataLayer.Instance.Credits.Insert(item);
+                    DataContext.Instance.Credits.Insert(item);
                 }
                 catch (System.Exception ex)
                 {
@@ -282,7 +282,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 item.RefBookingId = bookingId;
                 try
                 {
-                    DataLayer.Instance.Debits.Insert(item);
+                    DataContext.Instance.Debits.Insert(item);
                 }
                 catch (System.Exception ex)
                 {
@@ -296,7 +296,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
                 try
                 {
-                    DataLayer.Instance.ScannedDocuments.Insert(item);
+                    DataContext.Instance.ScannedDocuments.Insert(item);
                 }
                 catch (System.Exception ex)
                 {

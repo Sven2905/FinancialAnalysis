@@ -50,7 +50,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                Projects = DataLayer.Instance.Projects.GetAll().ToSvenTechCollection();
+                Projects = DataContext.Instance.Projects.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -62,7 +62,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                CostCenters = DataLayer.Instance.CostCenters.GetAll().ToSvenTechCollection();
+                CostCenters = DataContext.Instance.CostCenters.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -74,7 +74,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                Employees = DataLayer.Instance.Employees.GetAll().ToSvenTechCollection();
+                Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -104,7 +104,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                DataLayer.Instance.CostCenters.Delete(SelectedProject.ProjectId);
+                DataContext.Instance.CostCenters.Delete(SelectedProject.ProjectId);
                 Projects.Remove(SelectedProject);
                 SelectedProject = null;
             }
@@ -119,9 +119,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedProject.ProjectId != 0)
-                    DataLayer.Instance.Projects.Update(SelectedProject);
+                    DataContext.Instance.Projects.Update(SelectedProject);
                 else
-                    DataLayer.Instance.Projects.Insert(SelectedProject);
+                    DataContext.Instance.Projects.Insert(SelectedProject);
 
             }
             catch (System.Exception ex)

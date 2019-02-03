@@ -42,7 +42,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<ShipmentType> allShipmentTypes = new SvenTechCollection<ShipmentType>();
             try
             {
-                allShipmentTypes = DataLayer.Instance.ShipmentTypes.GetAll().ToSvenTechCollection();
+                allShipmentTypes = DataContext.Instance.ShipmentTypes.GetAll().ToSvenTechCollection();
             }
             catch (System.Exception ex)
             {
@@ -74,7 +74,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             try
             {
-                DataLayer.Instance.ShipmentTypes.Delete(SelectedShipmentType.ShipmentTypeId);
+                DataContext.Instance.ShipmentTypes.Delete(SelectedShipmentType.ShipmentTypeId);
                 _ShipmentTypes.Remove(SelectedShipmentType);
                 SelectedShipmentType = null;
             }
@@ -89,9 +89,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedShipmentType.ShipmentTypeId != 0)
-                    DataLayer.Instance.ShipmentTypes.Update(SelectedShipmentType);
+                    DataContext.Instance.ShipmentTypes.Update(SelectedShipmentType);
                 else
-                    DataLayer.Instance.ShipmentTypes.Insert(SelectedShipmentType);
+                    DataContext.Instance.ShipmentTypes.Insert(SelectedShipmentType);
             }
             catch (System.Exception ex)
             {

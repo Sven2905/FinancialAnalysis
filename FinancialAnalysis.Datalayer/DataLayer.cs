@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Datalayer
 {
-    public class DataLayer : IDisposable
+    public class DataContext : IDisposable
     {
-        public static DataLayer Instance { get; } = new DataLayer();
+        public static DataContext Instance { get; } = new DataContext();
 
         public TableVersions TableVersions { get; set; } = new TableVersions();
         public Clients Clients { get; set; } = new Clients();
