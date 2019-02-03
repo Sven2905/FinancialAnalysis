@@ -33,7 +33,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT StockedProductId, RefProductId, Quantity, RefStockyardId " +
+                                "SELECT * " +
                                 $"FROM {TableName} " +
                                 "END");
                 using (var connection =
@@ -58,9 +58,36 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetById] @StockedProductId int AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT StockedProductId, RefProductId, Quantity, RefStockyardId " +
+                    "SELECT * " +
                     $"FROM {TableName} " +
                     "WHERE StockedProductId = @StockedProductId END");
+                using (var connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void GetByRefProductId()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetByRefProductId", DatabaseNames.FinancialAnalysisDB))
+            {
+                var sbSP = new StringBuilder();
+
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_GetByRefProductIdAndRefStockyardId] @RefProductId int, @RefStockyardId int AS BEGIN SET NOCOUNT ON; " +
+                    "SELECT * " +
+                    $"FROM {TableName} " +
+                    "WHERE RefProductId = @RefProductId " +
+                    "AND RefStockyardId = @RefStockyardId " +
+                    "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

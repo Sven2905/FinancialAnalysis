@@ -34,7 +34,7 @@ namespace FinancialAnalysis.Logic
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
             }
         }
     }

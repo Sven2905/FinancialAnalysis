@@ -1,14 +1,13 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media.Imaging;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.ProductManagement;
+using System;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -19,7 +18,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public ProductViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             Messenger.Default.Register<SelectedProductCategory>(this, ChangeSelectedProductCategory);
 
@@ -45,7 +47,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private Product _SelectedProduct;
         private BitmapImage _Image;
-        private readonly SvenTechCollection<Product> _Products = new SvenTechCollection<Product>();
+        private SvenTechCollection<Product> _Products = new SvenTechCollection<Product>();
         private string _FilterText;
 
         #endregion Fields
@@ -54,7 +56,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void GetData()
         {
-            FilteredProducts = LoadAllProducts();
+            FilteredProducts = _Products = LoadAllProducts();
             ProductCategories = LoadAllProductCategories();
         }
 
@@ -72,7 +74,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
             }
 
             return allProducts;
@@ -87,7 +89,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
             }
 
             return allProductCategories;
@@ -101,7 +103,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteProduct()
         {
-            if (SelectedProduct == null) return;
+            if (SelectedProduct == null)
+            {
+                return;
+            }
 
             if (SelectedProduct.ProductId == 0)
             {
@@ -118,7 +123,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
             }
         }
 
@@ -127,19 +132,26 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedProduct.ProductId != 0)
+                {
                     DataContext.Instance.Products.Update(SelectedProduct);
+                }
                 else
+                {
                     SelectedProduct.ProductId = DataContext.Instance.Products.Insert(SelectedProduct);
+                }
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
             }
         }
 
         public BitmapImage ConvertToImage(byte[] array)
         {
-            if (array == null) return null;
+            if (array == null)
+            {
+                return null;
+            }
 
             using (var ms = new MemoryStream(array))
             {
@@ -154,7 +166,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private byte[] ConvertToByteArray(BitmapImage bitmapImage)
         {
-            if (bitmapImage == null) return null;
+            if (bitmapImage == null)
+            {
+                return null;
+            }
 
             byte[] data;
             var encoder = new JpegBitmapEncoder();
@@ -170,8 +185,15 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private bool Validation()
         {
-            if (SelectedProduct == null) return false;
-            if (string.IsNullOrEmpty(SelectedProduct.Name)) return false;
+            if (SelectedProduct == null)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(SelectedProduct.Name))
+            {
+                return false;
+            }
 
             return true;
         }
@@ -211,8 +233,16 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     FilteredProducts = new SvenTechCollection<Product>();
                     foreach (var item in _Products)
+                    {
                         if (item.Name.ToLower().Contains(FilterText.ToLower()))
+                        {
                             FilteredProducts.Add(item);
+                        }
+                        else if (item.ItemNumber.ToString().Contains(FilterText))
+                        {
+                            FilteredProducts.Add(item);
+                        }
+                    }
                 }
                 else
                 {
@@ -228,9 +258,13 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 _SelectedProduct = value;
                 if (_SelectedProduct != null && _SelectedProduct.Picture != null)
+                {
                     Image = ConvertToImage(SelectedProduct.Picture);
+                }
                 else
+                {
                     Image = null;
+                }
             }
         }
 
@@ -240,7 +274,10 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 _Image = value;
-                if (SelectedProduct != null) _SelectedProduct.Picture = ConvertToByteArray(value);
+                if (SelectedProduct != null)
+                {
+                    _SelectedProduct.Picture = ConvertToByteArray(value);
+                }
             }
         }
 

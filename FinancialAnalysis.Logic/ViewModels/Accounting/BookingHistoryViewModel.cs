@@ -1,8 +1,6 @@
-﻿using System;
-using System.Windows;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
-using FinancialAnalysis.Logic.Messages;
+using System;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -10,7 +8,10 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         public BookingHistoryViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             try
             {
@@ -19,7 +20,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
             }
         }
     }

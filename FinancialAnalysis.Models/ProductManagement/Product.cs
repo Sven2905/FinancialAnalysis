@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.ProductManagement
         public int ProductId { get; set; }
         public string Name { get; set; }
         public string Barcode { get; set; }
-        public bool IsStackable { get; set; }
+        public int ItemNumber { get; set; }
         public string Description { get; set; }
         public double Weight { get; set; }
         public double DimensionX { get; set; }

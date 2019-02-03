@@ -139,6 +139,7 @@
     <Compile Include="ViewModels\Administration\MailViewModel.cs" />
     <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="ViewModels\Accounting\KontenrahmenViewModel.cs" />
+    <Compile Include="ViewModels\General\StatusViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\Administration\MyClientViewModel.cs" />
     <Compile Include="ViewModels\ProductManagement\ProductManagementViewModel.cs" />
@@ -149,7 +150,6 @@
     <Compile Include="ViewModels\SalesManagement\ShipmentTypeViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\InvoiceTypeViewModel.cs" />
     <Compile Include="ViewModels\WarehouseManagement\StockingViewModel.cs" />
-    <Compile Include="ViewModels\WarehouseManagement\StockTransferViewModel.cs" />
     <Compile Include="ViewModels\WarehouseManagement\StockyardViewModel.cs" />
     <Compile Include="ViewModels\WarehouseManagement\WarehouseManagementViewModel.cs" />
     <Compile Include="ViewModels\WarehouseManagement\WarehouseViewModel.cs" />

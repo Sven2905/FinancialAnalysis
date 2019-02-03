@@ -5,7 +5,6 @@ using FinancialAnalysis.Logic.ViewModels.Accounting;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using System;
-using System.Windows;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -217,7 +216,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
             }
         }
 

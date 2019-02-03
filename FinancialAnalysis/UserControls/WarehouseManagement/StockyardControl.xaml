@@ -73,11 +73,11 @@
                                 ItemSpace="10" VerticalAlignment="Top">
                 <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
                     <dxlc:LayoutGroup.Header>
-                        <TextBlock Text="Lager" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                        <TextBlock Text="Übersicht" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                     </dxlc:LayoutGroup.Header>
                     <dxlc:LayoutGroup>
                         <dxlc:LayoutItem Label="Lager" FontFamily="Tahoma">
-                            <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="8" Margin="0,3,0,3"
+                            <dxe:ComboBoxEdit Margin="0,3,0,3"
                                               ItemsSource="{Binding Warehouses}"
                                               DisplayMember="Name"
                                               EditValue="{Binding SelectedWarehouse, UpdateSourceTrigger=PropertyChanged}"

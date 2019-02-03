@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Dapper;
+using FinancialAnalysis.Models.WarehouseManagement;
+using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using Dapper;
-using FinancialAnalysis.Models.WarehouseManagement;
-using Serilog;
 
 namespace FinancialAnalysis.Datalayer.WarehouseManagement
 {
@@ -94,7 +94,32 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.QuerySingleOrDefault<StockedProduct>($"dbo.{TableName}_GetById @StockedProductId",
-                        new {StockedProductId = id});
+                        new { StockedProductId = id });
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
+            }
+
+            return output;
+        }
+
+        /// <summary>
+        ///     Returns RefProductId by Id
+        /// </summary>
+        /// <param name="refProductId"></param>
+        /// <returns></returns>
+        public StockedProduct GetByRefProductIdAndRefStockyardId(int refProductId, int refStockyardId)
+        {
+            var output = new StockedProduct();
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    output = con.QuerySingleOrDefault<StockedProduct>($"dbo.{TableName}_GetByRefProductIdAndRefStockyardId @RefProductId, @RefStockyardId",
+                        new { RefProductId = refProductId, RefStockyardId = refStockyardId });
                 }
             }
             catch (Exception e)
@@ -119,7 +144,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.Query<StockedProduct>($"dbo.{TableName}_GetByRefStockyardId @RefStockyardId",
-                        new {RefStockyardId});
+                        new { RefStockyardId });
                 }
             }
             catch (Exception e)
@@ -144,7 +169,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     var result = con.Query<int>(
-                        $"dbo.{TableName}_Insert @RefProductId, @RefStockyardId, @Quantity",
+                        $"dbo.{TableName}_Insert @RefProductId, @Quantity, @RefStockyardId",
                         StockedProduct);
                     id = result.Single();
                 }
@@ -168,7 +193,10 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var StockedProduct in StockedProducts) Insert(StockedProduct);
+                    foreach (var StockedProduct in StockedProducts)
+                    {
+                        Insert(StockedProduct);
+                    }
                 }
             }
             catch (Exception e)
@@ -198,7 +226,10 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
         /// <param name="StockedProducts"></param>
         public void UpdateOrInsert(IEnumerable<StockedProduct> StockedProducts)
         {
-            foreach (var StockedProduct in StockedProducts) UpdateOrInsert(StockedProduct);
+            foreach (var StockedProduct in StockedProducts)
+            {
+                UpdateOrInsert(StockedProduct);
+            }
         }
 
         /// <summary>
@@ -207,14 +238,17 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
         /// <param name="StockedProduct"></param>
         public void Update(StockedProduct StockedProduct)
         {
-            if (StockedProduct.StockedProductId == 0 || GetById(StockedProduct.StockedProductId) is null) return;
+            if (StockedProduct.StockedProductId == 0 || GetById(StockedProduct.StockedProductId) is null)
+            {
+                return;
+            }
 
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @StockedProductId, @RefProductId, @RefStockyardId, @Quantity",
+                    con.Execute($"dbo.{TableName}_Update @StockedProductId, @RefProductId, @Quantity, @RefStockyardId",
                         StockedProduct);
                 }
             }
@@ -235,7 +269,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @StockedProductId", new {StockedProductId = id});
+                    con.Execute($"dbo.{TableName}_Delete @StockedProductId", new { StockedProductId = id });
                 }
             }
             catch (Exception e)

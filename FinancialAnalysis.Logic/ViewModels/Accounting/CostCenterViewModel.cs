@@ -60,7 +60,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
             }
         }
 
@@ -89,7 +89,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
             }
         }
 
@@ -104,7 +104,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
             }
         }
 

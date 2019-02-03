@@ -102,8 +102,14 @@
 
                                 <Border Grid.Column="2" Padding="0 0 8 0">
                                     <StackPanel VerticalAlignment="Center">
-                                        <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#000"
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="10,0,0,0" Text="{Binding ItemNumber}" Foreground="#000"
                                                    TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Margin="10,0,0,0" Text="-" Foreground="#000"
+                                                       TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#000"
+                                                   TextTrimming="CharacterEllipsis" />
+                                        </StackPanel>
                                         <TextBlock Margin="10,0,0,0" Text="{Binding Description}" Foreground="#9e9e9e"
                                                    TextTrimming="CharacterEllipsis" />
                                     </StackPanel>
@@ -144,6 +150,13 @@
                                 <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold"
                                            FontFamily="Tahoma" />
                             </dxlc:LayoutGroup.Header>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Artikelnummer" FontFamily="Tahoma">
+                                    <dxe:TextEdit
+                                        Text="{Binding SelectedProduct.ItemNumber, UpdateSourceTrigger=PropertyChanged}"
+                                        FontFamily="Tahoma" />
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Name" FontFamily="Tahoma">
                                     <dxe:TextEdit

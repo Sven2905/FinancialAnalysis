@@ -112,7 +112,6 @@
     <Compile Include="SalesManagement\InvoiceType.cs" />
     <Compile Include="Mail\MailConfiguration.cs" />
     <Compile Include="Mail\MailData.cs" />
-    <Compile Include="ProductManagement\StockedProduct.cs" />
     <Compile Include="ProjectManagement\Employee.cs" />
     <Compile Include="Enums\AccountingType.cs" />
     <Compile Include="ProjectManagement\HealthInsurance.cs" />
@@ -146,6 +145,7 @@
     <Compile Include="WarehouseManagement\Stockyard.cs" />
     <Compile Include="WarehouseManagement\Warehouse.cs" />
     <Compile Include="WarehouseManagement\WarehouseBookingHistoryItem.cs" />
+    <Compile Include="WarehouseManagement\WarehouseStockingFlatStructure.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -43,7 +43,7 @@ namespace FinancialAnalysis.Logic
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
             }
 
             return allUsers;
@@ -72,7 +72,7 @@ namespace FinancialAnalysis.Logic
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
                 return false;
             }
 
@@ -107,7 +107,7 @@ namespace FinancialAnalysis.Logic
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
             }
 
             return user;

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Windows;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
-using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.WarehouseManagement;
+using System;
+using System.Linq;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -16,7 +14,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public WarehouseViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             FilteredWarehouses = _Warehouses = LoadAllWarehouses();
             NewWarehouseCommand = new DelegateCommand(NewWarehouse);
@@ -62,7 +63,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
             }
 
             return allWarehouses;
@@ -76,7 +77,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteWarehouse()
         {
-            if (SelectedWarehouse == null) return;
+            if (SelectedWarehouse == null)
+            {
+                return;
+            }
 
             if (SelectedWarehouse.WarehouseId == 0)
             {
@@ -93,7 +97,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
             }
         }
 
@@ -102,30 +106,48 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedWarehouse.WarehouseId != 0)
+                {
                     DataContext.Instance.Warehouses.Update(SelectedWarehouse);
+                }
                 else
-                    DataContext.Instance.Warehouses.Insert(SelectedWarehouse);
+                {
+                    SelectedWarehouse.WarehouseId = DataContext.Instance.Warehouses.Insert(SelectedWarehouse);
+                }
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
             }
         }
 
         private bool Validation()
         {
-            if (SelectedWarehouse == null) return false;
-            if (string.IsNullOrEmpty(SelectedWarehouse.Name)) return false;
+            if (SelectedWarehouse == null)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(SelectedWarehouse.Name))
+            {
+                return false;
+            }
+
             return true;
         }
 
         public void SendSelectedToParent()
         {
-            if (SelectedWarehouse == null) return;
+            if (SelectedWarehouse == null)
+            {
+                return;
+            }
 
-            if (SelectedWarehouse.WarehouseId == 0) SaveWarehouse();
+            if (SelectedWarehouse.WarehouseId == 0)
+            {
+                SaveWarehouse();
+            }
 
-            Messenger.Default.Send(new SelectedWarehouse {Warehouse = SelectedWarehouse});
+            Messenger.Default.Send(new SelectedWarehouse { Warehouse = SelectedWarehouse });
         }
 
         #endregion Methods
@@ -149,8 +171,12 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     FilteredWarehouses = new SvenTechCollection<Warehouse>();
                     foreach (var item in _Warehouses)
+                    {
                         if (item.Name.Contains(FilterText))
+                        {
                             FilteredWarehouses.Add(item);
+                        }
+                    }
                 }
                 else
                 {

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.WarehouseManagement;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -17,7 +16,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public StockyardViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             Messenger.Default.Register<SelectedWarehouse>(this, ChangeSelectedWarehouse);
 
@@ -54,7 +56,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
             }
         }
 
@@ -67,7 +69,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
             }
 
             return allStockyards;
@@ -84,7 +86,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteStockyard()
         {
-            if (SelectedStockyard == null) return;
+            if (SelectedStockyard == null)
+            {
+                return;
+            }
 
             if (SelectedStockyard.StockyardId == 0)
             {
@@ -101,7 +106,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
             }
         }
 
@@ -110,26 +115,42 @@ namespace FinancialAnalysis.Logic.ViewModels
             try
             {
                 if (SelectedStockyard.StockyardId != 0)
+                {
                     DataContext.Instance.Stockyards.Update(SelectedStockyard);
+                }
                 else
+                {
                     DataContext.Instance.Stockyards.Insert(SelectedStockyard);
+                }
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Error", ex.Message, MessageBoxImage.Error));
+                // TODO Exception
             }
         }
 
         private bool Validation()
         {
-            if (SelectedStockyard == null) return false;
-            if (string.IsNullOrEmpty(SelectedStockyard.Name)) return false;
+            if (SelectedStockyard == null)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(SelectedStockyard.Name))
+            {
+                return false;
+            }
+
             return true;
         }
 
         private void ChangeSelectedWarehouse(SelectedWarehouse SelectedWarehouse)
         {
             Warehouses = DataContext.Instance.Warehouses.GetAll().ToSvenTechCollection();
+            if (SelectedStockyard == null)
+            {
+                SelectedStockyard = new Stockyard();
+            }
             SelectedStockyard.Warehouse = SelectedWarehouse.Warehouse;
             SelectedStockyard.RefWarehouseId = SelectedWarehouse.Warehouse.WarehouseId;
             RaisePropertyChanged("SelectedStockyard");
@@ -147,16 +168,23 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (lastStockyard != null)
             {
                 var lastNumberString = lastStockyard.Name.ToLower();
-                if (!string.IsNullOrEmpty(Prefix)) lastNumberString = lastNumberString.Replace(Prefix.ToLower(), "");
+                if (!string.IsNullOrEmpty(Prefix))
+                {
+                    lastNumberString = lastNumberString.Replace(Prefix.ToLower(), "");
+                }
 
-                if (!string.IsNullOrEmpty(Suffix)) lastNumberString = lastNumberString.Replace(Suffix.ToLower(), "");
+                if (!string.IsNullOrEmpty(Suffix))
+                {
+                    lastNumberString = lastNumberString.Replace(Suffix.ToLower(), "");
+                }
+
                 lastNumber = Convert.ToInt32(lastNumberString) + 1;
             }
 
             for (var i = 0; i < NumberOfStockyardsToCreate; i++)
             {
                 newStockyards.Add(new Stockyard
-                    {Name = Prefix + lastNumber + Suffix, RefWarehouseId = SelectedWarehouse.WarehouseId});
+                { Name = Prefix + lastNumber + Suffix, RefWarehouseId = SelectedWarehouse.WarehouseId });
                 lastNumber++;
             }
 

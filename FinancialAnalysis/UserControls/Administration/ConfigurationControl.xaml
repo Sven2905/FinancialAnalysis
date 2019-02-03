@@ -67,7 +67,7 @@
                                  Height="180" FontSize="20" Margin="2"
                                  Visibility="{Binding Path=ShowUsers, Converter={StaticResource BoolToVis}}">
                     <dx:SimpleButton.Glyph>
-                        <dx:SvgImageSource Uri="/Images/light/Users.svg" Size="120,100" />
+                        <dx:SvgImageSource Uri="/Images/light/users-cog.svg" Size="120,100" />
                     </dx:SimpleButton.Glyph>
                 </dx:SimpleButton>
                 <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
