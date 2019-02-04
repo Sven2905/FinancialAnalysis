@@ -94,11 +94,14 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Text="Kreditoren:" Foreground="#3f729b" Margin="10,0,0,0"
-                           FontSize="16" FontFamily="Tahoma" />
+                <StackPanel Orientation="Horizontal">
+                <TextBlock Grid.Row="0" Text="Kreditoren:" Foreground="#3f729b" Margin="10,0,5,0"
+                           FontSize="16" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                    <dxe:TextEdit Margin="5,0"  Text="{Binding CreditorFilterText, UpdateSourceTrigger=PropertyChanged}" NullText="Filter" FontSize="16" VerticalAlignment="Center" Width="150"/>
+                </StackPanel>
 
                 <dxe:ListBoxEdit Grid.Row="1"
-                                 ItemsSource="{Binding Creditors, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 ItemsSource="{Binding FilteredCreditors, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  BorderThickness="1"
                                  BorderBrush="#DADADA" Padding="0" Margin="10" FontSize="14"
                                  SelectedItem="{Binding SelectedCreditor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -129,11 +132,14 @@
                     </dxe:ListBoxEdit.ItemTemplate>
                 </dxe:ListBoxEdit>
 
-                <TextBlock Grid.Row="2" Text="Debitoren" Foreground="#3f729b" Margin="10,0,0,0"
+                <StackPanel Grid.Row="2" Orientation="Horizontal" >
+                    <TextBlock Text="Debitoren" Foreground="#3f729b" Margin="10,0,0,0" VerticalAlignment="Center"
                            FontSize="16" FontFamily="Tahoma" />
-
+                    <dxe:TextEdit Margin="5,0"  Text="{Binding DebitorFilterText, UpdateSourceTrigger=PropertyChanged}" NullText="Filter" FontSize="16" VerticalAlignment="Center" Width="150"/>
+                </StackPanel>
+                
                 <dxe:ListBoxEdit Grid.Row="3"
-                                 ItemsSource="{Binding Debitors, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 ItemsSource="{Binding FilteredDebitors, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  BorderThickness="1"
                                  BorderBrush="#DADADA" Padding="0" Margin="10" FontSize="14"
                                  SelectedItem="{Binding SelectedDebitor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">

@@ -5,6 +5,7 @@ using FinancialAnalysis.Logic.ViewModels.Accounting;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using System;
+using System.Linq;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -40,6 +41,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         private CustomerType _SelectedCustomerType;
         private Creditor _SelectedCreditor;
         private Debitor _SelectedDebitor;
+        private string _CreditorFilterText;
+        private string _DebitorFilterText;
 
         #endregion Fields
 
@@ -64,7 +67,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 DataContext.Instance.Creditors.Delete(SelectedCreditor.CreditorId);
             }
 
-            Creditors.Remove(SelectedCreditor);
+            FilteredCreditors.Remove(SelectedCreditor);
         }
 
         private void DeleteDebitor()
@@ -74,7 +77,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 DataContext.Instance.Debitors.Delete(SelectedDebitor.DebitorId);
             }
 
-            Debitors.Remove(SelectedDebitor);
+            FilteredDebitors.Remove(SelectedDebitor);
         }
 
         private void SaveItem()
@@ -196,14 +199,14 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     Client = CompanyViewModel.Client
                 };
-                Creditors.Add(SelectedCreditor);
+                FilteredCreditors.Add(SelectedCreditor);
                 CompanyViewModel.Client = SelectedCreditor.Client;
             }
             else
             {
                 SelectedDebitor = new Debitor();
                 SelectedDebitor.Client = CompanyViewModel.Client;
-                Debitors.Add(SelectedDebitor);
+                FilteredDebitors.Add(SelectedDebitor);
             }
         }
 
@@ -211,8 +214,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                Creditors = DataContext.Instance.Creditors.GetAll().ToSvenTechCollection();
-                Debitors = DataContext.Instance.Debitors.GetAll().ToSvenTechCollection();
+                FilteredCreditors = Creditors = DataContext.Instance.Creditors.GetAll().ToSvenTechCollection();
+                FilteredDebitors = Debitors = DataContext.Instance.Debitors.GetAll().ToSvenTechCollection();
             }
             catch (Exception ex)
             {
@@ -277,9 +280,47 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand SaveCommand { get; set; }
         public DelegateCommand DeleteCommand { get; set; }
         public DelegateCommand OpenClientWindowCommand { get; set; }
-        public SvenTechCollection<Creditor> Creditors { get; set; } = new SvenTechCollection<Creditor>();
-        public SvenTechCollection<Debitor> Debitors { get; set; } = new SvenTechCollection<Debitor>();
+        public SvenTechCollection<Creditor> FilteredCreditors { get; set; } = new SvenTechCollection<Creditor>();
+        public SvenTechCollection<Debitor> FilteredDebitors { get; set; } = new SvenTechCollection<Debitor>();
         public CompanyViewModel CompanyViewModel { get; set; } = new CompanyViewModel();
+
+
+        public string CreditorFilterText
+        {
+            get { return _CreditorFilterText; }
+            set
+            {
+                _CreditorFilterText = value;
+                if (!string.IsNullOrEmpty(value))
+                {
+                    FilteredCreditors = new SvenTechCollection<Creditor>();
+                    FilteredCreditors.AddRange(Creditors.Where(x => x.Client.Name.ToLower().Contains(_CreditorFilterText.ToLower()) || x.CostAccount.AccountNumber.ToString().Contains(_CreditorFilterText)));
+                }
+                else
+                {
+                    FilteredCreditors = Creditors;
+                }
+            }
+        }
+
+
+        public string DebitorFilterText
+        {
+            get { return _DebitorFilterText; }
+            set
+            {
+                _DebitorFilterText = value;
+                if (!string.IsNullOrEmpty(value))
+                {
+                    FilteredDebitors = new SvenTechCollection<Debitor>();
+                    FilteredDebitors.AddRange(Debitors.Where(x => x.Client.Name.ToLower().Contains(_DebitorFilterText.ToLower()) || x.CostAccount.AccountNumber.ToString().Contains(_DebitorFilterText)));
+                }
+                else
+                {
+                    FilteredDebitors = Debitors;
+                }
+            }
+        }
 
         public Creditor SelectedCreditor
         {
@@ -320,6 +361,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         }
 
         public int SelectedTab { get; set; } = 0;
+        public SvenTechCollection<Creditor> Creditors { get; private set; }
+        public SvenTechCollection<Debitor> Debitors { get; private set; }
 
         #endregion Properties
     }
