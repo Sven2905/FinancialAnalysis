@@ -21,17 +21,15 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid Visibility="{Binding FilteredWarehousesFlatStructure, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisConverter}}">
-            <dxg:TreeListControl  HorizontalAlignment="Left" ShowBorder="False" ItemsSource="{Binding FilteredWarehousesFlatStructure}" MaxWidth="500" MaxHeight="2000">
-                <dxg:TreeListColumn FieldName="Warehouse.Name" Header="Lager" Width="50" />
-                <dxg:TreeListColumn FieldName="Stockyard.Name" Header="Lagerplatz" Width="112" />
-                <dxg:TreeListColumn FieldName="Quantity" Header="Menge" Width="30" />
-                <dxg:TreeListControl.View>
-                    <dxg:TreeListView KeyFieldName="Id" ParentFieldName="ParentId" ShowHorizontalLines="False" ShowVerticalLines="False" ShowSelectionRectangle="False"
+        <dxg:TreeListControl  HorizontalAlignment="Left" ShowBorder="False" ItemsSource="{Binding FilteredWarehousesFlatStructure}" MaxWidth="500" MaxHeight="2000">
+            <dxg:TreeListColumn FieldName="Warehouse.Name" Header="Lager" Width="50" />
+            <dxg:TreeListColumn FieldName="Stockyard.Name" Header="Lagerplatz" Width="112" />
+            <dxg:TreeListColumn FieldName="Quantity" Header="Menge" Width="30" />
+            <dxg:TreeListControl.View>
+                <dxg:TreeListView KeyFieldName="Id" ParentFieldName="ParentId" ShowHorizontalLines="False" ShowVerticalLines="False" ShowSelectionRectangle="False"
                                       AllowSorting="False" AutoWidth="True" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False"
                                       EnableSelectedRowAppearance="False" UseEvenRowBackground="True" ShowIndicator="False" />
-                </dxg:TreeListControl.View>
-            </dxg:TreeListControl>
-        </Grid>
+            </dxg:TreeListControl.View>
+        </dxg:TreeListControl>
     </Grid>
 </UserControl>

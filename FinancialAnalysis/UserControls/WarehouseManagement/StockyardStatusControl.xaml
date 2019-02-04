@@ -21,18 +21,15 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid Visibility="{Binding Stockyard, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisConverter}}">
-
-            <dxg:GridControl HorizontalAlignment="Left" ShowBorder="False" ItemsSource="{Binding Stockyard.StockedProducts}" MaxWidth="500" MaxHeight="2000">
-                <dxg:GridColumn FieldName="Product.ItemNumber" Header="Artikelnummer" Width="50" />
-                <dxg:GridColumn FieldName="Product.Name" Header="Name" Width="112" />
-                <dxg:GridColumn FieldName="Quantity" Header="Menge" Width="30" />
-                <dxg:GridControl.View>
-                    <dxg:TableView ShowHorizontalLines="False" ShowVerticalLines="False" ShowSelectionRectangle="False" AutoWidth="True" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto"
+        <dxg:GridControl HorizontalAlignment="Left" ShowBorder="False" ItemsSource="{Binding Stockyard.StockedProducts}" MaxWidth="500" MaxHeight="2000">
+            <dxg:GridColumn FieldName="Product.ItemNumber" Header="Artikelnummer" Width="50" />
+            <dxg:GridColumn FieldName="Product.Name" Header="Name" Width="112" />
+            <dxg:GridColumn FieldName="Quantity" Header="Menge" Width="30" />
+            <dxg:GridControl.View>
+                <dxg:TableView ShowHorizontalLines="False" ShowVerticalLines="False" ShowSelectionRectangle="False" AutoWidth="True" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto"
                                    ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" EnableSelectedRowAppearance="False" 
                                    UseEvenRowBackground="True" ShowIndicator="False" />
-                </dxg:GridControl.View>
-            </dxg:GridControl>
-        </Grid>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
     </Grid>
 </UserControl>
