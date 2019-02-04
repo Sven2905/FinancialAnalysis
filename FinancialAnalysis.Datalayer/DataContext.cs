@@ -59,6 +59,7 @@ namespace FinancialAnalysis.Datalayer
         public ShippedProducts ShippedProducts { get; set; } = new ShippedProducts();
         public InvoicePositions InvoicePositions { get; set; } = new InvoicePositions();
         public CostCenterCategories CostCenterCategories { get; set; } = new CostCenterCategories();
+        public WarehouseStockingHistories WarehouseStockingHistories { get; set; } = new WarehouseStockingHistories();
 
         public void Dispose()
         {
@@ -117,6 +118,7 @@ namespace FinancialAnalysis.Datalayer
             ShippedProducts.CheckAndCreateStoredProcedures();
             InvoicePositions.CheckAndCreateStoredProcedures();
             CostCenterCategories.CheckAndCreateStoredProcedures();
+            WarehouseStockingHistories.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()

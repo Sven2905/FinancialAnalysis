@@ -9,7 +9,6 @@
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
-             xmlns:WarehouseModel="clr-namespace:FinancialAnalysis.Models.WarehouseManagement;assembly=FinancialAnalysis.Models"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              dx:ThemeManager.ThemeName="Office2016WhiteSE"
              mc:Ignorable="d"
@@ -30,7 +29,7 @@
         <local:NullToVisConverter x:Key="NullToVisConverter" />
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
             <ColumnDefinition Width="*" />
@@ -126,63 +125,43 @@
                             </dxlc:LayoutGroup>
                         </dxlc:LayoutControl>
 
-                        <Grid Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Margin="10" Visibility="{Binding SelectedStockyard, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisConverter}}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="30" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
+                        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Margin="10">
+                            <Grid  Visibility="{Binding SelectedStockyard, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisConverter}}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
 
-                            <Label Grid.Row="0" Content="Lagerplatzbestand: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
+                                <Label Grid.Row="0" Content="Lagerplatzbestand: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
 
-                            <dxg:GridControl Grid.Row="1" Grid.Column="0" Margin="0,20,0,0" HorizontalAlignment="Left" ShowBorder="False" ItemsSource="{Binding SelectedStockyard.StockedProducts}" MaxWidth="500" MaxHeight="2000">
-                                <dxg:GridColumn FieldName="Product.ItemNumber" Header="Artikelnummer" Width="50" />
-                                <dxg:GridColumn FieldName="Product.Name" Header="Name" Width="112" />
-                                <dxg:GridColumn FieldName="Quantity" Header="Menge" Width="30" />
-                                <dxg:GridControl.View>
-                                    <dxg:TableView ShowHorizontalLines="False" ShowVerticalLines="False" ShowSelectionRectangle="False" AutoWidth="True" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto"
-                                                   ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" EnableSelectedRowAppearance="False" UseEvenRowBackground="True" ShowIndicator="False" />
-                                </dxg:GridControl.View>
-                            </dxg:GridControl>
-                        </Grid>
-                        <Grid Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" Margin="10"
-                                      Visibility="{Binding FilteredWarehousesFlatStructure, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisConverter}}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="30" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
+                                <local:StockyardStatusControl Grid.Row="1" Grid.Column="0" Margin="0,10,0,0" DataContext="{Binding StockyardStatusViewModel}"/>
 
-                            <Label Grid.Column="2" Grid.Row="0" Content="Lagerplätze diesem Produkt: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
+                            </Grid>
+                            <Grid Margin="0,40,0,0" Visibility="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisConverter}}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
 
-                            <dxg:TreeListControl  Grid.Column="2" Grid.Row="1" Margin="0,20,0,0" HorizontalAlignment="Left" ShowBorder="False" ItemsSource="{Binding FilteredWarehousesFlatStructure}" MaxWidth="500" MaxHeight="2000">
-                                <dxg:TreeListColumn FieldName="Warehouse.Name" Header="Lager" Width="50" />
-                                <dxg:TreeListColumn FieldName="Stockyard.Name" Header="Lagerplatz" Width="112" />
-                                <dxg:TreeListColumn FieldName="Quantity" Header="Menge" Width="30" />
-                                <dxg:TreeListControl.View>
-                                    <dxg:TreeListView KeyFieldName="Id" ParentFieldName="ParentId" ShowHorizontalLines="False" ShowVerticalLines="False" ShowSelectionRectangle="False"
-                                                      AutoWidth="True" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False"
-                                                      EnableSelectedRowAppearance="False" UseEvenRowBackground="True" ShowIndicator="False" />
-                                </dxg:TreeListControl.View>
-                            </dxg:TreeListControl>
-                        </Grid>
+                                <Label Grid.Column="2" Grid.Row="0" Content="Lagerplätze diesem Produkt: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
+
+                                <local:ProductStockingStatusControl Grid.Column="2" Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Left" DataContext="{Binding ProductStockingStatusViewModel}"/>
+
+                            </Grid>
+                        </StackPanel>
+
                     </Grid>
                 </dx:DXTabItem>
                 <dx:DXTabItem Header="Auslagern">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                             <RowDefinition Height="30" />
                         </Grid.RowDefinitions>
@@ -206,7 +185,7 @@
                                         <dxe:ComboBoxEdit Margin="0,3,0,3"
                                                       ItemsSource="{Binding FilteredWarehouses}"
                                                       DisplayMember="Name"
-                                                      EditValue="{Binding SelectedWarehouseTakeOut, UpdateSourceTrigger=PropertyChanged}"
+                                                      EditValue="{Binding SelectedWarehouseTakeOut, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       Foreground="#3F729B" />
                                     </dxlc:LayoutItem>
                                 </dxlc:LayoutGroup>
@@ -235,6 +214,33 @@
                                              FontFamily="Tahoma" />
                             </dxlc:LayoutGroup>
                         </dxlc:LayoutControl>
+
+                        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Margin="10">
+                            <Grid Visibility="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisConverter}}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Column="2" Grid.Row="0" Content="Lagerplätze diesem Produkt: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
+
+                                <local:ProductStockingStatusControl Grid.Column="2" Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Left" DataContext="{Binding ProductStockingStatusViewModel}"/>
+
+                            </Grid>
+
+                            <Grid Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" Margin="10,40,10,10" Visibility="{Binding SelectedStockyardTakeOut, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisConverter}}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="0" Content="Lagerplatzbestand: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
+
+                                <local:StockyardStatusControl Grid.Row="1" Grid.Column="0" Margin="0,10,0,0" DataContext="{Binding TakeOutStockyardStatusViewModel}"/>
+
+                            </Grid>
+                        </StackPanel>
+
                     </Grid>
                 </dx:DXTabItem>
             </dx:DXTabControl>

@@ -211,7 +211,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         #region Properties
 
         public SvenTechCollection<Product> FilteredProducts { get; set; } = new SvenTechCollection<Product>();
-
+        public ProductStockingStatusViewModel ProductStockingStatusViewModel { get; set; } = new ProductStockingStatusViewModel();
         public SvenTechCollection<ProductCategory> ProductCategories { get; set; } =
             new SvenTechCollection<ProductCategory>();
 
@@ -257,6 +257,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 _SelectedProduct = value;
+                ProductStockingStatusViewModel.Product = _SelectedProduct;
                 if (_SelectedProduct != null && _SelectedProduct.Picture != null)
                 {
                     Image = ConvertToImage(SelectedProduct.Picture);

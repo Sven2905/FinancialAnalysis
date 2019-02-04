@@ -25,9 +25,10 @@
             <Setter Property="Foreground" Value="#3f729b" />
         </Style>
         <local:NullToIsEnabledConverter x:Key="NullConverter" />
+        <local:NullToVisConverter x:Key="NullToVisConverter" />
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
             <ColumnDefinition Width="*" />
@@ -139,7 +140,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <dxlc:LayoutControl Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Orientation="Vertical"
+                <dxlc:LayoutControl Grid.Row="0" Grid.Column="0" Orientation="Vertical"
                                     ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,-12,0,0"
                                     IsEnabled="{Binding SelectedProductCategory, Converter={StaticResource NullConverter}}">
                     <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
@@ -177,7 +178,19 @@
                     </dxlc:LayoutGroup>
                 </dxlc:LayoutControl>
 
-                <dxlc:LayoutControl Grid.Row="0" Grid.Column="2" Orientation="Vertical"
+                <Grid Grid.Column="0" Grid.Row="1" Margin="10" Visibility="{Binding SelectedStockyard, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Content="Lagerplatzbestand: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
+
+                    <local:StockyardStatusControl Grid.Row="1" Grid.Column="0" DataContext="{Binding StockyardStatusViewModel}"/>
+
+                </Grid>
+
+                <dxlc:LayoutControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Orientation="Vertical" 
                                     ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,-12,0,0"
                                     IsEnabled="{Binding SelectedProductCategory, Converter={StaticResource NullConverter}}">
                     <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">

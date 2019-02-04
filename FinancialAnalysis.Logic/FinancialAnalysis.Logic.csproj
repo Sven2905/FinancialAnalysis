@@ -150,6 +150,8 @@
     <Compile Include="ViewModels\SalesManagement\ShipmentTypeViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\InvoiceTypeViewModel.cs" />
     <Compile Include="ViewModels\WarehouseManagement\StockingViewModel.cs" />
+    <Compile Include="ViewModels\WarehouseManagement\ProductStockingStatusViewModel.cs" />
+    <Compile Include="ViewModels\WarehouseManagement\StockyardStatusViewModel.cs" />
     <Compile Include="ViewModels\WarehouseManagement\StockyardViewModel.cs" />
     <Compile Include="ViewModels\WarehouseManagement\WarehouseManagementViewModel.cs" />
     <Compile Include="ViewModels\WarehouseManagement\WarehouseViewModel.cs" />

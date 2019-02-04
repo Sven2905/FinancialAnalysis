@@ -26,12 +26,17 @@
     <Window.DataContext>
         <ViewModels:MainViewModel />
     </Window.DataContext>
-
-    <Grid Background="White" Margin="-7,0,-7,-7">
+    <Grid Margin="-7,0,-7,-7">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/background.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
+
+
 
         <StatusBar Grid.Row="1" Height="28" Margin="0" VerticalAlignment="Bottom" Grid.ColumnSpan="3"
                    Background="#3f729b">

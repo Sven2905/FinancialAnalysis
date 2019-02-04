@@ -30,6 +30,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         #region Fields
 
         private Product _SelectedProduct;
+        private Stockyard _Stockyard;
+        private Stockyard _SelectedStockyardTakeOut;
 
         #endregion Fields
 
@@ -41,6 +43,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 _SelectedProduct = value;
+                ProductStockingStatusViewModel.Product = _SelectedProduct;
                 if (value != null)
                 {
                     Refresh();
@@ -57,7 +60,12 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 if (SelectedStockyardTakeOut != null && SelectedProduct != null)
                 {
-                    return SelectedStockyardTakeOut.StockedProducts.Single(x => x.RefProductId == SelectedProduct.ProductId).Quantity;
+                    var tempStockedProduct = SelectedStockyardTakeOut.StockedProducts.SingleOrDefault(x => x.RefProductId == SelectedProduct.ProductId);
+                    if (tempStockedProduct != null)
+                    {
+                        return tempStockedProduct.Quantity;
+                    }
+                    return 0;
                 }
                 else
                 {
@@ -66,11 +74,33 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
-        public Stockyard SelectedStockyard { get; set; }
+        public Stockyard SelectedStockyard
+        {
+            get { return _Stockyard; }
+            set
+            {
+                _Stockyard = value;
+                StockyardStatusViewModel.Stockyard = value;
+            }
+        }
+
+
+        public Stockyard SelectedStockyardTakeOut
+        {
+            get { return _SelectedStockyardTakeOut; }
+            set
+            {
+                _SelectedStockyardTakeOut = value;
+                TakeOutStockyardStatusViewModel.Stockyard = _SelectedStockyardTakeOut;
+            }
+        }
+
+        public StockyardStatusViewModel StockyardStatusViewModel { get; set; } = new StockyardStatusViewModel();
+        public StockyardStatusViewModel TakeOutStockyardStatusViewModel { get; set; } = new StockyardStatusViewModel();
+        public ProductStockingStatusViewModel ProductStockingStatusViewModel { get; set; } = new ProductStockingStatusViewModel();
         public Warehouse SelectedWarehouse { get; set; }
         public SvenTechCollection<WarehouseStockingFlatStructure> FilteredWarehousesFlatStructure { get; set; }
         public SvenTechCollection<Warehouse> FilteredWarehouses { get; set; }
-        public Stockyard SelectedStockyardTakeOut { get; set; }
         public Warehouse SelectedWarehouseTakeOut { get; set; }
         public int QuantityTakeOut { get; set; }
         public DelegateCommand StoreCommand { get; set; }
@@ -83,8 +113,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void Refresh()
         {
-            FilteredWarehousesFlatStructure = CreateFlatStructure();
+            ProductStockingStatusViewModel.Refresh();
             FilteredWarehouses = CreateFilteredWarehouses();
+            TakeOutStockyardStatusViewModel.Stockyard = SelectedStockyardTakeOut;
+            StockyardStatusViewModel.Stockyard = SelectedStockyard;
         }
 
         private void StoreSelectedProduct()
@@ -97,15 +129,29 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     stockedProductOnStockyard.Quantity += Quantity;
                     DataContext.Instance.StockedProducts.Update(stockedProductOnStockyard);
+
+                    SaveBookingHistoryEntry(false);
                 }
                 else
                 {
-                    var newStockedProduct = new StockedProduct(SelectedProduct.ProductId, SelectedStockyard.StockyardId, Quantity);
+                    var newStockedProduct = new StockedProduct(SelectedProduct, SelectedStockyard.StockyardId, Quantity);
                     DataContext.Instance.StockedProducts.Insert(newStockedProduct);
                     SelectedStockyard.StockedProducts.Add(newStockedProduct);
+                    SaveBookingHistoryEntry(false);
                 }
                 Refresh();
             }
+        }
+
+        private void SaveBookingHistoryEntry(bool IsTakeOut)
+        {
+            WarehouseStockingHistory WarehouseStockingHistory = new WarehouseStockingHistory(SelectedProduct, SelectedStockyard, Quantity, Globals.ActualUser);
+            if (IsTakeOut)
+            {
+                WarehouseStockingHistory.Quantity *= -1;
+                WarehouseStockingHistory.RefStockyardId = SelectedStockyardTakeOut.StockyardId;
+            }
+            DataContext.Instance.WarehouseStockingHistories.Insert(WarehouseStockingHistory);
         }
 
         private void TakeOutSelectedProduct()
@@ -113,17 +159,33 @@ namespace FinancialAnalysis.Logic.ViewModels
             var stockedProduct = SelectedStockyardTakeOut.StockedProducts.SingleOrDefault(x => x.RefProductId == SelectedProduct.ProductId);
             if (stockedProduct != null)
             {
+                var lastWarehouseId = SelectedWarehouseTakeOut.WarehouseId;
+                var lastStockyardId = SelectedStockyardTakeOut.StockyardId;
+                var lastProductid = SelectedProduct.ProductId;
+
                 if (stockedProduct.Quantity == QuantityTakeOut)
                 {
+
                     DataContext.Instance.StockedProducts.Delete(stockedProduct.StockedProductId);
+                    SaveBookingHistoryEntry(true);
                 }
                 else
                 {
                     stockedProduct.Quantity -= QuantityTakeOut;
                     DataContext.Instance.StockedProducts.Update(stockedProduct);
+                    SaveBookingHistoryEntry(true);
                 }
                 GetData();
                 Refresh();
+
+                SelectedProduct = Products.SingleOrDefault(x => x.ProductId == lastProductid);
+
+                SelectedWarehouseTakeOut = FilteredWarehouses.SingleOrDefault(x => x.WarehouseId == lastWarehouseId);
+
+                if (SelectedWarehouseTakeOut != null)
+                {
+                    SelectedStockyardTakeOut = SelectedWarehouseTakeOut.Stockyards.SingleOrDefault(x => x.StockyardId == lastStockyardId);
+                }
             }
         }
 
@@ -133,46 +195,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             Warehouses = DataContext.Instance.Warehouses.GetAll().ToSvenTechCollection();
         }
 
-        private SvenTechCollection<WarehouseStockingFlatStructure> CreateFlatStructure()
-        {
-            if (SelectedProduct == null)
-            {
-                return null;
-            }
 
-            SvenTechCollection<WarehouseStockingFlatStructure> filteredList = new SvenTechCollection<WarehouseStockingFlatStructure>();
-            int key = 1;
-            int parentKey = 0;
-            for (int i = 0; i < Warehouses.Count; i++)
-            {
-                for (int j = 0; j < Warehouses[i].Stockyards.Count; j++)
-                {
-                    for (int k = 0; k < Warehouses[i].Stockyards[j].StockedProducts.Count; k++)
-                    {
-                        if (Warehouses[i].Stockyards[j].StockedProducts[k].RefProductId == SelectedProduct.ProductId)
-                        {
-                            var warehouse = filteredList.FirstOrDefault(x => x.Warehouse == Warehouses[i]);
-                            if (warehouse == null)
-                            {
-                                filteredList.Add(new WarehouseStockingFlatStructure() { Id = key, ParentKey = 0, Warehouse = Warehouses[i] });
-                                parentKey = key;
-                                key++;
-                            }
-
-                            var stockyard = filteredList.FirstOrDefault(x => x.Stockyard == Warehouses[i].Stockyards[j]);
-                            if (stockyard == null)
-                            {
-                                filteredList.Add(new WarehouseStockingFlatStructure() { Id = key, ParentKey = parentKey, Stockyard = Warehouses[i].Stockyards[j], Quantity = Warehouses[i].Stockyards[j].StockedProducts[k].Quantity });
-                                filteredList.Single(x => x.Id == parentKey).Quantity += Warehouses[i].Stockyards[j].StockedProducts[k].Quantity;
-                                key++;
-                            }
-                        }
-                    }
-                }
-            }
-
-            return filteredList;
-        }
 
         private SvenTechCollection<Warehouse> CreateFilteredWarehouses()
         {

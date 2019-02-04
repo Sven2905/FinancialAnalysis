@@ -32,7 +32,7 @@
         <local:BrushColorConverter x:Key="BConverter" />
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
             <ColumnDefinition Width="*" />

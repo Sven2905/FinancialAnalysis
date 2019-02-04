@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="FinancialAnalysis.UserControls.StockyardStatusControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+             xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             dx:ThemeManager.ThemeName="Office2016WhiteSE"
+             mc:Ignorable="d"
+             d:DesignHeight="1000" d:DesignWidth="1900">
+    <UserControl.DataContext>
+        <ViewModels:StockyardStatusViewModel />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <local:NullToVisConverter x:Key="NullToVisConverter" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid Visibility="{Binding Stockyard, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisConverter}}">
+
+            <dxg:GridControl HorizontalAlignment="Left" ShowBorder="False" ItemsSource="{Binding Stockyard.StockedProducts}" MaxWidth="500" MaxHeight="2000">
+                <dxg:GridColumn FieldName="Product.ItemNumber" Header="Artikelnummer" Width="50" />
+                <dxg:GridColumn FieldName="Product.Name" Header="Name" Width="112" />
+                <dxg:GridColumn FieldName="Quantity" Header="Menge" Width="30" />
+                <dxg:GridControl.View>
+                    <dxg:TableView ShowHorizontalLines="False" ShowVerticalLines="False" ShowSelectionRectangle="False" AutoWidth="True" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto"
+                                   ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" EnableSelectedRowAppearance="False" 
+                                   UseEvenRowBackground="True" ShowIndicator="False" />
+                </dxg:GridControl.View>
+            </dxg:GridControl>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -25,9 +25,10 @@
             <Setter Property="Foreground" Value="#3f729b" />
         </Style>
         <local:NullToIsEnabledConverter x:Key="NullConverter" />
+        <local:NullToVisConverter x:Key="NullToVisConverter" />
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
             <ColumnDefinition Width="*" />
@@ -251,17 +252,33 @@
                         </dxlc:LayoutGroup>
                     </dxlc:LayoutControl>
                 </StackPanel>
-                <dxe:ImageEdit Grid.Column="2" Grid.Row="0" Width="400" Height="400" VerticalAlignment="Top"
-                               Stretch="UniformToFill" Source="{Binding Image, Mode=TwoWay}" AllowNullInput="True">
-                    <dxe:ImageEdit.MenuTemplate>
-                        <ControlTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <dxe:ImageEditClearToolButton />
-                                <dxe:ImageEditLoadToolButton />
-                            </StackPanel>
-                        </ControlTemplate>
-                    </dxe:ImageEdit.MenuTemplate>
-                </dxe:ImageEdit>
+
+                <StackPanel Grid.Column="2" Grid.Row="0" >
+                    <dxe:ImageEdit Grid.Column="2" Grid.Row="0" Width="300" Height="300" VerticalAlignment="Top" HorizontalAlignment="Left"
+                               Stretch="UniformToFill" Source="{Binding Image, Mode=TwoWay}" AllowNullInput="True" Margin="10,0">
+                        <dxe:ImageEdit.MenuTemplate>
+                            <ControlTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <dxe:ImageEditClearToolButton />
+                                    <dxe:ImageEditLoadToolButton />
+                                </StackPanel>
+                            </ControlTemplate>
+                        </dxe:ImageEdit.MenuTemplate>
+                    </dxe:ImageEdit>
+
+                    <Grid Visibility="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisConverter}}" Margin="10,50,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="2" Grid.Row="0" Content="Lagerplätze diesem Produkt: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
+
+                        <local:ProductStockingStatusControl Grid.Column="2" Grid.Row="1" Margin="0,20,0,0" HorizontalAlignment="Left" DataContext="{Binding ProductStockingStatusViewModel}"/>
+
+                    </Grid>
+                </StackPanel>
+
             </Grid>
         </Grid>
     </Grid>

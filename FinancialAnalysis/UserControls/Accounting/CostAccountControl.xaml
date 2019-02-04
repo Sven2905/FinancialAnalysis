@@ -17,7 +17,7 @@
     dx:ThemeManager.ThemeName="Office2016WhiteSE"
     d:DesignHeight="450" d:DesignWidth="800"
     DataContext="{dxmvvm:ViewModelSource Type={x:Type ViewModels:CostAccountViewModel}}">
-    <Grid>
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

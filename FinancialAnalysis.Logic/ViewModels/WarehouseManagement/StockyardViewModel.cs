@@ -199,6 +199,12 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #endregion Methods
 
+        #region Fields
+
+        private Stockyard _SelectedStockyard;
+ 
+        #endregion Fields
+
         #region Properties
 
         public SvenTechCollection<Stockyard> FilteredStockyards { get; set; } = new SvenTechCollection<Stockyard>();
@@ -206,11 +212,22 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand SaveStockyardCommand { get; set; }
         public DelegateCommand DeleteStockyardCommand { get; set; }
         public DelegateCommand OpenWarehousesWindowCommand { get; set; }
-
+        public User ActualUser => Globals.ActualUser;
+        public StockyardStatusViewModel StockyardStatusViewModel { get; set; } = new StockyardStatusViewModel();
         public SvenTechCollection<Warehouse> Warehouses { get; set; } = new SvenTechCollection<Warehouse>();
         public Warehouse SelectedWarehouse { get; set; }
-        public Stockyard SelectedStockyard { get; set; }
-        public User ActualUser => Globals.ActualUser;
+
+        public Stockyard SelectedStockyard
+        {
+            get { return _SelectedStockyard; }
+            set
+            {
+                _SelectedStockyard = value;
+                StockyardStatusViewModel.Stockyard = _SelectedStockyard;
+            }
+        }
+
+
 
         #region For stockyard generation
 

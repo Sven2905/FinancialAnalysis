@@ -9,9 +9,10 @@ namespace FinancialAnalysis.Models.WarehouseManagement
         {
         }
 
-        public StockedProduct(int refProductId, int refStockyardId, int quantity)
+        public StockedProduct(Product product, int refStockyardId, int quantity)
         {
-            RefProductId = refProductId;
+            RefProductId = product.ProductId;
+            Product = product;
             RefStockyardId = refStockyardId;
             Quantity = quantity;
         }

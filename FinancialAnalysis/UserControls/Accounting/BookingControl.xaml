@@ -27,7 +27,7 @@
         <dxmvvm:OpenFileDialogService />
     </dxmvvm:Interaction.Behaviors>
 
-    <Grid>
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="20" />

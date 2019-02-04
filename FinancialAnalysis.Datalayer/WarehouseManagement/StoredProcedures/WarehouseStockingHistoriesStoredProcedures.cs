@@ -4,11 +4,11 @@ using System.Text;
 
 namespace FinancialAnalysis.Datalayer.WarehouseManagement
 {
-    public class WarehousesStoredProcedures : IStoredProcedures
+    public class WarehouseStockingHistoriesStoredProcedures : IStoredProcedures
     {
-        public WarehousesStoredProcedures()
+        public WarehouseStockingHistoriesStoredProcedures()
         {
-            TableName = "Warehouses";
+            TableName = "WarehouseStockingHistories";
         }
 
         public string TableName { get; }
@@ -32,11 +32,10 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT w.*, s.*, sp.*, p.* " +
+                                "SELECT w.*, p.*, s.* " +
                                 $"FROM {TableName} w " +
-                                "LEFT JOIN Stockyards s on w.WarehouseId = s.RefWarehouseId " +
-                                "LEFT JOIN StockedProducts sp ON s.StockyardId = sp.RefStockyardId " +
-                                "LEFT JOIN Products p ON sp.RefProductId = p.ProductId " +
+                                "LEFT JOIN Products p ON w.RefProductId = p.ProductId " +
+                                "LEFT JOIN Stockyards s on w.RefStockyardId = s.StockyardId " +
                                 "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -59,9 +58,9 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(150), @Street nvarchar(150), @City nvarchar(150), @Postcode int AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, Description, Street, City, Postcode) " +
-                    "VALUES (@Name, @Description, @Street, @City, @Postcode); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @RefProductId int, @ProductName nvarchar(150), @RefStockyardId int, @StockyardName nvarchar(150), @Quantity int, @RefUserId int, @UserName nvarchar(150), @Date datetime AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (RefProductId, ProductName, RefStockyardId, StockyardName, Quantity, RefUserId, UserName, Date) " +
+                    "VALUES (@RefProductId, @ProductName, @RefStockyardId, @StockyardName, @Quantity, @RefUserId, @UserName, @Date); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -84,13 +83,12 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @WarehouseId int AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT w.*, s.*, sp.*, p.* " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @WarehouseStockingHistoryId int AS BEGIN SET NOCOUNT ON; " +
+                    "SELECT w.*, p.*, s.* " +
                     $"FROM {TableName} w " +
-                    "LEFT JOIN Stockyards s on w.WarehouseId = s.RefWarehouseId " +
-                    "LEFT JOIN StockedProducts sp ON s.StockyardId = sp.RefStockyardId " +
-                    "LEFT JOIN Products p ON sp.RefProductId = p.ProductId " +
-                    "WHERE WarehouseId = @WarehouseId END");
+                    "LEFT JOIN Products p ON w.RefProductId = p.ProductId " +
+                    "LEFT JOIN Stockyards s on w.RefStockyardId = s.StockyardId " +
+                    "WHERE WarehouseStockingHistoryId = @WarehouseStockingHistoryId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -112,15 +110,18 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @WarehouseId int, @Name nvarchar(150), @Description nvarchar(150), @Street nvarchar(150), @City nvarchar(150), @Postcode int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @WarehouseStockingHistoryId int, @RefProductId int, @ProductName nvarchar(150), @RefStockyardId int, @StockyardName nvarchar(150), @Quantity int, @RefUserId int, @UserName nvarchar(150), @Date datetime " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
-                    "SET Name = @Name, " +
-                    "Description = @Description, " +
-                    "Street = @Street, " +
-                    "City = @City, " +
-                    "Postcode = @Postcode " +
-                    "WHERE WarehouseId = @WarehouseId END");
+                    "SET RefProductId = @RefProductId, " +
+                    "ProductName = @ProductName, " +
+                    "RefStockyardId = @RefStockyardId, " +
+                    "StockyardName = @StockyardName, " +
+                    "Quantity = @Quantity, " +
+                    "RefUserId = @RefUserId, " +
+                    "UserName = @UserName, " +
+                    "Date = @Date " +
+                    "WHERE WarehouseStockingHistoryId = @WarehouseStockingHistoryId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -142,7 +143,9 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @WarehouseId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE WarehouseId = @WarehouseId END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @WarehouseStockingHistoryId int AS BEGIN SET NOCOUNT ON; " +
+                    $"DELETE FROM {TableName} " +
+                    $"WHERE WarehouseStockingHistoryId = @WarehouseStockingHistoryId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
