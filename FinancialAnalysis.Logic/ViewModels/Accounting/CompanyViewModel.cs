@@ -39,7 +39,7 @@ namespace FinancialAnalysis.Logic.ViewModels.Accounting
         public int SelectedTaxTypeId { get; set; }
         public SvenTechCollection<TaxType> TaxTypes { get; set; } = new SvenTechCollection<TaxType>();
         public bool ShowTaxType { get; set; }
-        public bool CompanyIsNotNull { get; set; }
+        public bool CompanyIsNotNull { get => Client != null; }
 
         public CustomerType SelectedCustomerType
         {
@@ -56,7 +56,6 @@ namespace FinancialAnalysis.Logic.ViewModels.Accounting
         internal void Clear()
         {
             Client = new Client();
-            CompanyIsNotNull = true;
         }
     }
 }

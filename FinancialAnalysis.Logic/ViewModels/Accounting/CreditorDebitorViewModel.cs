@@ -289,9 +289,13 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _SelectedCreditor = value;
                 if (value != null)
                 {
-                    CompanyViewModel.Client = value.Client;
+                    CompanyViewModel.Client = _SelectedCreditor.Client;
                     SelectedDebitor = null;
                     CompanyViewModel.SelectedTaxTypeId = SelectedCreditor.CostAccount.RefTaxTypeId;
+                }
+                else
+                {
+                    CompanyViewModel.Client = null;
                 }
             }
         }
@@ -304,9 +308,13 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _SelectedDebitor = value;
                 if (value != null)
                 {
-                    CompanyViewModel.Client = value.Client;
+                    CompanyViewModel.Client = _SelectedDebitor.Client;
                     SelectedCreditor = null;
                     CompanyViewModel.SelectedTaxTypeId = SelectedDebitor.CostAccount.RefTaxTypeId;
+                }
+                else
+                {
+                    CompanyViewModel.Client = null;
                 }
             }
         }
