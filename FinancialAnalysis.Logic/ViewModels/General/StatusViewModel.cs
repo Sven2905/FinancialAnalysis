@@ -40,6 +40,30 @@ namespace FinancialAnalysis.Logic.ViewModels
             Color2 = (Color)ColorConverter.ConvertFromString("#00acc1");
         }
 
+        public void SetColorToRed()
+        {
+            Color1 = (Color)ColorConverter.ConvertFromString("#ff4444");
+            Color2 = (Color)ColorConverter.ConvertFromString("#CC0000");
+        }
+
+        public void SetColorToYellow()
+        {
+            Color1 = (Color)ColorConverter.ConvertFromString("#ffbb33");
+            Color2 = (Color)ColorConverter.ConvertFromString("#FF8800");
+        }
+
+        public void SetColorToCyan()
+        {
+            Color1 = (Color)ColorConverter.ConvertFromString("#2BBBAD");
+            Color2 = (Color)ColorConverter.ConvertFromString("#00695c");
+        }
+
+        public void SetColorToDarkBlue()
+        {
+            Color1 = (Color)ColorConverter.ConvertFromString("#4285F4");
+            Color2 = (Color)ColorConverter.ConvertFromString("#0d47a1");
+        }
+
         public void SetIconData(string dataString)
         {
             IconData = Geometry.Parse(dataString);
@@ -50,14 +74,10 @@ namespace FinancialAnalysis.Logic.ViewModels
             IconColor = new SolidColorBrush(color);
         }
 
-        public void SetColor1FromHex(string hex)
+        public void SetColorFromHex(string hex1, string hex2)
         {
-            Color1 = (Color)ColorConverter.ConvertFromString(hex);
-        }
-
-        public void SetColor2FromHex(string hex)
-        {
-            Color2 = (Color)ColorConverter.ConvertFromString(hex);
+            Color1 = (Color)ColorConverter.ConvertFromString(hex1);
+            Color2 = (Color)ColorConverter.ConvertFromString(hex2);
         }
     }
 }

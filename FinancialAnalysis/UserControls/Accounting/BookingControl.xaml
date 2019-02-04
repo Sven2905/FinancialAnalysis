@@ -104,7 +104,7 @@
                        Foreground="#3F729B" FontFamily="Tahoma" />
             <TextBlock Grid.Column="0" Grid.Row="10" Text="Steuer: " VerticalAlignment="Center" Margin="5,7,0,7"
                        Foreground="#3F729B" FontFamily="Tahoma" />
-            <TextBlock Grid.Column="0" Grid.Row="12" Text="Kostenstelle: " VerticalAlignment="Center" Margin="5,7,0,7"
+            <TextBlock Grid.Column="0" Grid.Row="12" Text="Kostenstellenkategorie: " VerticalAlignment="Center" Margin="5,7,0,7"
                        Foreground="#3F729B" FontFamily="Tahoma" />
             <TextBlock Grid.Column="0" Grid.Row="14" Text="Projekt: " VerticalAlignment="Center" Margin="5,7,0,7"
                        Foreground="#3F729B" FontFamily="Tahoma" />
@@ -203,8 +203,16 @@
                 </dx:SimpleButton.Glyph>
             </dx:SimpleButton>
 
-            <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="12" Margin="0,3,0,3" ItemsSource="{Binding CostCenters}"
-                              DisplayMember="Name" EditValue="{Binding CostCenterId}" Foreground="#3F729B" />
+            <Grid Grid.Column="1" Grid.Row="12" Margin="0,3,0,3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <dxe:ComboBoxEdit Grid.Column="0" ItemsSource="{Binding CostCenterCategories}" DisplayMember="Name" EditValue="{Binding SelectedCostCenterCategory, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
+                <TextBlock Grid.Column="1" Text="Kostenstelle: " VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#3F729B" FontFamily="Tahoma" Margin="50,0,0,0" />
+                <dxe:ComboBoxEdit Grid.Column="2" ItemsSource="{Binding SelectedCostCenterCategory.CostCenters, UpdateSourceTrigger=PropertyChanged}" DisplayMember="Name" EditValue="{Binding SelectedCostCenter, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
+            </Grid>
 
             <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="14" Margin="0,3,0,3" ItemsSource="{Binding Projects}"
                               DisplayMember="Name" EditValue="{Binding ProjectId}" Foreground="#3F729B" />

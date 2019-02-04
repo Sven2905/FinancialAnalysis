@@ -12,7 +12,7 @@
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              dx:ThemeManager.ThemeName="Office2016WhiteSE"
              mc:Ignorable="d"
-             d:DesignHeight="1000" d:DesignWidth="1900">
+              d:DesignHeight="1000" d:DesignWidth="1900">
     <UserControl.DataContext>
         <ViewModels:StockyardStatusViewModel />
     </UserControl.DataContext>
@@ -21,15 +21,17 @@
     </UserControl.Resources>
 
     <Grid>
-        <dxg:GridControl HorizontalAlignment="Left" ShowBorder="False" ItemsSource="{Binding Stockyard.StockedProducts}" MaxWidth="500" MaxHeight="2000">
-            <dxg:GridColumn FieldName="Product.ItemNumber" Header="Artikelnummer" Width="50" />
-            <dxg:GridColumn FieldName="Product.Name" Header="Name" Width="112" />
-            <dxg:GridColumn FieldName="Quantity" Header="Menge" Width="30" />
+        <!--<Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="1">-->
+        <dxg:GridControl Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" ShowBorder="True" ItemsSource="{Binding Stockyard.StockedProducts}">
+            <dxg:GridColumn FieldName="Product.ItemNumber" Header="Artikelnummer" />
+            <dxg:GridColumn FieldName="Product.Name" Header="Name" FixedWidth="True" />
+            <dxg:GridColumn FieldName="Quantity" Header="Menge" />
             <dxg:GridControl.View>
-                <dxg:TableView ShowHorizontalLines="False" ShowVerticalLines="False" ShowSelectionRectangle="False" AutoWidth="True" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto"
-                                   ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" EnableSelectedRowAppearance="False" 
-                                   UseEvenRowBackground="True" ShowIndicator="False" />
+                <dxg:TableView ShowHorizontalLines="True" ShowVerticalLines="False" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" MaxHeight="5000" MaxWidth="5000"
+                                   ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" EnableSelectedRowAppearance="False"
+                                   UseEvenRowBackground="True" ShowIndicator="False" AllowColumnMoving="False" AllowGrouping="False" AutoWidth="True" />
             </dxg:GridControl.View>
         </dxg:GridControl>
+        <!--</Border>-->
     </Grid>
 </UserControl>

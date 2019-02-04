@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Windows;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 using DevExpress.Xpf.Dialogs;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
@@ -12,6 +6,11 @@ using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.ProjectManagement;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -22,7 +21,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public BookingViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             SetCommands();
 
@@ -47,17 +49,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void LoadLists()
         {
-            try
-            {
-                FilteredTaxTypes = new SvenTechCollection<TaxType>(Globals.CoreData.TaxTypes);
-                CostAccounts = DataContext.Instance.CostAccounts.GetAllVisible().ToList();
-                CostCenters = DataContext.Instance.CostCenters.GetAll().ToSvenTechCollection();
-                Projects = DataContext.Instance.Projects.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            FilteredTaxTypes = new SvenTechCollection<TaxType>(Globals.CoreData.TaxTypes);
+            CostAccounts = DataContext.Instance.CostAccounts.GetAllVisible().ToList();
+            CostCenterCategories = DataContext.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
+            Projects = DataContext.Instance.Projects.GetAll().ToSvenTechCollection();
         }
 
         private void ClearForm()
@@ -71,24 +66,29 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             GetCreditorCommand = new DelegateCommand(() =>
             {
-                Messenger.Default.Send(new OpenKontenrahmenWindowMessage {AccountingType = AccountingType.Credit});
+                Messenger.Default.Send(new OpenKontenrahmenWindowMessage { AccountingType = AccountingType.Credit });
             });
 
             GetDebitorCommand = new DelegateCommand(() =>
             {
-                Messenger.Default.Send(new OpenKontenrahmenWindowMessage {AccountingType = AccountingType.Debit});
+                Messenger.Default.Send(new OpenKontenrahmenWindowMessage { AccountingType = AccountingType.Debit });
             });
 
             OpenFileCommand = new DelegateCommand(() =>
             {
                 var fileDialog = new DXOpenFileDialog();
-                if (fileDialog.ShowDialog().Value) CreateScannedDocumentItem(fileDialog.FileName);
+                if (fileDialog.ShowDialog().Value)
+                {
+                    CreateScannedDocumentItem(fileDialog.FileName);
+                }
             });
 
             DoubleClickListBoxCommand = new DelegateCommand(() =>
             {
                 if (SelectedScannedDocument != null)
+                {
                     Messenger.Default.Send(new OpenPDFViewerWindowMessage(SelectedScannedDocument.Path));
+                }
             });
 
             AddToStackCommand = new DelegateCommand(() =>
@@ -113,7 +113,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteSelectedScannedDocument()
         {
-            if (SelectedScannedDocument != null) ScannedDocuments.Remove(SelectedScannedDocument);
+            if (SelectedScannedDocument != null)
+            {
+                ScannedDocuments.Remove(SelectedScannedDocument);
+            }
         }
 
         private void CreateScannedDocumentItem(string path)
@@ -154,14 +157,17 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private bool ValidateBooking()
         {
-            return CostAccountCreditorId != 0 && CostAccountDebitorId != 0 && SelectedTax != null;
+            return CostAccountCreditorId != 0 && CostAccountDebitorId != 0 && SelectedTax != null && SelectedCostCenter != null;
         }
 
         private Booking CreateBookingItem()
         {
-            if (!ValidateBooking()) return null;
+            if (!ValidateBooking())
+            {
+                return null;
+            }
 
-            var booking = new Booking(Amount, Date, Description);
+            var booking = new Booking(Amount, Date, SelectedCostCenter.CostCenterId, Description);
 
             decimal tax = 0;
             decimal amountWithoutTax = 0;
@@ -236,58 +242,30 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveBookingToDB(Booking booking)
         {
-            if (booking == null) return;
+            if (booking == null)
+            {
+                return;
+            }
 
             var bookingId = 0;
 
-            try
-            {
-                bookingId = DataContext.Instance.Bookings.Insert(booking);
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
-
+            bookingId = DataContext.Instance.Bookings.Insert(booking);
             foreach (var item in booking.Credits)
             {
                 item.RefBookingId = bookingId;
-
-                try
-                {
-                    DataContext.Instance.Credits.Insert(item);
-                }
-                catch (Exception ex)
-                {
-                    // TODO Exception
-                }
+                DataContext.Instance.Credits.Insert(item);
             }
 
             foreach (var item in booking.Debits)
             {
                 item.RefBookingId = bookingId;
-                try
-                {
-                    DataContext.Instance.Debits.Insert(item);
-                }
-                catch (Exception ex)
-                {
-                    // TODO Exception
-                }
+                DataContext.Instance.Debits.Insert(item);
             }
 
             foreach (var item in booking.ScannedDocuments)
             {
                 item.RefBookingId = bookingId;
-
-                try
-                {
-                    DataContext.Instance.ScannedDocuments.Insert(item);
-                }
-                catch (Exception ex)
-                {
-                    // TODO Exception
-                }
+                DataContext.Instance.ScannedDocuments.Insert(item);
             }
         }
 
@@ -295,12 +273,18 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             var bookingItem = CreateBookingItem();
 
-            if (bookingItem != null) BookingsOnStack.Add(bookingItem);
+            if (bookingItem != null)
+            {
+                BookingsOnStack.Add(bookingItem);
+            }
         }
 
         private void SaveStackToDb()
         {
-            foreach (var item in BookingsOnStack) SaveBookingToDB(item);
+            foreach (var item in BookingsOnStack)
+            {
+                SaveBookingToDB(item);
+            }
 
             BookingsOnStack.Clear();
         }
@@ -377,13 +361,15 @@ namespace FinancialAnalysis.Logic.ViewModels
         public CostAccount CostAccountDebitor { get; set; }
         public TaxType SelectedTax { get; set; }
         public List<CostAccount> CostAccounts { get; set; }
-        public SvenTechCollection<CostCenter> CostCenters { get; set; } = new SvenTechCollection<CostCenter>();
+        public SvenTechCollection<CostCenterCategory> CostCenterCategories { get; set; } = new SvenTechCollection<CostCenterCategory>();
         public SvenTechCollection<Project> Projects { get; set; } = new SvenTechCollection<Project>();
         public SvenTechCollection<TaxType> FilteredTaxTypes { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
         public GrossNetType GrossNetType { get; set; }
         public ScannedDocument SelectedScannedDocument { get; set; }
         public BookingType SelectedBookingType { get; set; } = BookingType.Invoice;
+        public CostCenter SelectedCostCenter { get; set; }
+        public CostCenterCategory SelectedCostCenterCategory { get; set; }
 
         public ObservableCollection<ScannedDocument> ScannedDocuments { get; set; } =
             new ObservableCollection<ScannedDocument>();

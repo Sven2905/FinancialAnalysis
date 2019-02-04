@@ -1,6 +1,6 @@
-﻿using System;
+﻿using DevExpress.Mvvm;
+using System;
 using System.Collections.Generic;
-using DevExpress.Mvvm;
 
 namespace FinancialAnalysis.Models.Accounting
 {
@@ -10,11 +10,12 @@ namespace FinancialAnalysis.Models.Accounting
         {
         }
 
-        public Booking(decimal Amount, DateTime Date, string Description = "")
+        public Booking(decimal amount, DateTime date, int refCostCenterId, string description = "")
         {
-            this.Amount = Amount;
-            this.Date = Date;
-            this.Description = Description;
+            Amount = amount;
+            Date = date;
+            RefCostCenterId = refCostCenterId;
+            Description = description;
         }
 
         #region Properties
@@ -27,6 +28,7 @@ namespace FinancialAnalysis.Models.Accounting
         public List<Debit> Debits { get; set; } = new List<Debit>();
         public List<Credit> Credits { get; set; } = new List<Credit>();
         public int RefCostCenterId { get; set; }
+        public CostCenter CostCenter { get; set; }
 
         #endregion Properties
     }

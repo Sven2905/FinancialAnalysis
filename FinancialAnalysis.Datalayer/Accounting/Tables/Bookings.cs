@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Dapper;
+using FinancialAnalysis.Models.Accounting;
+using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using Dapper;
-using FinancialAnalysis.Models.Accounting;
-using Serilog;
 
 namespace FinancialAnalysis.Datalayer.Accounting
 {
@@ -130,7 +130,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var Booking in Bookings) Insert(Booking);
+                    foreach (var Booking in Bookings)
+                    {
+                        Insert(Booking);
+                    }
                 }
             }
             catch (Exception e)
@@ -169,7 +172,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                             bookingEntry.ScannedDocuments.Add(s);
 
                             return b;
-                        }, new {BookingId = id}, splitOn: "BookingId, ScannedDocumentId, CreditId, DebitId")
+                        }, new { BookingId = id }, splitOn: "BookingId, ScannedDocumentId, CreditId, DebitId")
                     .AsQueryable();
                 return query.FirstOrDefault();
             }
@@ -209,7 +212,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                             bookingEntry.ScannedDocuments.Add(s);
 
                             return b;
-                        }, new {StartDate = startDate, EndDate = endDate, CreditId = creditId, DebitId = debitId},
+                        }, new { StartDate = startDate, EndDate = endDate, CreditId = creditId, DebitId = debitId },
                         splitOn: "BookingId, ScannedDocumentId, CreditId, DebitId")
                     .AsQueryable();
                 return query.ToList();

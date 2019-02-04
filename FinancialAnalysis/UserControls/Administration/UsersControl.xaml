@@ -235,14 +235,13 @@
                     </dxe:ImageEdit>
                 </StackPanel>
 
-                <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="4">
+                <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" Margin="0,0,10,0">
                     <TextBlock Text="Zugriffsrechte" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b"
                                Margin="12,0"
                                Visibility="{Binding SelectedUser, Converter={StaticResource NullVisConverter}}" />
-                    <dxg:TreeListControl Margin="12,10,12,0" VerticalAlignment="Top" MaxWidth="760" MaxHeight="800"
+                    <dxg:TreeListControl VerticalAlignment="Top" MaxWidth="5000" MaxHeight="800"
                                          ItemsSource="{Binding UserRightUserMappingFlatStructure, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         SelectionMode="Row"
-                                         Visibility="{Binding SelectedUser, Converter={StaticResource NullVisConverter}}"
+                                         SelectionMode="Row" ShowBorder="True"
                                          Height="800">
                         <dxg:TreeListControl.View>
                             <dxg:TreeListView EditFormColumnCount="2" EditFormShowMode="None"

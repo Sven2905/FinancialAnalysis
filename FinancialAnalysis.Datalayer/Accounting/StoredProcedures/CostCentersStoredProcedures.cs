@@ -35,6 +35,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                                 "SELECT cc.*, ccc.* " +
                                 $"FROM {TableName} cc " +
                                 "LEFT JOIN CostCenterCategories ccc ON cc.RefCostCenterCategoryId = ccc.CostCenterCategoryId " +
+                                "ORDER BY cc.Name" +
                                 "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

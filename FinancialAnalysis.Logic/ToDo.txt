@@ -1,11 +1,10 @@
 ﻿Stunden buchen für Mitarbeiter
 Tabelle für Stunden anlegen
-Kostenstelle und Projekt einer Buchung zuordnen
 Krankenkasse UserControl / ViewModel
-Filter für die meisten UserControls
 Projektdetails (Kosten, Stunden, ...)
 Debitoren für Produkte n:m
 Anzeige / Auswertung WarehouseStockingHistory
 Kosten- und Leistungsrechnung für Preisbestimmung
 Abschreibungen
 Skonti
+Rechteverwaltung vervollständigen

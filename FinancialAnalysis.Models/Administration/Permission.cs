@@ -35,15 +35,17 @@
         AccessWarehouseSave = 302,
         AccessWarehouseDelete = 303,
         AccessStockyards = 304,
+        AccessStocking = 305,
+        AccessStockingStore = 306,
+        AccessStockingTakeOut = 307,
 
         // PurchaseManagement 400 - 499
-        AccessPurchaseManagement = 400,
-
-        AccessBills = 401,
-        AccessBillTypes = 402,
-        AccessGoodsReceivedNotes = 403,
-        AccessPurchaseOrders = 404,
-        AccessPurchaseTypes = 405,
+        //AccessPurchaseManagement = 400,
+        //AccessBills = 401,
+        //AccessBillTypes = 402,
+        //AccessGoodsReceivedNotes = 403,
+        //AccessPurchaseOrders = 404,
+        //AccessPurchaseTypes = 405,
 
         // SaleManagement 500 - 599
         AccessSalesManagement = 500,

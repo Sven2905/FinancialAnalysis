@@ -94,8 +94,8 @@
                 </ListView>
             </ScrollViewer>
 
-            <VirtualizingStackPanel Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="15">
-                <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Neu"
+            <VirtualizingStackPanel Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,15">
+                <dx:SimpleButton Width="150" Height="30" Margin="0,0,5,0" Content="Neu"
                                  Foreground="#3F729B" Command="{Binding NewCostCenterCommand}" FontFamily="Tahoma" />
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Speichern" Foreground="#3F729B"
                                  Command="{Binding SaveCostCenterCommand}" FontFamily="Tahoma" />

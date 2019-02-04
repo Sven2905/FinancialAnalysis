@@ -57,7 +57,7 @@
         <Grid Grid.Row="1" Grid.Column="1">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="20" />
                 <ColumnDefinition Width="3*" />
             </Grid.ColumnDefinitions>
@@ -66,8 +66,23 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,50,0,0">
-                <ListView ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}" x:Name="Employee"
+            <dxlc:LayoutControl Grid.Row="0" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}"
+                                ItemSpace="10" VerticalAlignment="Top">
+                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
+                    <dxlc:LayoutGroup.Header>
+                        <TextBlock Text="Filter" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                    </dxlc:LayoutGroup.Header>
+                    <dxlc:LayoutGroup>
+                        <dxlc:LayoutItem Label="Filtertext" FontFamily="Tahoma">
+                            <dxe:TextEdit Text="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          FontFamily="Tahoma" />
+                        </dxlc:LayoutItem>
+                    </dxlc:LayoutGroup>
+                </dxlc:LayoutGroup>
+            </dxlc:LayoutControl>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="12,100,12,0">
+                <ListView ItemsSource="{Binding FilteredEmployees}" SelectedItem="{Binding SelectedEmployee}" x:Name="Employee"
                           BorderThickness="1" BorderBrush="DarkGray" FontSize="14">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -95,7 +110,7 @@
                 </ListView>
             </ScrollViewer>
 
-            <VirtualizingStackPanel Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="15">
+            <VirtualizingStackPanel Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="7,15,0,15">
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Neu"
                                  Foreground="#3F729B" Command="{Binding NewUserCommand}" FontFamily="Tahoma" />
                 <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Speichern" Foreground="#3F729B"

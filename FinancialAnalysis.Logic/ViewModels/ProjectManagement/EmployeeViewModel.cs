@@ -1,11 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Windows;
-using System.Windows.Media.Imaging;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
-using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.ProjectManagement;
+using System.IO;
+using System.Linq;
+using System.Windows.Media.Imaging;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -16,7 +14,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public EmployeeViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             LoadEmployees();
             LoadHealthInsurances();
@@ -30,6 +31,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         #region Properties
 
         public SvenTechCollection<Employee> Employees { get; set; } = new SvenTechCollection<Employee>();
+        public SvenTechCollection<Employee> FilteredEmployees { get; set; } = new SvenTechCollection<Employee>();
 
         public SvenTechCollection<HealthInsurance> HealthInsurances { get; set; } =
             new SvenTechCollection<HealthInsurance>();
@@ -45,9 +47,30 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 _SelectedEmployee = value;
                 if (_SelectedEmployee != null && _SelectedEmployee.Picture != null)
+                {
                     Image = ConvertToImage(_SelectedEmployee.Picture);
+                }
                 else
+                {
                     Image = null;
+                }
+            }
+        }
+
+        public string FilterText
+        {
+            get { return _FilterText; }
+            set
+            {
+                _FilterText = value;
+                if (string.IsNullOrEmpty(_FilterText))
+                {
+                    FilteredEmployees = Employees;
+                }
+                else
+                {
+                    FilteredEmployees = Employees.Where(x => x.Name.ToLower().Contains(_FilterText.ToLower())).ToSvenTechCollection();
+                }
             }
         }
 
@@ -65,6 +88,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Fields
 
+        private string _FilterText;
         private Employee _SelectedEmployee;
         private BitmapImage _Image;
 
@@ -83,7 +107,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteUser()
         {
-            if (SelectedEmployee == null) return;
+            if (SelectedEmployee == null)
+            {
+                return;
+            }
 
             if (SelectedEmployee.EmployeeId == 0)
             {
@@ -92,70 +119,56 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            try
-            {
-                DataContext.Instance.Employees.Delete(SelectedEmployee.EmployeeId);
-                Employees.Remove(SelectedEmployee);
-                SelectedEmployee = null;
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            DataContext.Instance.Employees.Delete(SelectedEmployee.EmployeeId);
+            Employees.Remove(SelectedEmployee);
+            SelectedEmployee = null;
         }
 
         private void SaveUser()
         {
-            try
+            if (SelectedEmployee.EmployeeId == 0)
             {
-                if (SelectedEmployee.EmployeeId == 0)
-                    SelectedEmployee.EmployeeId = DataContext.Instance.Employees.Insert(SelectedEmployee);
-                else
-                    DataContext.Instance.Employees.Update(SelectedEmployee);
+                SelectedEmployee.EmployeeId = DataContext.Instance.Employees.Insert(SelectedEmployee);
             }
-            catch (Exception ex)
+            else
             {
-                // TODO Exception
+                DataContext.Instance.Employees.Update(SelectedEmployee);
             }
         }
 
         private void LoadEmployees()
         {
-            try
-            {
-                Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            FilteredEmployees = Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
         }
 
         private void LoadHealthInsurances()
         {
-            try
-            {
-                HealthInsurances = DataContext.Instance.HealthInsurances.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            HealthInsurances = DataContext.Instance.HealthInsurances.GetAll().ToSvenTechCollection();
         }
 
         private bool Validation()
         {
-            if (SelectedEmployee == null) return false;
+            if (SelectedEmployee == null)
+            {
+                return false;
+            }
+
             if (string.IsNullOrEmpty(SelectedEmployee.Firstname) || string.IsNullOrEmpty(SelectedEmployee.Lastname) ||
                 string.IsNullOrEmpty(SelectedEmployee.Street)
                 || string.IsNullOrEmpty(SelectedEmployee.City) || SelectedEmployee.Postcode == 0)
+            {
                 return false;
+            }
+
             return true;
         }
 
         public BitmapImage ConvertToImage(byte[] array)
         {
-            if (array == null) return null;
+            if (array == null)
+            {
+                return null;
+            }
 
             using (var ms = new MemoryStream(array))
             {
@@ -170,7 +183,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private byte[] ConvertToByteArray(BitmapImage bitmapImage)
         {
-            if (bitmapImage == null) return null;
+            if (bitmapImage == null)
+            {
+                return null;
+            }
 
             byte[] data;
             var encoder = new JpegBitmapEncoder();
