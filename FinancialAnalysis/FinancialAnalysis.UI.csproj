@@ -205,6 +205,9 @@
     <Compile Include="UserControls\WarehouseManagement\ProductStockingStatusControl.xaml.cs">
       <DependentUpon>ProductStockingStatusControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\WarehouseManagement\LastBookingsControl.xaml.cs">
+      <DependentUpon>LastBookingsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\WarehouseManagement\StockyardStatusControl.xaml.cs">
       <DependentUpon>StockyardStatusControl.xaml</DependentUpon>
     </Compile>
@@ -338,6 +341,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\WarehouseManagement\ProductStockingStatusControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\WarehouseManagement\LastBookingsControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

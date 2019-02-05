@@ -2,6 +2,7 @@
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models.ProductManagement;
 using FinancialAnalysis.Models.WarehouseManagement;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,6 +33,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         private Product _SelectedProduct;
         private Stockyard _Stockyard;
         private Stockyard _SelectedStockyardTakeOut;
+        private int _Quantity;
+        private int _QuantityTakeOut;
 
         #endregion Fields
 
@@ -48,6 +51,33 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     Refresh();
                 }
+                RefreshLastBookings();
+            }
+        }
+
+        private void RefreshLastBookings()
+        {
+            if (_SelectedProduct == null)
+            {
+                LastBookingViewModel.RefProductId = 0;
+                return;
+            }
+
+            LastBookingViewModel.RefProductId = _SelectedProduct.ProductId;
+
+            if (IsTakeOut)
+            {
+                if (_SelectedStockyardTakeOut != null)
+                    LastBookingViewModel.RefStockyardId = _SelectedStockyardTakeOut.StockyardId;
+                else
+                    LastBookingViewModel.RefStockyardId = 0;
+            }
+            else
+            {
+                if (_Stockyard != null)
+                    LastBookingViewModel.RefStockyardId = _Stockyard.StockyardId;
+                else
+                    LastBookingViewModel.RefStockyardId = 0;
             }
         }
 
@@ -81,9 +111,13 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 _Stockyard = value;
                 StockyardStatusViewModel.Stockyard = value;
+                if (value != null && SelectedProduct != null)
+                {
+                    LastBookingViewModel.RefProductId = SelectedProduct.ProductId;
+                    LastBookingViewModel.RefStockyardId = value.StockyardId;
+                }
             }
         }
-
 
         public Stockyard SelectedStockyardTakeOut
         {
@@ -91,21 +125,69 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 _SelectedStockyardTakeOut = value;
-                TakeOutStockyardStatusViewModel.Stockyard = _SelectedStockyardTakeOut;
+                if (_SelectedStockyardTakeOut != null)
+                {
+                    TakeOutStockyardStatusViewModel.Stockyard = Warehouses.Single(x => x.WarehouseId == _SelectedStockyardTakeOut.RefWarehouseId).Stockyards.Single(x => x.StockyardId == _SelectedStockyardTakeOut.StockyardId);
+                }
+                else
+                {
+                    TakeOutStockyardStatusViewModel.Stockyard = null;
+                }
+                if (value != null && SelectedProduct != null)
+                {
+                    LastBookingViewModel.RefProductId = SelectedProduct.ProductId;
+                    LastBookingViewModel.RefStockyardId = value.StockyardId;
+                }
             }
         }
 
+        public int Quantity
+        {
+            get { return _Quantity; }
+            set
+            {
+                if (value < 1)
+                {
+                    _Quantity = 1;
+                }
+                else
+                {
+                    _Quantity = value;
+                }
+            }
+        }
+
+        public int QuantityTakeOut
+        {
+            get { return _QuantityTakeOut; }
+            set
+            {
+                if (value < 1)
+                {
+                    _QuantityTakeOut = 1;
+                }
+                else if (value > MaxValue)
+                {
+                    _QuantityTakeOut = MaxValue;
+                }
+                else
+                {
+                    _QuantityTakeOut = value;
+                }
+            }
+        }
+
+        public bool IsTakeOut { get; set; } = false;
         public StockyardStatusViewModel StockyardStatusViewModel { get; set; } = new StockyardStatusViewModel();
         public StockyardStatusViewModel TakeOutStockyardStatusViewModel { get; set; } = new StockyardStatusViewModel();
         public ProductStockingStatusViewModel ProductStockingStatusViewModel { get; set; } = new ProductStockingStatusViewModel();
+        public LastBookingViewModel LastBookingViewModel { get; set; } = new LastBookingViewModel();
         public Warehouse SelectedWarehouse { get; set; }
         public SvenTechCollection<WarehouseStockingFlatStructure> FilteredWarehousesFlatStructure { get; set; }
         public SvenTechCollection<Warehouse> FilteredWarehouses { get; set; }
         public Warehouse SelectedWarehouseTakeOut { get; set; }
-        public int QuantityTakeOut { get; set; }
         public DelegateCommand StoreCommand { get; set; }
         public DelegateCommand TakeOutCommand { get; set; }
-        public int Quantity { get; set; }
 
         #endregion Properties
 
@@ -130,25 +212,25 @@ namespace FinancialAnalysis.Logic.ViewModels
                     stockedProductOnStockyard.Quantity += Quantity;
                     DataContext.Instance.StockedProducts.Update(stockedProductOnStockyard);
 
-                    SaveBookingHistoryEntry(false);
+                    SaveBookingHistoryEntry();
                 }
                 else
                 {
                     var newStockedProduct = new StockedProduct(SelectedProduct, SelectedStockyard.StockyardId, Quantity);
                     DataContext.Instance.StockedProducts.Insert(newStockedProduct);
                     SelectedStockyard.StockedProducts.Add(newStockedProduct);
-                    SaveBookingHistoryEntry(false);
+                    SaveBookingHistoryEntry();
                 }
                 Refresh();
             }
         }
 
-        private void SaveBookingHistoryEntry(bool IsTakeOut)
+        private void SaveBookingHistoryEntry()
         {
             WarehouseStockingHistory WarehouseStockingHistory = new WarehouseStockingHistory(SelectedProduct, SelectedStockyard, Quantity, Globals.ActualUser);
             if (IsTakeOut)
             {
-                WarehouseStockingHistory.Quantity *= -1;
+                WarehouseStockingHistory.Quantity = QuantityTakeOut * (-1);
                 WarehouseStockingHistory.RefStockyardId = SelectedStockyardTakeOut.StockyardId;
             }
             DataContext.Instance.WarehouseStockingHistories.Insert(WarehouseStockingHistory);
@@ -167,13 +249,13 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
 
                     DataContext.Instance.StockedProducts.Delete(stockedProduct.StockedProductId);
-                    SaveBookingHistoryEntry(true);
+                    SaveBookingHistoryEntry();
                 }
                 else
                 {
                     stockedProduct.Quantity -= QuantityTakeOut;
                     DataContext.Instance.StockedProducts.Update(stockedProduct);
-                    SaveBookingHistoryEntry(true);
+                    SaveBookingHistoryEntry();
                 }
                 GetData();
                 Refresh();

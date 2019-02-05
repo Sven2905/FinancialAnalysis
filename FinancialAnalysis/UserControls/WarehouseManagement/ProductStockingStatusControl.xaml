@@ -21,17 +21,15 @@
     </UserControl.Resources>
 
     <Grid>
-        <Border BorderBrush="LightGray" BorderThickness="1">
-            <dxg:TreeListControl  HorizontalAlignment="Left" ShowBorder="False" ItemsSource="{Binding FilteredWarehousesFlatStructure}" MaxWidth="1000" MaxHeight="2000">
-                <dxg:TreeListColumn FieldName="Warehouse.Name" Header="Lager" />
-                <dxg:TreeListColumn FieldName="Stockyard.Name" Header="Lagerplatz" />
-                <dxg:TreeListColumn FieldName="Quantity" Header="Menge" />
-                <dxg:TreeListControl.View>
-                    <dxg:TreeListView KeyFieldName="Id" ParentFieldName="ParentId" ShowHorizontalLines="True" ShowVerticalLines="False" ShowSelectionRectangle="False"
+        <dxg:TreeListControl  HorizontalAlignment="Left" ShowBorder="False" ItemsSource="{Binding FilteredWarehousesFlatStructure}" MaxWidth="1000" MaxHeight="2000">
+            <dxg:TreeListColumn FieldName="Warehouse.Name" Header="Lager" />
+            <dxg:TreeListColumn FieldName="Stockyard.Name" Header="Lagerplatz" />
+            <dxg:TreeListColumn FieldName="Quantity" Header="Menge" />
+            <dxg:TreeListControl.View>
+                <dxg:TreeListView KeyFieldName="Id" ParentFieldName="ParentId" ShowHorizontalLines="True" ShowVerticalLines="False" ShowSelectionRectangle="False"
                                       AllowSorting="False" AutoWidth="True" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False"
                                       EnableSelectedRowAppearance="False" UseEvenRowBackground="True" ShowIndicator="False" />
-                </dxg:TreeListControl.View>
-            </dxg:TreeListControl>
-        </Border>
+            </dxg:TreeListControl.View>
+        </dxg:TreeListControl>
     </Grid>
 </UserControl>

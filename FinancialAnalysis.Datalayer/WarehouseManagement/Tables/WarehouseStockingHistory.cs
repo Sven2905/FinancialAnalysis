@@ -101,6 +101,42 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
         }
 
         /// <summary>
+        ///     Returns all WarehouseStockingHistory records
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<WarehouseStockingHistory> GetLast10(int RefProductId, int RefStockyardId)
+        {
+            var WarehouseStockingHistoryDictionary = new Dictionary<int, WarehouseStockingHistory>();
+            using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+            {
+                var query = con.Query<WarehouseStockingHistory, Product, Stockyard, WarehouseStockingHistory>
+                    ($"dbo.{TableName}_GetLast10 @RefProductId, @RefStockyardId",
+                        (w, p, s) =>
+                        {
+                            if (!WarehouseStockingHistoryDictionary.TryGetValue(w.WarehouseStockingHistoryId, out var WarehouseStockingHistoryEntry))
+                            {
+                                WarehouseStockingHistoryEntry = w;
+                                WarehouseStockingHistoryDictionary.Add(WarehouseStockingHistoryEntry.WarehouseStockingHistoryId, WarehouseStockingHistoryEntry);
+                            }
+
+                            if (p != null)
+                            {
+                                WarehouseStockingHistoryEntry.Product = p;
+                            }
+
+                            if (s != null)
+                            {
+                                WarehouseStockingHistoryEntry.Stockyard = s;
+                            }
+
+                            return WarehouseStockingHistoryEntry;
+                        }, new { RefProductId, RefStockyardId }, splitOn: "WarehouseStockingHistoryId, ProductId, StockyardId")
+                    .AsQueryable();
+                return WarehouseStockingHistoryDictionary.Values.ToList();
+            }
+        }
+
+        /// <summary>
         ///     Inserts the WarehouseStockingHistory item
         /// </summary>
         /// <param name="WarehouseStockingHistory"></param>

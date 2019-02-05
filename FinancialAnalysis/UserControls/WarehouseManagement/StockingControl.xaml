@@ -63,17 +63,18 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <dx:DXTabControl Margin="0,50,0,10">
+            <dx:DXTabControl Margin="0,10,0,10">
                 <dx:DXTabItem Header="Einlagern">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="430" />
                             <ColumnDefinition Width="50" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="50" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                             <RowDefinition Height="30" />
@@ -82,7 +83,7 @@
                         <Label Grid.Column="0" Grid.Row="0" Margin="10" Content="Kriterien: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
 
                         <dxlc:LayoutControl Grid.Column="0" Grid.Row="1" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}"
-                                        ItemSpace="10" VerticalAlignment="Top" Margin="0,0,0,0" Grid.RowSpan="2">
+                                        ItemSpace="10" VerticalAlignment="Top" Margin="0,0,0,0" >
                             <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
                                 <dxlc:LayoutGroup.Header>
                                     <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
@@ -109,7 +110,7 @@
                                     <dxlc:LayoutItem Label="Produkt" FontFamily="Tahoma">
                                         <dxe:ComboBoxEdit Margin="0,3,0,3"
                                                           ItemsSource="{Binding Products}"
-                                                          DisplayMember="Name"
+                                                          DisplayMember="Name" 
                                                           EditValue="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"
                                                           Foreground="#3F729B" />
                                     </dxlc:LayoutItem>
@@ -125,6 +126,11 @@
                                              FontFamily="Tahoma" />
                             </dxlc:LayoutGroup>
                         </dxlc:LayoutControl>
+
+                        <StackPanel Grid.Column="0" Grid.Row="2" Margin="14,10,19,10">
+                            <Label Margin="10" Content="Letzte Buchungen " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
+                            <local:LastBookingsControl DataContext="{Binding LastBookingViewModel}" />
+                        </StackPanel>
 
                         <Grid Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" Margin="10">
                             <Grid.RowDefinitions>
@@ -149,7 +155,7 @@
                         </Grid>
                     </Grid>
                 </dx:DXTabItem>
-                <dx:DXTabItem Header="Auslagern">
+                <dx:DXTabItem Header="Auslagern" IsSelected="{Binding IsTakeOut}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -193,7 +199,7 @@
                                 <dxlc:LayoutGroup>
                                     <dxlc:LayoutItem Label="Lagerplatz" FontFamily="Tahoma">
                                         <dxe:ComboBoxEdit Margin="0,3,0,3"
-                                                          ItemsSource="{Binding SelectedWarehouseTakeOut.Stockyards}"
+                                                          ItemsSource="{Binding SelectedWarehouseTakeOut.Stockyards, UpdateSourceTrigger=PropertyChanged}"
                                                           DisplayMember="Name"
                                                           EditValue="{Binding SelectedStockyardTakeOut, UpdateSourceTrigger=PropertyChanged}"
                                                           Foreground="#3F729B" />
@@ -201,7 +207,8 @@
                                 </dxlc:LayoutGroup>
                                 <dxlc:LayoutGroup>
                                     <dxlc:LayoutItem Label="Menge" FontFamily="Tahoma">
-                                        <dxe:SpinEdit Text="{Binding QuantityTakeOut, UpdateSourceTrigger=PropertyChanged}" Mask="d" MinValue="0" MaxValue="{Binding MaxValue}" FontFamily="Tahoma" />
+                                        <dxe:TextEdit Text="{Binding QuantityTakeOut, UpdateSourceTrigger=PropertyChanged}" 
+                                                      Mask="d" FontFamily="Tahoma" />
                                     </dxlc:LayoutItem>
                                 </dxlc:LayoutGroup>
                                 <dxlc:LayoutGroup>

@@ -20,6 +20,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
         {
             InsertData();
             GetAllData();
+            GetLast10();
             GetById();
             UpdateData();
             DeleteData();
@@ -36,6 +37,35 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                                 $"FROM {TableName} w " +
                                 "LEFT JOIN Products p ON w.RefProductId = p.ProductId " +
                                 "LEFT JOIN Stockyards s on w.RefStockyardId = s.StockyardId " +
+                                "END");
+                using (var connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void GetLast10()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetLast10", DatabaseNames.FinancialAnalysisDB))
+            {
+                var sbSP = new StringBuilder();
+
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetLast10] @RefProductId int, @RefStockyardId int AS BEGIN SET NOCOUNT ON; " +
+                                "SELECT TOP 10 w.*, p.*, s.* " +
+                                $"FROM {TableName} w " +
+                                "LEFT JOIN Products p ON w.RefProductId = p.ProductId " +
+                                "LEFT JOIN Stockyards s on w.RefStockyardId = s.StockyardId " +
+                                "WHERE w.RefProductId = @RefProductId " +
+                                "AND w.RefStockyardId = @RefStockyardId " +
+                                "ORDER BY w.WarehouseStockingHistoryId DESC " +
                                 "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
