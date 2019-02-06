@@ -14,7 +14,7 @@
     xmlns:dxnav="http://schemas.devexpress.com/winfx/2008/xaml/navigation"
     xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/core"
     mc:Ignorable="d"
-    dxc:ThemeManager.ThemeName="Office2016WhiteSE"
+    dxc:ThemeManager.ThemeName="VS2017Light"
     Background="#FAFAFA"
     WindowState="Maximized"
     Title="Financial Analysis"

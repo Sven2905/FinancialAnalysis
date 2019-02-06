@@ -22,6 +22,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
             GetAllData();
             GetById();
             GetByRefStockyardId();
+            GetByRefProductIdAndRefStockyardId();
             UpdateData();
             DeleteData();
         }
@@ -75,9 +76,9 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
             }
         }
 
-        private void GetByRefProductId()
+        private void GetByRefProductIdAndRefStockyardId()
         {
-            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetByRefProductId", DatabaseNames.FinancialAnalysisDB))
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetByRefProductIdAndRefStockyardId", DatabaseNames.FinancialAnalysisDB))
             {
                 var sbSP = new StringBuilder();
 

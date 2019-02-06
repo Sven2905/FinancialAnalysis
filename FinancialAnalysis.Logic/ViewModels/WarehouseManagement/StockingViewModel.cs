@@ -106,7 +106,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _Stockyard = value;
                 if (value != null)
                 {
-                    StockyardStatusViewModel.Stockyard = DataContext.Instance.Stockyards.GetStockById(value.StockyardId);
+                    StockyardStatusViewModel.Stockyard = DataContext.Instance.Stockyards.GetStockById(SelectedStockyard.StockyardId);
                 }
                 else
                 {
@@ -200,14 +200,14 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             ProductStockingStatusViewModel.Refresh();
             FilteredWarehouses = DataContext.Instance.Warehouses.GetByProductId(_SelectedProduct.ProductId).ToSvenTechCollection();
-            TakeOutStockyardStatusViewModel.Stockyard = SelectedStockyardTakeOut;
         }
 
         private void StoreSelectedProduct()
         {
             if (SelectedStockyard != null && SelectedProduct != null && Quantity > 0)
             {
-                var stockedProductOnStockyard = SelectedStockyard.StockedProducts.SingleOrDefault(x => x.RefProductId == SelectedProduct.ProductId);
+                var stockedProductOnStockyard = DataContext.Instance.StockedProducts.GetByRefProductIdAndRefStockyardId(SelectedProduct.ProductId, SelectedStockyard.StockyardId);
+                //var stockedProductOnStockyard = SelectedStockyard.StockedProducts.SingleOrDefault(x => x.RefProductId == SelectedProduct.ProductId);
 
                 if (stockedProductOnStockyard != null)
                 {
@@ -220,10 +220,14 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     var newStockedProduct = new StockedProduct(SelectedProduct, SelectedStockyard.StockyardId, Quantity);
                     DataContext.Instance.StockedProducts.Insert(newStockedProduct);
-                    SelectedStockyard.StockedProducts.Add(newStockedProduct);
                     SaveBookingHistoryEntry();
                 }
                 Refresh();
+                LastBookingViewModel.LoadData();
+                StockyardStatusViewModel.Stockyard = null;
+                StockyardStatusViewModel.Stockyard = DataContext.Instance.Stockyards.GetStockById(SelectedStockyard.StockyardId);
+                ProductStockingStatusViewModel.Product = null;
+                ProductStockingStatusViewModel.Product = _SelectedProduct;
             }
         }
 
@@ -249,7 +253,6 @@ namespace FinancialAnalysis.Logic.ViewModels
 
                 if (stockedProduct.Quantity == QuantityTakeOut)
                 {
-
                     DataContext.Instance.StockedProducts.Delete(stockedProduct.StockedProductId);
                     SaveBookingHistoryEntry();
                 }
@@ -260,9 +263,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                     SaveBookingHistoryEntry();
                 }
                 GetData();
-                Refresh();
 
                 SelectedProduct = Products.SingleOrDefault(x => x.ProductId == lastProductid);
+                Refresh();
 
                 SelectedWarehouseTakeOut = FilteredWarehouses.SingleOrDefault(x => x.WarehouseId == lastWarehouseId);
 
@@ -270,6 +273,11 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     SelectedStockyardTakeOut = SelectedWarehouseTakeOut.Stockyards.SingleOrDefault(x => x.StockyardId == lastStockyardId);
                 }
+
+                TakeOutStockyardStatusViewModel.Stockyard = null;
+                TakeOutStockyardStatusViewModel.Stockyard = DataContext.Instance.Stockyards.GetStockById(SelectedStockyardTakeOut.StockyardId);
+                ProductStockingStatusViewModel.Product = null;
+                ProductStockingStatusViewModel.Product = _SelectedProduct;
             }
         }
 

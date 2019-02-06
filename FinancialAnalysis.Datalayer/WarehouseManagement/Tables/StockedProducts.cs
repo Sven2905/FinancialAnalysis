@@ -106,9 +106,9 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
         }
 
         /// <summary>
-        ///     Returns RefProductId by Id
+        ///     Returns GetByRefProductIdAndRefStockyardId by Id
         /// </summary>
-        /// <param name="refProductId"></param>
+        /// <param name="GetByRefProductIdAndRefStockyardId"></param>
         /// <returns></returns>
         public StockedProduct GetByRefProductIdAndRefStockyardId(int refProductId, int refStockyardId)
         {

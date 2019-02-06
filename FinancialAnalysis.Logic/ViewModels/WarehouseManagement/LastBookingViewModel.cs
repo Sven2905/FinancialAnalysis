@@ -27,7 +27,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
-
         public int RefProductId
         {
             get { return _RefProductId; }

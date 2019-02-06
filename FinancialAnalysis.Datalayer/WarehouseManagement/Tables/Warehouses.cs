@@ -207,7 +207,10 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
 
                             if (s != null)
                             {
-                                warehouseEntry.Stockyards.Add(s);
+                                if (warehouseEntry.Stockyards.All(x => x.StockyardId != s.StockyardId))
+                                {
+                                    warehouseEntry.Stockyards.Add(s);
+                                }
                             }
 
                             if (sp != null)
@@ -247,7 +250,10 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
 
                             if (s != null)
                             {
-                                warehouseEntry.Stockyards.Add(s);
+                                if (warehouseEntry.Stockyards.All(x => x.StockyardId != s.StockyardId))
+                                {
+                                    warehouseEntry.Stockyards.Add(s);
+                                }
                             }
 
                             if (sp != null)

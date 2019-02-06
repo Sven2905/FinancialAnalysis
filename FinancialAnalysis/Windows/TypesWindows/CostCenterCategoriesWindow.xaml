@@ -13,7 +13,7 @@
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
     mc:Ignorable="d"
-    dx:ThemeManager.ThemeName="Office2016WhiteSE"
+    dx:ThemeManager.ThemeName="VS2017Light"
     Title="Kostenstellenkategorien" Height="1000" Width="1080" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <ViewModels:CostCenterCategoryViewModel />
