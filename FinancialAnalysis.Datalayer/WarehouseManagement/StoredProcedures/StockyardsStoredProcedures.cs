@@ -20,6 +20,7 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
         {
             InsertData();
             GetAllData();
+            GetStockById();
             GetById();
             GetByRefWarehouseId();
             UpdateData();
@@ -62,6 +63,33 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                     "SELECT s.*, sp.* " +
                     $"FROM {TableName} s " +
                     "LEFT JOIN StockedProducts sp ON s.StockyardId = sp.RefStockyardId " +
+                    "WHERE StockyardId = @StockyardId END");
+                using (var connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void GetStockById()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetStockById", DatabaseNames.FinancialAnalysisDB))
+            {
+                var sbSP = new StringBuilder();
+
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_GetStockById] @StockyardId int AS BEGIN SET NOCOUNT ON; " +
+                    "SELECT s.*, sp.*, p.* " +
+                    $"FROM {TableName} s " +
+                    "LEFT JOIN StockedProducts sp ON s.StockyardId = sp.RefStockyardId " +
+                    "LEFT JOIN Products p ON sp.RefProductId = p.ProductId " +
                     "WHERE StockyardId = @StockyardId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

@@ -103,6 +103,37 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
             }
         }
 
+        public IEnumerable<Warehouse> GetAllWithoutStock()
+        {
+            var warehouseDictionary = new Dictionary<int, Warehouse>();
+            using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+            {
+                var query = con.Query<Warehouse, Stockyard, Warehouse>
+                    ($"dbo.{TableName}_GetAllWithoutStock",
+                        (w, s) =>
+                        {
+                            if (!warehouseDictionary.TryGetValue(w.WarehouseId, out var warehouseEntry))
+                            {
+                                warehouseEntry = w;
+                                warehouseDictionary.Add(warehouseEntry.WarehouseId, warehouseEntry);
+                                warehouseEntry.Stockyards = new SvenTechCollection<Stockyard>();
+                            }
+
+                            if (s != null)
+                            {
+                                if (warehouseEntry.Stockyards.All(x => x.StockyardId != s.StockyardId))
+                                {
+                                    warehouseEntry.Stockyards.Add(s);
+                                }
+                            }
+
+                            return warehouseEntry;
+                        }, splitOn: "WarehouseId, StockyardId")
+                    .AsQueryable();
+                return warehouseDictionary.Values.ToList();
+            }
+        }
+
         /// <summary>
         ///     Inserts the Warehouse item
         /// </summary>
@@ -176,7 +207,10 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
 
                             if (s != null)
                             {
-                                warehouseEntry.Stockyards.Add(s);
+                                if (warehouseEntry.Stockyards.All(x => x.StockyardId != s.StockyardId))
+                                {
+                                    warehouseEntry.Stockyards.Add(s);
+                                }
                             }
 
                             if (sp != null)
@@ -190,6 +224,55 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                         }, new { WarehouseId = id }, splitOn: "WarehouseId, StockyardId, StockedProductId, ProductId")
                     .AsQueryable();
                 return query.FirstOrDefault();
+            }
+        }
+
+        /// <summary>
+        ///     Returns Warehouses by ProductId
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IEnumerable<Warehouse> GetByProductId(int ProductId)
+        {
+            var warehouseDictionary = new Dictionary<int, Warehouse>();
+            using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+            {
+                var query = con.Query<Warehouse, Stockyard, StockedProduct, Product, Warehouse>
+                    ($"dbo.{TableName}_GetByProductId @ProductId",
+                        (w, s, sp, p) =>
+                        {
+                            if (!warehouseDictionary.TryGetValue(w.WarehouseId, out var warehouseEntry))
+                            {
+                                warehouseEntry = w;
+                                warehouseEntry.Stockyards = new SvenTechCollection<Stockyard>();
+                                warehouseDictionary.Add(warehouseEntry.WarehouseId, warehouseEntry);
+                            }
+
+                            if (s != null)
+                            {
+                                if (warehouseEntry.Stockyards.All(x => x.StockyardId != s.StockyardId))
+                                {
+                                    warehouseEntry.Stockyards.Add(s);
+                                }
+                            }
+
+                            if (sp != null)
+                            {
+                                sp.Product = p;
+                                warehouseEntry.Stockyards.Single(x => s != null && x.StockyardId == s.StockyardId)
+                                    .StockedProducts.Add(sp);
+                            }
+
+                            return w;
+                        }, new { ProductId }, splitOn: "WarehouseId, StockyardId, StockedProductId, ProductId")
+                    .AsQueryable();
+
+                foreach (var item in warehouseDictionary.Values)
+                {
+                    item.Stockyards = item.Stockyards.OrderBy(x => x.Name).ToSvenTechCollection();
+                }
+
+                return warehouseDictionary.Values.ToList();
             }
         }
 

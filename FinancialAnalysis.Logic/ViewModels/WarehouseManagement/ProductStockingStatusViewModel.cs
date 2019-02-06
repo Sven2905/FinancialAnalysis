@@ -17,7 +17,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public ProductStockingStatusViewModel()
         {
-            Refresh();
+            
         }
 
         #endregion Constructor
@@ -36,7 +36,14 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 _Product = value;
+                if (_Product != null)
+                {
                 FilteredWarehousesFlatStructure = CreateFlatStructure();
+                }
+                else
+                {
+                    FilteredWarehousesFlatStructure = null;
+                }
             }
         }
 
@@ -49,15 +56,12 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public void Refresh()
         {
-            Warehouses = DataContext.Instance.Warehouses.GetAll().ToSvenTechCollection();
+            Warehouses = DataContext.Instance.Warehouses.GetByProductId(Product.ProductId).ToSvenTechCollection();
         }
 
         private SvenTechCollection<WarehouseStockingFlatStructure> CreateFlatStructure()
         {
-            if (Product == null)
-            {
-                return null;
-            }
+            Refresh();
 
             SvenTechCollection<WarehouseStockingFlatStructure> filteredList = new SvenTechCollection<WarehouseStockingFlatStructure>();
             int key = 1;

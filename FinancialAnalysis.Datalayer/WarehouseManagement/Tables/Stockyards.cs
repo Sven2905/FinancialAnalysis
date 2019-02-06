@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
+using FinancialAnalysis.Models.ProductManagement;
 using FinancialAnalysis.Models.WarehouseManagement;
 using Serilog;
 
@@ -110,6 +111,41 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
 
                             return stockyardEntry;
                         }, new {StockyardId = id}, splitOn: "StockyardId, StockedProductId")
+                    .AsQueryable();
+                return stockyardDictionary.Values.FirstOrDefault();
+            }
+        }
+
+        /// <summary>
+        ///     Returns Stockyard with stock by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Stockyard GetStockById(int id)
+        {
+            var stockyardDictionary = new Dictionary<int, Stockyard>();
+            using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+            {
+                var query = con.Query<Stockyard, StockedProduct, Product, Stockyard>
+                    ($"dbo.{TableName}_GetStockById @StockyardId",
+                        (s, sp, p) =>
+                        {
+                            if (!stockyardDictionary.TryGetValue(s.StockyardId, out var stockyardEntry))
+                                if (stockyardEntry == null)
+                                {
+                                    stockyardEntry = s;
+                                    stockyardDictionary.Add(stockyardEntry.StockyardId, stockyardEntry);
+                                }
+
+                            if (sp != null)
+                            {
+                                if (p != null)
+                                    sp.Product = p;
+                                stockyardEntry.StockedProducts.Add(sp);
+                            }
+
+                            return stockyardEntry;
+                        }, new { StockyardId = id }, splitOn: "StockyardId, StockedProductId, ProductId")
                     .AsQueryable();
                 return stockyardDictionary.Values.FirstOrDefault();
             }

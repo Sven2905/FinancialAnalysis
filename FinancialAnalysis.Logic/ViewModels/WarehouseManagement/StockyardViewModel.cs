@@ -50,27 +50,13 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void LoadAllWarehouses()
         {
             var allWarehouses = new SvenTechCollection<Warehouse>();
-            try
-            {
-                Warehouses = DataContext.Instance.Warehouses.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            Warehouses = DataContext.Instance.Warehouses.GetAllWithoutStock().ToSvenTechCollection();
         }
 
         private SvenTechCollection<Stockyard> LoadStockyards(int WarehouseId)
         {
             var allStockyards = new SvenTechCollection<Stockyard>();
-            try
-            {
-                allStockyards = DataContext.Instance.Stockyards.GetByRefWarehouseId(WarehouseId).ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            allStockyards = DataContext.Instance.Stockyards.GetByRefWarehouseId(WarehouseId).ToSvenTechCollection();
 
             return allStockyards;
         }
@@ -98,34 +84,20 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            try
-            {
-                DataContext.Instance.Stockyards.Delete(SelectedStockyard.StockyardId);
-                SelectedWarehouse.Stockyards.Remove(SelectedStockyard);
-                SelectedStockyard = null;
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            DataContext.Instance.Stockyards.Delete(SelectedStockyard.StockyardId);
+            SelectedWarehouse.Stockyards.Remove(SelectedStockyard);
+            SelectedStockyard = null;
         }
 
         private void SaveStockyard()
         {
-            try
+            if (SelectedStockyard.StockyardId != 0)
             {
-                if (SelectedStockyard.StockyardId != 0)
-                {
-                    DataContext.Instance.Stockyards.Update(SelectedStockyard);
-                }
-                else
-                {
-                    DataContext.Instance.Stockyards.Insert(SelectedStockyard);
-                }
+                DataContext.Instance.Stockyards.Update(SelectedStockyard);
             }
-            catch (Exception ex)
+            else
             {
-                // TODO Exception
+                DataContext.Instance.Stockyards.Insert(SelectedStockyard);
             }
         }
 
@@ -202,7 +174,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         #region Fields
 
         private Stockyard _SelectedStockyard;
- 
+
         #endregion Fields
 
         #region Properties
@@ -223,11 +195,16 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 _SelectedStockyard = value;
-                StockyardStatusViewModel.Stockyard = _SelectedStockyard;
+                if (value != null)
+                {
+                    StockyardStatusViewModel.Stockyard = DataContext.Instance.Stockyards.GetStockById(_SelectedStockyard.StockyardId);
+                }
+                else
+                {
+                    StockyardStatusViewModel.Stockyard = null;
+                }
             }
         }
-
-
 
         #region For stockyard generation
 
