@@ -26,6 +26,7 @@
             <Setter Property="LabelStyle" Value="{StaticResource labelStyle}" />
             <Setter Property="Foreground" Value="#3f729b" />
         </Style>
+        <local:NullToIsEnabledConverter x:Key="NullToIsEnabledConverter" />
         <local:NullToVisConverter x:Key="NullToVisConverter" />
     </UserControl.Resources>
 
@@ -189,7 +190,7 @@
                                 </dxlc:LayoutGroup>
                                 <dxlc:LayoutGroup>
                                     <dxlc:LayoutItem Label="Lager" FontFamily="Tahoma">
-                                        <dxe:ComboBoxEdit Margin="0,3,0,3"
+                                        <dxe:ComboBoxEdit Margin="0,3,0,3" IsEnabled="{Binding SelectedProduct, Converter={StaticResource NullToIsEnabledConverter}}"
                                                       ItemsSource="{Binding FilteredWarehouses}"
                                                       DisplayMember="Name"
                                                       EditValue="{Binding SelectedWarehouseTakeOut, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -198,7 +199,7 @@
                                 </dxlc:LayoutGroup>
                                 <dxlc:LayoutGroup>
                                     <dxlc:LayoutItem Label="Lagerplatz" FontFamily="Tahoma">
-                                        <dxe:ComboBoxEdit Margin="0,3,0,3"
+                                        <dxe:ComboBoxEdit Margin="0,3,0,3" IsEnabled="{Binding SelectedWarehouseTakeOut, Converter={StaticResource NullToIsEnabledConverter}}"
                                                           ItemsSource="{Binding SelectedWarehouseTakeOut.Stockyards, UpdateSourceTrigger=PropertyChanged}"
                                                           DisplayMember="Name"
                                                           EditValue="{Binding SelectedStockyardTakeOut, UpdateSourceTrigger=PropertyChanged}"

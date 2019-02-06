@@ -92,15 +92,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     var tempStockedProduct = SelectedStockyardTakeOut.StockedProducts.SingleOrDefault(x => x.RefProductId == SelectedProduct.ProductId);
                     if (tempStockedProduct != null)
-                    {
                         return tempStockedProduct.Quantity;
-                    }
-                    return 0;
                 }
-                else
-                {
-                    return 0;
-                }
+                return 0;
             }
         }
 
@@ -110,7 +104,15 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 _Stockyard = value;
-                StockyardStatusViewModel.Stockyard = value;
+                if (value != null)
+                {
+                    StockyardStatusViewModel.Stockyard = DataContext.Instance.Stockyards.GetStockById(value.StockyardId);
+                }
+                else
+                {
+                    StockyardStatusViewModel.Stockyard = null;
+                }
+
                 if (value != null && SelectedProduct != null)
                 {
                     LastBookingViewModel.RefProductId = SelectedProduct.ProductId;
@@ -127,7 +129,8 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _SelectedStockyardTakeOut = value;
                 if (_SelectedStockyardTakeOut != null)
                 {
-                    TakeOutStockyardStatusViewModel.Stockyard = Warehouses.Single(x => x.WarehouseId == _SelectedStockyardTakeOut.RefWarehouseId).Stockyards.Single(x => x.StockyardId == _SelectedStockyardTakeOut.StockyardId);
+                    //TakeOutStockyardStatusViewModel.Stockyard = Warehouses.Single(x => x.WarehouseId == _SelectedStockyardTakeOut.RefWarehouseId).Stockyards.Single(x => x.StockyardId == _SelectedStockyardTakeOut.StockyardId);
+                    TakeOutStockyardStatusViewModel.Stockyard = DataContext.Instance.Stockyards.GetStockById(value.StockyardId);
                 }
                 else
                 {
@@ -183,7 +186,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public ProductStockingStatusViewModel ProductStockingStatusViewModel { get; set; } = new ProductStockingStatusViewModel();
         public LastBookingViewModel LastBookingViewModel { get; set; } = new LastBookingViewModel();
         public Warehouse SelectedWarehouse { get; set; }
-        public SvenTechCollection<WarehouseStockingFlatStructure> FilteredWarehousesFlatStructure { get; set; }
+        //public SvenTechCollection<WarehouseStockingFlatStructure> FilteredWarehousesFlatStructure { get; set; }
         public SvenTechCollection<Warehouse> FilteredWarehouses { get; set; }
         public Warehouse SelectedWarehouseTakeOut { get; set; }
         public DelegateCommand StoreCommand { get; set; }
@@ -196,9 +199,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void Refresh()
         {
             ProductStockingStatusViewModel.Refresh();
-            FilteredWarehouses = CreateFilteredWarehouses();
+            FilteredWarehouses = DataContext.Instance.Warehouses.GetByProductId(_SelectedProduct.ProductId).ToSvenTechCollection();
             TakeOutStockyardStatusViewModel.Stockyard = SelectedStockyardTakeOut;
-            StockyardStatusViewModel.Stockyard = SelectedStockyard;
         }
 
         private void StoreSelectedProduct()
@@ -274,56 +276,56 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void GetData()
         {
             Products = DataContext.Instance.Products.GetAll().ToSvenTechCollection();
-            Warehouses = DataContext.Instance.Warehouses.GetAll().ToSvenTechCollection();
+            Warehouses = DataContext.Instance.Warehouses.GetAllWithoutStock().ToSvenTechCollection();
         }
 
 
 
-        private SvenTechCollection<Warehouse> CreateFilteredWarehouses()
-        {
-            if (SelectedProduct == null)
-            {
-                return null;
-            }
+        //private SvenTechCollection<Warehouse> CreateFilteredWarehouses()
+        //{
+        //    if (SelectedProduct == null)
+        //    {
+        //        return null;
+        //    }
 
-            SvenTechCollection<Warehouse> filteredWarehouses = new SvenTechCollection<Warehouse>();
+        //    SvenTechCollection<Warehouse> filteredWarehouses = new SvenTechCollection<Warehouse>();
 
-            for (int i = 0; i < Warehouses.Count; i++)
-            {
-                for (int j = 0; j < Warehouses[i].Stockyards.Count; j++)
-                {
-                    for (int k = 0; k < Warehouses[i].Stockyards[j].StockedProducts.Count; k++)
-                    {
-                        if (Warehouses[i].Stockyards[j].StockedProducts[k].RefProductId == SelectedProduct.ProductId)
-                        {
-                            if (filteredWarehouses.SingleOrDefault(x => x.WarehouseId == Warehouses[i].WarehouseId) == null)
-                            {
-                                var newWarehouse = Warehouses[i].Clone();
-                                var newStockyard = Warehouses[i].Stockyards[j].Clone();
-                                newWarehouse.Stockyards = new SvenTechCollection<Stockyard>();
-                                newStockyard.StockedProducts = new List<StockedProduct>();
-                                newStockyard.StockedProducts.Add(Warehouses[i].Stockyards[j].StockedProducts[k].Clone());
-                                newWarehouse.Stockyards.Add(newStockyard);
-                                filteredWarehouses.Add(newWarehouse);
-                            }
-                            else
-                            {
-                                var warehouse = filteredWarehouses.Single(x => x.WarehouseId == Warehouses[i].WarehouseId);
-                                Stockyard stockyard = warehouse.Stockyards.SingleOrDefault(x => x.StockyardId == Warehouses[i].Stockyards[j].StockyardId);
-                                if (stockyard == null)
-                                {
-                                    stockyard = Warehouses[i].Stockyards[j].Clone();
-                                    stockyard.StockedProducts = new List<StockedProduct>();
-                                    warehouse.Stockyards.Add(stockyard);
-                                }
-                                stockyard.StockedProducts.Add(Warehouses[i].Stockyards[j].StockedProducts[k].Clone());
-                            }
-                        }
-                    }
-                }
-            }
-            return filteredWarehouses;
-        }
+        //    for (int i = 0; i < Warehouses.Count; i++)
+        //    {
+        //        for (int j = 0; j < Warehouses[i].Stockyards.Count; j++)
+        //        {
+        //            for (int k = 0; k < Warehouses[i].Stockyards[j].StockedProducts.Count; k++)
+        //            {
+        //                if (Warehouses[i].Stockyards[j].StockedProducts[k].RefProductId == SelectedProduct.ProductId)
+        //                {
+        //                    if (filteredWarehouses.SingleOrDefault(x => x.WarehouseId == Warehouses[i].WarehouseId) == null)
+        //                    {
+        //                        var newWarehouse = Warehouses[i].Clone();
+        //                        var newStockyard = Warehouses[i].Stockyards[j].Clone();
+        //                        newWarehouse.Stockyards = new SvenTechCollection<Stockyard>();
+        //                        newStockyard.StockedProducts = new List<StockedProduct>();
+        //                        newStockyard.StockedProducts.Add(Warehouses[i].Stockyards[j].StockedProducts[k].Clone());
+        //                        newWarehouse.Stockyards.Add(newStockyard);
+        //                        filteredWarehouses.Add(newWarehouse);
+        //                    }
+        //                    else
+        //                    {
+        //                        var warehouse = filteredWarehouses.Single(x => x.WarehouseId == Warehouses[i].WarehouseId);
+        //                        Stockyard stockyard = warehouse.Stockyards.SingleOrDefault(x => x.StockyardId == Warehouses[i].Stockyards[j].StockyardId);
+        //                        if (stockyard == null)
+        //                        {
+        //                            stockyard = Warehouses[i].Stockyards[j].Clone();
+        //                            stockyard.StockedProducts = new List<StockedProduct>();
+        //                            warehouse.Stockyards.Add(stockyard);
+        //                        }
+        //                        stockyard.StockedProducts.Add(Warehouses[i].Stockyards[j].StockedProducts[k].Clone());
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return filteredWarehouses;
+        //}
 
         #endregion Methods
     }

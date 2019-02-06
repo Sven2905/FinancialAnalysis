@@ -18,11 +18,13 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
         /// </summary>
         public void CheckAndCreateProcedures()
         {
-            InsertData();
             GetAllData();
+            GetAllWithoutStock();
             GetById();
+            InsertData();
             UpdateData();
             DeleteData();
+            GetByProductId();
         }
 
         private void GetAllData()
@@ -37,6 +39,31 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                                 "LEFT JOIN Stockyards s on w.WarehouseId = s.RefWarehouseId " +
                                 "LEFT JOIN StockedProducts sp ON s.StockyardId = sp.RefStockyardId " +
                                 "LEFT JOIN Products p ON sp.RefProductId = p.ProductId " +
+                                "END");
+                using (var connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void GetAllWithoutStock()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetAllWithoutStock", DatabaseNames.FinancialAnalysisDB))
+            {
+                var sbSP = new StringBuilder();
+
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAllWithoutStock] AS BEGIN SET NOCOUNT ON; " +
+                                "SELECT w.*, s.* " +
+                                $"FROM {TableName} w " +
+                                "LEFT JOIN Stockyards s on w.WarehouseId = s.RefWarehouseId " +
                                 "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -91,6 +118,36 @@ namespace FinancialAnalysis.Datalayer.WarehouseManagement
                     "LEFT JOIN StockedProducts sp ON s.StockyardId = sp.RefStockyardId " +
                     "LEFT JOIN Products p ON sp.RefProductId = p.ProductId " +
                     "WHERE WarehouseId = @WarehouseId END");
+                using (var connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void GetByProductId()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetByProductId", DatabaseNames.FinancialAnalysisDB))
+            {
+                var sbSP = new StringBuilder();
+
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_GetByProductId] @ProductId int AS BEGIN SET NOCOUNT ON; " +
+                    "SELECT w.*, s.*, sp.*, p.* " +
+                    $"FROM {TableName} w " +
+                    "LEFT JOIN Stockyards s on w.WarehouseId = s.RefWarehouseId " +
+                    "LEFT JOIN StockedProducts sp ON s.StockyardId = sp.RefStockyardId " +
+                    "LEFT JOIN Products p ON sp.RefProductId = p.ProductId " +
+                    "WHERE p.ProductId = @ProductId " +
+                    "ORDER BY w.Name, s.Name " +
+                    "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
