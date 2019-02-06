@@ -32,13 +32,13 @@
                 <dxg:GridColumn.CellTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Path Data="{Binding RowData.Row.IconData}" Fill="{Binding RowData.Row.IconColor}" Width="15" Height="15" Stretch="Fill" Margin="10,0" />
+                            <Path Data="{Binding RowData.Row.IconData}" Fill="{Binding RowData.Row.IconColor}" Width="20" Height="15" Stretch="Fill" Margin="10,0" />
                             <Label Content="{Binding RowData.Row.Quantity}" />
                         </StackPanel>
                     </DataTemplate>
                 </dxg:GridColumn.CellTemplate>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Date" Header="Datum"  />
+            <dxg:GridColumn FieldName="Date" Header="Datum" />
         </dxg:GridControl>
     </Grid>
 </UserControl>

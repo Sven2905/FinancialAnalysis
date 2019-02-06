@@ -1,8 +1,8 @@
-﻿using System;
-using System.Windows.Media;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.General;
+using System;
+using System.Windows.Media;
 using Utilities;
 
 namespace FinancialAnalysis.Models.SalesManagement
@@ -24,8 +24,8 @@ namespace FinancialAnalysis.Models.SalesManagement
 
         public SvenTechCollection<Shipment> Shipments { get; set; } = new SvenTechCollection<Shipment>();
         public SvenTechCollection<Invoice> Invoices { get; set; } = new SvenTechCollection<Invoice>();
-        public Color InvoiceStatusColor { get; set; } = SvenTechColors.Green;
-        public Color ShippingStatusColor { get; set; } = SvenTechColors.Red;
+        public Color InvoiceStatusColor { get; set; } = SvenTechColors.ColorGreen;
+        public Color ShippingStatusColor { get; set; } = SvenTechColors.ColorRed;
         public bool IsClosed { get; set; }
     }
 }

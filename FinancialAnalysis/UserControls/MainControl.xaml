@@ -34,6 +34,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Margin="0,0,0,0" Background="#3f729b">
+            <!--3f729b-->
             <!--<dx:SimpleButton Glyph="{dx:SvgImageSource Uri=/Images/light/analytics.svg}" Width="80" HorizontalAlignment="Left" Focusable="False" />-->
             <TextBlock Text="Financial Analysis" VerticalAlignment="Center" Foreground="White" FontSize="36"
                        FontFamily="/Resources/Fonts/trajan-pro-3.otf#Trajan Pro 3"

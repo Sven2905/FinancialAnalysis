@@ -1,9 +1,9 @@
-﻿using System;
-using System.Windows.Media;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.General;
 using FinancialAnalysis.Models.ProductManagement;
+using System;
+using System.Windows.Media;
 
 namespace FinancialAnalysis.Models.WarehouseManagement
 {
@@ -14,7 +14,6 @@ namespace FinancialAnalysis.Models.WarehouseManagement
 
         public WarehouseStockingHistory()
         {
-
         }
 
         public WarehouseStockingHistory(Product product, Stockyard stockyard, int quantity, User user)
@@ -53,11 +52,11 @@ namespace FinancialAnalysis.Models.WarehouseManagement
             {
                 if (Quantity >= 0)
                 {
-                    return new SolidColorBrush(SvenTechColors.Green); 
+                    return new SolidColorBrush(SvenTechColors.ColorLightGreen);
                 }
                 else
                 {
-                    return new SolidColorBrush(SvenTechColors.Red);
+                    return new SolidColorBrush(SvenTechColors.ColorLightRed);
                 }
             }
         }

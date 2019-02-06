@@ -21,7 +21,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <dxg:TreeListControl  HorizontalAlignment="Left" ShowBorder="False" ItemsSource="{Binding FilteredWarehousesFlatStructure}" MaxWidth="1000" MaxHeight="2000">
+        <dxg:TreeListControl  HorizontalAlignment="Left" ShowBorder="True" ItemsSource="{Binding FilteredWarehousesFlatStructure}" MaxWidth="1000" MaxHeight="2000">
             <dxg:TreeListColumn FieldName="Warehouse.Name" Header="Lager" />
             <dxg:TreeListColumn FieldName="Stockyard.Name" Header="Lagerplatz" />
             <dxg:TreeListColumn FieldName="Quantity" Header="Menge" />
