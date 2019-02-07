@@ -13,7 +13,7 @@
     xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
     xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
     mc:Ignorable="d"
-    dx:ThemeManager.ThemeName="VS2017Light"
+    dx:ThemeManager.ThemeName="Office2016WhiteSE"
     d:DesignHeight="1080" d:DesignWidth="1920">
 
     <UserControl.Resources>
@@ -31,7 +31,7 @@
         <ViewModels:CreditorDebitorViewModel />
     </UserControl.DataContext>
 
-    <Grid >
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -56,120 +56,124 @@
             </dxwui:PageAdornerControl.HeaderTemplate>
         </dxwui:PageAdornerControl>
 
-        <Grid Grid.Row="1" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="30" />
-            </Grid.RowDefinitions>
+        <dx:DXTabControl Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="0,10,0,10">
+            <dx:DXTabItem Header="Kreditor / Debitor">
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0" Grid.RowSpan="3" Margin="15,0,10,0">
+                    <StackPanel Grid.Row="0" Grid.RowSpan="3" Margin="15,0,10,0">
 
-                <accounting:CompanyControl Grid.Row="1"
+                        <accounting:CompanyControl Grid.Row="1"
                                            DataContext="{Binding CompanyViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                            Margin="0,0" />
 
-                <StackPanel Grid.Row="3" Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left"
+                        <StackPanel Grid.Row="3" Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left"
                             Margin="8,0">
-                    <dx:SimpleButton Height="25" Width="100" Margin="5,0,5,0" Padding="10,0,10,0" Content="Neu"
+                            <dx:SimpleButton Height="25" Width="100" Margin="5,0,5,0" Padding="10,0,10,0" Content="Neu"
                                      Command="{Binding NewCommand}" FontFamily="Tahoma" />
-                    <dx:SimpleButton Height="25" Width="100" Margin="5,0,5,0" Padding="10,0,10,0" Content="Speichern"
+                            <dx:SimpleButton Height="25" Width="100" Margin="5,0,5,0" Padding="10,0,10,0" Content="Speichern"
                                      Command="{Binding SaveCommand}" FontFamily="Tahoma" />
-                    <dx:SimpleButton Height="25" Width="100" Margin="5,0,5,0" Padding="10,0,10,0" Content="Löschen"
+                            <dx:SimpleButton Height="25" Width="100" Margin="5,0,5,0" Padding="10,0,10,0" Content="Löschen"
                                      Command="{Binding DeleteCommand}" FontFamily="Tahoma" />
-                </StackPanel>
-            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
 
-            <Grid Grid.Column="1" Grid.RowSpan="3">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+                    <Grid Grid.Column="1" Grid.RowSpan="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
-                <StackPanel Orientation="Horizontal">
-                <TextBlock Grid.Row="0" Text="Kreditoren:" Foreground="#3f729b" Margin="10,0,5,0"
-                           FontSize="16" FontFamily="Tahoma" VerticalAlignment="Center"/>
-                    <dxe:TextEdit Margin="5,0"  Text="{Binding CreditorFilterText, UpdateSourceTrigger=PropertyChanged}" NullText="Filter" FontSize="16" VerticalAlignment="Center" Width="150"/>
-                </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Grid.Row="0" Text="Kreditoren:" Foreground="#3f729b" Margin="10,0,5,0"
+                           FontSize="16" FontFamily="Tahoma" VerticalAlignment="Center" />
+                            <dxe:TextEdit Margin="5,0"  Text="{Binding CreditorFilterText, UpdateSourceTrigger=PropertyChanged}" NullText="Filter" FontSize="16" VerticalAlignment="Center" Width="150" />
+                        </StackPanel>
 
-                <dxe:ListBoxEdit Grid.Row="1"
+                        <dxe:ListBoxEdit Grid.Row="1"
                                  ItemsSource="{Binding FilteredCreditors, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  BorderThickness="1"
                                  BorderBrush="#DADADA" Padding="0" Margin="10" FontSize="14"
                                  SelectedItem="{Binding SelectedCreditor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <dxe:ListBoxEdit.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel />
-                        </ItemsPanelTemplate>
-                    </dxe:ListBoxEdit.ItemsPanel>
-                    <dxe:ListBoxEdit.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <StackPanel Orientation="Horizontal" Grid.Row="0">
-                                    <TextBlock FontSize="16" Foreground="#3f729b"
+                            <dxe:ListBoxEdit.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </dxe:ListBoxEdit.ItemsPanel>
+                            <dxe:ListBoxEdit.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                            <TextBlock FontSize="16" Foreground="#3f729b"
                                                Text="{Binding CostAccount.AccountNumber}" Margin="5,0,0,0" />
-                                    <TextBlock FontSize="16" Foreground="#3f729b" Text=" - " Margin="5,0,0,0" />
-                                    <TextBlock FontSize="16" Foreground="#3f729b" Text="{Binding Client.Name}"
+                                            <TextBlock FontSize="16" Foreground="#3f729b" Text=" - " Margin="5,0,0,0" />
+                                            <TextBlock FontSize="16" Foreground="#3f729b" Text="{Binding Client.Name}"
                                                Margin="5,0,0,0" />
-                                </StackPanel>
-                                <StackPanel Margin="30,0,0,0" Grid.Row="1">
-                                    <TextBlock Foreground="Gray" Text="{Binding Client.Address}" />
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </dxe:ListBoxEdit.ItemTemplate>
-                </dxe:ListBoxEdit>
+                                        </StackPanel>
+                                        <StackPanel Margin="30,0,0,0" Grid.Row="1">
+                                            <TextBlock Foreground="Gray" Text="{Binding Client.Address}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </dxe:ListBoxEdit.ItemTemplate>
+                        </dxe:ListBoxEdit>
 
-                <StackPanel Grid.Row="2" Orientation="Horizontal" >
-                    <TextBlock Text="Debitoren" Foreground="#3f729b" Margin="10,0,0,0" VerticalAlignment="Center"
+                        <StackPanel Grid.Row="2" Orientation="Horizontal">
+                            <TextBlock Text="Debitoren" Foreground="#3f729b" Margin="10,0,0,0" VerticalAlignment="Center"
                            FontSize="16" FontFamily="Tahoma" />
-                    <dxe:TextEdit Margin="5,0"  Text="{Binding DebitorFilterText, UpdateSourceTrigger=PropertyChanged}" NullText="Filter" FontSize="16" VerticalAlignment="Center" Width="150"/>
-                </StackPanel>
-                
-                <dxe:ListBoxEdit Grid.Row="3"
+                            <dxe:TextEdit Margin="5,0"  Text="{Binding DebitorFilterText, UpdateSourceTrigger=PropertyChanged}" NullText="Filter" FontSize="16" VerticalAlignment="Center" Width="150" />
+                        </StackPanel>
+
+                        <dxe:ListBoxEdit Grid.Row="3"
                                  ItemsSource="{Binding FilteredDebitors, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  BorderThickness="1"
                                  BorderBrush="#DADADA" Padding="0" Margin="10" FontSize="14"
                                  SelectedItem="{Binding SelectedDebitor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <dxe:ListBoxEdit.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel />
-                        </ItemsPanelTemplate>
-                    </dxe:ListBoxEdit.ItemsPanel>
-                    <dxe:ListBoxEdit.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <StackPanel Orientation="Horizontal" Grid.Row="0">
-                                    <TextBlock FontSize="16" Foreground="#3f729b"
+                            <dxe:ListBoxEdit.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </dxe:ListBoxEdit.ItemsPanel>
+                            <dxe:ListBoxEdit.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                            <TextBlock FontSize="16" Foreground="#3f729b"
                                                Text="{Binding CostAccount.AccountNumber}" Margin="5,0,0,0" />
-                                    <TextBlock FontSize="16" Foreground="#3f729b" Text=" - " Margin="5,0,0,0" />
-                                    <TextBlock FontSize="16" Foreground="#3f729b" Text="{Binding Client.Name}"
+                                            <TextBlock FontSize="16" Foreground="#3f729b" Text=" - " Margin="5,0,0,0" />
+                                            <TextBlock FontSize="16" Foreground="#3f729b" Text="{Binding Client.Name}"
                                                Margin="5,0,0,0" />
-                                </StackPanel>
-                                <StackPanel Margin="30,0,0,0" Grid.Row="1">
-                                    <TextBlock Foreground="Gray" Text="{Binding Client.Address}" />
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </dxe:ListBoxEdit.ItemTemplate>
-                </dxe:ListBoxEdit>
-            </Grid>
-        </Grid>
+                                        </StackPanel>
+                                        <StackPanel Margin="30,0,0,0" Grid.Row="1">
+                                            <TextBlock Foreground="Gray" Text="{Binding Client.Address}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </dxe:ListBoxEdit.ItemTemplate>
+                        </dxe:ListBoxEdit>
+                    </Grid>
+                </Grid>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
     </Grid>
 </UserControl>

@@ -10,7 +10,7 @@
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-             dx:ThemeManager.Theme="VS2017Light"
+             dx:ThemeManager.Theme="Office2016WhiteSE"
              mc:Ignorable="d"
              d:DesignHeight="1000" d:DesignWidth="1900">
     <UserControl.DataContext>
@@ -30,7 +30,7 @@
         <local:NullToIsEnabledConverter x:Key="NullConverter" />
     </UserControl.Resources>
 
-    <Grid >
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
             <ColumnDefinition Width="*" />
@@ -39,7 +39,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
 
@@ -73,10 +73,9 @@
                         <Label Grid.Column="0" Content="Verfügbare Kostenstellen" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="10" HorizontalAlignment="Center" />
                         <Label Grid.Column="2" Content="Informationen" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="10" HorizontalAlignment="Center" />
                         <Label Grid.Column="4" Content="Kostenstellenverteilung" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="10" HorizontalAlignment="Center" />
-
                     </Grid>
 
-                    <Grid Grid.Row="2" Grid.Column="1" >
+                    <Grid Grid.Row="2" Grid.Column="1">
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="5*" />
@@ -96,7 +95,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <dxlc:LayoutControl Grid.Row="0" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" 
+                            <dxlc:LayoutControl Grid.Row="0" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}"
                                 ItemSpace="10" VerticalAlignment="Top" HorizontalAlignment="Center">
                                 <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
                                     <dxlc:LayoutGroup.Header>
@@ -209,14 +208,14 @@
                                 </dxlc:LayoutGroup>
                             </dxlc:LayoutControl>
                         </Grid>
-                        <Grid Grid.Column="5" Grid.RowSpan="2" HorizontalAlignment="Center" >
+                        <Grid Grid.Column="5" Grid.RowSpan="2" HorizontalAlignment="Center">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
                             <Grid HorizontalAlignment="Center">
-                                <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" >
+                                <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10">
                                     <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="500">
                                         <dxlc:LayoutGroup.Header>
                                             <TextBlock Text="Kostenschlüssel" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
@@ -265,8 +264,6 @@
                             <dx:SimpleButton Width="135" Height="30" Content="Speichern" Foreground="#3F729B" Command="{Binding NewCostCenterCommand}" FontFamily="Tahoma" />
                             <dx:SimpleButton Width="135" Height="30" Margin="10,0,5,0" Content="Löschen" Foreground="#3F729B" Command="{Binding NewCostCenterCommand}" FontFamily="Tahoma" />
                         </StackPanel>
-
-
                     </Grid>
                 </Grid>
             </dx:DXTabItem>
