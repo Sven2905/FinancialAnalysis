@@ -52,11 +52,11 @@ namespace FinancialAnalysis.Models.WarehouseManagement
             {
                 if (Quantity >= 0)
                 {
-                    return new SolidColorBrush(SvenTechColors.ColorLightGreen);
+                    return SvenTechColors.BrushLightGreen;
                 }
                 else
                 {
-                    return new SolidColorBrush(SvenTechColors.ColorLightRed);
+                    return SvenTechColors.BrushLightRed;
                 }
             }
         }

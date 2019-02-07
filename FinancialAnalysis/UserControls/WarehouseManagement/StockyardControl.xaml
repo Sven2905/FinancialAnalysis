@@ -54,186 +54,190 @@
             </dxwui:PageAdornerControl.HeaderTemplate>
         </dxwui:PageAdornerControl>
 
-        <Grid Grid.Row="1" Grid.Column="1">
+        <dx:DXTabControl Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="0,10,0,10">
+            <dx:DXTabItem Header="Lagerplätze">
+                <Grid>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="425" />
-                <ColumnDefinition Width="20" />
-                <ColumnDefinition Width="3*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="425" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="Vorhandene Lagerplätze" FontSize="24" FontFamily="Tahoma"
+                    <TextBlock Grid.Row="0" Text="Vorhandene Lagerplätze" FontSize="24" FontFamily="Tahoma"
                        Foreground="#3f729b" Margin="12,30,12,0" />
 
-            <dxlc:LayoutControl Grid.Row="1" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}"
+                    <dxlc:LayoutControl Grid.Row="1" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}"
                                 ItemSpace="10" VerticalAlignment="Top">
-                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
-                    <dxlc:LayoutGroup.Header>
-                        <TextBlock Text="Übersicht" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
-                    </dxlc:LayoutGroup.Header>
-                    <dxlc:LayoutGroup>
-                        <dxlc:LayoutItem Label="Lager" FontFamily="Tahoma">
-                            <dxe:ComboBoxEdit Margin="0,3,0,3"
+                        <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
+                            <dxlc:LayoutGroup.Header>
+                                <TextBlock Text="Übersicht" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                            </dxlc:LayoutGroup.Header>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Lager" FontFamily="Tahoma">
+                                    <dxe:ComboBoxEdit Margin="0,3,0,3"
                                               ItemsSource="{Binding Warehouses}"
                                               DisplayMember="Name"
                                               EditValue="{Binding SelectedWarehouse, UpdateSourceTrigger=PropertyChanged}"
                                               Foreground="#3F729B" />
-                        </dxlc:LayoutItem>
-                    </dxlc:LayoutGroup>
-                </dxlc:LayoutGroup>
-            </dxlc:LayoutControl>
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                        </dxlc:LayoutGroup>
+                    </dxlc:LayoutControl>
 
-            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                    <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
                           Margin="12,0,12,0">
-                <ListView ItemsSource="{Binding SelectedWarehouse.Stockyards}"
+                        <ListView ItemsSource="{Binding SelectedWarehouse.Stockyards}"
                           SelectedItem="{Binding SelectedStockyard}" x:Name="Projects" BorderThickness="1"
                           BorderBrush="DarkGray" FontSize="14">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
 
-                                <Border Grid.Column="2" Padding="0 0 8 0">
-                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                        <Label Content="Lagerplatznr.: " VerticalAlignment="Center" />
-                                        <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#000"
+                                        <Border Grid.Column="2" Padding="0 0 8 0">
+                                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                                <Label Content="Lagerplatznr.: " VerticalAlignment="Center" />
+                                                <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#000"
                                                    TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
-                                        <!--<TextBlock Margin="10,0,0,0" Text="{Binding Description}" Foreground="#9e9e9e" TextTrimming="CharacterEllipsis" />-->
-                                    </StackPanel>
-                                </Border>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ListView>
-            </ScrollViewer>
+                                                <!--<TextBlock Margin="10,0,0,0" Text="{Binding Description}" Foreground="#9e9e9e" TextTrimming="CharacterEllipsis" />-->
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
 
-            <VirtualizingStackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="7,15,0,15">
-                <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Neu"
+                    <VirtualizingStackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="7,15,0,15">
+                        <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Neu"
                                  Foreground="#3F729B" Command="{Binding NewStockyardCommand}" FontFamily="Tahoma" />
-                <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Speichern" Foreground="#3F729B"
+                        <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Speichern" Foreground="#3F729B"
                                  Command="{Binding SaveStockyardCommand}" FontFamily="Tahoma" />
-                <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Löschen" Foreground="#3F729B"
+                        <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Löschen" Foreground="#3F729B"
                                  Command="{Binding DeleteStockyardCommand}" FontFamily="Tahoma" />
-            </VirtualizingStackPanel>
+                    </VirtualizingStackPanel>
 
-            <Grid Grid.Row="1" Grid.RowSpan="3" Grid.Column="2" Margin="0,12,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="10" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="1" Grid.RowSpan="3" Grid.Column="2" Margin="0,12,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
-                <dxlc:LayoutControl Grid.Row="0" Grid.Column="0" Orientation="Vertical"
+                        <dxlc:LayoutControl Grid.Row="0" Grid.Column="0" Orientation="Vertical"
                                     ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,-12,0,0"
                                     IsEnabled="{Binding SelectedProductCategory, Converter={StaticResource NullConverter}}">
-                    <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
-                        <dxlc:LayoutGroup.Header>
-                            <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
-                        </dxlc:LayoutGroup.Header>
-                        <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Name" FontFamily="Tahoma">
-                                <dxe:TextEdit
+                            <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
+                                <dxlc:LayoutGroup.Header>
+                                    <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                                </dxlc:LayoutGroup.Header>
+                                <dxlc:LayoutGroup>
+                                    <dxlc:LayoutItem Label="Name" FontFamily="Tahoma">
+                                        <dxe:TextEdit
                                     Text="{Binding SelectedStockyard.Name, UpdateSourceTrigger=PropertyChanged}"
                                     FontFamily="Tahoma" />
-                            </dxlc:LayoutItem>
-                        </dxlc:LayoutGroup>
-                        <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Lager" FontFamily="Tahoma">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <dxe:ComboBoxEdit NullText="Bitte wählen" ValueMember="WarehouseId"
+                                    </dxlc:LayoutItem>
+                                </dxlc:LayoutGroup>
+                                <dxlc:LayoutGroup>
+                                    <dxlc:LayoutItem Label="Lager" FontFamily="Tahoma">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <dxe:ComboBoxEdit NullText="Bitte wählen" ValueMember="WarehouseId"
                                                       DisplayMember="Name" ItemsSource="{Binding Warehouses}"
                                                       EditValue="{Binding SelectedStockyard.RefWarehouseId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       FontFamily="Tahoma" />
-                                    <dx:SimpleButton Grid.Column="1" Width="30" Margin="5,0,0,0"
+                                            <dx:SimpleButton Grid.Column="1" Width="30" Margin="5,0,0,0"
                                                      Command="{Binding OpenWarehousesWindowCommand}"
                                                      IsEnabled="{Binding AllowWarehouses}">
-                                        <dx:SimpleButton.Glyph>
-                                            <dx:SvgImageSource Uri="/Images/light/Cog.svg" Size="14,14" />
-                                        </dx:SimpleButton.Glyph>
-                                    </dx:SimpleButton>
-                                </Grid>
-                            </dxlc:LayoutItem>
-                        </dxlc:LayoutGroup>
-                    </dxlc:LayoutGroup>
-                </dxlc:LayoutControl>
+                                                <dx:SimpleButton.Glyph>
+                                                    <dx:SvgImageSource Uri="/Images/light/Cog.svg" Size="14,14" />
+                                                </dx:SimpleButton.Glyph>
+                                            </dx:SimpleButton>
+                                        </Grid>
+                                    </dxlc:LayoutItem>
+                                </dxlc:LayoutGroup>
+                            </dxlc:LayoutGroup>
+                        </dxlc:LayoutControl>
 
-                <dxlc:LayoutControl Grid.Row="1" Grid.Column="0" Orientation="Vertical"
+                        <dxlc:LayoutControl Grid.Row="1" Grid.Column="0" Orientation="Vertical"
                                     ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,10,0,0"
                                     IsEnabled="{Binding SelectedProductCategory, Converter={StaticResource NullConverter}}">
-                    <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
-                        <dxlc:LayoutGroup.Header>
-                            <TextBlock Text="Automatische Generierung" Foreground="#3f729b" FontWeight="Bold"
+                            <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
+                                <dxlc:LayoutGroup.Header>
+                                    <TextBlock Text="Automatische Generierung" Foreground="#3f729b" FontWeight="Bold"
                                        FontFamily="Tahoma" />
-                        </dxlc:LayoutGroup.Header>
-                        <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Lager" FontFamily="Tahoma">
-                                <dxe:ComboBoxEdit NullText="Bitte wählen" DisplayMember="Name"
+                                </dxlc:LayoutGroup.Header>
+                                <dxlc:LayoutGroup>
+                                    <dxlc:LayoutItem Label="Lager" FontFamily="Tahoma">
+                                        <dxe:ComboBoxEdit NullText="Bitte wählen" DisplayMember="Name"
                                                   ItemsSource="{Binding Warehouses}"
                                                   EditValue="{Binding SelectedWarehouse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                   FontFamily="Tahoma" />
-                            </dxlc:LayoutItem>
-                        </dxlc:LayoutGroup>
-                        <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Anzahl Lagerplätze" FontFamily="Tahoma">
-                                <dxe:TextEdit
+                                    </dxlc:LayoutItem>
+                                </dxlc:LayoutGroup>
+                                <dxlc:LayoutGroup>
+                                    <dxlc:LayoutItem Label="Anzahl Lagerplätze" FontFamily="Tahoma">
+                                        <dxe:TextEdit
                                     Text="{Binding NumberOfStockyardsToCreate, UpdateSourceTrigger=PropertyChanged}"
                                     FontFamily="Tahoma" />
-                            </dxlc:LayoutItem>
-                        </dxlc:LayoutGroup>
-                        <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Präfix" FontFamily="Tahoma">
-                                <dxe:TextEdit Text="{Binding Prefix, UpdateSourceTrigger=PropertyChanged}"
+                                    </dxlc:LayoutItem>
+                                </dxlc:LayoutGroup>
+                                <dxlc:LayoutGroup>
+                                    <dxlc:LayoutItem Label="Präfix" FontFamily="Tahoma">
+                                        <dxe:TextEdit Text="{Binding Prefix, UpdateSourceTrigger=PropertyChanged}"
                                               FontFamily="Tahoma" />
-                            </dxlc:LayoutItem>
-                            <dxlc:LayoutItem Label="Suffix" FontFamily="Tahoma">
-                                <dxe:TextEdit Text="{Binding Suffix, UpdateSourceTrigger=PropertyChanged}"
+                                    </dxlc:LayoutItem>
+                                    <dxlc:LayoutItem Label="Suffix" FontFamily="Tahoma">
+                                        <dxe:TextEdit Text="{Binding Suffix, UpdateSourceTrigger=PropertyChanged}"
                                               FontFamily="Tahoma" />
-                            </dxlc:LayoutItem>
-                        </dxlc:LayoutGroup>
-                        <dxlc:LayoutGroup />
-                        <dx:SimpleButton Width="150" Height="30" Margin="5,10,5,0" Content="Erstellen"
+                                    </dxlc:LayoutItem>
+                                </dxlc:LayoutGroup>
+                                <dxlc:LayoutGroup />
+                                <dx:SimpleButton Width="150" Height="30" Margin="5,10,5,0" Content="Erstellen"
                                          HorizontalAlignment="Left"
                                          Foreground="#3F729B" Command="{Binding StockyardsGenerationCommand}"
                                          FontFamily="Tahoma" />
-                    </dxlc:LayoutGroup>
-                </dxlc:LayoutControl>
+                            </dxlc:LayoutGroup>
+                        </dxlc:LayoutControl>
 
-                <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Margin="10,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="10" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="60" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Content="Lagerplatzbestand: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
-                    <local:StockyardStatusControl Grid.Row="2" DataContext="{Binding StockyardStatusViewModel}" />
+                        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Margin="10,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="10" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="60" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Content="Lagerplatzbestand: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
+                            <local:StockyardStatusControl Grid.Row="2" DataContext="{Binding StockyardStatusViewModel}" />
+                        </Grid>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Grid>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
     </Grid>
 </UserControl>

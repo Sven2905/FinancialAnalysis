@@ -21,11 +21,17 @@ namespace FinancialAnalysis.Models.General
 
         public static Brush BrushCyan => new SolidColorBrush(ColorCyan);
         public static Brush BrushLightBlue => new SolidColorBrush(ColorLightBlue);
+        public static Brush BrushDarkBlue => new SolidColorBrush(ColorDarkBlue);
         public static Brush BrushBlue => new SolidColorBrush(ColorBlue);
+        public static Brush BrushAltBlue => new SolidColorBrush(ColorAltBlue);
         public static Brush BrushGreen => new SolidColorBrush(ColorGreen);
+        public static Brush BrushLightGreen => new SolidColorBrush(ColorLightGreen);
         public static Brush BrushRed => new SolidColorBrush(ColorRed);
+        public static Brush BrushLightRed => new SolidColorBrush(ColorLightRed);
         public static Brush BrushYellow => new SolidColorBrush(ColorYellow);
+        public static Brush BrushLightYellow => new SolidColorBrush(ColorLightYellow);
         public static Brush BrushSvenTechOrange => new SolidColorBrush(ColorSvenTechOrange);
         public static Brush BrushSvenTechGrey => new SolidColorBrush(ColorSvenTechGrey);
+        public static Brush BrushSvenTechBlue => new SolidColorBrush(ColorSvenTechBlue);
     }
 }

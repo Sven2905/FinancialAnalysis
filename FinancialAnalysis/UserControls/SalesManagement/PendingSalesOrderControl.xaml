@@ -21,7 +21,7 @@
     <UserControl.Resources>
         <local:ColorToBrushConverter x:Key="ctbConverter" />
     </UserControl.Resources>
-    <Grid Background="White">
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
             <ColumnDefinition Width="*" />

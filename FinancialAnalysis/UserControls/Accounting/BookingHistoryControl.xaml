@@ -16,7 +16,7 @@
     <UserControl.DataContext>
         <ViewModels:BookingHistoryViewModel />
     </UserControl.DataContext>
-    <Grid Background="White">
+    <Grid >
         <dxwui:PageAdornerControl Header="Buchungshistorie" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                                   Foreground="#3F729B" FontFamily="Tahoma">
             <dxwui:PageAdornerControl.HeaderTemplate>

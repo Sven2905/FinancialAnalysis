@@ -76,6 +76,7 @@
     <Compile Include="Accounting\CostCenter.cs" />
     <Compile Include="Accounting\Credit.cs" />
     <Compile Include="Accounting\Debit.cs" />
+    <Compile Include="Accounting\FixedCostAllocation.cs" />
     <Compile Include="Accounting\ScannedDocument.cs" />
     <Compile Include="Accounting\SelectedCostCenterCategory.cs" />
     <Compile Include="Accounting\TaxType.cs" />

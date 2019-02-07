@@ -80,10 +80,12 @@
     <Compile Include="Accounting\StoredProcedures\CostCentersStoredProcedures.cs" />
     <Compile Include="Accounting\StoredProcedures\CashbacksStoredProcedures.cs" />
     <Compile Include="Accounting\StoredProcedures\PaymentConditionsStoredProcedures.cs" />
+    <Compile Include="Accounting\StoredProcedures\FixedCostAllocationsStoredProcedures.cs" />
     <Compile Include="Accounting\Tables\CostCenterCategories.cs" />
     <Compile Include="Accounting\Tables\CostCenters.cs" />
     <Compile Include="Accounting\Tables\Cashbacks.cs" />
     <Compile Include="Accounting\Tables\PaymentConditions.cs" />
+    <Compile Include="Accounting\Tables\FixedCostAllocations.cs" />
     <Compile Include="Administration\StoredProcedures\UserRightUserMappingsStoredProcedures.cs" />
     <Compile Include="Administration\StoredProcedures\UserRightsStoredProcedures.cs" />
     <Compile Include="Administration\StoredProcedures\UsersStoredProcedures.cs" />

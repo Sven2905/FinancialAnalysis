@@ -60,6 +60,7 @@ namespace FinancialAnalysis.Datalayer
         public InvoicePositions InvoicePositions { get; set; } = new InvoicePositions();
         public CostCenterCategories CostCenterCategories { get; set; } = new CostCenterCategories();
         public WarehouseStockingHistories WarehouseStockingHistories { get; set; } = new WarehouseStockingHistories();
+        public FixedCostAllocations FixedCostAllocations { get; set; } = new FixedCostAllocations();
 
         public void Dispose()
         {
@@ -119,6 +120,7 @@ namespace FinancialAnalysis.Datalayer
             InvoicePositions.CheckAndCreateStoredProcedures();
             CostCenterCategories.CheckAndCreateStoredProcedures();
             WarehouseStockingHistories.CheckAndCreateStoredProcedures();
+            FixedCostAllocations.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()
@@ -146,6 +148,7 @@ namespace FinancialAnalysis.Datalayer
             InvoicePositions.AddReferences();
             Bookings.AddReferences();
             CostCenters.AddReferences();
+            FixedCostAllocations.AddReferences();
         }
 
         private void Seed()

@@ -27,7 +27,7 @@
         <dxmvvm:OpenFileDialogService />
     </dxmvvm:Interaction.Behaviors>
 
-    <Grid Background="White">
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="20" />
@@ -54,8 +54,8 @@
                         </Grid.ColumnDefinitions>
                         <ContentPresenter Content="{Binding}" />
                         <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
-                            <dxwui:NavigationButton FontSize="14" Margin="10, 0, 0, 0" Content="View 2" NavigateTo="View2" />
-                            <dxwui:NavigationButton FontSize="14" Margin="10, 0, 0, 0" Content="View 3" NavigateTo="View3" />
+                            <dxwui:NavigationButton FontSize="14" Margin="10, 0, 0, 0" Content="View 2" NavigateTo="CostCenterControl" />
+                            <dxwui:NavigationButton FontSize="14" Margin="10, 0, 0, 0" Content="View 3" NavigateTo="TaxTypeControl" />
                         </StackPanel>-->
                     </Grid>
                 </DataTemplate>

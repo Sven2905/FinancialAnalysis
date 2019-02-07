@@ -17,16 +17,18 @@
     dx:ThemeManager.ThemeName="VS2017Light"
     d:DesignHeight="450" d:DesignWidth="800"
     DataContext="{dxmvvm:ViewModelSource Type={x:Type ViewModels:CostAccountViewModel}}">
-    <Grid Background="White">
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="100" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <dxwui:PageAdornerControl Header="Kontenrahmen" Grid.Row="0" Foreground="#3F729B" FontFamily="Tahoma">
+        <dxwui:PageAdornerControl Header="Kontenrahmen" Grid.Column="1" Grid.Row="0" Foreground="#3F729B" FontFamily="Tahoma">
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
@@ -40,14 +42,24 @@
             </dxwui:PageAdornerControl.HeaderTemplate>
         </dxwui:PageAdornerControl>
 
+        <dx:DXTabControl Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="0,10,0,10">
+            <dx:DXTabItem Header="Kontenrahmen">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--<Border Grid.Row="1" Grid.Column="0">-->
         <dxa:AccordionControl Grid.Row="1" Grid.Column="0" Margin="10,0" Foreground="#3F729B" ShowSearchControl="True"
                               ItemsSource="{Binding CostAccountCategoriesHierachical}" DisplayMemberPath="Description"
-                              ChildrenPath="SubCategories" SelectedItem="{Binding SelectedCategory}" />
+                              ChildrenPath="SubCategories" SelectedItem="{Binding SelectedCategory}" BorderBrush="LightGray" BorderThickness="1"/>
+                        
+                    <!--</Border>-->        
 
-        <TextBlock Grid.Row="1" Grid.Column="1" Margin="20,0,0,0" FontSize="16" Foreground="#3F729B"
-                   Text="Kontenrahmen:" FontFamily="Tahoma" />
+        <!--<TextBlock Grid.Row="1" Grid.Column="1" Margin="20,0,0,0" FontSize="16" Foreground="#3F729B" Text="Kontenrahmen:" FontFamily="Tahoma" />-->
 
-        <Grid Grid.Column="1" Grid.Row="1" Margin="20,30,20,20">
+        <Grid Grid.Column="1" Grid.Row="1" Margin="20,0,20,20">
             <dxg:GridControl
                 ItemsSource="{Binding FilteredCostAccounts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding SelectedCostAccount}" SelectionMode="Row">
@@ -94,5 +106,9 @@
                 </dxg:GridColumn>
             </dxg:GridControl>
         </Grid>
+                </Grid>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
+
     </Grid>
 </UserControl>

@@ -20,7 +20,7 @@
     <UserControl.DataContext>
         <ViewModels:TaxTypeViewModel />
     </UserControl.DataContext>
-    <Grid Background="White">
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="20" />

@@ -32,7 +32,7 @@
         <local:BrushColorConverter x:Key="BConverter" />
     </UserControl.Resources>
 
-    <Grid Background="White">
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
             <ColumnDefinition Width="*" />
@@ -58,198 +58,200 @@
             </dxwui:PageAdornerControl.HeaderTemplate>
         </dxwui:PageAdornerControl>
 
-        <Grid Grid.Row="1" Grid.Column="1">
+        <dx:DXTabControl Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="0,10,0,10">
+            <dx:DXTabItem Header="Mitarbeiter">
+                <Grid Grid.Row="1" Grid.Column="1">
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="425" />
-                <ColumnDefinition Width="20" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="425" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="Vorhandene Benutzer" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b"
+                    <TextBlock Grid.Row="0" Text="Vorhandene Benutzer" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b"
                        Margin="12,30,12,0" />
 
-            <dxlc:LayoutControl Grid.Row="1" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}"
+                    <dxlc:LayoutControl Grid.Row="1" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}"
                                 ItemSpace="10" VerticalAlignment="Top">
-                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
-                    <dxlc:LayoutGroup.Header>
-                        <TextBlock Text="Filter" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
-                    </dxlc:LayoutGroup.Header>
-                    <dxlc:LayoutGroup>
-                        <dxlc:LayoutItem Label="Filtertext" FontFamily="Tahoma">
-                            <dxe:TextEdit Text="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
+                            <dxlc:LayoutGroup.Header>
+                                <TextBlock Text="Filter" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                            </dxlc:LayoutGroup.Header>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Filtertext" FontFamily="Tahoma">
+                                    <dxe:TextEdit Text="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           FontFamily="Tahoma" />
-                        </dxlc:LayoutItem>
-                    </dxlc:LayoutGroup>
-                </dxlc:LayoutGroup>
-            </dxlc:LayoutControl>
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                        </dxlc:LayoutGroup>
+                    </dxlc:LayoutControl>
 
-            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                    <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
                           Margin="12,0,12,0">
-                <ListView ItemsSource="{Binding FilteredUsers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        <ListView ItemsSource="{Binding FilteredUsers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding SelectedUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           x:Name="Users" BorderThickness="1" BorderBrush="DarkGray" FontSize="14">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="4" />
-                                    <ColumnDefinition Width="80" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Border Width="4" HorizontalAlignment="Left"
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="4" />
+                                            <ColumnDefinition Width="80" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border Width="4" HorizontalAlignment="Left"
                                         Background="{Binding IsActive, Converter={StaticResource BConverter}}" />
 
-                                <Border Grid.Column="1" Padding="8" Height="60">
-                                    <Border Background="#3F729B" Width="45" CornerRadius="45">
-                                        <TextBlock Margin="0,0,0,2" Text="{Binding Initials}"
+                                        <Border Grid.Column="1" Padding="8" Height="60">
+                                            <Border Background="#3F729B" Width="45" CornerRadius="45">
+                                                <TextBlock Margin="0,0,0,2" Text="{Binding Initials}"
                                                    VerticalAlignment="Center" HorizontalAlignment="Center"
                                                    Foreground="White" FontSize="24" />
-                                    </Border>
-                                </Border>
+                                            </Border>
+                                        </Border>
 
-                                <Border Grid.Column="2" Padding="0 0 8 0">
-                                    <StackPanel VerticalAlignment="Center">
-                                        <TextBlock Margin="10,0,0,0" Text="{Binding LoginUser, Mode=TwoWay}"
+                                        <Border Grid.Column="2" Padding="0 0 8 0">
+                                            <StackPanel VerticalAlignment="Center">
+                                                <TextBlock Margin="10,0,0,0" Text="{Binding LoginUser, Mode=TwoWay}"
                                                    Foreground="#000" TextTrimming="CharacterEllipsis" />
-                                        <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#9e9e9e"
+                                                <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#9e9e9e"
                                                    TextTrimming="CharacterEllipsis" />
-                                    </StackPanel>
-                                </Border>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ListView>
-            </ScrollViewer>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
 
-            <VirtualizingStackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="15">
-                <dx:SimpleButton Width="120" Height="30" Margin="5,0,5,0" Content="Neu"
+                    <VirtualizingStackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="15">
+                        <dx:SimpleButton Width="120" Height="30" Margin="5,0,5,0" Content="Neu"
                                  Foreground="#3F729B" Command="{Binding NewUserCommand}" FontFamily="Tahoma" />
-                <dx:SimpleButton Width="120" Height="30" Margin="5,0,5,0" Content="Speichern" Foreground="#3F729B"
+                        <dx:SimpleButton Width="120" Height="30" Margin="5,0,5,0" Content="Speichern" Foreground="#3F729B"
                                  Command="{Binding SaveUserCommand}" FontFamily="Tahoma" />
-                <dx:SimpleButton Width="120" Height="30" Margin="5,0,5,0" Content="Löschen" Foreground="#3F729B"
+                        <dx:SimpleButton Width="120" Height="30" Margin="5,0,5,0" Content="Löschen" Foreground="#3F729B"
                                  Command="{Binding DeleteUserCommand}" FontFamily="Tahoma" />
-            </VirtualizingStackPanel>
+                    </VirtualizingStackPanel>
 
-            <Grid Grid.RowSpan="4" Grid.Column="3" Margin="0,30,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="10" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+                    <Grid Grid.RowSpan="4" Grid.Column="3" Margin="0,30,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-                <StackPanel>
-                    <TextBlock Text="Details" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="12,0" />
-                    <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10"
+                        <StackPanel>
+                            <TextBlock Text="Details" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="12,0" />
+                            <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10"
                                         Margin="0,0,0,0"
                                         IsEnabled="{Binding SelectedUser, Converter={StaticResource NullConverter}}">
-                        <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
-                            <dxlc:LayoutGroup.Header>
-                                <TextBlock Text="Login Informationen" Foreground="#3f729b" FontWeight="Bold"
+                                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
+                                    <dxlc:LayoutGroup.Header>
+                                        <TextBlock Text="Login Informationen" Foreground="#3f729b" FontWeight="Bold"
                                            FontFamily="Tahoma" />
-                            </dxlc:LayoutGroup.Header>
-                            <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Login Name" FontFamily="Tahoma">
-                                    <dxe:TextEdit Text="{Binding SelectedUser.LoginUser}" FontFamily="Tahoma" />
-                                </dxlc:LayoutItem>
-                            </dxlc:LayoutGroup>
-                            <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Passwort" FontFamily="Tahoma">
-                                    <dxe:PasswordBoxEdit
+                                    </dxlc:LayoutGroup.Header>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="Login Name" FontFamily="Tahoma">
+                                            <dxe:TextEdit Text="{Binding SelectedUser.LoginUser}" FontFamily="Tahoma" />
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="Passwort" FontFamily="Tahoma">
+                                            <dxe:PasswordBoxEdit
                                         Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         FontFamily="Tahoma" />
-                                </dxlc:LayoutItem>
-                            </dxlc:LayoutGroup>
-                            <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Passwort wiederholen" FontFamily="Tahoma">
-                                    <dxe:PasswordBoxEdit
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="Passwort wiederholen" FontFamily="Tahoma">
+                                            <dxe:PasswordBoxEdit
                                         Text="{Binding PasswordRepeat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         FontFamily="Tahoma" />
-                                </dxlc:LayoutItem>
-                            </dxlc:LayoutGroup>
-                        </dxlc:LayoutGroup>
-                    </dxlc:LayoutControl>
-                    <dxlc:LayoutControl Grid.Column="0" Grid.Row="1" Orientation="Vertical"
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                </dxlc:LayoutGroup>
+                            </dxlc:LayoutControl>
+                            <dxlc:LayoutControl Grid.Column="0" Grid.Row="1" Orientation="Vertical"
                                         ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,0,0,0"
                                         IsEnabled="{Binding SelectedUser, Converter={StaticResource NullConverter}}">
-                        <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
-                            <dxlc:LayoutGroup.Header>
-                                <TextBlock Text="Benutzer Informationen" Foreground="#3f729b" FontWeight="Bold"
+                                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
+                                    <dxlc:LayoutGroup.Header>
+                                        <TextBlock Text="Benutzer Informationen" Foreground="#3f729b" FontWeight="Bold"
                                            FontFamily="Tahoma" />
-                            </dxlc:LayoutGroup.Header>
-                            <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Aktiv" FontFamily="Tahoma">
-                                    <dxe:CheckEdit IsChecked="{Binding SelectedUser.IsActive}" FontFamily="Tahoma" />
-                                </dxlc:LayoutItem>
-                                <dxlc:LayoutItem Label="Administrator" FontFamily="Tahoma">
-                                    <dxe:CheckEdit IsChecked="{Binding SelectedUser.IsAdministrator}"
+                                    </dxlc:LayoutGroup.Header>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="Aktiv" FontFamily="Tahoma">
+                                            <dxe:CheckEdit IsChecked="{Binding SelectedUser.IsActive}" FontFamily="Tahoma" />
+                                        </dxlc:LayoutItem>
+                                        <dxlc:LayoutItem Label="Administrator" FontFamily="Tahoma">
+                                            <dxe:CheckEdit IsChecked="{Binding SelectedUser.IsAdministrator}"
                                                    FontFamily="Tahoma" />
-                                </dxlc:LayoutItem>
-                            </dxlc:LayoutGroup>
-                            <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Vorname" FontFamily="Tahoma">
-                                    <dxe:TextEdit
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="Vorname" FontFamily="Tahoma">
+                                            <dxe:TextEdit
                                         Text="{Binding SelectedUser.Firstname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         FontFamily="Tahoma" />
-                                </dxlc:LayoutItem>
-                                <dxlc:LayoutItem Label="Nachname" FontFamily="Tahoma">
-                                    <dxe:TextEdit
+                                        </dxlc:LayoutItem>
+                                        <dxlc:LayoutItem Label="Nachname" FontFamily="Tahoma">
+                                            <dxe:TextEdit
                                         Text="{Binding SelectedUser.Lastname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         FontFamily="Tahoma" />
-                                </dxlc:LayoutItem>
-                            </dxlc:LayoutGroup>
-                            <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Kürzel" FontFamily="Tahoma">
-                                    <dxe:TextEdit Text="{Binding SelectedUser.Contraction, Mode=TwoWay}"
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="Kürzel" FontFamily="Tahoma">
+                                            <dxe:TextEdit Text="{Binding SelectedUser.Contraction, Mode=TwoWay}"
                                                   FontFamily="Tahoma" />
-                                </dxlc:LayoutItem>
-                            </dxlc:LayoutGroup>
-                            <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="eMail" FontFamily="Tahoma">
-                                    <dxe:TextEdit Text="{Binding SelectedUser.Mail, Mode=TwoWay}" FontFamily="Tahoma" />
-                                </dxlc:LayoutItem>
-                            </dxlc:LayoutGroup>
-                        </dxlc:LayoutGroup>
-                    </dxlc:LayoutControl>
-                    <dxe:ImageEdit Grid.Column="0" Grid.Row="2" Width="400" Height="400" VerticalAlignment="Top"
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="eMail" FontFamily="Tahoma">
+                                            <dxe:TextEdit Text="{Binding SelectedUser.Mail, Mode=TwoWay}" FontFamily="Tahoma" />
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                </dxlc:LayoutGroup>
+                            </dxlc:LayoutControl>
+                            <dxe:ImageEdit Grid.Column="0" Grid.Row="2" Width="400" Height="400" VerticalAlignment="Top"
                                    Stretch="UniformToFill" Source="{Binding Image, Mode=TwoWay}" AllowNullInput="True">
-                        <dxe:ImageEdit.MenuTemplate>
-                            <ControlTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <dxe:ImageEditClearToolButton />
-                                    <dxe:ImageEditLoadToolButton />
-                                </StackPanel>
-                            </ControlTemplate>
-                        </dxe:ImageEdit.MenuTemplate>
-                    </dxe:ImageEdit>
-                </StackPanel>
+                                <dxe:ImageEdit.MenuTemplate>
+                                    <ControlTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <dxe:ImageEditClearToolButton />
+                                            <dxe:ImageEditLoadToolButton />
+                                        </StackPanel>
+                                    </ControlTemplate>
+                                </dxe:ImageEdit.MenuTemplate>
+                            </dxe:ImageEdit>
+                        </StackPanel>
 
-                <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" Margin="0,0,10,0">
-                    <TextBlock Text="Zugriffsrechte" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b"
+                        <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" Margin="0,0,10,0">
+                            <TextBlock Text="Zugriffsrechte" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b"
                                Margin="12,0"
                                Visibility="{Binding SelectedUser, Converter={StaticResource NullVisConverter}}" />
-                    <dxg:TreeListControl VerticalAlignment="Top" MaxWidth="5000" MaxHeight="800"
+                            <dxg:TreeListControl VerticalAlignment="Top" MaxWidth="5000" MaxHeight="800"
                                          ItemsSource="{Binding UserRightUserMappingFlatStructure, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          SelectionMode="Row" ShowBorder="True"
                                          Height="800">
-                        <dxg:TreeListControl.View>
-                            <dxg:TreeListView EditFormColumnCount="2" EditFormShowMode="None"
+                                <dxg:TreeListControl.View>
+                                    <dxg:TreeListView EditFormColumnCount="2" EditFormShowMode="None"
                                               EnableImmediatePosting="True"
                                               AutoWidth="True" ShowTotalSummary="False" KeyFieldName="HierachicalId"
                                               ParentFieldName="ParentCategory"
                                               VerticalScrollbarVisibility="Auto">
-                                <!--<dxg:TableView.InputBindings>
+                                        <!--<dxg:TableView.InputBindings>
                                 <KeyBinding Key="Delete">
                                     <dxmvvm:Interaction.Behaviors>
                                         <dxmvvm:ConfirmationBehavior
@@ -266,16 +268,18 @@
                                 EventName="RowUpdated"
                                 PassEventArgsToCommand="True" />
                             </dxmvvm:Interaction.Behaviors>-->
-                            </dxg:TreeListView>
-                        </dxg:TreeListControl.View>
-                        <dxg:TreeListColumn FieldName="IsGranted" Header="Zugriff" MaxWidth="60" Width="60" />
-                        <dxg:TreeListColumn FieldName="Name" Header="Name" MaxWidth="250" Width="250"
+                                    </dxg:TreeListView>
+                                </dxg:TreeListControl.View>
+                                <dxg:TreeListColumn FieldName="IsGranted" Header="Zugriff" MaxWidth="60" Width="60" />
+                                <dxg:TreeListColumn FieldName="Name" Header="Name" MaxWidth="250" Width="250"
                                             AllowEditing="False" />
-                        <dxg:TreeListColumn FieldName="Description" Header="Beschreibung" MaxWidth="450" Width="450"
+                                <dxg:TreeListColumn FieldName="Description" Header="Beschreibung" MaxWidth="450" Width="450"
                                             AllowEditing="False" />
-                    </dxg:TreeListControl>
-                </StackPanel>
-            </Grid>
-        </Grid>
+                            </dxg:TreeListControl>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
     </Grid>
 </UserControl>

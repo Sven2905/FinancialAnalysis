@@ -27,7 +27,7 @@
     <UserControl.DataContext>
         <ViewModels:CompanyViewModel />
     </UserControl.DataContext>
-    <Grid Background="White">
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />

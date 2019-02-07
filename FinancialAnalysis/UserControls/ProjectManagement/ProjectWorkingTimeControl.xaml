@@ -27,7 +27,7 @@
         <local:NullToIsEnabledConverter x:Key="NullConverter" />
     </UserControl.Resources>
 
-    <Grid Background="White">
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
             <ColumnDefinition Width="*" />

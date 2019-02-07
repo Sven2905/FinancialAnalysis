@@ -12,7 +12,7 @@
         <Grid x:Name="Splash" Width="450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0">
             <Grid x:Name="Back">
                 <Border Background="Black" CornerRadius="3" Opacity="0.15" />
-                <Border CornerRadius="2" Margin="1" Background="White" />
+                <Border CornerRadius="2" Margin="1"  />
             </Grid>
             <Grid x:Name="Content_Area" Margin="12">
                 <Grid.RowDefinitions>
