@@ -15,7 +15,7 @@
     xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
     x:Class="FinancialAnalysis.CompanyWindow"
     mc:Ignorable="d"
-    dx:ThemeManager.ThemeName="VS2017Light"
+    dx:ThemeManager.ThemeName="Office2016WhiteSE"
     Title="Firmen" Height="800" Width="800" ShowIcon="False" ShowTitle="False" WindowStartupLocation="CenterScreen"
     ShowInTaskbar="False" Topmost="True">
 

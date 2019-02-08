@@ -14,7 +14,7 @@
              xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
              x:Class="FinancialAnalysis.UserControls.AccountingControl"
              mc:Ignorable="d"
-             dx:ThemeManager.ThemeName="VS2017Light"
+             dx:ThemeManager.ThemeName="Office2016WhiteSE"
              d:DesignHeight="900" d:DesignWidth="1600">
     <UserControl.DataContext>
         <ViewModels:AccountingViewModel />
