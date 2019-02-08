@@ -10,6 +10,7 @@
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:models="clr-namespace:FinancialAnalysis.Models;assembly=FinancialAnalysis.Models"
              dx:ThemeManager.Theme="Office2016WhiteSE"
              xmlns:accounting="clr-namespace:FinancialAnalysis.UserControls.Accounting"
              mc:Ignorable="d"
@@ -60,33 +61,30 @@
 
         <dx:DXTabControl Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="0,0,0,10">
             <dx:DXTabItem Header="Kostenstellen">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="5*" />
-                            <ColumnDefinition Width="20" />
-                            <ColumnDefinition Width="7*" />
-                            <ColumnDefinition Width="20" />
-                            <ColumnDefinition Width="7*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="60" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*" />
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="5*" />
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="5*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-                        <Label Grid.Column="0" Content="Verfügbare Kostenstellen" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="10" HorizontalAlignment="Center" />
-                        <Label Grid.Column="2" Content="Informationen" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="10" HorizontalAlignment="Center" />
-                        <Label Grid.Column="4" Content="Kostenstellenverteilung" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="10" HorizontalAlignment="Center" />
-
-                    
+                    <Label Grid.Column="0" Content="Verfügbare Kostenstellen" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="10" HorizontalAlignment="Center" />
+                    <Label Grid.Column="2" Content="Informationen" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="10" HorizontalAlignment="Center" />
+                    <Label Grid.Column="4" Content="Kostenstellenverteilung" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="10" HorizontalAlignment="Center" />
 
                     <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" >
-
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="5*" />
-                            <ColumnDefinition Width="20" />
-                            <ColumnDefinition Width="7*" />
-                            <ColumnDefinition Width="20" />
-                            <ColumnDefinition Width="7*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="5*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -94,14 +92,14 @@
                             <RowDefinition Height="45" />
                         </Grid.RowDefinitions>
 
-                        <Grid Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">
+                        <Grid Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <dxlc:LayoutControl Grid.Row="0" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" 
-                                ItemSpace="10" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
+                                ItemSpace="10" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Stretch" >
                                     <dxlc:LayoutGroup.Header>
                                         <TextBlock Text="Filter" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                                     </dxlc:LayoutGroup.Header>
@@ -113,33 +111,17 @@
                                     </dxlc:LayoutGroup>
                                 </dxlc:LayoutGroup>
                             </dxlc:LayoutControl>
-                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="12,0,12,0">
-                                <ListView ItemsSource="{Binding CostCenters}" SelectedItem="{Binding SelectedCostCenter}"
+                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" VerticalAlignment="Top" Margin="12,0,12,0">
+                                <dxg:TreeListControl ItemsSource="{Binding CostCenterCategoriesFlatStructure}" Height="600" MinWidth="300" 
                           x:Name="Users" BorderThickness="1" BorderBrush="DarkGray" FontSize="14">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <StackPanel />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-
-                                                <Border Grid.Column="2" Padding="0 0 8 0">
-                                                    <StackPanel VerticalAlignment="Center">
-                                                        <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#000"
-                                                   TextTrimming="CharacterEllipsis" />
-                                                        <TextBlock Margin="10,0,0,0" Text="{Binding CostCenterCategory.Name}"
-                                                   Foreground="#9e9e9e" TextTrimming="CharacterEllipsis" />
-                                                    </StackPanel>
-                                                </Border>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ListView>
+                                    <dxg:TreeListColumn FieldName="CostCenterCategory.Name" Header="Kategorie" Width="150" />
+                                    <dxg:TreeListColumn FieldName="CostCenter.Name" Header="Kostenstelle" Width="330" />
+                                    <dxg:TreeListControl.View>
+                                        <dxg:TreeListView KeyFieldName="Id" ParentFieldName="ParentId" AutoWidth="True" ShowHorizontalLines="True" ShowVerticalLines="False" ShowSelectionRectangle="False"
+                                                          AllowSorting="False" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" AllowColumnFiltering="False" 
+                                                          AllowEditing="False" UseLegacyFilterEditor="False" EnableSelectedRowAppearance="True" UseEvenRowBackground="True" ShowIndicator="False" />
+                                    </dxg:TreeListControl.View>
+                                </dxg:TreeListControl>
                             </ScrollViewer>
                         </Grid>
 
@@ -158,26 +140,25 @@
                                 <ColumnDefinition Width="10" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
                             <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" 
-                                    IsEnabled="{Binding SelectedCostCenter, Converter={StaticResource NullConverter}}">
+                                    IsEnabled="{Binding SelectedCostCenterCategoryFlatStructure, Converter={StaticResource NullConverter}}">
                                 <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="500">
                                     <dxlc:LayoutGroup.Header>
                                         <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                                     </dxlc:LayoutGroup.Header>
                                     <dxlc:LayoutGroup>
                                         <dxlc:LayoutItem Label="Kostenstelle-ID" FontFamily="Tahoma">
-                                            <dxe:TextEdit Text="{Binding SelectedCostCenter.Identifier}" FontFamily="Tahoma" />
+                                            <dxe:TextEdit Text="{Binding SelectedCostCenterCategoryFlatStructure.CostCenter.Identifier}" FontFamily="Tahoma" />
                                         </dxlc:LayoutItem>
                                     </dxlc:LayoutGroup>
                                     <dxlc:LayoutGroup>
                                         <dxlc:LayoutItem Label="Name" FontFamily="Tahoma">
-                                            <dxe:TextEdit Text="{Binding SelectedCostCenter.Name}" FontFamily="Tahoma" />
+                                            <dxe:TextEdit Text="{Binding SelectedCostCenterCategoryFlatStructure.CostCenter.Name}" FontFamily="Tahoma" />
                                         </dxlc:LayoutItem>
                                     </dxlc:LayoutGroup>
                                     <dxlc:LayoutGroup>
@@ -189,7 +170,7 @@
                                                 </Grid.ColumnDefinitions>
                                                 <dxe:ComboBoxEdit NullText="Bitte wählen" ValueMember="CostCenterCategoryId"
                                                       DisplayMember="Name" ItemsSource="{Binding CostCenterCategories}"
-                                                      EditValue="{Binding SelectedCostCenter.RefCostCenterCategoryId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      EditValue="{Binding SelectedCostCenterCategoryFlatStructure.CostCenter.RefCostCenterCategoryId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       FontFamily="Tahoma" />
                                                 <dx:SimpleButton Grid.Column="1" Width="30" Margin="5,0,0,0"
                                                      Command="{Binding OpenCostCenterCategoriesWindowCommand}">
@@ -202,16 +183,23 @@
                                         </dxlc:LayoutItem>
                                     </dxlc:LayoutGroup>
                                     <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="Typ" FontFamily="Tahoma">
+                                            <dxe:ComboBoxEdit ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:CostCenterType}, SplitNames=True}"
+                                                EditValue="{Binding SelectedCostCenter.CostCenterType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                FontFamily="Tahoma" />
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                    <dxlc:LayoutGroup>
                                         <dxlc:LayoutItem Label="Beschreibung" FontFamily="Tahoma">
                                             <dxe:TextEdit TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
                                               AcceptsReturn="True" VerticalContentAlignment="Top"
-                                              Text="{Binding SelectedCostCenter.Description}" Height="150"
+                                              Text="{Binding SelectedCostCenterCategoryFlatStructure.CostCenter.Description}" Height="150"
                                               FontFamily="Tahoma" />
                                         </dxlc:LayoutItem>
                                     </dxlc:LayoutGroup>
                                 </dxlc:LayoutGroup>
                             </dxlc:LayoutControl>
-                            
+
                         </Grid>
 
                         <accounting:FixedCostAllocationControl Grid.Row="1" Grid.Column="4" Grid.RowSpan="2" />

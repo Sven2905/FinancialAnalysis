@@ -35,7 +35,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                                 "SELECT cc.*, ccc.* " +
                                 $"FROM {TableName} cc " +
                                 "LEFT JOIN CostCenterCategories ccc ON cc.RefCostCenterCategoryId = ccc.CostCenterCategoryId " +
-                                "ORDER BY cc.Name" +
+                                "ORDER BY cc.Name " +
                                 "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -58,9 +58,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Identifier nvarchar(150), @RefCostCenterCategoryId int, @Description nvarchar(MAX) AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, Identifier, RefCostCenterCategoryId, Description) " +
-                    "VALUES (@Name, @Identifier, @RefCostCenterCategoryId, @Description); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Identifier nvarchar(150), @RefCostCenterCategoryId int, @CostCenterType int, @Description nvarchar(MAX) AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Name, Identifier, RefCostCenterCategoryId, CostCenterType, Description) " +
+                    "VALUES (@Name, @Identifier, @RefCostCenterCategoryId, @CostCenterType, @Description); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -109,12 +109,13 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @CostCenterId int, @Name nvarchar(150), @Identifier nvarchar(150), @RefCostCenterCategoryId int, @Description nvarchar(MAX) " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @CostCenterId int, @Name nvarchar(150), @Identifier nvarchar(150), @RefCostCenterCategoryId int, @CostCenterType int, @Description nvarchar(MAX) " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "SET Name = @Name, " +
                     "Identifier = @Identifier, " +
                     "RefCostCenterCategoryId = @RefCostCenterCategoryId," +
+                    "CostCenterType = @CostCenterType, " +
                     "Description = @Description " +
                     "WHERE CostCenterId = @CostCenterId END");
                 using (var connection =

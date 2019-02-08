@@ -37,6 +37,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     "Name nvarchar(150) NOT NULL," +
                     "Identifier nvarchar(150) NOT NULL, " +
                     "RefCostCenterCategoryId int, " +
+                    "CostCenterType int, " +
                     "Description nvarchar(MAX))";
 
                 using (var command = new SqlCommand(commandStr, con))
@@ -102,7 +103,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Name, @Identifier, @RefCostCenterCategoryId, @Description ",
+                            $"dbo.{TableName}_Insert @Name, @Identifier, @RefCostCenterCategoryId, @CostCenterType, @Description ",
                             CostCenter);
                     id = result.Single();
                 }
@@ -205,7 +206,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     con.Execute(
-                        $"dbo.{TableName}_Update @CostCenterId, @Name, @Identifier, @RefCostCenterCategoryId, @Description",
+                        $"dbo.{TableName}_Update @CostCenterId, @Name, @Identifier, @RefCostCenterCategoryId, @CostCenterType, @Description",
                         CostCenter);
                 }
             }

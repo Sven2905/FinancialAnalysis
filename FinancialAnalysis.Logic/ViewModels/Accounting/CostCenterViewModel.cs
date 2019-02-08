@@ -28,7 +28,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public SvenTechCollection<CostCenter> CostCenters { get; set; }
         public SvenTechCollection<CostCenterCategory> CostCenterCategories { get; set; }
-        public CostCenter SelectedCostCenter { get; set; }
+        public SvenTechCollection<CostCenterCategoryFlatStructure> CostCenterCategoriesFlatStructure { get; set; } = new SvenTechCollection<CostCenterCategoryFlatStructure>();
+        public CostCenterCategoryFlatStructure SelectedCostCenterCategoryFlatStructure { get; set; }
+
         public DelegateCommand NewCostCenterCommand { get; set; }
         public DelegateCommand SaveCostCenterCommand { get; set; }
         public DelegateCommand DeleteCostCenterCommand { get; set; }
@@ -42,7 +44,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             NewCostCenterCommand = new DelegateCommand(NewCostCenter);
             SaveCostCenterCommand = new DelegateCommand(SaveCostCenter, () => Validation());
-            DeleteCostCenterCommand = new DelegateCommand(DeleteCostCenter, () => SelectedCostCenter != null);
+            DeleteCostCenterCommand = new DelegateCommand(DeleteCostCenter, () => SelectedCostCenterCategoryFlatStructure != null);
             OpenCostCenterCategoriesWindowCommand = new DelegateCommand(OpenCostCenterCategoriesWindow);
         }
 
@@ -53,65 +55,81 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void LoadCostCenters()
         {
-            try
-            {
-                CostCenters = DataContext.Instance.CostCenters.GetAll().ToSvenTechCollection();
-                CostCenterCategories = DataContext.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            CostCenters = DataContext.Instance.CostCenters.GetAll().ToSvenTechCollection();
+            CostCenterCategories = DataContext.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
+            CreateFlatCostCenterCategoriesList();
         }
 
         private void NewCostCenter()
         {
-            SelectedCostCenter = new CostCenter();
-            CostCenters.Add(SelectedCostCenter);
+            SelectedCostCenterCategoryFlatStructure = new CostCenterCategoryFlatStructure();
+            CostCenters.Add(SelectedCostCenterCategoryFlatStructure.CostCenter);
+            CostCenterCategoriesFlatStructure.Add(SelectedCostCenterCategoryFlatStructure);
         }
 
         private void DeleteCostCenter()
         {
-            if (SelectedCostCenter == null) return;
+            if (SelectedCostCenterCategoryFlatStructure == null) return;
 
-            if (SelectedCostCenter.CostCenterId == 0)
+            if (SelectedCostCenterCategoryFlatStructure.CostCenter.CostCenterId == 0)
             {
-                CostCenters.Remove(SelectedCostCenter);
-                SelectedCostCenter = null;
+                CostCenters.Remove(SelectedCostCenterCategoryFlatStructure.CostCenter);
+                SelectedCostCenterCategoryFlatStructure.CostCenter = null;
                 return;
             }
 
-            try
-            {
-                DataContext.Instance.CostCenters.Delete(SelectedCostCenter.CostCenterId);
-                CostCenters.Remove(SelectedCostCenter);
-                SelectedCostCenter = null;
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            DataContext.Instance.CostCenters.Delete(SelectedCostCenterCategoryFlatStructure.CostCenter.CostCenterId);
+            CostCenters.Remove(SelectedCostCenterCategoryFlatStructure.CostCenter);
+            SelectedCostCenterCategoryFlatStructure.CostCenter = null;
+            LoadCostCenters();
         }
 
         private void SaveCostCenter()
         {
-            try
-            {
-                if (SelectedCostCenter.CostCenterId != 0)
-                    DataContext.Instance.CostCenters.Update(SelectedCostCenter);
-                else
-                    DataContext.Instance.CostCenters.Insert(SelectedCostCenter);
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            if (SelectedCostCenterCategoryFlatStructure.CostCenter.CostCenterId != 0)
+                DataContext.Instance.CostCenters.Update(SelectedCostCenterCategoryFlatStructure.CostCenter);
+            else
+                DataContext.Instance.CostCenters.Insert(SelectedCostCenterCategoryFlatStructure.CostCenter);
+            LoadCostCenters();
         }
 
         private bool Validation()
         {
-            if (SelectedCostCenter == null) return false;
-            return !string.IsNullOrEmpty(SelectedCostCenter.Name);
+            if (SelectedCostCenterCategoryFlatStructure.CostCenter == null) return false;
+            return !string.IsNullOrEmpty(SelectedCostCenterCategoryFlatStructure.CostCenter.Name);
+        }
+
+        private void CreateFlatCostCenterCategoriesList()
+        {
+            int id = 0;
+            CostCenterCategoriesFlatStructure.Clear();
+
+            foreach (var category in CostCenterCategories)
+            {
+                CostCenterCategoriesFlatStructure.Add(new CostCenterCategoryFlatStructure()
+                {
+                    Id = category.CostCenterCategoryId,
+                    ParentId = 0,
+                    CostCenterCategory = category,
+                    CostCenter = null
+                });
+                id = category.CostCenterCategoryId + 1;
+            }
+
+            foreach (var category in CostCenterCategories)
+            {
+                foreach (var costCenter in category.CostCenters)
+                {
+                    CostCenterCategoriesFlatStructure.Add(new CostCenterCategoryFlatStructure()
+                    {
+                        Id = id,
+                        ParentId = costCenter.RefCostCenterCategoryId,
+                        CostCenterCategory = null,
+                        CostCenter = costCenter
+                    });
+                    id++;
+                }
+            }
         }
 
         private void ChangeSelectedCostCenterCategory(SelectedCostCenterCategory SelectedCostCenterCategory)
