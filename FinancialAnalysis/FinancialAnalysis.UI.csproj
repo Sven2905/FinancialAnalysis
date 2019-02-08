@@ -180,6 +180,9 @@
     <Compile Include="UserControls\Accounting\CompanyControl.xaml.cs">
       <DependentUpon>CompanyControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Accounting\FixedCostAllocationControl.xaml.cs">
+      <DependentUpon>FixedCostAllocationControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Administration\MyClientControl.xaml.cs">
       <DependentUpon>MyClientControl.xaml</DependentUpon>
     </Compile>
@@ -307,6 +310,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\Accounting\CompanyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Accounting\FixedCostAllocationControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

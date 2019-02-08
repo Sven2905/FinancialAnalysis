@@ -70,7 +70,17 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<FixedCostAllocation>($"dbo.{TableName}_GetAll");
+                    output = con.Query<FixedCostAllocation, CostCenter, CostCenterCategory, FixedCostAllocation>($"dbo.{TableName}_GetAll",
+                        (objFixedCostAllocation, objCostCenter, objCostCenterCategory) =>
+                        {
+                            objFixedCostAllocation.CostCenter = objCostCenter;
+                            if (objCostCenter != null)
+                            {
+                                objFixedCostAllocation.CostCenter.CostCenterCategory = objCostCenterCategory;
+                            }
+                            return objFixedCostAllocation;
+                        }, splitOn: "FixedCostAllocationId, CostCenterId, CostCenterCategoryId",
+                        commandType: CommandType.StoredProcedure).ToList();
                 }
             }
             catch (Exception e)

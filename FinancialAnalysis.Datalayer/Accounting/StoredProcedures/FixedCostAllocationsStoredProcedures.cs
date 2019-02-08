@@ -32,7 +32,12 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; SELECT * FROM {TableName} END");
+                    $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
+                    $"SELECT f.*, c.*, cc.* " +
+                    $"FROM {TableName} f " +
+                    $"JOIN CostCenters c ON f.RefCostCenterId = c.CostCenterId " +
+                    $"JOIN CostCenterCategories cc ON c.RefCostCenterCategoryId = cc.CostCenterCategoryId " +
+                    $"END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

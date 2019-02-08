@@ -161,7 +161,6 @@ namespace FinancialAnalysis.Datalayer
                 _Import.SeedTaxTypes();
                 _Import.SeedCostCenters();
                 _Import.SeedHealthInsurance();
-                _Import.SeedCostCenters();
             }
         }
     }

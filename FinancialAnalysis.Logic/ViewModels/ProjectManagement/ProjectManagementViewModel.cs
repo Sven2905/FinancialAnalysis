@@ -14,21 +14,15 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region UserRights
 
-        public bool ShowProjects =>
-            UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessProjects) ||
-            ActualUser.IsAdministrator;
-
-        public bool ShowEmployees =>
-            UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessEmployees) ||
-            ActualUser.IsAdministrator;
-
-        public bool ShowCostCenters =>
-            UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessCostCenters) ||
-            ActualUser.IsAdministrator;
-
-        public bool ShowProjectWorkingTimes =>
-            UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessProjectWorkingTimes) ||
-            ActualUser.IsAdministrator;
+        public bool ShowProjects => Globals.ActualUser.IsAdministrator ||
+                            UserManager.Instance.IsUserRightGranted(Globals.ActualUser,
+                                Permission.AccessProjects);
+        public bool ShowEmployees => Globals.ActualUser.IsAdministrator ||
+                            UserManager.Instance.IsUserRightGranted(Globals.ActualUser,
+                                Permission.AccessEmployees);
+        public bool ShowProjectWorkingTimes => Globals.ActualUser.IsAdministrator ||
+                            UserManager.Instance.IsUserRightGranted(Globals.ActualUser,
+                                Permission.AccessProjectWorkingTimes);
 
         #endregion UserRights
     }

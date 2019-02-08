@@ -32,6 +32,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                                     UserManager.Instance.IsUserRightGranted(Globals.ActualUser,
                                         Permission.AccessTaxTypes);
 
+        public bool ShowCostCenters => Globals.ActualUser.IsAdministrator ||
+                                    UserManager.Instance.IsUserRightGranted(Globals.ActualUser, 
+                                        Permission.AccessCostCenters);
         #endregion UserRights
     }
 }
