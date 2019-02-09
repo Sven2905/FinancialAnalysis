@@ -14,6 +14,7 @@ namespace FinancialAnalysis.Models.Accounting
         public string Description { get; set; }
         public string Identifier { get; set; }
         public int RefCostCenterCategoryId { get; set; }
+        public CostCenterType CostCenterType { get; set; } = CostCenterType.Main;
         public CostCenterCategory CostCenterCategory { get; set; }
 
         public List<Project> Projects { get; set; }

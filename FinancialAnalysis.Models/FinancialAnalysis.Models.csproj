@@ -92,6 +92,7 @@
     <Compile Include="ClientManagement\Client.cs" />
     <Compile Include="Enums\ClientType.cs" />
     <Compile Include="Enums\CostAccountType.cs" />
+    <Compile Include="Enums\CostCenterType.cs" />
     <Compile Include="Enums\CustomerType.cs" />
     <Compile Include="Enums\FederalState.cs" />
     <Compile Include="Enums\Gender.cs" />
