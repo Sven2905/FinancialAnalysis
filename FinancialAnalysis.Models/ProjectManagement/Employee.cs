@@ -1,6 +1,6 @@
-﻿using System;
+﻿using DevExpress.Mvvm;
+using System;
 using System.Collections.Generic;
-using DevExpress.Mvvm;
 
 namespace FinancialAnalysis.Models.ProjectManagement
 {
@@ -50,5 +50,19 @@ namespace FinancialAnalysis.Models.ProjectManagement
 
         public string Name => Firstname + " " + Lastname;
         public string Address => Street + ", " + Postcode + " " + City;
+        public bool ValidForSaving
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Firstname)
+                || string.IsNullOrEmpty(Lastname)
+                || string.IsNullOrEmpty(Street)
+                || string.IsNullOrEmpty(City)
+                || Equals(0, Postcode))
+                    return false;
+                else
+                    return true;
+            }
+        }
     }
 }

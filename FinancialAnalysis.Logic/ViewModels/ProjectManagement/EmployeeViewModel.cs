@@ -134,6 +134,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 DataContext.Instance.Employees.Update(SelectedEmployee);
             }
+            SelectedEmployee = null;
         }
 
         private void LoadEmployees()
@@ -153,14 +154,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return false;
             }
 
-            if (string.IsNullOrEmpty(SelectedEmployee.Firstname) || string.IsNullOrEmpty(SelectedEmployee.Lastname) ||
-                string.IsNullOrEmpty(SelectedEmployee.Street)
-                || string.IsNullOrEmpty(SelectedEmployee.City) || SelectedEmployee.Postcode == 0)
-            {
-                return false;
-            }
-
-            return true;
+            return SelectedEmployee.ValidForSaving;
         }
 
         public BitmapImage ConvertToImage(byte[] array)
