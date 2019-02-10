@@ -115,6 +115,8 @@ namespace FinancialAnalysis.Logic.ViewModels
                     DataContext.Instance.Projects.Update(SelectedProject);
                 else
                     DataContext.Instance.Projects.Insert(SelectedProject);
+
+                SelectedProject = new Project();
             }
             catch (Exception ex)
             {
@@ -124,8 +126,11 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private bool Validation()
         {
-            if (SelectedProject == null || SelectedProject.RefCostCenterId == 0 ||
-                string.IsNullOrEmpty(SelectedProject.Name)) return false;
+            if (SelectedProject == null ||
+                SelectedProject.RefCostCenterId == 0 ||
+                string.IsNullOrEmpty(SelectedProject.Name
+                ))
+                return false;
             return true;
         }
 
