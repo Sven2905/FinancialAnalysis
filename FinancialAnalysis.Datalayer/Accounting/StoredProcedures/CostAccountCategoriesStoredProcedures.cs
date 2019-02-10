@@ -81,7 +81,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @CostAccountCategoryId int AS BEGIN SET NOCOUNT ON; SELECT CostAccountCategoryId, Description, ParentCategoryId " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @CostAccountCategoryId int AS BEGIN SET NOCOUNT ON; " +
+                    $"SELECT CostAccountCategoryId, Description, ParentCategoryId " +
                     $"FROM {TableName} " +
                     "WHERE CostAccountCategoryId = @CostAccountCategoryId END");
                 using (var connection =
@@ -131,7 +132,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @CostAccountCategoryId int AS BEGIN SET NOCOUNT ON; DELETE FROM {TableName} WHERE CostAccountCategoryId = @CostAccountCategoryId OR ParentCategoryId= @CostAccountCategoryId END");
+                    $"CREATE PROCEDURE [{TableName}_Delete] @CostAccountCategoryId int AS BEGIN SET NOCOUNT ON; " +
+                    $"DELETE FROM {TableName} " +
+                    $"WHERE CostAccountCategoryId = @CostAccountCategoryId OR ParentCategoryId= @CostAccountCategoryId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -153,7 +156,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetCreditorId] @Description nvarchar(150) AS BEGIN SET NOCOUNT ON; SELECT CostAccountCategoryId " +
+                    $"CREATE PROCEDURE [{TableName}_GetCreditorId] @Description nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
+                    $"SELECT CostAccountCategoryId " +
                     $"FROM {TableName} " +
                     "WHERE Description = @Description END");
                 using (var connection =

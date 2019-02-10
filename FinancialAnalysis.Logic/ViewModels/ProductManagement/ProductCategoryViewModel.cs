@@ -155,7 +155,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public ProductCategory SelectedProductCategory { get; set; }
         public Action CloseAction { get; set; }
-        public User ActualUser => Globals.ActualUser;
+        public User ActualUser => Globals.ActiveUser;
 
         #endregion Properties
     }

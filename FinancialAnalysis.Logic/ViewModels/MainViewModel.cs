@@ -3,7 +3,7 @@ using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models.Administration;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Timers;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -22,7 +22,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             SetSalesOrderStatusViewModel();
             SetDebitorStatusViewModel();
-            UpdateTime();
+            SetupTimer();
         }
 
         private void SetDebitorStatusViewModel()
@@ -51,42 +51,41 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
-        public User ActualUser => Globals.ActualUser;
         public StatusViewModel SalesOrderStatusViewModel { get; set; } = new StatusViewModel();
         public StatusViewModel DebitorStatusViewModel { get; set; } = new StatusViewModel();
 
-        private void UpdateTime()
+        private void SetupTimer()
         {
-            Task.Run(() =>
-            {
-                while (true)
-                {
-                    CurrentTime = DateTime.Now.ToString("G");
-                    Task.Delay(1000);
-                }
-            });
+            Timer timer = new Timer(1000);
+            timer.Elapsed += Timer_Elapsed;
+            timer.Start();
+        }
+
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            CurrentTime = DateTime.Now.ToString("G");
         }
 
         #region UserRights
 
-        public bool ShowAccounting => Globals.ActualUser.IsAdministrator ||
-                                      UserManager.Instance.IsUserRightGranted(Globals.ActualUser,
+        public bool ShowAccounting => Globals.ActiveUser.IsAdministrator ||
+                                      UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
                                           Permission.AccessAccounting);
 
-        public bool ShowProjectManagement => Globals.ActualUser.IsAdministrator ||
-                                             UserManager.Instance.IsUserRightGranted(Globals.ActualUser,
+        public bool ShowProjectManagement => Globals.ActiveUser.IsAdministrator ||
+                                             UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
                                                  Permission.AccessProjectManagement);
 
-        public bool ShowProducts => Globals.ActualUser.IsAdministrator ||
-                                    UserManager.Instance.IsUserRightGranted(Globals.ActualUser,
+        public bool ShowProducts => Globals.ActiveUser.IsAdministrator ||
+                                    UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
                                         Permission.AccessProducts);
 
-        public bool ShowWarehouseManagement => Globals.ActualUser.IsAdministrator ||
-                                               UserManager.Instance.IsUserRightGranted(Globals.ActualUser,
+        public bool ShowWarehouseManagement => Globals.ActiveUser.IsAdministrator ||
+                                               UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
                                                    Permission.AccessWarehouseManagement);
 
-        public bool ShowConfiguration => Globals.ActualUser.IsAdministrator ||
-                                         UserManager.Instance.IsUserRightGranted(Globals.ActualUser,
+        public bool ShowConfiguration => Globals.ActiveUser.IsAdministrator ||
+                                         UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
                                              Permission.AccessConfiguration);
 
         #endregion UserRights

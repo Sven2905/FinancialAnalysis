@@ -155,7 +155,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public CostCenterCategory SelectedCostCenterCategory { get; set; }
         public Action CloseAction { get; set; }
-        public User ActualUser => Globals.ActualUser;
+        public User ActualUser => Globals.ActiveUser;
 
         #endregion Properties
     }

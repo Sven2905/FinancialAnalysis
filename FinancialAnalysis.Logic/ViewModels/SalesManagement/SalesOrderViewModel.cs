@@ -37,8 +37,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         #region UserRights
 
         public bool AllowSalesTypes =>
-            UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessSalesTypes) ||
-            Globals.ActualUser.IsAdministrator;
+            UserManager.Instance.IsUserRightGranted(Globals.ActiveUser, Permission.AccessSalesTypes) ||
+            Globals.ActiveUser.IsAdministrator;
 
         #endregion UserRights
 

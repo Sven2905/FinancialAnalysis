@@ -233,7 +233,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveBookingHistoryEntry()
         {
-            WarehouseStockingHistory WarehouseStockingHistory = new WarehouseStockingHistory(SelectedProduct, SelectedStockyard, Quantity, Globals.ActualUser);
+            WarehouseStockingHistory WarehouseStockingHistory = new WarehouseStockingHistory(SelectedProduct, SelectedStockyard, Quantity, Globals.ActiveUser);
             if (IsTakeOut)
             {
                 WarehouseStockingHistory.Quantity = QuantityTakeOut * (-1);

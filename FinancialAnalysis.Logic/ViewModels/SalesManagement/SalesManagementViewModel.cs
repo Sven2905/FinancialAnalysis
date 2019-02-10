@@ -7,17 +7,18 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         public SalesManagementViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
         }
 
         #region UserRights
 
-        public bool ShowSalesOrders => Globals.ActualUser.IsAdministrator ||
-                                       UserManager.Instance.IsUserRightGranted(Globals.ActualUser,
-                                           Permission.AccessSalesOrders);
+        public bool ShowSalesOrders => Globals.ActiveUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActiveUser, Permission.AccessSalesOrders);
 
-        public bool ShowPendingSaleOrders => Globals.ActualUser.IsAdministrator ||
-                                             UserManager.Instance.IsUserRightGranted(Globals.ActualUser,
+        public bool ShowPendingSaleOrders => Globals.ActiveUser.IsAdministrator ||
+                                             UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
                                                  Permission.AccessPendingSaleOrders);
 
         #endregion UserRights

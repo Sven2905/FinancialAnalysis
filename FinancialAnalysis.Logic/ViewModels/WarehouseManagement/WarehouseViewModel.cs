@@ -36,12 +36,12 @@ namespace FinancialAnalysis.Logic.ViewModels
         #region UserRights
 
         public bool AllowSave =>
-            UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessWarehouseSave) ||
-            Globals.ActualUser.IsAdministrator;
+            UserManager.Instance.IsUserRightGranted(Globals.ActiveUser, Permission.AccessWarehouseSave) ||
+            Globals.ActiveUser.IsAdministrator;
 
         public bool AllowDelete =>
-            UserManager.Instance.IsUserRightGranted(Globals.ActualUser, Permission.AccessWarehouseDelete) ||
-            Globals.ActualUser.IsAdministrator;
+            UserManager.Instance.IsUserRightGranted(Globals.ActiveUser, Permission.AccessWarehouseDelete) ||
+            Globals.ActiveUser.IsAdministrator;
 
         #endregion UserRights
 

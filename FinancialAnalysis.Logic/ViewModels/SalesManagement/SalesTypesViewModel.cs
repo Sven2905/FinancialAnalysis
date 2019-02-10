@@ -148,7 +148,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public SalesType SelectedSalesType { get; set; }
         public Action CloseAction { get; set; }
-        public User ActualUser => Globals.ActualUser;
+        public User ActualUser => Globals.ActiveUser;
 
         #endregion Properties
     }
