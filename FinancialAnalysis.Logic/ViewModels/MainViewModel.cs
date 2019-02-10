@@ -2,6 +2,7 @@ using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models.Administration;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Timers;
 
@@ -41,9 +42,12 @@ namespace FinancialAnalysis.Logic.ViewModels
             SalesOrderStatusViewModel.StatusValue = DataContext.Instance.SalesOrders.GetOpenedSalesOrders().Count().ToString();
         }
 
+        public User ActiveUser => Globals.ActiveUser;
         public string CurrentTime
         {
+            [DebuggerStepThrough]
             get => _currentTime;
+            [DebuggerStepThrough]
             set
             {
                 _currentTime = value;

@@ -42,7 +42,7 @@
                    Background="#3f729b">
             <StatusBarItem HorizontalAlignment="Left" Height="24" Content="{Binding CurrentTime}" Foreground="White"
                            Margin="0,0,5,0" FontSize="14" FontFamily="Tahoma" />
-            <StatusBarItem HorizontalAlignment="Right" Height="24" Content="{Binding ActualUser.Name}"
+            <StatusBarItem HorizontalAlignment="Right" Height="24" Content="{Binding ActiveUser.Name}"
                            Foreground="White" Margin="0,0,5,0" FontSize="14" FontFamily="Tahoma" />
         </StatusBar>
 

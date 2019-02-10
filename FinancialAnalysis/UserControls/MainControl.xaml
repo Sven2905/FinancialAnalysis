@@ -55,7 +55,7 @@
         <local:StatusControl Grid.Column="1" Grid.Row="1" Margin="20,180,0,0" DataContext="{Binding DebitorStatusViewModel}" />
 
         <TextBlock Grid.Column="1" Grid.ColumnSpan="2" FontFamily="Tahoma" HorizontalAlignment="Right"
-                   VerticalAlignment="Center" Text="{Binding ActualUser.Name}" FontSize="24" Foreground="White"
+                   VerticalAlignment="Center" Text="{Binding ActiveUser.Name}" FontSize="24" Foreground="White"
                    Margin="0,0,10,0" />
 
         <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
