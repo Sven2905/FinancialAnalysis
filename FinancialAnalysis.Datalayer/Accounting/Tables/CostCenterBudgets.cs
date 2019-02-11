@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using FinancialAnalysis.Models.Accounting;
+using FinancialAnalysis.Models.Accounting.CostCenterManagement;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -91,6 +92,56 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
+        ///     Returns CostCenterBudget by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public CostCenterBudget GetById(int id)
+        {
+            var output = new CostCenterBudget();
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    output = con.QuerySingleOrDefault<CostCenterBudget>($"dbo.{TableName}_GetById @CostCenterBudgetId",
+                        new { CostCenterBudgetId = id });
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
+            }
+
+            return output;
+        }
+
+        /// <summary>
+        ///     Returns CostCenterCurrentCosts by CostCenter and Year
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IEnumerable<CostCenterCurrentCosts> GetAnnuallyCosts(int RefCostCenterId, int Year)
+        {
+            IEnumerable<CostCenterCurrentCosts> output = new List<CostCenterCurrentCosts>();
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    output = con.Query<CostCenterCurrentCosts>($"dbo.{TableName}_GetAnnuallyCosts @RefCostCenterId, @Year ",
+                        new { RefCostCenterId, Year });
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'GetAnnuallyCosts' from table '{TableName}'", e);
+            }
+
+            return output;
+        }
+
+        /// <summary>
         ///     Inserts the CostCenterBudget item
         /// </summary>
         /// <param name="CostCenterBudget"></param>
@@ -137,31 +188,6 @@ namespace FinancialAnalysis.Datalayer.Accounting
             {
                 Log.Error($"Exception occured while 'Insert items' into table '{TableName}'", e);
             }
-        }
-
-        /// <summary>
-        ///     Returns CostCenterBudget by Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public CostCenterBudget GetById(int id)
-        {
-            var output = new CostCenterBudget();
-            try
-            {
-                using (IDbConnection con =
-                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    output = con.QuerySingleOrDefault<CostCenterBudget>($"dbo.{TableName}_GetById @CostCenterBudgetId",
-                        new { CostCenterBudgetId = id });
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
-            }
-
-            return output;
         }
 
         /// <summary>

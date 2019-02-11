@@ -62,8 +62,12 @@ namespace FinancialAnalysis.Datalayer.Accounting
         ///     Returns all CostCenter records
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<CostCenter> GetAll()
+        public IEnumerable<CostCenter> GetAll(int year = 0)
         {
+            if (Equals(year, 0))
+            {
+                year = DateTime.Now.Year;
+            }
             var CostCenterDictionary = new Dictionary<int, CostCenter>();
             IEnumerable<CostCenter> output = new List<CostCenter>();
             try
@@ -79,8 +83,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
                                 CostCenterEntry = objCostCenter;
                                 CostCenterEntry.CostCenterCategory = objCostCenterCategory;
                                 CostCenterDictionary.Add(objCostCenter.CostCenterId, objCostCenter);
+                                CostCenterEntry.ScheduledBudget = objCostCenterBudget;
                             }
-                            CostCenterEntry.CostCenterBudgets.Add(objCostCenterBudget);
                             return objCostCenter;
                         }, splitOn: "CostCenterCategoryId, CostCenterBudgetId",
                         commandType: CommandType.StoredProcedure).ToList();
@@ -99,8 +103,13 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public CostCenter GetById(int id)
+        public CostCenter GetById(int id, int year = 0)
         {
+            if (Equals(year, 0))
+            {
+                year = DateTime.Now.Year;
+            }
+
             var CostCenterDictionary = new Dictionary<int, CostCenter>();
             IEnumerable<CostCenter> output = new List<CostCenter>();
             try
@@ -109,17 +118,17 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.Query<CostCenter, CostCenterCategory, CostCenterBudget, CostCenter>(
-                        $"dbo.{TableName}_GetById @CostCenterId",
+                        $"dbo.{TableName}_GetById @CostCenterId, @Year",
                         (objCostCenter, objCostCenterCategory, objCostCenterBudget) =>
                         {
                             if (!CostCenterDictionary.TryGetValue(objCostCenter.CostCenterBudgetId, out CostCenter CostCenterEntry))
                             {
                                 CostCenterEntry = objCostCenter;
                                 CostCenterEntry.CostCenterCategory = objCostCenterCategory;
+                                CostCenterEntry.ScheduledBudget = objCostCenterBudget;
                             }
-                            CostCenterEntry.CostCenterBudgets.Add(objCostCenterBudget);
                             return objCostCenter;
-                        }, new { CostCenterId = id }, splitOn: "CostCenterCategoryId, CostCenterBudgetId",
+                        }, new { CostCenterId = id, Year = year }, splitOn: "CostCenterCategoryId, CostCenterBudgetId",
                         commandType: CommandType.StoredProcedure).ToList();
                 }
             }

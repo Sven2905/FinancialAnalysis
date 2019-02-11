@@ -72,9 +72,10 @@
     <Compile Include="Accounting\Cashback.cs" />
     <Compile Include="Accounting\CostAccount.cs" />
     <Compile Include="Accounting\CostAccountCategory.cs" />
-    <Compile Include="Accounting\CostCenter\CostCenterBudget.cs" />
-    <Compile Include="Accounting\CostCenter\CostCenterCategory.cs" />
-    <Compile Include="Accounting\CostCenter\CostCenter.cs" />
+    <Compile Include="Accounting\CostCenterManagement\CostCenterCurrentCosts.cs" />
+    <Compile Include="Accounting\CostCenterManagement\CostCenterBudget.cs" />
+    <Compile Include="Accounting\CostCenterManagement\CostCenterCategory.cs" />
+    <Compile Include="Accounting\CostCenterManagement\CostCenter.cs" />
     <Compile Include="Accounting\Credit.cs" />
     <Compile Include="Accounting\Debit.cs" />
     <Compile Include="Accounting\FixedCostAllocation.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Enums\CustomerType.cs" />
     <Compile Include="Enums\FederalState.cs" />
     <Compile Include="Enums\Gender.cs" />
+    <Compile Include="Enums\Months.cs" />
     <Compile Include="General\SvenTechColors.cs" />
     <Compile Include="Enums\GrossNetType.cs" />
     <Compile Include="Interfaces\IOrderPositionItem.cs" />
