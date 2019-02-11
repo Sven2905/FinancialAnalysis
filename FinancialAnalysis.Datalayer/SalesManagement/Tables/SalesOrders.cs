@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using Dapper;
+﻿using Dapper;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.ClientManagement;
 using FinancialAnalysis.Models.ProductManagement;
 using FinancialAnalysis.Models.SalesManagement;
 using Serilog;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
 using Utilities;
 
 namespace FinancialAnalysis.Datalayer.SalesManagement
@@ -77,9 +77,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     ($"dbo.{TableName}_GetAll",
                         (so, st, i, s, d, sop, p) =>
                         {
-                            SalesOrder SalesOrderEntry;
-
-                            if (!SalesOrderDictionary.TryGetValue(so.SalesOrderId, out SalesOrderEntry))
+                            if (!SalesOrderDictionary.TryGetValue(so.SalesOrderId, out SalesOrder SalesOrderEntry))
                             {
                                 SalesOrderEntry = so;
                                 SalesOrderEntry.SalesOrderPositions = new SvenTechCollection<SalesOrderPosition>();
@@ -176,7 +174,11 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                             else
                             {
                                 SalesOrderEntry.Invoices.Add(Invoice);
-                                if (InvoicePosition != null) invoiceEntry.InvoicePositions.Add(InvoicePosition);
+                                if (InvoicePosition != null)
+                                {
+                                    invoiceEntry.InvoicePositions.Add(InvoicePosition);
+                                }
+
                                 SalesOrderEntry.Invoices.Add(Invoice);
                             }
                         }
@@ -192,7 +194,11 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                             else
                             {
                                 SalesOrderEntry.Shipments.Add(Shipment);
-                                if (ShippedProduct != null) shipmentEntry.ShippedProducts.Add(ShippedProduct);
+                                if (ShippedProduct != null)
+                                {
+                                    shipmentEntry.ShippedProducts.Add(ShippedProduct);
+                                }
+
                                 SalesOrderEntry.Shipments.Add(Shipment);
                             }
                         }
@@ -244,7 +250,10 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var SalesOrder in SalesOrders) Insert(SalesOrder);
+                    foreach (var SalesOrder in SalesOrders)
+                    {
+                        Insert(SalesOrder);
+                    }
                 }
             }
             catch (Exception e)
@@ -288,7 +297,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                             SalesOrderEntry.SalesOrderPositions.Add(sop);
 
                             return so;
-                        }, new {SalesOrderId = id},
+                        }, new { SalesOrderId = id },
                         splitOn:
                         "SalesOrderId, SalesTypeId, InvoiceId, ShipmentId, DebitorId, SalesOrderPositionId, ProductId")
                     .AsQueryable();
@@ -318,7 +327,10 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         /// <param name="SalesOrders"></param>
         public void UpdateOrInsert(IEnumerable<SalesOrder> SalesOrders)
         {
-            foreach (var SalesOrder in SalesOrders) UpdateOrInsert(SalesOrder);
+            foreach (var SalesOrder in SalesOrders)
+            {
+                UpdateOrInsert(SalesOrder);
+            }
         }
 
         /// <summary>
@@ -329,7 +341,9 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         {
             if (SalesOrder.SalesOrderId == 0 ||
                 GetById(SalesOrder.SalesOrderId) is null)
+            {
                 return;
+            }
 
             try
             {
@@ -358,7 +372,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @SalesOrderId", new {SalesOrderId = id});
+                    con.Execute($"dbo.{TableName}_Delete @SalesOrderId", new { SalesOrderId = id });
                 }
             }
             catch (Exception e)

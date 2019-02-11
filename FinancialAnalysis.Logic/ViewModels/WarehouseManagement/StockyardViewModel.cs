@@ -184,7 +184,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand SaveStockyardCommand { get; set; }
         public DelegateCommand DeleteStockyardCommand { get; set; }
         public DelegateCommand OpenWarehousesWindowCommand { get; set; }
-        public User ActualUser => Globals.ActualUser;
+        public User ActualUser => Globals.ActiveUser;
         public StockyardStatusViewModel StockyardStatusViewModel { get; set; } = new StockyardStatusViewModel();
         public SvenTechCollection<Warehouse> Warehouses { get; set; } = new SvenTechCollection<Warehouse>();
         public Warehouse SelectedWarehouse { get; set; }

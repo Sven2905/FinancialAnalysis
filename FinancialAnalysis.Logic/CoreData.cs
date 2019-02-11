@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using FinancialAnalysis.Datalayer;
+﻿using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.ClientManagement;
+using System.Linq;
 using Utilities;
 
 namespace FinancialAnalysis.Logic

@@ -20,7 +20,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             NewUserCommand = new DelegateCommand(NewUser);
             SaveUserCommand = new DelegateCommand(SaveUser, () => Validation());
             DeleteUserCommand = new DelegateCommand(DeleteUser,
-                () => SelectedUser != null && SelectedUser.UserId != Globals.ActualUser.UserId);
+                () => SelectedUser != null && SelectedUser.UserId != Globals.ActiveUser.UserId);
         }
 
         #endregion Constructor
@@ -118,7 +118,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             SelectedUser = _Users.Single(x => x.UserId == selectedUserId);
 
-            if (selectedUserId == Globals.ActualUser.UserId) Globals.ActualUser = SelectedUser;
+            if (selectedUserId == Globals.ActiveUser.UserId) Globals.ActiveUser = SelectedUser;
         }
 
         public BitmapImage ConvertToImage(byte[] array)
@@ -247,7 +247,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
-        public User ActualUser => Globals.ActualUser;
+        public User ActualUser => Globals.ActiveUser;
 
         #endregion Properties
     }

@@ -32,9 +32,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT cc.*, ccc.* " +
+                                "SELECT cc.*, ccc.*, ccb.* " +
                                 $"FROM {TableName} cc " +
                                 "LEFT JOIN CostCenterCategories ccc ON cc.RefCostCenterCategoryId = ccc.CostCenterCategoryId " +
+                                "LEFT JOIN CostCenterBudgets ccb ON cc.CostCenterId = ccb.RefCostCenterId " +
                                 "ORDER BY cc.Name " +
                                 "END");
                 using (var connection =
@@ -84,9 +85,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetById] @CostCenterId int AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT cc.*, ccc.* " +
+                    "SELECT cc.*, ccc.*, ccb.* " +
                     $"FROM {TableName} cc " +
                     "LEFT JOIN CostCenterCategories ccc ON cc.RefCostCenterCategoryId = ccc.CostCenterCategoryId " +
+                    "LEFT JOIN CostCenterBudgets ccb ON cc.CostCenterId = ccb.RefCostCenterId " +
                     "WHERE CostCenterId = @CostCenterId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

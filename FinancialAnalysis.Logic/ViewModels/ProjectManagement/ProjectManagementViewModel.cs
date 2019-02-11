@@ -10,18 +10,18 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (IsInDesignMode) return;
         }
 
-        public User ActualUser => Globals.ActualUser;
+        public User ActualUser => Globals.ActiveUser;
 
         #region UserRights
 
-        public bool ShowProjects => Globals.ActualUser.IsAdministrator ||
-                            UserManager.Instance.IsUserRightGranted(Globals.ActualUser,
+        public bool ShowProjects => Globals.ActiveUser.IsAdministrator ||
+                            UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
                                 Permission.AccessProjects);
-        public bool ShowEmployees => Globals.ActualUser.IsAdministrator ||
-                            UserManager.Instance.IsUserRightGranted(Globals.ActualUser,
+        public bool ShowEmployees => Globals.ActiveUser.IsAdministrator ||
+                            UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
                                 Permission.AccessEmployees);
-        public bool ShowProjectWorkingTimes => Globals.ActualUser.IsAdministrator ||
-                            UserManager.Instance.IsUserRightGranted(Globals.ActualUser,
+        public bool ShowProjectWorkingTimes => Globals.ActiveUser.IsAdministrator ||
+                            UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
                                 Permission.AccessProjectWorkingTimes);
 
         #endregion UserRights

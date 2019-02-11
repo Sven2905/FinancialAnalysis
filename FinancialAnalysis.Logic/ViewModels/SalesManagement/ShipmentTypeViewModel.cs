@@ -134,7 +134,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public ShipmentType SelectedShipmentType { get; set; }
 
-        public User ActualUser => Globals.ActualUser;
+        public User ActualUser => Globals.ActiveUser;
 
         #endregion Properties
     }

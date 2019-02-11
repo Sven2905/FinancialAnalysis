@@ -104,7 +104,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return false;
             }
 
-            Globals.ActualUser = foundUser;
+            Globals.ActiveUser = foundUser;
             return true;
         }
 

@@ -343,7 +343,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand OpenFileCommand { get; set; }
         public DelegateCommand DoubleClickListBoxCommand { get; set; }
         public DelegateCommand DeleteSelectedScannedDocumentCommand { get; set; }
-        public User ActualUser => Globals.ActualUser;
+        public User ActualUser => Globals.ActiveUser;
 
         public CostAccount CostAccountCreditor
         {
