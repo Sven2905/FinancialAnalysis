@@ -247,27 +247,10 @@
                                          Height="800">
                                 <dxg:TreeListControl.View>
                                     <dxg:TreeListView EditFormColumnCount="2" EditFormShowMode="None"
-                                              EnableImmediatePosting="True"
+                                              EnableImmediatePosting="True" Width="750"
                                               AutoWidth="True" ShowTotalSummary="False" KeyFieldName="HierachicalId"
                                               ParentFieldName="ParentCategory"
                                               VerticalScrollbarVisibility="Auto">
-                                        <!--<dxg:TableView.InputBindings>
-                                <KeyBinding Key="Delete">
-                                    <dxmvvm:Interaction.Behaviors>
-                                        <dxmvvm:ConfirmationBehavior
-                                        EnableConfirmationMessage="True"
-                                        Command="{Binding DeleteFocusedRowCommand}"
-                                        MessageText="Möchten Sie den markierten Eintrag wirklich löschen?"
-                                        MessageIcon="Question" MessageTitle="Eintrag löschen" />
-                                    </dxmvvm:Interaction.Behaviors>
-                                </KeyBinding>
-                            </dxg:TableView.InputBindings>
-                            <dxmvvm:Interaction.Behaviors>
-                                <dxmvvm:EventToCommand
-                                Command="{Binding RowUpdatedCommand}"
-                                EventName="RowUpdated"
-                                PassEventArgsToCommand="True" />
-                            </dxmvvm:Interaction.Behaviors>-->
                                     </dxg:TreeListView>
                                 </dxg:TreeListControl.View>
                                 <dxg:TreeListColumn FieldName="IsGranted" Header="Zugriff" MaxWidth="60" Width="60" />

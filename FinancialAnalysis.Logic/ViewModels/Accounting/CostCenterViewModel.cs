@@ -4,6 +4,7 @@ using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Enums;
+using FinancialAnalysis.Models.Accounting.CostCenterManagement;
 using System;
 using System.Linq;
 using Utilities;
@@ -47,7 +48,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _SelectedCostCenter = value;
                 if (_SelectedCostCenter != null)
                 {
-                    SetupLineStackedSeries2D();
+                    SetupLineSeries2D();
                     _SelectedCostCenter.ScheduledBudget.ValueChangedEvent += CostCenterBudget_ValueChangedEvent;
                 }
             }
@@ -55,8 +56,20 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void CostCenterBudget_ValueChangedEvent()
         {
-            SetupLineStackedSeries2D();
+            SetupLineSeries2D();
         }
+
+        public CostCenterFlatStructure SelectedCostCenterFlatStructure
+        {
+            set
+            {
+                if (value != null && value.CostCenter != null)
+                {
+                    SelectedCostCenter = CostCenters.Single(x => x.CostCenterId == value.CostCenter.CostCenterId);
+                }
+            }
+        }
+
 
         public DelegateCommand NewCostCenterCommand { get; set; }
         public DelegateCommand SaveCostCenterCommand { get; set; }
@@ -64,6 +77,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand OpenCostCenterCategoriesWindowCommand { get; set; }
         public SvenTechCollection<TextValuePoint> ScheduldedCostPoints { get; private set; }
         public SvenTechCollection<TextValuePoint> CurrentCostPoints { get; private set; }
+        public SvenTechCollection<CostCenterFlatStructure> CostCenterFlatStructures { get; private set; }
         public CostCenterBudget CostCenterCurrentBudget { get; set; } = new CostCenterBudget();
 
         #endregion Properties
@@ -78,7 +92,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             OpenCostCenterCategoriesWindowCommand = new DelegateCommand(OpenCostCenterCategoriesWindow);
         }
 
-        private void SetupLineStackedSeries2D()
+        private void SetupLineSeries2D()
         {
             ScheduldedCostPoints = new SvenTechCollection<TextValuePoint>
             {
@@ -99,6 +113,54 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (SelectedCostCenter == null || Equals(SelectedCostCenter.CostCenterId, 0))
                 return;
 
+            GetCurrentCosts();
+
+            CurrentCostPoints = new SvenTechCollection<TextValuePoint>
+                {
+                    new TextValuePoint("Januar", (double)CostCenterCurrentBudget.January),
+                    new TextValuePoint("Februar", (double)CostCenterCurrentBudget.February),
+                    new TextValuePoint("März", (double)CostCenterCurrentBudget.March),
+                    new TextValuePoint("April", (double)CostCenterCurrentBudget.April),
+                    new TextValuePoint("Mai", (double)CostCenterCurrentBudget.May),
+                    new TextValuePoint("Juni", (double)CostCenterCurrentBudget.June),
+                    new TextValuePoint("Juli", (double)CostCenterCurrentBudget.July),
+                    new TextValuePoint("August", (double)CostCenterCurrentBudget.August),
+                    new TextValuePoint("September", (double)CostCenterCurrentBudget.September),
+                    new TextValuePoint("Oktober", (double)CostCenterCurrentBudget.October),
+                    new TextValuePoint("November", (double)CostCenterCurrentBudget.November),
+                    new TextValuePoint("Dezember", (double)CostCenterCurrentBudget.December)
+                };
+        }
+
+        private void SetupFlatStructure()
+        {
+            int key = 0;
+            CostCenterFlatStructures = new SvenTechCollection<CostCenterFlatStructure>();
+            foreach (var item in CostCenterCategories)
+            {
+                CostCenterFlatStructures.Add(new CostCenterFlatStructure()
+                {
+                    CostCenterCategory = item,
+                    Key = key = item.CostCenterCategoryId,
+                    ParentKey = 0
+                });
+                key++;
+            }
+
+            foreach (var item in CostCenters)
+            {
+                CostCenterFlatStructures.Add(new CostCenterFlatStructure()
+                {
+                    CostCenter = item,
+                    Key = key,
+                    ParentKey = item.RefCostCenterCategoryId
+                });
+                key++;
+            }
+        }
+
+        private void GetCurrentCosts()
+        {
             var currentCosts = DataContext.Instance.CostCenterBudgets.GetAnnuallyCosts(SelectedCostCenter.CostCenterId, DateTime.Now.Year).ToList();
 
             if (Equals(currentCosts.Count, 0))
@@ -149,22 +211,6 @@ namespace FinancialAnalysis.Logic.ViewModels
                     default:
                         break;
                 }
-
-                CurrentCostPoints = new SvenTechCollection<TextValuePoint>
-                {
-                    new TextValuePoint("Januar", (double)CostCenterCurrentBudget.January),
-                    new TextValuePoint("Februar", (double)CostCenterCurrentBudget.February),
-                    new TextValuePoint("März", (double)CostCenterCurrentBudget.March),
-                    new TextValuePoint("April", (double)CostCenterCurrentBudget.April),
-                    new TextValuePoint("Mai", (double)CostCenterCurrentBudget.May),
-                    new TextValuePoint("Juni", (double)CostCenterCurrentBudget.June),
-                    new TextValuePoint("Juli", (double)CostCenterCurrentBudget.July),
-                    new TextValuePoint("August", (double)CostCenterCurrentBudget.August),
-                    new TextValuePoint("September", (double)CostCenterCurrentBudget.September),
-                    new TextValuePoint("Oktober", (double)CostCenterCurrentBudget.October),
-                    new TextValuePoint("November", (double)CostCenterCurrentBudget.November),
-                    new TextValuePoint("Dezember", (double)CostCenterCurrentBudget.December)
-                };
             }
         }
 
@@ -177,6 +223,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             CostCenters = DataContext.Instance.CostCenters.GetAll().ToSvenTechCollection();
             CostCenterCategories = DataContext.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
+            SetupFlatStructure();
         }
 
         private void NewCostCenter()
@@ -188,9 +235,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void DeleteCostCenter()
         {
             if (SelectedCostCenter == null)
-            {
                 return;
-            }
 
             if (SelectedCostCenter.CostCenterId == 0)
             {

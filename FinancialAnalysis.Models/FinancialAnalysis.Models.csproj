@@ -76,6 +76,7 @@
     <Compile Include="Accounting\CostCenterManagement\CostCenterBudget.cs" />
     <Compile Include="Accounting\CostCenterManagement\CostCenterCategory.cs" />
     <Compile Include="Accounting\CostCenterManagement\CostCenter.cs" />
+    <Compile Include="Accounting\CostCenterManagement\CostCenterFlatStructure.cs" />
     <Compile Include="Accounting\Credit.cs" />
     <Compile Include="Accounting\Debit.cs" />
     <Compile Include="Accounting\FixedCostAllocation.cs" />

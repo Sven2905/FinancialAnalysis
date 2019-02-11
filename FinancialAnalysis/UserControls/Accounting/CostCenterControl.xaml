@@ -63,7 +63,7 @@
             <dx:DXTabItem Header="Kostenstellen">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="5*" />
+                        <ColumnDefinition Width="7*" />
                         <ColumnDefinition Width="20" />
                         <ColumnDefinition Width="7*" />
                         <ColumnDefinition Width="20" />
@@ -81,7 +81,7 @@
                     <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7">
 
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="7*" />
                             <ColumnDefinition Width="20" />
                             <ColumnDefinition Width="7*" />
                             <ColumnDefinition Width="20" />
@@ -112,33 +112,22 @@
                                     </dxlc:LayoutGroup>
                                 </dxlc:LayoutGroup>
                             </dxlc:LayoutControl>
-                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="12,0,12,0">
-                                <ListView ItemsSource="{Binding CostCenters}" SelectedItem="{Binding SelectedCostCenter}"
-                          x:Name="Users" BorderThickness="1" BorderBrush="DarkGray" FontSize="14">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <StackPanel />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-
-                                                <Border Grid.Column="2" Padding="0 0 8 0">
-                                                    <StackPanel VerticalAlignment="Center">
-                                                        <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#000"
-                                                   TextTrimming="CharacterEllipsis" />
-                                                        <TextBlock Margin="10,0,0,0" Text="{Binding CostCenterCategory.Name}"
-                                                   Foreground="#9e9e9e" TextTrimming="CharacterEllipsis" />
-                                                    </StackPanel>
-                                                </Border>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ListView>
+                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0">
+                                <dxg:TreeListControl VerticalAlignment="Top" MaxWidth="5000" MaxHeight="800" 
+                                         ItemsSource="{Binding CostCenterFlatStructures, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                                          ShowBorder="True" Height="600" Width="530" SelectedItem="{Binding SelectedCostCenterFlatStructure}">
+                                    <dxg:TreeListControl.View>
+                                        <dxg:TreeListView EditFormShowMode="None" 
+                                              EnableImmediatePosting="True" ShowVerticalLines="False"
+                                              AutoWidth="True" ShowTotalSummary="False" KeyFieldName="Key"
+                                              ParentFieldName="ParentKey" AllowEditing="False" ShowIndicator="False"
+                                              VerticalScrollbarVisibility="Auto">
+                                        </dxg:TreeListView>
+                                    </dxg:TreeListControl.View>
+                                    <dxg:TreeListColumn FieldName="CostCenterCategory.Name" Header="Kategorie" Width="120" />
+                                    <dxg:TreeListColumn FieldName="CostCenter.Name" Header="Name"  Width="200"
+                                            AllowEditing="False" />
+                                </dxg:TreeListControl>
                             </ScrollViewer>
                         </Grid>
 
