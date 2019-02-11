@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using FinancialAnalysis.Datalayer.Accounting;
+﻿using FinancialAnalysis.Datalayer.Accounting;
 using FinancialAnalysis.Datalayer.Administration;
 using FinancialAnalysis.Datalayer.ClientManagement;
 using FinancialAnalysis.Datalayer.Configurations;
@@ -12,6 +9,9 @@ using FinancialAnalysis.Datalayer.Tables;
 using FinancialAnalysis.Datalayer.WarehouseManagement;
 using FinancialAnalysis.Logic;
 using FinancialAnalysis.Models;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Datalayer
 {
@@ -61,6 +61,7 @@ namespace FinancialAnalysis.Datalayer
         public CostCenterCategories CostCenterCategories { get; set; } = new CostCenterCategories();
         public WarehouseStockingHistories WarehouseStockingHistories { get; set; } = new WarehouseStockingHistories();
         public FixedCostAllocations FixedCostAllocations { get; set; } = new FixedCostAllocations();
+        public CostCenterBudgets CostCenterBudgets { get; set; } = new CostCenterBudgets();
 
         public void Dispose()
         {
@@ -121,6 +122,7 @@ namespace FinancialAnalysis.Datalayer
             CostCenterCategories.CheckAndCreateStoredProcedures();
             WarehouseStockingHistories.CheckAndCreateStoredProcedures();
             FixedCostAllocations.CheckAndCreateStoredProcedures();
+            CostCenterBudgets.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()
@@ -149,6 +151,7 @@ namespace FinancialAnalysis.Datalayer
             Bookings.AddReferences();
             CostCenters.AddReferences();
             FixedCostAllocations.AddReferences();
+            CostCenterBudgets.AddReferences();
         }
 
         private void Seed()

@@ -4,11 +4,11 @@ using System.Text;
 
 namespace FinancialAnalysis.Datalayer.Accounting
 {
-    public class CostCentersStoredProcedures : IStoredProcedures
+    public class CostCenterBudgetsStoredProcedures : IStoredProcedures
     {
-        public CostCentersStoredProcedures()
+        public CostCenterBudgetsStoredProcedures()
         {
-            TableName = "CostCenters";
+            TableName = "CostCenterBudgets";
         }
 
         public string TableName { get; }
@@ -21,8 +21,6 @@ namespace FinancialAnalysis.Datalayer.Accounting
             InsertData();
             GetAllData();
             GetById();
-            UpdateData();
-            DeleteData();
         }
 
         private void GetAllData()
@@ -32,11 +30,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT cc.*, ccc.*, ccb.* " +
-                                $"FROM {TableName} cc " +
-                                "LEFT JOIN CostCenterCategories ccc ON cc.RefCostCenterCategoryId = ccc.CostCenterCategoryId " +
-                                "LEFT JOIN CostCenterBudgets ccb ON cc.CostCenterId = ccb.RefCostCenterId " +
-                                "ORDER BY cc.Name " +
+                                "SELECT * " +
+                                $"FROM {TableName} " +
                                 "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -59,9 +54,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Identifier nvarchar(150), @RefCostCenterCategoryId int, @CostCenterType int, @Description nvarchar(MAX) AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, Identifier, RefCostCenterCategoryId, CostCenterType, Description) " +
-                    "VALUES (@Name, @Identifier, @RefCostCenterCategoryId, @CostCenterType, @Description); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Year int, @RefCostCenterId int, @January money, @February money, @March money, @April money, @May money, @June money, @July money, @August money, @September money, @October money, @November money, @December money AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Year, RefCostCenterId, January, February, March, April, May, June, July, August, September, October, November, December) " +
+                    "VALUES (@Year, @RefCostCenterId, @January, @February, @March, @April, @May, @June, @July, @August, @September, @October, @November, @December); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -84,12 +79,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @CostCenterId int AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT cc.*, ccc.*, ccb.* " +
-                    $"FROM {TableName} cc " +
-                    "LEFT JOIN CostCenterCategories ccc ON cc.RefCostCenterCategoryId = ccc.CostCenterCategoryId " +
-                    "LEFT JOIN CostCenterBudgets ccb ON cc.CostCenterId = ccb.RefCostCenterId " +
-                    "WHERE CostCenterId = @CostCenterId END");
+                    $"CREATE PROCEDURE [{TableName}_GetById] @CostCenterBudgetId int AS BEGIN SET NOCOUNT ON; " +
+                    $"SELECT * " +
+                    $"FROM {TableName} " +
+                    "WHERE CostCenterBudgetId = @CostCenterBudgetId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -111,15 +104,24 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @CostCenterId int, @Name nvarchar(150), @Identifier nvarchar(150), @RefCostCenterCategoryId int, @CostCenterType int, @Description nvarchar(MAX) " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @CostCenterBudgetId int, @Year int, @RefCostCenterId, @January money, @February money, @March money, @April money, @May money, @June money, @July money, @August money, @September money, @October money, @November money, @December money " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
-                    "SET Name = @Name, " +
-                    "Identifier = @Identifier, " +
-                    "RefCostCenterCategoryId = @RefCostCenterCategoryId," +
-                    "CostCenterType = @CostCenterType, " +
-                    "Description = @Description " +
-                    "WHERE CostCenterId = @CostCenterId END");
+                    "SET Year = @Year, " +
+                    "RefCostCenterId = @RefCostCenterId" +
+                    "January = @January " +
+                    "February = @February " +
+                    "March = @March " +
+                    "April = @April " +
+                    "May = @May " +
+                    "June = @June " +
+                    "July = @July " +
+                    "August = @August " +
+                    "September = @September " +
+                    "October = @October " +
+                    "November = @November " +
+                    "December = @December " +
+                    "WHERE CostCenterBudgetId = @CostCenterBudgetId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -141,9 +143,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @CostCenterId int AS BEGIN SET NOCOUNT ON; " +
+                    $"CREATE PROCEDURE [{TableName}_Delete] @CostCenterBudgetId int AS BEGIN SET NOCOUNT ON; " +
                     $"DELETE FROM {TableName} " +
-                    "WHERE CostCenterId = @CostCenterId END");
+                    "WHERE CostCenterBudgetId = @CostCenterBudgetId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

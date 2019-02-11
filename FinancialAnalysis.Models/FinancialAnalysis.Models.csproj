@@ -72,8 +72,9 @@
     <Compile Include="Accounting\Cashback.cs" />
     <Compile Include="Accounting\CostAccount.cs" />
     <Compile Include="Accounting\CostAccountCategory.cs" />
-    <Compile Include="Accounting\CostCenterCategory.cs" />
-    <Compile Include="Accounting\CostCenter.cs" />
+    <Compile Include="Accounting\CostCenter\CostCenterBudget.cs" />
+    <Compile Include="Accounting\CostCenter\CostCenterCategory.cs" />
+    <Compile Include="Accounting\CostCenter\CostCenter.cs" />
     <Compile Include="Accounting\Credit.cs" />
     <Compile Include="Accounting\Debit.cs" />
     <Compile Include="Accounting\FixedCostAllocation.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="ClientManagement\Client.cs" />
     <Compile Include="Enums\ClientType.cs" />
     <Compile Include="Enums\CostAccountType.cs" />
+    <Compile Include="Enums\CostCenterBudgetInterval.cs" />
     <Compile Include="Enums\CostCenterType.cs" />
     <Compile Include="Enums\CustomerType.cs" />
     <Compile Include="Enums\FederalState.cs" />
@@ -141,6 +143,7 @@
     <Compile Include="Enums\Standardkontenrahmen.cs" />
     <Compile Include="Enums\Status.cs" />
     <Compile Include="Enums\TaxCategory.cs" />
+    <Compile Include="TextValuePoint.cs" />
     <Compile Include="UnitOfMeasure.cs" />
     <Compile Include="WarehouseManagement\SelectedWarehouse.cs" />
     <Compile Include="WarehouseManagement\StockedProduct.cs" />

@@ -249,7 +249,16 @@ namespace FinancialAnalysis.Logic
                 new CostCenter {RefCostCenterCategoryId = 4, Identifier = "14", Name = "Auftragswesen"}
             };
 
-            DataContext.Instance.CostCenters.Insert(costCenters);
+            foreach (var item in costCenters)
+            {
+                int id = DataContext.Instance.CostCenters.Insert(item);
+                var costCenterBudget = new CostCenterBudget()
+                {
+                    RefCostCenterId = id,
+                    Year = DateTime.Now.Year
+                };
+                DataContext.Instance.CostCenterBudgets.Insert(costCenterBudget);
+            }
         }
 
         private void CreateSKR03MainCategories()

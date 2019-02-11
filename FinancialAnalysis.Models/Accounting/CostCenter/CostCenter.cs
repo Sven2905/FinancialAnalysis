@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.ProjectManagement;
+using System.Collections.Generic;
+using Utilities;
 
 namespace FinancialAnalysis.Models.Accounting
 {
@@ -16,7 +17,10 @@ namespace FinancialAnalysis.Models.Accounting
         public int RefCostCenterCategoryId { get; set; }
         public CostCenterType CostCenterType { get; set; } = CostCenterType.Main;
         public CostCenterCategory CostCenterCategory { get; set; }
+        public int CostCenterBudgetId { get; set; }
+        public CostCenterBudget CostCenterBudget { get; set; } = new CostCenterBudget();
 
         public List<Project> Projects { get; set; }
+        public SvenTechCollection<CostCenterBudget> CostCenterBudgets { get; set; } = new SvenTechCollection<CostCenterBudget>();
     }
 }

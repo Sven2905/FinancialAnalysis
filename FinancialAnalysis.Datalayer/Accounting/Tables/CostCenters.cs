@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Dapper;
+using FinancialAnalysis.Models.Accounting;
+using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using Dapper;
-using FinancialAnalysis.Models.Accounting;
-using Serilog;
 
 namespace FinancialAnalysis.Datalayer.Accounting
 {
@@ -37,6 +37,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     "Name nvarchar(150) NOT NULL," +
                     "Identifier nvarchar(150) NOT NULL, " +
                     "RefCostCenterCategoryId int, " +
+                    "CostCenterType int, " +
                     "Description nvarchar(MAX))";
 
                 using (var command = new SqlCommand(commandStr, con))
@@ -63,19 +64,25 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// <returns></returns>
         public IEnumerable<CostCenter> GetAll()
         {
+            var CostCenterDictionary = new Dictionary<int, CostCenter>();
             IEnumerable<CostCenter> output = new List<CostCenter>();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<CostCenter, CostCenterCategory, CostCenter>($"dbo.{TableName}_GetAll",
-                        (objCostCenter, objCostCenterCategory) =>
+                    output = con.Query<CostCenter, CostCenterCategory, CostCenterBudget, CostCenter>($"dbo.{TableName}_GetAll",
+                        (objCostCenter, objCostCenterCategory, objCostCenterBudget) =>
                         {
-                            objCostCenter.CostCenterCategory = objCostCenterCategory;
-
+                            if (!CostCenterDictionary.TryGetValue(objCostCenter.CostCenterBudgetId, out CostCenter CostCenterEntry))
+                            {
+                                CostCenterEntry = objCostCenter;
+                                CostCenterEntry.CostCenterCategory = objCostCenterCategory;
+                                CostCenterDictionary.Add(objCostCenter.CostCenterId, objCostCenter);
+                            }
+                            CostCenterEntry.CostCenterBudgets.Add(objCostCenterBudget);
                             return objCostCenter;
-                        }, splitOn: "CostCenterCategoryId",
+                        }, splitOn: "CostCenterCategoryId, CostCenterBudgetId",
                         commandType: CommandType.StoredProcedure).ToList();
                 }
             }
@@ -84,7 +91,44 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
             }
 
-            return output;
+            return CostCenterDictionary.Values;
+        }
+
+        /// <summary>
+        ///     Returns CostCenter by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public CostCenter GetById(int id)
+        {
+            var CostCenterDictionary = new Dictionary<int, CostCenter>();
+            IEnumerable<CostCenter> output = new List<CostCenter>();
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    output = con.Query<CostCenter, CostCenterCategory, CostCenterBudget, CostCenter>(
+                        $"dbo.{TableName}_GetById @CostCenterId",
+                        (objCostCenter, objCostCenterCategory, objCostCenterBudget) =>
+                        {
+                            if (!CostCenterDictionary.TryGetValue(objCostCenter.CostCenterBudgetId, out CostCenter CostCenterEntry))
+                            {
+                                CostCenterEntry = objCostCenter;
+                                CostCenterEntry.CostCenterCategory = objCostCenterCategory;
+                            }
+                            CostCenterEntry.CostCenterBudgets.Add(objCostCenterBudget);
+                            return objCostCenter;
+                        }, new { CostCenterId = id }, splitOn: "CostCenterCategoryId, CostCenterBudgetId",
+                        commandType: CommandType.StoredProcedure).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
+            }
+
+            return CostCenterDictionary.Values.FirstOrDefault();
         }
 
         /// <summary>
@@ -102,7 +146,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Name, @Identifier, @RefCostCenterCategoryId, @Description ",
+                            $"dbo.{TableName}_Insert @Name, @Identifier, @RefCostCenterCategoryId, @CostCenterType, @Description ",
                             CostCenter);
                     id = result.Single();
                 }
@@ -126,45 +170,16 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var CostCenter in CostCenters) Insert(CostCenter);
+                    foreach (var CostCenter in CostCenters)
+                    {
+                        Insert(CostCenter);
+                    }
                 }
             }
             catch (Exception e)
             {
                 Log.Error($"Exception occured while 'Insert items' into table '{TableName}'", e);
             }
-        }
-
-        /// <summary>
-        ///     Returns CostCenter by Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public CostCenter GetById(int id)
-        {
-            IEnumerable<CostCenter> output = new List<CostCenter>();
-            try
-            {
-                using (IDbConnection con =
-                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    output = con.Query<CostCenter, CostCenterCategory, CostCenter>(
-                        $"dbo.{TableName}_GetById @CostCenterId",
-                        (objCostCenter, objCostCenterCategory) =>
-                        {
-                            objCostCenter.CostCenterCategory = objCostCenterCategory;
-
-                            return objCostCenter;
-                        }, new {CostCenterId = id}, splitOn: "CostCenterCategoryId",
-                        commandType: CommandType.StoredProcedure).ToList();
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
-            }
-
-            return output.FirstOrDefault();
         }
 
         /// <summary>
@@ -188,7 +203,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// <param name="User"></param>
         public void UpdateOrInsert(IEnumerable<CostCenter> CostCenters)
         {
-            foreach (var CostCenter in CostCenters) UpdateOrInsert(CostCenter);
+            foreach (var CostCenter in CostCenters)
+            {
+                UpdateOrInsert(CostCenter);
+            }
         }
 
         /// <summary>
@@ -197,7 +215,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// <param name="CostCenter"></param>
         public void Update(CostCenter CostCenter)
         {
-            if (CostCenter.CostCenterId == 0 || GetById(CostCenter.CostCenterId) is null) return;
+            if (CostCenter.CostCenterId == 0 || GetById(CostCenter.CostCenterId) is null)
+            {
+                return;
+            }
 
             try
             {
@@ -205,7 +226,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     con.Execute(
-                        $"dbo.{TableName}_Update @CostCenterId, @Name, @Identifier, @RefCostCenterCategoryId, @Description",
+                        $"dbo.{TableName}_Update @CostCenterId, @Name, @Identifier, @RefCostCenterCategoryId, @CostCenterType, @Description",
                         CostCenter);
                 }
             }
@@ -226,7 +247,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @CostCenterId", new {CostCenterId = id});
+                    con.Execute($"dbo.{TableName}_Delete @CostCenterId", new { CostCenterId = id });
                 }
             }
             catch (Exception e)
