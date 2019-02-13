@@ -154,7 +154,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return false;
             }
 
-            return SelectedEmployee.ValidForSaving;
+            return SelectedEmployee.IsValidForSaving;
         }
 
         public BitmapImage ConvertToImage(byte[] array)

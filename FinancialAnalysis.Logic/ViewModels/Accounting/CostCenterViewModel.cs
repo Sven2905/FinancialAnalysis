@@ -43,18 +43,19 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 if (_SelectedCostCenter != null)
                 {
-                    _SelectedCostCenter.ScheduledBudget.ValueChangedEvent -= CostCenterBudget_ValueChangedEvent;
+
+                    _SelectedCostCenter.ScheduledBudget.PropertyChanged -= ScheduledBudget_PropertyChanged;
                 }
                 _SelectedCostCenter = value;
                 if (_SelectedCostCenter != null)
                 {
                     SetupLineSeries2D();
-                    _SelectedCostCenter.ScheduledBudget.ValueChangedEvent += CostCenterBudget_ValueChangedEvent;
+                    _SelectedCostCenter.ScheduledBudget.PropertyChanged += ScheduledBudget_PropertyChanged; ;
                 }
             }
         }
 
-        private void CostCenterBudget_ValueChangedEvent()
+        private void ScheduledBudget_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             SetupLineSeries2D();
         }
@@ -261,6 +262,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 int id = DataContext.Instance.CostCenters.Insert(SelectedCostCenter);
                 DataContext.Instance.CostCenterBudgets.Insert(SelectedCostCenter.ScheduledBudget);
             }
+            SetupFlatStructure();
         }
 
         private bool Validation()

@@ -118,7 +118,7 @@
                                           ShowBorder="True" Height="600" Width="530" SelectedItem="{Binding SelectedCostCenterFlatStructure}">
                                     <dxg:TreeListControl.View>
                                         <dxg:TreeListView EditFormShowMode="None" 
-                                              EnableImmediatePosting="True" ShowVerticalLines="False"
+                                              EnableImmediatePosting="True" ShowVerticalLines="False" AutoExpandAllNodes="True"
                                               AutoWidth="True" ShowTotalSummary="False" KeyFieldName="Key"
                                               ParentFieldName="ParentKey" AllowEditing="False" ShowIndicator="False"
                                               VerticalScrollbarVisibility="Auto">
@@ -164,7 +164,7 @@
                                     </dxlc:LayoutGroup>
                                     <dxlc:LayoutGroup>
                                         <dxlc:LayoutItem Label="Name" FontFamily="Tahoma">
-                                            <dxe:TextEdit Text="{Binding SelectedCostCenter.Name}" FontFamily="Tahoma" />
+                                            <dxe:TextEdit Text="{Binding SelectedCostCenter.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                                         </dxlc:LayoutItem>
                                     </dxlc:LayoutGroup>
                                     <dxlc:LayoutGroup>

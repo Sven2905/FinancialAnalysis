@@ -1,5 +1,6 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
+using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Logic.ViewModels.Accounting;
 using FinancialAnalysis.Models.Accounting;
 using System;
@@ -45,14 +46,16 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public void AddFixedCostAllocation()
         {
-            if (FixedCostAllocations.Any(x => x.RefCostCenterId == SelectedFixedCostAllocation.RefCostCenterId))
+            if (FixedCostAllocations.Any(x => x.RefCostCenterId == SelectedFixedCostAllocation.CostCenter.CostCenterId))
             {
+                Messenger.Default.Send(new OpenDialogWindowMessage("Hinweis", "Die Kostenstelle ist bereits enthalten.", System.Windows.MessageBoxImage.Asterisk));
                 return;
             }
 
             SelectedFixedCostAllocation.RefCostCenterId = SelectedFixedCostAllocation.CostCenter.CostCenterId;
 
             SelectedFixedCostAllocation.FixedCostAllocationId = DataContext.Instance.FixedCostAllocations.Insert(SelectedFixedCostAllocation);
+            SelectedFixedCostAllocation.CostCenter.CostCenterCategory = CostCenterCategories.Single(x => x.CostCenterCategoryId == SelectedFixedCostAllocation.CostCenter.RefCostCenterCategoryId);
             FixedCostAllocations.Add(SelectedFixedCostAllocation);
             SelectedFixedCostAllocation = new FixedCostAllocation();
         }

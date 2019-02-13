@@ -50,7 +50,7 @@ namespace FinancialAnalysis.Models.ProjectManagement
 
         public string Name => Firstname + " " + Lastname;
         public string Address => Street + ", " + Postcode + " " + City;
-        public bool ValidForSaving
+        public bool IsValidForSaving
         {
             get
             {
