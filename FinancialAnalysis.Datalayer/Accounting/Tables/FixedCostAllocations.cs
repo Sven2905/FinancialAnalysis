@@ -265,7 +265,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
             }
             catch (Exception e)
             {
-                Log.Error($"Exception occured while creating reference between '{TableName}' and {TableName}",
+                Log.Error($"Exception occured while creating reference between '{TableName}' and {refTable}",
                     e);
             }
         }

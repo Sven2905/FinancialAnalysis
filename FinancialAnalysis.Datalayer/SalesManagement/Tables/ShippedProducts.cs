@@ -205,7 +205,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
             }
             catch (Exception e)
             {
-                Log.Error($"Exception occured while creating reference between '{TableName}' and {TableName}",
+                Log.Error($"Exception occured while creating reference between '{TableName}' and {refTable}",
                     e);
             }
         }
@@ -229,7 +229,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
             }
             catch (Exception e)
             {
-                Log.Error($"Exception occured while creating reference between '{TableName}' and {TableName}",
+                Log.Error($"Exception occured while creating reference between '{TableName}' and {refTable}",
                     e);
             }
         }
