@@ -79,7 +79,7 @@ namespace FinancialAnalysis.Logic
                     new BalanceAccount(21, "1. Roh-, Hilfs- und Betriebsstoffe", AccountType.Active, 20),
                     new BalanceAccount(22, "2. Unfertige Erzeugnisse, unfertige Leistungen", AccountType.Active, 20),
                     new BalanceAccount(23, "3. Fertige Erzeugnisse und Waren", AccountType.Active, 20),
-                    new BalanceAccount(24, "4. Geleistete Anzahlungen", AccountType.Active, 20),
+                    new BalanceAccount(24, "4. Geleistete Anzahlungen auf Vorräte", AccountType.Active, 20),
                     new BalanceAccount(25, "II. Forderungen und sonstige Vermögensgegenstände", AccountType.Active, 19),
                     new BalanceAccount(26, "1. Forderungen aus Lieferungen und Leistungen", AccountType.Active, 25),
                     new BalanceAccount(27, "2. Forderungen gegen verbundene Unternehmen", AccountType.Active, 25),
