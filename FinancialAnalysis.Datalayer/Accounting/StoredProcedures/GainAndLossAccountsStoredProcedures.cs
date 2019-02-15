@@ -4,11 +4,11 @@ using System.Text;
 
 namespace FinancialAnalysis.Datalayer.Accounting
 {
-    public class CostCenterCategoriesStoredProcedures : IStoredProcedures
+    public class GainAndLossAccountsStoredProcedures : IStoredProcedures
     {
-        public CostCenterCategoriesStoredProcedures()
+        public GainAndLossAccountsStoredProcedures()
         {
-            TableName = "CostCenterCategories";
+            TableName = "GainAndLossAccounts";
         }
 
         public string TableName { get; }
@@ -31,13 +31,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
             {
                 var sbSP = new StringBuilder();
 
-                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT ccc.*, cc.*, ccb.* " +
-                                $"FROM {TableName} ccc " +
-                                "LEFT JOIN CostCenters cc ON ccc.CostCenterCategoryId = cc.RefCostCenterCategoryId " +
-                                "LEFT JOIN CostCenterBudgets ccb ON cc.CostCenterId = ccb.RefCostCenterId " +
-                                "WHERE ccb.Year = YEAR(GETDATE()) " +
-                                "END");
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
+                    $"SELECT * " +
+                    $"FROM {TableName} END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -59,9 +56,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Description nvarchar(MAX) AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, Description) " +
-                    "VALUES (@Name, @Description); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(MAX), @ParentId int AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Name, ParentId) " +
+                    "VALUES (@Name, @ParentId); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -84,14 +81,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @CostCenterCategoryId int AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT ccc.*, cc.* " +
-                    $"FROM {TableName} ccc " +
-                    "LEFT JOIN CostCenters cc ON ccc.CostCenterCategoryId = cc.RefCostCenterCategoryId " +
-                    "LEFT JOIN CostCenterBudgets ccb ON cc.CostCenterId = ccb.RefCostCenterId " +
-                    "WHERE ccc.CostCenterCategoryId = @CostCenterCategoryId " +
-                    "AND ccb.Year = YEAR(GETDATE()) " +
-                    "END");
+                    $"CREATE PROCEDURE [{TableName}_GetById] @GainAndLossAccountId int AS BEGIN SET NOCOUNT ON; " +
+                    $"SELECT * " +
+                    $"FROM {TableName} " +
+                    "WHERE GainAndLossAccountId = @GainAndLossAccountId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -113,12 +106,12 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @CostCenterCategoryId int, @Name nvarchar(150), @Description nvarchar(MAX) " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @GainAndLossAccountId int, @Name nvarchar(MAX), @ParentId int " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "SET Name = @Name, " +
-                    "Description = @Description " +
-                    "WHERE CostCenterCategoryId = @CostCenterCategoryId END");
+                    "ParentId = @ParentId " +
+                    "WHERE GainAndLossAccountId = @GainAndLossAccountId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -140,9 +133,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Delete] @CostCenterCategoryId int AS BEGIN SET NOCOUNT ON; " +
+                    $"CREATE PROCEDURE [{TableName}_Delete] @GainAndLossAccountId int AS BEGIN SET NOCOUNT ON; " +
                     $"DELETE FROM {TableName} " +
-                    "WHERE CostCenterCategoryId = @CostCenterCategoryId END");
+                    $"WHERE GainAndLossAccountId = @GainAndLossAccountId " +
+                    $"END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

@@ -3,6 +3,7 @@ using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.ClientManagement;
+using FinancialAnalysis.Models.Enums;
 using FinancialAnalysis.Models.ProductManagement;
 using FinancialAnalysis.Models.ProjectManagement;
 using FinancialAnalysis.Models.SalesManagement;
@@ -15,6 +16,119 @@ namespace FinancialAnalysis.Logic
 {
     public class Import
     {
+        List<BalanceAccount> BalanceAccounts;
+        List<GainAndLossAccount> GainAndLossAccounts;
+
+        public void SeedGainAndLossAccounts()
+        {
+            GainAndLossAccounts = new List<GainAndLossAccount>
+            {
+                new GainAndLossAccount(1, "Umsatzerlöse"),
+                new GainAndLossAccount(2, "Bestandsveränderung fertige/unfertigen Erzeugnisse"),
+                new GainAndLossAccount(3, "Aktivierte Eigenleistungen"),
+                new GainAndLossAccount(4, "Sonstige betriebliche Erträge"),
+                new GainAndLossAccount(5, "Materialaufwand"),
+                new GainAndLossAccount(6, "Personalaufwand"),
+                new GainAndLossAccount(7, "Abschreibungen"),
+                new GainAndLossAccount(8, "Sonstige betriebl. Aufwendungen"),
+                new GainAndLossAccount(9, "Raumkosten", 8),
+                new GainAndLossAccount(10, "Versichernug, Beiträge und Abgaben", 8),
+                new GainAndLossAccount(11, "Reparaturen und Instandhaltung", 8),
+                new GainAndLossAccount(12, "Fahrzeugkosten", 8),
+                new GainAndLossAccount(13, "Werbe- und Reisekosten", 8),
+                new GainAndLossAccount(14, "Kosten der Warenabgabe", 8),
+                new GainAndLossAccount(15, "Verschiedene betriebliche Kosten", 8),
+                new GainAndLossAccount(16, "Erträge aus Beteiligungen"),
+                new GainAndLossAccount(17, "Erträge aus anderen Wertpapieren u. Ausleihungen"),
+                new GainAndLossAccount(18, "Sonstige Zinsen und ähnliche Erträge"),
+                new GainAndLossAccount(19, "Abschreibungen auf Finanzanlagen u. Wertpapiere des UV"),
+                new GainAndLossAccount(20, "Zinsen und ähnliche Aufwendungen"),
+                new GainAndLossAccount(21, "Steuern vom Einkommen und vom Ertrag"),
+                new GainAndLossAccount(22, "Sonstige Steuern")
+            };
+
+            for (int i = 0; i < GainAndLossAccounts.Count; i++)
+                DataContext.Instance.GainAndLossAccounts.Insert(GainAndLossAccounts[i]);
+        }
+
+        public void SeedBalanceAccounts()
+        {
+            BalanceAccounts = new List<BalanceAccount>
+                {
+                    // AKTIVA
+                    new BalanceAccount(1, "A. Anlagevermögen", AccountType.Active, 0),
+                    new BalanceAccount(2, "I. Immaterielle Vermögensgegenstände", AccountType.Active, 1),
+                    new BalanceAccount(3, "1. Selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte und Werte", AccountType.Active, 2),
+                    new BalanceAccount(4, "2. Entgeltlich erworbene Konzessionen, gewerbliche Schutzrechte und ähnliche Rechte und Werte sowie Lizenzen an solchen Rechten und Werten", AccountType.Active, 2),
+                    new BalanceAccount(5, "3. Geschäfts - oder Firmenwert", AccountType.Active, 2),
+                    new BalanceAccount(6, "4. Geleistete Anzahlungen", AccountType.Active, 2),
+                    new BalanceAccount(7, "II. Sachanlagen", AccountType.Active, 1),
+                    new BalanceAccount(8, "1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken", AccountType.Active, 7),
+                    new BalanceAccount(9, "2. Technische Anlagen und Maschinen", AccountType.Active, 7),
+                    new BalanceAccount(10, "3. Andere Anlagen, Betriebs-und Geschäftsausstattung", AccountType.Active, 7),
+                    new BalanceAccount(11, "4. Geleistete Anzahlungen und Anlagen im Bau", AccountType.Active, 7),
+                    new BalanceAccount(12, "III. Finanzanlagen", AccountType.Active, 1),
+                    new BalanceAccount(13, "1. Anteile an verbundenen Unternehmen", AccountType.Active, 12),
+                    new BalanceAccount(14, "2. Ausleihungen an verbundene Unternehmen", AccountType.Active, 12),
+                    new BalanceAccount(15, "3. Beteiligungen", AccountType.Active, 12),
+                    new BalanceAccount(16, "4. Ausleihungen an Unternehmen, mit denen ein Beteiligungsverhältnis besteht", AccountType.Active, 12),
+                    new BalanceAccount(17, "5. Wertpapiere des Anlagevermögens", AccountType.Active, 12),
+                    new BalanceAccount(18, "6. Sonstige Ausleihungen", AccountType.Active, 12),
+                    new BalanceAccount(19, "B. Umlaufvermögen", AccountType.Active, 0),
+                    new BalanceAccount(20, "I. Vorräte", AccountType.Active, 19),
+                    new BalanceAccount(21, "1. Roh-, Hilfs- und Betriebsstoffe", AccountType.Active, 20),
+                    new BalanceAccount(22, "2. Unfertige Erzeugnisse, unfertige Leistungen", AccountType.Active, 20),
+                    new BalanceAccount(23, "3. Fertige Erzeugnisse und Waren", AccountType.Active, 20),
+                    new BalanceAccount(24, "4. Geleistete Anzahlungen", AccountType.Active, 20),
+                    new BalanceAccount(25, "II. Forderungen und sonstige Vermögensgegenstände", AccountType.Active, 19),
+                    new BalanceAccount(26, "1. Forderungen aus Lieferungen und Leistungen", AccountType.Active, 25),
+                    new BalanceAccount(27, "2. Forderungen gegen verbundene Unternehmen", AccountType.Active, 25),
+                    new BalanceAccount(28, "3. Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht", AccountType.Active, 25),
+                    new BalanceAccount(29, "4. sonstige Vermögensgegenstände", AccountType.Active, 25),
+                    new BalanceAccount(30, "III. Wertpapiere", AccountType.Active, 19),
+                    new BalanceAccount(31, "1. Anteile an verbundenen Unternehmen", AccountType.Active, 30),
+                    new BalanceAccount(32, "2. Sonstige Wertpapiere", AccountType.Active, 30),
+                    new BalanceAccount(33, "IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks", AccountType.Active, 19),
+                    new BalanceAccount(34, "Rechnungsabgrenzungsposten", AccountType.Active, 0),
+                    new BalanceAccount(35, "Aktive latente Steuern", AccountType.Active, 0),
+                    new BalanceAccount(36, "Aktiver Unterschiedsbetrag aus der Vermögensverrechnung", AccountType.Active, 0),
+
+                    // PASSIVA
+                    new BalanceAccount(37, "A. Eigenkapital", AccountType.Passive, 0),
+                    new BalanceAccount(38, "I. Kapital", AccountType.Passive, 37),
+                    new BalanceAccount(39, "1. Gezeichnetes Kapital", AccountType.Passive, 38),
+                    new BalanceAccount(40, "Ausstehende Einlagen auf das gezeichnetete Kapital", AccountType.Passive, 39),
+                    new BalanceAccount(41, "2. Variables Kapital", AccountType.Passive, 38),
+                    new BalanceAccount(42, "Einlagen / Entnahmen", AccountType.Passive, 41),
+                    new BalanceAccount(43, "II. Kapitalrücklage", AccountType.Passive, 37),
+                    new BalanceAccount(44, "III. Gewinnrücklagen", AccountType.Passive, 37),
+                    new BalanceAccount(45, "1. Gesetzliche Rücklage", AccountType.Passive, 44),
+                    new BalanceAccount(46, "2. Rücklage für Anteile an einem herrschenden oder mehrheitlich beteiligten Unternehmen", AccountType.Passive, 44),
+                    new BalanceAccount(47, "3. Satzungsmäßige Rücklagen", AccountType.Passive, 44),
+                    new BalanceAccount(48, "4. Andere Gewinnrücklagen", AccountType.Passive, 44),
+                    new BalanceAccount(49, "IV. Gewinnvortrag / Verlustvortrag", AccountType.Passive, 37),
+                    new BalanceAccount(50, "V. Jahresüberschuß / Jahresfehlbetrag", AccountType.Passive, 37),
+                    new BalanceAccount(51, "B. Rückstellungen", AccountType.Passive, 0),
+                    new BalanceAccount(52, "1. Rückstellungen für Pensionen und ähnliche Verpflichtungen", AccountType.Passive, 51),
+                    new BalanceAccount(53, "2. Steuerrückstellungen", AccountType.Passive, 51),
+                    new BalanceAccount(54, "3. Sonstige Rückstellungen", AccountType.Passive, 51),
+                    new BalanceAccount(55, "C. Verbindlichkeiten", AccountType.Passive, 0),
+                    new BalanceAccount(56, "1. Anleihen", AccountType.Passive, 55),
+                    new BalanceAccount(57, "2. Verbindlichkeiten gegenüber Kreditinstituten", AccountType.Passive, 55),
+                    new BalanceAccount(58, "3. Erhaltene Anzahlungen auf Bestellungen", AccountType.Passive, 55),
+                    new BalanceAccount(59, "4. Verbindlichkeiten aus Lieferungen und Leistungen", AccountType.Passive, 55),
+                    new BalanceAccount(60, "5. Verbindlichkeiten aus der Annahme gezogener Wechsel und der Ausstellung eigener Wechsel", AccountType.Passive, 55),
+                    new BalanceAccount(61, "6. Verbindlichkeiten gegenüber verbundenen Unternehmen", AccountType.Passive, 55),
+                    new BalanceAccount(62, "7. Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht", AccountType.Passive, 55),
+                    new BalanceAccount(63, "8. Sonstige Verbindlichkeiten", AccountType.Passive, 55),
+                    new BalanceAccount(64, "D. Rechnungsabgrenzungsposten", AccountType.Passive, 0),
+                    new BalanceAccount(65, "E. Passive latente Steuern", AccountType.Passive, 0)
+            };
+
+            for (int i = 0; i < BalanceAccounts.Count; i++)
+                DataContext.Instance.BalanceAccounts.Insert(BalanceAccounts[i]);
+        }
+
         public void ImportCostAccounts(Standardkontenrahmen standardkontenrahmen)
         {
             var _FilePath = string.Empty;
@@ -32,6 +146,7 @@ namespace FinancialAnalysis.Logic
                     break;
             }
 
+            var taxTypes = DataContext.Instance.TaxTypes.GetAll().ToList();
             var costAccountCategories = new List<CostAccountCategory>();
 
             costAccountCategories.AddRange(DataContext.Instance.CostAccountCategories.GetAll());
@@ -163,7 +278,6 @@ namespace FinancialAnalysis.Logic
                             .CostAccountCategoryId;
                     }
 
-                    var taxTypes = DataContext.Instance.TaxTypes.GetAll().ToList();
 
                     var tempSubCat = new CostAccountCategory();
 
@@ -191,17 +305,31 @@ namespace FinancialAnalysis.Logic
                         subCatId = mainCatId;
                     }
 
+                    // Aktiva Content[9]
+                    int aktivaId = 0;
+                    // Passiva Content[10]
+                    int passivaId = 0;
+                    // GuV Content[11]
+                    int gainAndLossAccountId = 0;
+
+                    if (BalanceAccounts.SingleOrDefault(x => string.Equals(x.Name, _Content[9], StringComparison.OrdinalIgnoreCase)) != null)
+                        aktivaId = BalanceAccounts.Single(x => string.Equals(x.Name, _Content[9], StringComparison.OrdinalIgnoreCase)).BalanceAccountId;
+                    if (BalanceAccounts.SingleOrDefault(x => string.Equals(x.Name, _Content[10], StringComparison.OrdinalIgnoreCase)) != null)
+                        passivaId = BalanceAccounts.Single(x => string.Equals(x.Name, _Content[10], StringComparison.OrdinalIgnoreCase)).BalanceAccountId;
+                    if (GainAndLossAccounts.SingleOrDefault(x => string.Equals(x.Name, _Content[11], StringComparison.OrdinalIgnoreCase)) != null)
+                        gainAndLossAccountId = GainAndLossAccounts.Single(x => string.Equals(x.Name, _Content[11], StringComparison.OrdinalIgnoreCase)).GainAndLossAccountId;
+
                     var costAccount = new CostAccount
                     {
                         AccountNumber = Convert.ToInt32(_Content[0]),
                         RefCostAccountCategoryId = subCatId,
                         Description = _Content[1],
                         IsVisible = true,
-                        IsEditable = false
+                        IsEditable = false,
+                        RefActiveBalanceAccountId = aktivaId,
+                        RefPassiveBalanceAccountId = passivaId,
+                        RefGainAndLossAccountId = gainAndLossAccountId
                     };
-                    if (true)
-                    {
-                    }
 
                     var taxType = taxTypes.SingleOrDefault(x => x.DescriptionShort == _Content[6].Trim());
                     if (taxType != null)
@@ -240,8 +368,7 @@ namespace FinancialAnalysis.Logic
                 new CostCenter {RefCostCenterCategoryId = 2, Identifier = "6", Name = "Arbeitsvorbereitung"},
                 new CostCenter {RefCostCenterCategoryId = 2, Identifier = "7", Name = "Forschung und Entwicklung"},
                 new CostCenter {RefCostCenterCategoryId = 3, Identifier = "8", Name = "Geschäftsführung"},
-                new CostCenter
-                    {RefCostCenterCategoryId = 3, Identifier = "9", Name = "Buchhaltung / Finanzwesen / Controlling"},
+                new CostCenter {RefCostCenterCategoryId = 3, Identifier = "9", Name = "Buchhaltung / Finanzwesen / Controlling"},
                 new CostCenter {RefCostCenterCategoryId = 3, Identifier = "10", Name = "Personalwesen"},
                 new CostCenter {RefCostCenterCategoryId = 4, Identifier = "11", Name = "Marketing"},
                 new CostCenter {RefCostCenterCategoryId = 4, Identifier = "12", Name = "Vertrieb"},

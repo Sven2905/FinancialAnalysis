@@ -1,9 +1,9 @@
-0010	Entgeltlich erworbene Konzessionen und gewerbl. Schutzrechte	Anlagevermögen	sonstige	0	0	-	0	-	2. Konzessionen, Lizenzen und ähnliche Rechte und Werte	-	-
-0015	Konzessionen	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	2. Konzessionen, Lizenzen und ähnliche Rechte und Werte	-	-
-0020	Gewerbliche Schutzrechte	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	2. Konzessionen, Lizenzen und ähnliche Rechte und Werte	-	-
-0025	Ähnliche Rechte und Werte	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	2. Konzessionen, Lizenzen und ähnliche Rechte und Werte	-	-
-0027	EDV - Software	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	2. Konzessionen, Lizenzen und ähnliche Rechte und Werte	-	-
-0030	Lizenzen an gewerblichen Schutzrechten	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	2. Konzessionen, Lizenzen und ähnliche Rechte und Werte	-	-
+0010	Entgeltlich erworbene Konzessionen und gewerbl. Schutzrechte	Anlagevermögen	sonstige	0	0	-	0	-	2. Entgeltlich erworbene Konzessionen, gewerbliche Schutzrechte und ähnliche Rechte und Werte sowie Lizenzen an solchen Rechten und Werten	-	-
+0015	Konzessionen	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	2. Entgeltlich erworbene Konzessionen, gewerbliche Schutzrechte und ähnliche Rechte und Werte sowie Lizenzen an solchen Rechten und Werten	-	-
+0020	Gewerbliche Schutzrechte	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	2. Entgeltlich erworbene Konzessionen, gewerbliche Schutzrechte und ähnliche Rechte und Werte sowie Lizenzen an solchen Rechten und Werten	-	-
+0025	Ähnliche Rechte und Werte	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	2. Entgeltlich erworbene Konzessionen, gewerbliche Schutzrechte und ähnliche Rechte und Werte sowie Lizenzen an solchen Rechten und Werten	-	-
+0027	EDV - Software	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	2. Entgeltlich erworbene Konzessionen, gewerbliche Schutzrechte und ähnliche Rechte und Werte sowie Lizenzen an solchen Rechten und Werten	-	-
+0030	Lizenzen an gewerblichen Schutzrechten	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	2. Entgeltlich erworbene Konzessionen, gewerbliche Schutzrechte und ähnliche Rechte und Werte sowie Lizenzen an solchen Rechten und Werten	-	-
 0035	Geschäfts- oder Firmenwert	Anlagevermögen	Firmenwert	0	0	-	0	-	3. Geschäfts- oder Firmenwert	-	-
 0038	Anzahlungen auf Geschäfts- oder Firmenwert	Anlagevermögen	Firmenwert	0	0	-	0	-	4. geleistete Anzahlungen auf immat. Vermögensgegenstände	-	-
 0039	Anzahlungen auf immaterielle Vermögensgegenstände 	Anlagevermögen	sonstige	0	0	-	0	-	4. geleistete Anzahlungen auf immat. Vermögensgegenstände	-	-
@@ -14,46 +14,46 @@
 0046	Konzessionen und gewerbliche Schutzrechte	Anlagevermögen	sonstige	0	0	-	0	-	1. Selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte und Werte	-	-
 0047	Rezepte, Verfahren, Prototypen	Anlagevermögen	sonstige	0	0	-	0	-	1. Selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte und Werte	-	-
 0048	Immaterielle Vermögensgegenstände in Entwicklung	Anlagevermögen	sonstige	0	0	-	0	-	1. Selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte und Werte	-	-
-0050	Grundstücke, grundstücksgleiche Rechte und Bauten	Anlagevermögen	Sachanlagen	0	0	-	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0060	Grundstücksgleiche Rechte ohne Bauten  	Anlagevermögen	Sachanlagen	0	0	-	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0065	Unbebaute Grundstücke	Anlagevermögen	Sachanlagen	0	0	-	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0070	Grundstücksgleiche Rechte (Erbbaurecht, Dauerwohnrecht)	Anlagevermögen	Sachanlagen	0	0	-	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0075	Grundstücke mit Substanzverzehr	Anlagevermögen	Sachanlagen	0	0	-	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0050	Grundstücke, grundstücksgleiche Rechte und Bauten	Anlagevermögen	Sachanlagen	0	0	-	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0060	Grundstücksgleiche Rechte ohne Bauten  	Anlagevermögen	Sachanlagen	0	0	-	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0065	Unbebaute Grundstücke	Anlagevermögen	Sachanlagen	0	0	-	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0070	Grundstücksgleiche Rechte (Erbbaurecht, Dauerwohnrecht)	Anlagevermögen	Sachanlagen	0	0	-	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0075	Grundstücke mit Substanzverzehr	Anlagevermögen	Sachanlagen	0	0	-	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
 0079	Anzahlungen auf Grundstücke u. grundstücksgleiche Rechte ohne Bauten 	Anlagevermögen	Sachanlagen	0	0	-	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
-0080	Bauten auf eigenen Grundstücken u. grundstückgleichen Rechten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0085	Grundstückswerte eigener bebauter Grundstücke 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0090	Geschäftsbauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0100	Fabrikbauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0110	Garagen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0111	Außenanlagen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0112	Hof- und Wegbefestigungen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0113	Einrichtungen für Geschäfts- u. Fabrikbauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0115	Andere Bauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0080	Bauten auf eigenen Grundstücken u. grundstückgleichen Rechten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0085	Grundstückswerte eigener bebauter Grundstücke 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0090	Geschäftsbauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0100	Fabrikbauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0110	Garagen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0111	Außenanlagen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0112	Hof- und Wegbefestigungen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0113	Einrichtungen für Geschäfts- u. Fabrikbauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0115	Andere Bauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
 0120	Geschäfts-, Fabrik- und andere Bauten im Bau 	Anlagevermögen	Sachanlagen	0	0	-	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
 0129	Anzahlungen auf Bauten eigen. Grundstücken	Anlagevermögen	Sachanlagen	0	0	-	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
-0140	Wohnbauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0145	Garagen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0146	Außenanlagen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0147	Hof- und Wegebefestigungen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0148	Einrichtungen für Wohnbauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0149	Gebäudeteil des häuslichen Arbeitszimmers	Anlagevermögen	Sachanlagen	0	0	-	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0140	Wohnbauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0145	Garagen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0146	Außenanlagen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0147	Hof- und Wegebefestigungen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0148	Einrichtungen für Wohnbauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0149	Gebäudeteil des häuslichen Arbeitszimmers	Anlagevermögen	Sachanlagen	0	0	-	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
 0150	Wohnbauten im Bau	Anlagevermögen	Sachanlagen	0	0	-	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
 0159	Anzahlungen auf Wohnbauten auf eigenen Grundstücken	Anlagevermögen	Sachanlagen	0	0	-	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
-0160	Bauten auf fremden Grundstücken 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0165	Geschäftsbauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0170	Fabrikbauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0175	Garagen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0176	Außenanlagen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0177	Hof- und Wegebefestigungen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0178	Einrichtung Fabrik- und Geschäftsbauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0179	Andere Bauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0160	Bauten auf fremden Grundstücken 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0165	Geschäftsbauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0170	Fabrikbauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0175	Garagen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0176	Außenanlagen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0177	Hof- und Wegebefestigungen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0178	Einrichtung Fabrik- und Geschäftsbauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0179	Andere Bauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
 0180	Geschäfts-, Fabrik- und andere Bauten im Bau 	Anlagevermögen	Sachanlagen	0	0	-	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
 0189	Anzahlung auf Bauten auf fremden Grundstücken	Anlagevermögen	Sachanlagen	0	0	-	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
-0190	Wohnbauten	Anlagevermögen	Sachanlagen	0	0	-	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0191	Garagen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0192	Außenanlagen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0193	Hof- und Wegebefestigungen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
-0194	Einrichtungen für Wohnbauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke. grundstücksgleiche Rechte und Bauten	-	-
+0190	Wohnbauten	Anlagevermögen	Sachanlagen	0	0	-	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0191	Garagen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0192	Außenanlagen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0193	Hof- und Wegebefestigungen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
+0194	Einrichtungen für Wohnbauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
 0195	Wohnbauten im Bau 	Anlagevermögen	Sachanlagen	0	0	-	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
 0199	Anzahlungen auf Wohnbauten auf fremden Grundstücken 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
 0200	Technische Anlagen und Maschinen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	2. technische  Anlagen und Maschinen	-	-
@@ -97,9 +97,9 @@
 0517	Beteiligungen an Kapitalgesellschaften 	Anlagevermögen	Finanzanlagen	0	0	-	0	-	3. Beteiligungen	-	-
 0518	Beteiligungen an Personengesellschaften 	Anlagevermögen	Finanzanlagen	0	0	-	0	-	3. Beteiligungen	-	-
 0519	Beteiligung einer GmbH & Co.KG an einer Komplementär GmbH	Anlagevermögen	Finanzanlagen	0	0	-	0	-	3. Beteiligungen	-	-
-0520	Ausleihungen an Unternehmen mit denen ein Beteiligungsverhältnis besteht	Anlagevermögen	Finanzanlagen	0	0	-	0	-	4. Ausleihungen an Unternehmen. mit denen ein Beteil.verh. besteht	-	-
-0523	Ausleihungen an Unternehmen mit Beteiligungsverhältnis, Personengesellschaften	Anlagevermögen	Finanzanlagen	0	0	-	0	-	4. Ausleihungen an Unternehmen. mit denen ein Beteil.verh. besteht	-	-
-0524	Ausleihungen an Unternehmen mit Beteiligungsverhältnis, Kapitalgesellschaften	Anlagevermögen	Finanzanlagen	0	0	-	0	-	4. Ausleihungen an Unternehmen. mit denen ein Beteil.verh. besteht	-	-
+0520	Ausleihungen an Unternehmen mit denen ein Beteiligungsverhältnis besteht	Anlagevermögen	Finanzanlagen	0	0	-	0	-	4. Ausleihungen an Unternehmen, mit denen ein Beteiligungsverhältnis besteht	-	-
+0523	Ausleihungen an Unternehmen mit Beteiligungsverhältnis, Personengesellschaften	Anlagevermögen	Finanzanlagen	0	0	-	0	-	4. Ausleihungen an Unternehmen, mit denen ein Beteiligungsverhältnis besteht	-	-
+0524	Ausleihungen an Unternehmen mit Beteiligungsverhältnis, Kapitalgesellschaften	Anlagevermögen	Finanzanlagen	0	0	-	0	-	4. Ausleihungen an Unternehmen, mit denen ein Beteiligungsverhältnis besteht	-	-
 0525	Wertpapiere des Anlagevermögens	Anlagevermögen	Finanzanlagen	0	0	-	0	-	5. Wertpapiere des Anlagevermögens	-	-
 0530	Wertpapiere mit Gewinnbeteiligungsansprüchen	Anlagevermögen	Finanzanlagen	0	0	-	0	-	5. Wertpapiere des Anlagevermögens	-	-
 0535	Festverzinsliche Wertpapiere	Anlagevermögen	Finanzanlagen	0	0	-	0	-	5. Wertpapiere des Anlagevermögens	-	-
@@ -132,10 +132,10 @@
 0701	Verbindlichkeiten gegenüber verbundene Unternehmen bis 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
 0705	Verbindlichkeiten gegenüber verbundene Unternehmen 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
 0710	Verbindlichkeiten gegenüber verbundene Unternehmen größer 5 Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
-0715	Verbindlichkeiten gegenüber Unternehmen mit Beteiligungsverhältnis	Verbindlichkeiten	sonstige	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
-0716	Verbindlichkeiten gegenüber Unternehmen mit Beteiligungsverhältnis  b. 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
-0720	Verbindlichkeiten gegenüber Unternehmen mit Beteiligungsverhältnis 1- 5 J.	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
-0725	Verbindlichkeiten gegenüber Unternehmen mit Beteiligungsverhältnis gr. 5 J.	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+0715	Verbindlichkeiten gegenüber Unternehmen mit Beteiligungsverhältnis	Verbindlichkeiten	sonstige	0	0	-	0	-	3. Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht	7. Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht	-
+0716	Verbindlichkeiten gegenüber Unternehmen mit Beteiligungsverhältnis  b. 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	3. Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht	7. Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht	-
+0720	Verbindlichkeiten gegenüber Unternehmen mit Beteiligungsverhältnis 1- 5 J.	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht	7. Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht	-
+0725	Verbindlichkeiten gegenüber Unternehmen mit Beteiligungsverhältnis gr. 5 J.	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht	7. Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht	-
 0730	Verbindlichkeiten gegenüber Gesellschaftern	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
 0731	Verbindlichkeiten gegenüber Gesellschaftern bis 1 Jahr	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
 0740	Verbindlichkeiten gegenüber Gesellschaftern 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
@@ -153,9 +153,9 @@
 0781	Partiarische Darlehen - Restlaufzeit bis 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
 0784	Partiarische Darlehen - Restlaufzeit 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
 0787	Partiarische Darlehen - Restlaufzeit größer 5 Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
-0800	Gezeichnetes Kapital	Kapital	gezeichnetes Kapital	0	0	-	0	-	-	Gezeichnetes Kapital	-
-0809	Kapitalerhöhung aus Gesellschaftsmitteln	Kapital	gezeichnetes Kapital	0	0	-	0	-	-	Gezeichnetes Kapital	-
-0819	Erworbene eigene Anteile	Kapital	sonstige	0	0	-	0	-	-	Gezeichnetes Kapital	-
+0800	Gezeichnetes Kapital	Kapital	gezeichnetes Kapital	0	0	-	0	-	-	1. Gezeichnetes Kapital	-
+0809	Kapitalerhöhung aus Gesellschaftsmitteln	Kapital	gezeichnetes Kapital	0	0	-	0	-	-	1. Gezeichnetes Kapital	-
+0819	Erworbene eigene Anteile	Kapital	sonstige	0	0	-	0	-	-	1. 1. Gezeichnetes Kapital	-
 0820	Ausstehende Einlagen nicht eingefordert	Kapital	gezeichnetes Kapital	0	0	-	0	-	-	Ausstehende Einlagen auf das gezeichnete Kapital	-
 0830	Ausstehende Einlage eingefordert	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	Ausstehende Einlagen auf das gezeichnete Kapital	-
 0839	Nachschüsse (Forderungen, Gegenkonto 0845)	Forderungen	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	Ausstehende Einlagen auf das gezeichnete Kapital	-
@@ -179,12 +179,12 @@
 0860	Gewinnvortrag vor Verwendung	Kapital	Gewinn- und Verlustvortrag	0	0	-	0	-	-	IV. Gewinn- und Verlustvortrag	-
 0868	Verlustvortrag vor Verwendung	Kapital	Gewinn- und Verlustvortrag	0	0	-	0	-	-	IV. Gewinn- und Verlustvortrag	-
 0869	Vortrag auf neue Rechnung (Bilanz) 	Kapital	Gewinn- und Verlustvortrag	0	0	-	0	-	-	IV. Gewinn- und Verlustvortrag	-
-0870	Festkapital	Kapital	gezeichnetes Kapital	0	0	-	0	-	-	Gezeichnetes Kapital	-
-0880	Variables Kapital	Kapital	gezeichnetes Kapital	0	0	-	0	-	-	Variables Kapital	-
-0890	Gesellschafter-Darlehen 	Kapital	gezeichnetes Kapital	0	0	-	0	-	-	Variables Kapital	-
-0900	Kommandit-Kapital	Kapital	sonstige	0	0	-	0	-	-	Gezeichnetes Kapital	-
-0910	Verlustausgleich	Kapital	sonstige	0	0	-	0	-	-	Variables Kapital	-
-0920	Gesellschafter-Darlehen 	Kapital	sonstige	0	0	-	0	-	-	Variables Kapital	-
+0870	Festkapital	Kapital	gezeichnetes Kapital	0	0	-	0	-	-	1. Gezeichnetes Kapital	-
+0880	Variables Kapital	Kapital	gezeichnetes Kapital	0	0	-	0	-	-	2. Variables Kapital	-
+0890	Gesellschafter-Darlehen 	Kapital	gezeichnetes Kapital	0	0	-	0	-	-	2. Variables Kapital	-
+0900	Kommandit-Kapital	Kapital	sonstige	0	0	-	0	-	-	1. Gezeichnetes Kapital	-
+0910	Verlustausgleich	Kapital	sonstige	0	0	-	0	-	-	2. Variables Kapital	-
+0920	Gesellschafter-Darlehen 	Kapital	sonstige	0	0	-	0	-	-	2. Variables Kapital	-
 0930	Sonderposten mit Rücklageanteil, steuerfreie Rücklagen 	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
 0931	Sonderposten mit Rücklageanteil nach § 6b EStG	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
 0932	Sonderposten mit Rücklageanteil EStR R 6.6	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
@@ -307,11 +307,11 @@
 1475	Forderungen aus Lieferungen und Leistungen gg.verbund. UN größer 1 Jahr	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
 1478	Wertberichtigung Forderungen gg. verbundene Unternehmen (b. 1J) 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
 1479	Wertberichtigung Forderungen gg. verbundene Unternehmen (g. 1J)	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
-1480	Forderungen aus Lieferungen und Leistungen gg. UN m. Beteiligungsverh.	Forderungen	sonstige	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
-1481	Forderungen aus Lieferungen und Leistungen gg. UN m. Beteiligg.verh. bis 1J	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
-1485	Forderungen aus Lieferungen und Leistungen gg.UN m. Beteiligg.verh. größer 1 J	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
-1488	Wertberichtigung auf Forderungen gegen Unternhemen m.Beteiligg.verh. b. 1J 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
-1489	Wertberichtigung auf Forderungen gegen Unternehmen m.Beteiligg.verh. g. 1J	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+1480	Forderungen aus Lieferungen und Leistungen gg. UN m. Beteiligungsverh.	Forderungen	sonstige	0	0	-	0	-	3. Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht	7. Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht	-
+1481	Forderungen aus Lieferungen und Leistungen gg. UN m. Beteiligg.verh. bis 1J	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	3. Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht	7. Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht	-
+1485	Forderungen aus Lieferungen und Leistungen gg.UN m. Beteiligg.verh. größer 1 J	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht	7. Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht	-
+1488	Wertberichtigung auf Forderungen gegen Unternhemen m.Beteiligg.verh. b. 1J 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	3. Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht	7. Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht	-
+1489	Wertberichtigung auf Forderungen gegen Unternehmen m.Beteiligg.verh. g. 1J	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht	7. Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht	-
 1490	Forderungen aus Lieferungen und Leistungen gegen Gesellschafter	Forderungen	sonstige	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	8. sonstige Verbindlichkeiten	-
 1491	Forderungen aus Lieferungen und Leistungen gegen Gesellschafter bis 1 Jahr 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	8. sonstige Verbindlichkeiten	-
 1495	Forderungen aus Lieferungen und Leistungen gegen Gesellschafter größer 1 Jahr 	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	1. Forderungen aus Lieferungen und Leistungen	8. sonstige Verbindlichkeiten	-
@@ -385,9 +385,9 @@
 1594	Forderungen gegen verbundene Unternehmen	Forderungen	sonstige	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
 1595	Forderungen gegen verbundene Unternehmen bis 1 Jahr 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
 1596	Forderungen gegen verbundene Unternehmen größer 1 Jahr 	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
-1597	Forderungen gegen Unternehmen m.Beteiligungsverhältnis	Forderungen	sonstige	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
-1598	Forderungen gegen Unternehmen m. Beteiligg.verh. bis 1 Jahr 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
-1599	Forderungen gegen Unternehmen m. Beteiligg.verh. größer 1 Jahr 	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+1597	Forderungen gegen Unternehmen m.Beteiligungsverhältnis	Forderungen	sonstige	0	0	-	0	-	3. Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht	7. Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht	-
+1598	Forderungen gegen Unternehmen m. Beteiligg.verh. bis 1 Jahr 	Forderungen	Laufzeit bis 1 Jahr	0	0	-	0	-	3. Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht	7. Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht	-
+1599	Forderungen gegen Unternehmen m. Beteiligg.verh. größer 1 Jahr 	Forderungen	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht	7. Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht	-
 1600	Verbindlichkeiten aus Lieferungen und Leistungen	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
 1605	Verbindlichkeiten aus Lieferungen u. Leistungen allgem. Steuersatz	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
 1606	Verbindlichkeiten aus Lieferungen und Leistungen ermäßigt. Steuersatz	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
@@ -402,18 +402,18 @@
 1631	Verbindlichkeiten aus Lieferungen und Leistungen gg. verbundenen UN b. 1J 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
 1635	Verbindlichkeiten aus Lieferungen und Leistungen gg. verbundenen UN 1 - 5 J	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
 1638	Verbindlichkeiten aus Lieferungen und Leistungen gg. verbundenen UN gr. 5 J	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	2. Forderungen gegen verbundene Unternehmen	6. Verbindlichkeiten gegenüber verbundenen Unternehmen	-
-1640	Verbindlichkeiten aus Lieferungen und Leistungen gg. UN m. Beteil.verh	Verbindlichkeiten	sonstige	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
-1641	Verbindlichkeiten aus Lieferungen und Leistungen gg. UN m. Beteil.verh. b.1J	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
-1645	Verbindlichkeiten aus Lieferungen und Leistungen gg. UN m. Beteil.verh. 1-5 J	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
-1648	Verbindlichkeiten aus Lieferungen und Leistungen gg. UN m. Beteil.verh. g.5 J	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen. mit denen ein Beteil.verh. besteht	7. Verbindl. geg. Unternehmen. mit denen ein Beteili.verh. best	-
+1640	Verbindlichkeiten aus Lieferungen und Leistungen gg. UN m. Beteil.verh	Verbindlichkeiten	sonstige	0	0	-	0	-	3. Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht	7. Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht	-
+1641	Verbindlichkeiten aus Lieferungen und Leistungen gg. UN m. Beteil.verh. b.1J	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	3. Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht	7. Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht	-
+1645	Verbindlichkeiten aus Lieferungen und Leistungen gg. UN m. Beteil.verh. 1-5 J	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht	7. Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht	-
+1648	Verbindlichkeiten aus Lieferungen und Leistungen gg. UN m. Beteil.verh. g.5 J	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	3. Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht	7. Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht	-
 1650	Verbindlichkeiten aus Lieferungen und Leistungen gg. Gesellschaftern 	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
 1651	Verbindlichkeiten aus Lieferungen und Leistungen gg. Gesellschaftern b. 1J	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
 1655	Verbindlichkeiten aus Lieferungen und Leistungen gg. Gesellschaftern 1- 5 J	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
 1658	Verbindlichkeiten aus Lieferungen und Leistungen gg. Gesellschaftern g. 5J	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	4. sonstige Vermögensgegenstände	4. Verbindlichkeiten aus Lieferungen u. Leistungen	-
-1660	Wechselverbindlichkeiten	Verbindlichkeiten	Wechselverbindlichkeit	0	0	-	0	-	-	5. Verb. aus Annahme gez. Wechsel und Ausstellung eig. Wechsel	-
-1661	Schuldwechsel - Restlaufzeit bis 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	5. Verb. aus Annahme gez. Wechsel und Ausstellung eig. Wechsel	-
-1662	Schuldwechsel - Restlaufzeit 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	5. Verb. aus Annahme gez. Wechsel und Ausstellung eig. Wechsel	-
-1663	Schuldwechsel - Restlaufzeit größer 5 Jahre	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	5. Verb. aus Annahme gez. Wechsel und Ausstellung eig. Wechsel	-
+1660	Wechselverbindlichkeiten	Verbindlichkeiten	Wechselverbindlichkeit	0	0	-	0	-	-	5. Verbindlichkeiten aus der Annahme gezogener Wechsel und der Ausstellung eigener Wechsel	-
+1661	Schuldwechsel - Restlaufzeit bis 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	5. Verbindlichkeiten aus der Annahme gezogener Wechsel und der Ausstellung eigener Wechsel	-
+1662	Schuldwechsel - Restlaufzeit 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	5. Verbindlichkeiten aus der Annahme gezogener Wechsel und der Ausstellung eigener Wechsel	-
+1663	Schuldwechsel - Restlaufzeit größer 5 Jahre	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	5. Verbindlichkeiten aus der Annahme gezogener Wechsel und der Ausstellung eigener Wechsel	-
 1665	Verbindlichkeiten gegenüber GmbH-Gesellschaftern	Verbindlichkeiten	sonstige	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
 1666	Verbindlichkeiten gegenüber GmbH-Gesellschaftern bis 1 Jahr	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
 1667	Verbindlichkeiten gegenüber GmbH-Gesellschaftern 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	-	8. sonstige Verbindlichkeiten	-
@@ -1043,11 +1043,11 @@
 4976	Aufw. Veräußerung Anteile Kap.Ges. z.T. nicht abz. 	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	verschiedene betriebliche Kosten 
 4980	Sonstiger Betriebsbedarf	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten 
 4985	Werkzeuge und Kleingeräte	Betriebsausgaben	sonstige	0	21	VSt. 19% 	0	-	-	-	verschiedene betriebliche Kosten 
-7000	Unfertige Erzeugnisse und Leistungen	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. unfertige Erzeugnisse	-	-
-7050	Unfertige Erzeugnisse ( Bestand )	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. unfertige Erzeugnisse	-	-
-7080	Unfertige Leistungen ( Bestand )	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. unfertige Erzeugnisse	-	-
-7090	In Ausführung befindliche Bauaufträge 	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. unfertige Erzeugnisse	-	-
-7095	In Arbeit befindliche Aufträge	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. unfertige Erzeugnisse	-	-
+7000	Unfertige Erzeugnisse und Leistungen	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. Unfertige Erzeugnisse, unfertige Leistungen	-	-
+7050	Unfertige Erzeugnisse ( Bestand )	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. Unfertige Erzeugnisse, unfertige Leistungen	-	-
+7080	Unfertige Leistungen ( Bestand )	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. Unfertige Erzeugnisse, unfertige Leistungen	-	-
+7090	In Ausführung befindliche Bauaufträge 	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. Unfertige Erzeugnisse, unfertige Leistungen	-	-
+7095	In Arbeit befindliche Aufträge	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. Unfertige Erzeugnisse, unfertige Leistungen	-	-
 7100	Fertige Erzeugnisse und Waren ( Bestand )	Vorräte	fertige Erzeugnisse und Waren	0	0	-	0	-	3. fertige Erzeugnisse und Waren	-	-
 7110	Fertige Erzeugnisse ( Bestand )	Vorräte	fertige Erzeugnisse und Waren	0	0	-	0	-	3. fertige Erzeugnisse und Waren	-	-
 7140	Waren ( Bestand )	Vorräte	fertige Erzeugnisse und Waren	0	0	-	0	-	3. fertige Erzeugnisse und Waren	-	-

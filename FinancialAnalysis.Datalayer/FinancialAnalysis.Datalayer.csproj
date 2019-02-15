@@ -76,12 +76,16 @@
     <Compile Include="..\FinancialAnalysis.Logic\Import.cs">
       <Link>Import.cs</Link>
     </Compile>
+    <Compile Include="Accounting\StoredProcedures\GainAndLossAccountsStoredProcedures.cs" />
+    <Compile Include="Accounting\StoredProcedures\BalanceAccountsStoredProcedures.cs" />
     <Compile Include="Accounting\StoredProcedures\CostCenterCategoriesStoredProcedures.cs" />
     <Compile Include="Accounting\StoredProcedures\CostCentersStoredProcedures.cs" />
     <Compile Include="Accounting\StoredProcedures\CashbacksStoredProcedures.cs" />
     <Compile Include="Accounting\StoredProcedures\CostCenterBudgetsStoredProcedures.cs" />
     <Compile Include="Accounting\StoredProcedures\PaymentConditionsStoredProcedures.cs" />
     <Compile Include="Accounting\StoredProcedures\FixedCostAllocationsStoredProcedures.cs" />
+    <Compile Include="Accounting\Tables\GainAndLossAccounts.cs" />
+    <Compile Include="Accounting\Tables\BalanceAccounts.cs" />
     <Compile Include="Accounting\Tables\CostCenterCategories.cs" />
     <Compile Include="Accounting\Tables\CostCenters.cs" />
     <Compile Include="Accounting\Tables\Cashbacks.cs" />

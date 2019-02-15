@@ -42,6 +42,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                                  "RefTaxTypeId int NULL, " +
                                  "RefCostAccountCategoryId int, " +
                                  "IsVisible bit, " +
+                                 "RefActiveBalanceAccountId int, " +
+                                 "RefPassiveBalanceAccountId int, " +
+                                 "RefGainAndLossAccountId int, " +
                                  "IsEditable bit )";
 
                 using (var command = new SqlCommand(commandStr, con))
@@ -130,7 +133,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Description, @AccountNumber, @RefTaxTypeId, @RefCostAccountCategoryId, @IsVisible, @IsEditable ",
+                            $"dbo.{TableName}_Insert @Description, @AccountNumber, @RefTaxTypeId, @RefCostAccountCategoryId, @IsVisible, " +
+                            $"@RefActiveBalanceAccountId, @RefPassiveBalanceAccountId, @RefGainAndLossAccountId, @IsEditable ",
                             costAccount);
                     return result.Single();
                 }
@@ -251,7 +255,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     con.Execute(
-                        $"dbo.{TableName}_Update @CostAccountId, @Description, @AccountNumber, @RefTaxTypeId, @RefCostAccountCategoryId, @IsVisible, @IsEditable",
+                        $"dbo.{TableName}_Update @CostAccountId, @Description, @AccountNumber, @RefTaxTypeId, @RefCostAccountCategoryId, @IsVisible, " +
+                        $"@RefActiveBalanceAccountId, @RefPassiveBalanceAccountId, @RefGainAndLossAccountId, @IsEditable",
                         costAccount);
                 }
             }
@@ -342,6 +347,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
         {
             AddCostAccountCategoriesReference();
             AddTaxTypesReference();
+            //AddBalanceAccountsReference();
         }
 
         private void AddCostAccountCategoriesReference()
@@ -384,6 +390,30 @@ namespace FinancialAnalysis.Datalayer.Accounting
             catch (Exception e)
             {
                 Log.Error($"Exception occured while creating reference between '{TableName}' and TaxTypes", e);
+            }
+        }
+
+        private void AddBalanceAccountsReference()
+        {
+            string refTable = "BalanceAccounts";
+
+            try
+            {
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefBalanceAccountId) REFERENCES {refTable}(BalanceAccountId) ON DELETE CASCADE";
+
+                using (var command = new SqlCommand(commandStr, con))
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while creating reference between '{TableName}' and {refTable}",
+                    e);
             }
         }
     }

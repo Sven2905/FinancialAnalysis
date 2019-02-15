@@ -81,6 +81,8 @@
     <Compile Include="Accounting\Credit.cs" />
     <Compile Include="Accounting\Debit.cs" />
     <Compile Include="Accounting\FixedCostAllocation.cs" />
+    <Compile Include="Accounting\GainAndLossAccount.cs" />
+    <Compile Include="Accounting\IncomeSummaryAndBalanceAccount.cs" />
     <Compile Include="Accounting\ScannedDocument.cs" />
     <Compile Include="Accounting\SelectedCostCenterCategory.cs" />
     <Compile Include="Accounting\TaxType.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="Administration\UserRightUserMapping.cs" />
     <Compile Include="Administration\UserRightUserMappingFlatStructure.cs" />
     <Compile Include="BaseClasses\OrderPositionItem.cs" />
+    <Compile Include="Enums\AccountType.cs" />
     <Compile Include="Enums\BookingType.cs" />
     <Compile Include="Enums\CivilStatus.cs" />
     <Compile Include="ClientManagement\Client.cs" />

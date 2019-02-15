@@ -62,6 +62,8 @@ namespace FinancialAnalysis.Datalayer
         public WarehouseStockingHistories WarehouseStockingHistories { get; set; } = new WarehouseStockingHistories();
         public FixedCostAllocations FixedCostAllocations { get; set; } = new FixedCostAllocations();
         public CostCenterBudgets CostCenterBudgets { get; set; } = new CostCenterBudgets();
+        public BalanceAccounts BalanceAccounts { get; set; } = new BalanceAccounts();
+        public GainAndLossAccounts GainAndLossAccounts { get; set; } = new GainAndLossAccounts();
 
         public void Dispose()
         {
@@ -123,6 +125,8 @@ namespace FinancialAnalysis.Datalayer
             WarehouseStockingHistories.CheckAndCreateStoredProcedures();
             FixedCostAllocations.CheckAndCreateStoredProcedures();
             CostCenterBudgets.CheckAndCreateStoredProcedures();
+            BalanceAccounts.CheckAndCreateStoredProcedures();
+            GainAndLossAccounts.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()
@@ -156,12 +160,14 @@ namespace FinancialAnalysis.Datalayer
 
         private void Seed()
         {
-            if (Instance.TaxTypes.GetAll().Count() == 0)
+            if (!Instance.TaxTypes.GetAll().Any())
             {
                 var _Import = new Import();
-                _Import.SeedCompany();
-                _Import.ImportCostAccounts(Standardkontenrahmen.SKR03);
                 _Import.SeedTaxTypes();
+                _Import.SeedBalanceAccounts();
+                _Import.SeedGainAndLossAccounts();
+                _Import.ImportCostAccounts(Standardkontenrahmen.SKR03);
+                _Import.SeedCompany();
                 _Import.SeedCostCenters();
                 _Import.SeedHealthInsurance();
             }

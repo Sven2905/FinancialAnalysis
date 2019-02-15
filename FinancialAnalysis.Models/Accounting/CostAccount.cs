@@ -19,5 +19,9 @@ namespace FinancialAnalysis.Models.Accounting
         public bool IsVisible { get; set; }
         public bool IsEditable { get; set; }
         public string DisplayName => $"{AccountNumber} - {Description}";
+        public int RefIncomeSummaryAndBalanceAccountId { get; set; }
+        public int RefActiveBalanceAccountId { get; set; }
+        public int RefPassiveBalanceAccountId { get; set; }
+        public int RefGainAndLossAccountId { get; set; }
     }
 }
