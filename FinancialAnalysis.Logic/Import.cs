@@ -24,7 +24,7 @@ namespace FinancialAnalysis.Logic
             GainAndLossAccounts = new List<GainAndLossAccount>
             {
                 new GainAndLossAccount(1, "Umsatzerlöse"),
-                new GainAndLossAccount(2, "Bestandsveränderung fertige/unfertigen Erzeugnisse"),
+                new GainAndLossAccount(2, "Bestandsveränderungen fertige/unfertige Erzeugnisse"),
                 new GainAndLossAccount(3, "Aktivierte Eigenleistungen"),
                 new GainAndLossAccount(4, "Sonstige betriebliche Erträge"),
                 new GainAndLossAccount(5, "Materialaufwand"),
@@ -43,7 +43,7 @@ namespace FinancialAnalysis.Logic
                 new GainAndLossAccount(18, "Sonstige Zinsen und ähnliche Erträge"),
                 new GainAndLossAccount(19, "Abschreibungen auf Finanzanlagen u. Wertpapiere des UV"),
                 new GainAndLossAccount(20, "Zinsen und ähnliche Aufwendungen"),
-                new GainAndLossAccount(21, "Steuern vom Einkommen und vom Ertrag"),
+                new GainAndLossAccount(21, "Steuern vom Einkommen und Ertrag"),
                 new GainAndLossAccount(22, "Sonstige Steuern")
             };
 
@@ -60,7 +60,7 @@ namespace FinancialAnalysis.Logic
                     new BalanceAccount(2, "I. Immaterielle Vermögensgegenstände", AccountType.Active, 1),
                     new BalanceAccount(3, "1. Selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte und Werte", AccountType.Active, 2),
                     new BalanceAccount(4, "2. Entgeltlich erworbene Konzessionen, gewerbliche Schutzrechte und ähnliche Rechte und Werte sowie Lizenzen an solchen Rechten und Werten", AccountType.Active, 2),
-                    new BalanceAccount(5, "3. Geschäfts - oder Firmenwert", AccountType.Active, 2),
+                    new BalanceAccount(5, "3. Geschäfts- oder Firmenwert", AccountType.Active, 2),
                     new BalanceAccount(6, "4. Geleistete Anzahlungen", AccountType.Active, 2),
                     new BalanceAccount(7, "II. Sachanlagen", AccountType.Active, 1),
                     new BalanceAccount(8, "1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken", AccountType.Active, 7),
@@ -316,8 +316,8 @@ namespace FinancialAnalysis.Logic
                         aktivaId = BalanceAccounts.Single(x => string.Equals(x.Name, _Content[9], StringComparison.OrdinalIgnoreCase)).BalanceAccountId;
                     if (BalanceAccounts.SingleOrDefault(x => string.Equals(x.Name, _Content[10], StringComparison.OrdinalIgnoreCase)) != null)
                         passivaId = BalanceAccounts.Single(x => string.Equals(x.Name, _Content[10], StringComparison.OrdinalIgnoreCase)).BalanceAccountId;
-                    if (GainAndLossAccounts.SingleOrDefault(x => string.Equals(x.Name, _Content[11], StringComparison.OrdinalIgnoreCase)) != null)
-                        gainAndLossAccountId = GainAndLossAccounts.Single(x => string.Equals(x.Name, _Content[11], StringComparison.OrdinalIgnoreCase)).GainAndLossAccountId;
+                    if (GainAndLossAccounts.SingleOrDefault(x => string.Equals(x.Name, _Content[11].Replace("\r", ""), StringComparison.OrdinalIgnoreCase)) != null)
+                        gainAndLossAccountId = GainAndLossAccounts.Single(x => string.Equals(x.Name, _Content[11].Replace("\r", ""), StringComparison.OrdinalIgnoreCase)).GainAndLossAccountId;
 
                     var costAccount = new CostAccount
                     {

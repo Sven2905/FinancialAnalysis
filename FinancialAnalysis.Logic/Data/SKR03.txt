@@ -5,8 +5,8 @@
 0027	EDV - Software	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	2. Entgeltlich erworbene Konzessionen, gewerbliche Schutzrechte und ähnliche Rechte und Werte sowie Lizenzen an solchen Rechten und Werten	-	-
 0030	Lizenzen an gewerblichen Schutzrechten	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	2. Entgeltlich erworbene Konzessionen, gewerbliche Schutzrechte und ähnliche Rechte und Werte sowie Lizenzen an solchen Rechten und Werten	-	-
 0035	Geschäfts- oder Firmenwert	Anlagevermögen	Firmenwert	0	0	-	0	-	3. Geschäfts- oder Firmenwert	-	-
-0038	Anzahlungen auf Geschäfts- oder Firmenwert	Anlagevermögen	Firmenwert	0	0	-	0	-	4. geleistete Anzahlungen auf immat. Vermögensgegenstände	-	-
-0039	Anzahlungen auf immaterielle Vermögensgegenstände 	Anlagevermögen	sonstige	0	0	-	0	-	4. geleistete Anzahlungen auf immat. Vermögensgegenstände	-	-
+0038	Anzahlungen auf Geschäfts- oder Firmenwert	Anlagevermögen	Firmenwert	0	0	-	0	-	4. Geleistete Anzahlungen	-	-
+0039	Anzahlungen auf immaterielle Vermögensgegenstände 	Anlagevermögen	sonstige	0	0	-	0	-	4. Geleistete Anzahlungen	-	-
 0040	Verschmelzungsmehrwert	Anlagevermögen	Firmenwert	0	0	-	0	-	3. Geschäfts- oder Firmenwert	-	-
 0043	Selbst geschaffene immaterielle Vermögensgegenstände	Anlagevermögen	sonstige	0	0	-	0	-	1. Selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte und Werte	-	-
 0044	EDV-Software	Anlagevermögen	sonstige	0	0	-	0	-	1. Selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte und Werte	-	-
@@ -534,16 +534,16 @@
 1970	Grundstücksertrag Teilh. (Privat)	Privat	Einlagen	0	0	-	0	-	-	Einlagen/Entnahmen	-
 1980	Unentgeltliche Wertabgaben  Teilh.	Privat	Entnahmen	0	0	-	0	-	-	Einlagen/Entnahmen	-
 1990	Privateinlagen Teilh.	Privat	Einlagen	0	0	-	0	-	-	Einlagen/Entnahmen	-
-2004	Verluste durch Verschmelzung und Umwandlung	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
-2006	Verluste durch außergewöhnliche Schadensfälle	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
-2007	Aufwendungen für Restrukturierungs- und Sanierungsmaßnahmen	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
-2008	Verluste aus der Veräußerung oder Aufgabe von Geschäftsaktivitäten n. Steuern	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
+2004	Verluste durch Verschmelzung und Umwandlung	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+2006	Verluste durch außergewöhnliche Schadensfälle	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+2007	Aufwendungen für Restrukturierungs- und Sanierungsmaßnahmen	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+2008	Verluste aus der Veräußerung oder Aufgabe von Geschäftsaktivitäten n. Steuern	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
 2010	Betriebsfremde Aufwendungen	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	verschiedene betriebliche Kosten 
 2020	Periodenfremde Aufwendungen	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	verschiedene betriebliche Kosten 
-2090	Aufwendungen aus der Anwendung von Übergangsvorschriften	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
-2091	Aufwendungem aus der Anwendung von Übergangsvorschriften (Pensionsrückst.)	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
-2092	Aufwendungen aus der Anwendung von Übergangsvorschriften (Bilanzierungshilfen)	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
-2094	Aufwendungen aus der Anwendung von Übergangsvorschriften (latente Steuern)	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
+2090	Aufwendungen aus der Anwendung von Übergangsvorschriften	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+2091	Aufwendungem aus der Anwendung von Übergangsvorschriften (Pensionsrückst.)	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+2092	Aufwendungen aus der Anwendung von Übergangsvorschriften (Bilanzierungshilfen)	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+2094	Aufwendungen aus der Anwendung von Übergangsvorschriften (latente Steuern)	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
 2100	Zinsen und ähnliche Aufwendungen	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
 2102	Steuerl. n. abzugsfähige andere Nebenleistungen zu Steuern § 4 Abs. 5b EStG	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
 2103	Abzugsfähige andere Nebenleistungen zu Steuern	Betriebsausgaben	Zinsen	0	0	-	0	-	-	-	Zinsen und ähnliche Aufwendungen
@@ -609,15 +609,15 @@
 2307	Sonstige Aufwendungen betriebsfremd und regelmäßig 	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
 2308	Sonstige nicht abziehbare Aufwendungen	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
 2309	Sonstige Aufwendungen unregelmäßig 	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
-2310	Anlagenabgänge Sachanlagen ( Restbuchw. Buchverlust )	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
-2311	Anlagenabgänge immaterielle Vermögensgegenstände ( Restbuchw. Buchverlust )	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
-2312	Anlagenabgänge Finanzanlagen ( Restbuchw. Buchverlust )	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
-2313	Abgang Finanzanlagen z.T. nicht abziehbar (Restbuchwert Buchverlust)	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
-2315	Anlagenabgänge Sachanlagen ( Restbuchw. Buchgewinn )	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-2316	Anlagenabgänge immaterielle Vermögensgegenstände ( Restbuchw. Buchgewinn )	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-2317	Anlagenabgänge Finanzanlagen ( Restbuchw. Buchgewinn )	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-2318	Abgang Finanzanlagen z.T. steuerfrei Restbuchwert Buchgewinn	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-2320	Verluste aus Anlagenabgang	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
+2310	Anlagenabgänge Sachanlagen ( Restbuchw. Buchverlust )	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+2311	Anlagenabgänge immaterielle Vermögensgegenstände ( Restbuchw. Buchverlust )	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+2312	Anlagenabgänge Finanzanlagen ( Restbuchw. Buchverlust )	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+2313	Abgang Finanzanlagen z.T. nicht abziehbar (Restbuchwert Buchverlust)	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+2315	Anlagenabgänge Sachanlagen ( Restbuchw. Buchgewinn )	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+2316	Anlagenabgänge immaterielle Vermögensgegenstände ( Restbuchw. Buchgewinn )	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+2317	Anlagenabgänge Finanzanlagen ( Restbuchw. Buchgewinn )	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+2318	Abgang Finanzanlagen z.T. steuerfrei Restbuchwert Buchgewinn	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+2320	Verluste aus Anlagenabgang	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
 2323	Verlust aus der Veräußerung Ant. KapGes. z.T. n. abz.	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
 2325	Verluste aus Abgang von Umlaufvermögen	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
 2326	Verluste aus Abgang UV z.T. n. abziehbar	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
@@ -669,17 +669,17 @@
 2497	Einstellungen in satzungsmäßige Rücklage 	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
 2498	Einstellungen in den Ausgleichsposten für aktivierte eigene Anteile	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
 2499	Einstellungen in andere Gewinnrücklagen 	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
-2504	Erträge durch Verschmelzung und Umwandlung	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-2506	Erträge durch den Verkauf von bedeutenden Beteiligungen	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-2507	Erträge durch den Verkauf von bedeutenden Grundstücken	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-2508	Gewinn aus der Veräußerung oder Aufgabe von Geschäftsaktivitäten nach Steuern	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
+2504	Erträge durch Verschmelzung und Umwandlung	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+2506	Erträge durch den Verkauf von bedeutenden Beteiligungen	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+2507	Erträge durch den Verkauf von bedeutenden Grundstücken	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+2508	Gewinn aus der Veräußerung oder Aufgabe von Geschäftsaktivitäten nach Steuern	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
 2510	Sonstige betriebsfremde Erträge	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
 2520	Periodenfremde Erträge	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
-2590	Erträge aus der Anwendung von Übergangsvorschriften	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-2591	Erträge aus der Anwendung von Übergangsvorschriften (Zuschr. Sachanlageverm.)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-2592	Erträge aus der Anwendung von Übergangsvorschriften (Zuschr. Finanzanlageverm.)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-2593	Erträge aus der Anwendung von Übergangsvorschriften (Wertp. Umlaufverm.)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-2594	Erträge aus der Anwendung von Übergangsvorschriften (latente Steuern)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
+2590	Erträge aus der Anwendung von Übergangsvorschriften	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+2591	Erträge aus der Anwendung von Übergangsvorschriften (Zuschr. Sachanlageverm.)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+2592	Erträge aus der Anwendung von Übergangsvorschriften (Zuschr. Finanzanlageverm.)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+2593	Erträge aus der Anwendung von Übergangsvorschriften (Wertp. Umlaufverm.)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+2594	Erträge aus der Anwendung von Übergangsvorschriften (latente Steuern)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
 2600	Erträge aus Beteiligungen	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus Beteiligungen
 2603	Erträge aus Beteiligungen an Personengesellschaften (verb. Unternehmen)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus Beteiligungen
 2615	Erträge aus Anteilen an Kap.ges.(Beteiligung) § 3 Nr. 40 EStG/§ 8b Abs. 1 KStG	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Erträge aus Beteiligungen

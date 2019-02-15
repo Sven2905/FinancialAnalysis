@@ -11,8 +11,8 @@
 0147	Rezepte, Verfahren, Prototypen	Anlagevermögen	sonstige	0	0	-	0	-	1. Selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte und Werte	-	-
 0148	Immaterielle Vermögensgegenstände in Entwicklung	Anlagevermögen	sonstige	0	0	-	0	-	1. Selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte und Werte	-	-
 0150	Geschäfts- oder Firmenwert	Anlagevermögen	Firmenwert	0	0	-	0	-	3. Geschäfts- oder Firmenwert	-	-
-0170	Anzahlungen auf immaterielle Vermögensgegenstände 	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen auf immat. Vermögensgegenstände	-	-
-0179	Anzahlungen auf Geschäfts- oder Firmenwert 	Anlagevermögen	sonstige	0	0	-	0	-	4. geleistete Anzahlungen auf immat. Vermögensgegenstände	-	-
+0170	Anzahlungen auf immaterielle Vermögensgegenstände 	Anlagevermögen	sonstige	0	21	VSt. 19% 	0	-	4. Geleistete Anzahlungen	-	-
+0179	Anzahlungen auf Geschäfts- oder Firmenwert 	Anlagevermögen	sonstige	0	0	-	0	-	4. Geleistete Anzahlungen	-	-
 0200	Grundstücke, grundstücksgleiche Rechte und Bauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
 0210	Grundstücksgleiche Rechte ohne Bauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
 0215	Unbebaute Grundstücke	Anlagevermögen	Sachanlagen	0	0	-	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
@@ -1141,23 +1141,23 @@
 7392	Abgeführte Gewinne auf Grund eine Gewinngemeinschaft 	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
 7394	Abgeführte Gewinne auf Grund eines Gewinn- oder Teilgewinnabführungsvertrags	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
 7399	Abgef. Gewinnanteile (S) / ausgegl. Verlustant. (H) bei stiller Ges. § 8 GewStG	Betriebsausgaben	sonstige	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
-7451	Erträge durch Verschmelzung und Umwandlung	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-7452	Erträge durch den Verkauf von bedeutenden Beteiligungen	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-7453	Erträge durch den Verkauf von bedeutenden Grundstücken	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-7454	Gewinn aus Veräußerung/Aufgabe von Geschäftsaktivitäten	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-7460	Erträge aus der Anwendung von Übergangsvorschriften	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-7461	Erträge aus der Anwendung von Übergangsvorschriften (Zuschr. Sachanlageverm.)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-7462	Erträge aus der Anwendung von Übergangsvorschriften (Zuschr. Finanzanlageverm.)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-7463	Erträge aus der Anwendung von Übergangsvorschriften (Wertp. Umlaufverm.)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-7464	Erträge aus der Anwendung von Übergangsvorschriften (latente Steuern)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
-7551	Verluste durch Verschmelzung und Umwandlung	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
-7552	Verluste durch außergewöhnliche Schadensfälle	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
-7553	Aufwendungen für Restrukturierungs- und Sanierungsmaßnahmen	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
-7554	Verluste aus Veräußerung/Aufgabe von Geschäftsaktivitäten	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
-7560	Aufwendungen aus der Anwendung von Übergangsvorschriften	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
-7561	Aufwendungen aus der Anwendung von Übergangsvorschriften (Pensionsrückst.)	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
-7562	Aufwendungen aus der Anwendung von Übergangsvorschriften (Bilanzierungshilfen)	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
-7563	Aufwendungen aus der Anwendung von Übergangsvorschriften (latente Steuern)	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Außerordentliche Aufwendungen
+7451	Erträge durch Verschmelzung und Umwandlung	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+7452	Erträge durch den Verkauf von bedeutenden Beteiligungen	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+7453	Erträge durch den Verkauf von bedeutenden Grundstücken	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+7454	Gewinn aus Veräußerung/Aufgabe von Geschäftsaktivitäten	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+7460	Erträge aus der Anwendung von Übergangsvorschriften	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+7461	Erträge aus der Anwendung von Übergangsvorschriften (Zuschr. Sachanlageverm.)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+7462	Erträge aus der Anwendung von Übergangsvorschriften (Zuschr. Finanzanlageverm.)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+7463	Erträge aus der Anwendung von Übergangsvorschriften (Wertp. Umlaufverm.)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+7464	Erträge aus der Anwendung von Übergangsvorschriften (latente Steuern)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
+7551	Verluste durch Verschmelzung und Umwandlung	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+7552	Verluste durch außergewöhnliche Schadensfälle	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+7553	Aufwendungen für Restrukturierungs- und Sanierungsmaßnahmen	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+7554	Verluste aus Veräußerung/Aufgabe von Geschäftsaktivitäten	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+7560	Aufwendungen aus der Anwendung von Übergangsvorschriften	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+7561	Aufwendungen aus der Anwendung von Übergangsvorschriften (Pensionsrückst.)	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+7562	Aufwendungen aus der Anwendung von Übergangsvorschriften (Bilanzierungshilfen)	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
+7563	Aufwendungen aus der Anwendung von Übergangsvorschriften (latente Steuern)	Betriebsausgaben	neutrale Aufwendung	0	0	-	0	-	-	-	Sonstige betriebliche Aufwendungen
 7600	Körperschaftsteuer	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
 7603	Körperschaftsteuer für Vorjahre	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
 7604	Körperschaftsteuererstattungen für Vorjahre	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
@@ -1174,7 +1174,7 @@
 7643	Erträge aus der Auflösung von Gewerbesteuerrückstellungen § 4 Abs. 5b EStG	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
 7644	Erträge aus der Auflösung von Gewerbesteuerrückstellungen	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
 7646	Aufwendungen a. d. Zuführung zu Steuerrückstellungen für Steuerstundung (BStBK)	Betriebsausgaben	Steuern Einkommen und Ertrag	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
-7648	Erträge aus der Auflösung von Steuerrückstellungen für Steuerstundung (BStBK)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Außerordentliche Erträge
+7648	Erträge aus der Auflösung von Steuerrückstellungen für Steuerstundung (BStBK)	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Sonstige betriebliche Erträge
 7649	Erträge aus der Zuführung und Auflösung von latenten Steuern	Einnahmen	neutrale Erträge	0	0	-	0	-	-	-	Steuern vom Einkommen und Ertrag
 7650	Sonstige Steuern	Betriebsausgaben	betriebliche Steuern	0	0	-	0	-	-	-	Sonstige Steuern
 7675	Verbrauchsteuer (sonstige Steuern)	Betriebsausgaben	betriebliche Steuern	0	0	-	0	-	-	-	Sonstige Steuern
