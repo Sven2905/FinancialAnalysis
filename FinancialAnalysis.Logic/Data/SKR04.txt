@@ -42,27 +42,27 @@
 0390	Außenanlagen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
 0395	Hof- und Wegebefestigungen 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
 0398	Einrichtung Fabrik- und Geschäftsbauten 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	1. Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken	-	-
-0400	Technische Anlagen und Maschinen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	2. technische  Anlagen und Maschinen	-	-
-0420	Technische Anlagen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	2. technische  Anlagen und Maschinen	-	-
-0440	Maschinen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	2. technische  Anlagen und Maschinen	-	-
-0450	Transportanlagen und Ähnliches	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	2. technische  Anlagen und Maschinen	-	-
-0460	Maschinengebundene Werkzeuge	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	2. technische  Anlagen und Maschinen	-	-
-0470	Betriebsvorrichtungen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	2. technische  Anlagen und Maschinen	-	-
-0500	Betriebs- und Geschäftsausstattung	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
-0510	Andere Anlagen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
-0520	Pkw	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
-0540	Lkw	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
-0560	Sonstige Transportmittel	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
-0620	Werkzeuge	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
-0630	Betriebsausstattung	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
-0635	Geschäftsausstattung	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
-0640	Ladeneinrichtung	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
-0650	Büroeinrichtung	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
-0660	Gerüst- und Schalungsmaterial	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
-0670	Geringwertige Wirtschaftsgüter	Anlagevermögen	Geringwertige WG	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
-0675	Geringwertige Wirtschaftsgüter Sammelposten	Anlagevermögen	Geringwertige WG	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
-0680	Einbauten in fremde Grundstücke	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
-0690	Sonstige Betriebs- und Geschäftsausstattung	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. andere Anlagen. Betriebs- und Geschäftsausstattung	-	-
+0400	Technische Anlagen und Maschinen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	2. technische Anlagen und Maschinen	-	-
+0420	Technische Anlagen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	2. technische Anlagen und Maschinen	-	-
+0440	Maschinen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	2. technische Anlagen und Maschinen	-	-
+0450	Transportanlagen und Ähnliches	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	2. technische Anlagen und Maschinen	-	-
+0460	Maschinengebundene Werkzeuge	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	2. technische Anlagen und Maschinen	-	-
+0470	Betriebsvorrichtungen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	2. technische Anlagen und Maschinen	-	-
+0500	Betriebs- und Geschäftsausstattung	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. Andere Anlagen, Betriebs-und Geschäftsausstattung	-	-
+0510	Andere Anlagen	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. Andere Anlagen, Betriebs-und Geschäftsausstattung	-	-
+0520	Pkw	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. Andere Anlagen, Betriebs-und Geschäftsausstattung	-	-
+0540	Lkw	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. Andere Anlagen, Betriebs-und Geschäftsausstattung	-	-
+0560	Sonstige Transportmittel	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. Andere Anlagen, Betriebs-und Geschäftsausstattung	-	-
+0620	Werkzeuge	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. Andere Anlagen, Betriebs-und Geschäftsausstattung	-	-
+0630	Betriebsausstattung	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. Andere Anlagen, Betriebs-und Geschäftsausstattung	-	-
+0635	Geschäftsausstattung	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. Andere Anlagen, Betriebs-und Geschäftsausstattung	-	-
+0640	Ladeneinrichtung	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. Andere Anlagen, Betriebs-und Geschäftsausstattung	-	-
+0650	Büroeinrichtung	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. Andere Anlagen, Betriebs-und Geschäftsausstattung	-	-
+0660	Gerüst- und Schalungsmaterial	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. Andere Anlagen, Betriebs-und Geschäftsausstattung	-	-
+0670	Geringwertige Wirtschaftsgüter	Anlagevermögen	Geringwertige WG	0	21	VSt. 19% 	0	-	3. Andere Anlagen, Betriebs-und Geschäftsausstattung	-	-
+0675	Geringwertige Wirtschaftsgüter Sammelposten	Anlagevermögen	Geringwertige WG	0	21	VSt. 19% 	0	-	3. Andere Anlagen, Betriebs-und Geschäftsausstattung	-	-
+0680	Einbauten in fremde Grundstücke	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. Andere Anlagen, Betriebs-und Geschäftsausstattung	-	-
+0690	Sonstige Betriebs- und Geschäftsausstattung	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	3. Andere Anlagen, Betriebs-und Geschäftsausstattung	-	-
 0700	Geleistete Anzahlungen und Anlagen im Bau 	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
 0705	Anzahlungen auf Grundstücke ohne Bauten	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
 0710	Geschäfts-, Fabrik- und andere Bauten im Bau	Anlagevermögen	Sachanlagen	0	21	VSt. 19% 	0	-	4. geleistete Anzahlungen und Anlagen im Bau	-	-
@@ -108,11 +108,11 @@
 0970	Ausleihungen an nahe stehende Personen  	Anlagevermögen	Finanzanlagen	0	0	-	0	-	6. sonstige Ausleihungen	-	-
 0980	Genossenschaftsanteile zum langfristigen Verbleib 	Anlagevermögen	Finanzanlagen	0	0	-	0	-	3. Beteiligungen	-	-
 1000	Roh-, Hilfs- und Betriebsstoffe	Vorräte	Roh-, Hilfs- und Betriebsstoffe	0	0	-	0	-	1. Roh-, Hilfs- und Betriebsstoffe	-	-
-1040	Unfertige Erzeugnisse und Leistungen	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. unfertige Erzeugnisse	-	-
-1050	Unfertige Erzeugnisse	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. unfertige Erzeugnisse	-	-
-1080	Unfertige Leistungen	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. unfertige Erzeugnisse	-	-
-1090	In Ausführung befindliche Bauaufträge	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. unfertige Erzeugnisse	-	-
-1095	In Arbeit befindliche Aufträge	Vorräte	sonstige	0	0	-	0	-	2. unfertige Erzeugnisse	-	-
+1040	Unfertige Erzeugnisse und Leistungen	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. Unfertige Erzeugnisse, unfertige Leistungen	-	-
+1050	Unfertige Erzeugnisse	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. Unfertige Erzeugnisse, unfertige Leistungen	-	-
+1080	Unfertige Leistungen	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. Unfertige Erzeugnisse, unfertige Leistungen	-	-
+1090	In Ausführung befindliche Bauaufträge	Vorräte	unfertige Erzeugnisse und Leistungen	0	0	-	0	-	2. Unfertige Erzeugnisse, unfertige Leistungen	-	-
+1095	In Arbeit befindliche Aufträge	Vorräte	sonstige	0	0	-	0	-	2. Unfertige Erzeugnisse, unfertige Leistungen	-	-
 1100	Fertige Erzeugnisse und Waren	Vorräte	fertige Erzeugnisse und Waren	0	0	-	0	-	3. fertige Erzeugnisse und Waren	-	-
 1110	Fertige Erzeugnisse	Vorräte	fertige Erzeugnisse und Waren	0	0	-	0	-	3. fertige Erzeugnisse und Waren	-	-
 1140	Waren	Vorräte	fertige Erzeugnisse und Waren	0	0	-	0	-	3. fertige Erzeugnisse und Waren	-	-
@@ -272,23 +272,23 @@
 1520	Finanzwechsel	Umlaufvermögen		0	0	-	0	-	2. sonstige Wertpapiere	-	-
 1525	Wertpapiere mit unwesentlichen Wertschwankungen	Umlaufvermögen		0	0	-	0	-	2. sonstige Wertpapiere	-	-
 1530	Wertpapieranlagen kurzfr. Disposition	Umlaufvermögen		0	0	-	0	-	2. sonstige Wertpapiere	-	-
-1550	Schecks	Finanzkonto	Schecks	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	-	-
-1600	Kasse	Finanzkonto	Kassenkonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	-	-
-1610	Nebenkasse 1	Finanzkonto	Kassenkonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	-	-
-1620	Nebenkasse 2	Finanzkonto	Kassenkonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	-	-
-1700	Bank (Postbank)	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
-1710	Bank (Postbank 1)	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
-1720	Bank (Postbank 2)	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
-1730	Bank (Postbank 3)	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
-1780	LZB-Guthaben 	Finanzkonto	sonstige	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	-	-
-1790	Bundesbankguthaben 	Finanzkonto	sonstige	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	-	-
-1800	Bank	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
-1810	Bank 1	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
-1820	Bank 2	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
-1830	Bank 3	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
-1840	Bank 4	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
-1850	Bank 5	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
-1890	Finanzmittelanlagen kurzfristige Finanzdisposition nicht im Finanzmittelfonds	Finanzkonto	sonstige	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	-	-
+1550	Schecks	Finanzkonto	Schecks	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	-	-
+1600	Kasse	Finanzkonto	Kassenkonto	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	-	-
+1610	Nebenkasse 1	Finanzkonto	Kassenkonto	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	-	-
+1620	Nebenkasse 2	Finanzkonto	Kassenkonto	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	-	-
+1700	Bank (Postbank)	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1710	Bank (Postbank 1)	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1720	Bank (Postbank 2)	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1730	Bank (Postbank 3)	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1780	LZB-Guthaben 	Finanzkonto	sonstige	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	-	-
+1790	Bundesbankguthaben 	Finanzkonto	sonstige	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	-	-
+1800	Bank	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1810	Bank 1	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1820	Bank 2	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1830	Bank 3	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1840	Bank 4	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1850	Bank 5	Finanzkonto	Girokonto	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+1890	Finanzmittelanlagen kurzfristige Finanzdisposition nicht im Finanzmittelfonds	Finanzkonto	sonstige	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	-	-
 1900	Aktive Rechnungsabgrenzung	Aktive Rechnungsabgrenzung		0	0	-	0	-	C. Rechnungsabgrenzungsposten	-	-
 1920	Aufwand Zölle und Verbrauchsteuern	Aktive Rechnungsabgrenzung		0	0	-	0	-	C. Rechnungsabgrenzungsposten	-	-
 1930	Als Aufwand berücksichtigte Umsatzsteuer auf Anzahlungen 	Aktive Rechnungsabgrenzung		0	0	-	0	-	C. Rechnungsabgrenzungsposten	-	-
@@ -347,17 +347,17 @@
 2970	Gewinnvortrag vor Verwendung	Kapital	Gewinn- und Verlustvortrag	0	0	-	0	-	-	IV. Gewinn- und Verlustvortrag	-
 2978	Verlustvortrag vor Verwendung	Kapital	Gewinn- und Verlustvortrag	0	0	-	0	-	-	IV. Gewinn- und Verlustvortrag	-
 2979	Vorträge auf neue Rechnung ( Bilanz )	Kapital	Gewinn- und Verlustvortrag	0	0	-	0	-	-	IV. Gewinn- und Verlustvortrag	-
-2980	Sonderposten mit Rücklageanteil steuerfreie Rücklagen 	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
-2981	Sonderposten mit Rücklageanteil nach § 6b EStG	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
-2982	Sonderposten mit Rücklageanteil nach EStR R 6.6	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
-2988	Rücklage für Zuschüsse	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
-2989	Sonderposten mit Rücklageanteil nach § 52 Abs. 16 EStG	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
-2990	Sonderposten mit Rücklageanteil, Sonderabschreibungen  	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
-2993	Sonderposten mit Rücklageanteil nach § 7g Abs. 2 EStG n.F.	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
-2995	Ausgleichsposten bei Entnahmen § 4g EStG	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
-2997	Sonderposten mit Rücklageanteil § 7g Abs. 5 EStG	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
-2998	Sonderposten mit Rücklageanteil nach § 7g Abs.3 und 7 EStG a.F.	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
-2999	Sonderposten für Zuschüsse und Zulagen 	Rückstellung	sonstige	0	0	-	0	-	-	B. Sonderposten mit Rücklageanteil	-
+2980	Sonderposten mit Rücklageanteil steuerfreie Rücklagen 	Rückstellung	sonstige	0	0	-	0	-	-	B. Rückstellungen	-
+2981	Sonderposten mit Rücklageanteil nach § 6b EStG	Rückstellung	sonstige	0	0	-	0	-	-	B. Rückstellungen	-
+2982	Sonderposten mit Rücklageanteil nach EStR R 6.6	Rückstellung	sonstige	0	0	-	0	-	-	B. Rückstellungen	-
+2988	Rücklage für Zuschüsse	Rückstellung	sonstige	0	0	-	0	-	-	B. Rückstellungen	-
+2989	Sonderposten mit Rücklageanteil nach § 52 Abs. 16 EStG	Rückstellung	sonstige	0	0	-	0	-	-	B. Rückstellungen	-
+2990	Sonderposten mit Rücklageanteil, Sonderabschreibungen  	Rückstellung	sonstige	0	0	-	0	-	-	B. Rückstellungen	-
+2993	Sonderposten mit Rücklageanteil nach § 7g Abs. 2 EStG n.F.	Rückstellung	sonstige	0	0	-	0	-	-	B. Rückstellungen	-
+2995	Ausgleichsposten bei Entnahmen § 4g EStG	Rückstellung	sonstige	0	0	-	0	-	-	B. Rückstellungen	-
+2997	Sonderposten mit Rücklageanteil § 7g Abs. 5 EStG	Rückstellung	sonstige	0	0	-	0	-	-	B. Rückstellungen	-
+2998	Sonderposten mit Rücklageanteil nach § 7g Abs.3 und 7 EStG a.F.	Rückstellung	sonstige	0	0	-	0	-	-	B. Rückstellungen	-
+2999	Sonderposten für Zuschüsse und Zulagen 	Rückstellung	sonstige	0	0	-	0	-	-	B. Rückstellungen	-
 3000	Pensions- und ähnliche Rückstellungen	Rückstellung	Pensionsrückstellungen	0	0	-	0	-	-	1. Rückstellungen für Pensionen und ähnliche Verpflichtungen	-
 3005	Rückstellungen Pensionen und ähnliche Verpflichtungen gegen. Gesellschaftern	Rückstellung	Pensionsrückstellungen	0	0	-	0	-	-	1. Rückstellungen für Pensionen und ähnliche Verpflichtungen	-
 3009	Rückstellungen f. Pensionen u. ä. Verpfl. z. Sald. 	Rückstellung	Pensionsrückstellungen	0	0	-	0	-	-	1. Rückstellungen für Pensionen und ähnliche Verpflichtungen	-
@@ -370,7 +370,7 @@
 3040	Körperschaftsteuerrückstellung	Rückstellung	Steuerrückstellungen	0	0	-	0	-	-	2. Steuerrückstellungen	-
 3050	Steuerrückstellung aus Steuerstundung (BStBK)	Rückstellung	Steuerrückstellungen	0	0	-	0	-	-	2. Steuerrückstellungen	-
 3060	Rückstellung für latente Steuern 	Rückstellung	Steuerrückstellungen	0	0	-	0	-	-	2. Steuerrückstellungen	-
-3065	Passive latente Steuern 	Rückstellung	Steuerrückstellungen	0	0	-	0	-	-	F. Passive latente Steuern	-
+3065	Passive latente Steuern 	Rückstellung	Steuerrückstellungen	0	0	-	0	-	-	E. Passive latente Steuern	-
 3070	Sonstige Rückstellungen 	Rückstellung	sonstige	0	0	-	0	-	-	3. sonstige Rückstellungen	-
 3075	Rückstellungen Instandhaltungen bis 3 M	Rückstellung	sonstige	0	0	-	0	-	-	3. sonstige Rückstellungen	-
 3076	Rückstellungen mit Altersversorgung vergleichbare Verpflichtungen	Rückstellung	sonstige	0	0	-	0	-	-	3. sonstige Rückstellungen	-
@@ -390,14 +390,14 @@
 3121	Anleihen, konvertibel - Restlaufzeit bis 1 Jahr 	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	-	1. Anleihen	-
 3125	Anleihen, konvertibel - Restlaufzeit 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	-	1. Anleihen	-
 3130	Anleihen, konvertibel - Restlaufzeit größer 5 Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	-	1. Anleihen	-
-3150	Verbindlichkeiten geg. Kreditinstituten	Verbindlichkeiten	sonstige	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
-3151	Verbindlichkeiten geg. Kreditinstituten Restlaufzeit bis 1 Jahr	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
-3160	Verbindlichkeiten geg. Kreditinstituten Restlaufzeit 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
-3170	Verbindlichkeiten geg. Kreditinstituten Restlaufzeit größer 5 Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
-3180	Verbindlichkeiten geg. Kreditinstituten aus Teilzahlungsverträgen 	Verbindlichkeiten	sonstige	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
-3181	Verbindlichkeiten geg. Kreditinstituten ausTeilzahlungsverträgen  bis 1 Jahr	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
-3190	Verbindlichkeiten geg. Kreditinstituten aus Teilzahlungsverträgen 1 bis 5 J	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
-3200	Verbindlichkeiten geg. Kreditinstituten aus Teilzahlungsvertragen gr. 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	IV. Kassenbestand. Guthaben b. Kreditinstituten. Postgiro	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+3150	Verbindlichkeiten geg. Kreditinstituten	Verbindlichkeiten	sonstige	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+3151	Verbindlichkeiten geg. Kreditinstituten Restlaufzeit bis 1 Jahr	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+3160	Verbindlichkeiten geg. Kreditinstituten Restlaufzeit 1 bis 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+3170	Verbindlichkeiten geg. Kreditinstituten Restlaufzeit größer 5 Jahre	Verbindlichkeiten	Laufzeit über 5 Jahre	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+3180	Verbindlichkeiten geg. Kreditinstituten aus Teilzahlungsverträgen 	Verbindlichkeiten	sonstige	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+3181	Verbindlichkeiten geg. Kreditinstituten ausTeilzahlungsverträgen  bis 1 Jahr	Verbindlichkeiten	Laufzeit bis 1 Jahr	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+3190	Verbindlichkeiten geg. Kreditinstituten aus Teilzahlungsverträgen 1 bis 5 J	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	2. Verbindlichkeiten gegenüber Kreditinstituten	-
+3200	Verbindlichkeiten geg. Kreditinstituten aus Teilzahlungsvertragen gr. 5 Jahre	Verbindlichkeiten	Laufzeit 1 bis 5 Jahre	0	0	-	0	-	IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks	2. Verbindlichkeiten gegenüber Kreditinstituten	-
 3250	Erhaltene Anzahlungen auf Bestellungen 	Erhaltene Anzahlungen		0	0	-	0	-	-	3. erhaltene Anzahlungen auf Bestellungen	-
 3260	Erhaltene Anzahlungen 7 % USt.	Erhaltene Anzahlungen		86	1	USt. 7% 	275	-	-	3. erhaltene Anzahlungen auf Bestellungen	-
 3270	Erhaltene Anzahlungen 16 % USt.	Erhaltene Anzahlungen		35	3	USt. 16% 	155	-	-	3. erhaltene Anzahlungen auf Bestellungen	-
@@ -551,8 +551,8 @@
 3854	Steuerzahlungen an andere Länder 	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
 3860	Verbindlichkeiten aus Umsatzsteuer	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
 3865	Umsatzsteuer in Folgeperiode fällig (§§ 13 Abs. 1 Nr. 6, 13b Abs. 2 UStG)	Verbindlichkeiten	sonstige	0	0	-	0	-	4. sonstige Vermögensgegenstände	8. sonstige Verbindlichkeiten	-
-3900	Passive Rechnungsabgrenzung	Passive Rechnungsabgrenzung		0	0	-	0	-	-	E. Rechnungsabgrenzungsposten	-
-3950	Abgrenzung unterjährige AfA für BWA	Passive Rechnungsabgrenzung		0	0	-	0	-	-	E. Rechnungsabgrenzungsposten	-
+3900	Passive Rechnungsabgrenzung	Passive Rechnungsabgrenzung		0	0	-	0	-	-	D. Rechnungsabgrenzungsposten	-
+3950	Abgrenzung unterjährige AfA für BWA	Passive Rechnungsabgrenzung		0	0	-	0	-	-	D. Rechnungsabgrenzungsposten	-
 4000	Umsatzerlöse	Einnahmen	Umsatzerlöse	0	0	-	0	-	-	-	Umsatzerlöse
 4100	Steuerfreie Umsätze § 4 Nr. 8 ff UStG	Einnahmen	Umsatzerlöse	48	0	- 	287	-	-	-	Umsatzerlöse
 4110	Sonstige steuerfreie Umsätze Inland 	Einnahmen	Umsatzerlöse	48	0	- 	287	-	-	-	Umsatzerlöse

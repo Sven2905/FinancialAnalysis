@@ -16,8 +16,8 @@ namespace FinancialAnalysis.Logic
 {
     public class Import
     {
-        List<BalanceAccount> BalanceAccounts;
-        List<GainAndLossAccount> GainAndLossAccounts;
+        private List<BalanceAccount> BalanceAccounts;
+        private List<GainAndLossAccount> GainAndLossAccounts;
 
         public void SeedGainAndLossAccounts()
         {
@@ -30,10 +30,10 @@ namespace FinancialAnalysis.Logic
                 new GainAndLossAccount(5, "Materialaufwand"),
                 new GainAndLossAccount(6, "Personalaufwand"),
                 new GainAndLossAccount(7, "Abschreibungen"),
-                new GainAndLossAccount(8, "Sonstige betriebl. Aufwendungen"),
+                new GainAndLossAccount(8, "Sonstige betriebliche Aufwendungen"),
                 new GainAndLossAccount(9, "Raumkosten", 8),
-                new GainAndLossAccount(10, "Versichernug, Beiträge und Abgaben", 8),
-                new GainAndLossAccount(11, "Reparaturen und Instandhaltung", 8),
+                new GainAndLossAccount(10, "Versicherungen, Beiträge und Abgaben", 8),
+                new GainAndLossAccount(11, "Reparaturen und Instandhaltungen", 8),
                 new GainAndLossAccount(12, "Fahrzeugkosten", 8),
                 new GainAndLossAccount(13, "Werbe- und Reisekosten", 8),
                 new GainAndLossAccount(14, "Kosten der Warenabgabe", 8),
@@ -48,7 +48,9 @@ namespace FinancialAnalysis.Logic
             };
 
             for (int i = 0; i < GainAndLossAccounts.Count; i++)
+            {
                 DataContext.Instance.GainAndLossAccounts.Insert(GainAndLossAccounts[i]);
+            }
         }
 
         public void SeedBalanceAccounts()
@@ -68,7 +70,7 @@ namespace FinancialAnalysis.Logic
                     new BalanceAccount(10, "3. Andere Anlagen, Betriebs-und Geschäftsausstattung", AccountType.Active, 7),
                     new BalanceAccount(11, "4. Geleistete Anzahlungen und Anlagen im Bau", AccountType.Active, 7),
                     new BalanceAccount(12, "III. Finanzanlagen", AccountType.Active, 1),
-                    new BalanceAccount(13, "1. Anteile an verbundenen Unternehmen", AccountType.Active, 12),
+                    new BalanceAccount(13, "1. Anteile an verbundenen Unternehmen Finanzanlagen", AccountType.Active, 12),
                     new BalanceAccount(14, "2. Ausleihungen an verbundene Unternehmen", AccountType.Active, 12),
                     new BalanceAccount(15, "3. Beteiligungen", AccountType.Active, 12),
                     new BalanceAccount(16, "4. Ausleihungen an Unternehmen, mit denen ein Beteiligungsverhältnis besteht", AccountType.Active, 12),
@@ -86,27 +88,27 @@ namespace FinancialAnalysis.Logic
                     new BalanceAccount(28, "3. Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht", AccountType.Active, 25),
                     new BalanceAccount(29, "4. sonstige Vermögensgegenstände", AccountType.Active, 25),
                     new BalanceAccount(30, "III. Wertpapiere", AccountType.Active, 19),
-                    new BalanceAccount(31, "1. Anteile an verbundenen Unternehmen", AccountType.Active, 30),
+                    new BalanceAccount(31, "1. Anteile an verbundenen Unternehmen Wertpapiere", AccountType.Active, 30),
                     new BalanceAccount(32, "2. Sonstige Wertpapiere", AccountType.Active, 30),
                     new BalanceAccount(33, "IV. Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks", AccountType.Active, 19),
-                    new BalanceAccount(34, "Rechnungsabgrenzungsposten", AccountType.Active, 0),
-                    new BalanceAccount(35, "Aktive latente Steuern", AccountType.Active, 0),
-                    new BalanceAccount(36, "Aktiver Unterschiedsbetrag aus der Vermögensverrechnung", AccountType.Active, 0),
+                    new BalanceAccount(34, "C. Rechnungsabgrenzungsposten", AccountType.Active, 0),
+                    new BalanceAccount(35, "D. Aktive latente Steuern", AccountType.Active, 0),
+                    new BalanceAccount(36, "E. Aktiver Unterschiedsbetrag aus der Vermögensverrechnung", AccountType.Active, 0),
 
                     // PASSIVA
                     new BalanceAccount(37, "A. Eigenkapital", AccountType.Passive, 0),
                     new BalanceAccount(38, "I. Kapital", AccountType.Passive, 37),
                     new BalanceAccount(39, "1. Gezeichnetes Kapital", AccountType.Passive, 38),
-                    new BalanceAccount(40, "Ausstehende Einlagen auf das gezeichnetete Kapital", AccountType.Passive, 39),
+                    new BalanceAccount(40, "Ausstehende Einlagen auf das gezeichnete Kapital", AccountType.Passive, 39),
                     new BalanceAccount(41, "2. Variables Kapital", AccountType.Passive, 38),
-                    new BalanceAccount(42, "Einlagen / Entnahmen", AccountType.Passive, 41),
-                    new BalanceAccount(43, "II. Kapitalrücklage", AccountType.Passive, 37),
+                    new BalanceAccount(42, "Einlagen/Entnahmen", AccountType.Passive, 41),
+                    new BalanceAccount(43, "II. Kapitalrücklagen", AccountType.Passive, 37),
                     new BalanceAccount(44, "III. Gewinnrücklagen", AccountType.Passive, 37),
-                    new BalanceAccount(45, "1. Gesetzliche Rücklage", AccountType.Passive, 44),
+                    new BalanceAccount(45, "1. Gesetzliche Rücklagen", AccountType.Passive, 44),
                     new BalanceAccount(46, "2. Rücklage für Anteile an einem herrschenden oder mehrheitlich beteiligten Unternehmen", AccountType.Passive, 44),
                     new BalanceAccount(47, "3. Satzungsmäßige Rücklagen", AccountType.Passive, 44),
                     new BalanceAccount(48, "4. Andere Gewinnrücklagen", AccountType.Passive, 44),
-                    new BalanceAccount(49, "IV. Gewinnvortrag / Verlustvortrag", AccountType.Passive, 37),
+                    new BalanceAccount(49, "IV. Gewinn- und Verlustvortrag", AccountType.Passive, 37),
                     new BalanceAccount(50, "V. Jahresüberschuß / Jahresfehlbetrag", AccountType.Passive, 37),
                     new BalanceAccount(51, "B. Rückstellungen", AccountType.Passive, 0),
                     new BalanceAccount(52, "1. Rückstellungen für Pensionen und ähnliche Verpflichtungen", AccountType.Passive, 51),
@@ -126,7 +128,9 @@ namespace FinancialAnalysis.Logic
             };
 
             for (int i = 0; i < BalanceAccounts.Count; i++)
+            {
                 DataContext.Instance.BalanceAccounts.Insert(BalanceAccounts[i]);
+            }
         }
 
         public void ImportCostAccounts(Standardkontenrahmen standardkontenrahmen)
@@ -278,7 +282,6 @@ namespace FinancialAnalysis.Logic
                             .CostAccountCategoryId;
                     }
 
-
                     var tempSubCat = new CostAccountCategory();
 
                     if (!string.IsNullOrEmpty(_Content[3]))
@@ -313,11 +316,19 @@ namespace FinancialAnalysis.Logic
                     int gainAndLossAccountId = 0;
 
                     if (BalanceAccounts.SingleOrDefault(x => string.Equals(x.Name, _Content[9], StringComparison.OrdinalIgnoreCase)) != null)
+                    {
                         aktivaId = BalanceAccounts.Single(x => string.Equals(x.Name, _Content[9], StringComparison.OrdinalIgnoreCase)).BalanceAccountId;
+                    }
+
                     if (BalanceAccounts.SingleOrDefault(x => string.Equals(x.Name, _Content[10], StringComparison.OrdinalIgnoreCase)) != null)
+                    {
                         passivaId = BalanceAccounts.Single(x => string.Equals(x.Name, _Content[10], StringComparison.OrdinalIgnoreCase)).BalanceAccountId;
-                    if (GainAndLossAccounts.SingleOrDefault(x => string.Equals(x.Name, _Content[11].Replace("\r", ""), StringComparison.OrdinalIgnoreCase)) != null)
-                        gainAndLossAccountId = GainAndLossAccounts.Single(x => string.Equals(x.Name, _Content[11].Replace("\r", ""), StringComparison.OrdinalIgnoreCase)).GainAndLossAccountId;
+                    }
+
+                    if (GainAndLossAccounts.SingleOrDefault(x => string.Equals(x.Name, _Content[11].Replace("\r", "").Trim(), StringComparison.OrdinalIgnoreCase)) != null)
+                    {
+                        gainAndLossAccountId = GainAndLossAccounts.Single(x => string.Equals(x.Name, _Content[11].Replace("\r", "").Trim(), StringComparison.OrdinalIgnoreCase)).GainAndLossAccountId;
+                    }
 
                     var costAccount = new CostAccount
                     {

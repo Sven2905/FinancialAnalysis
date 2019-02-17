@@ -160,15 +160,33 @@ namespace FinancialAnalysis.Datalayer
 
         private void Seed()
         {
+            var _Import = new Import();
             if (!Instance.TaxTypes.GetAll().Any())
             {
-                var _Import = new Import();
                 _Import.SeedTaxTypes();
+            }
+            if (!Instance.BalanceAccounts.GetAll().Any())
+            {
                 _Import.SeedBalanceAccounts();
+            }
+            if (!Instance.GainAndLossAccounts.GetAll().Any())
+            {
                 _Import.SeedGainAndLossAccounts();
-                _Import.ImportCostAccounts(Standardkontenrahmen.SKR03);
+            }
+            if (!Instance.CostAccounts.GetAll().Any())
+            {
+                _Import.ImportCostAccounts(Standardkontenrahmen.SKR04);
+            }
+            if (!Instance.Clients.GetAll().Any())
+            {
                 _Import.SeedCompany();
+            }
+            if (!Instance.CostCenters.GetAll().Any())
+            {
                 _Import.SeedCostCenters();
+            }
+            if (!Instance.HealthInsurances.GetAll().Any())
+            {
                 _Import.SeedHealthInsurance();
             }
         }
