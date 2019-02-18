@@ -212,15 +212,8 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void RefreshData()
         {
-            try
-            {
-                FilteredCreditors = Creditors = DataContext.Instance.Creditors.GetAll().ToSvenTechCollection();
-                FilteredDebitors = Debitors = DataContext.Instance.Debitors.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            FilteredCreditors = Creditors = DataContext.Instance.Creditors.GetAll().ToSvenTechCollection();
+            FilteredDebitors = Debitors = DataContext.Instance.Debitors.GetAll().ToSvenTechCollection();
         }
 
         private void InitializeButtonCommands()

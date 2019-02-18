@@ -38,14 +38,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private SvenTechCollection<ShipmentType> LoadAllShipmentTypes()
         {
             var allShipmentTypes = new SvenTechCollection<ShipmentType>();
-            try
-            {
                 allShipmentTypes = DataContext.Instance.ShipmentTypes.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
 
             return allShipmentTypes;
         }
@@ -67,31 +60,17 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            try
-            {
-                DataContext.Instance.ShipmentTypes.Delete(SelectedShipmentType.ShipmentTypeId);
-                _ShipmentTypes.Remove(SelectedShipmentType);
-                SelectedShipmentType = null;
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            DataContext.Instance.ShipmentTypes.Delete(SelectedShipmentType.ShipmentTypeId);
+            _ShipmentTypes.Remove(SelectedShipmentType);
+            SelectedShipmentType = null;
         }
 
         private void SaveShipmentType()
         {
-            try
-            {
-                if (SelectedShipmentType.ShipmentTypeId != 0)
-                    DataContext.Instance.ShipmentTypes.Update(SelectedShipmentType);
-                else
-                    DataContext.Instance.ShipmentTypes.Insert(SelectedShipmentType);
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            if (SelectedShipmentType.ShipmentTypeId != 0)
+                DataContext.Instance.ShipmentTypes.Update(SelectedShipmentType);
+            else
+                DataContext.Instance.ShipmentTypes.Insert(SelectedShipmentType);
         }
 
         private bool Validation()

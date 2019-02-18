@@ -43,14 +43,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private SvenTechCollection<SalesType> LoadAllSalesTypes()
         {
             var allSalesTypes = new SvenTechCollection<SalesType>();
-            try
-            {
-                allSalesTypes = DataContext.Instance.SalesTypes.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            allSalesTypes = DataContext.Instance.SalesTypes.GetAll().ToSvenTechCollection();
 
             return allSalesTypes;
         }
@@ -72,31 +65,17 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            try
-            {
-                DataContext.Instance.SalesTypes.Delete(SelectedSalesType.SalesTypeId);
-                _SalesTypes.Remove(SelectedSalesType);
-                SelectedSalesType = null;
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            DataContext.Instance.SalesTypes.Delete(SelectedSalesType.SalesTypeId);
+            _SalesTypes.Remove(SelectedSalesType);
+            SelectedSalesType = null;
         }
 
         private void SaveSalesType()
         {
-            try
-            {
-                if (SelectedSalesType.SalesTypeId != 0)
-                    DataContext.Instance.SalesTypes.Update(SelectedSalesType);
-                else
-                    SelectedSalesType.SalesTypeId = DataContext.Instance.SalesTypes.Insert(SelectedSalesType);
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            if (SelectedSalesType.SalesTypeId != 0)
+                DataContext.Instance.SalesTypes.Update(SelectedSalesType);
+            else
+                SelectedSalesType.SalesTypeId = DataContext.Instance.SalesTypes.Insert(SelectedSalesType);
         }
 
         private bool Validation()
@@ -112,7 +91,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             if (SelectedSalesType.SalesTypeId == 0) SaveSalesType();
 
-            Messenger.Default.Send(new SelectedSalesType {SalesType = SelectedSalesType});
+            Messenger.Default.Send(new SelectedSalesType { SalesType = SelectedSalesType });
         }
 
         #endregion Methods

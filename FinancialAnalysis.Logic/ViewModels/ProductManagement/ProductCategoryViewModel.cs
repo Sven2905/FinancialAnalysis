@@ -47,16 +47,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private SvenTechCollection<ProductCategory> LoadAllProductCategories()
         {
             var allProductCategories = new SvenTechCollection<ProductCategory>();
-            try
-            {
-                allProductCategories = DataContext.Instance.ProductCategories.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
-
-            return allProductCategories;
+            return DataContext.Instance.ProductCategories.GetAll().ToSvenTechCollection();
         }
 
         private void NewProductCategory()
@@ -76,32 +67,18 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            try
-            {
                 DataContext.Instance.ProductCategories.Delete(SelectedProductCategory.ProductCategoryId);
                 _ProductCategories.Remove(SelectedProductCategory);
                 SelectedProductCategory = null;
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
         }
 
         private void SaveProductCategory()
         {
-            try
-            {
                 if (SelectedProductCategory.ProductCategoryId != 0)
                     DataContext.Instance.ProductCategories.Update(SelectedProductCategory);
                 else
                     SelectedProductCategory.ProductCategoryId =
                         DataContext.Instance.ProductCategories.Insert(SelectedProductCategory);
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
         }
 
         private bool Validation()

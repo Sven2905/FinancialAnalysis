@@ -68,31 +68,13 @@ namespace FinancialAnalysis.Logic.ViewModels
         private SvenTechCollection<Product> LoadAllProducts()
         {
             var allProducts = new SvenTechCollection<Product>();
-            try
-            {
-                allProducts = DataContext.Instance.Products.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
-
-            return allProducts;
+            return DataContext.Instance.Products.GetAll().ToSvenTechCollection();
         }
 
         private SvenTechCollection<ProductCategory> LoadAllProductCategories()
         {
             var allProductCategories = new SvenTechCollection<ProductCategory>();
-            try
-            {
-                allProductCategories = DataContext.Instance.ProductCategories.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
-
-            return allProductCategories;
+            return DataContext.Instance.ProductCategories.GetAll().ToSvenTechCollection();
         }
 
         private void NewProduct()
@@ -115,34 +97,20 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            try
-            {
-                DataContext.Instance.Products.Delete(SelectedProduct.ProductId);
-                _Products.Remove(SelectedProduct);
-                SelectedProduct = null;
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            DataContext.Instance.Products.Delete(SelectedProduct.ProductId);
+            _Products.Remove(SelectedProduct);
+            SelectedProduct = null;
         }
 
         private void SaveProduct()
         {
-            try
+            if (SelectedProduct.ProductId != 0)
             {
-                if (SelectedProduct.ProductId != 0)
-                {
-                    DataContext.Instance.Products.Update(SelectedProduct);
-                }
-                else
-                {
-                    SelectedProduct.ProductId = DataContext.Instance.Products.Insert(SelectedProduct);
-                }
+                DataContext.Instance.Products.Update(SelectedProduct);
             }
-            catch (Exception ex)
+            else
             {
-                // TODO Exception
+                SelectedProduct.ProductId = DataContext.Instance.Products.Insert(SelectedProduct);
             }
         }
 

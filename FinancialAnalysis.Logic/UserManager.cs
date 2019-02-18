@@ -37,16 +37,7 @@ namespace FinancialAnalysis.Logic
         private SvenTechCollection<User> LoadUsersFromDB()
         {
             var allUsers = new SvenTechCollection<User>();
-            try
-            {
-                allUsers = DataContext.Instance.Users.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
-
-            return allUsers;
+            return DataContext.Instance.Users.GetAll().ToSvenTechCollection();
         }
 
         public User NewUser()
@@ -55,7 +46,7 @@ namespace FinancialAnalysis.Logic
 
             foreach (var item in UserRights)
                 newUser.UserRightUserMappings.Add(new UserRightUserMapping(0, item.UserRightId, false)
-                    {User = newUser, UserRight = item});
+                { User = newUser, UserRight = item });
 
             return newUser;
         }
@@ -64,17 +55,9 @@ namespace FinancialAnalysis.Logic
         {
             if (user == null || user.UserId == 0) return false;
 
-            try
-            {
-                DataContext.Instance.UserRightUserMappings.Delete(user.UserId);
-                DataContext.Instance.Users.Delete(user.UserId);
-                Users.Remove(user);
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-                return false;
-            }
+            DataContext.Instance.UserRightUserMappings.Delete(user.UserId);
+            DataContext.Instance.Users.Delete(user.UserId);
+            Users.Remove(user);
 
             return true;
         }
@@ -85,30 +68,23 @@ namespace FinancialAnalysis.Logic
 
             var IsNewUser = user.UserId == 0;
 
-            try
+            if (!IsNewUser)
             {
-                if (!IsNewUser)
-                {
-                    if (!string.IsNullOrEmpty(user.Password)) DataContext.Instance.Users.UpdatePassword(user);
-                }
-                else
-                {
-                    if (string.IsNullOrEmpty(user.Password)) throw new ArgumentException("Password is not set!");
-                }
-
-                DataContext.Instance.Users.UpdateOrInsert(user);
-
-                if (IsNewUser)
-                    foreach (var item in user.UserRightUserMappings)
-                        item.RefUserId = user.UserId;
-
-                DataContext.Instance.UserRightUserMappings.UpdateOrInsert(user.UserRightUserMappings);
-                RefreshUsers();
+                if (!string.IsNullOrEmpty(user.Password)) DataContext.Instance.Users.UpdatePassword(user);
             }
-            catch (Exception ex)
+            else
             {
-                // TODO Exception
+                if (string.IsNullOrEmpty(user.Password)) throw new ArgumentException("Password is not set!");
             }
+
+            DataContext.Instance.Users.UpdateOrInsert(user);
+
+            if (IsNewUser)
+                foreach (var item in user.UserRightUserMappings)
+                    item.RefUserId = user.UserId;
+
+            DataContext.Instance.UserRightUserMappings.UpdateOrInsert(user.UserRightUserMappings);
+            RefreshUsers();
 
             return user;
         }
