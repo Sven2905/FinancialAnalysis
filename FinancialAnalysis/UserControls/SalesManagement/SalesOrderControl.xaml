@@ -87,6 +87,7 @@
 
                     <Label Grid.Column="0" Grid.Row="0" Margin="3" Content="Typ" />
                     <Label Grid.Column="0" Grid.Row="1" Margin="3" Content="Debitor" />
+                    <dxe:CheckEdit Grid.Column="0" Grid.Row="2" Margin="2" VerticalAlignment="Top" Content="Mail an Debitor" Width="130" Name="checkBoxMail" />
                     <Label Grid.Column="0" Grid.Row="3" Margin="3" Content="Produkt" />
                     <Label Grid.Column="0" Grid.Row="4" Margin="3" Content="Bemerkung" />
 
@@ -96,9 +97,9 @@
                               Foreground="#3F729B" />
 
                     <dxg:LookUpEdit Grid.Column="1" Grid.Row="1" DisplayMember="Client.Name" VerticalAlignment="Center"
-                            ValueMember="DebitorId" Foreground="#3F729B" Margin="3"
+                            Foreground="#3F729B" Margin="3"
                             ItemsSource="{Binding Debitors}" PopupWidth="800"
-                            EditValue="{Binding SalesOrder.RefDebitorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            EditValue="{Binding SelectedDebitor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             AutoComplete="True"
                             IsPopupAutoWidth="True" AutoPopulateColumns="False">
                         <dxg:LookUpEdit.PopupContentTemplate>
@@ -132,6 +133,8 @@
                             </ControlTemplate>
                         </dxg:LookUpEdit.PopupContentTemplate>
                     </dxg:LookUpEdit>
+
+                    <dxe:TextEdit Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" Margin="3" Text="{Binding SelectedDebitor.Client.Mail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=checkBoxMail, Path=IsChecked}" />
 
                     <dxg:LookUpEdit Grid.Column="1" Grid.Row="3" DisplayMember="Name" VerticalAlignment="Center"
                             Foreground="#3F729B" Margin="3"

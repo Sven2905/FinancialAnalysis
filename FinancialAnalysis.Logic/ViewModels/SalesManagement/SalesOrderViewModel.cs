@@ -61,6 +61,15 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
+        private Debitor _SelectedDebitor;
+
+        public Debitor SelectedDebitor
+        {
+            get { return _SelectedDebitor; }
+            set { _SelectedDebitor = value; SalesOrder.Debitor = _SelectedDebitor; SalesOrder.RefDebitorId = _SelectedDebitor.DebitorId; }
+        }
+
+
         public Employee Employee { get; set; }
         public SalesOrderPosition SalesOrderPosition { get; set; } = new SalesOrderPosition();
         public SalesOrderPosition SelectedSalesOrderPosition { get; set; }
