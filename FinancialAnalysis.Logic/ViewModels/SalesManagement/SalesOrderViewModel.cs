@@ -153,7 +153,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 DataSource = listReportData
             };
             sor.CreateDocument();
-            var path = @"C:\Users\fuhrm\OneDrive\Dokumente\test.pdf";
+            var path = @"C:\test\test.pdf";
             sor.PrintingSystem.ExportToPdf(path);
             Messenger.Default.Send(new OpenPDFViewerWindowMessage(path));
         }

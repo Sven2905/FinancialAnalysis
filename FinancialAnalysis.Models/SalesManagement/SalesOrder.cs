@@ -27,5 +27,6 @@ namespace FinancialAnalysis.Models.SalesManagement
         public Color InvoiceStatusColor { get; set; } = SvenTechColors.ColorGreen;
         public Color ShippingStatusColor { get; set; } = SvenTechColors.ColorRed;
         public bool IsClosed { get; set; }
+        public int OrderNumber => SalesOrderId + 10000;
     }
 }

@@ -13,6 +13,7 @@
              xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
              dx:ThemeManager.Theme="Office2016WhiteSE"
              xmlns:accounting="clr-namespace:FinancialAnalysis.UserControls.Accounting"
+             xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
              mc:Ignorable="d"
              d:DesignHeight="1000" d:DesignWidth="1900">
     <UserControl.DataContext>
@@ -41,7 +42,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
 
@@ -62,288 +62,276 @@
         <dx:DXTabControl Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="0,0,0,10">
             <dx:DXTabItem Header="Kostenstellen">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="7*" />
-                        <ColumnDefinition Width="20" />
-                        <ColumnDefinition Width="7*" />
-                        <ColumnDefinition Width="20" />
-                        <ColumnDefinition Width="7*" />
-                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="60" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="10" />
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Column="0" Content="Verfügbare Kostenstellen" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="10" HorizontalAlignment="Center" />
-                    <Label Grid.Column="2" Content="Informationen" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="10" HorizontalAlignment="Center" />
-                    <Label Grid.Column="4" Content="Kostenstellenverteilung" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="10" HorizontalAlignment="Center" />
-
-                    <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7">
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="7*" />
-                            <ColumnDefinition Width="20" />
-                            <ColumnDefinition Width="7*" />
-                            <ColumnDefinition Width="20" />
-                            <ColumnDefinition Width="7*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="45" />
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <dxlc:LayoutControl Grid.Row="0" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}"
+                    <dxdo:DockLayoutManager>
+                        <dxdo:LayoutGroup Caption="LayoutRoot">
+                            <dxdo:LayoutPanel Caption="Verfügbare Kostenstellen" ShowCloseButton="False">
+                                <Grid>
+                                    <StackPanel>
+                                        <Grid Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <dxlc:LayoutControl Grid.Row="0" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}"
                                 ItemSpace="10" VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Stretch">
-                                    <dxlc:LayoutGroup.Header>
-                                        <TextBlock Text="Filter" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
-                                    </dxlc:LayoutGroup.Header>
-                                    <dxlc:LayoutGroup>
-                                        <dxlc:LayoutItem Label="Filtertext" FontFamily="Tahoma">
-                                            <dxe:TextEdit Text="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Stretch">
+                                                    <dxlc:LayoutGroup.Header>
+                                                        <TextBlock Text="Filter" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                                                    </dxlc:LayoutGroup.Header>
+                                                    <dxlc:LayoutGroup>
+                                                        <dxlc:LayoutItem Label="Filtertext" FontFamily="Tahoma">
+                                                            <dxe:TextEdit Text="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           FontFamily="Tahoma" />
-                                        </dxlc:LayoutItem>
-                                    </dxlc:LayoutGroup>
-                                </dxlc:LayoutGroup>
-                            </dxlc:LayoutControl>
-                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0">
-                                <dxg:TreeListControl VerticalAlignment="Top" MaxWidth="5000" MaxHeight="800" 
+                                                        </dxlc:LayoutItem>
+                                                    </dxlc:LayoutGroup>
+                                                </dxlc:LayoutGroup>
+                                            </dxlc:LayoutControl>
+                                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0" HorizontalAlignment="Stretch">
+                                                <dxg:TreeListControl VerticalAlignment="Top" MaxWidth="5000" MaxHeight="800"  HorizontalAlignment="Stretch"
                                          ItemsSource="{Binding CostCenterFlatStructures, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
                                           ShowBorder="True" Height="600" Width="530" SelectedItem="{Binding SelectedCostCenterFlatStructure}">
-                                    <dxg:TreeListControl.View>
-                                        <dxg:TreeListView EditFormShowMode="None" 
+                                                    <dxg:TreeListControl.View>
+                                                        <dxg:TreeListView EditFormShowMode="None" 
                                               EnableImmediatePosting="True" ShowVerticalLines="False" AutoExpandAllNodes="True"
-                                              AutoWidth="True" ShowTotalSummary="False" KeyFieldName="Key"
+                                              AutoWidth="True" ShowTotalSummary="False" KeyFieldName="Key" HorizontalAlignment="Stretch"
                                               ParentFieldName="ParentKey" AllowEditing="False" ShowIndicator="False"
                                               VerticalScrollbarVisibility="Auto">
-                                        </dxg:TreeListView>
-                                    </dxg:TreeListControl.View>
-                                    <dxg:TreeListColumn FieldName="CostCenterCategory.Name" Header="Kategorie" Width="120" />
-                                    <dxg:TreeListColumn FieldName="CostCenter.Name" Header="Name"  Width="200"
+                                                        </dxg:TreeListView>
+                                                    </dxg:TreeListControl.View>
+                                                    <dxg:TreeListColumn FieldName="CostCenterCategory.Name" Header="Kategorie" Width="120" />
+                                                    <dxg:TreeListColumn FieldName="CostCenter.Name" Header="Name"  Width="200"
                                             AllowEditing="False" />
-                                </dxg:TreeListControl>
-                            </ScrollViewer>
-                        </Grid>
-
-                        <VirtualizingStackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                            <dx:SimpleButton Width="120" Height="30" Margin="0,0,5,0" Content="Neu"
+                                                </dxg:TreeListControl>
+                                            </ScrollViewer>
+                                        </Grid>
+                                        <VirtualizingStackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,5">
+                                            <dx:SimpleButton Width="120" Height="30" Margin="0,0,5,0" Content="Neu"
                                  Foreground="#3F729B" Command="{Binding NewCostCenterCommand}" FontFamily="Tahoma" />
-                            <dx:SimpleButton Width="120" Height="30" Margin="5,0,5,0" Content="Speichern" Foreground="#3F729B"
+                                            <dx:SimpleButton Width="120" Height="30" Margin="5,0,5,0" Content="Speichern" Foreground="#3F729B"
                                  Command="{Binding SaveCostCenterCommand}" FontFamily="Tahoma" />
-                            <dx:SimpleButton Width="120" Height="30" Margin="5,0,0,0" Content="Löschen" Foreground="#3F729B"
+                                            <dx:SimpleButton Width="120" Height="30" Margin="5,0,0,0" Content="Löschen" Foreground="#3F729B"
                                  Command="{Binding DeleteCostCenterCommand}" FontFamily="Tahoma" />
-                        </VirtualizingStackPanel>
+                                        </VirtualizingStackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </dxdo:LayoutPanel>
 
-                        <Grid Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Center">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="10" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                            <dxdo:LayoutPanel Caption="Informationen" ShowCloseButton="False">
+                                <Grid Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="10" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
 
-                            <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10"
+                                    <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10"
                                     IsEnabled="{Binding SelectedCostCenter, Converter={StaticResource NullConverter}}">
-                                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="500">
-                                    <dxlc:LayoutGroup.Header>
-                                        <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
-                                    </dxlc:LayoutGroup.Header>
-                                    <dxlc:LayoutGroup>
-                                        <dxlc:LayoutItem Label="Kostenstelle-ID" FontFamily="Tahoma">
-                                            <dxe:TextEdit Text="{Binding SelectedCostCenter.Identifier}" FontFamily="Tahoma" />
-                                        </dxlc:LayoutItem>
-                                    </dxlc:LayoutGroup>
-                                    <dxlc:LayoutGroup>
-                                        <dxlc:LayoutItem Label="Name" FontFamily="Tahoma">
-                                            <dxe:TextEdit Text="{Binding SelectedCostCenter.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
-                                        </dxlc:LayoutItem>
-                                    </dxlc:LayoutGroup>
-                                    <dxlc:LayoutGroup>
-                                        <dxlc:LayoutItem Label="Kategorie" FontFamily="Tahoma">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="Auto" />
-                                                </Grid.ColumnDefinitions>
-                                                <dxe:ComboBoxEdit NullText="Bitte wählen" ValueMember="CostCenterCategoryId"
+                                        <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="500">
+                                            <dxlc:LayoutGroup.Header>
+                                                <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                                            </dxlc:LayoutGroup.Header>
+                                            <dxlc:LayoutGroup>
+                                                <dxlc:LayoutItem Label="Kostenstelle-ID" FontFamily="Tahoma">
+                                                    <dxe:TextEdit Text="{Binding SelectedCostCenter.Identifier}" FontFamily="Tahoma" />
+                                                </dxlc:LayoutItem>
+                                            </dxlc:LayoutGroup>
+                                            <dxlc:LayoutGroup>
+                                                <dxlc:LayoutItem Label="Name" FontFamily="Tahoma">
+                                                    <dxe:TextEdit Text="{Binding SelectedCostCenter.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                                                </dxlc:LayoutItem>
+                                            </dxlc:LayoutGroup>
+                                            <dxlc:LayoutGroup>
+                                                <dxlc:LayoutItem Label="Kategorie" FontFamily="Tahoma">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <dxe:ComboBoxEdit NullText="Bitte wählen" ValueMember="CostCenterCategoryId"
                                                       DisplayMember="Name" ItemsSource="{Binding CostCenterCategories}"
                                                       EditValue="{Binding SelectedCostCenter.RefCostCenterCategoryId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       FontFamily="Tahoma" />
-                                                <dx:SimpleButton Grid.Column="1" Width="30" Margin="5,0,0,0"
+                                                        <dx:SimpleButton Grid.Column="1" Width="30" Margin="5,0,0,0"
                                                      Command="{Binding OpenCostCenterCategoriesWindowCommand}">
-                                                    <!--IsEnabled="{Binding AllowCostCenterCategories}">-->
-                                                    <dx:SimpleButton.Glyph>
-                                                        <dx:SvgImageSource Uri="/Images/light/Cog.svg" Size="14,14" />
-                                                    </dx:SimpleButton.Glyph>
-                                                </dx:SimpleButton>
-                                            </Grid>
-                                        </dxlc:LayoutItem>
-                                    </dxlc:LayoutGroup>
-                                    <dxlc:LayoutGroup>
-                                        <dxlc:LayoutItem Label="Beschreibung" FontFamily="Tahoma">
-                                            <dxe:TextEdit TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                                                            <!--IsEnabled="{Binding AllowCostCenterCategories}">-->
+                                                            <dx:SimpleButton.Glyph>
+                                                                <dx:SvgImageSource Uri="/Images/light/Cog.svg" Size="14,14" />
+                                                            </dx:SimpleButton.Glyph>
+                                                        </dx:SimpleButton>
+                                                    </Grid>
+                                                </dxlc:LayoutItem>
+                                            </dxlc:LayoutGroup>
+                                            <dxlc:LayoutGroup>
+                                                <dxlc:LayoutItem Label="Beschreibung" FontFamily="Tahoma">
+                                                    <dxe:TextEdit TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
                                               AcceptsReturn="True" VerticalContentAlignment="Top"
                                               Text="{Binding SelectedCostCenter.Description}" Height="150"
                                               FontFamily="Tahoma" />
-                                        </dxlc:LayoutItem>
-                                    </dxlc:LayoutGroup>
-                                </dxlc:LayoutGroup>
-                            </dxlc:LayoutControl>
-                        </Grid>
-
-                        <accounting:FixedCostAllocationControl Grid.Row="1" Grid.Column="4" Grid.RowSpan="2" />
-                    </Grid>
+                                                </dxlc:LayoutItem>
+                                            </dxlc:LayoutGroup>
+                                        </dxlc:LayoutGroup>
+                                    </dxlc:LayoutControl>
+                                </Grid>
+                            </dxdo:LayoutPanel>
+                            <dxdo:LayoutPanel Caption="Kostenstellenverteilung" ShowCloseButton="False">
+                                <accounting:FixedCostAllocationControl Grid.Row="1" Grid.Column="4" Grid.RowSpan="2" />
+                            </dxdo:LayoutPanel>
+                        </dxdo:LayoutGroup>
+                    </dxdo:DockLayoutManager>
                 </Grid>
             </dx:DXTabItem>
             <dx:DXTabItem Header="Budget" IsEnabled="{Binding SelectedCostCenter, Converter={StaticResource NullConverter}}">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="20" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                    <dxdo:DockLayoutManager>
+                        <dxdo:LayoutGroup Caption="LayoutRoot">
+                            <dxdo:LayoutPanel Caption="Budgetverteilung" ShowCloseButton="False" MaxWidth="350">
+                                <Grid Grid.Column="0" Margin="15,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="125" />
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="100" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="25" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="35" />
+                                    </Grid.RowDefinitions>
 
-                    <Grid Grid.Column="0" Margin="15,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="125" />
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="100" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="35" />
-                        </Grid.RowDefinitions>
+                                    <!--<Label Grid.Column="0" Grid.ColumnSpan="2" Content="Budgetverteilung" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="10" HorizontalAlignment="Center" />-->
 
-                        <Label Grid.Column="0" Grid.ColumnSpan="2" Content="Budgetverteilung" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="10" HorizontalAlignment="Center" />
+                                    <Label Grid.Column="1" Grid.Row="1" Content="Soll" FontFamily="Tahoma" Foreground="#3f729b" HorizontalContentAlignment="Center" />
+                                    <Label Grid.Column="2" Grid.Row="1" Content="Ist" FontFamily="Tahoma" Foreground="#3f729b" HorizontalContentAlignment="Center" />
 
-                        <Label Grid.Column="1" Grid.Row="1" Content="Soll" FontFamily="Tahoma" Foreground="#3f729b" HorizontalContentAlignment="Center" />
-                        <Label Grid.Column="2" Grid.Row="1" Content="Ist" FontFamily="Tahoma" Foreground="#3f729b" HorizontalContentAlignment="Center" />
+                                    <Label Grid.Row="2" Content="1. Quartal" FontFamily="Tahoma" Foreground="#3f729b" Margin="0,3,0,3" FontWeight="Bold" />
+                                    <dxe:TextEdit Grid.Row="2" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.Quarter1, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <dxe:TextEdit Grid.Row="2" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.Quarter1, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Row="2" Content="1. Quartal" FontFamily="Tahoma" Foreground="#3f729b" Margin="0,3,0,3" FontWeight="Bold" />
-                        <dxe:TextEdit Grid.Row="2" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.Quarter1, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <dxe:TextEdit Grid.Row="2" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.Quarter1, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label Grid.Row="3" Content="Januar" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
+                                    <dxe:TextEdit Grid.Row="3" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.January, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <dxe:TextEdit Grid.Row="3" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.January, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Row="3" Content="Januar" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
-                        <dxe:TextEdit Grid.Row="3" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.January, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <dxe:TextEdit Grid.Row="3" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.January, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label Grid.Row="4" Content="Februar" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
+                                    <dxe:TextEdit Grid.Row="4" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.February, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <dxe:TextEdit Grid.Row="4" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.February, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Row="4" Content="Februar" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
-                        <dxe:TextEdit Grid.Row="4" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.February, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <dxe:TextEdit Grid.Row="4" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.February, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label Grid.Row="5" Content="März" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
+                                    <dxe:TextEdit Grid.Row="5" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.March, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <dxe:TextEdit Grid.Row="5" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.March, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Row="5" Content="März" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
-                        <dxe:TextEdit Grid.Row="5" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.March, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <dxe:TextEdit Grid.Row="5" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.March, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label Grid.Row="7" Content="2. Quartal" FontFamily="Tahoma" Foreground="#3f729b" Margin="0,3,0,3" FontWeight="Bold" />
+                                    <dxe:TextEdit Grid.Row="7" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.Quarter2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <dxe:TextEdit Grid.Row="7" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.Quarter2, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Row="7" Content="2. Quartal" FontFamily="Tahoma" Foreground="#3f729b" Margin="0,3,0,3" FontWeight="Bold" />
-                        <dxe:TextEdit Grid.Row="7" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.Quarter2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <dxe:TextEdit Grid.Row="7" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.Quarter2, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label Grid.Row="8" Content="April" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
+                                    <dxe:TextEdit Grid.Row="8" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.April, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <dxe:TextEdit Grid.Row="8" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.April, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Row="8" Content="April" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
-                        <dxe:TextEdit Grid.Row="8" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.April, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <dxe:TextEdit Grid.Row="8" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.April, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label Grid.Row="9" Content="Mai" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
+                                    <dxe:TextEdit Grid.Row="9" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.May, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <dxe:TextEdit Grid.Row="9" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.May, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Row="9" Content="Mai" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
-                        <dxe:TextEdit Grid.Row="9" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.May, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <dxe:TextEdit Grid.Row="9" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.May, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label Grid.Row="10" Content="Juni" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
+                                    <dxe:TextEdit Grid.Row="10" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.June, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <dxe:TextEdit Grid.Row="10" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.June, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Row="10" Content="Juni" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
-                        <dxe:TextEdit Grid.Row="10" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.June, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <dxe:TextEdit Grid.Row="10" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.June, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label Grid.Row="12" Content="3. Quartal" FontFamily="Tahoma" Foreground="#3f729b" Margin="0,3,0,3" FontWeight="Bold" />
+                                    <dxe:TextEdit Grid.Row="12" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.Quarter3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <dxe:TextEdit Grid.Row="12" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.Quarter3, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Row="12" Content="3. Quartal" FontFamily="Tahoma" Foreground="#3f729b" Margin="0,3,0,3" FontWeight="Bold" />
-                        <dxe:TextEdit Grid.Row="12" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.Quarter3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <dxe:TextEdit Grid.Row="12" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.Quarter3, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label Grid.Row="13" Content="Juli" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
+                                    <dxe:TextEdit Grid.Row="13" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.July, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <dxe:TextEdit Grid.Row="13" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.July, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Row="13" Content="Juli" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
-                        <dxe:TextEdit Grid.Row="13" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.July, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <dxe:TextEdit Grid.Row="13" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.July, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label Grid.Row="14" Content="August" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
+                                    <dxe:TextEdit Grid.Row="14" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.August, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <dxe:TextEdit Grid.Row="14" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.August, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Row="14" Content="August" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
-                        <dxe:TextEdit Grid.Row="14" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.August, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <dxe:TextEdit Grid.Row="14" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.August, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label Grid.Row="15" Content="September" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
+                                    <dxe:TextEdit Grid.Row="15" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.September, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <dxe:TextEdit Grid.Row="15" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.September, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Row="15" Content="September" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
-                        <dxe:TextEdit Grid.Row="15" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.September, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <dxe:TextEdit Grid.Row="15" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.September, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label Grid.Row="17" Content="4. Quartal" FontFamily="Tahoma" Foreground="#3f729b" Margin="0,3,0,3" FontWeight="Bold" />
+                                    <dxe:TextEdit Grid.Row="17" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.Quarter4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <dxe:TextEdit Grid.Row="17" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.Quarter4, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Row="17" Content="4. Quartal" FontFamily="Tahoma" Foreground="#3f729b" Margin="0,3,0,3" FontWeight="Bold" />
-                        <dxe:TextEdit Grid.Row="17" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.Quarter4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <dxe:TextEdit Grid.Row="17" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.Quarter4, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label Grid.Row="18" Content="Oktober" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
+                                    <dxe:TextEdit Grid.Row="18" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.October, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <dxe:TextEdit Grid.Row="18" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.October, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Row="18" Content="Oktober" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
-                        <dxe:TextEdit Grid.Row="18" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.October, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <dxe:TextEdit Grid.Row="18" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.October, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label Grid.Row="19" Content="November" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
+                                    <dxe:TextEdit Grid.Row="19" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.November, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <dxe:TextEdit Grid.Row="19" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.November, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Row="19" Content="November" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
-                        <dxe:TextEdit Grid.Row="19" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.November, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <dxe:TextEdit Grid.Row="19" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.November, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label Grid.Row="20" Content="Dezember" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
+                                    <dxe:TextEdit Grid.Row="20" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.December, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <dxe:TextEdit Grid.Row="22" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.December, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Row="20" Content="Dezember" FontFamily="Tahoma" Foreground="#3f729b" Margin="30,3,0,3" />
-                        <dxe:TextEdit Grid.Row="20" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.December, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <dxe:TextEdit Grid.Row="22" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.December, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label Grid.Row="22" Content="Gesamt" FontFamily="Tahoma" FontWeight="Bold" Foreground="#3f729b" Margin="5,3,0,3" />
+                                    <dxe:TextEdit Grid.Row="22" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.Annually, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <dxe:TextEdit Grid.Row="22" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.Annually, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Row="22" Content="Gesamt" FontFamily="Tahoma" FontWeight="Bold" Foreground="#3f729b" Margin="5,3,0,3" />
-                        <dxe:TextEdit Grid.Row="22" Grid.Column="1" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding SelectedCostCenter.ScheduledBudget.Annually, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <dxe:TextEdit Grid.Row="22" Grid.Column="2" BorderBrush="Transparent" IsEnabled="False" Height="25" HorizontalContentAlignment="Right" Padding="3,0" Mask="C" MaskType="Numeric" DisplayFormatString="C2" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" Text="{Binding CostCenterCurrentBudget.Annually, ConverterCulture='de-DE', StringFormat='C2', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <dx:SimpleButton Grid.Row="24" Width="120" Height="30" Margin="0,0,5,0" Content="Speichern" Foreground="#3F729B" FontFamily="Tahoma" Command="{Binding SaveCostCenterCommand}" />
+                                </Grid>
+                            </dxdo:LayoutPanel>
 
-                        <dx:SimpleButton Grid.Row="24" Width="120" Height="30" Margin="0,0,5,0" Content="Speichern" Foreground="#3F729B" FontFamily="Tahoma" Command="{Binding SaveCostCenterCommand}" />
-                    </Grid>
+                            <dxdo:LayoutPanel Caption="Graphische Darstellung Soll - Ist" ShowCloseButton="False" ShowPinButton="False">
+                                <Grid Grid.Column="2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
 
-                    <Grid Grid.Column="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <dxc:ChartControl Grid.Row="1">
-                            <dxc:ChartControl.Diagram>
-                                <dxc:XYDiagram2D>
-                                    <dxc:XYDiagram2D.Series>
-                                        <dxc:LineSeries2D DisplayName="Soll-Kosten" MarkerVisible="False" DataSource="{Binding Path=ScheduldedCostPoints, UpdateSourceTrigger=PropertyChanged}" ArgumentDataMember="Text" ValueDataMember="Value" />
-                                        <dxc:LineSeries2D DisplayName="Ist-Kosten" MarkerVisible="False" DataSource="{Binding Path=CurrentCostPoints, UpdateSourceTrigger=PropertyChanged}" ArgumentDataMember="Text" ValueDataMember="Value" />
-                                    </dxc:XYDiagram2D.Series>
-                                </dxc:XYDiagram2D>
-                            </dxc:ChartControl.Diagram>
-                            <dxc:ChartControl.Legend>
-                                <dxc:Legend />
-                            </dxc:ChartControl.Legend>
-                            <dxc:ChartControl.Titles>
-                                <dxc:Title Dock="Top" HorizontalAlignment="Center" Foreground="#3F729B" FontFamily="Tahoma">Budgetverteilung Soll - Ist</dxc:Title>
-                            </dxc:ChartControl.Titles>
-                        </dxc:ChartControl>
-                    </Grid>
+                                    <dxc:ChartControl Grid.Row="1" MinHeight="750">
+                                        <dxc:ChartControl.Diagram>
+                                            <dxc:XYDiagram2D>
+                                                <dxc:XYDiagram2D.Series>
+                                                    <dxc:LineSeries2D DisplayName="Soll-Kosten" MarkerVisible="False" DataSource="{Binding Path=ScheduldedCostPoints, UpdateSourceTrigger=PropertyChanged}" ArgumentDataMember="Text" ValueDataMember="Value" />
+                                                    <dxc:LineSeries2D DisplayName="Ist-Kosten" MarkerVisible="False" DataSource="{Binding Path=CurrentCostPoints, UpdateSourceTrigger=PropertyChanged}" ArgumentDataMember="Text" ValueDataMember="Value" />
+                                                </dxc:XYDiagram2D.Series>
+                                            </dxc:XYDiagram2D>
+                                        </dxc:ChartControl.Diagram>
+                                        <dxc:ChartControl.Legend>
+                                            <dxc:Legend />
+                                        </dxc:ChartControl.Legend>
+                                        <dxc:ChartControl.Titles>
+                                            <dxc:Title Dock="Top" HorizontalAlignment="Center" Foreground="#3F729B" FontFamily="Tahoma">Budgetverteilung Soll - Ist</dxc:Title>
+                                        </dxc:ChartControl.Titles>
+                                    </dxc:ChartControl>
+                                </Grid>
+                            </dxdo:LayoutPanel>
+                        </dxdo:LayoutGroup>
+                    </dxdo:DockLayoutManager>
                 </Grid>
             </dx:DXTabItem>
         </dx:DXTabControl>

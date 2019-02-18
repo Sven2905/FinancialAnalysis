@@ -45,72 +45,63 @@
 
         <dx:DXTabControl Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="0,10,0,10">
             <dx:DXTabItem Header="Kontenrahmen">
-                    <dxdo:DockLayoutManager>
-                        <dxdo:LayoutGroup Caption="LayoutRoot">
-                <!--<Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="2*" />
-                    </Grid.ColumnDefinitions>-->
+                <dxdo:DockLayoutManager>
+                    <dxdo:LayoutGroup Caption="LayoutRoot">
+                        <dxdo:LayoutPanel Caption="Kategorien" ShowCloseButton="False">
 
-                            <dxdo:LayoutPanel Caption="Kategorien" ShowCloseButton="False">
-
-                                <!--<Border Grid.Row="1" Grid.Column="0">-->
-                                <dxa:AccordionControl Grid.Row="1" Grid.Column="0" Margin="10" Foreground="#3F729B" ShowSearchControl="True"
+                            <dxa:AccordionControl Grid.Row="1" Grid.Column="0" Margin="10" Foreground="#3F729B" ShowSearchControl="True"
                               ItemsSource="{Binding CostAccountCategoriesHierachical}" DisplayMemberPath="Description"
                               ChildrenPath="SubCategories" SelectedItem="{Binding SelectedCategory}" BorderBrush="LightGray" BorderThickness="1"/>
-                            </dxdo:LayoutPanel>
-                            <!--</Border>-->
+                        </dxdo:LayoutPanel>
 
-                            <!--<TextBlock Grid.Row="1" Grid.Column="1" Margin="20,0,0,0" FontSize="16" Foreground="#3F729B" Text="Kontenrahmen:" FontFamily="Tahoma" />-->
                         <dxdo:LayoutPanel Caption="Kontenrahmen" Grid.Column="2" Grid.Row="1" ShowCloseButton="False" >
-                                <Grid Grid.Column="1" Grid.Row="1" Margin="10">
-                                    <dxg:GridControl
+                            <Grid Grid.Column="1" Grid.Row="1" Margin="10">
+                                <dxg:GridControl
                 ItemsSource="{Binding FilteredCostAccounts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                 SelectedItem="{Binding SelectedCostAccount}" SelectionMode="Row">
-                                        <dxg:GridControl.View>
-                                            <dxg:TableView BestFitMode="Smart" Foreground="#3F729B" EditFormColumnCount="2" ShowIndicator="False"
+                                    <dxg:GridControl.View>
+                                        <dxg:TableView BestFitMode="Smart" Foreground="#3F729B" EditFormColumnCount="2" ShowIndicator="False"
                                    EditFormShowMode="None" NewItemRowPosition="None" AutoWidth="True" ShowVerticalLines="False" 
                                    ShowGroupPanel="False" ShowTotalSummary="False" VerticalScrollbarVisibility="Auto">
-                                                <dxg:TableView.InputBindings>
-                                                    <KeyBinding Key="Delete">
-                                                        <dxmvvm:Interaction.Behaviors>
-                                                            <dxmvvm:ConfirmationBehavior
+                                            <dxg:TableView.InputBindings>
+                                                <KeyBinding Key="Delete">
+                                                    <dxmvvm:Interaction.Behaviors>
+                                                        <dxmvvm:ConfirmationBehavior
                                         EnableConfirmationMessage="True"
                                         Command="{Binding DeleteFocusedRowCommand}"
                                         MessageText="Möchten Sie den markierten Eintrag wirklich löschen?"
                                         MessageIcon="Question" MessageTitle="Eintrag löschen" />
-                                                        </dxmvvm:Interaction.Behaviors>
-                                                    </KeyBinding>
-                                                </dxg:TableView.InputBindings>
-                                                <dxmvvm:Interaction.Behaviors>
-                                                    <dxmvvm:EventToCommand
+                                                    </dxmvvm:Interaction.Behaviors>
+                                                </KeyBinding>
+                                            </dxg:TableView.InputBindings>
+                                            <dxmvvm:Interaction.Behaviors>
+                                                <dxmvvm:EventToCommand
                                 Command="{Binding RowUpdatedCommand}"
                                 EventName="RowUpdated"
                                 PassEventArgsToCommand="True" />
-                                                </dxmvvm:Interaction.Behaviors>
-                                            </dxg:TableView>
-                                        </dxg:GridControl.View>
-                                        <dxg:GridColumn FieldName="IsVisible" Header="Sichtbar" Width="50" />
-                                        <dxg:GridColumn FieldName="AccountNumber" Header="Nummer" Width="60" AllowEditing="False" />
-                                        <dxg:GridColumn FieldName="Description" Header="Beschreibung" Width="400" AllowEditing="{Binding SelectedCostAccount.IsEditable}" />
-                                        <dxg:GridColumn FieldName="RefTaxTypeId" Header="Steuer" Width="110" AllowEditing="{Binding SelectedCostAccount.IsEditable}">
-                                            <dxg:GridColumn.EditSettings>
-                                                <dxe:ComboBoxEditSettings ItemsSource="{Binding TaxTypes}" DisplayMember="Description" ValueMember="TaxTypeId" />
-                                            </dxg:GridColumn.EditSettings>
-                                        </dxg:GridColumn>
-                                        <dxg:GridColumn FieldName="RefCostAccountCategoryId" Header="Kategorie" Width="100">
-                                            <dxg:GridColumn.EditSettings>
-                                                <dxe:ComboBoxEditSettings ItemsSource="{Binding CostAccountCategories}"
+                                            </dxmvvm:Interaction.Behaviors>
+                                        </dxg:TableView>
+                                    </dxg:GridControl.View>
+                                    <dxg:GridColumn FieldName="IsVisible" Header="Sichtbar" Width="50" />
+                                    <dxg:GridColumn FieldName="AccountNumber" Header="Nummer" Width="60" AllowEditing="False" />
+                                    <dxg:GridColumn FieldName="Description" Header="Beschreibung" Width="400" AllowEditing="{Binding SelectedCostAccount.IsEditable}" />
+                                    <dxg:GridColumn FieldName="RefTaxTypeId" Header="Steuer" Width="110" AllowEditing="{Binding SelectedCostAccount.IsEditable}">
+                                        <dxg:GridColumn.EditSettings>
+                                            <dxe:ComboBoxEditSettings ItemsSource="{Binding TaxTypes}" DisplayMember="Description" ValueMember="TaxTypeId" />
+                                        </dxg:GridColumn.EditSettings>
+                                    </dxg:GridColumn>
+                                    <dxg:GridColumn FieldName="RefCostAccountCategoryId" Header="Kategorie" Width="100">
+                                        <dxg:GridColumn.EditSettings>
+                                            <dxe:ComboBoxEditSettings ItemsSource="{Binding CostAccountCategories}"
                                                   DisplayMember="Description" ValueMember="CostAccountCategoryId" />
-                                            </dxg:GridColumn.EditSettings>
-                                        </dxg:GridColumn>
-                                    </dxg:GridControl>
-                                </Grid>
-                            </dxdo:LayoutPanel>
-                <!--</Grid>-->
-                        </dxdo:LayoutGroup>
-                    </dxdo:DockLayoutManager>
+                                        </dxg:GridColumn.EditSettings>
+                                    </dxg:GridColumn>
+                                </dxg:GridControl>
+                            </Grid>
+                        </dxdo:LayoutPanel>
+                        <!--</Grid>-->
+                    </dxdo:LayoutGroup>
+                </dxdo:DockLayoutManager>
             </dx:DXTabItem>
         </dx:DXTabControl>
 

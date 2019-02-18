@@ -19,7 +19,6 @@ namespace FinancialAnalysis.Models.BaseClasses
         public decimal Price { get; set; }
         public string Description { get; set; }
         public GrossNetType GrossNetType { get; set; } = GrossNetType.Netto;
-
         public decimal Subtotal // w/o Tax
             => SubtotalWithoutDiscount - DiscountAmount;
 
