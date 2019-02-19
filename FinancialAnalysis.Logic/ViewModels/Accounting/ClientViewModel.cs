@@ -87,14 +87,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void DeleteClient()
         {
             if (DeleteClientButtonEnabled)
-                try
-                {
-                    DataContext.Instance.Clients.Delete(SelectedClient.ClientId);
-                }
-                catch (Exception ex)
-                {
-                    // TODO Exception
-                }
+                DataContext.Instance.Clients.Delete(SelectedClient.ClientId);
         }
 
         private void UseExistingClient()

@@ -61,6 +61,15 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
+        private Debitor _SelectedDebitor;
+
+        public Debitor SelectedDebitor
+        {
+            get { return _SelectedDebitor; }
+            set { _SelectedDebitor = value; SalesOrder.Debitor = _SelectedDebitor; SalesOrder.RefDebitorId = _SelectedDebitor.DebitorId; }
+        }
+
+
         public Employee Employee { get; set; }
         public SalesOrderPosition SalesOrderPosition { get; set; } = new SalesOrderPosition();
         public SalesOrderPosition SelectedSalesOrderPosition { get; set; }
@@ -153,7 +162,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 DataSource = listReportData
             };
             sor.CreateDocument();
-            var path = @"C:\Users\fuhrm\OneDrive\Dokumente\test.pdf";
+            var path = @"C:\test\test.pdf";
             sor.PrintingSystem.ExportToPdf(path);
             Messenger.Default.Send(new OpenPDFViewerWindowMessage(path));
         }

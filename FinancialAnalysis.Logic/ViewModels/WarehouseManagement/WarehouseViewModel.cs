@@ -57,14 +57,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private SvenTechCollection<Warehouse> LoadAllWarehouses()
         {
             var allWarehouses = new SvenTechCollection<Warehouse>();
-            try
-            {
-                allWarehouses = DataContext.Instance.Warehouses.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            allWarehouses = DataContext.Instance.Warehouses.GetAll().ToSvenTechCollection();
 
             return allWarehouses;
         }
@@ -89,34 +82,20 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            try
-            {
-                DataContext.Instance.Warehouses.Delete(SelectedWarehouse.WarehouseId);
-                _Warehouses.Remove(SelectedWarehouse);
-                SelectedWarehouse = null;
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            DataContext.Instance.Warehouses.Delete(SelectedWarehouse.WarehouseId);
+            _Warehouses.Remove(SelectedWarehouse);
+            SelectedWarehouse = null;
         }
 
         private void SaveWarehouse()
         {
-            try
+            if (SelectedWarehouse.WarehouseId != 0)
             {
-                if (SelectedWarehouse.WarehouseId != 0)
-                {
-                    DataContext.Instance.Warehouses.Update(SelectedWarehouse);
-                }
-                else
-                {
-                    SelectedWarehouse.WarehouseId = DataContext.Instance.Warehouses.Insert(SelectedWarehouse);
-                }
+                DataContext.Instance.Warehouses.Update(SelectedWarehouse);
             }
-            catch (Exception ex)
+            else
             {
-                // TODO Exception
+                SelectedWarehouse.WarehouseId = DataContext.Instance.Warehouses.Insert(SelectedWarehouse);
             }
         }
 

@@ -43,16 +43,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private SvenTechCollection<InvoiceType> LoadAllInvoiceTypes()
         {
             var allInvoiceTypes = new SvenTechCollection<InvoiceType>();
-            try
-            {
-                allInvoiceTypes = DataContext.Instance.InvoiceTypes.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
-
-            return allInvoiceTypes;
+            return DataContext.Instance.InvoiceTypes.GetAll().ToSvenTechCollection();
         }
 
         private void NewInvoiceType()
@@ -72,31 +63,17 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            try
-            {
-                DataContext.Instance.InvoiceTypes.Delete(SelectedInvoiceType.InvoiceTypeId);
-                _InvoiceTypes.Remove(SelectedInvoiceType);
-                SelectedInvoiceType = null;
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            DataContext.Instance.InvoiceTypes.Delete(SelectedInvoiceType.InvoiceTypeId);
+            _InvoiceTypes.Remove(SelectedInvoiceType);
+            SelectedInvoiceType = null;
         }
 
         private void SaveInvoiceType()
         {
-            try
-            {
-                if (SelectedInvoiceType.InvoiceTypeId != 0)
-                    DataContext.Instance.InvoiceTypes.Update(SelectedInvoiceType);
-                else
-                    DataContext.Instance.InvoiceTypes.Insert(SelectedInvoiceType);
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            if (SelectedInvoiceType.InvoiceTypeId != 0)
+                DataContext.Instance.InvoiceTypes.Update(SelectedInvoiceType);
+            else
+                DataContext.Instance.InvoiceTypes.Insert(SelectedInvoiceType);
         }
 
         private bool Validation()
@@ -112,7 +89,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             if (SelectedInvoiceType.InvoiceTypeId == 0) SaveInvoiceType();
 
-            Messenger.Default.Send(new SelectedInvoiceType {InvoiceType = SelectedInvoiceType});
+            Messenger.Default.Send(new SelectedInvoiceType { InvoiceType = SelectedInvoiceType });
         }
 
         #endregion Methods

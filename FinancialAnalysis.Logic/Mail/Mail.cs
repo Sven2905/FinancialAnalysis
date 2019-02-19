@@ -6,13 +6,22 @@ using System.Windows;
 using DevExpress.Mvvm;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Mail;
+using Serilog;
 
 namespace FinancialAnalysis.Logic
 {
     public static class Mail
     {
+            
+
         public static void Send(MailData mailData, MailConfiguration mailConfiguration)
         {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .WriteTo.File("logs\\Mail.txt", rollingInterval: RollingInterval.Month)
+                .CreateLogger();
+
             var message = new MailMessage(mailConfiguration.Address, mailData.To)
             {
                 Subject = mailData.Subject,
@@ -27,14 +36,16 @@ namespace FinancialAnalysis.Logic
 
             try
             {
-                var client = new SmtpClient(mailConfiguration.Server);
-                client.Credentials = new NetworkCredential(mailConfiguration.LoginUser, mailConfiguration.Password);
+                var client = new SmtpClient(mailConfiguration.Server)
+                {
+                    Credentials = new NetworkCredential(mailConfiguration.LoginUser, mailConfiguration.Password)
+                };
                 client.Send(message);
                 message.Attachments.Dispose();
             }
             catch (Exception ex)
             {
-                // TODO Exception
+                Log.Error($"Exception occured while sending mail.", ex);
             }
         }
     }

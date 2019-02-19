@@ -23,6 +23,7 @@ namespace FinancialAnalysis.Models.ClientManagement
         public bool IsCompany { get; set; }
         public FederalState FederalState { get; set; }
         public string Address => $"{Street}, {Postcode} {City}";
+        public string PostcodeCity => $"{Postcode} {City}";
         public Company Company { get; set; }
     }
 }

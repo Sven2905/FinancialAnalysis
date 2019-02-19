@@ -47,16 +47,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private SvenTechCollection<CostCenterCategory> LoadAllCostCenterCategories()
         {
             var allCostCenterCategories = new SvenTechCollection<CostCenterCategory>();
-            try
-            {
-                allCostCenterCategories = DataContext.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
-
-            return allCostCenterCategories;
+            return DataContext.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
         }
 
         private void NewCostCenterCategory()
@@ -76,32 +67,18 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            try
-            {
-                DataContext.Instance.CostCenterCategories.Delete(SelectedCostCenterCategory.CostCenterCategoryId);
-                _CostCenterCategories.Remove(SelectedCostCenterCategory);
-                SelectedCostCenterCategory = null;
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            DataContext.Instance.CostCenterCategories.Delete(SelectedCostCenterCategory.CostCenterCategoryId);
+            _CostCenterCategories.Remove(SelectedCostCenterCategory);
+            SelectedCostCenterCategory = null;
         }
 
         private void SaveCostCenterCategory()
         {
-            try
-            {
-                if (SelectedCostCenterCategory.CostCenterCategoryId != 0)
-                    DataContext.Instance.CostCenterCategories.Update(SelectedCostCenterCategory);
-                else
-                    SelectedCostCenterCategory.CostCenterCategoryId =
-                        DataContext.Instance.CostCenterCategories.Insert(SelectedCostCenterCategory);
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            if (SelectedCostCenterCategory.CostCenterCategoryId != 0)
+                DataContext.Instance.CostCenterCategories.Update(SelectedCostCenterCategory);
+            else
+                SelectedCostCenterCategory.CostCenterCategoryId =
+                    DataContext.Instance.CostCenterCategories.Insert(SelectedCostCenterCategory);
         }
 
         private bool Validation()
@@ -117,7 +94,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             if (SelectedCostCenterCategory.CostCenterCategoryId == 0) SaveCostCenterCategory();
 
-            Messenger.Default.Send(new SelectedCostCenterCategory {CostCenterCategory = SelectedCostCenterCategory});
+            Messenger.Default.Send(new SelectedCostCenterCategory { CostCenterCategory = SelectedCostCenterCategory });
         }
 
         #endregion Methods

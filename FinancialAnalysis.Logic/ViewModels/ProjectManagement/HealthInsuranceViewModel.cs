@@ -35,16 +35,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private SvenTechCollection<HealthInsurance> LoadAllHealthInsurances()
         {
             var allHealthInsurances = new SvenTechCollection<HealthInsurance>();
-            try
-            {
-                allHealthInsurances = DataContext.Instance.HealthInsurances.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
-
-            return allHealthInsurances;
+            return DataContext.Instance.HealthInsurances.GetAll().ToSvenTechCollection();
         }
 
         private void NewHealthInsurance()
@@ -64,32 +55,18 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            try
-            {
-                DataContext.Instance.HealthInsurances.Delete(SelectedHealthInsurance.HealthInsuranceId);
-                HealthInsurances.Remove(SelectedHealthInsurance);
-                SelectedHealthInsurance = null;
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            DataContext.Instance.HealthInsurances.Delete(SelectedHealthInsurance.HealthInsuranceId);
+            HealthInsurances.Remove(SelectedHealthInsurance);
+            SelectedHealthInsurance = null;
         }
 
         private void SaveUser()
         {
-            try
-            {
-                if (SelectedHealthInsurance.HealthInsuranceId != 0)
-                    DataContext.Instance.HealthInsurances.Update(SelectedHealthInsurance);
-                else
-                    SelectedHealthInsurance.HealthInsuranceId =
-                        DataContext.Instance.HealthInsurances.Insert(SelectedHealthInsurance);
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            if (SelectedHealthInsurance.HealthInsuranceId != 0)
+                DataContext.Instance.HealthInsurances.Update(SelectedHealthInsurance);
+            else
+                SelectedHealthInsurance.HealthInsuranceId =
+                    DataContext.Instance.HealthInsurances.Insert(SelectedHealthInsurance);
         }
 
         private bool Validation()

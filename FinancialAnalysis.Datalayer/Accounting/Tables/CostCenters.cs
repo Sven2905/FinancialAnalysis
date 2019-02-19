@@ -103,12 +103,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public CostCenter GetById(int id, int year = 0)
+        public CostCenter GetById(int id)
         {
-            if (Equals(year, 0))
-            {
-                year = DateTime.Now.Year;
-            }
 
             var CostCenterDictionary = new Dictionary<int, CostCenter>();
             IEnumerable<CostCenter> output = new List<CostCenter>();
@@ -118,7 +114,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.Query<CostCenter, CostCenterCategory, CostCenterBudget, CostCenter>(
-                        $"dbo.{TableName}_GetById @CostCenterId, @Year",
+                        $"dbo.{TableName}_GetById @CostCenterId",
                         (objCostCenter, objCostCenterCategory, objCostCenterBudget) =>
                         {
                             if (!CostCenterDictionary.TryGetValue(objCostCenter.CostCenterBudgetId, out CostCenter CostCenterEntry))
@@ -128,7 +124,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                                 CostCenterEntry.ScheduledBudget = objCostCenterBudget;
                             }
                             return objCostCenter;
-                        }, new { CostCenterId = id, Year = year }, splitOn: "CostCenterCategoryId, CostCenterBudgetId",
+                        }, new { CostCenterId = id }, splitOn: "CostCenterCategoryId, CostCenterBudgetId",
                         commandType: CommandType.StoredProcedure).ToList();
                 }
             }
@@ -224,7 +220,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// <param name="CostCenter"></param>
         public void Update(CostCenter CostCenter)
         {
-            if (CostCenter.CostCenterId == 0 || GetById(CostCenter.CostCenterId) is null)
+            if (CostCenter.CostCenterId == 0)
             {
                 return;
             }

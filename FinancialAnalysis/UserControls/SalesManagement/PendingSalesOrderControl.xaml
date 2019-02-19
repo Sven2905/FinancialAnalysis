@@ -12,7 +12,9 @@
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
              mc:Ignorable="d"
+             dx:ThemeManager.ThemeName="Office2016WhiteSE"
              d:DesignHeight="1000" d:DesignWidth="1900">
     <UserControl.DataContext>
         <ViewModels:PendingSaleOrdersViewModel />
@@ -48,102 +50,152 @@
             </dxwui:PageAdornerControl.HeaderTemplate>
         </dxwui:PageAdornerControl>
 
-        <Grid Grid.Column="1" Grid.Row="1" Margin="0,50,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="50" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <dx:DXTabControl Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="0,50,0,10">
+            <dx:DXTabItem Header="Allgemein">
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0">
-                <dxe:ListBoxEdit ItemsSource="{Binding SalesOrders}" SelectedItem="{Binding SelectedSalesOrder}"
-                                 x:Name="SaleOrders" BorderThickness="1" BorderBrush="DarkGray" FontSize="14">
-                    <dxe:ListBoxEdit.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel />
-                        </ItemsPanelTemplate>
-                    </dxe:ListBoxEdit.ItemsPanel>
-                    <dxe:ListBoxEdit.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
+                <Grid>
+                    <dxdo:DockLayoutManager>
+                        <dxdo:LayoutGroup Caption="LayoutRoot">
+                            <dxdo:LayoutPanel Caption="Offene Aufträge" ShowCloseButton="False" MaxWidth="500">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="10,0">
+                                    <dxe:ListBoxEdit ItemsSource="{Binding SalesOrders}" SelectedItem="{Binding SelectedSalesOrder}"
+                                 x:Name="SaleOrders" BorderThickness="1" BorderBrush="DarkGray" FontSize="14" ShowBorder="False">
+                                        <dxe:ListBoxEdit.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel />
+                                            </ItemsPanelTemplate>
+                                        </dxe:ListBoxEdit.ItemsPanel>
+                                        <dxe:ListBoxEdit.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
 
-                                <Border Padding="0 0 8 0">
-                                    <Expander IsExpanded="true">
-                                        <Expander.Header>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto" />
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="Auto" />
-                                                </Grid.ColumnDefinitions>
-                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                                    <Label Grid.Column="0" Margin="10,0,0,0"
+                                                    <Border Padding="0 0 8 0">
+                                                        <Expander IsExpanded="true">
+                                                            <Expander.Header>
+                                                                <Grid>
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="Auto" />
+                                                                        <ColumnDefinition Width="*" />
+                                                                        <ColumnDefinition Width="Auto" />
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                                                        <Label Grid.Column="0" Margin="10,0,0,0"
                                                            Content="{Binding Debitor.Client.Name}" Foreground="#000"
                                                            FontFamily="Tahoma" FontSize="16" />
-                                                </StackPanel>
-                                                <StackPanel Grid.Column="2" Orientation="Horizontal"
+                                                                    </StackPanel>
+                                                                    <StackPanel Grid.Column="2" Orientation="Horizontal"
                                                             HorizontalAlignment="Right">
-                                                    <StackPanel Grid.Column="2" Orientation="Horizontal"
+                                                                        <StackPanel Grid.Column="2" Orientation="Horizontal"
                                                                 HorizontalAlignment="Right">
-                                                        <Viewbox Width="12" Height="15" Stretch="Uniform"
+                                                                            <Viewbox Width="12" Height="15" Stretch="Uniform"
                                                                  StretchDirection="DownOnly" HorizontalAlignment="Left"
                                                                  Margin="10,0,0,0">
-                                                            <Canvas Width="12" Height="15">
-                                                                <Path
+                                                                                <Canvas Width="12" Height="15">
+                                                                                    <Path
                                                                     Data="M303.625 444.131c-1.543-6.481-8.063-10.445-14.538-8.874-10.014 2.43-25.689 5.304-43.827 5.304-80.726 0-141.733-46.614-160.837-120.561h155.241a12 12 0 0 0 11.784-9.731l1.541-8c1.425-7.402-4.246-14.269-11.784-14.269H77.646c-1.849-20.951-1.849-43.664.616-64h178.657a12 12 0 0 0 11.784-9.731l1.541-8c1.425-7.402-4.246-14.269-11.784-14.269H85.04c20.951-70.25 80.111-120.561 159.604-120.561 14.725 0 28.452 2.194 37.551 4.086 6.282 1.306 12.47-2.581 14.05-8.799l3.93-15.475c1.689-6.652-2.529-13.383-9.262-14.718C280.423 34.452 264.068 32 245.26 32 143.582 32 63.472 100.181 39.439 192H12c-6.627 0-12 5.373-12 12v8c0 6.627 5.373 12 12 12h21.893c-2.466 17.87-1.849 49.827-.617 64H12c-6.627 0-12 5.373-12 12v8c0 6.627 5.373 12 12 12h26.207c21.568 96.749 101.678 160 207.053 160 22.511 0 41.595-3.426 53.081-6.106 6.47-1.51 10.465-7.999 8.926-14.462l-3.642-15.301z"
                                                                     Fill="{Binding InvoiceStatusColor, Converter={StaticResource ctbConverter}}"
                                                                     Width="12" Height="15" Stretch="Fill" />
-                                                            </Canvas>
-                                                        </Viewbox>
-                                                        <Viewbox Width="20" Height="15" Stretch="Uniform"
+                                                                                </Canvas>
+                                                                            </Viewbox>
+                                                                            <Viewbox Width="20" Height="15" Stretch="Uniform"
                                                                  StretchDirection="DownOnly" HorizontalAlignment="Left"
                                                                  Margin="8,0,0,0">
-                                                            <Canvas Width="20" Height="15">
-                                                                <Path
+                                                                                <Canvas Width="20" Height="15">
+                                                                                    <Path
                                                                     Data="M280 192c4.4 0 8-3.6 8-8v-16c0-4.4-3.6-8-8-8H40c-4.4 0-8 3.6-8 8v16c0 4.4 3.6 8 8 8h240zm352 192h-24V275.9c0-16.8-6.8-33.3-18.8-45.2l-83.9-83.9c-11.8-12-28.3-18.8-45.2-18.8H416V78.6c0-25.7-22.2-46.6-49.4-46.6H113.4C86.2 32 64 52.9 64 78.6V96H8c-4.4 0-8 3.6-8 8v16c0 4.4 3.6 8 8 8h240c4.4 0 8-3.6 8-8v-16c0-4.4-3.6-8-8-8H96V78.6c0-8.1 7.8-14.6 17.4-14.6h253.2c9.6 0 17.4 6.5 17.4 14.6V384H207.6C193 364.7 170 352 144 352c-18.1 0-34.6 6.2-48 16.4V288H64v144c0 44.2 35.8 80 80 80s80-35.8 80-80c0-5.5-.6-10.8-1.6-16h195.2c-1.1 5.2-1.6 10.5-1.6 16 0 44.2 35.8 80 80 80s80-35.8 80-80c0-5.5-.6-10.8-1.6-16H632c4.4 0 8-3.6 8-8v-16c0-4.4-3.6-8-8-8zm-488 96c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm272-320h44.1c8.4 0 16.7 3.4 22.6 9.4l83.9 83.9c.8.8 1.1 1.9 1.8 2.8H416V160zm80 320c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm80-96h-16.4C545 364.7 522 352 496 352s-49 12.7-63.6 32H416v-96h160v96zM256 248v-16c0-4.4-3.6-8-8-8H8c-4.4 0-8 3.6-8 8v16c0 4.4 3.6 8 8 8h240c4.4 0 8-3.6 8-8z"
                                                                     Fill="{Binding ShippingStatusColor, Converter={StaticResource ctbConverter}}"
                                                                     Width="20" Height="15" Stretch="Fill" />
-                                                                <!--FF8800-->
-                                                                <!--CC0000-->
-                                                            </Canvas>
-                                                        </Viewbox>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Expander.Header>
-                                        <StackPanel VerticalAlignment="Center">
+                                                                                </Canvas>
+                                                                            </Viewbox>
+                                                                        </StackPanel>
+                                                                    </StackPanel>
+                                                                </Grid>
+                                                            </Expander.Header>
+                                                            <StackPanel VerticalAlignment="Center">
 
-                                            <Grid>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto" />
-                                                    <RowDefinition Height="Auto" />
-                                                </Grid.RowDefinitions>
+                                                                <Grid>
+                                                                    <Grid.RowDefinitions>
+                                                                        <RowDefinition Height="Auto" />
+                                                                        <RowDefinition Height="Auto" />
+                                                                    </Grid.RowDefinitions>
 
-                                                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                                                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                                                            Margin="10,0,0,0" Text="{Binding Debitor.Client.Address}"
                                                            Foreground="#4B515D" FontFamily="Tahoma"
                                                            TextTrimming="CharacterEllipsis" />
 
-                                                <StackPanel Grid.Row="1" Orientation="Horizontal">
-                                                    <Label Margin="10,0,0,0" Content="Bestelldatum: "
+                                                                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                                                        <Label Margin="10,0,0,0" Content="Bestelldatum: "
                                                            Foreground="#4B515D" FontFamily="Tahoma" />
-                                                    <Label
-                                                        Content="{Binding OrderDate, StringFormat='{}{0:dd.MM.yyyy}'}"
-                                                        Foreground="#4B515D" FontFamily="Tahoma" />
-                                                </StackPanel>
-                                            </Grid>
-                                        </StackPanel>
-                                    </Expander>
-                                </Border>
-                            </Grid>
-                        </DataTemplate>
-                    </dxe:ListBoxEdit.ItemTemplate>
-                </dxe:ListBoxEdit>
-            </ScrollViewer>
-        </Grid>
+                                                                        <TextBlock
+                                                        Text="{Binding OrderDate, StringFormat='{}{0:dd.MM.yyyy}'}"
+                                                        Foreground="#4B515D" FontFamily="Tahoma" VerticalAlignment="Center" />
+                                                                    </StackPanel>
+                                                                </Grid>
+                                                            </StackPanel>
+                                                        </Expander>
+                                                    </Border>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </dxe:ListBoxEdit.ItemTemplate>
+                                    </dxe:ListBoxEdit>
+                                </ScrollViewer>
+                            </dxdo:LayoutPanel>
+                            <dxdo:LayoutPanel Caption="Informationen" ShowCloseButton="False">
+                                <Grid Margin="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="10" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="10" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="10" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="10" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="10" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="70" />
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--<Border Grid.Row="1" Width="150" Height="100" BorderBrush="#EAEAEA" BorderThickness="1" CornerRadius="0" Background="#FAFAFA">
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="3" ShadowDepth="1" />
+                                        </Border.Effect>
+                                    </Border>
+                                    <Rectangle Grid.Row="1" Fill="White" Width="150" Height="100" >
+                                    </Rectangle>-->
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Text="Ausstehender Rechnungsbetrag "/>
+                                    <TextBlock Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="3,0" Text="100.00 €" Foreground="{StaticResource RedBrush}" />
+                                    <dx:SimpleButton Grid.Column="3" Grid.Row="0" Content="Rechnung erstellen" Width="125" />
+
+                                    <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Text="Anzahl der Mahnungen"/>
+                                    <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="3,0" Text="{Binding SelectedSalesOrder.ReminderCounter}" />
+                                    <dx:SimpleButton Grid.Column="3" Grid.Row="2" Content="Mahnung erstellen" Width="125" />
+
+                                    <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Text="Anzahl der offenen Lieferungen"/>
+                                    <TextBlock Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="3,0" Text="0" />
+                                    <dx:SimpleButton Grid.Column="3" Grid.Row="4" Content="Lieferung erstellen" Width="125" />
+
+                                    <dx:SimpleButton Grid.Column="0" Grid.Row="10" Content="Auftrag schließen" />
+                                </Grid>
+                            </dxdo:LayoutPanel>
+                        </dxdo:LayoutGroup>
+                    </dxdo:DockLayoutManager>
+                </Grid>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
     </Grid>
 </UserControl>

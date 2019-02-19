@@ -116,6 +116,11 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             if (CompanyViewModel.SelectedClientType == ClientType.Business)
             {
+                if (CompanyViewModel.Client.Company == null)
+                {
+                    return 0;
+                }
+
                 if (CompanyViewModel.Client.Company.CompanyId == 0)
                 {
                     CompanyViewModel.Client.Company.RefClientId = CompanyViewModel.Client.ClientId;
@@ -212,15 +217,8 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void RefreshData()
         {
-            try
-            {
-                FilteredCreditors = Creditors = DataContext.Instance.Creditors.GetAll().ToSvenTechCollection();
-                FilteredDebitors = Debitors = DataContext.Instance.Debitors.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            FilteredCreditors = Creditors = DataContext.Instance.Creditors.GetAll().ToSvenTechCollection();
+            FilteredDebitors = Debitors = DataContext.Instance.Debitors.GetAll().ToSvenTechCollection();
         }
 
         private void InitializeButtonCommands()

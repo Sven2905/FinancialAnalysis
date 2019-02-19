@@ -26,14 +26,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveSaveProjectWorkingTime()
         {
-            try
-            {
-                DataContext.Instance.ProjectWorkingTimes.Insert(ProjectWorkingTime);
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            DataContext.Instance.ProjectWorkingTimes.Insert(ProjectWorkingTime);
         }
 
         private void LoadData()
@@ -45,38 +38,17 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void LoadEmployees()
         {
-            try
-            {
-                Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
         }
 
         private void LoadProjects()
         {
-            try
-            {
-                Projects = DataContext.Instance.Projects.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            Projects = DataContext.Instance.Projects.GetAll().ToSvenTechCollection();
         }
 
         private void LoadProjectWorkingTimes()
         {
-            try
-            {
-                ProjectWorkingTimes = DataContext.Instance.ProjectWorkingTimes.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            ProjectWorkingTimes = DataContext.Instance.ProjectWorkingTimes.GetAll().ToSvenTechCollection();
         }
 
         private bool Validation()

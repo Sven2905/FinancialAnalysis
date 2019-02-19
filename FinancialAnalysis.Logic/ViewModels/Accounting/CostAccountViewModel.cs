@@ -36,18 +36,11 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public void RefreshLists()
         {
-            try
-            {
-                CostAccountCategories = DataContext.Instance.CostAccountCategories.GetAll().ToSvenTechCollection();
-                CostAccountCategoriesHierachical = CostAccountCategories.ToHierachicalCollection<CostAccountCategory>()
-                    .ToSvenTechCollection();
-                TaxTypes = DataContext.Instance.TaxTypes.GetAll().ToSvenTechCollection();
-                _CostAccounts = DataContext.Instance.CostAccounts.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            CostAccountCategories = DataContext.Instance.CostAccountCategories.GetAll().ToSvenTechCollection();
+            CostAccountCategoriesHierachical = CostAccountCategories.ToHierachicalCollection<CostAccountCategory>()
+                .ToSvenTechCollection();
+            TaxTypes = DataContext.Instance.TaxTypes.GetAll().ToSvenTechCollection();
+            _CostAccounts = DataContext.Instance.CostAccounts.GetAll().ToSvenTechCollection();
         }
 
         private void FilterCostAccounts()

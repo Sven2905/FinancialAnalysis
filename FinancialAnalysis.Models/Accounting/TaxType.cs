@@ -8,6 +8,7 @@ namespace FinancialAnalysis.Models.Accounting
         public string Description { get; set; }
         public string DescriptionShort { get; set; }
         public decimal AmountOfTax { get; set; }
+        public decimal AmountOfTaxDecimal => AmountOfTax / 100;
         public TaxCategory TaxCategory { get; set; } // Steuerart
 
         public int

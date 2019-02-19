@@ -44,38 +44,17 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void LoadProjects()
         {
-            try
-            {
-                Projects = DataContext.Instance.Projects.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            Projects = DataContext.Instance.Projects.GetAll().ToSvenTechCollection();
         }
 
         private void LoadCostCenters()
         {
-            try
-            {
-                CostCenters = DataContext.Instance.CostCenters.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            CostCenters = DataContext.Instance.CostCenters.GetAll().ToSvenTechCollection();
         }
 
         private void LoadEmployees()
         {
-            try
-            {
-                Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
         }
 
         private void NewProject()
@@ -95,33 +74,19 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            try
-            {
-                DataContext.Instance.CostCenters.Delete(SelectedProject.ProjectId);
-                Projects.Remove(SelectedProject);
-                SelectedProject = null;
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            DataContext.Instance.CostCenters.Delete(SelectedProject.ProjectId);
+            Projects.Remove(SelectedProject);
+            SelectedProject = null;
         }
 
         private void SaveProject()
         {
-            try
-            {
-                if (SelectedProject.ProjectId != 0)
-                    DataContext.Instance.Projects.Update(SelectedProject);
-                else
-                    DataContext.Instance.Projects.Insert(SelectedProject);
+            if (SelectedProject.ProjectId != 0)
+                DataContext.Instance.Projects.Update(SelectedProject);
+            else
+                DataContext.Instance.Projects.Insert(SelectedProject);
 
-                SelectedProject = new Project();
-            }
-            catch (Exception ex)
-            {
-                // TODO Exception
-            }
+            SelectedProject = new Project();
         }
 
         private bool Validation()
