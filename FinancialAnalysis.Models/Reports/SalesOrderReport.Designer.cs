@@ -49,6 +49,7 @@
             this.vendorEmail = new DevExpress.XtraReports.UI.XRTableCell();
             this.vendorPhone = new DevExpress.XtraReports.UI.XRTableCell();
             this.GroupHeader2 = new DevExpress.XtraReports.UI.GroupHeaderBand();
+            this.xrLabel5 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrBarCode1 = new DevExpress.XtraReports.UI.XRBarCode();
             this.xrLabel4 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel3 = new DevExpress.XtraReports.UI.XRLabel();
@@ -109,8 +110,8 @@
             this.UnitTaxParameter = new DevExpress.XtraReports.Parameters.Parameter();
             this.DetailReport = new DevExpress.XtraReports.UI.DetailReportBand();
             this.Detail1 = new DevExpress.XtraReports.UI.DetailBand();
-            this.objectDataSource1 = new DevExpress.DataAccess.ObjectBinding.ObjectDataSource(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.objectDataSource1 = new DevExpress.DataAccess.ObjectBinding.ObjectDataSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.detailTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorContactsTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceInfoTable)).BeginInit();
@@ -293,6 +294,7 @@
             // GroupHeader2
             // 
             this.GroupHeader2.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrLabel5,
             this.xrBarCode1,
             this.xrLabel4,
             this.xrLabel3,
@@ -306,18 +308,29 @@
             this.GroupHeader2.GroupFields.AddRange(new DevExpress.XtraReports.UI.GroupField[] {
             new DevExpress.XtraReports.UI.GroupField("InvoiceNumber", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)});
             this.GroupHeader2.GroupUnion = DevExpress.XtraReports.UI.GroupUnion.WithFirstDetail;
-            this.GroupHeader2.HeightF = 230F;
+            this.GroupHeader2.HeightF = 301.875F;
             this.GroupHeader2.Level = 1;
             this.GroupHeader2.Name = "GroupHeader2";
             this.GroupHeader2.StyleName = "baseControlStyle";
             this.GroupHeader2.StylePriority.UseBackColor = false;
+            // 
+            // xrLabel5
+            // 
+            this.xrLabel5.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[SalesOrder].[Debitor].[Client].[PostcodeCity]")});
+            this.xrLabel5.LocationFloat = new DevExpress.Utils.PointFloat(0F, 140F);
+            this.xrLabel5.Multiline = true;
+            this.xrLabel5.Name = "xrLabel5";
+            this.xrLabel5.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrLabel5.SizeF = new System.Drawing.SizeF(270.9997F, 22.99998F);
+            this.xrLabel5.Text = "xrLabel1";
             // 
             // xrBarCode1
             // 
             this.xrBarCode1.AutoModule = true;
             this.xrBarCode1.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
             new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[SalesOrder].[SalesOrderId]")});
-            this.xrBarCode1.LocationFloat = new DevExpress.Utils.PointFloat(211.0287F, 170F);
+            this.xrBarCode1.LocationFloat = new DevExpress.Utils.PointFloat(453.1251F, 251.875F);
             this.xrBarCode1.Module = 3F;
             this.xrBarCode1.Name = "xrBarCode1";
             this.xrBarCode1.Padding = new DevExpress.XtraPrinting.PaddingInfo(10, 10, 0, 0, 100F);
@@ -333,7 +346,7 @@
             this.xrLabel4.Multiline = true;
             this.xrLabel4.Name = "xrLabel4";
             this.xrLabel4.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel4.SizeF = new System.Drawing.SizeF(196.875F, 23F);
+            this.xrLabel4.SizeF = new System.Drawing.SizeF(196.875F, 22.99998F);
             this.xrLabel4.StylePriority.UseTextAlignment = false;
             this.xrLabel4.Text = "xrLabel4";
             this.xrLabel4.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight;
@@ -367,12 +380,12 @@
             // xrLabel1
             // 
             this.xrLabel1.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[SalesOrder].[Debitor].[Client].[Address]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[SalesOrder].[Debitor].[Client].[Street]")});
             this.xrLabel1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 117F);
             this.xrLabel1.Multiline = true;
             this.xrLabel1.Name = "xrLabel1";
             this.xrLabel1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel1.SizeF = new System.Drawing.SizeF(270.9997F, 22.99999F);
+            this.xrLabel1.SizeF = new System.Drawing.SizeF(270.9997F, 22.99998F);
             this.xrLabel1.Text = "xrLabel1";
             // 
             // xrPictureBox1
@@ -386,7 +399,7 @@
             // 
             // invoiceInfoTable
             // 
-            this.invoiceInfoTable.LocationFloat = new DevExpress.Utils.PointFloat(0F, 170F);
+            this.invoiceInfoTable.LocationFloat = new DevExpress.Utils.PointFloat(0F, 251.875F);
             this.invoiceInfoTable.Name = "invoiceInfoTable";
             this.invoiceInfoTable.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
             this.invoiceDateRow,
@@ -616,7 +629,7 @@
             // total
             // 
             this.total.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[SalesOrder].[SalesOrderPositions].[Total]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[SalesOrder].[SumTotal]")});
             this.total.Font = new System.Drawing.Font("Segoe UI", 26F, System.Drawing.FontStyle.Bold);
             this.total.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(102)))), ((int)(((byte)(78)))));
             this.total.Name = "total";
@@ -678,7 +691,7 @@
             // subtotal
             // 
             this.subtotal.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[SalesOrder].[SalesOrderPositions].[DiscountAmount]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[SalesOrder].[SumDiscountAmount]")});
             this.subtotal.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.subtotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(102)))), ((int)(((byte)(78)))));
             this.subtotal.Name = "subtotal";
@@ -711,7 +724,7 @@
             // discount
             // 
             this.discount.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[SalesOrder].[SalesOrderPositions].[Subtotal]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[SalesOrder].[SumSubtotal]")});
             this.discount.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.discount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(102)))), ((int)(((byte)(78)))));
             this.discount.Name = "discount";
@@ -744,7 +757,7 @@
             // tax
             // 
             this.tax.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[SalesOrder].[SalesOrderPositions].[TaxAmount]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[SalesOrder].[SumTaxAmount]")});
             this.tax.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.tax.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(102)))), ((int)(((byte)(78)))));
             this.tax.Name = "tax";
@@ -1048,5 +1061,6 @@
         private DevExpress.XtraReports.UI.DetailBand Detail1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private DevExpress.XtraReports.UI.XRBarCode xrBarCode1;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel5;
     }
 }

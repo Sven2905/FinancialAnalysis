@@ -2,6 +2,7 @@
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.General;
 using System;
+using System.Linq;
 using System.Windows.Media;
 using Utilities;
 
@@ -18,6 +19,12 @@ namespace FinancialAnalysis.Models.SalesManagement
         public int RefShipmentTypeId { get; set; }
         public ShipmentType ShipmentType { get; set; }
         public string Remarks { get; set; } // Bemerkung
+
+        public decimal SumSubtotal => SalesOrderPositions.Sum(x => x.Subtotal); // w/o tax
+        public decimal SumTotal => SalesOrderPositions.Sum(x => x.Total);
+        public decimal SumDiscountAmount => SalesOrderPositions.Sum(x => x.DiscountAmount);
+        public decimal SumSubtotalWithoutDiscount => SalesOrderPositions.Sum(x => x.SubtotalWithoutDiscount);
+        public decimal SumTaxAmount => SalesOrderPositions.Sum(x => x.TaxAmount);
 
         public SvenTechCollection<SalesOrderPosition> SalesOrderPositions { get; set; } =
             new SvenTechCollection<SalesOrderPosition>();
