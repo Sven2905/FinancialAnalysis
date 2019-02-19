@@ -175,7 +175,7 @@ namespace FinancialAnalysis.Datalayer
             }
             if (!Instance.CostAccounts.GetAll().Any())
             {
-                _Import.ImportCostAccounts(Standardkontenrahmen.SKR04);
+                _Import.ImportCostAccounts(Standardkontenrahmen.SKR03);
             }
             if (!Instance.Clients.GetAll().Any())
             {
