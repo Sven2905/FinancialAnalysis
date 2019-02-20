@@ -5,14 +5,8 @@ namespace FinancialAnalysis.Models.BaseClasses
 {
     public class OrderPositionItem : BindableBase, IOrderPositionItem
     {
-        protected decimal _DiscountPercentage;
-
-        public decimal DiscountPercentage
-        {
-            get => _DiscountPercentage / 100;
-            set => _DiscountPercentage = value;
-        }
-
+        public decimal DiscountPercentage { get; set; }
+        public decimal DiscountPercentageForLabel => DiscountPercentage / 100;
         public int RefProductId { get; set; }
         public Product Product { get; set; }
         public decimal Quantity { get; set; } = 1;
@@ -23,7 +17,7 @@ namespace FinancialAnalysis.Models.BaseClasses
             => SubtotalWithoutDiscount - DiscountAmount;
 
         public decimal Total => Subtotal + TaxAmount;
-        public decimal DiscountAmount => SubtotalWithoutDiscount * DiscountPercentage;
+        public decimal DiscountAmount => SubtotalWithoutDiscount * (DiscountPercentage / 100);
         public decimal SubtotalWithoutDiscount => PriceWithoutTax() * Quantity;
         public decimal TaxAmount => Subtotal * (Product.TaxType.AmountOfTax / 100);
         public bool IsCanceled { get; set; }

@@ -105,6 +105,7 @@
     <Compile Include="DataContext.cs" />
     <Compile Include="Helper\DatabaseNames.cs" />
     <Compile Include="Helper\Helper.cs" />
+    <Compile Include="SalesManagement\StoredProcedures\InvoiceRemindersStoredProcedures.cs" />
     <Compile Include="SalesManagement\StoredProcedures\ShippedProductsStoredProcedures.cs" />
     <Compile Include="SalesManagement\StoredProcedures\InvoicePositionsStoredProcedures.cs" />
     <Compile Include="SalesManagement\StoredProcedures\SalesOrdersStoredProcedures.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="SalesManagement\StoredProcedures\ShipmentsStoredProcedures.cs" />
     <Compile Include="SalesManagement\StoredProcedures\InvoicesStoredProcedures.cs" />
     <Compile Include="SalesManagement\StoredProcedures\InvoiceTypesStoredProcedures.cs" />
+    <Compile Include="SalesManagement\Tables\InvoiceReminders.cs" />
     <Compile Include="SalesManagement\Tables\ShippedProducts.cs" />
     <Compile Include="SalesManagement\Tables\InvoicePositions.cs" />
     <Compile Include="SalesManagement\Tables\SalesOrders.cs" />

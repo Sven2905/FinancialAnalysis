@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Threading.Tasks;
 using DevExpress.Mvvm;
+using DevExpress.XtraPrinting.Drawing;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Accounting;
@@ -113,9 +115,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private bool ValidateSalesOrderPosition()
         {
-            if (SalesOrderPosition.RefProductId == 0) return false;
-
-            return true;
+            return SalesOrderPosition.RefProductId != 0;
         }
 
         private bool ValidateSalesOrder()
@@ -161,8 +161,17 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 DataSource = listReportData
             };
+            const string path = @"C:\test\test.pdf";
+
+            sor.Watermark.Text = "KOSTENVORANSCHLAG";
+            sor.Watermark.TextDirection = DirectionMode.ForwardDiagonal;
+            sor.Watermark.Font = new Font(sor.Watermark.Font.FontFamily, 40);
+            sor.Watermark.ForeColor = Color.DodgerBlue;
+            sor.Watermark.TextTransparency = 150;
+            sor.Watermark.ShowBehind = false;
+            sor.Watermark.PageRange = "1,3-5";
+
             sor.CreateDocument();
-            var path = @"C:\test\test.pdf";
             sor.PrintingSystem.ExportToPdf(path);
             Messenger.Default.Send(new OpenPDFViewerWindowMessage(path));
         }

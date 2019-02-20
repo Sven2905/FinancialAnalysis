@@ -178,18 +178,24 @@
                                     </Rectangle>-->
 
                                     <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Text="Ausstehender Rechnungsbetrag "/>
-                                    <TextBlock Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="3,0" Text="100.00 €" Foreground="{StaticResource RedBrush}" />
+                                    <dxe:TextEdit Grid.Column="1" Grid.Row="0" Mask="C2" MaskType="Numeric" VerticalAlignment="Center" HorizontalContentAlignment="Right"
+                                                  Text="{Binding OutstandingInvoiceAmount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ShowBorder="False"
+                                                  Foreground="{StaticResource RedBrush}" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" />
                                     <dx:SimpleButton Grid.Column="3" Grid.Row="0" Content="Rechnung erstellen" Width="125" />
 
                                     <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Text="Anzahl der Mahnungen"/>
                                     <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="3,0" Text="{Binding SelectedSalesOrder.ReminderCounter}" />
                                     <dx:SimpleButton Grid.Column="3" Grid.Row="2" Content="Mahnung erstellen" Width="125" />
 
-                                    <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Text="Anzahl der offenen Lieferungen"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Text="Nicht versandte Produkte"/>
                                     <TextBlock Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="3,0" Text="0" />
                                     <dx:SimpleButton Grid.Column="3" Grid.Row="4" Content="Lieferung erstellen" Width="125" />
 
-                                    <dx:SimpleButton Grid.Column="0" Grid.Row="10" Content="Auftrag schließen" />
+                                    <TextBlock Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" Text="Offene Lieferungen"/>
+                                    <TextBlock Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="3,0" Text="0" />
+                                    <dx:SimpleButton Grid.Column="3" Grid.Row="6" Content="Details" Width="125" />
+
+                                    <dx:SimpleButton Grid.Column="0" Grid.Row="10" Content="Auftrag schließen" Command="{Binding CloseOrderCommand}" />
                                 </Grid>
                             </dxdo:LayoutPanel>
                         </dxdo:LayoutGroup>

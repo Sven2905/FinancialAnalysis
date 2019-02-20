@@ -23,6 +23,7 @@ namespace FinancialAnalysis.Models.SalesManagement
         public bool IsPaid { get; set; }
         public decimal PaidAmount { get; set; }
 
-        public SvenTechCollection<InvoicePosition> InvoicePositions { get; set; }
+        public SvenTechCollection<InvoiceReminder> InvoiceReminders { get; set; } = new SvenTechCollection<InvoiceReminder>();
+        public SvenTechCollection<InvoicePosition> InvoicePositions { get; set; } = new SvenTechCollection<InvoicePosition>();
     }
 }

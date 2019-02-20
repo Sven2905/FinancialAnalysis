@@ -8,3 +8,4 @@ Kosten- und Leistungsrechnung für Preisbestimmung
 Abschreibungen
 Skonti
 Rechteverwaltung vervollständigen
+Mahngebühr

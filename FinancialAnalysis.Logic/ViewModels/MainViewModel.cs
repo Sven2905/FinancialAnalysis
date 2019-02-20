@@ -1,10 +1,15 @@
 using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Models.Administration;
+using FinancialAnalysis.Models.Enums;
+using FinancialAnalysis.Models.General;
 using System;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Timers;
+using System.Windows.Media;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -57,6 +62,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public StatusViewModel SalesOrderStatusViewModel { get; set; } = new StatusViewModel();
         public StatusViewModel DebitorStatusViewModel { get; set; } = new StatusViewModel();
+        public DatabaseStatus DatabaseStatus { get; set; }
 
         private void SetupTimer()
         {
@@ -68,6 +74,35 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             CurrentTime = DateTime.Now.ToString("G");
+            if (IsServerConnected())
+            {
+                DatabaseStatus= DatabaseStatus.Connected;
+            }
+            else
+            {
+                DatabaseStatus= DatabaseStatus.Disconnected;
+            }
+        }
+
+        /// <summary>
+        /// Test that the server is connected
+        /// </summary>
+        /// <param name="connectionString">The connection string</param>
+        /// <returns>true if the connection is opened</returns>
+        private static bool IsServerConnected()
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["FinancialAnalysisDB"].ConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    return true;
+                }
+                catch (SqlException)
+                {
+                    return false;
+                }
+            }
         }
 
         #region UserRights

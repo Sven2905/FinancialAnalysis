@@ -102,11 +102,14 @@
     <Compile Include="Enums\CostCenterBudgetInterval.cs" />
     <Compile Include="Enums\CostCenterType.cs" />
     <Compile Include="Enums\CustomerType.cs" />
+    <Compile Include="Enums\DatabaseStatus.cs" />
     <Compile Include="Enums\FederalState.cs" />
     <Compile Include="Enums\Gender.cs" />
     <Compile Include="Enums\Months.cs" />
+    <Compile Include="Enums\ReminderType.cs" />
     <Compile Include="General\SvenTechColors.cs" />
     <Compile Include="Enums\GrossNetType.cs" />
+    <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="Interfaces\IOrderPositionItem.cs" />
     <Compile Include="Enums\PayType.cs" />
     <Compile Include="ProductManagement\SelectedProductCategory.cs" />
@@ -120,6 +123,7 @@
     </Compile>
     <Compile Include="SalesManagement\Invoice.cs" />
     <Compile Include="SalesManagement\InvoicePosition.cs" />
+    <Compile Include="SalesManagement\InvoiceReminder.cs" />
     <Compile Include="SalesManagement\InvoiceType.cs" />
     <Compile Include="Mail\MailConfiguration.cs" />
     <Compile Include="Mail\MailData.cs" />

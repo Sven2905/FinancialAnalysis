@@ -138,6 +138,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\BaseValueConverter.cs" />
+    <Compile Include="Converter\EnumToDisplaynameConverter.cs" />
     <Compile Include="Converter\ZeroToVisiblityConverter.cs" />
     <Compile Include="Converter\InverseBooleanToVisiblityConverter.cs" />
     <Compile Include="Converter\ClientTypeToVisiblityConverter.cs" />

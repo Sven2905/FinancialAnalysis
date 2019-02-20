@@ -64,6 +64,7 @@ namespace FinancialAnalysis.Datalayer
         public CostCenterBudgets CostCenterBudgets { get; set; } = new CostCenterBudgets();
         public BalanceAccounts BalanceAccounts { get; set; } = new BalanceAccounts();
         public GainAndLossAccounts GainAndLossAccounts { get; set; } = new GainAndLossAccounts();
+        public InvoiceReminders InvoiceReminders { get; set; } = new InvoiceReminders();
 
         public void Dispose()
         {
@@ -127,6 +128,7 @@ namespace FinancialAnalysis.Datalayer
             CostCenterBudgets.CheckAndCreateStoredProcedures();
             BalanceAccounts.CheckAndCreateStoredProcedures();
             GainAndLossAccounts.CheckAndCreateStoredProcedures();
+            InvoiceReminders.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()
@@ -156,6 +158,7 @@ namespace FinancialAnalysis.Datalayer
             CostCenters.AddReferences();
             FixedCostAllocations.AddReferences();
             CostCenterBudgets.AddReferences();
+            InvoiceReminders.AddReferences();
         }
 
         private void Seed()

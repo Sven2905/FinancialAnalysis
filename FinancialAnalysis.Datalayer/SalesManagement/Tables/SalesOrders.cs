@@ -126,7 +126,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                         typeof(InvoicePosition),
                         typeof(Invoice),
                         typeof(ShippedProduct),
-                        typeof(Shipment)
+                        typeof(Shipment),
+                        typeof(TaxType)
                     },
                     objects =>
                     {
@@ -141,6 +142,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                         var Invoice = objects[8] as Invoice;
                         var ShippedProduct = objects[9] as ShippedProduct;
                         var Shipment = objects[10] as Shipment;
+                        var TaxType = objects[11] as TaxType;
 
                         SalesOrder SalesOrderEntry;
                         if (!SalesOrderDictionary.TryGetValue(SalesOrder.SalesOrderId, out SalesOrderEntry))
@@ -149,7 +151,6 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                             SalesOrderDictionary.Add(SalesOrderEntry.SalesOrderId, SalesOrderEntry);
                         }
 
-                        SalesOrderEntry.SalesOrderPositions = new SvenTechCollection<SalesOrderPosition>();
                         SalesOrderEntry.Invoices = new SvenTechCollection<Invoice>();
                         SalesOrderEntry.Shipments = new SvenTechCollection<Shipment>();
                         SalesOrderEntry.SalesType = SalesType;
@@ -157,8 +158,12 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                         Debitor.Client = Client;
                         SalesOrderEntry.Debitor = Debitor;
 
-                        if (!SalesOrderEntry.SalesOrderPositions.Contains(SalesOrderPosition))
+                        if (SalesOrderEntry.SalesOrderPositions.SingleOrDefault(x => x.SalesOrderPositionId == SalesOrderPosition.SalesOrderPositionId) == null)
                         {
+                            if (Product != null)
+                            {
+                                Product.TaxType = TaxType;
+                            }
                             SalesOrderPosition.Product = Product;
                             SalesOrderEntry.SalesOrderPositions.Add(SalesOrderPosition);
                         }
@@ -206,7 +211,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                         return SalesOrderEntry;
                     },
                     splitOn:
-                    "SalesOrderId, SalesTypeId, SalesOrderPositionId, DebitorId, ClientId, CompanyId, ProductId, InvoicePositionId, InvoiceId, ShippedProductId, ShipmentId");
+                    "SalesOrderId, SalesTypeId, SalesOrderPositionId, DebitorId, ClientId, CompanyId, ProductId, InvoicePositionId, InvoiceId, ShippedProductId, ShipmentId, TaxTypeId");
             }
 
             return SalesOrderDictionary.Values;
@@ -339,8 +344,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         /// <param name="SalesOrder"></param>
         public void Update(SalesOrder SalesOrder)
         {
-            if (SalesOrder.SalesOrderId == 0 ||
-                GetById(SalesOrder.SalesOrderId) is null)
+            if (SalesOrder.SalesOrderId == 0)
             {
                 return;
             }

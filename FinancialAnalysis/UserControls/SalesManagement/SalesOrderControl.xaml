@@ -187,11 +187,11 @@
                     <Label Grid.Column="4" Grid.Row="3" Margin="3" Content="Preis" VerticalAlignment="Center" />
                     <Label Grid.Column="4" Grid.Row="4" Margin="3" Content="Menge" VerticalAlignment="Top" />
 
-                    <dxe:TextEdit Grid.Column="5" Grid.Row="3" Margin="3" Mask="C2" MaskType="Numeric"
+                    <dxe:TextEdit Grid.Column="5" Grid.Row="3" Margin="3" Mask="C2" MaskType="Numeric" HorizontalContentAlignment="Right"
                           Text="{Binding SalesOrderPosition.Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           Foreground="#3F729B" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" />
 
-                    <dxe:TextEdit Grid.Column="5" Grid.Row="4" Margin="3" VerticalAlignment="Top"
+                    <dxe:TextEdit Grid.Column="5" Grid.Row="4" Margin="3" VerticalAlignment="Top" HorizontalContentAlignment="Right"
                           Text="{Binding SalesOrderPosition.Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           Foreground="#3F729B" />
 
@@ -205,16 +205,15 @@
                     </dxe:ComboBoxEdit>
 
                     <Label Grid.Column="8" Grid.Row="3" Margin="3" Content="Steuern" />
-                    <Label Grid.Column="8" Grid.Row="4" Margin="3" Content="Rabatt" />
+                    <Label Grid.Column="8" Grid.Row="4" Margin="3" Content="Rabatt (%)" />
 
                     <dxe:TextEdit Grid.Column="9" Grid.Row="3" Margin="3" VerticalAlignment="Top" IsReadOnly="True"
                           Text="{Binding SelectedProduct.TaxType.DescriptionShort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           Foreground="#3F729B" />
 
-                    <dxe:TextEdit Grid.Column="9" Grid.Row="4" Margin="3" VerticalAlignment="Top" MaskShowPlaceHolders="False"
-                          MaskUseAsDisplayFormat="True"
+                    <dxe:TextEdit Grid.Column="9" Grid.Row="4" Margin="3" VerticalAlignment="Top" HorizontalContentAlignment="Right"
                           Text="{Binding SalesOrderPosition.DiscountPercentage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          Foreground="#3F729B" Mask="P2" MaskType="Numeric" />
+                          Foreground="#3F729B" />
 
                     <dxg:GridControl Grid.Column="0" Grid.ColumnSpan="20" Grid.Row="6"
                              ItemsSource="{Binding SalesOrder.SalesOrderPositions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -250,7 +249,7 @@
                                 <dxe:TextEditSettings ShowNullTextForEmptyValue="False" DisplayFormat="C2" />
                             </dxg:GridColumn.EditSettings>
                         </dxg:GridColumn>
-                        <dxg:GridColumn FieldName="DiscountPercentage" Header="Rabatt">
+                        <dxg:GridColumn FieldName="DiscountPercentageForLabel" Header="Rabatt">
                             <dxg:GridColumn.EditSettings>
                                 <dxe:TextEditSettings ShowNullTextForEmptyValue="False" DisplayFormat="P2" />
                             </dxg:GridColumn.EditSettings>
