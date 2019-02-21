@@ -73,8 +73,12 @@ namespace FinancialAnalysis.UI
                     {
                         if (msg.ScannedDocumentId != 0)
                             model.ScannedDocumentId = msg.ScannedDocumentId;
-                        else
+                        else if (!string.IsNullOrEmpty(msg.Path))
                             model.Path = msg.Path;
+                        else
+                        {
+                            model.MemoryStream = msg.MemoryStream;
+                        }
                     }
 
                     window.ShowDialog();

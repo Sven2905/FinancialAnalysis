@@ -143,6 +143,7 @@
     <Compile Include="ViewModels\Accounting\CostCenterCategoryViewModel.cs" />
     <Compile Include="ViewModels\Administration\ConfigurationViewModel.cs" />
     <Compile Include="ViewModels\Administration\MailViewModel.cs" />
+    <Compile Include="ViewModels\CarPoolManagement\CarPoolViewModel.cs" />
     <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="ViewModels\Accounting\KontenrahmenViewModel.cs" />
     <Compile Include="ViewModels\General\StatusViewModel.cs" />

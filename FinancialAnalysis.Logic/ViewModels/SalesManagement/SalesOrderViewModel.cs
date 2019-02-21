@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Threading.Tasks;
 using DevExpress.Mvvm;
 using DevExpress.XtraPrinting.Drawing;
@@ -146,7 +147,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SelectedProduct = new Product();
         }
 
-        private void CreatePDFFile()
+        private void CreatePDFFile(bool IsPreview)
         {
             var salesOrderReportData = new SalesOrderReportData
             {
@@ -161,7 +162,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 DataSource = listReportData
             };
-            const string path = @"C:\test\test.pdf";
 
             sor.Watermark.Text = "KOSTENVORANSCHLAG";
             sor.Watermark.TextDirection = DirectionMode.ForwardDiagonal;
@@ -172,8 +172,10 @@ namespace FinancialAnalysis.Logic.ViewModels
             sor.Watermark.PageRange = "1,3-5";
 
             sor.CreateDocument();
-            sor.PrintingSystem.ExportToPdf(path);
-            Messenger.Default.Send(new OpenPDFViewerWindowMessage(path));
+            MemoryStream ms = new MemoryStream();
+            sor.PrintingSystem.ExportToPdf(ms);
+
+            Messenger.Default.Send(new OpenPDFViewerWindowMessage(ms));
         }
 
         private void SaveSalesOrder()

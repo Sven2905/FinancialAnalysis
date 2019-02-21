@@ -93,6 +93,7 @@
     <Compile Include="Administration\UserRightUserMapping.cs" />
     <Compile Include="Administration\UserRightUserMappingFlatStructure.cs" />
     <Compile Include="BaseClasses\OrderPositionItem.cs" />
+    <Compile Include="CarPoolManagement\Vehicle.cs" />
     <Compile Include="Enums\AccountType.cs" />
     <Compile Include="Enums\BookingType.cs" />
     <Compile Include="Enums\CivilStatus.cs" />
@@ -104,9 +105,11 @@
     <Compile Include="Enums\CustomerType.cs" />
     <Compile Include="Enums\DatabaseStatus.cs" />
     <Compile Include="Enums\FederalState.cs" />
+    <Compile Include="Enums\FuelType.cs" />
     <Compile Include="Enums\Gender.cs" />
     <Compile Include="Enums\Months.cs" />
     <Compile Include="Enums\ReminderType.cs" />
+    <Compile Include="Enums\VehicleType.cs" />
     <Compile Include="General\SvenTechColors.cs" />
     <Compile Include="Enums\GrossNetType.cs" />
     <Compile Include="Helper\EnumHelper.cs" />

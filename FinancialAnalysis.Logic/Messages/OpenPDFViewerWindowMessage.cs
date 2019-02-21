@@ -1,4 +1,6 @@
-﻿namespace FinancialAnalysis.Logic.Messages
+﻿using System.IO;
+
+namespace FinancialAnalysis.Logic.Messages
 {
     public class OpenPDFViewerWindowMessage
     {
@@ -12,7 +14,13 @@
             this.Path = Path;
         }
 
+        public OpenPDFViewerWindowMessage(MemoryStream MemoryStream)
+        {
+            this.MemoryStream = MemoryStream;
+        }
+
         public string Path { get; set; }
+        public MemoryStream MemoryStream { get; set; }
         public int ScannedDocumentId { get; set; }
     }
 }

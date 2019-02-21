@@ -11,6 +11,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private string _Path;
         private int _ScannedDocumentId;
         private byte[] content;
+        private MemoryStream _MemoryStream;
 
         public PDFViewerViewModel()
         {
@@ -29,6 +30,11 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             content = File.ReadAllBytes(_Path);
             var ms = new MemoryStream(content);
+            ScannedDocument = ms;
+        }
+
+        private void LoadDocumentByMemoryStream(MemoryStream ms)
+        {
             ScannedDocument = ms;
         }
 
@@ -53,6 +59,16 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 _Path = value;
                 if (!string.IsNullOrEmpty(_Path)) LoadDocumentByPath();
+            }
+        }
+
+        public MemoryStream MemoryStream
+        {
+            get => _MemoryStream;
+            set
+            {
+                _MemoryStream = value;
+                LoadDocumentByMemoryStream(MemoryStream);
             }
         }
 

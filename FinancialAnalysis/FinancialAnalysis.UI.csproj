@@ -168,6 +168,9 @@
     <Compile Include="UserControls\Accounting\CostCenterControl.xaml.cs">
       <DependentUpon>CostCenterControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\CarPoolManagement\CarPoolControl.xaml.cs">
+      <DependentUpon>CarPoolControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ProductManagement\ProductManagementControl.xaml.cs">
       <DependentUpon>ProductManagementControl.xaml</DependentUpon>
     </Compile>
@@ -302,6 +305,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Accounting\CostCenterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\CarPoolManagement\CarPoolControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
