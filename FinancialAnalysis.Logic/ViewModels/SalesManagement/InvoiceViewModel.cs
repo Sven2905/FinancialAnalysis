@@ -3,6 +3,7 @@ using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Interfaces;
+using FinancialAnalysis.Models.SalesManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,6 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public InvoiceViewModel()
         {
-            OrderedProducts = DataContext.Instance.TaxTypes.GetAll().ToSvenTechCollection();
             RemoveFromInvoiceDropCommand = new DelegateCommand<IDropEventArgs>(RemoveFromInvoiceDrop);
             AddToInvoiceCommand = new DelegateCommand<IDropEventArgs>(AddToInvoiceDrop);
             Messenger.Default.Register<SelectedQuantity>(this, GetSelectedQuantity);
@@ -29,8 +29,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (e.Items?.Count > 0 && e.Items[0] is TaxType)
             {
-                OrderedProducts.Add((TaxType)e.Items[0]);
-                ProductsOnInvoice.Remove((TaxType)e.Items[0]);
+                OrderedProducts.Add((SalesOrderPosition)e.Items[0]);
+                ProductsOnInvoice.Remove((SalesOrderPosition)e.Items[0]);
                 e.Handled = true;
             }
         }
@@ -40,8 +40,8 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (e.Items?.Count > 0 && e.Items[0] is TaxType)
             {
                 Messenger.Default.Send(new OpenQuantityWindowMessage(((TaxType)e.Items[0]).TaxTypeId));
-                ProductsOnInvoice.Add((TaxType)e.Items[0]);
-                OrderedProducts.Remove((TaxType)e.Items[0]);
+                ProductsOnInvoice.Add((SalesOrderPosition)e.Items[0]);
+                OrderedProducts.Remove((SalesOrderPosition)e.Items[0]);
                 e.Handled = true;
             }
         }
@@ -51,9 +51,15 @@ namespace FinancialAnalysis.Logic.ViewModels
             Quantity = SelectedQuantity.Quantity;
         }
 
+        public void LoadState(object navigationParameter)
+        {
+            var test = 42;
+        }
+
+        public SalesOrder SalesOrder { get; set; }
         public ICommand RemoveFromInvoiceDropCommand { get; }
         public ICommand AddToInvoiceCommand { get; }
-        public SvenTechCollection<TaxType> OrderedProducts { get; set; } = new SvenTechCollection<TaxType>();
-        public SvenTechCollection<TaxType> ProductsOnInvoice { get; set; } = new SvenTechCollection<TaxType>();
+        public SvenTechCollection<SalesOrderPosition> OrderedProducts { get; set; } = new SvenTechCollection<SalesOrderPosition>();
+        public SvenTechCollection<SalesOrderPosition> ProductsOnInvoice { get; set; } = new SvenTechCollection<SalesOrderPosition>();
     }
 }

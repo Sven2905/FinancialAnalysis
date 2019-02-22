@@ -138,6 +138,16 @@ namespace FinancialAnalysis.UI
                    }
                    window.ShowDialog();
                });
+            Messenger.Default.Register<OpenInvoiceWindowMessage>(this,
+              msg =>
+              {
+                  var window = new InvoiceWindow();
+                  if (window.DataContext is InvoiceViewModel model)
+                  {
+                      model.SalesOrder = msg.SalesOrder;
+                  }
+                  window.ShowDialog();
+              });
         }
 
         #endregion Methods

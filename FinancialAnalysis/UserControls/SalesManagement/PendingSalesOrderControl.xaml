@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxwuin="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/navigation"
              xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
              xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
              xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
@@ -181,7 +182,8 @@
                                     <dxe:TextEdit Grid.Column="1" Grid.Row="0" Mask="C2" MaskType="Numeric" VerticalAlignment="Center" HorizontalContentAlignment="Right"
                                                   Text="{Binding OutstandingInvoiceAmount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ShowBorder="False"
                                                   Foreground="{StaticResource RedBrush}" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" />
-                                    <dx:SimpleButton Grid.Column="3" Grid.Row="0" Content="Rechnung erstellen" Width="125" />
+                                    <dx:SimpleButton Grid.Column="3" Grid.Row="0" Content="Rechnung erstellen" Width="125" dxwuin:Navigation.NavigateTo="InvoiceControl"
+                                                     Command="{Binding OpenInvoiceWindowCommand}" />
 
                                     <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Text="Anzahl der Mahnungen"/>
                                     <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="3,0" Text="{Binding SelectedSalesOrder.ReminderCounter}" />

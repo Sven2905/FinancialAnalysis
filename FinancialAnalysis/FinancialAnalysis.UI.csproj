@@ -266,6 +266,9 @@
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\InvoiceWindow.xaml.cs">
+      <DependentUpon>InvoiceWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\PDFViewerWindow.xaml.cs">
       <DependentUpon>PDFViewerWindow.xaml</DependentUpon>
     </Compile>
@@ -416,6 +419,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DXSplashScreen\SplashScreenView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\InvoiceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

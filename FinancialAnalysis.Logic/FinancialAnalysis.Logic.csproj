@@ -118,6 +118,7 @@
     <Compile Include="Mail\Mail.cs" />
     <Compile Include="Messages\OpenClientWindowMessage.cs" />
     <Compile Include="Messages\OpenDialogWindowMessage.cs" />
+    <Compile Include="Messages\OpenInvoiceWindowMessage.cs" />
     <Compile Include="Messages\OpenKontenrahmenWindowMessage.cs" />
     <Compile Include="Messages\OpenMainWindowMessage.cs" />
     <Compile Include="Messages\OpenPDFViewerWindowMessage.cs" />

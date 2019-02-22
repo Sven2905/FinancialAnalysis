@@ -1,5 +1,6 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
+using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.SalesManagement;
 using System;
 using System.Linq;
@@ -15,8 +16,10 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (IsInDesignMode) return;
 
-            CloseOrderCommand = new DelegateCommand(CloseOrder, SelectedSalesOrder != null);
+            CloseOrderCommand = new DelegateCommand(CloseOrder, () => SelectedSalesOrder != null);
+            OpenInvoiceWindowCommand = new DelegateCommand(CreateInvoice, () => SelectedSalesOrder != null);
             RefreshData();
+
         }
 
         #endregion Contructor
@@ -29,9 +32,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public SvenTechCollection<SalesOrder> SalesOrders { get; set; }
         public DelegateCommand CloseOrderCommand { get; set; }
+        public DelegateCommand OpenInvoiceWindowCommand { get; set; }
         public decimal OutstandingInvoiceAmount => CalculateOutstandingInvoiceAmount();
 
-        public SvenTechCollection<Invoice> OpenedInvoices => SelectedSalesOrder.Invoices.Where(x => x.IsPaid).ToSvenTechCollection();
+        public SvenTechCollection<Invoice> OpenInvoices => SelectedSalesOrder.Invoices.Where(x => x.IsPaid).ToSvenTechCollection();
 
         public SalesOrder SelectedSalesOrder { get; set; }
 
@@ -65,12 +69,17 @@ namespace FinancialAnalysis.Logic.ViewModels
             CheckOrdersStatus();
         }
 
-        public void CheckOrdersStatus()
+        private void CheckOrdersStatus()
         {
             foreach (var order in SalesOrders)
             {
                 order.CheckStatus();
             }
+        }
+
+        private void CreateInvoice()
+        {
+            Messenger.Default.Send(new OpenInvoiceWindowMessage(SelectedSalesOrder));
         }
 
         #endregion Methods
