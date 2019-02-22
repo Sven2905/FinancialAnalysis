@@ -97,7 +97,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SetCommands()
         {
-            CreatePDFCommand = new DelegateCommand(CreatePDFFile, () => ValidatePDFCreation());
+            CreatePDFCommand = new DelegateCommand(CreatePDFPreview, () => ValidatePDFCreation());
             SavePositionCommand = new DelegateCommand(SaveSalesOrderPosition, () => ValidateSalesOrderPosition());
             DeletePositionCommand =
                 new DelegateCommand(DeleteSalesOrderPosition, () => SelectedSalesOrderPosition != null);
@@ -147,6 +147,11 @@ namespace FinancialAnalysis.Logic.ViewModels
             SelectedProduct = new Product();
         }
 
+        private void CreatePDFPreview()
+        {
+            CreatePDFFile(true);
+        }
+
         private void CreatePDFFile(bool IsPreview)
         {
             var salesOrderReportData = new SalesOrderReportData
@@ -163,13 +168,15 @@ namespace FinancialAnalysis.Logic.ViewModels
                 DataSource = listReportData
             };
 
+            if (IsPreview)
+            {
             sor.Watermark.Text = "KOSTENVORANSCHLAG";
             sor.Watermark.TextDirection = DirectionMode.ForwardDiagonal;
             sor.Watermark.Font = new Font(sor.Watermark.Font.FontFamily, 40);
             sor.Watermark.ForeColor = Color.DodgerBlue;
             sor.Watermark.TextTransparency = 150;
             sor.Watermark.ShowBehind = false;
-            sor.Watermark.PageRange = "1,3-5";
+            }
 
             sor.CreateDocument();
             MemoryStream ms = new MemoryStream();

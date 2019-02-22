@@ -128,6 +128,16 @@ namespace FinancialAnalysis.UI
                     var window = new WarehousesWindow();
                     window.ShowDialog();
                 });
+            Messenger.Default.Register<OpenQuantityWindowMessage>(this,
+               msg =>
+               {
+                   var window = new QuantityWindow();
+                   if (window.DataContext is QuantityViewModel model)
+                   {
+                       model.MaxQuantity = msg.MaxQuantity;
+                   }
+                   window.ShowDialog();
+               });
         }
 
         #endregion Methods

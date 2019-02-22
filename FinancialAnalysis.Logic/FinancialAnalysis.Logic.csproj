@@ -121,6 +121,7 @@
     <Compile Include="Messages\OpenKontenrahmenWindowMessage.cs" />
     <Compile Include="Messages\OpenMainWindowMessage.cs" />
     <Compile Include="Messages\OpenPDFViewerWindowMessage.cs" />
+    <Compile Include="Messages\OpenQuantityWindowMessage.cs" />
     <Compile Include="Messages\OpenSplashScreenMessage.cs" />
     <Compile Include="Messages\OpenTypeMessages\OpenCostCenterCategoriesWindowMessage.cs" />
     <Compile Include="Messages\OpenTypeMessages\OpenProductCategoriesWindowMessage.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Messages\OpenTypeMessages\OpenSalesTypesWindowMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\RequiredValidationRule.cs" />
+    <Compile Include="SelectedQuantity.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="ViewModels\Accounting\AccountingViewModel.cs" />
     <Compile Include="ViewModels\Accounting\BookingHistoryViewModel.cs" />
@@ -150,6 +152,8 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\Administration\MyClientViewModel.cs" />
     <Compile Include="ViewModels\ProductManagement\ProductManagementViewModel.cs" />
+    <Compile Include="ViewModels\QuantityViewModel.cs" />
+    <Compile Include="ViewModels\SalesManagement\InvoiceViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\PendingSaleOrdersViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\SalesManagementViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\SalesTypesViewModel.cs" />

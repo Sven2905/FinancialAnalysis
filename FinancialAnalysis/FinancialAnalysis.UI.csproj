@@ -87,6 +87,10 @@
     <Reference Include="DevExpress.Xpf.Core.v18.2, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Docking.v18.2, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.DocumentViewer.v18.2.Core, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Grid.v18.2.Extensions, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 18.2\Components\Bin\Framework\DevExpress.Xpf.Grid.v18.2.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Xpf.Layout.v18.2.Core, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.PdfViewer.v18.2, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Printing.v18.2, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -138,6 +142,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\BaseValueConverter.cs" />
+    <Compile Include="Converter\DragDropEventArgsConverter.cs" />
     <Compile Include="Converter\EnumToDisplaynameConverter.cs" />
     <Compile Include="Converter\ZeroToVisiblityConverter.cs" />
     <Compile Include="Converter\InverseBooleanToVisiblityConverter.cs" />
@@ -173,6 +178,9 @@
     </Compile>
     <Compile Include="UserControls\ProductManagement\ProductManagementControl.xaml.cs">
       <DependentUpon>ProductManagementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SalesManagement\InvoiceControl.xaml.cs">
+      <DependentUpon>InvoiceControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SalesManagement\PendingSalesOrderControl.xaml.cs">
       <DependentUpon>PendingSalesOrderControl.xaml</DependentUpon>
@@ -261,6 +269,9 @@
     <Compile Include="Windows\PDFViewerWindow.xaml.cs">
       <DependentUpon>PDFViewerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\QuantityWindow.xaml.cs">
+      <DependentUpon>QuantityWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\TypesWindows\CostCenterCategoriesWindow.xaml.cs">
       <DependentUpon>CostCenterCategoriesWindow.xaml</DependentUpon>
     </Compile>
@@ -315,6 +326,10 @@
     <Page Include="UserControls\ProductManagement\ProductManagementControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\SalesManagement\InvoiceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\SalesManagement\PendingSalesOrderControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -448,6 +463,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\PDFViewerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\QuantityWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
