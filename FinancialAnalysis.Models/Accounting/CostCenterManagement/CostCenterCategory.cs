@@ -1,14 +1,31 @@
-﻿using System.Collections.Generic;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
+using System.Collections.Generic;
 
 namespace FinancialAnalysis.Models.Accounting
 {
+    /// <summary>
+    /// Kostenstellenkategorie
+    /// </summary>
     public class CostCenterCategory : BindableBase
     {
+        /// <summary>
+        /// Id
+        /// </summary>
         public int CostCenterCategoryId { get; set; }
+
+        /// <summary>
+        /// Name der Kostenstellenkategorie
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Beschreibung
+        /// </summary>
         public string Description { get; set; }
 
+        /// <summary>
+        /// Liste aller zugeordneten Kostenstellen
+        /// </summary>
         public List<CostCenter> CostCenters { get; set; } = new List<CostCenter>();
     }
 }

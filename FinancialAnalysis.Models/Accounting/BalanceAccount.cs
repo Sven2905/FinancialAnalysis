@@ -1,9 +1,4 @@
 ﻿using FinancialAnalysis.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Models.Accounting
 {
@@ -14,7 +9,6 @@ namespace FinancialAnalysis.Models.Accounting
     {
         public BalanceAccount()
         {
-
         }
 
         public BalanceAccount(int BalanceAccountId, string Name, AccountType AccountType, int ParentId = 0)
@@ -25,9 +19,24 @@ namespace FinancialAnalysis.Models.Accounting
             this.AccountType = AccountType;
         }
 
+        /// <summary>
+        /// Id
+        /// </summary>
         public int BalanceAccountId { get; set; }
+
+        /// <summary>
+        /// Name des Postens
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Referenz-Id des übergeordneten Postens
+        /// </summary>
         public int ParentId { get; set; } = 0;
+
+        /// <summary>
+        /// Aktiv- oder Passivkonto
+        /// </summary>
         public AccountType AccountType { get; set; }
     }
 }

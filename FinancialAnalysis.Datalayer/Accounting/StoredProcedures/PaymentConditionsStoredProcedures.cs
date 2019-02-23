@@ -30,7 +30,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT PaymentConditionId, Name, DiscountPercent, RefCashbackId " +
+                                "SELECT * " +
                                 $"FROM {TableName} " +
                                 "END");
                 using (var connection =
@@ -54,9 +54,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @DiscountPercent money, @RefCashbackId int AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, DiscountPercent, RefCashbackId) " +
-                    "VALUES (@Name, @DiscountPercent, @RefCashbackId); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Percentage money, @TimeValue int, @PayType int AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Percentage, TimeValue, PayType) " +
+                    "VALUES (@Percentage, @TimeValue, @PayType); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -79,7 +79,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetById] @PaymentConditionId int AS BEGIN SET NOCOUNT ON; SELECT PaymentConditionId, Name, DiscountPercent, RefCashbackId " +
+                    $"CREATE PROCEDURE [{TableName}_GetById] @PaymentConditionId int AS BEGIN SET NOCOUNT ON; " +
+                    $"SELECT * " +
                     $"FROM {TableName} " +
                     "WHERE PaymentConditionId = @PaymentConditionId END");
                 using (var connection =

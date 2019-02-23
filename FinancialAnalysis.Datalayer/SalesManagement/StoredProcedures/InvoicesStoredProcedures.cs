@@ -35,7 +35,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                                 "SELECT i.*, t.*, pos.*, pay.*, spos.*, s.*, p.*, d.* " +
                                 $"FROM {TableName} i " +
                                 "LEFT JOIN InvoiceTypes t ON i.RefInvoiceTypeId = t.InvoiceTypeId " +
-                                "LEFT JOIN InvoicePositions pos ON i.RefInvoicePositionId = pos.InvoicePositionId " +
+                                "LEFT JOIN InvoicePositions pos ON i.InvoiceId = pos.RefInvoiceId " +
                                 "LEFT JOIN PaymentConditions pay ON i.RefPaymentConditionId = pay.PaymentConditionId " +
                                 "LEFT JOIN SalesOrderPositions spos ON pos.RefSalesOrderPositionId = spos.SalesOrderPositionId " +
                                 "LEFT JOIN SalesOrders s ON spos.RefSalesOrderId = s.SalesOrderId " +
@@ -63,9 +63,9 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @InvoiceDate datetime, @InvoiceDueDate datetime, @RefInvoiceTypeId int, @RefPaymentConditionId int, @RefInvoicePositionId int, @PaidAmount money, @IsPaid bit AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (InvoiceDate, InvoiceDueDate, RefInvoiceTypeId, RefPaymentConditionId, RefInvoicePositionId, PaidAmount, IsPaid) " +
-                    "VALUES (@InvoiceDate, @InvoiceDueDate, @RefInvoiceTypeId, @RefPaymentConditionId, @RefInvoicePositionId, @PaidAmount, @IsPaid); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @InvoiceDate datetime, @InvoiceDueDate datetime, @RefInvoiceTypeId int, @RefPaymentConditionId int, @PaidAmount money, @IsPaid bit AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (InvoiceDate, InvoiceDueDate, RefInvoiceTypeId, RefPaymentConditionId, PaidAmount, IsPaid) " +
+                    "VALUES (@InvoiceDate, @InvoiceDueDate, @RefInvoiceTypeId, @RefPaymentConditionId, @PaidAmount, @IsPaid); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -92,7 +92,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     "SELECT i.*, t.*, pos.*, pay.*, spos.*, s.*, p.*, d.* " +
                     $"FROM {TableName} i " +
                     "LEFT JOIN InvoiceTypes t ON i.RefInvoiceTypeId = t.InvoiceTypeId " +
-                    "LEFT JOIN InvoicePositions pos ON i.RefInvoicePositionId = pos.InvoicePositionId " +
+                    "LEFT JOIN InvoicePositions pos ON i.InvoiceId = pos.RefInvoiceId " +
                     "LEFT JOIN PaymentConditions pay ON i.RefPaymentConditionId = pay.PaymentConditionId " +
                     "LEFT JOIN SalesOrderPositions spos ON pos.RefSalesOrderPositionId = spos.SalesOrderPositionId " +
                     "LEFT JOIN SalesOrders s ON spos.RefSalesOrderId = s.SalesOrderId " +
@@ -124,7 +124,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     "SELECT i.*, t.*, pos.*, pay.*, spos.*, s.*, p.*, d.* " +
                     $"FROM {TableName} i " +
                     "LEFT JOIN InvoiceTypes t ON i.RefInvoiceTypeId = t.InvoiceTypeId " +
-                    "LEFT JOIN InvoicePositions pos ON i.RefInvoicePositionId = pos.InvoicePositionId " +
+                    "LEFT JOIN InvoicePositions pos ON i.InvoiceId = pos.RefInvoiceId " +
                     "LEFT JOIN PaymentConditions pay ON i.RefPaymentConditionId = pay.PaymentConditionId " +
                     "LEFT JOIN SalesOrderPositions spos ON pos.RefSalesOrderPositionId = spos.SalesOrderPositionId " +
                     "LEFT JOIN SalesOrders s ON spos.RefSalesOrderId = s.SalesOrderId " +
@@ -152,14 +152,13 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @InvoiceId int, @InvoiceDate datetime, @InvoiceDueDate datetime, @RefInvoiceTypeId int, @RefPaymentConditionId int, @RefInvoicePositionId int, @PaidAmount money, @IsPaid bit " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @InvoiceId int, @InvoiceDate datetime, @InvoiceDueDate datetime, @RefInvoiceTypeId int, @RefPaymentConditionId int, @PaidAmount money, @IsPaid bit " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "SET InvoiceDate = @InvoiceDate, " +
                     "InvoiceDueDate = @InvoiceDueDate, " +
                     "RefInvoiceTypeId = @RefInvoiceTypeId, " +
                     "RefPaymentConditionId = @RefPaymentConditionId, " +
-                    "RefInvoicePositionId = @RefInvoicePositionId, " +
                     "PaidAmount = @PaidAmount, " +
                     "IsPaid = @IsPaid " +
                     "WHERE InvoiceId = @InvoiceId END");

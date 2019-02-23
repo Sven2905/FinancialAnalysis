@@ -1,11 +1,18 @@
 ﻿namespace FinancialAnalysis.Models.ProjectManagement
 {
     /// <summary>
-    ///     Roles for projects
+    /// Projektrolle
     /// </summary>
     public class ProjectRole
     {
+        /// <summary>
+        /// Id
+        /// </summary>
         public int ProjectRoleId { get; set; }
+
+        /// <summary>
+        /// Name der Rolle
+        /// </summary>
         public string Name { get; set; }
     }
 }

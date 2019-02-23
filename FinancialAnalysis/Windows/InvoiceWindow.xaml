@@ -10,16 +10,17 @@
         xmlns:UserControls="clr-namespace:FinancialAnalysis.UserControls"
         xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
         xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
-        mc:Ignorable="d"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    mc:Ignorable="d"
         dx:ThemeManager.ThemeName="Office2016WhiteSE"
         WindowState="Maximized"
-        Title="Rechnungen" Height="450" Width="800">
+        Title="Rechnungen" Height="1050" Width="1920">
     <dx:DXWindow.DataContext>
         <ViewModels:InvoiceViewModel />
     </dx:DXWindow.DataContext>
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Images/background.jpg" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="/Images/background.jpg" Stretch="UniformToFill" />
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50" />
@@ -40,15 +41,52 @@
                     </Grid.RowDefinitions>
                     <dxdo:DockLayoutManager>
                         <dxdo:LayoutGroup Caption="LayoutRoot">
-                            <dxdo:LayoutPanel Caption="Verfügbare Positionen" ShowCloseButton="False">
-                                <dxg:GridControl Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" ShowBorder="True" ItemsSource="{Binding OrderedProducts}" >
+                            <dxdo:LayoutPanel Caption="Allgemeines" ShowCloseButton="False" ItemWidth="400">
+                                <Grid Margin="20">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="10" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="10" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="10" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Typ" VerticalAlignment="Center" Foreground="#3F729B" FontFamily="Tahoma" />
+                                    <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="0" Margin="3" ItemsSource="{Binding InvoiceTypes}"
+                                                      EditValue="{Binding Invoice.RefInvoiceTypeId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      DisplayMember="Name" ValueMember="InvoiceTypeId" Foreground="#3F729B" />
+
+                                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Rechnungsdatum" VerticalAlignment="Center" Foreground="#3F729B" FontFamily="Tahoma" />
+                                    <dxe:DateEdit Grid.Column="1" Grid.Row="2" Margin="3"
+                                                  DateTime="{Binding Invoice.InvoiceDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                  FontFamily="Tahoma" Foreground="#3F729B" DisplayFormatString="dd.MM.yyyy" />
+
+                                    <TextBlock Grid.Column="0" Grid.Row="4" Text="Fälligkeitstag" VerticalAlignment="Center" FontFamily="Tahoma" Foreground="#3F729B" />
+                                    <dxe:DateEdit Grid.Column="1" Grid.Row="4" Margin="3"
+                                                  DateTime="{Binding Invoice.InvoiceDueDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                  FontFamily="Tahoma" Foreground="#3F729B" DisplayFormatString="dd.MM.yyyy" />
+
+                                    <TextBlock Grid.Column="0" Grid.Row="6" Text="Zahlungsbedingungen" VerticalAlignment="Center" Foreground="#3F729B" FontFamily="Tahoma" />
+                                    <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="6" Margin="3" ItemsSource="{Binding PaymentConditions}"
+                                                      EditValue="{Binding Invoice.RefPaymentConditionId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      DisplayMember="Name" ValueMember="PaymentConditionId" Foreground="#3F729B" />
+                                </Grid>
+                            </dxdo:LayoutPanel>
+                            <dxdo:LayoutPanel Caption="Verfügbare Positionen" ShowCloseButton="False" ItemWidth="400">
+                                <dxg:GridControl Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" ShowBorder="True" ItemsSource="{Binding OrderedProducts, UpdateSourceTrigger=PropertyChanged}">
                                     <dxg:GridColumn FieldName="SalesOrderId" Visible="False" />
                                     <dxg:GridColumn FieldName="Product.Name" Header="Produkt" />
                                     <dxg:GridColumn FieldName="Quantity" Header="Menge" />
                                     <dxg:GridControl.View>
                                         <dxg:TableView ShowHorizontalLines="True" ShowVerticalLines="False" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" MaxHeight="5000" MaxWidth="5000"
                                    ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" AllowDragDrop="True"
-                                   UseEvenRowBackground="True" ShowIndicator="False" AllowColumnMoving="False" AllowGrouping="False" AutoWidth="True" ShowTargetInfoInDragDropHint="False"/>
+                                   UseEvenRowBackground="True" ShowIndicator="False" AllowColumnMoving="False" AllowGrouping="False" AutoWidth="True" ShowTargetInfoInDragDropHint="False" />
                                     </dxg:GridControl.View>
                                     <dxmvvm:Interaction.Behaviors>
                                         <dxg:GridDragDropManager AllowDrag="True" AllowDrop="True" x:Name="RemoveFromInvoiceDragDropManager" />
@@ -57,21 +95,63 @@
                                        EventArgsConverter="{UserControls:DragDropEventArgsConverter}" />
                                     </dxmvvm:Interaction.Behaviors>
                                 </dxg:GridControl>
-
                             </dxdo:LayoutPanel>
-                            <dxdo:LayoutPanel Caption="Aktuelle Rechnungspositionen" ShowCloseButton="False">
+                            <dxdo:LayoutPanel Caption="Rechnung" ShowCloseButton="False">
 
-                                <dxg:GridControl Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" ShowBorder="True" ItemsSource="{Binding ProductsOnInvoice}" AllowDrop="True" >
-                                    <dxg:GridColumn FieldName="SalesOrderId" Visible="False" />
-                                    <dxg:GridColumn FieldName="Product.Name" Header="Produkt" />
-                                    <dxg:GridColumn FieldName="Quantity" Header="Menge" />
+                                <dxg:GridControl Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" ShowBorder="True" ItemsSource="{Binding ProductsOnInvoice, UpdateSourceTrigger=PropertyChanged}" AllowDrop="True">
                                     <dxg:GridControl.View>
                                         <dxg:TableView ShowHorizontalLines="True" ShowVerticalLines="False" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" MaxHeight="5000" MaxWidth="5000"
-                                   ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" AllowDragDrop="True"
+                                   ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" AllowDragDrop="True" ShowTotalSummary="True"
                                    UseEvenRowBackground="True" ShowIndicator="False" AllowColumnMoving="False" AllowGrouping="False" AutoWidth="True" />
                                     </dxg:GridControl.View>
+                                    <dxg:GridColumn FieldName="Product.Name" Header="Produkt" />
+                                    <dxg:GridColumn FieldName="Price" Header="Preis">
+                                        <dxg:GridColumn.EditSettings>
+                                            <dxe:TextEditSettings ShowNullTextForEmptyValue="False" DisplayFormat="C2" />
+                                        </dxg:GridColumn.EditSettings>
+                                    </dxg:GridColumn>
+                                    <dxg:GridColumn FieldName="Quantity" Header="Menge" />
+                                    <dxg:GridColumn FieldName="SubtotalWithoutDiscount" Header="Regulärer Preis">
+                                        <dxg:GridColumn.EditSettings>
+                                            <dxe:TextEditSettings ShowNullTextForEmptyValue="False" DisplayFormat="C2" />
+                                        </dxg:GridColumn.EditSettings>
+                                    </dxg:GridColumn>
+                                    <dxg:GridColumn FieldName="DiscountPercentage" Header="Rabatt">
+                                        <dxg:GridColumn.EditSettings>
+                                            <dxe:TextEditSettings ShowNullTextForEmptyValue="False" DisplayFormat="P2" />
+                                        </dxg:GridColumn.EditSettings>
+                                    </dxg:GridColumn>
+                                    <dxg:GridColumn FieldName="DiscountAmount" Header="Nachlass">
+                                        <dxg:GridColumn.EditSettings>
+                                            <dxe:TextEditSettings ShowNullTextForEmptyValue="False" DisplayFormat="C2" />
+                                        </dxg:GridColumn.EditSettings>
+                                    </dxg:GridColumn>
+                                    <dxg:GridColumn FieldName="Subtotal" Header="Zwischensumme">
+                                        <dxg:GridColumn.EditSettings>
+                                            <dxe:TextEditSettings ShowNullTextForEmptyValue="False" DisplayFormat="C2" />
+                                        </dxg:GridColumn.EditSettings>
+                                    </dxg:GridColumn>
+                                    <dxg:GridColumn FieldName="TaxAmount" Header="Steuern">
+                                        <dxg:GridColumn.EditSettings>
+                                            <dxe:TextEditSettings ShowNullTextForEmptyValue="False" DisplayFormat="C2" />
+                                        </dxg:GridColumn.EditSettings>
+                                    </dxg:GridColumn>
+                                    <dxg:GridColumn FieldName="Total" Header="Gesamt">
+                                        <dxg:GridColumn.EditSettings>
+                                            <dxe:TextEditSettings ShowNullTextForEmptyValue="False" DisplayFormat="C2" />
+                                        </dxg:GridColumn.EditSettings>
+                                    </dxg:GridColumn>
+
+                                    <dxg:GridControl.TotalSummary>
+                                        <dxg:GridSummaryItem SummaryType="Sum" Alignment="Right" />
+                                        <dxg:GridSummaryItem FieldName="SubtotalWithoutDiscount" SummaryType="Sum" DisplayFormat="{}{0:c2}" />
+                                        <dxg:GridSummaryItem FieldName="Subtotal" SummaryType="Sum" DisplayFormat="{}{0:c2}" />
+                                        <dxg:GridSummaryItem FieldName="DiscountAmount" SummaryType="Sum" DisplayFormat="{}{0:c2}" />
+                                        <dxg:GridSummaryItem FieldName="TaxAmount" SummaryType="Sum" DisplayFormat="{}{0:c2}" />
+                                        <dxg:GridSummaryItem FieldName="Total" SummaryType="Sum" DisplayFormat="{}{0:c2}" />
+                                    </dxg:GridControl.TotalSummary>
                                     <dxmvvm:Interaction.Behaviors>
-                                        <dxg:GridDragDropManager x:Name="AddToInvoiceDragDropManager" AllowDrag="True" AllowDrop="True"/>
+                                        <dxg:GridDragDropManager x:Name="AddToInvoiceDragDropManager" AllowDrag="True" AllowDrop="True" />
                                         <dxmvvm:EventToCommand SourceName="AddToInvoiceDragDropManager" EventName="Drop"
                                        Command="{Binding AddToInvoiceCommand}" PassEventArgsToCommand="True"
                                        EventArgsConverter="{UserControls:DragDropEventArgsConverter}" />

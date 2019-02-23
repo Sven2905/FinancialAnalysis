@@ -1,9 +1,12 @@
-﻿using DevExpress.Mvvm;
+﻿using FinancialAnalysis.Models.BaseClasses;
 using FinancialAnalysis.Models.ClientManagement;
 
 namespace FinancialAnalysis.Models.Accounting
 {
-    public class Creditor : BindableBase
+    /// <summary>
+    /// Kreditor
+    /// </summary>
+    public class Creditor : CreditorDebitorBase
     {
         public Creditor()
         {
@@ -11,10 +14,9 @@ namespace FinancialAnalysis.Models.Accounting
             CostAccount = new CostAccount();
         }
 
+        /// <summary>
+        /// Id
+        /// </summary>
         public int CreditorId { get; set; }
-        public int RefClientId { get; set; }
-        public Client Client { get; set; }
-        public int RefCostAccountId { get; set; }
-        public CostAccount CostAccount { get; set; }
     }
 }

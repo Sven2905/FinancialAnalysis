@@ -24,7 +24,7 @@
     <UserControl.Resources>
         <local:ColorToBrushConverter x:Key="ctbConverter" />
     </UserControl.Resources>
-    <Grid >
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
             <ColumnDefinition Width="*" />
@@ -175,25 +175,25 @@
                                             <DropShadowEffect BlurRadius="3" ShadowDepth="1" />
                                         </Border.Effect>
                                     </Border>
-                                    <Rectangle Grid.Row="1" Fill="White" Width="150" Height="100" >
+                                    <Rectangle Grid.Row="1" Fill="White" Width="150" Height="100">
                                     </Rectangle>-->
 
-                                    <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Text="Ausstehender Rechnungsbetrag "/>
+                                    <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Text="Ausstehender Rechnungsbetrag " />
                                     <dxe:TextEdit Grid.Column="1" Grid.Row="0" Mask="C2" MaskType="Numeric" VerticalAlignment="Center" HorizontalContentAlignment="Right"
                                                   Text="{Binding OutstandingInvoiceAmount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ShowBorder="False"
                                                   Foreground="{StaticResource RedBrush}" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" />
-                                    <dx:SimpleButton Grid.Column="3" Grid.Row="0" Content="Rechnung erstellen" Width="125" dxwuin:Navigation.NavigateTo="InvoiceControl"
+                                    <dx:SimpleButton Grid.Column="3" Grid.Row="0" Content="Rechnung erstellen" Width="125"
                                                      Command="{Binding OpenInvoiceWindowCommand}" />
 
-                                    <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Text="Anzahl der Mahnungen"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Text="Anzahl der Mahnungen" />
                                     <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="3,0" Text="{Binding SelectedSalesOrder.ReminderCounter}" />
                                     <dx:SimpleButton Grid.Column="3" Grid.Row="2" Content="Mahnung erstellen" Width="125" />
 
-                                    <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Text="Nicht versandte Produkte"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Text="Nicht versandte Produkte" />
                                     <TextBlock Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="3,0" Text="0" />
                                     <dx:SimpleButton Grid.Column="3" Grid.Row="4" Content="Lieferung erstellen" Width="125" />
 
-                                    <TextBlock Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" Text="Offene Lieferungen"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" Text="Offene Lieferungen" />
                                     <TextBlock Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="3,0" Text="0" />
                                     <dx:SimpleButton Grid.Column="3" Grid.Row="6" Content="Details" Width="125" />
 

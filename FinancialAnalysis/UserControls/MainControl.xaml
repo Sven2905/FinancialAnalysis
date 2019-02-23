@@ -123,16 +123,6 @@
                         <dx:SvgImageSource Uri="/Images/light/receipt.svg" Size="80,100" />
                     </dx:SimpleButton.Glyph>
                 </dx:SimpleButton>
-                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
-                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
-                                 Content="Rechnung" dxwuin:Navigation.NavigateTo="InvoiceControl"
-                                 FontFamily="Tahoma"
-                                 VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2">
-                    <!--Visibility="{Binding Path=ShowProducts, Converter={StaticResource BoolToVis}}">-->
-                    <dx:SimpleButton.Glyph>
-                        <dx:SvgImageSource Uri="/Images/light/Euro-Sign.svg" Size="70,100" />
-                    </dx:SimpleButton.Glyph>
-                </dx:SimpleButton>
             </StackPanel>
         </StackPanel>
     </Grid>

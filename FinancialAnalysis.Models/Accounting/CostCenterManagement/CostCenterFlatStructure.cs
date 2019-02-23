@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FinancialAnalysis.Models.Accounting.CostCenterManagement
+﻿namespace FinancialAnalysis.Models.Accounting.CostCenterManagement
 {
+    /// <summary>
+    /// Flache Sturktur der Kostenstellen für TreeLists
+    /// </summary>
     public class CostCenterFlatStructure
     {
         public int Key { get; set; }

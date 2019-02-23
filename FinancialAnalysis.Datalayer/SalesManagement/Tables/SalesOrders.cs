@@ -2,6 +2,7 @@
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.ClientManagement;
 using FinancialAnalysis.Models.ProductManagement;
+using FinancialAnalysis.Models.ProjectManagement;
 using FinancialAnalysis.Models.SalesManagement;
 using Serilog;
 using System;
@@ -47,6 +48,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                                  "OrderDate datetime, " +
                                  "RefSalesTypeId int, " +
                                  "RefShipmentTypeId int, " +
+                                 "RefEmployeeId int, " +
                                  "Remarks nvarchar(150), " +
                                  "IsClosed bit)";
 
@@ -72,48 +74,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
             var SalesOrderDictionary = new Dictionary<int, SalesOrder>();
             using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
             {
-                var query = con
-                    .Query<SalesOrder, SalesType, Invoice, Shipment, Debitor, SalesOrderPosition, Product, SalesOrder>
-                    ($"dbo.{TableName}_GetAll",
-                        (so, st, i, s, d, sop, p) =>
-                        {
-                            if (!SalesOrderDictionary.TryGetValue(so.SalesOrderId, out SalesOrder SalesOrderEntry))
-                            {
-                                SalesOrderEntry = so;
-                                SalesOrderEntry.SalesOrderPositions = new SvenTechCollection<SalesOrderPosition>();
-                                SalesOrderEntry.Invoices = new SvenTechCollection<Invoice>();
-                                SalesOrderEntry.Shipments = new SvenTechCollection<Shipment>();
-                                SalesOrderEntry.SalesType = st;
-                                SalesOrderEntry.Debitor = d;
-                                SalesOrderDictionary.Add(SalesOrderEntry.SalesOrderId, SalesOrderEntry);
-                            }
-
-                            SalesOrderEntry.Invoices.Add(i);
-                            SalesOrderEntry.Shipments.Add(s);
-                            p.TaxType = DataContext.Instance.TaxTypes.GetById(p.RefTaxTypeId);
-                            sop.Product = p;
-                            SalesOrderEntry.SalesOrderPositions.Add(sop);
-
-                            return so;
-                        },
-                        splitOn:
-                        "SalesOrderId, SalesTypeId, InvoiceId, ShipmentId, DebitorId, SalesOrderPositionId, ProductId")
-                    .AsQueryable();
-                return SalesOrderDictionary.Values.ToList();
-            }
-        }
-
-        /// <summary>
-        ///     Returns all SalesOrder records
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<SalesOrder> GetOpenedSalesOrders()
-        {
-            var SalesOrderDictionary = new Dictionary<int, SalesOrder>();
-            using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-            {
                 con.Query(
-                    $"dbo.{TableName}_GetOpenedSalesOrders",
+                    $"dbo.{TableName}_GetAll",
                     new[]
                     {
                         typeof(SalesOrder),
@@ -127,7 +89,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                         typeof(Invoice),
                         typeof(ShippedProduct),
                         typeof(Shipment),
-                        typeof(TaxType)
+                        typeof(TaxType),
+                        typeof(Employee)
                     },
                     objects =>
                     {
@@ -143,6 +106,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                         var ShippedProduct = objects[9] as ShippedProduct;
                         var Shipment = objects[10] as Shipment;
                         var TaxType = objects[11] as TaxType;
+                        var Employee = objects[12] as Employee;
 
                         SalesOrder SalesOrderEntry;
                         if (!SalesOrderDictionary.TryGetValue(SalesOrder.SalesOrderId, out SalesOrderEntry))
@@ -157,6 +121,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                         Client.Company = Company;
                         Debitor.Client = Client;
                         SalesOrderEntry.Debitor = Debitor;
+                        SalesOrderEntry.Employee = Employee;
 
                         if (SalesOrderEntry.SalesOrderPositions.SingleOrDefault(x => x.SalesOrderPositionId == SalesOrderPosition.SalesOrderPositionId) == null)
                         {
@@ -211,7 +176,124 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                         return SalesOrderEntry;
                     },
                     splitOn:
-                    "SalesOrderId, SalesTypeId, SalesOrderPositionId, DebitorId, ClientId, CompanyId, ProductId, InvoicePositionId, InvoiceId, ShippedProductId, ShipmentId, TaxTypeId");
+                    "SalesOrderId, SalesTypeId, SalesOrderPositionId, DebitorId, ClientId, CompanyId, ProductId, InvoicePositionId, InvoiceId, ShippedProductId, ShipmentId, TaxTypeId, EmployeeId");
+            }
+
+            return SalesOrderDictionary.Values;
+        }
+
+        /// <summary>
+        ///     Returns all SalesOrder records
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<SalesOrder> GetOpenedSalesOrders()
+        {
+            var SalesOrderDictionary = new Dictionary<int, SalesOrder>();
+            using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+            {
+                con.Query(
+                    $"dbo.{TableName}_GetOpenedSalesOrders",
+                    new[]
+                    {
+                        typeof(SalesOrder),
+                        typeof(SalesType),
+                        typeof(SalesOrderPosition),
+                        typeof(Debitor),
+                        typeof(Client),
+                        typeof(Company),
+                        typeof(Product),
+                        typeof(InvoicePosition),
+                        typeof(Invoice),
+                        typeof(ShippedProduct),
+                        typeof(Shipment),
+                        typeof(TaxType),
+                        typeof(Employee)
+                    },
+                    objects =>
+                    {
+                        var SalesOrder = objects[0] as SalesOrder;
+                        var SalesType = objects[1] as SalesType;
+                        var SalesOrderPosition = objects[2] as SalesOrderPosition;
+                        var Debitor = objects[3] as Debitor;
+                        var Client = objects[4] as Client;
+                        var Company = objects[5] as Company;
+                        var Product = objects[6] as Product;
+                        var InvoicePosition = objects[7] as InvoicePosition;
+                        var Invoice = objects[8] as Invoice;
+                        var ShippedProduct = objects[9] as ShippedProduct;
+                        var Shipment = objects[10] as Shipment;
+                        var TaxType = objects[11] as TaxType;
+                        var Employee = objects[12] as Employee;
+
+                        SalesOrder SalesOrderEntry;
+                        if (!SalesOrderDictionary.TryGetValue(SalesOrder.SalesOrderId, out SalesOrderEntry))
+                        {
+                            SalesOrderEntry = SalesOrder;
+                            SalesOrderDictionary.Add(SalesOrderEntry.SalesOrderId, SalesOrderEntry);
+                        }
+
+                        SalesOrderEntry.Invoices = new SvenTechCollection<Invoice>();
+                        SalesOrderEntry.Shipments = new SvenTechCollection<Shipment>();
+                        SalesOrderEntry.SalesType = SalesType;
+                        Client.Company = Company;
+                        Debitor.Client = Client;
+                        SalesOrderEntry.Debitor = Debitor;
+                        SalesOrderEntry.Employee = Employee;
+
+                        if (SalesOrderEntry.SalesOrderPositions.SingleOrDefault(x => x.SalesOrderPositionId == SalesOrderPosition.SalesOrderPositionId) == null)
+                        {
+                            if (Product != null)
+                            {
+                                Product.TaxType = TaxType;
+                            }
+                            SalesOrderPosition.Product = Product;
+                            SalesOrderEntry.SalesOrderPositions.Add(SalesOrderPosition);
+                        }
+
+                        if (Invoice != null)
+                        {
+                            var invoiceEntry =
+                                SalesOrderEntry.Invoices.SingleOrDefault(x => x.InvoiceId == Invoice.InvoiceId);
+                            if (invoiceEntry != null)
+                            {
+                                invoiceEntry.InvoicePositions.Add(InvoicePosition);
+                            }
+                            else
+                            {
+                                SalesOrderEntry.Invoices.Add(Invoice);
+                                if (InvoicePosition != null)
+                                {
+                                    invoiceEntry.InvoicePositions.Add(InvoicePosition);
+                                }
+
+                                SalesOrderEntry.Invoices.Add(Invoice);
+                            }
+                        }
+
+                        if (Shipment != null)
+                        {
+                            var shipmentEntry =
+                                SalesOrderEntry.Shipments.SingleOrDefault(x => x.ShipmentId == Shipment.ShipmentId);
+                            if (shipmentEntry != null)
+                            {
+                                shipmentEntry.ShippedProducts.Add(ShippedProduct);
+                            }
+                            else
+                            {
+                                SalesOrderEntry.Shipments.Add(Shipment);
+                                if (ShippedProduct != null)
+                                {
+                                    shipmentEntry.ShippedProducts.Add(ShippedProduct);
+                                }
+
+                                SalesOrderEntry.Shipments.Add(Shipment);
+                            }
+                        }
+
+                        return SalesOrderEntry;
+                    },
+                    splitOn:
+                    "SalesOrderId, SalesTypeId, SalesOrderPositionId, DebitorId, ClientId, CompanyId, ProductId, InvoicePositionId, InvoiceId, ShippedProductId, ShipmentId, TaxTypeId, EmployeeId");
             }
 
             return SalesOrderDictionary.Values;
@@ -231,7 +313,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     var result = con.Query<int>(
-                        $"dbo.{TableName}_Insert @RefDebitorId, @OrderDate, @RefSalesTypeId, @RefShipmentTypeId, @Remarks, @IsClosed ",
+                        $"dbo.{TableName}_Insert @RefDebitorId, @OrderDate, @RefSalesTypeId, @RefShipmentTypeId, @RefEmployeeId, @Remarks, @IsClosed ",
                         SalesOrder);
                     return result.Single();
                 }
@@ -355,7 +437,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     con.Execute(
-                        $"dbo.{TableName}_Update @SalesOrderId, @RefDebitorId, @OrderDate, @RefSalesTypeId, @RefShipmentTypeId, @Remarks, @IsClosed ",
+                        $"dbo.{TableName}_Update @SalesOrderId, @RefDebitorId, @OrderDate, @RefSalesTypeId, @RefShipmentTypeId, @RefEmployeeId, @Remarks, @IsClosed ",
                         SalesOrder);
                 }
             }
@@ -399,6 +481,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
             AddSalesTypesReference();
             AddDebitorsReference();
             AddShipmentTypesReference();
+            AddEmployeesReference();
         }
 
         private void AddSalesTypesReference()
@@ -458,6 +541,30 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
                     $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefShipmentTypeId) REFERENCES {refTable}(ShipmentTypeId) ON DELETE CASCADE";
+
+                using (var command = new SqlCommand(commandStr, con))
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while creating reference between '{TableName}' and {refTable}",
+                    e);
+            }
+        }
+
+        private void AddEmployeesReference()
+        {
+            var refTable = "Employees";
+
+            try
+            {
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefEmployeeId) REFERENCES {refTable}(EmployeeId) ON DELETE CASCADE";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {

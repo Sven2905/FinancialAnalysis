@@ -635,6 +635,13 @@ namespace FinancialAnalysis.Logic
             DataContext.Instance.HealthInsurances.Insert(healthInsurance);
         }
 
+        public void SeedPaymentCondition()
+        {
+            var paymentCondition = new PaymentCondition { Name = "Keine", Percentage = 0, TimeValue = 0, PayType = PayType.ThisMonth };
+
+            DataContext.Instance.PaymentConditions.Insert(paymentCondition);
+        }
+
         private int GetIdOfCostAccount(int AccountNumber)
         {
             return DataContext.Instance.CostAccounts.GetByAccountNumber(AccountNumber);

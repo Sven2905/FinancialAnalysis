@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Threading.Tasks;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 using DevExpress.XtraPrinting.Drawing;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
@@ -12,6 +8,10 @@ using FinancialAnalysis.Models.ProductManagement;
 using FinancialAnalysis.Models.ProjectManagement;
 using FinancialAnalysis.Models.Reports;
 using FinancialAnalysis.Models.SalesManagement;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Threading.Tasks;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -72,7 +72,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             set { _SelectedDebitor = value; SalesOrder.Debitor = _SelectedDebitor; SalesOrder.RefDebitorId = _SelectedDebitor.DebitorId; }
         }
 
-
         public Employee Employee { get; set; }
         public SalesOrderPosition SalesOrderPosition { get; set; } = new SalesOrderPosition();
         public SalesOrderPosition SelectedSalesOrderPosition { get; set; }
@@ -85,7 +84,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             new SvenTechCollection<SalesOrderPosition>();
 
         public DelegateCommand NewSalesOrderCommand { get; set; }
-        public DelegateCommand CreatePDFCommand { get; set; }
+        public DelegateCommand CreatePDFPreviewCommand { get; set; }
         public DelegateCommand SavePositionCommand { get; set; }
         public DelegateCommand DeletePositionCommand { get; set; }
         public DelegateCommand SaveSalesOrderCommand { get; set; }
@@ -97,19 +96,25 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SetCommands()
         {
-            CreatePDFCommand = new DelegateCommand(CreatePDFPreview, () => ValidatePDFCreation());
+            CreatePDFPreviewCommand = new DelegateCommand(() => CreatePDFFile(true), () => ValidatePDFCreation());
             SavePositionCommand = new DelegateCommand(SaveSalesOrderPosition, () => ValidateSalesOrderPosition());
             DeletePositionCommand =
                 new DelegateCommand(DeleteSalesOrderPosition, () => SelectedSalesOrderPosition != null);
-            SaveSalesOrderCommand = new DelegateCommand(SaveSalesOrder, () => ValidateSalesOrder());
+            SaveSalesOrderCommand = new DelegateCommand(() => { SaveSalesOrder(); CreatePDFFile(false); }, () => ValidateSalesOrder());
             OpenSalesTypesWindowCommand = new DelegateCommand(OpenSalesTypesWindow);
         }
 
         private bool ValidatePDFCreation()
         {
-            if (SalesOrder.SalesOrderPositions.Count < 1) return false;
+            if (SalesOrder.SalesOrderPositions.Count < 1)
+            {
+                return false;
+            }
 
-            if (!ValidateSalesOrder()) return false;
+            if (!ValidateSalesOrder())
+            {
+                return false;
+            }
 
             return true;
         }
@@ -121,11 +126,20 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private bool ValidateSalesOrder()
         {
-            if (SalesOrder == null) return false;
+            if (SalesOrder == null)
+            {
+                return false;
+            }
 
-            if (SalesOrder.SalesOrderPositions.Count < 1) return false;
+            if (SalesOrder.SalesOrderPositions.Count < 1)
+            {
+                return false;
+            }
 
-            if (SalesOrder.RefDebitorId == 0 || SalesOrder.RefSalesTypeId == 0) return false;
+            if (SalesOrder.RefDebitorId == 0 || SalesOrder.RefSalesTypeId == 0)
+            {
+                return false;
+            }
 
             return true;
         }
@@ -137,7 +151,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteSalesOrderPosition()
         {
-            if (SelectedSalesOrderPosition != null) SalesOrder.SalesOrderPositions.Remove(SelectedSalesOrderPosition);
+            if (SelectedSalesOrderPosition != null)
+            {
+                SalesOrder.SalesOrderPositions.Remove(SelectedSalesOrderPosition);
+            }
         }
 
         private void SaveSalesOrderPosition()
@@ -161,7 +178,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 Employee = Employee
             };
 
-            var listReportData = new List<SalesOrderReportData> {salesOrderReportData};
+            var listReportData = new List<SalesOrderReportData> { salesOrderReportData };
 
             var sor = new SalesOrderReport
             {
@@ -170,12 +187,12 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             if (IsPreview)
             {
-            sor.Watermark.Text = "KOSTENVORANSCHLAG";
-            sor.Watermark.TextDirection = DirectionMode.ForwardDiagonal;
-            sor.Watermark.Font = new Font(sor.Watermark.Font.FontFamily, 40);
-            sor.Watermark.ForeColor = Color.DodgerBlue;
-            sor.Watermark.TextTransparency = 150;
-            sor.Watermark.ShowBehind = false;
+                sor.Watermark.Text = "VORSCHAU";
+                sor.Watermark.TextDirection = DirectionMode.ForwardDiagonal;
+                sor.Watermark.Font = new Font(sor.Watermark.Font.FontFamily, 40);
+                sor.Watermark.ForeColor = Color.DodgerBlue;
+                sor.Watermark.TextTransparency = 150;
+                sor.Watermark.ShowBehind = false;
             }
 
             sor.CreateDocument();
@@ -188,6 +205,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveSalesOrder()
         {
             SalesOrder.RefShipmentTypeId = 1;
+            SalesOrder.RefEmployeeId = Employee.EmployeeId;
             SalesOrder.SalesOrderId = DataContext.Instance.SalesOrders.Insert(SalesOrder);
 
             foreach (var item in SalesOrder.SalesOrderPositions)

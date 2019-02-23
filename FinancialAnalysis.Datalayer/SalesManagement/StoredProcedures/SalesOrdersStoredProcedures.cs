@@ -34,7 +34,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT so.*, t.*, spos.*, d.*, cl.*, c.*, p.*, ipos.*, i.*, sp.*, s.* " +
+                    "SELECT so.*, t.*, spos.*, d.*, cl.*, c.*, p.*, ipos.*, i.*, sp.*, s.*, tax.*, e.* " +
                     $"FROM {TableName} so " +
                     "LEFT JOIN SalesTypes t ON so.RefSalesTypeId = t.SalesTypeId " +
                     "LEFT JOIN SalesOrderPositions spos ON so.SalesOrderId = spos.RefSalesOrderId " +
@@ -46,6 +46,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     "LEFT JOIN Invoices i ON ipos.RefInvoiceId = i.InvoiceId " +
                     "LEFT JOIN ShippedProducts sp ON spos.SalesOrderPositionId = sp.RefSalesOrderPositionId " +
                     "LEFT JOIN Shipments s ON sp.RefShipmentId = s.ShipmentId " +
+                    "LEFT JOIN TaxTypes tax ON p.RefTaxTypeId = tax.TaxTypeId " +
+                    "LEFT JOIN Employees e ON so.RefEmployeeId = e.EmployeeId " +
                     "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -137,7 +139,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @RefDebitorId int, @OrderDate datetime, @RefSalesTypeId int, @RefShipmentTypeId int, @Remarks nvarchar(150), @IsClosed bit AS BEGIN SET NOCOUNT ON; " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @RefDebitorId int, @OrderDate datetime, @RefSalesTypeId int, @RefShipmentTypeId int, @RefEmployeeId int, @Remarks nvarchar(150), @IsClosed bit AS BEGIN SET NOCOUNT ON; " +
                     $"INSERT into {TableName} (RefDebitorId, OrderDate, RefSalesTypeId, RefShipmentTypeId, Remarks, IsClosed ) " +
                     "VALUES (@RefDebitorId, @OrderDate, @RefSalesTypeId, @RefShipmentTypeId, @Remarks, @IsClosed ); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
@@ -164,7 +166,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetOpenedSalesOrders] AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT so.*, t.*, spos.*, d.*, cl.*, c.*, p.*, ipos.*, i.*, sp.*, s.*, tax.* " +
+                    "SELECT so.*, t.*, spos.*, d.*, cl.*, c.*, p.*, ipos.*, i.*, sp.*, s.*, tax.*, e.* " +
                     $"FROM {TableName} so " +
                     "LEFT JOIN SalesTypes t ON so.RefSalesTypeId = t.SalesTypeId " +
                     "LEFT JOIN SalesOrderPositions spos ON so.SalesOrderId = spos.RefSalesOrderId " +
@@ -177,6 +179,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     "LEFT JOIN ShippedProducts sp ON spos.SalesOrderPositionId = sp.RefSalesOrderPositionId " +
                     "LEFT JOIN Shipments s ON sp.RefShipmentId = s.ShipmentId " +
                     "LEFT JOIN TaxTypes tax ON p.RefTaxTypeId = tax.TaxTypeId " +
+                    "LEFT JOIN Employees e ON so.RefEmployeeId = e.EmployeeId " +
                     "WHERE so.IsClosed = 0 " +
                     "END");
                 using (var connection =
@@ -200,13 +203,14 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @SalesOrderId int, @RefDebitorId int, @OrderDate datetime, @RefSalesTypeId int, @RefShipmentTypeId int, @Remarks nvarchar(150), @IsClosed bit " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @SalesOrderId int, @RefDebitorId int, @OrderDate datetime, @RefSalesTypeId int, @RefShipmentTypeId int, @RefEmployeeId int, @Remarks nvarchar(150), @IsClosed bit " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "SET RefDebitorId = @RefDebitorId, " +
                     "OrderDate = @OrderDate, " +
                     "RefSalesTypeId = @RefSalesTypeId, " +
                     "RefShipmentTypeId = @RefShipmentTypeId, " +
+                    "RefEmployeeId = @RefEmployeeId, " +
                     "Remarks = @Remarks, " +
                     "IsClosed = @IsClosed " +
                     "WHERE SalesOrderId = @SalesOrderId END");

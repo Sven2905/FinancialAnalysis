@@ -1,5 +1,5 @@
 ﻿<dx:DXWindow
-        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         x:Class="FinancialAnalysis.Windows.QuantityWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,6 +10,8 @@
         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
         dx:ThemeManager.ThemeName="Office2016WhiteSE"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
         Title="Menge" Height="175" Width="300">
     <dx:DXWindow.DataContext>
         <ViewModels:QuantityViewModel />
@@ -27,10 +29,9 @@
             <TextBlock Text="Menge: " Foreground="#3F729B" VerticalAlignment="Center" />
             <dxe:SpinEdit VerticalAlignment="Top" HorizontalContentAlignment="Right" Width="100" Margin="10,0"
                           Text="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          Foreground="#3F729B" MaxValue="{Binding MaxQuantity}" MinValue="0"/>
+                          Foreground="#3F729B" MaxValue="{Binding MaxQuantity}" MinValue="0" />
         </StackPanel>
 
         <dx:SimpleButton Grid.Row="2" Command="{Binding CloseCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Content="OK" Width="100" Foreground="#3F729B" />
-
     </Grid>
 </dx:DXWindow>

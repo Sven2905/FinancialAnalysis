@@ -2,23 +2,49 @@
 
 namespace FinancialAnalysis.Models.Accounting
 {
+    /// <summary>
+    /// Steuertyp
+    /// </summary>
     public class TaxType : BindableBase
     {
+        /// <summary>
+        /// Id
+        /// </summary>
         public int TaxTypeId { get; set; }
+
+        /// <summary>
+        /// Beschreibung
+        /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Kurzbeschreibung
+        /// </summary>
         public string DescriptionShort { get; set; }
+
+        /// <summary>
+        /// Höhe der Steuer
+        /// </summary>
         public decimal AmountOfTax { get; set; }
+
+        /// <summary>
+        /// Höhe der Steuer / 100
+        /// </summary>
         public decimal AmountOfTaxDecimal => AmountOfTax / 100;
+
+        /// <summary>
+        /// Steuerart
+        /// </summary>
         public TaxCategory TaxCategory { get; set; } // Steuerart
 
-        public int
-            RefAccountNotPayable
-        {
-            get;
-            set;
-        } // Haben Sie die Art ‚i.g.E‘ oder ’13b‘ gewählt, ist ein Vorsteuerkontos in der Spalte USt-Konto EU Bau einzutragen
-
+        /// <summary>
+        /// Referenz-Id des zugehörigen Kontenrahmens
+        /// </summary>
         public int RefCostAccount { get; set; }
+
+        /// <summary>
+        /// Zugehöriger Kontenrahmen
+        /// </summary>
         public CostAccount CostAccount { get; set; }
     }
 }

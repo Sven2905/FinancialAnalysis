@@ -1,16 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FinancialAnalysis.Models.Accounting
+﻿namespace FinancialAnalysis.Models.Accounting
 {
+    /// <summary>
+    /// Aufteilungsanteile auf Kostenstelle
+    /// </summary>
     public class FixedCostAllocation
     {
+        /// <summary>
+        /// Id
+        /// </summary>
         public int FixedCostAllocationId { get; set; }
+
+        /// <summary>
+        /// Referenz-Id Kostenstelle
+        /// </summary>
         public int RefCostCenterId { get; set; }
+
+        /// <summary>
+        /// Kostenstelle
+        /// </summary>
         public CostCenter CostCenter { get; set; } = new CostCenter();
+
+        /// <summary>
+        /// Anteile
+        /// </summary>
         public double Shares { get; set; } = 0;
     }
 }

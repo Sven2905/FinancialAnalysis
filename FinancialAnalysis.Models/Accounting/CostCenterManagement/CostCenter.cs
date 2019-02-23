@@ -1,27 +1,62 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.ProjectManagement;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using Utilities;
 
 namespace FinancialAnalysis.Models.Accounting
 {
     /// <summary>
-    ///     Class that represents a cost center for matching costs and bills
+    ///     Kostenstelle
     /// </summary>
     public class CostCenter : BindableBase
     {
-        public string Name { get; set; }
+        /// <summary>
+        /// Id
+        /// </summary>
         public int CostCenterId { get; set; }
+
+        /// <summary>
+        /// Name der Kostenstelle
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Beschreibung
+        /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Eindeutiger Schlüssel, vom User frei wählbar
+        /// </summary>
         public string Identifier { get; set; }
+
+        /// <summary>
+        /// Referenz-Id Kostenstellenkategorie
+        /// </summary>
         public int RefCostCenterCategoryId { get; set; }
+
+        /// <summary>
+        /// Kostenstellentyp
+        /// </summary>
         public CostCenterType CostCenterType { get; set; } = CostCenterType.Main;
+
+        /// <summary>
+        /// Kostenstellenkategorie
+        /// </summary>
         public CostCenterCategory CostCenterCategory { get; set; }
-        public int CostCenterBudgetId { get; set; }
+
+        /// <summary>
+        /// Referenz-Id Kostenstellenbudget
+        /// </summary>
+        public int RefCostCenterBudgetId { get; set; }
+
+        /// <summary>
+        /// Geplantes Kostenstellenbudget
+        /// </summary>
         public CostCenterBudget ScheduledBudget { get; set; } = new CostCenterBudget();
 
+        /// <summary>
+        /// Liste aller Projekte denen die Kostenstelle zugeordnet ist
+        /// </summary>
         public List<Project> Projects { get; set; }
     }
 }

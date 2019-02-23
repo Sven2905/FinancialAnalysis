@@ -43,7 +43,6 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                                  "InvoiceDueDate datetime, " +
                                  "RefInvoiceTypeId int, " +
                                  "RefPaymentConditionId int, " +
-                                 "RefInvoicePositionId int, " +
                                  "PaidAmount money, " +
                                  "IsPaid bit)";
 
@@ -104,7 +103,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @InvoiceDate, @InvoiceDueDate, @RefInvoiceTypeId, @RefPaymentConditionId, @RefInvoicePositionId, @PaidAmount, @IsPaid ",
+                            $"dbo.{TableName}_Insert @InvoiceDate, @InvoiceDueDate, @RefInvoiceTypeId, @RefPaymentConditionId, @PaidAmount, @IsPaid ",
                             Invoice);
                     return result.Single();
                 }
@@ -209,7 +208,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     con.Execute(
-                        $"dbo.{TableName}_Update @InvoiceId, @InvoiceDate, @InvoiceDueDate, @RefInvoiceTypeId, @RefPaymentConditionId, @RefInvoicePositionId, @PaidAmount, @IsPaid",
+                        $"dbo.{TableName}_Update @InvoiceId, @InvoiceDate, @InvoiceDueDate, @RefInvoiceTypeId, @RefPaymentConditionId, @PaidAmount, @IsPaid",
                         Invoice);
                 }
             }

@@ -1,16 +1,25 @@
 ﻿using FinancialAnalysis.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Models.Accounting.CostCenterManagement
 {
+    /// <summary>
+    /// Aktuelle Kosten für Kostenstelle
+    /// </summary>
     public class CostCenterCurrentCosts
     {
+        /// <summary>
+        /// Index des Monats
+        /// </summary>
         public Months MonthIndex { get; set; }
+
+        /// <summary>
+        /// Höhe der Kosten
+        /// </summary>
         public decimal Amount { get; set; }
+
+        /// <summary>
+        /// Referenz-Id der Kostenstelle
+        /// </summary>
         public int RefCostCenterId { get; set; }
     }
 }

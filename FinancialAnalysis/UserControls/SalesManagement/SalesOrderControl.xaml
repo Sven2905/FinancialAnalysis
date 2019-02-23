@@ -30,7 +30,7 @@
         </Style>
         <local:NullToIsEnabledConverter x:Key="NullConverter" />
     </UserControl.Resources>
-    <Grid >
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
             <ColumnDefinition Width="*" />
@@ -318,8 +318,8 @@
                                  Command="{Binding SavePositionCommand}" />
                         <dx:SimpleButton Content="Position Löschen" HorizontalAlignment="Left" Margin="3,0"
                                  Command="{Binding DeletePositionCommand}" />
-                        <dx:SimpleButton Content="PDF generieren" HorizontalAlignment="Left" Margin="3,0"
-                                 Command="{Binding CreatePDFCommand}" />
+                        <dx:SimpleButton Content="Vorschau" HorizontalAlignment="Left" Margin="3,0"
+                                 Command="{Binding CreatePDFPreviewCommand}" />
                         <dx:SimpleButton Content="Auftrag speichern" HorizontalAlignment="Left" Margin="3,0"
                                  Command="{Binding SaveSalesOrderCommand}" />
                     </VirtualizingStackPanel>

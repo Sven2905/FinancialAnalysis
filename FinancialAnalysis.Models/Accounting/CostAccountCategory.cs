@@ -1,17 +1,31 @@
-﻿using System.Collections.Generic;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
+using System.Collections.Generic;
 
 namespace FinancialAnalysis.Models.Accounting
 {
     /// <summary>
-    ///     Class that categorize account centers to find, filter and order them
+    /// Kontenrahmenkategorie
     /// </summary>
     public class CostAccountCategory : BindableBase
     {
+        /// <summary>
+        /// Id
+        /// </summary>
         public int CostAccountCategoryId { get; set; }
+
+        /// <summary>
+        /// Beschreibung
+        /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Referenz-Id der übergeordneten Kategorie
+        /// </summary>
         public int ParentCategoryId { get; set; }
 
+        /// <summary>
+        /// Liste aller untergeordneten Kategorien
+        /// </summary>
         public IEnumerable<CostAccountCategory> SubCategories { get; set; }
     }
 }

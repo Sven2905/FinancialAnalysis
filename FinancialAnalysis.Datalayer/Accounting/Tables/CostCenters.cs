@@ -78,7 +78,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     output = con.Query<CostCenter, CostCenterCategory, CostCenterBudget, CostCenter>($"dbo.{TableName}_GetAll",
                         (objCostCenter, objCostCenterCategory, objCostCenterBudget) =>
                         {
-                            if (!CostCenterDictionary.TryGetValue(objCostCenter.CostCenterBudgetId, out CostCenter CostCenterEntry))
+                            if (!CostCenterDictionary.TryGetValue(objCostCenter.RefCostCenterBudgetId, out CostCenter CostCenterEntry))
                             {
                                 CostCenterEntry = objCostCenter;
                                 CostCenterEntry.CostCenterCategory = objCostCenterCategory;
@@ -105,7 +105,6 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// <returns></returns>
         public CostCenter GetById(int id)
         {
-
             var CostCenterDictionary = new Dictionary<int, CostCenter>();
             IEnumerable<CostCenter> output = new List<CostCenter>();
             try
@@ -117,7 +116,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                         $"dbo.{TableName}_GetById @CostCenterId",
                         (objCostCenter, objCostCenterCategory, objCostCenterBudget) =>
                         {
-                            if (!CostCenterDictionary.TryGetValue(objCostCenter.CostCenterBudgetId, out CostCenter CostCenterEntry))
+                            if (!CostCenterDictionary.TryGetValue(objCostCenter.RefCostCenterBudgetId, out CostCenter CostCenterEntry))
                             {
                                 CostCenterEntry = objCostCenter;
                                 CostCenterEntry.CostCenterCategory = objCostCenterCategory;

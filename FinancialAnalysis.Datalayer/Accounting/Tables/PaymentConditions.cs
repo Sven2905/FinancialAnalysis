@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Dapper;
+using FinancialAnalysis.Models.Accounting;
+using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using Dapper;
-using FinancialAnalysis.Models.Accounting;
-using Serilog;
 
 namespace FinancialAnalysis.Datalayer.Accounting
 {
@@ -35,8 +35,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}(" +
                     "PaymentConditionId int IDENTITY(1,1) PRIMARY KEY," +
                     "Name nvarchar(150) NOT NULL," +
-                    "DiscountPercent money NOT NULL," +
-                    "RefCashbackId int NOT NULL)";
+                    "Percentage money NOT NULL," +
+                    "TimeValue int NOT NULL," +
+                    "PayType int NOT NULL)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -92,7 +93,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @DiscountPercent, @RefCashbackId",
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @Percentage, @TimeValue, @PayType",
                         PaymentCondition);
                     id = result.Single();
                 }
@@ -108,7 +109,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// <summary>
         ///     Inserts the list of PaymentCondition items
         /// </summary>
-        /// <param name="PaymentCondition"></param>
+        /// <param name="creditor"></param>
         public void Insert(IEnumerable<PaymentCondition> PaymentConditions)
         {
             try
@@ -116,7 +117,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var PaymentCondition in PaymentConditions) Insert(PaymentCondition);
+                    foreach (var PaymentCondition in PaymentConditions)
+                    {
+                        Insert(PaymentCondition);
+                    }
                 }
             }
             catch (Exception e)
@@ -139,7 +143,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.QuerySingleOrDefault<PaymentCondition>($"dbo.{TableName}_GetById @PaymentConditionId",
-                        new {PaymentConditionId = id});
+                        new { PaymentConditionId = id });
                 }
             }
             catch (Exception e)
@@ -148,32 +152,6 @@ namespace FinancialAnalysis.Datalayer.Accounting
             }
 
             return output;
-        }
-
-        public void AddReferences()
-        {
-            AddCashbacksReference();
-        }
-
-        private void AddCashbacksReference()
-        {
-            try
-            {
-                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
-                var commandStr =
-                    $"IF(OBJECT_ID('FK_{TableName}_Cashbacks', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_Cashbacks FOREIGN KEY(RefCashbackId) REFERENCES Cashbacks(CashbackId)";
-
-                using (var command = new SqlCommand(commandStr, con))
-                {
-                    con.Open();
-                    command.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while creating reference between '{TableName}' and CostAccounts", e);
-            }
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Dapper;
+using FinancialAnalysis.Models.Accounting;
+using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using Dapper;
-using FinancialAnalysis.Models.Accounting;
-using Serilog;
 
 namespace FinancialAnalysis.Datalayer.Accounting
 {
@@ -44,8 +44,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                                  "DescriptionShort nvarchar(50) NOT NULL, " +
                                  "AmountOfTax decimal NOT NULL, " +
                                  "TaxCategory int NOT NULL, " +
-                                 "RefCostAccount int, " +
-                                 "RefAccountNotPayable int )";
+                                 "RefCostAccount int)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -100,7 +99,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefCostAccount, @RefAccountNotPayable",
+                            $"dbo.{TableName}_Insert @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefCostAccount",
                             taxType);
                     return result.Single();
                 }
@@ -124,7 +123,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var taxType in taxTypes) Insert(taxType);
+                    foreach (var taxType in taxTypes)
+                    {
+                        Insert(taxType);
+                    }
                 }
             }
             catch (Exception e)
@@ -147,7 +149,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.QuerySingleOrDefault<TaxType>($"dbo.{TableName}_GetById @TaxTypeId",
-                        new {TaxTypeId = id});
+                        new { TaxTypeId = id });
                 }
             }
             catch (Exception e)
@@ -179,7 +181,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// <param name="taxTypes"></param>
         public void UpdateOrInsert(IEnumerable<TaxType> taxTypes)
         {
-            foreach (var taxType in taxTypes) UpdateOrInsert(taxType);
+            foreach (var taxType in taxTypes)
+            {
+                UpdateOrInsert(taxType);
+            }
         }
 
         /// <summary>
@@ -188,7 +193,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// <param name="taxType"></param>
         public void Update(TaxType taxType)
         {
-            if (taxType.TaxTypeId == 0 || GetById(taxType.TaxTypeId) is null) return;
+            if (taxType.TaxTypeId == 0 || GetById(taxType.TaxTypeId) is null)
+            {
+                return;
+            }
 
             try
             {
@@ -196,7 +204,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     con.Execute(
-                        $"dbo.{TableName}_Update @TaxTypeId, @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefCostAccount, @RefAccountNotPayable",
+                        $"dbo.{TableName}_Update @TaxTypeId, @Description, @DescriptionShort, @AmountOfTax, @TaxCategory, @RefCostAccount",
                         taxType);
                 }
             }
@@ -217,7 +225,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @TaxTypeId", new {TaxTypeId = id});
+                    con.Execute($"dbo.{TableName}_Delete @TaxTypeId", new { TaxTypeId = id });
                 }
             }
             catch (Exception e)

@@ -2,6 +2,9 @@
 
 namespace FinancialAnalysis.Models.Administration
 {
+    /// <summary>
+    /// Benutzerrechtzuordnung flache Struktur für TreeList
+    /// </summary>
     public class UserRightUserMappingFlatStructure : ViewModelBase
     {
         public UserRightUserMappingFlatStructure(UserRightUserMapping userRightUserMapping)
@@ -13,7 +16,7 @@ namespace FinancialAnalysis.Models.Administration
             ParentCategory = userRightUserMapping.UserRight.ParentCategory;
             Name = userRightUserMapping.UserRight.Name;
             Description = userRightUserMapping.UserRight.Description;
-            HierachicalId = (int) userRightUserMapping.UserRight.Permission;
+            HierachicalId = (int)userRightUserMapping.UserRight.Permission;
         }
 
         public int UserRightUserMappingId { get; set; }

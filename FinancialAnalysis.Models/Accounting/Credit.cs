@@ -1,8 +1,11 @@
-﻿using DevExpress.Mvvm;
+﻿using FinancialAnalysis.Models.BaseClasses;
 
 namespace FinancialAnalysis.Models.Accounting
 {
-    public class Credit : BindableBase
+    /// <summary>
+    /// Haben
+    /// </summary>
+    public class Credit : CreditDebitBase
     {
         public Credit()
         {
@@ -15,10 +18,9 @@ namespace FinancialAnalysis.Models.Accounting
             this.RefBookingId = RefBookingId;
         }
 
+        /// <summary>
+        /// Id
+        /// </summary>
         public int CreditId { get; set; }
-        public decimal Amount { get; set; }
-        public int RefCostAccountId { get; set; }
-        public CostAccount CostAccount { get; set; }
-        public int RefBookingId { get; set; }
     }
 }

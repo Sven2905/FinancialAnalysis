@@ -179,9 +179,6 @@
     <Compile Include="UserControls\ProductManagement\ProductManagementControl.xaml.cs">
       <DependentUpon>ProductManagementControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SalesManagement\InvoiceControl.xaml.cs">
-      <DependentUpon>InvoiceControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\SalesManagement\PendingSalesOrderControl.xaml.cs">
       <DependentUpon>PendingSalesOrderControl.xaml</DependentUpon>
     </Compile>
@@ -329,10 +326,6 @@
     <Page Include="UserControls\ProductManagement\ProductManagementControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\SalesManagement\InvoiceControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\SalesManagement\PendingSalesOrderControl.xaml">
       <Generator>MSBuild:Compile</Generator>

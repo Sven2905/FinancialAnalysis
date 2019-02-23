@@ -40,7 +40,6 @@ namespace FinancialAnalysis.Datalayer
         public Employees Employees { get; set; } = new Employees();
         public ProjectEmployeeMappings ProjectEmployeeMappings { get; set; } = new ProjectEmployeeMappings();
         public ProjectWorkingTimes ProjectWorkingTimes { get; set; } = new ProjectWorkingTimes();
-        public Cashbacks Cashbacks { get; set; } = new Cashbacks();
         public PaymentConditions PaymentConditions { get; set; } = new PaymentConditions();
         public MailConfigurations MailConfigurations { get; set; } = new MailConfigurations();
         public Users Users { get; set; } = new Users();
@@ -103,7 +102,6 @@ namespace FinancialAnalysis.Datalayer
             Employees.CheckAndCreateStoredProcedures();
             ProjectRoles.CheckAndCreateStoredProcedures();
             ProjectEmployeeMappings.CheckAndCreateStoredProcedures();
-            Cashbacks.CheckAndCreateStoredProcedures();
             PaymentConditions.CheckAndCreateStoredProcedures();
             MailConfigurations.CheckAndCreateStoredProcedures();
             ProjectWorkingTimes.CheckAndCreateStoredProcedures();
@@ -143,7 +141,7 @@ namespace FinancialAnalysis.Datalayer
             Projects.AddReferences();
             Employees.AddReferences();
             ProjectEmployeeMappings.AddReferences();
-            PaymentConditions.AddReferences();
+            //PaymentConditions.AddReferences();
             ProjectWorkingTimes.AddReferences();
             UserRightUserMappings.AddReferences();
             Stockyards.AddReferences();
@@ -191,6 +189,10 @@ namespace FinancialAnalysis.Datalayer
             if (!Instance.HealthInsurances.GetAll().Any())
             {
                 _Import.SeedHealthInsurance();
+            }
+            if (!Instance.PaymentConditions.GetAll().Any())
+            {
+                _Import.SeedPaymentCondition();
             }
         }
     }

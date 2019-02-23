@@ -3,25 +3,89 @@ using System;
 
 namespace FinancialAnalysis.Models.Accounting
 {
+    /// <summary>
+    /// Kostenstellen Budget
+    /// </summary>
     public class CostCenterBudget : ViewModelBase
     {
+        /// <summary>
+        /// Id
+        /// </summary>
         public int CostCenterBudgetId { get; set; }
+
+        /// <summary>
+        /// Jahr
+        /// </summary>
         public int Year { get; set; } = DateTime.Now.Year;
+
+        /// <summary>
+        /// Referenz-Id Kostenstelle
+        /// </summary>
         public int RefCostCenterId { get; set; }
 
+        /// <summary>
+        /// Geplante Kosten für Januar
+        /// </summary>
         public decimal January { get; set; } = 0;
+
+        /// <summary>
+        /// Geplante Kosten für Februar
+        /// </summary>
         public decimal February { get; set; } = 0;
+
+        /// <summary>
+        /// Geplante Kosten für März
+        /// </summary>
         public decimal March { get; set; } = 0;
+
+        /// <summary>
+        /// Geplante Kosten für April
+        /// </summary>
         public decimal April { get; set; } = 0;
+
+        /// <summary>
+        /// Geplante Kosten für Mai
+        /// </summary>
         public decimal May { get; set; } = 0;
+
+        /// <summary>
+        /// Geplante Kosten für Juni
+        /// </summary>
         public decimal June { get; set; } = 0;
+
+        /// <summary>
+        /// Geplante Kosten für Juli
+        /// </summary>
         public decimal July { get; set; } = 0;
+
+        /// <summary>
+        /// Geplante Kosten für August
+        /// </summary>
         public decimal August { get; set; } = 0;
+
+        /// <summary>
+        /// Geplante Kosten für September
+        /// </summary>
         public decimal September { get; set; } = 0;
+
+        /// <summary>
+        /// Geplante Kosten für Oktober
+        /// </summary>
         public decimal October { get; set; } = 0;
+
+        /// <summary>
+        /// Geplante Kosten für November
+        /// </summary>
         public decimal November { get; set; } = 0;
+
+        /// <summary>
+        /// Geplante Kosten für Dezember
+        /// </summary>
         public decimal December { get; set; } = 0;
 
+        /// <summary>
+        /// Aufsummierte Kosten des 1. Quartals
+        /// </summary>
         public decimal Quarter1
         {
             get
@@ -36,6 +100,9 @@ namespace FinancialAnalysis.Models.Accounting
             }
         }
 
+        /// <summary>
+        /// Aufsummierte Kosten des 2. Quartals
+        /// </summary>
         public decimal Quarter2
         {
             get
@@ -50,6 +117,9 @@ namespace FinancialAnalysis.Models.Accounting
             }
         }
 
+        /// <summary>
+        /// Aufsummierte Kosten des 3. Quartals
+        /// </summary>
         public decimal Quarter3
         {
             get
@@ -64,6 +134,9 @@ namespace FinancialAnalysis.Models.Accounting
             }
         }
 
+        /// <summary>
+        /// Aufsummierte Kosten des 4. Quartals
+        /// </summary>
         public decimal Quarter4
         {
             get
@@ -78,6 +151,9 @@ namespace FinancialAnalysis.Models.Accounting
             }
         }
 
+        /// <summary>
+        /// Aufsummierte Kosten des Jahres
+        /// </summary>
         public decimal Annually
         {
             get
