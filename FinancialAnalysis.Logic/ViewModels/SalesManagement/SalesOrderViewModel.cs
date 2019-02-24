@@ -1,16 +1,12 @@
 ﻿using DevExpress.Mvvm;
-using DevExpress.XtraPrinting.Drawing;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
+using FinancialAnalysis.Logic.SalesManagement;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.ProductManagement;
 using FinancialAnalysis.Models.ProjectManagement;
-using FinancialAnalysis.Models.Reports;
 using FinancialAnalysis.Models.SalesManagement;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using System.Threading.Tasks;
 using Utilities;
 
@@ -100,7 +96,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SavePositionCommand = new DelegateCommand(SaveSalesOrderPosition, () => ValidateSalesOrderPosition());
             DeletePositionCommand =
                 new DelegateCommand(DeleteSalesOrderPosition, () => SelectedSalesOrderPosition != null);
-            SaveSalesOrderCommand = new DelegateCommand(() => { SaveSalesOrder(); CreatePDFFile(false); }, () => ValidateSalesOrder());
+            SaveSalesOrderCommand = new DelegateCommand(() => { SaveSalesOrder(); CreatePDFFile(false); Clear(); }, () => ValidateSalesOrder());
             OpenSalesTypesWindowCommand = new DelegateCommand(OpenSalesTypesWindow);
         }
 
@@ -178,28 +174,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 Employee = Employee
             };
 
-            var listReportData = new List<SalesOrderReportData> { salesOrderReportData };
-
-            var sor = new SalesOrderReport
-            {
-                DataSource = listReportData
-            };
-
-            if (IsPreview)
-            {
-                sor.Watermark.Text = "VORSCHAU";
-                sor.Watermark.TextDirection = DirectionMode.ForwardDiagonal;
-                sor.Watermark.Font = new Font(sor.Watermark.Font.FontFamily, 40);
-                sor.Watermark.ForeColor = Color.DodgerBlue;
-                sor.Watermark.TextTransparency = 150;
-                sor.Watermark.ShowBehind = false;
-            }
-
-            sor.CreateDocument();
-            MemoryStream ms = new MemoryStream();
-            sor.PrintingSystem.ExportToPdf(ms);
-
-            Messenger.Default.Send(new OpenPDFViewerWindowMessage(ms));
+            SalesReportPDFCreator.CreateAndShowOrderReport(salesOrderReportData, IsPreview);
         }
 
         private void SaveSalesOrder()
@@ -213,8 +188,6 @@ namespace FinancialAnalysis.Logic.ViewModels
                 item.RefSalesOrderId = SalesOrder.SalesOrderId;
                 DataContext.Instance.SalesOrderPositions.Insert(item);
             }
-
-            Clear();
         }
 
         private void Clear()

@@ -33,9 +33,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT ProductId, p.Name, p.Description, p.Barcode, p.RefTaxTypeId, p.DimensionX, p.DimensionY, p.DimensionZ, p.Weight, p.ItemNumber, p.Picture, p.PackageUnit, p.DefaultBuyingPrice, p.DefaultSellingPrice, p.RefProductCategoryId, " +
-                    "pc.ProductCategoryId, pc.Name, pc.Description, " +
-                    "t.TaxTypeId, t.Description, t.DescriptionShort, t.AmountOfTax, t.TaxCategory, t.RefCostAccount, t.RefAccountNotPayable " +
+                    "SELECT p.*, pc.*, t.* " +
                     $"FROM {TableName} p " +
                     "LEFT JOIN ProductCategories pc ON p.RefProductCategoryId = pc.ProductCategoryId " +
                     "LEFT JOIN TaxTypes t ON p.RefTaxTypeID = t.TaxTypeId " +
@@ -87,9 +85,7 @@ namespace FinancialAnalysis.Datalayer.ProductManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetById] @ProductId int AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT ProductId, p.Name, p.Description, p.Barcode, p.RefTaxTypeId, p.DimensionX, p.DimensionY, p.DimensionZ, p.Weight, p.ItemNumber, p.Picture, p.PackageUnit, p.DefaultBuyingPrice, p.DefaultSellingPrice, p.RefProductCategoryId, " +
-                    "pc.ProductCategoryId, pc.Name, pc.Description, " +
-                    "t.TaxTypeId, t.Description, t.DescriptionShort, t.AmountOfTax, t.TaxCategory, t.RefCostAccount, t.RefAccountNotPayable " +
+                    "SELECT p.*, pc.*, t.* " +
                     $"FROM {TableName} p " +
                     "LEFT JOIN ProductCategories pc ON p.RefProductCategoryId = pc.ProductCategoryId " +
                     "LEFT JOIN TaxTypes t ON p.RefTaxTypeID = t.TaxTypeId " +

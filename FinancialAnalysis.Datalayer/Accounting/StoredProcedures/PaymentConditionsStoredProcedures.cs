@@ -55,8 +55,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @Percentage money, @TimeValue int, @PayType int AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Percentage, TimeValue, PayType) " +
-                    "VALUES (@Percentage, @TimeValue, @PayType); " +
+                    $"INSERT into {TableName} (Name, Percentage, TimeValue, PayType) " +
+                    "VALUES (@Name, @Percentage, @TimeValue, @PayType); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

@@ -1,9 +1,10 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
+using FinancialAnalysis.Logic.SalesManagement;
 using FinancialAnalysis.Models.SalesManagement;
-using System;
 using System.Linq;
+using System.Windows.Input;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -14,32 +15,18 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public PendingSaleOrdersViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             CloseOrderCommand = new DelegateCommand(CloseOrder, () => SelectedSalesOrder != null);
             OpenInvoiceWindowCommand = new DelegateCommand(CreateInvoice, () => SelectedSalesOrder != null);
+            ShowPDFOrderReportCommand = new DelegateCommand(ShowPDFOrderReport, () => SelectedSalesOrder != null);
             RefreshData();
-
         }
 
         #endregion Contructor
-
-        #region Fields
-
-        #endregion Fields
-
-        #region Properties
-
-        public SvenTechCollection<SalesOrder> SalesOrders { get; set; }
-        public DelegateCommand CloseOrderCommand { get; set; }
-        public DelegateCommand OpenInvoiceWindowCommand { get; set; }
-        public decimal OutstandingInvoiceAmount => CalculateOutstandingInvoiceAmount();
-
-        public SvenTechCollection<Invoice> OpenInvoices => SelectedSalesOrder.Invoices.Where(x => x.IsPaid).ToSvenTechCollection();
-
-        public SalesOrder SelectedSalesOrder { get; set; }
-
-        #endregion Properties
 
         #region Methods
 
@@ -49,6 +36,18 @@ namespace FinancialAnalysis.Logic.ViewModels
             DataContext.Instance.SalesOrders.Update(SelectedSalesOrder);
             RefreshData();
             SelectedSalesOrder = null;
+        }
+
+        private void ShowPDFOrderReport()
+        {
+            var salesOrderReportData = new SalesOrderReportData
+            {
+                MyCompany = Globals.CoreData.MyCompany,
+                SalesOrder = SelectedSalesOrder,
+                Employee = SelectedSalesOrder.Employee
+            };
+
+            SalesReportPDFCreator.CreateAndShowOrderReport(salesOrderReportData, false);
         }
 
         private decimal CalculateOutstandingInvoiceAmount()
@@ -83,5 +82,19 @@ namespace FinancialAnalysis.Logic.ViewModels
         }
 
         #endregion Methods
+
+        #region Properties
+
+        public SvenTechCollection<SalesOrder> SalesOrders { get; set; }
+        public DelegateCommand CloseOrderCommand { get; set; }
+        public DelegateCommand OpenInvoiceWindowCommand { get; set; }
+        public ICommand ShowPDFOrderReportCommand { get; }
+        public decimal OutstandingInvoiceAmount => CalculateOutstandingInvoiceAmount();
+
+        public SvenTechCollection<Invoice> OpenInvoices => SelectedSalesOrder.Invoices.Where(x => x.IsPaid).ToSvenTechCollection();
+
+        public SalesOrder SelectedSalesOrder { get; set; }
+
+        #endregion Properties
     }
 }

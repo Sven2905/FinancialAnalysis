@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -20,7 +20,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public LoginViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
 #if (DEBUG)
             UserName = "Admin";
@@ -57,10 +60,13 @@ namespace FinancialAnalysis.Logic.ViewModels
                 DataContext.Instance.Users.Insert(user);
             }
 
+            var _Import = new Import();
             if (!DataContext.Instance.UserRights.GetAll().Any())
             {
-                var _Import = new Import();
                 _Import.ImportUserRights();
+            }
+            if (!DataContext.Instance.InvoiceTypes.GetAll().Any())
+            {
                 _Import.SeedTypes();
             }
         }
@@ -78,7 +84,10 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _Counter++;
             }
 
-            if (_Counter >= 3) Exit();
+            if (_Counter >= 3)
+            {
+                Exit();
+            }
         }
 
         private void Exit()

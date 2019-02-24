@@ -131,6 +131,7 @@
     <Compile Include="Messages\OpenTypeMessages\OpenSalesTypesWindowMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\RequiredValidationRule.cs" />
+    <Compile Include="SalesManagement\SalesReportPDFCreator.cs" />
     <Compile Include="SelectedQuantity.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="ViewModels\Accounting\AccountingViewModel.cs" />
