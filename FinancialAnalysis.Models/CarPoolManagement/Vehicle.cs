@@ -6,22 +6,69 @@ namespace FinancialAnalysis.Models.CarPoolManagement
     /// <summary>
     /// Fahrzeug
     /// </summary>
-    public class Vehicle
+    public class Car
     {
-        /// <summary>
-        /// Id
-        /// </summary>
-        public int VehicleId { get; set; }
+        // Make - Model - Year - Body - Generation - Trim
 
         /// <summary>
-        /// Fahrzeugtyp
+        /// Referenz-Id der Automarke
         /// </summary>
-        public VehicleType VehicleType { get; set; }
+        public int RefCarMakeId { get; set; }
+        
+        /// <summary>
+        /// Automarke
+        /// </summary>
+        public CarMake CarMake { get; set; }
 
         /// <summary>
-        /// Kraftstoffart
+        /// Referenz-Id des Automodells
         /// </summary>
-        public FuelType FuelType { get; set; }
+        public int RefCarModelId { get; set; }
+
+        /// <summary>
+        /// Automodell
+        /// </summary>
+        public CarModel CarModel { get; set; }
+
+        /// <summary>
+        /// Referenz-Id der Bauart
+        /// </summary>
+        public int RefCarBodyId { get; set; }
+
+        /// <summary>
+        /// Bauart
+        /// </summary>
+        public CarBody CarBody { get; set; }
+
+        /// <summary>
+        /// Referenz-Id der Generation
+        /// </summary>
+        public int RefCarGenerationId { get; set; }
+
+        /// <summary>
+        /// Generation
+        /// </summary>
+        public CarGeneration CarGeneration { get; set; }
+
+        /// <summary>
+        /// Referenz-Id der Motorisierung
+        /// </summary>
+        public int RefCarTrimId { get; set; }
+
+        /// <summary>
+        /// Motorisierung
+        /// </summary>
+        public CarTrim CarTrim { get; set; }
+
+        /// <summary>
+        /// Referenz-Id des Motors
+        /// </summary>
+        public int RefCarEngineId { get; set; }
+
+        /// <summary>
+        /// Motor
+        /// </summary>
+        public CarEngine CarEngine { get; set; }
 
         /// <summary>
         /// Kennzeichen

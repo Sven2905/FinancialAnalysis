@@ -147,7 +147,7 @@ namespace FinancialAnalysis.Models.SalesManagement
 
                     if (item.Quantity != shippedProductsAmount)
                     {
-                        ShippingStatusColor = SvenTechColors.ColorYellow;
+                        ShippingStatusColor = SvenTechColors.ColorSvenTechOrange;
                     }
                 }
             }
@@ -162,8 +162,13 @@ namespace FinancialAnalysis.Models.SalesManagement
                 {
                     if (!Invoice.IsPaid && Invoice.PaidAmount > 0)
                     {
-                        InvoiceStatusColor = SvenTechColors.ColorYellow;
+                        InvoiceStatusColor = SvenTechColors.ColorSvenTechOrange;
                     }
+                }
+
+                if (Invoices.Sum(x => x.PaidAmount) < SumTotal)
+                {
+                    InvoiceStatusColor = SvenTechColors.ColorSvenTechOrange;
                 }
             }
             else

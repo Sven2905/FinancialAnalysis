@@ -256,17 +256,19 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                                 SalesOrderEntry.Invoices.SingleOrDefault(x => x.InvoiceId == Invoice.InvoiceId);
                             if (invoiceEntry != null)
                             {
-                                invoiceEntry.InvoicePositions.Add(InvoicePosition);
+                                if (InvoicePosition != null && invoiceEntry.InvoicePositions.SingleOrDefault(x => x.InvoicePositionId == InvoicePosition.InvoicePositionId) == null)
+                                {
+                                    invoiceEntry.InvoicePositions.Add(InvoicePosition);
+                                }
                             }
                             else
                             {
+                                invoiceEntry = Invoice;
                                 SalesOrderEntry.Invoices.Add(Invoice);
                                 if (InvoicePosition != null)
                                 {
                                     invoiceEntry.InvoicePositions.Add(InvoicePosition);
                                 }
-
-                                SalesOrderEntry.Invoices.Add(Invoice);
                             }
                         }
 

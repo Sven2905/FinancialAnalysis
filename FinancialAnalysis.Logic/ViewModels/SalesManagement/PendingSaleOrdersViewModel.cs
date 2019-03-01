@@ -78,7 +78,26 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void CreateInvoice()
         {
-            Messenger.Default.Send(new OpenInvoiceWindowMessage(SelectedSalesOrder));
+
+            var invoiceSalesOrder = SelectedSalesOrder.Clone();
+
+            foreach (var invoice in SelectedSalesOrder.Invoices)
+            {
+                foreach (var invoicePosition in invoice.InvoicePositions)
+                {
+                    invoiceSalesOrder.SalesOrderPositions.SingleOrDefault(x => x.SalesOrderPositionId == invoicePosition.RefSalesOrderPositionId).Quantity -= invoicePosition.Quantity;
+                }
+            }
+
+            for (int i = invoiceSalesOrder.SalesOrderPositions.Count - 1; i >= 0; i--)
+            {
+                if (invoiceSalesOrder.SalesOrderPositions[i].Quantity == 0)
+                {
+                    invoiceSalesOrder.SalesOrderPositions.RemoveAt(i);
+                }
+            }
+
+            Messenger.Default.Send(new OpenInvoiceWindowMessage(invoiceSalesOrder));
         }
 
         #endregion Methods

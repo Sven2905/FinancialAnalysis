@@ -33,7 +33,8 @@ namespace FinancialAnalysis.UserControls
 
     public class DropEventArgsWrapper : IDropEventArgs
     {
-        protected GridDropEventArgs InnerArgs { get; private set; }
+        protected GridDropEventArgs InnerArgs { get; }
+
         public virtual bool Handled
         {
             get { return InnerArgs.Handled; }
@@ -53,6 +54,11 @@ namespace FinancialAnalysis.UserControls
         public virtual DropTargetType DropTargetType
         {
             get { return InnerArgs.DropTargetType; }
+        }
+
+        public virtual GridControl GridControl
+        {
+            get { return InnerArgs.GridControl; }
         }
 
         public DropEventArgsWrapper(GridDropEventArgs baseArgs)

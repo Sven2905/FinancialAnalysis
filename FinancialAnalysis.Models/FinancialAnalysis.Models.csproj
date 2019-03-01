@@ -48,10 +48,19 @@
     <Reference Include="DevExpress.RichEdit.v18.2.Core, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.RichEdit.v18.2.Export, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Sparkline.v18.2.Core, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Grid.v18.2, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 18.2\Components\Bin\Framework\DevExpress.Xpf.Grid.v18.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Grid.v18.2.Core, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 18.2\Components\Bin\Framework\DevExpress.Xpf.Grid.v18.2.Core.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Xpf.Grid.v18.2.Extensions, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpo.v18.2, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraCharts.v18.2, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGauges.v18.2.Core, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v18.2, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraReports.v18.2, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="PropertyChanged, Version=2.6.0.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
@@ -89,6 +98,13 @@
     <Compile Include="Accounting\TaxType.cs" />
     <Compile Include="BaseClasses\CreditDebitBase.cs" />
     <Compile Include="BaseClasses\CreditorDebitorBase.cs" />
+    <Compile Include="CarPoolManagement\CarBody.cs" />
+    <Compile Include="CarPoolManagement\CarEngine.cs" />
+    <Compile Include="CarPoolManagement\CarGeneration.cs" />
+    <Compile Include="CarPoolManagement\CarMake.cs" />
+    <Compile Include="CarPoolManagement\CarModel.cs" />
+    <Compile Include="CarPoolManagement\CarTrim.cs" />
+    <Compile Include="Enums\CarGear.cs" />
     <Compile Include="Enums\Permission.cs" />
     <Compile Include="Administration\UserRight.cs" />
     <Compile Include="Administration\User.cs" />
@@ -106,11 +122,10 @@
     <Compile Include="Enums\CustomerType.cs" />
     <Compile Include="Enums\DatabaseStatus.cs" />
     <Compile Include="Enums\FederalState.cs" />
-    <Compile Include="Enums\FuelType.cs" />
+    <Compile Include="Enums\EngineType.cs" />
     <Compile Include="Enums\Gender.cs" />
     <Compile Include="Enums\Months.cs" />
     <Compile Include="Enums\ReminderType.cs" />
-    <Compile Include="Enums\VehicleType.cs" />
     <Compile Include="General\SvenTechColors.cs" />
     <Compile Include="Enums\GrossNetType.cs" />
     <Compile Include="Helper\EnumHelper.cs" />

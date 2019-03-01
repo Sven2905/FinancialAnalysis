@@ -14,5 +14,6 @@ namespace FinancialAnalysis.Models.Interfaces
         IList Items { get; }
         object TargetRow { get; }
         DropTargetType DropTargetType { get; }
+        DevExpress.Xpf.Grid.GridControl GridControl { get; }
     }
 }

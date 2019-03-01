@@ -79,7 +79,7 @@
                                 </Grid>
                             </dxdo:LayoutPanel>
                             <dxdo:LayoutPanel Caption="Verfügbare Positionen" ShowCloseButton="False" ItemWidth="400">
-                                <dxg:GridControl Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" ShowBorder="True" ItemsSource="{Binding OrderedProducts, UpdateSourceTrigger=PropertyChanged}">
+                                <dxg:GridControl Name="OrderPositions" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" ShowBorder="True" ItemsSource="{Binding OrderedProducts, UpdateSourceTrigger=PropertyChanged}">
                                     <dxg:GridColumn FieldName="SalesOrderId" Visible="False" />
                                     <dxg:GridColumn FieldName="Product.Name" Header="Produkt" />
                                     <dxg:GridColumn FieldName="Quantity" Header="Menge" />
@@ -98,7 +98,7 @@
                             </dxdo:LayoutPanel>
                             <dxdo:LayoutPanel Caption="Rechnung" ShowCloseButton="False">
 
-                                <dxg:GridControl Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" ShowBorder="True" ItemsSource="{Binding ProductsOnInvoice, UpdateSourceTrigger=PropertyChanged}" AllowDrop="True">
+                                <dxg:GridControl Name="InvoicePositions" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" ShowBorder="True" ItemsSource="{Binding ProductsOnInvoice, UpdateSourceTrigger=PropertyChanged}" AllowDrop="True">
                                     <dxg:GridControl.View>
                                         <dxg:TableView ShowHorizontalLines="True" ShowVerticalLines="False" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" MaxHeight="5000" MaxWidth="5000"
                                    ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" AllowDragDrop="True" ShowTotalSummary="True"
@@ -116,7 +116,7 @@
                                             <dxe:TextEditSettings ShowNullTextForEmptyValue="False" DisplayFormat="C2" />
                                         </dxg:GridColumn.EditSettings>
                                     </dxg:GridColumn>
-                                    <dxg:GridColumn FieldName="DiscountPercentage" Header="Rabatt">
+                                    <dxg:GridColumn FieldName="DiscountPercentageForLabel" Header="Rabatt">
                                         <dxg:GridColumn.EditSettings>
                                             <dxe:TextEditSettings ShowNullTextForEmptyValue="False" DisplayFormat="P2" />
                                         </dxg:GridColumn.EditSettings>
@@ -160,6 +160,10 @@
                             </dxdo:LayoutPanel>
                         </dxdo:LayoutGroup>
                     </dxdo:DockLayoutManager>
+
+                    <VirtualizingStackPanel Grid.Row="1" HorizontalAlignment="Left" >
+                        <dx:SimpleButton Content="Rechnung erstellen" Margin="2" Height="28" Command="{Binding CreateInvoiceCommand}"/>
+                    </VirtualizingStackPanel>
                 </Grid>
             </dx:DXTabItem>
         </dx:DXTabControl>

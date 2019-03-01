@@ -25,6 +25,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             RemoveFromInvoiceDropCommand = new DelegateCommand<IDropEventArgs>(RemoveFromInvoiceDrop);
             AddToInvoiceCommand = new DelegateCommand<IDropEventArgs>(AddToInvoiceDrop);
+            CreateInvoiceCommand = new DelegateCommand(SaveInvoice, () => ProductsOnInvoice.Count > 0);
             Messenger.Default.Register<SelectedQuantity>(this, GetSelectedQuantity);
             GetData();
         }
@@ -41,12 +42,17 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public void RemoveFromInvoiceDrop(IDropEventArgs e)
         {
+            if (e.GridControl.Name != "OrderPositions")
+            {
+                e.Handled = true;
+                return;
+            }
             if (e.Items?.Count > 0 && e.Items[0] is SalesOrderPosition)
             {
                 var item = (SalesOrderPosition)e.Items[0];
                 if (item.Quantity > 1)
                 {
-                    Messenger.Default.Send(new OpenQuantityWindowMessage(((int)item.Quantity)));
+                    Messenger.Default.Send(new OpenQuantityWindowMessage((int)item.Quantity));
                 }
                 else
                 {
@@ -61,12 +67,17 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public void AddToInvoiceDrop(IDropEventArgs e)
         {
+            if (e.GridControl.Name != "OrderPositions")
+            {
+                e.Handled = true;
+                return;
+            }
             if (e.Items?.Count > 0 && e.Items[0] is SalesOrderPosition)
             {
                 var item = (SalesOrderPosition)e.Items[0];
                 if (item.Quantity > 1)
                 {
-                    Messenger.Default.Send(new OpenQuantityWindowMessage(((int)item.Quantity)));
+                    Messenger.Default.Send(new OpenQuantityWindowMessage((int)item.Quantity));
                 }
                 else
                 {
@@ -91,14 +102,28 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             if (Quantity == item.Quantity)
             {
-                target.Add(item);
+                if (target.SingleOrDefault(x => x.SalesOrderPositionId == item.SalesOrderPositionId) != null)
+                {
+                    target.SingleOrDefault(x => x.SalesOrderPositionId == item.SalesOrderPositionId).Quantity += Quantity;
+                }
+                else
+                {
+                    target.Add(item);
+                }
                 source.Remove(item);
             }
             else
             {
                 var itemClone = item.Clone();
                 itemClone.Quantity = Quantity;
-                target.Add(itemClone);
+                if (target.SingleOrDefault(x => x.SalesOrderPositionId == item.SalesOrderPositionId) != null)
+                {
+                    target.SingleOrDefault(x => x.SalesOrderPositionId == item.SalesOrderPositionId).Quantity += Quantity;
+                }
+                else
+                {
+                    target.Add(itemClone);
+                }
                 source.SingleOrDefault(x => x.SalesOrderPositionId == item.SalesOrderPositionId).Quantity -= Quantity;
             }
         }
@@ -129,6 +154,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public Invoice Invoice { get; set; } = new Invoice();
         public ICommand RemoveFromInvoiceDropCommand { get; }
         public ICommand AddToInvoiceCommand { get; }
+        public ICommand CreateInvoiceCommand { get; }
         public SvenTechCollection<PaymentCondition> PaymentConditions { get; set; } = new SvenTechCollection<PaymentCondition>();
         public SvenTechCollection<InvoiceType> InvoiceTypes { get; set; } = new SvenTechCollection<InvoiceType>();
         public SvenTechCollection<SalesOrderPosition> OrderedProducts { get; set; } = new SvenTechCollection<SalesOrderPosition>();

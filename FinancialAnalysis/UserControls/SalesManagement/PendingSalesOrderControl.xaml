@@ -51,7 +51,7 @@
             </dxwui:PageAdornerControl.HeaderTemplate>
         </dxwui:PageAdornerControl>
 
-        <dx:DXTabControl Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="0,50,0,10">
+        <dx:DXTabControl Grid.Row="1" Grid.Column="1" Margin="0,50,0,10">
             <dx:DXTabItem Header="Allgemein">
 
                 <Grid>

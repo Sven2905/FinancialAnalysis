@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Models.Enums
 {
-    public enum FuelType
+    public enum EngineType
     {
-        [Display(Name = "Benzin")] Petrol,
+        [Display(Name = "Benzin")] Gasoline = 1,
         [Display(Name = "Diesel")] Diesel,
-        [Display(Name = "Autogas")] LiquefiedPetroleumGas,
-        [Display(Name = "Erdgas")] NaturalGas,
+        [Display(Name = "Autogas")] Gas,
         [Display(Name = "Hybrid")]  Hybrid,
-        [Display(Name = "Elektro")]  Electric,
+        [Display(Name = "Elektro")]  Electro,
     }
 }
