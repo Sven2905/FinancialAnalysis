@@ -32,13 +32,14 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
         <dxwui:PageAdornerControl Header="Lagerung" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="Tahoma">
@@ -55,16 +56,7 @@
             </dxwui:PageAdornerControl.HeaderTemplate>
         </dxwui:PageAdornerControl>
 
-        <Grid Grid.Row="1" Grid.Column="1">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
-            <dx:DXTabControl Margin="0,10,0,10">
+            <dx:DXTabControl Grid.Column="1" Grid.Row="1">
                 <dx:DXTabItem Header="Einlagern">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -250,6 +242,5 @@
                     </Grid>
                 </dx:DXTabItem>
             </dx:DXTabControl>
-        </Grid>
     </Grid>
 </UserControl>

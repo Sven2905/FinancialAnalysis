@@ -26,9 +26,9 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -51,7 +51,7 @@
             </dxwui:PageAdornerControl.HeaderTemplate>
         </dxwui:PageAdornerControl>
 
-        <dx:DXTabControl Grid.Row="1" Grid.Column="1" Margin="0,50,0,10">
+        <dx:DXTabControl Grid.Row="1" Grid.Column="1" Margin="0,0,0,0">
             <dx:DXTabItem Header="Allgemein">
 
                 <Grid>

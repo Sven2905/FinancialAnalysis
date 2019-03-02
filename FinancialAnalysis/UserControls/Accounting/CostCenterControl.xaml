@@ -15,7 +15,7 @@
              xmlns:accounting="clr-namespace:FinancialAnalysis.UserControls.Accounting"
              xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
              mc:Ignorable="d"
-             d:DesignHeight="1000" d:DesignWidth="1900">
+             >
     <UserControl.DataContext>
         <ViewModels:CostCenterViewModel />
     </UserControl.DataContext>
@@ -35,13 +35,13 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
 
@@ -59,7 +59,7 @@
             </dxwui:PageAdornerControl.HeaderTemplate>
         </dxwui:PageAdornerControl>
 
-        <dx:DXTabControl Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="0,0,0,10">
+        <dx:DXTabControl Grid.Row="1" Grid.Column="1" Grid.RowSpan="1" Margin="0,0,0,0">
             <dx:DXTabItem Header="Allgemein">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -93,9 +93,9 @@
                                                 </dxlc:LayoutGroup>
                                             </dxlc:LayoutControl>
                                             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0" HorizontalAlignment="Stretch">
-                                                <dxg:TreeListControl VerticalAlignment="Top" MaxWidth="5000" MaxHeight="800"  HorizontalAlignment="Stretch"
+                                                <dxg:TreeListControl VerticalAlignment="Top" MaxWidth="530" MaxHeight="800"  HorizontalAlignment="Stretch"
                                          ItemsSource="{Binding CostCenterFlatStructures, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
-                                          ShowBorder="True" Height="600" Width="530" SelectedItem="{Binding SelectedCostCenterFlatStructure}">
+                                          ShowBorder="True" Height="600" MinWidth="500" SelectedItem="{Binding SelectedCostCenterFlatStructure}">
                                                     <dxg:TreeListControl.View>
                                                         <dxg:TreeListView EditFormShowMode="None" 
                                               EnableImmediatePosting="True" ShowVerticalLines="False" AutoExpandAllNodes="True"
