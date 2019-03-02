@@ -32,13 +32,14 @@
 
     <Grid >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
         </Grid.RowDefinitions>
 
         <dxwui:PageAdornerControl Header="Mitarbeiter" Grid.ColumnSpan="2" Foreground="#3f729b" FontFamily="Tahoma">
@@ -55,7 +56,7 @@
             </dxwui:PageAdornerControl.HeaderTemplate>
         </dxwui:PageAdornerControl>
 
-        <dx:DXTabControl Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="0,10,0,10">
+        <dx:DXTabControl Grid.Row="1" Grid.Column="1" Grid.RowSpan="1" Margin="0,0,0,0">
             <dx:DXTabItem Header="Mitarbeiter">
                 <Grid Grid.Row="1" Grid.Column="1">
 

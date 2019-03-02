@@ -10,7 +10,7 @@
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
              mc:Ignorable="d"
-             d:DesignHeight="900" d:DesignWidth="500">
+             >
     <UserControl.Resources>
         <Style x:Key="labelStyle" TargetType="{x:Type dxlc:LayoutItemLabel}">
             <Setter Property="FontWeight" Value="Bold" />
