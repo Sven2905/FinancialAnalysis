@@ -36,6 +36,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="20" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
         </Grid.RowDefinitions>
 
         <dxwui:PageAdornerControl Header="Buchungen" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"

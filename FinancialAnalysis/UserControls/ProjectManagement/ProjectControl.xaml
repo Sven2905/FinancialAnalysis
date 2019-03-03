@@ -11,8 +11,7 @@
              xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
              mc:Ignorable="d"
              d:DesignHeight="1000"
-             d:DesignWidth="1900"
-             >
+             d:DesignWidth="1900">
     <UserControl.DataContext>
         <ViewModels:ProjectViewModel />
     </UserControl.DataContext>
@@ -29,7 +28,7 @@
         <local:NullToIsEnabledConverter x:Key="NullConverter" />
     </UserControl.Resources>
 
-    <Grid >
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="10*" />
@@ -38,7 +37,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
         <dxwui:PageAdornerControl Header="Projekte" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="Tahoma">
@@ -56,174 +55,173 @@
         </dxwui:PageAdornerControl>
         <dx:DXTabControl Grid.Row="1" Grid.Column="1">
             <dx:DXTabItem Header="Projekte">
-                
 
-            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid Grid.Row="1" Grid.Column="1">
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="20" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="20" />
-                    <ColumnDefinition Width="2*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-
-                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,50,0,0">
-                    <ListView ItemsSource="{Binding Projects}" SelectedItem="{Binding SelectedProject}" x:Name="Projects"
-                          BorderThickness="1" BorderBrush="DarkGray" FontSize="14">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Border Grid.Column="2" Padding="0 0 8 0">
-                                        <StackPanel VerticalAlignment="Center">
-                                            <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#000"
-                                                   TextTrimming="CharacterEllipsis" />
-                                            <TextBlock Margin="10,0,0,0" Text="{Binding Description}" Foreground="#9e9e9e"
-                                                   TextTrimming="CharacterEllipsis" />
-                                        </StackPanel>
-                                    </Border>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ListView>
-                </ScrollViewer>
-
-                <VirtualizingStackPanel Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="15">
-                    <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Neu"
-                                 Foreground="#3F729B" Command="{Binding NewProjectCommand}" FontFamily="Tahoma" />
-                    <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Speichern" Foreground="#3F729B"
-                                 Command="{Binding SaveProjectCommand}" FontFamily="Tahoma" />
-                    <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Löschen" Foreground="#3F729B"
-                                 Command="{Binding DeleteProjectCommand}" FontFamily="Tahoma" />
-                </VirtualizingStackPanel>
-
-                <Grid Grid.Column="2" Margin="0,50,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
-
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="0"
-                                    Margin="0,0,0,0" 
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,50,0,0">
+                        <ListView ItemsSource="{Binding Projects}" SelectedItem="{Binding SelectedProject}" x:Name="Projects"
+                          BorderThickness="1" BorderBrush="DarkGray" FontSize="14">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border Grid.Column="2" Padding="0 0 8 0">
+                                            <StackPanel VerticalAlignment="Center">
+                                                <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#000"
+                                                   TextTrimming="CharacterEllipsis" />
+                                                <TextBlock Margin="10,0,0,0" Text="{Binding Description}" Foreground="#9e9e9e"
+                                                   TextTrimming="CharacterEllipsis" />
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
+
+                    <VirtualizingStackPanel Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="15">
+                        <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Neu"
+                                 Foreground="#3F729B" Command="{Binding NewProjectCommand}" FontFamily="Tahoma" />
+                        <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Speichern" Foreground="#3F729B"
+                                 Command="{Binding SaveProjectCommand}" FontFamily="Tahoma" />
+                        <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Löschen" Foreground="#3F729B"
+                                 Command="{Binding DeleteProjectCommand}" FontFamily="Tahoma" />
+                    </VirtualizingStackPanel>
+
+                    <Grid Grid.Column="2" Margin="0,50,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="0"
+                                    Margin="0,0,0,0"
                                     IsEnabled="{Binding SelectedProject, Converter={StaticResource NullConverter}}">
-                        <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Stretch">
-                            <dxlc:LayoutGroup.Header>
-                                <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
-                            </dxlc:LayoutGroup.Header>
-                            <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Beendet" FontFamily="Tahoma">
-                                    <dxe:CheckEdit
+                            <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Stretch">
+                                <dxlc:LayoutGroup.Header>
+                                    <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                                </dxlc:LayoutGroup.Header>
+                                <dxlc:LayoutGroup>
+                                    <dxlc:LayoutItem Label="Beendet" FontFamily="Tahoma">
+                                        <dxe:CheckEdit
                                     IsChecked="{Binding SelectedProject.IsEnded, UpdateSourceTrigger=PropertyChanged}"
                                     FontFamily="Tahoma" />
-                                </dxlc:LayoutItem>
-                            </dxlc:LayoutGroup>
-                            <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Projekt-ID" FontFamily="Tahoma">
-                                    <dxe:TextEdit Text="{Binding SelectedProject.Identifier}" FontFamily="Tahoma" />
-                                </dxlc:LayoutItem>
-                            </dxlc:LayoutGroup>
-                            <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Name" FontFamily="Tahoma">
-                                    <dxe:TextEdit Text="{Binding SelectedProject.Name}" FontFamily="Tahoma" />
-                                </dxlc:LayoutItem>
-                            </dxlc:LayoutGroup>
-                            <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Beschreibung" FontFamily="Tahoma">
-                                    <dxe:TextEdit TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                                    </dxlc:LayoutItem>
+                                </dxlc:LayoutGroup>
+                                <dxlc:LayoutGroup>
+                                    <dxlc:LayoutItem Label="Projekt-ID" FontFamily="Tahoma">
+                                        <dxe:TextEdit Text="{Binding SelectedProject.Identifier}" FontFamily="Tahoma" />
+                                    </dxlc:LayoutItem>
+                                </dxlc:LayoutGroup>
+                                <dxlc:LayoutGroup>
+                                    <dxlc:LayoutItem Label="Name" FontFamily="Tahoma">
+                                        <dxe:TextEdit Text="{Binding SelectedProject.Name}" FontFamily="Tahoma" />
+                                    </dxlc:LayoutItem>
+                                </dxlc:LayoutGroup>
+                                <dxlc:LayoutGroup>
+                                    <dxlc:LayoutItem Label="Beschreibung" FontFamily="Tahoma">
+                                        <dxe:TextEdit TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
                                               AcceptsReturn="True" VerticalContentAlignment="Top"
                                               Text="{Binding SelectedProject.Description}" Height="150"
                                               FontFamily="Tahoma" />
-                                </dxlc:LayoutItem>
-                            </dxlc:LayoutGroup>
-                            <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Kostenstelle" FontFamily="Tahoma">
-                                    <dxe:ComboBoxEdit ValueMember="CostCenterId" DisplayMember="Name"
+                                    </dxlc:LayoutItem>
+                                </dxlc:LayoutGroup>
+                                <dxlc:LayoutGroup>
+                                    <dxlc:LayoutItem Label="Kostenstelle" FontFamily="Tahoma">
+                                        <dxe:ComboBoxEdit ValueMember="CostCenterId" DisplayMember="Name"
                                                   ItemsSource="{Binding CostCenters}"
                                                   EditValue="{Binding SelectedProject.RefCostCenterId}"
                                                   FontFamily="Tahoma" />
-                                </dxlc:LayoutItem>
-                            </dxlc:LayoutGroup>
-                            <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Projektleiter" FontFamily="Tahoma">
-                                    <dxe:ComboBoxEdit ValueMember="EmployeeId" DisplayMember="Name"
+                                    </dxlc:LayoutItem>
+                                </dxlc:LayoutGroup>
+                                <dxlc:LayoutGroup>
+                                    <dxlc:LayoutItem Label="Projektleiter" FontFamily="Tahoma">
+                                        <dxe:ComboBoxEdit ValueMember="EmployeeId" DisplayMember="Name"
                                                   ItemsSource="{Binding Employees}"
                                                   EditValue="{Binding SelectedProject.RefEmployeeId}"
                                                   FontFamily="Tahoma" />
-                                </dxlc:LayoutItem>
-                            </dxlc:LayoutGroup>
-                            <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Budget" FontFamily="Tahoma">
-                                    <dxe:TextEdit
+                                    </dxlc:LayoutItem>
+                                </dxlc:LayoutGroup>
+                                <dxlc:LayoutGroup>
+                                    <dxlc:LayoutItem Label="Budget" FontFamily="Tahoma">
+                                        <dxe:TextEdit
                                     Text="{Binding SelectedProject.Budget, ConverterCulture='de-DE', StringFormat='C2'}"
                                     FontFamily="Tahoma" />
-                                </dxlc:LayoutItem>
-                            </dxlc:LayoutGroup>
-                            <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Startdatum" FontFamily="Tahoma">
-                                    <dxe:DateEdit DateTime="{Binding SelectedProject.StartDate}" FontFamily="Tahoma"
+                                    </dxlc:LayoutItem>
+                                </dxlc:LayoutGroup>
+                                <dxlc:LayoutGroup>
+                                    <dxlc:LayoutItem Label="Startdatum" FontFamily="Tahoma">
+                                        <dxe:DateEdit DateTime="{Binding SelectedProject.StartDate}" FontFamily="Tahoma"
                                               DisplayFormatString="dd.MM.yyyy" />
-                                </dxlc:LayoutItem>
-                            </dxlc:LayoutGroup>
-                            <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Geplantes Enddatum" FontFamily="Tahoma">
-                                    <dxe:DateEdit DateTime="{Binding SelectedProject.ExpectedEndDate}" FontFamily="Tahoma"
+                                    </dxlc:LayoutItem>
+                                </dxlc:LayoutGroup>
+                                <dxlc:LayoutGroup>
+                                    <dxlc:LayoutItem Label="Geplantes Enddatum" FontFamily="Tahoma">
+                                        <dxe:DateEdit DateTime="{Binding SelectedProject.ExpectedEndDate}" FontFamily="Tahoma"
                                               DisplayFormatString="dd.MM.yyyy" />
-                                </dxlc:LayoutItem>
-                            </dxlc:LayoutGroup>
-                            <dxlc:LayoutGroup>
-                                <dxlc:LayoutItem Label="Tatsächlies Enddatum" FontFamily="Tahoma">
-                                    <dxe:DateEdit DateTime="{Binding SelectedProject.TotalEndDate}" FontFamily="Tahoma"
+                                    </dxlc:LayoutItem>
+                                </dxlc:LayoutGroup>
+                                <dxlc:LayoutGroup>
+                                    <dxlc:LayoutItem Label="Tatsächlies Enddatum" FontFamily="Tahoma">
+                                        <dxe:DateEdit DateTime="{Binding SelectedProject.TotalEndDate}" FontFamily="Tahoma"
                                               DisplayFormatString="dd.MM.yyyy" />
-                                </dxlc:LayoutItem>
+                                    </dxlc:LayoutItem>
+                                </dxlc:LayoutGroup>
                             </dxlc:LayoutGroup>
-                        </dxlc:LayoutGroup>
-                    </dxlc:LayoutControl>
-                </Grid>
+                        </dxlc:LayoutControl>
+                    </Grid>
 
-                <ScrollViewer Grid.Column="4" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                    <ScrollViewer Grid.Column="4" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
                           Margin="0,50,0,0">
-                    <ListView ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}"
+                        <ListView ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}"
                           x:Name="Employees" BorderThickness="1" BorderBrush="DarkGray" FontSize="14">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
 
-                                    <Border Grid.Column="2" Padding="0 0 8 0">
-                                        <StackPanel VerticalAlignment="Center">
-                                            <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#000"
+                                        <Border Grid.Column="2" Padding="0 0 8 0">
+                                            <StackPanel VerticalAlignment="Center">
+                                                <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#000"
                                                    TextTrimming="CharacterEllipsis" />
-                                        </StackPanel>
-                                    </Border>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ListView>
-                </ScrollViewer>
-            </Grid>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
+                </Grid>
             </dx:DXTabItem>
         </dx:DXTabControl>
     </Grid>

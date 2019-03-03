@@ -10,8 +10,7 @@
              xmlns:models="clr-namespace:FinancialAnalysis.Models;assembly=FinancialAnalysis.Models"
              xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
-             mc:Ignorable="d"
-             >
+             mc:Ignorable="d">
     <UserControl.DataContext>
         <ViewModels:MyClientViewModel />
     </UserControl.DataContext>
@@ -29,7 +28,7 @@
         <local:NullToIsEnabledConverter x:Key="NullConverter" />
     </UserControl.Resources>
 
-    <Grid >
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="10*" />
@@ -38,7 +37,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="20" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
         <dxwui:PageAdornerControl Header="Eigene Firma" Grid.ColumnSpan="2" Foreground="#3f729b" FontFamily="Tahoma">

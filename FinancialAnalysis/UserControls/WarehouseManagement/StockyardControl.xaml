@@ -38,7 +38,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="20" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
         <dxwui:PageAdornerControl Header="Lagerplätze" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="Tahoma">

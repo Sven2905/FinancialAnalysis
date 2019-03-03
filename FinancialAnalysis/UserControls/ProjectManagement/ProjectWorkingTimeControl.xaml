@@ -27,7 +27,7 @@
         <local:NullToIsEnabledConverter x:Key="NullConverter" />
     </UserControl.Resources>
 
-    <Grid >
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="10*" />
@@ -36,7 +36,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
         <dxwui:PageAdornerControl Header="Zeiterfassung" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="Tahoma">

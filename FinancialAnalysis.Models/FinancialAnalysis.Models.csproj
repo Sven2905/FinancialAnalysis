@@ -134,6 +134,12 @@
     <Compile Include="ProductManagement\SelectedProductCategory.cs" />
     <Compile Include="ClientManagement\Company.cs" />
     <Compile Include="Accounting\Creditor.cs" />
+    <Compile Include="Reports\InvoiceReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\InvoiceReport.Designer.cs">
+      <DependentUpon>InvoiceReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\SalesOrderReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -196,6 +202,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Reports\InvoiceReport.resx">
+      <DependentUpon>InvoiceReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\SalesOrderReport.resx">
       <DependentUpon>SalesOrderReport.cs</DependentUpon>
     </EmbeddedResource>

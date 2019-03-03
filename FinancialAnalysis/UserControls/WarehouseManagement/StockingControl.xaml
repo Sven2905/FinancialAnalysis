@@ -39,7 +39,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
         <dxwui:PageAdornerControl Header="Lagerung" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="Tahoma">
@@ -56,191 +56,191 @@
             </dxwui:PageAdornerControl.HeaderTemplate>
         </dxwui:PageAdornerControl>
 
-            <dx:DXTabControl Grid.Column="1" Grid.Row="1">
-                <dx:DXTabItem Header="Einlagern">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="430" />
-                            <ColumnDefinition Width="50" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="50" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="30" />
-                        </Grid.RowDefinitions>
+        <dx:DXTabControl Grid.Column="1" Grid.Row="1">
+            <dx:DXTabItem Header="Einlagern">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="430" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
 
-                        <Label Grid.Column="0" Grid.Row="0" Margin="10" Content="Kriterien: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
+                    <Label Grid.Column="0" Grid.Row="0" Margin="10" Content="Kriterien: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
 
-                        <dxlc:LayoutControl Grid.Column="0" Grid.Row="1" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}"
-                                        ItemSpace="10" VerticalAlignment="Top" Margin="0,0,0,0" >
-                            <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
-                                <dxlc:LayoutGroup.Header>
-                                    <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
-                                </dxlc:LayoutGroup.Header>
-                                <dxlc:LayoutGroup>
-                                    <dxlc:LayoutItem Label="Lager" FontFamily="Tahoma">
-                                        <dxe:ComboBoxEdit Margin="0,3,0,3"
+                    <dxlc:LayoutControl Grid.Column="0" Grid.Row="1" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}"
+                                        ItemSpace="10" VerticalAlignment="Top" Margin="0,0,0,0">
+                        <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
+                            <dxlc:LayoutGroup.Header>
+                                <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                            </dxlc:LayoutGroup.Header>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Lager" FontFamily="Tahoma">
+                                    <dxe:ComboBoxEdit Margin="0,3,0,3"
                                                       ItemsSource="{Binding Warehouses}"
                                                       DisplayMember="Name"
                                                       EditValue="{Binding SelectedWarehouse, UpdateSourceTrigger=PropertyChanged}"
                                                       Foreground="#3F729B" />
-                                    </dxlc:LayoutItem>
-                                </dxlc:LayoutGroup>
-                                <dxlc:LayoutGroup>
-                                    <dxlc:LayoutItem Label="Lagerplatz" FontFamily="Tahoma">
-                                        <dxe:ComboBoxEdit Margin="0,3,0,3"
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Lagerplatz" FontFamily="Tahoma">
+                                    <dxe:ComboBoxEdit Margin="0,3,0,3"
                                                           ItemsSource="{Binding SelectedWarehouse.Stockyards}"
                                                           DisplayMember="Name"
                                                           EditValue="{Binding SelectedStockyard, UpdateSourceTrigger=PropertyChanged}"
                                                           Foreground="#3F729B" />
-                                    </dxlc:LayoutItem>
-                                </dxlc:LayoutGroup>
-                                <dxlc:LayoutGroup>
-                                    <dxlc:LayoutItem Label="Produkt" FontFamily="Tahoma">
-                                        <dxe:ComboBoxEdit Margin="0,3,0,3"
-                                                          ItemsSource="{Binding Products}"
-                                                          DisplayMember="Name" 
-                                                          EditValue="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"
-                                                          Foreground="#3F729B" />
-                                    </dxlc:LayoutItem>
-                                </dxlc:LayoutGroup>
-                                <dxlc:LayoutGroup>
-                                    <dxlc:LayoutItem Label="Menge" FontFamily="Tahoma">
-                                        <dxe:TextEdit Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
-                                    </dxlc:LayoutItem>
-                                </dxlc:LayoutGroup>
-                                <dx:SimpleButton Width="150" Height="30" Margin="5,10,5,0" Content="Einlagern"
-                                             HorizontalAlignment="Left"
-                                             Foreground="#3F729B" Command="{Binding StoreCommand}"
-                                             FontFamily="Tahoma" />
+                                </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
-                        </dxlc:LayoutControl>
-
-                        <StackPanel Grid.Column="0" Grid.Row="2" Margin="14,10,19,10">
-                            <Label Margin="10" Content="Letzte Buchungen " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
-                            <local:LastBookingsControl DataContext="{Binding LastBookingViewModel}" />
-                        </StackPanel>
-
-                        <Grid Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" Margin="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-
-                            <Label Grid.Row="0" Content="Lagerplatzbestand: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
-
-                            <local:StockyardStatusControl Grid.Row="1" Grid.Column="0" Margin="0,10,0,0" DataContext="{Binding StockyardStatusViewModel}" />
-                        </Grid>
-
-                        <Grid Grid.Column="4" Grid.Row="0" Grid.RowSpan="4" Margin="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-
-                            <Label Grid.Column="2" Grid.Row="0" Content="Lagerplätze diesem Produkt: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
-
-                            <local:ProductStockingStatusControl Grid.Column="2" Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Left" DataContext="{Binding ProductStockingStatusViewModel}" />
-                        </Grid>
-                    </Grid>
-                </dx:DXTabItem>
-                <dx:DXTabItem Header="Auslagern" IsSelected="{Binding IsTakeOut}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="50" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="50" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="30" />
-                        </Grid.RowDefinitions>
-
-                        <Label Grid.Column="0" Grid.Row="0" Margin="10" Content="Kriterien: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
-
-                        <dxlc:LayoutControl Grid.Column="0" Grid.Row="1" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}"
-                                        ItemSpace="10" VerticalAlignment="Top">
-                            <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
-                                <dxlc:LayoutGroup.Header>
-                                    <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
-                                </dxlc:LayoutGroup.Header>
-                                <dxlc:LayoutGroup>
-                                    <dxlc:LayoutItem Label="Produkt" FontFamily="Tahoma">
-                                        <dxe:ComboBoxEdit Margin="0,3,0,3"
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Produkt" FontFamily="Tahoma">
+                                    <dxe:ComboBoxEdit Margin="0,3,0,3"
                                                           ItemsSource="{Binding Products}"
                                                           DisplayMember="Name"
                                                           EditValue="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"
                                                           Foreground="#3F729B" />
-                                    </dxlc:LayoutItem>
-                                </dxlc:LayoutGroup>
-                                <dxlc:LayoutGroup>
-                                    <dxlc:LayoutItem Label="Lager" FontFamily="Tahoma">
-                                        <dxe:ComboBoxEdit Margin="0,3,0,3" IsEnabled="{Binding SelectedProduct, Converter={StaticResource NullToIsEnabledConverter}}"
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Menge" FontFamily="Tahoma">
+                                    <dxe:TextEdit Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                            <dx:SimpleButton Width="150" Height="30" Margin="5,10,5,0" Content="Einlagern"
+                                             HorizontalAlignment="Left"
+                                             Foreground="#3F729B" Command="{Binding StoreCommand}"
+                                             FontFamily="Tahoma" />
+                        </dxlc:LayoutGroup>
+                    </dxlc:LayoutControl>
+
+                    <StackPanel Grid.Column="0" Grid.Row="2" Margin="14,10,19,10">
+                        <Label Margin="10" Content="Letzte Buchungen " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
+                        <local:LastBookingsControl DataContext="{Binding LastBookingViewModel}" />
+                    </StackPanel>
+
+                    <Grid Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Content="Lagerplatzbestand: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
+
+                        <local:StockyardStatusControl Grid.Row="1" Grid.Column="0" Margin="0,10,0,0" DataContext="{Binding StockyardStatusViewModel}" />
+                    </Grid>
+
+                    <Grid Grid.Column="4" Grid.Row="0" Grid.RowSpan="4" Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="2" Grid.Row="0" Content="Lagerplätze diesem Produkt: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
+
+                        <local:ProductStockingStatusControl Grid.Column="2" Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Left" DataContext="{Binding ProductStockingStatusViewModel}" />
+                    </Grid>
+                </Grid>
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="Auslagern" IsSelected="{Binding IsTakeOut}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Margin="10" Content="Kriterien: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
+
+                    <dxlc:LayoutControl Grid.Column="0" Grid.Row="1" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}"
+                                        ItemSpace="10" VerticalAlignment="Top">
+                        <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
+                            <dxlc:LayoutGroup.Header>
+                                <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                            </dxlc:LayoutGroup.Header>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Produkt" FontFamily="Tahoma">
+                                    <dxe:ComboBoxEdit Margin="0,3,0,3"
+                                                          ItemsSource="{Binding Products}"
+                                                          DisplayMember="Name"
+                                                          EditValue="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"
+                                                          Foreground="#3F729B" />
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Lager" FontFamily="Tahoma">
+                                    <dxe:ComboBoxEdit Margin="0,3,0,3" IsEnabled="{Binding SelectedProduct, Converter={StaticResource NullToIsEnabledConverter}}"
                                                       ItemsSource="{Binding FilteredWarehouses}"
                                                       DisplayMember="Name"
                                                       EditValue="{Binding SelectedWarehouseTakeOut, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       Foreground="#3F729B" />
-                                    </dxlc:LayoutItem>
-                                </dxlc:LayoutGroup>
-                                <dxlc:LayoutGroup>
-                                    <dxlc:LayoutItem Label="Lagerplatz" FontFamily="Tahoma">
-                                        <dxe:ComboBoxEdit Margin="0,3,0,3" IsEnabled="{Binding SelectedWarehouseTakeOut, Converter={StaticResource NullToIsEnabledConverter}}"
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Lagerplatz" FontFamily="Tahoma">
+                                    <dxe:ComboBoxEdit Margin="0,3,0,3" IsEnabled="{Binding SelectedWarehouseTakeOut, Converter={StaticResource NullToIsEnabledConverter}}"
                                                           ItemsSource="{Binding SelectedWarehouseTakeOut.Stockyards, UpdateSourceTrigger=PropertyChanged}"
                                                           DisplayMember="Name"
                                                           EditValue="{Binding SelectedStockyardTakeOut, UpdateSourceTrigger=PropertyChanged}"
                                                           Foreground="#3F729B" />
-                                    </dxlc:LayoutItem>
-                                </dxlc:LayoutGroup>
-                                <dxlc:LayoutGroup>
-                                    <dxlc:LayoutItem Label="Menge" FontFamily="Tahoma">
-                                        <dxe:TextEdit Text="{Binding QuantityTakeOut, UpdateSourceTrigger=PropertyChanged}" 
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Menge" FontFamily="Tahoma">
+                                    <dxe:TextEdit Text="{Binding QuantityTakeOut, UpdateSourceTrigger=PropertyChanged}"
                                                       Mask="d" FontFamily="Tahoma" />
-                                    </dxlc:LayoutItem>
-                                </dxlc:LayoutGroup>
-                                <dxlc:LayoutGroup>
-                                    <dxlc:LayoutItem Label="Max. Menge" FontFamily="Tahoma">
-                                        <dxe:TextEdit Text="{Binding MaxValue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" IsReadOnly="True" IsEnabled="False" />
-                                    </dxlc:LayoutItem>
-                                </dxlc:LayoutGroup>
-                                <dx:SimpleButton Width="150" Height="30" Margin="5,10,5,0" Content="Auslagern"
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                            <dxlc:LayoutGroup>
+                                <dxlc:LayoutItem Label="Max. Menge" FontFamily="Tahoma">
+                                    <dxe:TextEdit Text="{Binding MaxValue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" IsReadOnly="True" IsEnabled="False" />
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                            <dx:SimpleButton Width="150" Height="30" Margin="5,10,5,0" Content="Auslagern"
                                              HorizontalAlignment="Left"
                                              Foreground="#3F729B" Command="{Binding TakeOutCommand}"
                                              FontFamily="Tahoma" />
-                            </dxlc:LayoutGroup>
-                        </dxlc:LayoutControl>
+                        </dxlc:LayoutGroup>
+                    </dxlc:LayoutControl>
 
-                        <Grid Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Margin="10">
-                            <!--<Grid Visibility="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisConverter}}">-->
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
+                    <Grid Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Margin="10">
+                        <!--<Grid Visibility="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisConverter}}">-->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
-                            <Label Grid.Column="2" Grid.Row="0" Content="Lagerplätze diesem Produkt: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
+                        <Label Grid.Column="2" Grid.Row="0" Content="Lagerplätze diesem Produkt: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
 
-                            <local:ProductStockingStatusControl Grid.Column="2" Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Left" DataContext="{Binding ProductStockingStatusViewModel}" />
-                        </Grid>
-
-                        <Grid Grid.Column="4" Grid.Row="0" Grid.RowSpan="2" Margin="10">
-                            <!--<Grid Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" Margin="10,40,10,10" Visibility="{Binding SelectedStockyardTakeOut, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisConverter}}">-->
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-
-                            <Label Grid.Row="0" Content="Lagerplatzbestand: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
-
-                            <local:StockyardStatusControl Grid.Row="1" Grid.Column="0" Margin="0,10,0,0" DataContext="{Binding TakeOutStockyardStatusViewModel}" />
-                        </Grid>
+                        <local:ProductStockingStatusControl Grid.Column="2" Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Left" DataContext="{Binding ProductStockingStatusViewModel}" />
                     </Grid>
-                </dx:DXTabItem>
-            </dx:DXTabControl>
+
+                    <Grid Grid.Column="4" Grid.Row="0" Grid.RowSpan="2" Margin="10">
+                        <!--<Grid Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" Margin="10,40,10,10" Visibility="{Binding SelectedStockyardTakeOut, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisConverter}}">-->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Content="Lagerplatzbestand: " FontFamily="Tahoma" Foreground="#3F729B" FontSize="20" />
+
+                        <local:StockyardStatusControl Grid.Row="1" Grid.Column="0" Margin="0,10,0,0" DataContext="{Binding TakeOutStockyardStatusViewModel}" />
+                    </Grid>
+                </Grid>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
     </Grid>
 </UserControl>

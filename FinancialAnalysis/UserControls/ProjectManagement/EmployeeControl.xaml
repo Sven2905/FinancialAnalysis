@@ -30,7 +30,7 @@
         <local:NullToIsEnabledConverter x:Key="NullConverter" />
     </UserControl.Resources>
 
-    <Grid >
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="10*" />
@@ -39,7 +39,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="20" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
         <dxwui:PageAdornerControl Header="Mitarbeiter" Grid.ColumnSpan="2" Foreground="#3f729b" FontFamily="Tahoma">
@@ -145,32 +145,32 @@
                                     <TextBlock Text="Persönliches" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                                 </dxlc:LayoutGroup.Header>
                                 <dxlc:LayoutItem Label="Vorname" FontFamily="Tahoma">
-                                    <dxe:TextEdit 
-                                        NullText="Vorname" 
-                                        ValidateOnEnterKeyPressed="True" 
+                                    <dxe:TextEdit
+                                        NullText="Vorname"
+                                        ValidateOnEnterKeyPressed="True"
                                         FontFamily="Tahoma">
                                         <dxe:TextEdit.EditValue>
-                                            <Binding Path="SelectedEmployee.Firstname" 
-                                                     UpdateSourceTrigger="PropertyChanged" 
+                                            <Binding Path="SelectedEmployee.Firstname"
+                                                     UpdateSourceTrigger="PropertyChanged"
                                                      Mode="TwoWay">
                                                 <Binding.ValidationRules>
-                                                    <rules:RequiredValidationRule FieldName="Vorname"/>
+                                                    <rules:RequiredValidationRule FieldName="Vorname" />
                                                 </Binding.ValidationRules>
                                             </Binding>
                                         </dxe:TextEdit.EditValue>
                                     </dxe:TextEdit>
                                 </dxlc:LayoutItem>
                                 <dxlc:LayoutItem Label="Nachname" FontFamily="Tahoma">
-                                    <dxe:TextEdit 
-                                        NullText="Nachname" 
-                                        ValidateOnEnterKeyPressed="True" 
+                                    <dxe:TextEdit
+                                        NullText="Nachname"
+                                        ValidateOnEnterKeyPressed="True"
                                         FontFamily="Tahoma">
                                         <dxe:TextEdit.EditValue>
-                                            <Binding Path="SelectedEmployee.Lastname" 
-                                                     UpdateSourceTrigger="PropertyChanged" 
+                                            <Binding Path="SelectedEmployee.Lastname"
+                                                     UpdateSourceTrigger="PropertyChanged"
                                                      Mode="TwoWay">
                                                 <Binding.ValidationRules>
-                                                    <rules:RequiredValidationRule FieldName="Nachname"/>
+                                                    <rules:RequiredValidationRule FieldName="Nachname" />
                                                 </Binding.ValidationRules>
                                             </Binding>
                                         </dxe:TextEdit.EditValue>
@@ -189,16 +189,16 @@
                                     </dxlc:LayoutItem>
                                 </dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Strasse" FontFamily="Tahoma">
-                                    <dxe:TextEdit 
-                                        NullText="Straße" 
-                                        ValidateOnEnterKeyPressed="True" 
+                                    <dxe:TextEdit
+                                        NullText="Straße"
+                                        ValidateOnEnterKeyPressed="True"
                                         FontFamily="Tahoma">
                                         <dxe:TextEdit.EditValue>
-                                            <Binding Path="SelectedEmployee.Street" 
-                                                     UpdateSourceTrigger="PropertyChanged" 
+                                            <Binding Path="SelectedEmployee.Street"
+                                                     UpdateSourceTrigger="PropertyChanged"
                                                      Mode="TwoWay">
                                                 <Binding.ValidationRules>
-                                                    <rules:RequiredValidationRule FieldName="Strasse"/>
+                                                    <rules:RequiredValidationRule FieldName="Strasse" />
                                                 </Binding.ValidationRules>
                                             </Binding>
                                         </dxe:TextEdit.EditValue>
@@ -206,36 +206,36 @@
                                 </dxlc:LayoutItem>
                                 <dxlc:LayoutGroup>
                                     <dxlc:LayoutItem Label="Postleitzahl" Width="100" FontFamily="Tahoma">
-                                    <dxe:TextEdit 
-                                        NullText="PLZ" 
-                                        ValidateOnEnterKeyPressed="True" 
+                                        <dxe:TextEdit
+                                        NullText="PLZ"
+                                        ValidateOnEnterKeyPressed="True"
                                         FontFamily="Tahoma">
-                                        <dxe:TextEdit.EditValue>
-                                            <Binding Path="SelectedEmployee.Postcode" 
-                                                     UpdateSourceTrigger="PropertyChanged" 
+                                            <dxe:TextEdit.EditValue>
+                                                <Binding Path="SelectedEmployee.Postcode"
+                                                     UpdateSourceTrigger="PropertyChanged"
                                                      Mode="TwoWay">
-                                                <Binding.ValidationRules>
-                                                    <rules:RequiredValidationRule FieldName="Postleitzahl"/>
-                                                </Binding.ValidationRules>
-                                            </Binding>
-                                        </dxe:TextEdit.EditValue>
-                                    </dxe:TextEdit>
+                                                    <Binding.ValidationRules>
+                                                        <rules:RequiredValidationRule FieldName="Postleitzahl" />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </dxe:TextEdit.EditValue>
+                                        </dxe:TextEdit>
                                     </dxlc:LayoutItem>
                                     <dxlc:LayoutItem Label="Ort" FontFamily="Tahoma">
-                                    <dxe:TextEdit 
+                                        <dxe:TextEdit
                                         NullText="Ort"
-                                        ValidateOnEnterKeyPressed="True" 
+                                        ValidateOnEnterKeyPressed="True"
                                         FontFamily="Tahoma">
-                                        <dxe:TextEdit.EditValue>
-                                            <Binding Path="SelectedEmployee.City" 
-                                                     UpdateSourceTrigger="PropertyChanged" 
+                                            <dxe:TextEdit.EditValue>
+                                                <Binding Path="SelectedEmployee.City"
+                                                     UpdateSourceTrigger="PropertyChanged"
                                                      Mode="TwoWay">
-                                                <Binding.ValidationRules>
-                                                    <rules:RequiredValidationRule FieldName="Ort"/>
-                                                </Binding.ValidationRules>
-                                            </Binding>
-                                        </dxe:TextEdit.EditValue>
-                                    </dxe:TextEdit>
+                                                    <Binding.ValidationRules>
+                                                        <rules:RequiredValidationRule FieldName="Ort" />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </dxe:TextEdit.EditValue>
+                                        </dxe:TextEdit>
                                     </dxlc:LayoutItem>
                                 </dxlc:LayoutGroup>
                                 <dxlc:LayoutGroup>
