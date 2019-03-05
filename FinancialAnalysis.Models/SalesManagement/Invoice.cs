@@ -1,5 +1,6 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Accounting;
+using FinancialAnalysis.Models.ClientManagement;
 using System;
 using Utilities;
 
@@ -17,6 +18,16 @@ namespace FinancialAnalysis.Models.SalesManagement
         /// Id
         /// </summary>
         public int InvoiceId { get; set; }
+
+        /// <summary>
+        /// Rechnungsempfänger
+        /// </summary>
+        public Client Client{ get; set; }
+
+        /// <summary>
+        /// Referenz auf die Auftrags-Id
+        /// </summary>
+        public int RefSalesOrderId { get; set; }
 
         /// <summary>
         /// Rechnungsdatum

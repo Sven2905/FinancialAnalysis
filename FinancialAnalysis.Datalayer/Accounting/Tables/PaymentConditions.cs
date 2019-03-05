@@ -153,5 +153,88 @@ namespace FinancialAnalysis.Datalayer.Accounting
 
             return output;
         }
+
+        /// <summary>
+        /// Update PaymentCondition, if not exist, insert it
+        /// </summary>
+        /// <param name="PaymentCondition"></param>
+        public void UpdateOrInsert(PaymentCondition PaymentCondition)
+        {
+            if (PaymentCondition.PaymentConditionId == 0)
+            {
+                Insert(PaymentCondition);
+                return;
+            }
+
+            Update(PaymentCondition);
+        }
+
+        /// <summary>
+        /// Update PaymentConditions, if not exist insert them
+        /// </summary>
+        /// <param name="PaymentCondition"></param>
+        public void UpdateOrInsert(IEnumerable<PaymentCondition> PaymentConditions)
+        {
+            foreach (var PaymentCondition in PaymentConditions)
+            {
+                UpdateOrInsert(PaymentCondition);
+            }
+        }
+
+        /// <summary>
+        ///     Update PaymentCondition
+        /// </summary>
+        /// <param name="PaymentCondition"></param>
+        public void Update(PaymentCondition PaymentCondition)
+        {
+            if (PaymentCondition.PaymentConditionId == 0)
+            {
+                return;
+            }
+
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.Execute(
+                        $"dbo.{TableName}_Update @PaymentConditionId, @Name, @Percentage, @TimeValue, @PayType",
+                        PaymentCondition);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Update' from table '{TableName}'", e);
+            }
+        }
+
+        /// <summary>
+        ///     Delete PaymentCondition by Id
+        /// </summary>
+        /// <param name="id"></param>
+        public void Delete(int PaymentConditionId)
+        {
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.Execute($"dbo.{TableName}_Delete @PaymentConditionId", new { PaymentConditionId });
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'Delete' from table '{TableName}'", e);
+            }
+        }
+
+        /// <summary>
+        ///     Delete PaymentCondition by PaymentCondition item
+        /// </summary>
+        /// <param name="id"></param>
+        public void Delete(PaymentCondition paymentCondition)
+        {
+            Delete(paymentCondition.PaymentConditionId);
+        }
     }
 }

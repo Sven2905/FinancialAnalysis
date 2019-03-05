@@ -59,7 +59,13 @@
                         <dxdo:LayoutGroup Caption="LayoutRoot">
                             <dxdo:LayoutPanel Caption="Offene Aufträge" ShowCloseButton="False" MaxWidth="500">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="10,0">
-                                    <dxe:ListBoxEdit ItemsSource="{Binding SalesOrders}" SelectedItem="{Binding SelectedSalesOrder}"
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                            <dxe:TextEdit NullText="Filter" Margin="0,5" Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                                        <dxe:ListBoxEdit Grid.Row="1" ItemsSource="{Binding FilteredSalesOrders}" SelectedItem="{Binding SelectedSalesOrder}"
                                  x:Name="SaleOrders" BorderThickness="1" BorderBrush="DarkGray" FontSize="14" ShowBorder="False">
                                         <dxe:ListBoxEdit.ItemsPanel>
                                             <ItemsPanelTemplate>
@@ -144,6 +150,7 @@
                                             </DataTemplate>
                                         </dxe:ListBoxEdit.ItemTemplate>
                                     </dxe:ListBoxEdit>
+                                    </Grid>
                                 </ScrollViewer>
                             </dxdo:LayoutPanel>
                             <dxdo:LayoutPanel Caption="Informationen" ShowCloseButton="False">
@@ -165,7 +172,12 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="70" />
-                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="25" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="75" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="40" />
+                                        <ColumnDefinition Width="25" />
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
@@ -178,22 +190,26 @@
                                     <Rectangle Grid.Row="1" Fill="White" Width="150" Height="100">
                                     </Rectangle>-->
 
-                                    <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Text="Ausstehender Rechnungsbetrag " />
-                                    <dxe:TextEdit Grid.Column="1" Grid.Row="0" Mask="C2" MaskType="Numeric" VerticalAlignment="Center" HorizontalContentAlignment="Right"
+                                    <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Text="Ausstehender Rechnungsbetrag " Foreground="#3f729b" FontFamily="Tahoma" />
+                                    <dxe:TextEdit Grid.Column="1" Grid.Row="0" Mask="C2" MaskType="Numeric" VerticalAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Right"
                                                   Text="{Binding OutstandingInvoiceAmount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ShowBorder="False"
                                                   Foreground="{StaticResource RedBrush}" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" />
                                     <dx:SimpleButton Grid.Column="3" Grid.Row="0" Content="Rechnung erstellen" Width="125" Height="24"
                                                      Command="{Binding OpenInvoiceWindowCommand}" />
+                                    <TextBlock Grid.Column="5" Grid.Row="0" VerticalAlignment="Center" Text="Anzahl Rechnungen (davon ausstehend) " Foreground="#3f729b" FontFamily="Tahoma" />
+                                    <TextBlock Grid.Column="6" Grid.Row="0" VerticalAlignment="Center" Text="{Binding InvoicesCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center" />
+                                    <dx:SimpleButton Grid.Column="8" Grid.Row="0" Content="Anzeigen" Width="125" Height="24"
+                                                     Command="{Binding OpenInvoicesCommand}" />
 
-                                    <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Text="Anzahl der Mahnungen" />
+                                    <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Text="Anzahl der Mahnungen" Foreground="#3f729b" FontFamily="Tahoma" />
                                     <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="3,0" Text="{Binding SelectedSalesOrder.ReminderCounter}" />
                                     <dx:SimpleButton Grid.Column="3" Grid.Row="2" Content="Mahnung erstellen" Width="125" Height="24" />
 
-                                    <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Text="Nicht versandte Produkte" />
+                                    <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Text="Nicht versandte Produkte" Foreground="#3f729b" FontFamily="Tahoma" />
                                     <TextBlock Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="3,0" Text="0" />
                                     <dx:SimpleButton Grid.Column="3" Grid.Row="4" Content="Lieferung erstellen" Width="125" Height="24" />
 
-                                    <TextBlock Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" Text="Offene Lieferungen" />
+                                    <TextBlock Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" Text="Offene Lieferungen" Foreground="#3f729b" FontFamily="Tahoma" />
                                     <TextBlock Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="3,0" Text="0" />
                                     <dx:SimpleButton Grid.Column="3" Grid.Row="6" Content="Details" Width="125" Height="24" />
 

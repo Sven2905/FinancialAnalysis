@@ -158,7 +158,9 @@
     <Compile Include="ViewModels\Administration\MyClientViewModel.cs" />
     <Compile Include="ViewModels\ProductManagement\ProductManagementViewModel.cs" />
     <Compile Include="ViewModels\QuantityViewModel.cs" />
+    <Compile Include="ViewModels\SalesManagement\InvoiceDetailsViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\InvoiceViewModel.cs" />
+    <Compile Include="ViewModels\SalesManagement\PaymentConditionViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\PendingSaleOrdersViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\SalesManagementViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\SalesTypesViewModel.cs" />

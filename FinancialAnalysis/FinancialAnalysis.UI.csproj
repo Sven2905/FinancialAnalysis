@@ -179,6 +179,12 @@
     <Compile Include="UserControls\ProductManagement\ProductManagementControl.xaml.cs">
       <DependentUpon>ProductManagementControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\SalesManagement\InvoiceDetails.xaml.cs">
+      <DependentUpon>InvoiceDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SalesManagement\PaymentConditionControl.xaml.cs">
+      <DependentUpon>PaymentConditionControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SalesManagement\PendingSalesOrderControl.xaml.cs">
       <DependentUpon>PendingSalesOrderControl.xaml</DependentUpon>
     </Compile>
@@ -229,9 +235,6 @@
     </Compile>
     <Compile Include="UserControls\ProjectManagement\ProjectManagementControl.xaml.cs">
       <DependentUpon>ProjectManagementControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\Accounting\PaymentConditionControl.xaml.cs">
-      <DependentUpon>PaymentConditionControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Administration\UsersControl.xaml.cs">
       <DependentUpon>UsersControl.xaml</DependentUpon>
@@ -327,6 +330,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UserControls\SalesManagement\InvoiceDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SalesManagement\PaymentConditionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\SalesManagement\PendingSalesOrderControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -392,10 +403,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\ProjectManagement\ProjectManagementControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\Accounting\PaymentConditionControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

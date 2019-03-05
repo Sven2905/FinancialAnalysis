@@ -4,11 +4,9 @@ namespace FinancialAnalysis.Models
 {
     public enum PayType
     {
-        Intervall,
+        [Display(Name = "Intervall")] Intervall,
         [Display(Name = "Aktueller Monat")] ThisMonth,
-
-        [Display(Name = "Nachfolgender Monat")]
-        NextMonth,
-        [Display(Name = "Bestimmter Tag")] NextSpecificDay
+        [Display(Name = "Nachfolgender Monat")] NextMonth
+        //[Display(Name = "Bestimmter Tag")] NextSpecificDay
     }
 }

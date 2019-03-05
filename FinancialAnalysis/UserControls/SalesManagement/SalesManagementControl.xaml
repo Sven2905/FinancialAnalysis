@@ -43,32 +43,47 @@
                 </DataTemplate>
             </dxwui:PageAdornerControl.HeaderTemplate>
         </dxwui:PageAdornerControl>
-        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+        <VirtualizingStackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <VirtualizingStackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
                     Margin="0,0,0,0" Orientation="Vertical">
-            <StackPanel Orientation="Horizontal">
-                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
+                <VirtualizingStackPanel Orientation="Horizontal">
+                    <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
                                  VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
                                  Content="Neuer Auftrag" FontFamily="Tahoma"
                                  dxwuin:Navigation.NavigateTo="SalesOrderControl" VerticalAlignment="Center"
                                  Width="180"
                                  Height="180" FontSize="20" Margin="2"
                                  Visibility="{Binding Path=ShowSalesOrders, Converter={StaticResource BoolToVis}}">
-                    <dx:SimpleButton.Glyph>
-                        <dx:SvgImageSource Uri="/Images/light/pencil-alt.svg" Size="100,100" />
-                    </dx:SimpleButton.Glyph>
-                </dx:SimpleButton>
-                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
+                        <dx:SimpleButton.Glyph>
+                            <dx:SvgImageSource Uri="/Images/light/pencil-alt.svg" Size="100,100" />
+                        </dx:SimpleButton.Glyph>
+                    </dx:SimpleButton>
+                    <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
                                  VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
                                  Content="Ausstehend" FontFamily="Tahoma"
                                  dxwuin:Navigation.NavigateTo="PendingSalesOrderControl" VerticalAlignment="Center"
                                  Width="180"
                                  Height="180" FontSize="20" Margin="2"
                                  Visibility="{Binding Path=ShowPendingSaleOrders, Converter={StaticResource BoolToVis}}">
+                        <dx:SimpleButton.Glyph>
+                            <dx:SvgImageSource Uri="/Images/light/clipboard-list.svg" Size="80,100" />
+                        </dx:SimpleButton.Glyph>
+                    </dx:SimpleButton>
+                </VirtualizingStackPanel>
+            <VirtualizingStackPanel HorizontalAlignment="Left">
+                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
+                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
+                                 Content="Zahlungskond." FontFamily="Tahoma"
+                                 dxwuin:Navigation.NavigateTo="PaymentConditionControl" VerticalAlignment="Center"
+                                 Width="180"
+                                 Height="180" FontSize="20" Margin="2">
+                    <!--Visibility="{Binding Path=ShowPendingSaleOrders, Converter={StaticResource BoolToVis}}">-->
                     <dx:SimpleButton.Glyph>
-                        <dx:SvgImageSource Uri="/Images/light/clipboard-list.svg" Size="80,100" />
+                        <dx:SvgImageSource Uri="/Images/light/money-check.svg" Size="120,100" />
                     </dx:SimpleButton.Glyph>
                 </dx:SimpleButton>
-            </StackPanel>
-        </StackPanel>
+            </VirtualizingStackPanel>
+        </VirtualizingStackPanel>
+            </VirtualizingStackPanel>
     </Grid>
 </UserControl>

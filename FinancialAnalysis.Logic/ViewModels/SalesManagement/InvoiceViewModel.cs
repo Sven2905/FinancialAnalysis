@@ -1,6 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
+using FinancialAnalysis.Logic.SalesManagement;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Interfaces;
 using FinancialAnalysis.Models.SalesManagement;
@@ -139,6 +140,16 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
 
             DataContext.Instance.InvoicePositions.Insert(itemsToSave);
+
+            InvoiceReportData invoiceReportData = new InvoiceReportData()
+            {
+                Employee = SalesOrder.Employee,
+                SalesOrder = SalesOrder,
+                Invoice = Invoice,
+                MyCompany = Globals.CoreData.MyCompany
+            };
+
+            SalesReportPDFCreator.CreateAndShowInvoiceReport(invoiceReportData, false);
         }
 
         #endregion Methods
