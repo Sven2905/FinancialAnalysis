@@ -168,6 +168,7 @@
     <Compile Include="ProjectManagement\Tariff.cs" />
     <Compile Include="SalesManagement\SalesOrder.cs" />
     <Compile Include="SalesManagement\SalesOrderPosition.cs" />
+    <Compile Include="SalesManagement\InvoiceReportData.cs" />
     <Compile Include="SalesManagement\SalesOrderReportData.cs" />
     <Compile Include="SalesManagement\SalesType.cs" />
     <Compile Include="SalesManagement\SelectedInvoiceType.cs" />

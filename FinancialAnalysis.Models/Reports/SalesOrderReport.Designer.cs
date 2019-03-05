@@ -359,7 +359,7 @@
             this.invoiceNumberCaption.StylePriority.UseFont = false;
             this.invoiceNumberCaption.StylePriority.UsePadding = false;
             this.invoiceNumberCaption.StylePriority.UseTextAlignment = false;
-            this.invoiceNumberCaption.Text = "Rechnung:";
+            this.invoiceNumberCaption.Text = "Auftrag:";
             this.invoiceNumberCaption.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
             this.invoiceNumberCaption.Weight = 0.49655929171275132D;
             // 

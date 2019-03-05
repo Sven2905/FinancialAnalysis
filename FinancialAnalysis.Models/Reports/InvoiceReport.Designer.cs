@@ -32,6 +32,7 @@
             DevExpress.XtraPrinting.BarCode.QRCodeGenerator qrCodeGenerator1 = new DevExpress.XtraPrinting.BarCode.QRCodeGenerator();
             DevExpress.XtraReports.UI.XRSummary xrSummary1 = new DevExpress.XtraReports.UI.XRSummary();
             DevExpress.XtraReports.UI.XRSummary xrSummary2 = new DevExpress.XtraReports.UI.XRSummary();
+            DevExpress.DataAccess.ObjectBinding.ObjectConstructorInfo objectConstructorInfo1 = new DevExpress.DataAccess.ObjectBinding.ObjectConstructorInfo();
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
             this.TopMargin = new DevExpress.XtraReports.UI.TopMarginBand();
             this.BottomMargin = new DevExpress.XtraReports.UI.BottomMarginBand();
@@ -48,13 +49,6 @@
             this.xrLabel2 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel1 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrPictureBox1 = new DevExpress.XtraReports.UI.XRPictureBox();
-            this.invoiceInfoTable = new DevExpress.XtraReports.UI.XRTable();
-            this.invoiceDateRow = new DevExpress.XtraReports.UI.XRTableRow();
-            this.invoiceDateCaption = new DevExpress.XtraReports.UI.XRTableCell();
-            this.invoiceDate = new DevExpress.XtraReports.UI.XRTableCell();
-            this.invoiceNumberRow = new DevExpress.XtraReports.UI.XRTableRow();
-            this.invoiceNumberCaption = new DevExpress.XtraReports.UI.XRTableCell();
-            this.invoiceNumber = new DevExpress.XtraReports.UI.XRTableCell();
             this.customerTable = new DevExpress.XtraReports.UI.XRTable();
             this.customerNameRow = new DevExpress.XtraReports.UI.XRTableRow();
             this.customerName = new DevExpress.XtraReports.UI.XRTableCell();
@@ -109,8 +103,11 @@
             this.xrLabel15 = new DevExpress.XtraReports.UI.XRLabel();
             this.objectDataSource1 = new DevExpress.DataAccess.ObjectBinding.ObjectDataSource(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.xrLabel19 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabel20 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabel21 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabel18 = new DevExpress.XtraReports.UI.XRLabel();
             ((System.ComponentModel.ISupportInitialize)(this.vendorContactsTable)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.invoiceInfoTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subtotalTable)).BeginInit();
@@ -202,6 +199,7 @@
             // GroupHeader2
             // 
             this.GroupHeader2.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrLabel18,
             this.xrLabel5,
             this.xrBarCode1,
             this.xrLabel4,
@@ -209,10 +207,12 @@
             this.xrLabel2,
             this.xrLabel1,
             this.xrPictureBox1,
-            this.invoiceInfoTable,
             this.customerTable,
             this.vendorTable,
-            this.invoiceLabel});
+            this.invoiceLabel,
+            this.xrLabel19,
+            this.xrLabel20,
+            this.xrLabel21});
             this.GroupHeader2.GroupFields.AddRange(new DevExpress.XtraReports.UI.GroupField[] {
             new DevExpress.XtraReports.UI.GroupField("InvoiceNumber", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)});
             this.GroupHeader2.GroupUnion = DevExpress.XtraReports.UI.GroupUnion.WithFirstDetail;
@@ -305,74 +305,6 @@
             this.xrPictureBox1.SizeF = new System.Drawing.SizeF(196.8754F, 89.99998F);
             this.xrPictureBox1.Sizing = DevExpress.XtraPrinting.ImageSizeMode.ZoomImage;
             // 
-            // invoiceInfoTable
-            // 
-            this.invoiceInfoTable.LocationFloat = new DevExpress.Utils.PointFloat(0F, 251.875F);
-            this.invoiceInfoTable.Name = "invoiceInfoTable";
-            this.invoiceInfoTable.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
-            this.invoiceDateRow,
-            this.invoiceNumberRow});
-            this.invoiceInfoTable.SizeF = new System.Drawing.SizeF(201.0514F, 50F);
-            // 
-            // invoiceDateRow
-            // 
-            this.invoiceDateRow.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
-            this.invoiceDateCaption,
-            this.invoiceDate});
-            this.invoiceDateRow.Name = "invoiceDateRow";
-            this.invoiceDateRow.Weight = 1D;
-            // 
-            // invoiceDateCaption
-            // 
-            this.invoiceDateCaption.CanShrink = true;
-            this.invoiceDateCaption.Name = "invoiceDateCaption";
-            this.invoiceDateCaption.StylePriority.UseFont = false;
-            this.invoiceDateCaption.StylePriority.UsePadding = false;
-            this.invoiceDateCaption.StylePriority.UseTextAlignment = false;
-            this.invoiceDateCaption.Text = "Datum:";
-            this.invoiceDateCaption.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
-            this.invoiceDateCaption.Weight = 0.49655929171275132D;
-            // 
-            // invoiceDate
-            // 
-            this.invoiceDate.CanShrink = true;
-            this.invoiceDate.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[SalesOrder.OrderDate]")});
-            this.invoiceDate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.invoiceDate.Name = "invoiceDate";
-            this.invoiceDate.StylePriority.UseFont = false;
-            this.invoiceDate.TextFormatString = "{0:dd.MM.yyyy}";
-            this.invoiceDate.Weight = 0.6933719675481318D;
-            // 
-            // invoiceNumberRow
-            // 
-            this.invoiceNumberRow.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
-            this.invoiceNumberCaption,
-            this.invoiceNumber});
-            this.invoiceNumberRow.Name = "invoiceNumberRow";
-            this.invoiceNumberRow.Weight = 1D;
-            // 
-            // invoiceNumberCaption
-            // 
-            this.invoiceNumberCaption.CanShrink = true;
-            this.invoiceNumberCaption.Name = "invoiceNumberCaption";
-            this.invoiceNumberCaption.StylePriority.UseFont = false;
-            this.invoiceNumberCaption.StylePriority.UsePadding = false;
-            this.invoiceNumberCaption.StylePriority.UseTextAlignment = false;
-            this.invoiceNumberCaption.Text = "Rechnung:";
-            this.invoiceNumberCaption.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
-            this.invoiceNumberCaption.Weight = 0.49655929171275132D;
-            // 
-            // invoiceNumber
-            // 
-            this.invoiceNumber.CanShrink = true;
-            this.invoiceNumber.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[SalesOrder.SalesOrderId]")});
-            this.invoiceNumber.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.invoiceNumber.Name = "invoiceNumber";
-            this.invoiceNumber.StylePriority.UseFont = false;
-            this.invoiceNumber.Weight = 0.6933719675481318D;
-            // 
             // customerTable
             // 
             this.customerTable.LocationFloat = new DevExpress.Utils.PointFloat(0F, 89.99999F);
@@ -451,7 +383,7 @@
             this.invoiceLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.invoiceLabel.SizeF = new System.Drawing.SizeF(315.0554F, 50F);
             this.invoiceLabel.StylePriority.UseFont = false;
-            this.invoiceLabel.Text = "Auftragsbestätigung";
+            this.invoiceLabel.Text = "Rechnung";
             // 
             // GroupFooter2
             // 
@@ -969,10 +901,65 @@
             // 
             // objectDataSource1
             // 
-            this.objectDataSource1.DataSource = typeof(FinancialAnalysis.Models.SalesManagement.SalesOrderReportData);
+            this.objectDataSource1.Constructor = objectConstructorInfo1;
+            this.objectDataSource1.DataSource = typeof(FinancialAnalysis.Models.SalesManagement.InvoiceReportData);
             this.objectDataSource1.Name = "objectDataSource1";
             // 
-            // SalesOrderReport
+            // xrLabel19
+            // 
+            this.xrLabel19.CanShrink = true;
+            this.xrLabel19.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.xrLabel19.LocationFloat = new DevExpress.Utils.PointFloat(0F, 251.875F);
+            this.xrLabel19.Name = "xrLabel19";
+            this.xrLabel19.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrLabel19.SizeF = new System.Drawing.SizeF(83.89892F, 25F);
+            this.xrLabel19.StylePriority.UseFont = false;
+            this.xrLabel19.StylePriority.UsePadding = false;
+            this.xrLabel19.StylePriority.UseTextAlignment = false;
+            this.xrLabel19.Text = "Datum:";
+            this.xrLabel19.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
+            // 
+            // xrLabel20
+            // 
+            this.xrLabel20.CanShrink = true;
+            this.xrLabel20.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Invoice].[InvoiceDate]")});
+            this.xrLabel20.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.xrLabel20.LocationFloat = new DevExpress.Utils.PointFloat(83.89893F, 251.875F);
+            this.xrLabel20.Name = "xrLabel20";
+            this.xrLabel20.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrLabel20.SizeF = new System.Drawing.SizeF(117.1525F, 25F);
+            this.xrLabel20.StylePriority.UseFont = false;
+            this.xrLabel20.StylePriority.UsePadding = false;
+            // 
+            // xrLabel21
+            // 
+            this.xrLabel21.CanShrink = true;
+            this.xrLabel21.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.xrLabel21.LocationFloat = new DevExpress.Utils.PointFloat(0F, 276.875F);
+            this.xrLabel21.Name = "xrLabel21";
+            this.xrLabel21.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrLabel21.SizeF = new System.Drawing.SizeF(83.89893F, 25F);
+            this.xrLabel21.StylePriority.UseFont = false;
+            this.xrLabel21.StylePriority.UsePadding = false;
+            this.xrLabel21.StylePriority.UseTextAlignment = false;
+            this.xrLabel21.Text = "Rechnung:";
+            this.xrLabel21.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
+            // 
+            // xrLabel18
+            // 
+            this.xrLabel18.CanShrink = true;
+            this.xrLabel18.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Invoice].[InvoiceId]")});
+            this.xrLabel18.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.xrLabel18.LocationFloat = new DevExpress.Utils.PointFloat(83.89893F, 276.875F);
+            this.xrLabel18.Name = "xrLabel18";
+            this.xrLabel18.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrLabel18.SizeF = new System.Drawing.SizeF(117.1525F, 25F);
+            this.xrLabel18.StylePriority.UseFont = false;
+            this.xrLabel18.StylePriority.UsePadding = false;
+            // 
+            // InvoiceReport
             // 
             this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
             this.Detail,
@@ -1000,7 +987,6 @@
             this.baseControlStyle});
             this.Version = "18.2";
             ((System.ComponentModel.ISupportInitialize)(this.vendorContactsTable)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.invoiceInfoTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.subtotalTable)).EndInit();
@@ -1021,13 +1007,6 @@
         private DevExpress.XtraReports.UI.XRTableCell vendorEmail;
         private DevExpress.XtraReports.UI.XRTableCell vendorPhone;
         private DevExpress.XtraReports.UI.GroupHeaderBand GroupHeader2;
-        private DevExpress.XtraReports.UI.XRTable invoiceInfoTable;
-        private DevExpress.XtraReports.UI.XRTableRow invoiceDateRow;
-        private DevExpress.XtraReports.UI.XRTableCell invoiceDateCaption;
-        private DevExpress.XtraReports.UI.XRTableCell invoiceDate;
-        private DevExpress.XtraReports.UI.XRTableRow invoiceNumberRow;
-        private DevExpress.XtraReports.UI.XRTableCell invoiceNumberCaption;
-        private DevExpress.XtraReports.UI.XRTableCell invoiceNumber;
         private DevExpress.XtraReports.UI.XRTable customerTable;
         private DevExpress.XtraReports.UI.XRTableRow customerNameRow;
         private DevExpress.XtraReports.UI.XRTableCell customerName;
@@ -1089,5 +1068,9 @@
         private DevExpress.XtraReports.UI.XRLabel xrLabel15;
         private DevExpress.XtraReports.UI.XRLabel xrLabel17;
         private DevExpress.XtraReports.UI.XRLabel xrLabel16;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel18;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel19;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel20;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel21;
     }
 }
