@@ -4,6 +4,7 @@ using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Logic.SalesManagement;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Interfaces;
+using FinancialAnalysis.Models.ProjectManagement;
 using FinancialAnalysis.Models.SalesManagement;
 using System.Linq;
 using System.Windows.Input;
@@ -11,7 +12,7 @@ using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
-    public class InvoiceViewModel : ViewModelBase
+    public class InvoiceCreationViewModel : ViewModelBase
     {
         #region Fields
 
@@ -22,11 +23,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Constructor
 
-        public InvoiceViewModel()
+        public InvoiceCreationViewModel()
         {
-            RemoveFromInvoiceDropCommand = new DelegateCommand<IDropEventArgs>(RemoveFromInvoiceDrop);
-            AddToInvoiceCommand = new DelegateCommand<IDropEventArgs>(AddToInvoiceDrop);
-            CreateInvoiceCommand = new DelegateCommand(SaveInvoice, () => ProductsOnInvoice.Count > 0);
+            SetCommands();
             Messenger.Default.Register<SelectedQuantity>(this, GetSelectedQuantity);
             GetData();
         }
@@ -35,10 +34,18 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Methods
 
+        private void SetCommands()
+        {
+            RemoveFromInvoiceDropCommand = new DelegateCommand<IDropEventArgs>(RemoveFromInvoiceDrop);
+            AddToInvoiceCommand = new DelegateCommand<IDropEventArgs>(AddToInvoiceDrop);
+            CreateInvoiceCommand = new DelegateCommand(SaveInvoice, () => ProductsOnInvoice.Count > 0);
+        }
+
         private void GetData()
         {
             InvoiceTypes = DataContext.Instance.InvoiceTypes.GetAll().ToSvenTechCollection();
             PaymentConditions = DataContext.Instance.PaymentConditions.GetAll().ToSvenTechCollection();
+            Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
         }
 
         public void RemoveFromInvoiceDrop(IDropEventArgs e)
@@ -132,6 +139,9 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveInvoice()
         {
             Invoice.InvoiceId = DataContext.Instance.Invoices.Insert(Invoice);
+            Invoice.TotalAmount = ProductsOnInvoice.Sum(x => x.Total);
+            Invoice.Employee = Employees.Single(x => x.EmployeeId == Invoice.RefEmployeeId);
+            Invoice.Debitor = SalesOrder.Debitor;
 
             SvenTechCollection<InvoicePosition> itemsToSave = new SvenTechCollection<InvoicePosition>();
             foreach (var item in ProductsOnInvoice)
@@ -143,7 +153,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             InvoiceReportData invoiceReportData = new InvoiceReportData()
             {
-                Employee = SalesOrder.Employee,
+                Employee = Invoice.Employee,
                 SalesOrder = SalesOrder,
                 Invoice = Invoice,
                 MyCompany = Globals.CoreData.MyCompany
@@ -163,13 +173,14 @@ namespace FinancialAnalysis.Logic.ViewModels
         }
 
         public Invoice Invoice { get; set; } = new Invoice();
-        public ICommand RemoveFromInvoiceDropCommand { get; }
-        public ICommand AddToInvoiceCommand { get; }
-        public ICommand CreateInvoiceCommand { get; }
+        public ICommand RemoveFromInvoiceDropCommand { get; set; }
+        public ICommand AddToInvoiceCommand { get; set; }
+        public ICommand CreateInvoiceCommand { get; set; }
         public SvenTechCollection<PaymentCondition> PaymentConditions { get; set; } = new SvenTechCollection<PaymentCondition>();
         public SvenTechCollection<InvoiceType> InvoiceTypes { get; set; } = new SvenTechCollection<InvoiceType>();
         public SvenTechCollection<SalesOrderPosition> OrderedProducts { get; set; } = new SvenTechCollection<SalesOrderPosition>();
         public SvenTechCollection<SalesOrderPosition> ProductsOnInvoice { get; set; } = new SvenTechCollection<SalesOrderPosition>();
+        public SvenTechCollection<Employee> Employees { get; set; } = new SvenTechCollection<Employee>();
 
         #endregion Properties
     }

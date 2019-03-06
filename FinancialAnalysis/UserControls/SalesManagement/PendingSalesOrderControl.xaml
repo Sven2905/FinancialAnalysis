@@ -199,7 +199,7 @@
                                     <TextBlock Grid.Column="5" Grid.Row="0" VerticalAlignment="Center" Text="Anzahl Rechnungen (davon ausstehend) " Foreground="#3f729b" FontFamily="Tahoma" />
                                     <TextBlock Grid.Column="6" Grid.Row="0" VerticalAlignment="Center" Text="{Binding InvoicesCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center" />
                                     <dx:SimpleButton Grid.Column="8" Grid.Row="0" Content="Anzeigen" Width="125" Height="24"
-                                                     Command="{Binding OpenInvoicesCommand}" />
+                                                     Command="{Binding OpenInvoiceListCommand}" />
 
                                     <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Text="Anzahl der Mahnungen" Foreground="#3f729b" FontFamily="Tahoma" />
                                     <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="3,0" Text="{Binding SelectedSalesOrder.ReminderCounter}" />

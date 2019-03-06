@@ -21,6 +21,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
             GetAllData();
             InsertData();
             GetById();
+            GetOpenInvoices();
             UpdateData();
             DeleteData();
         }
@@ -32,7 +33,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
-                                "SELECT i.*, t.*, pos.*, pay.*, spos.*, s.*, p.*, d.* " +
+                                "SELECT i.*, t.*, pos.*, pay.*, spos.*, s.*, p.*, d.*, cl.*, c.*, p.*, tax.*, e.* " +
                                 $"FROM {TableName} i " +
                                 "LEFT JOIN InvoiceTypes t ON i.RefInvoiceTypeId = t.InvoiceTypeId " +
                                 "LEFT JOIN InvoicePositions pos ON i.InvoiceId = pos.RefInvoiceId " +
@@ -40,7 +41,11 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                                 "LEFT JOIN SalesOrderPositions spos ON pos.RefSalesOrderPositionId = spos.SalesOrderPositionId " +
                                 "LEFT JOIN SalesOrders s ON spos.RefSalesOrderId = s.SalesOrderId " +
                                 "LEFT JOIN Debitors d ON s.RefDebitorId = d.DebitorId " +
+                                "LEFT JOIN Clients cl ON d.RefClientId = d.RefClientId " +
+                                "LEFT JOIN Companies c ON cl.ClientId = c.RefClientId " +
                                 "LEFT JOIN Products p ON spos.RefProductId = p.ProductId " +
+                                "LEFT JOIN TaxTypes tax ON p.RefTaxTypeId = tax.TaxTypeId " +
+                                "LEFT JOIN Employees e ON i.RefEmployeeId = e.EmployeeId " +
                                 "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -63,9 +68,9 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @InvoiceDate datetime, @InvoiceDueDate datetime, @RefInvoiceTypeId int, @RefPaymentConditionId int, @PaidAmount money, @IsPaid bit AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (InvoiceDate, InvoiceDueDate, RefInvoiceTypeId, RefPaymentConditionId, PaidAmount, IsPaid) " +
-                    "VALUES (@InvoiceDate, @InvoiceDueDate, @RefInvoiceTypeId, @RefPaymentConditionId, @PaidAmount, @IsPaid); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @InvoiceDate datetime, @InvoiceDueDate datetime, @PaidDate datetime, @RefEmployeeId int, @RefInvoiceTypeId int, @RefPaymentConditionId int, @TotalAmount money, @PaidAmount money, @IsPaid bit AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (InvoiceDate, InvoiceDueDate, PaidDate, RefEmployeeId, RefInvoiceTypeId, RefPaymentConditionId, TotalAmount, PaidAmount, IsPaid) " +
+                    "VALUES (@InvoiceDate, @InvoiceDueDate, @PaidDate, @RefEmployeeId, @RefInvoiceTypeId, @RefPaymentConditionId, @TotalAmount, @PaidAmount, @IsPaid); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -89,7 +94,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetById] @InvoiceId int AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT i.*, t.*, pos.*, pay.*, spos.*, s.*, p.*, d.* " +
+                    "SELECT i.*, t.*, pos.*, pay.*, spos.*, s.*, p.*, d.*, cl.*, c.*, p.*, tax.*, e.* " +
                     $"FROM {TableName} i " +
                     "LEFT JOIN InvoiceTypes t ON i.RefInvoiceTypeId = t.InvoiceTypeId " +
                     "LEFT JOIN InvoicePositions pos ON i.InvoiceId = pos.RefInvoiceId " +
@@ -97,7 +102,11 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     "LEFT JOIN SalesOrderPositions spos ON pos.RefSalesOrderPositionId = spos.SalesOrderPositionId " +
                     "LEFT JOIN SalesOrders s ON spos.RefSalesOrderId = s.SalesOrderId " +
                     "LEFT JOIN Debitors d ON s.RefDebitorId = d.DebitorId " +
+                    "LEFT JOIN Clients cl ON d.RefClientId = d.RefClientId " +
+                    "LEFT JOIN Companies c ON cl.ClientId = c.RefClientId " +
                     "LEFT JOIN Products p ON spos.RefProductId = p.ProductId " +
+                    "LEFT JOIN TaxTypes tax ON p.RefTaxTypeId = tax.TaxTypeId " +
+                    "LEFT JOIN Employees e ON i.RefEmployeeId = e.EmployeeId " +
                     "WHERE i.InvoiceId = @InvoiceId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -121,7 +130,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetOpenInvoices] AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT i.*, t.*, pos.*, pay.*, spos.*, s.*, p.*, d.* " +
+                    "SELECT i.*, t.*, pos.*, pay.*, spos.*, s.*, p.*, d.*, cl.*, c.*, p.*, tax.*, e.* " +
                     $"FROM {TableName} i " +
                     "LEFT JOIN InvoiceTypes t ON i.RefInvoiceTypeId = t.InvoiceTypeId " +
                     "LEFT JOIN InvoicePositions pos ON i.InvoiceId = pos.RefInvoiceId " +
@@ -129,8 +138,12 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     "LEFT JOIN SalesOrderPositions spos ON pos.RefSalesOrderPositionId = spos.SalesOrderPositionId " +
                     "LEFT JOIN SalesOrders s ON spos.RefSalesOrderId = s.SalesOrderId " +
                     "LEFT JOIN Debitors d ON s.RefDebitorId = d.DebitorId " +
+                    "LEFT JOIN Clients cl ON d.RefClientId = d.RefClientId " +
+                    "LEFT JOIN Companies c ON cl.ClientId = c.RefClientId " +
                     "LEFT JOIN Products p ON spos.RefProductId = p.ProductId " +
-                    "WHERE i.IsClosed = 1 END");
+                    "LEFT JOIN TaxTypes tax ON p.RefTaxTypeId = tax.TaxTypeId " +
+                    "LEFT JOIN Employees e ON i.RefEmployeeId = e.EmployeeId " +
+                    "WHERE i.IsPaid = 0 END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
@@ -152,13 +165,16 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @InvoiceId int, @InvoiceDate datetime, @InvoiceDueDate datetime, @RefInvoiceTypeId int, @RefPaymentConditionId int, @PaidAmount money, @IsPaid bit " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @InvoiceId int, @InvoiceDate datetime, @InvoiceDueDate datetime, @PaidDate datetime, @RefEmployeeId int, @RefInvoiceTypeId int, @RefPaymentConditionId int, @TotalAmount money, @PaidAmount money, @IsPaid bit " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "SET InvoiceDate = @InvoiceDate, " +
                     "InvoiceDueDate = @InvoiceDueDate, " +
+                    "PaidDate = @PaidDate, " +
+                    "RefEmployeeId = @RefEmployeeId, " +
                     "RefInvoiceTypeId = @RefInvoiceTypeId, " +
                     "RefPaymentConditionId = @RefPaymentConditionId, " +
+                    "TotalAmount = @TotalAmount, " +
                     "PaidAmount = @PaidAmount, " +
                     "IsPaid = @IsPaid " +
                     "WHERE InvoiceId = @InvoiceId END");

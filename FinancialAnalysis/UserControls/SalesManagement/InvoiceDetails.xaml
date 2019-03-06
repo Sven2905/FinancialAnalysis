@@ -39,45 +39,59 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="5" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Rechnungsnummer" Foreground="#3f729b" FontFamily="Tahoma" />
-        <TextBlock Grid.Row="0" Grid.Column="2" Text="012345" Foreground="#3f729b" FontFamily="Tahoma" />
+        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Rechnungsnummer" Foreground="#3f729b" FontFamily="Tahoma" />
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Invoice.InvoiceId}" Foreground="#3f729b" FontFamily="Tahoma" />
 
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Rechnungsempfänger" Foreground="#3f729b" FontFamily="Tahoma" />
-        <TextBlock Grid.Row="2" Grid.Column="2" Text="Sven Fuhrmann" Foreground="#3f729b" FontFamily="Tahoma" />
+        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Invoice.Client.Name}" Foreground="#3f729b" FontFamily="Tahoma" />
 
-        <TextBlock Grid.Row="4" Grid.Column="0" Text="Anschrift" Foreground="#3f729b" FontFamily="Tahoma" />
-        <TextBlock Grid.Row="4" Grid.Column="2" Text="Horst-Gladbecker-Str. 115, 45897 Gelsenkirchen" Foreground="#3f729b" FontFamily="Tahoma" />
+        <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="Anschrift" Foreground="#3f729b" FontFamily="Tahoma" />
+        <TextBlock Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Invoice.Client.Address}" Foreground="#3f729b" FontFamily="Tahoma" />
 
         <TextBlock Grid.Row="6" Grid.Column="0" Text="Gesamtbetrag" Foreground="#3f729b" FontFamily="Tahoma" />
-        <TextBlock Grid.Row="6" Grid.Column="2" Text="100,00 €" Foreground="#3f729b" FontFamily="Tahoma" />
+        <dxe:TextEdit Grid.Column="1" Grid.Row="0" Mask="C2" MaskType="Numeric" VerticalAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Right"
+                                                  Text="{Binding Invoice.TotalAmount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ShowBorder="False" 
+                                                  MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" />
 
-        <TextBlock Grid.Row="8" Grid.Column="0" Margin="15,0,0,0" Text="Davon ausstehend" Foreground="#3f729b" FontFamily="Tahoma" />
-        <TextBlock Grid.Row="8" Grid.Column="2" Text="100,00 €" Foreground="#3f729b" FontFamily="Tahoma" />
+        <TextBlock Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" Margin="15,0,0,0" Text="Davon bezahlt" Foreground="#3f729b" FontFamily="Tahoma" />
+        <dxe:TextEdit Grid.Row="8" Grid.Column="2" Text="{Binding Invoice.PaidAmount}" Foreground="#3f729b" FontFamily="Tahoma" 
+                      Mask="C" MaskType="Numeric" MaskUseAsDisplayFormat="True" />
 
-        <TextBlock Grid.Row="10" Grid.Column="0" Text="Mahnungen" Foreground="#3f729b" FontFamily="Tahoma" />
-        <TextBlock Grid.Row="10" Grid.Column="2" Text="2" Foreground="#3f729b" FontFamily="Tahoma" />
-        <dx:SimpleButton Grid.Row="10" Grid.Column="2" Margin="0,0,0,0" Width="120" Content="Erstellen" Foreground="#3f729b" FontFamily="Tahoma" />
+        <TextBlock Grid.Row="10" Grid.Column="0" Margin="15,0,0,0" Text="Noch ausstehend" Foreground="#3f729b" FontFamily="Tahoma" />
+        <dxe:TextEdit Grid.Column="1" Grid.Row="0" Mask="C2" MaskType="Numeric" VerticalAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Right"
+                                                  Text="{Binding Invoice.OutstandingAmount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ShowBorder="False"
+                                                  Foreground="{StaticResource RedBrush}" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" />
 
-        <TextBlock Grid.Row="12" Grid.Column="0" Text="Zahlungskonditionen" Foreground="#3f729b" FontFamily="Tahoma" />
-        <TextBlock Grid.Row="12" Grid.Column="2" Text="Keine" Foreground="#3f729b" FontFamily="Tahoma" />
+        <TextBlock Grid.Row="12" Grid.Column="0" Text="Mahnungen" Foreground="#3f729b" FontFamily="Tahoma" />
+        <TextBlock Grid.Row="12" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Invoice.InvoiceReminders.Count}" Foreground="#3f729b" FontFamily="Tahoma" />
 
-        <TextBlock Grid.Row="14" Grid.Column="0" Margin="15,0,0,0" Text="Erfüllt" Foreground="#3f729b" FontFamily="Tahoma" />
-        <dxe:CheckEdit Grid.Row="14" Grid.Column="2" Margin="0,-5,0,0" IsReadOnly="True" IsChecked="False" Foreground="#3f729b" FontFamily="Tahoma" />
+        <TextBlock Grid.Row="14" Grid.Column="0" Text="Zahlungskonditionen" Foreground="#3f729b" FontFamily="Tahoma" />
+        <TextBlock Grid.Row="14" Grid.Column="2" Text="{Binding Invoice.PaymentCondition.Name}" Foreground="#3f729b" FontFamily="Tahoma" />
+
+        <TextBlock Grid.Row="16" Grid.Column="0" VerticalAlignment="Center" Margin="15,0,0,0" Text="Erfüllt" Foreground="#3f729b" FontFamily="Tahoma" />
+        <dxe:CheckEdit Grid.Row="16" Grid.Column="2" Margin="0,-5,0,0" IsReadOnly="True" IsChecked="{Binding Invoice.IsPaid}" Foreground="#3f729b" FontFamily="Tahoma" />
+
+        <dx:SimpleButton Grid.Row="18" Grid.Column="0" Height="25" Command="{Binding SaveCommand}" Foreground="#3f729b" Content="Speichern" Margin="5,0" FontFamily="Tahoma" />
+        <dx:SimpleButton Grid.Row="18" Grid.Column="2" Height="25" Command="{Binding CreateReminderCommand}" HorizontalAlignment="Left" Margin="5,0" Width="120" Content="Mahnung erstellen" Foreground="#3f729b" FontFamily="Tahoma" />
 
         <!--Rechte Spalte-->
-        <TextBlock Grid.Row="0" Grid.Column="4" Text="Rechnungsdatum" Foreground="#3f729b" FontFamily="Tahoma" />
-        <TextBlock Grid.Row="0" Grid.Column="6" Text="05.03.2018" Foreground="#3f729b" FontFamily="Tahoma" />
+        <TextBlock Grid.Row="0" Grid.Column="4" VerticalAlignment="Center" Text="Rechnungsdatum" Foreground="#3f729b" FontFamily="Tahoma" />
+        <TextBlock Grid.Row="0" Grid.Column="6" Text="{Binding Invoice.InvoiceDate}" Foreground="#3f729b" FontFamily="Tahoma" />
 
         <TextBlock Grid.Row="2" Grid.Column="4" Text="Fälligkeitsdatum" Foreground="#3f729b" FontFamily="Tahoma" />
-        <TextBlock Grid.Row="2" Grid.Column="6" Text="15.03.2018" Foreground="#3f729b" FontFamily="Tahoma" />
+        <TextBlock Grid.Row="2" Grid.Column="6" Text="{Binding Invoice.InvoiceDueDate}" Foreground="#3f729b" FontFamily="Tahoma" />
 
-        <TextBlock Grid.Row="4" Grid.Column="4" Text="Bezahlt am" Foreground="#3f729b" FontFamily="Tahoma" />
-        <TextBlock Grid.Row="4" Grid.Column="6" Text="20.03.2018" Foreground="#3f729b" FontFamily="Tahoma" />
+        <TextBlock Grid.Row="4" Grid.Column="4" VerticalAlignment="Center" Text="Bezahlt am" Foreground="#3f729b" FontFamily="Tahoma" />
+        <dxe:DateEdit Grid.Row="4" Grid.Column="6" Foreground="#3F729B" FontFamily="Tahoma" DisplayFormatString="dd.MM.yyyy" DateTime="{Binding Invoice.PaidDate}" />
 
         <TextBlock Grid.Row="6" Grid.Column="4" Text="Bearbeiter" Foreground="#3f729b" FontFamily="Tahoma" />
-        <TextBlock Grid.Row="6" Grid.Column="6" Text="Max Mustermann" Foreground="#3f729b" FontFamily="Tahoma" />
+        <TextBlock Grid.Row="6" Grid.Column="6" Text="{Binding Invoice.Employee.Name}" Foreground="#3f729b" FontFamily="Tahoma" />
 
     </Grid>
 </UserControl>

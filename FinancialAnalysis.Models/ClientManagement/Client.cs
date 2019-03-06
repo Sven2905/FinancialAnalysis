@@ -13,7 +13,7 @@ namespace FinancialAnalysis.Models.ClientManagement
         }
 
         /// <summary>
-        ///
+        /// Id des Klienten
         /// </summary>
         public int ClientId { get; set; }
 

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace FinancialAnalysis.Windows
 {
     /// <summary>
-    /// Interaction logic for InvoiceWindow.xaml
+    /// Interaction logic for InvoiceListWindow.xaml
     /// </summary>
-    public partial class InvoiceWindow : DXWindow
+    public partial class InvoiceListWindow : DXWindow
     {
-        public InvoiceWindow()
+        public InvoiceListWindow()
         {
             InitializeComponent();
         }

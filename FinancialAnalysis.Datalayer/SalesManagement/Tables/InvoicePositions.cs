@@ -188,7 +188,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
         private void AddSalesOrderPositionsReference()
         {
-            var refTable = "SalesOrderPositions";
+            const string refTable = "SalesOrderPositions";
 
             try
             {
@@ -212,13 +212,13 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
         private void AddInvoicesReference()
         {
-            var refTable = "Invoices";
+            const string refTable = "Invoices";
 
             try
             {
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
-                    $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefInvoiceId) REFERENCES {refTable}(InvoiceId) ON DELETE CASCADE";
+                    $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefInvoiceId) REFERENCES {refTable}(InvoiceId) ON DELETE NO ACTION";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {

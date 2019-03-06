@@ -41,7 +41,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             CloseOrderCommand = new DelegateCommand(CloseOrder, () => SelectedSalesOrder != null);
             CreateInvoiceWindowCommand = new DelegateCommand(CreateInvoice, () => SelectedSalesOrder != null);
             ShowPDFOrderReportCommand = new DelegateCommand(ShowPDFOrderReport, () => SelectedSalesOrder != null);
-            OpenInvoicesCommand = new DelegateCommand(ShowInvoices, () => SelectedSalesOrder != null && SelectedSalesOrder.Invoices.Count > 0);
+            OpenInvoiceListCommand = new DelegateCommand(ShowInvoices, () => SelectedSalesOrder != null && SelectedSalesOrder.Invoices.Count > 0);
         }
 
         private void CloseOrder()
@@ -117,12 +117,12 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
             }
 
-            Messenger.Default.Send(new OpenInvoiceWindowMessage(invoiceSalesOrder));
+            Messenger.Default.Send(new OpenInvoiceCreationWindowMessage(invoiceSalesOrder));
         }
 
         private void ShowInvoices()
         {
-            
+            Messenger.Default.Send(new OpenInvoiceListWindowMessage(SelectedSalesOrder.Invoices));
         }
 
         #endregion Methods
@@ -134,7 +134,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public ICommand CloseOrderCommand { get; set; }
         public ICommand CreateInvoiceWindowCommand { get; set; }
         public ICommand ShowPDFOrderReportCommand { get; set; }
-        public ICommand OpenInvoicesCommand { get; set; }
+        public ICommand OpenInvoiceListCommand { get; set; }
         public decimal OutstandingInvoiceAmount => CalculateOutstandingInvoiceAmount();
         public string InvoicesCount { get; set; } = "0";
         public SvenTechCollection<Invoice> OpenInvoices => SelectedSalesOrder.Invoices.Where(x => !x.IsPaid).ToSvenTechCollection();

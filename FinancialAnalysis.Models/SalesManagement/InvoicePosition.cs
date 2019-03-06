@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Models.ProductManagement;
 
 namespace FinancialAnalysis.Models.SalesManagement
 {
@@ -34,8 +35,18 @@ namespace FinancialAnalysis.Models.SalesManagement
         public int RefSalesOrderPositionId { get; set; }
 
         /// <summary>
+        /// Entsprechende Position des Auftrags, Menge kann abweichen
+        /// </summary>
+        public SalesOrderPosition SalesOrderPosition { get; set; }
+
+        /// <summary>
         /// Menge
         /// </summary>
         public int Quantity { get; set; }
+
+        /// <summary>
+        /// Produkt
+        /// </summary>
+        public Product Product { get; set; }
     }
 }

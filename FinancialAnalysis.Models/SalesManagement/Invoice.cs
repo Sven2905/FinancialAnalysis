@@ -1,6 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.ClientManagement;
+using FinancialAnalysis.Models.ProjectManagement;
 using System;
 using Utilities;
 
@@ -8,6 +9,8 @@ namespace FinancialAnalysis.Models.SalesManagement
 {
     public class Invoice : BindableBase
     {
+        private decimal _PaidAmount;
+
         public Invoice()
         {
             InvoicePositions = new SvenTechCollection<InvoicePosition>();
@@ -22,7 +25,7 @@ namespace FinancialAnalysis.Models.SalesManagement
         /// <summary>
         /// Rechnungsempfänger
         /// </summary>
-        public Client Client{ get; set; }
+        public Debitor Debitor { get; set; }
 
         /// <summary>
         /// Referenz auf die Auftrags-Id
@@ -38,6 +41,11 @@ namespace FinancialAnalysis.Models.SalesManagement
         /// Fälligkeitsdatum
         /// </summary>
         public DateTime InvoiceDueDate { get; set; } = DateTime.Now;
+
+        /// <summary>
+        /// Zahlungsdatum
+        /// </summary>
+        public DateTime PaidDate { get; set; } = DateTime.Now;
 
         /// <summary>
         /// Referenz-Id des Rechnungstyps
@@ -60,14 +68,44 @@ namespace FinancialAnalysis.Models.SalesManagement
         public PaymentCondition PaymentCondition { get; set; }
 
         /// <summary>
-        /// Ist komplett bezahlt
+        /// Ist bezahlt
         /// </summary>
         public bool IsPaid { get; set; }
 
         /// <summary>
         /// Bezahlter Betrag
         /// </summary>
-        public decimal PaidAmount { get; set; }
+        public decimal PaidAmount
+        {
+            get { return _PaidAmount; }
+            set { _PaidAmount = value;
+                if (PaidAmount == TotalAmount)
+                {
+                    IsPaid = true;
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Referenz-Id des Mitarbeiters
+        /// </summary>
+        public int RefEmployeeId { get; set; }
+
+        /// <summary>
+        /// Zuständiger Mitarbeiter
+        /// </summary>
+        public Employee Employee { get; set; }
+
+        /// <summary>
+        /// Rechnungsbetrag
+        /// </summary>
+        public decimal TotalAmount { get; set; }
+
+        /// <summary>
+        /// Ausstehender Betrag
+        /// </summary>
+        public decimal OutstandingAmount { get => TotalAmount - PaidAmount; }
 
         /// <summary>
         /// Mahnungen

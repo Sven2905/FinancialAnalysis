@@ -138,13 +138,23 @@ namespace FinancialAnalysis.UI
                    }
                    window.ShowDialog();
                });
-            Messenger.Default.Register<OpenInvoiceWindowMessage>(this,
+            Messenger.Default.Register<OpenInvoiceCreationWindowMessage>(this,
               msg =>
               {
-                  var window = new InvoiceWindow();
-                  if (window.DataContext is InvoiceViewModel model)
+                  var window = new InvoiceCreationWindow();
+                  if (window.DataContext is InvoiceCreationViewModel model)
                   {
                       model.SalesOrder = msg.SalesOrder;
+                  }
+                  window.ShowDialog();
+              });
+            Messenger.Default.Register<OpenInvoiceListWindowMessage>(this,
+              msg =>
+              {
+                  var window = new InvoiceListWindow();
+                  if (window.DataContext is InvoiceListViewModel model)
+                  {
+                      model.Invoices = msg.Invoices;
                   }
                   window.ShowDialog();
               });

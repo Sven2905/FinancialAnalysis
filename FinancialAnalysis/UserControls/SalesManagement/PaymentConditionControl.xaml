@@ -123,25 +123,12 @@
                             <dxlc:LayoutItem Label="Intervall" FontFamily="Tahoma">
                                 <dxe:ComboBoxEdit
                                 ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:PayType}, SplitNames=True}"
-                                EditValue="{Binding SelectedPaymentCondition.PayType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                EditValue="{Binding PayType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 FontFamily="Tahoma" />
                             </dxlc:LayoutItem>
-                            <dxlc:LayoutItem Label="Tag des Monats" FontFamily="Tahoma">
+                            <dxlc:LayoutItem Label="{Binding ValueLabel}" FontFamily="Tahoma" >
                                 <dxe:TextEdit
-                                        NullText="Tag des Monats"
-                                        ValidateOnEnterKeyPressed="True"
-                                        FontFamily="Tahoma">
-                                    <dxe:TextEdit.EditValue>
-                                        <Binding Path="SelectedPaymentCondition.TimeValue"
-                                                     UpdateSourceTrigger="PropertyChanged"
-                                                     Mode="TwoWay">
-                                        </Binding>
-                                    </dxe:TextEdit.EditValue>
-                                </dxe:TextEdit>
-                            </dxlc:LayoutItem>
-                            <dxlc:LayoutItem Label="Dauer (in Tagen)" FontFamily="Tahoma">
-                                <dxe:TextEdit
-                                        NullText="Dauer (in Tagen)"
+                                        NullText="{Binding ValueLabel}"
                                         ValidateOnEnterKeyPressed="True"
                                         FontFamily="Tahoma">
                                     <dxe:TextEdit.EditValue>

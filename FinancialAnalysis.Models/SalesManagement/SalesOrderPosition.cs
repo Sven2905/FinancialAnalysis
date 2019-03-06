@@ -66,8 +66,12 @@ namespace FinancialAnalysis.Models.SalesManagement
         /// <summary>
         /// Zwischenbetrag ohne Steuer
         /// </summary>
-        public decimal Subtotal // w/o Tax
-            => SubtotalWithoutDiscount - DiscountAmount;
+        public decimal Subtotal => SubtotalWithoutDiscount - DiscountAmount;
+
+        /// <summary>
+        /// Zwischenbetrag ohne Steuer pro Stück
+        /// </summary>
+        public decimal SubtotalPerUnit => (SubtotalWithoutDiscount - DiscountAmount) / Quantity;
 
         /// <summary>
         /// Endbetrag
@@ -75,14 +79,29 @@ namespace FinancialAnalysis.Models.SalesManagement
         public decimal Total => Subtotal + TaxAmount;
 
         /// <summary>
+        /// Endbetrag pro Stück
+        /// </summary>
+        public decimal TotalPerUnit => (Subtotal + TaxAmount) / Quantity;
+
+        /// <summary>
         /// Rabatt (%)
         /// </summary>
         public decimal DiscountAmount => SubtotalWithoutDiscount * (DiscountPercentage / 100);
 
         /// <summary>
+        /// Rabatt (%) pro Stück
+        /// </summary>
+        public decimal DiscountAmountPerUnit => (SubtotalWithoutDiscount * (DiscountPercentage / 100)) / Quantity;
+
+        /// <summary>
         /// Zwischenbetrag ohne Rabatt
         /// </summary>
         public decimal SubtotalWithoutDiscount => PriceWithoutTax() * Quantity;
+
+        /// <summary>
+        /// Zwischenbetrag ohne Rabatt pro Stück
+        /// </summary>
+        public decimal SubtotalWithoutDiscountPerUnit => SubtotalWithoutDiscount / Quantity;
 
         /// <summary>
         /// Höhe der zu zahlenden Steuer

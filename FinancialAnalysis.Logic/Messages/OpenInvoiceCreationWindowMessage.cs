@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Logic.Messages
 {
-    public class OpenInvoiceWindowMessage
+    public class OpenInvoiceCreationWindowMessage
     {
-        public OpenInvoiceWindowMessage(SalesOrder SalesOrder)
+        public OpenInvoiceCreationWindowMessage(SalesOrder SalesOrder)
         {
             this.SalesOrder = SalesOrder;
         }

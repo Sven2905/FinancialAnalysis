@@ -121,7 +121,8 @@
     <Compile Include="Mail\Mail.cs" />
     <Compile Include="Messages\OpenClientWindowMessage.cs" />
     <Compile Include="Messages\OpenDialogWindowMessage.cs" />
-    <Compile Include="Messages\OpenInvoiceWindowMessage.cs" />
+    <Compile Include="Messages\OpenInvoiceListWindowMessage.cs" />
+    <Compile Include="Messages\OpenInvoiceCreationWindowMessage.cs" />
     <Compile Include="Messages\OpenKontenrahmenWindowMessage.cs" />
     <Compile Include="Messages\OpenMainWindowMessage.cs" />
     <Compile Include="Messages\OpenPDFViewerWindowMessage.cs" />
@@ -159,7 +160,8 @@
     <Compile Include="ViewModels\ProductManagement\ProductManagementViewModel.cs" />
     <Compile Include="ViewModels\QuantityViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\InvoiceDetailsViewModel.cs" />
-    <Compile Include="ViewModels\SalesManagement\InvoiceViewModel.cs" />
+    <Compile Include="ViewModels\SalesManagement\InvoiceCreationViewModel.cs" />
+    <Compile Include="ViewModels\SalesManagement\InvoiceListViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\PaymentConditionViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\PendingSaleOrdersViewModel.cs" />
     <Compile Include="ViewModels\SalesManagement\SalesManagementViewModel.cs" />

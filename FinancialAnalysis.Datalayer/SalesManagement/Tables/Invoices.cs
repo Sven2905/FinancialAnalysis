@@ -1,4 +1,8 @@
 ﻿using Dapper;
+using FinancialAnalysis.Models.Accounting;
+using FinancialAnalysis.Models.ClientManagement;
+using FinancialAnalysis.Models.ProductManagement;
+using FinancialAnalysis.Models.ProjectManagement;
 using FinancialAnalysis.Models.SalesManagement;
 using Serilog;
 using System;
@@ -6,6 +10,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using Utilities;
 
 namespace FinancialAnalysis.Datalayer.SalesManagement
 {
@@ -41,8 +46,11 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                                  $"InvoiceId int IDENTITY(1,1) PRIMARY KEY, " +
                                  "InvoiceDate datetime, " +
                                  "InvoiceDueDate datetime, " +
+                                 "PaidDate datetime, " +
+                                 "RefEmployeeId int, " +
                                  "RefInvoiceTypeId int, " +
                                  "RefPaymentConditionId int, " +
+                                 "TotalAmount money, " +
                                  "PaidAmount money, " +
                                  "IsPaid bit)";
 
@@ -65,27 +73,146 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         /// <returns></returns>
         public IEnumerable<Invoice> GetAll()
         {
-            IEnumerable<Invoice> output = new List<Invoice>();
-            try
+            var InvoiceDictionary = new Dictionary<int, Invoice>();
+            using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
             {
-                using (IDbConnection con =
-                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    output = con.Query<Invoice, InvoiceType, Invoice>($"dbo.{TableName}_GetAll",
-                        (objInvoice, objInvoiceType) =>
+                con.Query(
+                    $"dbo.{TableName}_GetAll",
+                    new[]
+                    {
+                        typeof(Invoice),
+                        typeof(InvoiceType),
+                        typeof(InvoicePosition),
+                        typeof(PaymentCondition),
+                        typeof(SalesOrderPosition),
+                        typeof(SalesOrder),
+                        typeof(Debitor),
+                        typeof(Client),
+                        typeof(Company),
+                        typeof(Product),
+                        typeof(TaxType),
+                        typeof(Employee)
+                    },
+                    objects =>
+                    {
+                        var Invoice = objects[0] as Invoice;
+                        var InvoiceType = objects[1] as InvoiceType;
+                        var InvoicePosition = objects[2] as InvoicePosition;
+                        var PaymentCondition = objects[3] as PaymentCondition;
+                        var SalesOrderPosition = objects[4] as SalesOrderPosition;
+                        var SalesOrder = objects[5] as SalesOrder;
+                        var Debitor = objects[6] as Debitor;
+                        var Client = objects[7] as Client;
+                        var Company = objects[8] as Company;
+                        var Product = objects[9] as Product;
+                        var TaxType = objects[10] as TaxType;
+                        var Employee = objects[11] as Employee;
+
+                        Invoice InvoiceEntry;
+                        if (!InvoiceDictionary.TryGetValue(SalesOrder.SalesOrderId, out InvoiceEntry))
                         {
-                            objInvoice.InvoiceType = objInvoiceType;
-                            return objInvoice;
-                        }, splitOn: "InvoiceId, InvoiceTypeId",
-                        commandType: CommandType.StoredProcedure).ToList();
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while 'GetAll' from table '{TableName}'", e);
+                            InvoiceEntry = Invoice;
+                            InvoiceDictionary.Add(InvoiceEntry.InvoiceId, InvoiceEntry);
+                        }
+
+                        InvoiceEntry.InvoiceType = InvoiceType;
+                        Client.Company = Company;
+                        Debitor.Client = Client;
+                        InvoiceEntry.Debitor = Debitor;
+                        InvoiceEntry.Employee = Employee;
+
+                        if (InvoiceEntry.InvoicePositions.SingleOrDefault(x => x.InvoicePositionId == InvoicePosition.InvoicePositionId) == null)
+                        {
+                            if (Product != null)
+                            {
+                                Product.TaxType = TaxType;
+                            }
+                            InvoicePosition.Product = Product;
+                            InvoicePosition.SalesOrderPosition = SalesOrderPosition;
+                            InvoiceEntry.InvoicePositions.Add(InvoicePosition);
+                        }
+
+                        return InvoiceEntry;
+                    },
+                    splitOn:
+                    "InvoiceId, InvoiceTypeId, InvoicePositionId, PaymentConditionId, SalesOrderPositionId, SalesOrderId, DebitorId, ClientId, CompanyId, ProductId, TaxTypeId, EmployeeId");
             }
 
-            return output;
+            return InvoiceDictionary.Values;
+        }
+
+        /// <summary>
+        ///     Returns all Invoice records
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Invoice> GetOpenInvoices()
+        {
+            var InvoiceDictionary = new Dictionary<int, Invoice>();
+            using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+            {
+                con.Query(
+                    $"dbo.{TableName}_GetOpenInvoices",
+                    new[]
+                    {
+                        typeof(Invoice),
+                        typeof(InvoiceType),
+                        typeof(InvoicePosition),
+                        typeof(PaymentCondition),
+                        typeof(SalesOrderPosition),
+                        typeof(SalesOrder),
+                        typeof(Debitor),
+                        typeof(Client),
+                        typeof(Company),
+                        typeof(Product),
+                        typeof(TaxType),
+                        typeof(Employee)
+                    },
+                    objects =>
+                    {
+                        var Invoice = objects[0] as Invoice;
+                        var InvoiceType = objects[1] as InvoiceType;
+                        var InvoicePosition = objects[2] as InvoicePosition;
+                        var PaymentCondition = objects[3] as PaymentCondition;
+                        var SalesOrderPosition = objects[4] as SalesOrderPosition;
+                        var SalesOrder = objects[5] as SalesOrder;
+                        var Debitor = objects[6] as Debitor;
+                        var Client = objects[7] as Client;
+                        var Company = objects[8] as Company;
+                        var Product = objects[9] as Product;
+                        var TaxType = objects[10] as TaxType;
+                        var Employee = objects[11] as Employee;
+
+                        Invoice InvoiceEntry;
+                        if (!InvoiceDictionary.TryGetValue(SalesOrder.SalesOrderId, out InvoiceEntry))
+                        {
+                            InvoiceEntry = Invoice;
+                            InvoiceDictionary.Add(InvoiceEntry.InvoiceId, InvoiceEntry);
+                        }
+
+                        InvoiceEntry.InvoiceType = InvoiceType;
+                        Client.Company = Company;
+                        Debitor.Client = Client;
+                        InvoiceEntry.Debitor = Debitor;
+                        InvoiceEntry.Employee = Employee;
+
+                        if (InvoiceEntry.InvoicePositions.SingleOrDefault(x => x.InvoicePositionId == InvoicePosition.InvoicePositionId) == null)
+                        {
+                            if (Product != null)
+                            {
+                                Product.TaxType = TaxType;
+                            }
+                            InvoicePosition.Product = Product;
+                            InvoicePosition.SalesOrderPosition = SalesOrderPosition;
+                            InvoiceEntry.InvoicePositions.Add(InvoicePosition);
+                        }
+
+                        return InvoiceEntry;
+                    },
+                    splitOn:
+                    "InvoiceId, InvoiceTypeId, InvoicePositionId, PaymentConditionId, SalesOrderPositionId, SalesOrderId, DebitorId, ClientId, CompanyId, ProductId, TaxTypeId, EmployeeId");
+            }
+
+            return InvoiceDictionary.Values;
         }
 
         /// <summary>
@@ -103,7 +230,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @InvoiceDate, @InvoiceDueDate, @RefInvoiceTypeId, @RefPaymentConditionId, @PaidAmount, @IsPaid ",
+                            $"dbo.{TableName}_Insert @InvoiceDate, @InvoiceDueDate, @PaidDate, @RefEmployeeId, @RefInvoiceTypeId, @RefPaymentConditionId, @TotalAmount, @PaidAmount, @IsPaid ",
                             Invoice);
                     return result.Single();
                 }
@@ -146,22 +273,73 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         /// <returns></returns>
         public Invoice GetById(int id)
         {
-            var output = new Invoice();
-            try
+            var InvoiceDictionary = new Dictionary<int, Invoice>();
+            using (var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
             {
-                using (IDbConnection con =
-                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
-                {
-                    output = con.QuerySingleOrDefault<Invoice>($"dbo.{TableName}_GetById @InvoiceId",
-                        new { InvoiceId = id });
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Exception occured while 'GetById' from table '{TableName}'", e);
+                con.Query(
+                    $"dbo.{TableName}_GetById @InvoiceId",
+                    new[]
+                    {
+                        typeof(Invoice),
+                        typeof(InvoiceType),
+                        typeof(InvoicePosition),
+                        typeof(PaymentCondition),
+                        typeof(SalesOrderPosition),
+                        typeof(SalesOrder),
+                        typeof(Debitor),
+                        typeof(Client),
+                        typeof(Company),
+                        typeof(Product),
+                        typeof(TaxType),
+                        typeof(Employee)
+                    },
+                    objects =>
+                    {
+                        var Invoice = objects[0] as Invoice;
+                        var InvoiceType = objects[1] as InvoiceType;
+                        var InvoicePosition = objects[2] as InvoicePosition;
+                        var PaymentCondition = objects[3] as PaymentCondition;
+                        var SalesOrderPosition = objects[4] as SalesOrderPosition;
+                        var SalesOrder = objects[5] as SalesOrder;
+                        var Debitor = objects[6] as Debitor;
+                        var Client = objects[7] as Client;
+                        var Company = objects[8] as Company;
+                        var Product = objects[9] as Product;
+                        var TaxType = objects[10] as TaxType;
+                        var Employee = objects[11] as Employee;
+
+                        Invoice InvoiceEntry;
+                        if (!InvoiceDictionary.TryGetValue(SalesOrder.SalesOrderId, out InvoiceEntry))
+                        {
+                            InvoiceEntry = Invoice;
+                            InvoiceDictionary.Add(InvoiceEntry.InvoiceId, InvoiceEntry);
+                        }
+
+                        InvoiceEntry.InvoiceType = InvoiceType;
+                        Client.Company = Company;
+                        Debitor.Client = Client;
+                        InvoiceEntry.Debitor = Debitor;
+                        InvoiceEntry.Employee = Employee;
+
+                        if (InvoiceEntry.InvoicePositions.SingleOrDefault(x => x.InvoicePositionId == InvoicePosition.InvoicePositionId) == null)
+                        {
+                            if (Product != null)
+                            {
+                                Product.TaxType = TaxType;
+                            }
+                            InvoicePosition.Product = Product;
+                            InvoicePosition.SalesOrderPosition = SalesOrderPosition;
+                            InvoiceEntry.InvoicePositions.Add(InvoicePosition);
+                        }
+
+                        return InvoiceEntry;
+                    },
+                    new { InvoiceId = id },
+                    splitOn:
+                    "InvoiceId, InvoiceTypeId, InvoicePositionId, PaymentConditionId, SalesOrderPositionId, SalesOrderId, DebitorId, ClientId, CompanyId, ProductId, TaxTypeId, EmployeeId");
             }
 
-            return output;
+            return InvoiceDictionary.Values.FirstOrDefault();
         }
 
         /// <summary>
@@ -208,7 +386,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     con.Execute(
-                        $"dbo.{TableName}_Update @InvoiceId, @InvoiceDate, @InvoiceDueDate, @RefInvoiceTypeId, @RefPaymentConditionId, @PaidAmount, @IsPaid",
+                        $"dbo.{TableName}_Update @InvoiceId, @InvoiceDate, @InvoiceDueDate, @PaidDate, @RefEmployeeId, @RefInvoiceTypeId, @RefPaymentConditionId, @TotalAmount, @PaidAmount, @IsPaid",
                         Invoice);
                 }
             }
@@ -251,6 +429,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         {
             AddPaymentConditionsReference();
             AddInvoiceTypesReference();
+            AddEmployeesReference();
         }
 
         private void AddInvoiceTypesReference()
@@ -284,6 +463,30 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
                 var commandStr =
                     $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefPaymentConditionId) REFERENCES {refTable}(PaymentConditionId) ON DELETE CASCADE";
+
+                using (var command = new SqlCommand(commandStr, con))
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while creating reference between '{TableName}' and {refTable}",
+                    e);
+            }
+        }
+
+        private void AddEmployeesReference()
+        {
+            const string refTable = "Employees";
+
+            try
+            {
+                var con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB));
+                var commandStr =
+                    $"IF(OBJECT_ID('FK_{TableName}_{refTable}', 'F') IS NULL) ALTER TABLE {TableName} ADD CONSTRAINT FK_{TableName}_{refTable} FOREIGN KEY(RefEmployeeId) REFERENCES {refTable}(EmployeeId) ON DELETE CASCADE";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {

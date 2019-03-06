@@ -266,8 +266,11 @@
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\InvoiceWindow.xaml.cs">
-      <DependentUpon>InvoiceWindow.xaml</DependentUpon>
+    <Compile Include="Windows\InvoiceCreationWindow.xaml.cs">
+      <DependentUpon>InvoiceCreationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\InvoiceListWindow.xaml.cs">
+      <DependentUpon>InvoiceListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\PDFViewerWindow.xaml.cs">
       <DependentUpon>PDFViewerWindow.xaml</DependentUpon>
@@ -422,7 +425,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\InvoiceWindow.xaml">
+    <Page Include="Windows\InvoiceCreationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\InvoiceListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -4582,6 +4589,10 @@
     <ProjectReference Include="..\FinancialAnalysis.Models\FinancialAnalysis.Models.csproj">
       <Project>{3bcf7383-9805-4bd4-a8cd-fd978e348e15}</Project>
       <Name>FinancialAnalysis.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{69F19F6B-092B-4EE7-AD82-3944F3694952}</Project>
+      <Name>Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
