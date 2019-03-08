@@ -94,7 +94,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetById] @InvoiceId int AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT i.*, t.*, pos.*, pay.*, spos.*, s.*, p.*, d.*, cl.*, c.*, p.*, tax.*, e.* " +
+                    "SELECT i.*, t.*, pos.*, pay.*, spos.*, s.*, p.*, d.*, cl.*, c.*, p.*, tax.*, e.*, ir.* " +
                     $"FROM {TableName} i " +
                     "LEFT JOIN InvoiceTypes t ON i.RefInvoiceTypeId = t.InvoiceTypeId " +
                     "LEFT JOIN InvoicePositions pos ON i.InvoiceId = pos.RefInvoiceId " +
@@ -107,6 +107,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     "LEFT JOIN Products p ON spos.RefProductId = p.ProductId " +
                     "LEFT JOIN TaxTypes tax ON p.RefTaxTypeId = tax.TaxTypeId " +
                     "LEFT JOIN Employees e ON i.RefEmployeeId = e.EmployeeId " +
+                    "LEFT JOIN InvoiceReminders ir ON ir.RefInvoiceId = i.InvoiceId " +
                     "WHERE i.InvoiceId = @InvoiceId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -130,7 +131,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetOpenInvoices] AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT i.*, t.*, pos.*, pay.*, spos.*, s.*, p.*, d.*, cl.*, c.*, p.*, tax.*, e.* " +
+                    "SELECT i.*, t.*, pos.*, pay.*, spos.*, s.*, p.*, d.*, cl.*, c.*, p.*, tax.*, e.*, ir.* " +
                     $"FROM {TableName} i " +
                     "LEFT JOIN InvoiceTypes t ON i.RefInvoiceTypeId = t.InvoiceTypeId " +
                     "LEFT JOIN InvoicePositions pos ON i.InvoiceId = pos.RefInvoiceId " +
@@ -143,6 +144,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     "LEFT JOIN Products p ON spos.RefProductId = p.ProductId " +
                     "LEFT JOIN TaxTypes tax ON p.RefTaxTypeId = tax.TaxTypeId " +
                     "LEFT JOIN Employees e ON i.RefEmployeeId = e.EmployeeId " +
+                    "LEFT JOIN InvoiceReminders ir ON ir.RefInvoiceId = i.InvoiceId " +
                     "WHERE i.IsPaid = 0 END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

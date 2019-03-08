@@ -10,7 +10,8 @@
         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
         xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
         xmlns:salesmanagement="clr-namespace:FinancialAnalysis.UserControls.SalesManagement"
-        mc:Ignorable="d"
+             xmlns:dxlc="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
+             mc:Ignorable="d"
         dx:ThemeManager.ThemeName="Office2016WhiteSE"
         WindowState="Maximized" WindowStartupLocation="CenterScreen"
         Title="InvoiceListWindow" Height="1050" Width="1920">
@@ -40,43 +41,52 @@
                     </Grid.RowDefinitions>
                     <dxdo:DockLayoutManager>
                         <dxdo:LayoutGroup Caption="LayoutRoot">
-                            <dxdo:LayoutPanel Caption="Rechnungen" ShowCloseButton="False" ItemWidth="400">
+                            <dxdo:LayoutPanel Caption="Rechnungen" ShowCloseButton="False" >
                                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="10,0">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
-                                        <dxe:TextEdit NullText="Filter" Margin="0,5" Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
-                                        <dxe:ListBoxEdit Grid.Row="1" ItemsSource="{Binding FilteredInvoices}" SelectedItem="{Binding SelectedInvoice}"
-                                 x:Name="Invoices" BorderThickness="1" BorderBrush="DarkGray" FontSize="14" ShowBorder="False">
-                                            <dxe:ListBoxEdit.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <StackPanel />
-                                                </ItemsPanelTemplate>
-                                            </dxe:ListBoxEdit.ItemsPanel>
-                                            <dxe:ListBoxEdit.ItemTemplate>
+                                        <dxlc:GroupBox Header="Filter" Foreground="Red">
+                                            <dxlc:GroupBox.HeaderTemplate>
                                                 <DataTemplate>
-                                                    <Grid>
-                                                        <Grid.RowDefinitions>
-                                                            <RowDefinition Height="Auto" />
-                                                            <RowDefinition Height="Auto" />
-                                                        </Grid.RowDefinitions>
-
-                                                        <TextBlock Grid.Row="0" Text="{Binding InvoiceId}" />
-                                                        <TextBlock Grid.Row="1" Text="{Binding Client.Name}" />
-
-                                                    </Grid>
+                                                    <Label Foreground="#3f729b" FontSize="12" FontWeight="Medium" Margin="3" Content="Filter"/>
                                                 </DataTemplate>
-                                            </dxe:ListBoxEdit.ItemTemplate>
-                                        </dxe:ListBoxEdit>
+                                            </dxlc:GroupBox.HeaderTemplate>
+                                            <VirtualizingStackPanel>
+                                                <VirtualizingStackPanel Margin="0,0,0,5" Orientation="Horizontal">
+                                                    <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Text="Zeitraum:" Foreground="#3f729b" FontFamily="Tahoma" />
+                                                    <TextBlock Margin="5,0,10,0" VerticalAlignment="Center" Text="Von" Foreground="#3f729b" FontFamily="Tahoma" />
+                                                    <dxe:DateEdit Foreground="#3F729B" FontFamily="Tahoma" DisplayFormatString="dd.MM.yyyy" DateTime="{Binding StartDate}" />
+                                                    <TextBlock Margin="25,0,10,0" VerticalAlignment="Center" Text="Bis" Foreground="#3f729b" FontFamily="Tahoma" />
+                                                    <dxe:DateEdit Foreground="#3F729B" FontFamily="Tahoma" DisplayFormatString="dd.MM.yyyy" DateTime="{Binding EndDate}" />
+                                                </VirtualizingStackPanel>
+                                                <dxe:TextEdit NullText="Rechnungsnummer oder Name" Margin="0,5" Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
+                                            </VirtualizingStackPanel>
+                                        </dxlc:GroupBox>
+
+                                        <dxg:GridControl Grid.Row="2" Margin="0,10" HorizontalAlignment="Stretch" ShowBorder="False" MaxWidth="865" ItemsSource="{Binding FilteredInvoices}" SelectedItem="{Binding SelectedInvoice}">
+                                            <dxg:GridColumn FieldName="InvoiceId" Header="R.-Nr" Width="50" />
+                                            <dxg:GridColumn FieldName="Name" Header="Name" />
+                                            <dxg:GridColumn FieldName="InvoiceDate" Header="Rechnungsdatum" />
+                                            <dxg:GridColumn FieldName="InvoiceDueDate" Header="Fälligkeitsdatum" />
+                                            <dxg:GridColumn FieldName="TotalAmount" Header="Betrag" Width="75" />
+                                            <dxg:GridControl.View>
+                                                <dxg:TableView ShowHorizontalLines="True" ShowVerticalLines="False" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" MaxHeight="5000" MaxWidth="5000" 
+                                                               ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" EnableSelectedRowAppearance="False" 
+                                                               UseEvenRowBackground="True" ShowIndicator="False" AllowColumnMoving="False" AllowGrouping="False" AutoWidth="True" />
+                                            </dxg:GridControl.View>
+                                        </dxg:GridControl>
+                                        
                                     </Grid>
                                 </ScrollViewer>
                             </dxdo:LayoutPanel>
                             <dxdo:LayoutPanel Caption="Details" ShowCloseButton="False" >
                                 <salesmanagement:InvoiceDetails DataContext="{Binding InvoiceDetailsViewModel}" Margin="10"/>
                             </dxdo:LayoutPanel>
-                            
+
                         </dxdo:LayoutGroup>
                     </dxdo:DockLayoutManager>
 

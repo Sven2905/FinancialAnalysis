@@ -91,7 +91,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                         typeof(Company),
                         typeof(Product),
                         typeof(TaxType),
-                        typeof(Employee)
+                        typeof(Employee),
+                        typeof(InvoiceReminder)
                     },
                     objects =>
                     {
@@ -107,9 +108,9 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                         var Product = objects[9] as Product;
                         var TaxType = objects[10] as TaxType;
                         var Employee = objects[11] as Employee;
+                        var InvoiceReminder = objects[12] as InvoiceReminder;
 
-                        Invoice InvoiceEntry;
-                        if (!InvoiceDictionary.TryGetValue(SalesOrder.SalesOrderId, out InvoiceEntry))
+                        if (!InvoiceDictionary.TryGetValue(SalesOrder.SalesOrderId, out Invoice InvoiceEntry))
                         {
                             InvoiceEntry = Invoice;
                             InvoiceDictionary.Add(InvoiceEntry.InvoiceId, InvoiceEntry);
@@ -132,10 +133,15 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                             InvoiceEntry.InvoicePositions.Add(InvoicePosition);
                         }
 
+                        if (InvoiceEntry.InvoiceReminders.SingleOrDefault(x => x.InvoiceReminderId == InvoiceReminder.InvoiceReminderId) == null)
+                        {
+                            InvoiceEntry.InvoiceReminders.Add(InvoiceReminder);
+                        }
+
                         return InvoiceEntry;
                     },
                     splitOn:
-                    "InvoiceId, InvoiceTypeId, InvoicePositionId, PaymentConditionId, SalesOrderPositionId, SalesOrderId, DebitorId, ClientId, CompanyId, ProductId, TaxTypeId, EmployeeId");
+                    "InvoiceId, InvoiceTypeId, InvoicePositionId, PaymentConditionId, SalesOrderPositionId, SalesOrderId, DebitorId, ClientId, CompanyId, ProductId, TaxTypeId, EmployeeId, InvoiceReminderId");
             }
 
             return InvoiceDictionary.Values;
@@ -165,7 +171,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                         typeof(Company),
                         typeof(Product),
                         typeof(TaxType),
-                        typeof(Employee)
+                        typeof(Employee),
+                        typeof(InvoiceReminder)
                     },
                     objects =>
                     {
@@ -181,9 +188,9 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                         var Product = objects[9] as Product;
                         var TaxType = objects[10] as TaxType;
                         var Employee = objects[11] as Employee;
+                        var InvoiceReminder = objects[12] as InvoiceReminder;
 
-                        Invoice InvoiceEntry;
-                        if (!InvoiceDictionary.TryGetValue(SalesOrder.SalesOrderId, out InvoiceEntry))
+                        if (!InvoiceDictionary.TryGetValue(SalesOrder.SalesOrderId, out Invoice InvoiceEntry))
                         {
                             InvoiceEntry = Invoice;
                             InvoiceDictionary.Add(InvoiceEntry.InvoiceId, InvoiceEntry);
@@ -206,10 +213,15 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                             InvoiceEntry.InvoicePositions.Add(InvoicePosition);
                         }
 
+                        if (InvoiceEntry.InvoiceReminders.SingleOrDefault(x => x.InvoiceReminderId == InvoiceReminder.InvoiceReminderId) == null)
+                        {
+                            InvoiceEntry.InvoiceReminders.Add(InvoiceReminder);
+                        }
+
                         return InvoiceEntry;
                     },
                     splitOn:
-                    "InvoiceId, InvoiceTypeId, InvoicePositionId, PaymentConditionId, SalesOrderPositionId, SalesOrderId, DebitorId, ClientId, CompanyId, ProductId, TaxTypeId, EmployeeId");
+                    "InvoiceId, InvoiceTypeId, InvoicePositionId, PaymentConditionId, SalesOrderPositionId, SalesOrderId, DebitorId, ClientId, CompanyId, ProductId, TaxTypeId, EmployeeId, InvoiceReminderId");
             }
 
             return InvoiceDictionary.Values;
@@ -291,7 +303,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                         typeof(Company),
                         typeof(Product),
                         typeof(TaxType),
-                        typeof(Employee)
+                        typeof(Employee),
+                        typeof(InvoiceReminder)
                     },
                     objects =>
                     {
@@ -307,9 +320,9 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                         var Product = objects[9] as Product;
                         var TaxType = objects[10] as TaxType;
                         var Employee = objects[11] as Employee;
+                        var InvoiceReminder = objects[12] as InvoiceReminder;
 
-                        Invoice InvoiceEntry;
-                        if (!InvoiceDictionary.TryGetValue(SalesOrder.SalesOrderId, out InvoiceEntry))
+                        if (!InvoiceDictionary.TryGetValue(SalesOrder.SalesOrderId, out Invoice InvoiceEntry))
                         {
                             InvoiceEntry = Invoice;
                             InvoiceDictionary.Add(InvoiceEntry.InvoiceId, InvoiceEntry);
@@ -332,11 +345,16 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                             InvoiceEntry.InvoicePositions.Add(InvoicePosition);
                         }
 
+                        if (InvoiceEntry.InvoiceReminders.SingleOrDefault(x => x.InvoiceReminderId == InvoiceReminder.InvoiceReminderId) == null)
+                        {
+                            InvoiceEntry.InvoiceReminders.Add(InvoiceReminder);
+                        }
+
                         return InvoiceEntry;
                     },
                     new { InvoiceId = id },
                     splitOn:
-                    "InvoiceId, InvoiceTypeId, InvoicePositionId, PaymentConditionId, SalesOrderPositionId, SalesOrderId, DebitorId, ClientId, CompanyId, ProductId, TaxTypeId, EmployeeId");
+                    "InvoiceId, InvoiceTypeId, InvoicePositionId, PaymentConditionId, SalesOrderPositionId, SalesOrderId, DebitorId, ClientId, CompanyId, ProductId, TaxTypeId, EmployeeId, InvoiceReminderId");
             }
 
             return InvoiceDictionary.Values.FirstOrDefault();

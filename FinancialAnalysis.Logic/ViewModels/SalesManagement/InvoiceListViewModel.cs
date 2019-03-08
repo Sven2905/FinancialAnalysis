@@ -36,6 +36,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         public SvenTechCollection<Invoice> FilteredInvoices { get; set; }
         public SvenTechCollection<Invoice> Invoices { get; set; } = new SvenTechCollection<Invoice>();
         public InvoiceDetailsViewModel InvoiceDetailsViewModel { get; set; } = new InvoiceDetailsViewModel();
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         public Invoice SelectedInvoice
         {

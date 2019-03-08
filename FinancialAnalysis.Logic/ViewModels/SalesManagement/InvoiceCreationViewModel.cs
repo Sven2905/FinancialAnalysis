@@ -59,13 +59,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 var item = (SalesOrderPosition)e.Items[0];
                 if (item.Quantity > 1)
-                {
                     Messenger.Default.Send(new OpenQuantityWindowMessage((int)item.Quantity));
-                }
                 else
-                {
                     _Quantity = 1;
-                }
 
                 TransferPosition(OrderedProducts, ProductsOnInvoice, item, _Quantity);
 

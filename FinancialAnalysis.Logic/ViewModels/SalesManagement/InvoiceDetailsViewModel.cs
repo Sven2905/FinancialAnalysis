@@ -24,8 +24,6 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Fields
 
-        private Invoice _Invoice;
-
         #endregion Fields
 
         #region Methods
@@ -40,7 +38,19 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void CreateReminder()
         {
-            // TODO
+            // TODO Report
+
+            var reminder = new InvoiceReminder()
+            {
+                Date = DateTime.Now,
+                IsLastReminder = false,
+                RefInvoiceId = Invoice.InvoiceId,
+                ReminderType = Models.Enums.ReminderType.Mail,
+                Username = Globals.ActiveUser.Name
+            };
+
+            DataContext.Instance.InvoiceReminders.Insert(reminder);
+            Invoice.InvoiceReminders.Add(reminder);
         }
 
         #endregion Methods
