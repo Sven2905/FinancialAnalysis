@@ -20,6 +20,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
         {
             InsertData();
             GetAllData();
+            //GetAllActive();
+            //GetAllPassiva();
             GetById();
             UpdateData();
             DeleteData();
@@ -35,6 +37,66 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     $"CREATE PROCEDURE [{TableName}_GetAll] AS BEGIN SET NOCOUNT ON; " +
                     $"SELECT * " +
                     $"FROM {TableName} END");
+                using (var connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void GetAllActive()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetAllActive", DatabaseNames.FinancialAnalysisDB))
+            {
+                var sbSP = new StringBuilder();
+
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_GetAllActive] AS BEGIN SET NOCOUNT ON; " +
+                    "SELECT b.*, ca.*, SUM(c.Amount) as TotalCreditAmount, SUM(d.Amount) as TotalDebitAmount " +
+                    $"FROM {TableName} b " +
+                    "INNER JOIN CostAccounts ca ON b.BalanceAccountId = ca.RefActiveBalanceAccountId " +
+                    "LEFT JOIN Credits c ON c.RefCostAccountId = ca.CostAccountId " +
+                    "LEFT JOIN Debits d ON d.RefCostAccountId = ca.CostAccountId " +
+                    "GROUP BY b.AccountType, b.BalanceAccountId, b.Name, b.ParentId, " +
+                    "ca.AccountNumber, ca.CostAccountId, ca.Description, ca.IsEditable, ca.IsVisible, ca.RefActiveBalanceAccountId, " +
+                    "ca.RefCostAccountCategoryId, ca.RefGainAndLossAccountId, ca.RefPassiveBalanceAccountId, ca.RefTaxTypeId " +
+                    "END");
+                using (var connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void GetAllPassiva()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetAllPassiva", DatabaseNames.FinancialAnalysisDB))
+            {
+                var sbSP = new StringBuilder();
+
+                sbSP.AppendLine(
+                    $"CREATE PROCEDURE [{TableName}_GetAllPassiva] AS BEGIN SET NOCOUNT ON; " +
+                    "SELECT b.*, ca.*, SUM(c.Amount) as TotalCreditAmount, SUM(d.Amount) as TotalDebitAmount  " +
+                    $"FROM {TableName} b " +
+                    "INNER JOIN CostAccounts ca ON b.BalanceAccountId = ca.RefPassiveBalanceAccountId " +
+                    "GROUP BY b.AccountType, b.BalanceAccountId, b.Name, b.ParentId, " +
+                    "ca.AccountNumber, ca.CostAccountId, ca.Description, ca.IsEditable, ca.IsVisible, ca.RefActiveBalanceAccountId, " +
+                    "ca.RefCostAccountCategoryId, ca.RefGainAndLossAccountId, ca.RefPassiveBalanceAccountId, ca.RefTaxTypeId " +
+                    "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {

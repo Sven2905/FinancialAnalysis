@@ -76,5 +76,15 @@ namespace FinancialAnalysis.Models.Accounting
         /// Zuordnung Gewinn und Verlustrechnung
         /// </summary>
         public int RefGainAndLossAccountId { get; set; }
+
+        /// <summary>
+        /// Gesamtsumme des Kontenrahmens
+        /// </summary>
+        public decimal TotalCreditAmount { get; set; }
+
+        /// <summary>
+        /// Gesamtsumme des Kontenrahmens
+        /// </summary>
+        public decimal TotalDebitAmount { get; set; }
     }
 }

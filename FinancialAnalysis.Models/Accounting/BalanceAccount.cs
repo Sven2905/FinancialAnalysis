@@ -1,9 +1,10 @@
 ﻿using FinancialAnalysis.Models.Enums;
+using Utilities;
 
 namespace FinancialAnalysis.Models.Accounting
 {
     /// <summary>
-    /// Bilanz-/GuV-Posten
+    /// Bilanz-Posten
     /// </summary>
     public class BalanceAccount
     {
@@ -38,5 +39,10 @@ namespace FinancialAnalysis.Models.Accounting
         /// Aktiv- oder Passivkonto
         /// </summary>
         public AccountType AccountType { get; set; }
+
+        /// <summary>
+        /// Zugeordnete Kontenrahmen
+        /// </summary>
+        public SvenTechCollection<CostAccount> CostAccounts { get; set; }
     }
 }

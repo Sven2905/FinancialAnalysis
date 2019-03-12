@@ -157,7 +157,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private bool ValidateBooking()
         {
-            return CostAccountCreditorId != 0 && CostAccountDebitorId != 0 && SelectedTax != null && SelectedCostCenter != null;
+            return CostAccountCreditorId != 0 && CostAccountDebitorId != 0 && SelectedTax != null && SelectedCostCenter != null && !string.IsNullOrEmpty(Description);
         }
 
         private Booking CreateBookingItem()

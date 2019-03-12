@@ -113,7 +113,7 @@
                                         <dxe:DateEdit Grid.Column="1" Grid.Row="2" Height="25" Margin="0,3,0,3" Foreground="#3F729B" 
                                                       DisplayFormatString="dd.MM.yyyy" DateTime="{Binding Date}" />
                                         <TextBox Grid.Column="1" Grid.Row="4" Height="100" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" 
-                                                 AcceptsReturn="True" Foreground="#3F729B" Text="{Binding Description}" />
+                                                 AcceptsReturn="True" Foreground="#3F729B" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                         <dxg:LookUpEdit DisplayMember="DisplayName" ValueMember="CostAccountId" Foreground="#3F729B" 
                                                         Grid.Column="1" Grid.Row="6" Margin="0,3,0,3" PopupWidth="800" 
                                                         ItemsSource="{Binding CostAccounts}" AutoComplete="True"
