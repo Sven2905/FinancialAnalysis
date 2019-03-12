@@ -1,4 +1,6 @@
-﻿namespace FinancialAnalysis.Models.Accounting
+﻿using System;
+
+namespace FinancialAnalysis.Models.Accounting
 {
     /// <summary>
     /// Zahlungskondition
@@ -29,5 +31,43 @@
         /// Zahlungstyp
         /// </summary>
         public PayType PayType { get; set; }
+
+        /// <summary>
+        /// Überprüft ob die Zahlungskonditionen eingehalten wurden
+        /// </summary>
+        /// <param name="dueDate">Fälligkeitsdatum</param>
+        /// <param name="payDate">Zahlungsdatum</param>
+        /// <returns></returns>
+        public bool CheckIfAdhered(DateTime dueDate, DateTime payDate)
+        {
+            var result = false;
+
+            switch (PayType)
+            {
+                case PayType.Intervall:
+                    if (payDate.AddDays(TimeValue) <= dueDate)
+                    {
+                        result = true;
+                    }
+                    break;
+                case PayType.ThisMonth:
+                    if (payDate <= new DateTime(dueDate.Year, dueDate.Month, TimeValue))
+                    {
+                        result = true;
+                    }
+                    break;
+                case PayType.NextMonth:
+                    if (payDate <= new DateTime(dueDate.Year, dueDate.Month + 1, TimeValue))
+                    {
+                        result = true;
+                    }
+                    break;
+                default:
+                    result = false;
+                    break;
+            }
+
+            return result;
+        }
     }
 }

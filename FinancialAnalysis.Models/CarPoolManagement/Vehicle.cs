@@ -6,24 +6,19 @@ namespace FinancialAnalysis.Models.CarPoolManagement
     /// <summary>
     /// Fahrzeug
     /// </summary>
-    public class Car
+    public class Vehicle
     {
         // Make - Model - Year - Body - Generation - Trim
 
         /// <summary>
-        /// Referenz-Id der Automarke
+        /// Id des Fahrzeugs
         /// </summary>
-        public int RefCarMakeId { get; set; }
-        
+        public int VehicleId { get; set; }
+
         /// <summary>
         /// Automarke
         /// </summary>
         public CarMake CarMake { get; set; }
-
-        /// <summary>
-        /// Referenz-Id des Automodells
-        /// </summary>
-        public int RefCarModelId { get; set; }
 
         /// <summary>
         /// Automodell
@@ -31,29 +26,14 @@ namespace FinancialAnalysis.Models.CarPoolManagement
         public CarModel CarModel { get; set; }
 
         /// <summary>
-        /// Referenz-Id der Bauart
-        /// </summary>
-        public int RefCarBodyId { get; set; }
-
-        /// <summary>
         /// Bauart
         /// </summary>
         public CarBody CarBody { get; set; }
 
         /// <summary>
-        /// Referenz-Id der Generation
-        /// </summary>
-        public int RefCarGenerationId { get; set; }
-
-        /// <summary>
         /// Generation
         /// </summary>
         public CarGeneration CarGeneration { get; set; }
-
-        /// <summary>
-        /// Referenz-Id der Motorisierung
-        /// </summary>
-        public int RefCarTrimId { get; set; }
 
         /// <summary>
         /// Motorisierung
@@ -99,16 +79,6 @@ namespace FinancialAnalysis.Models.CarPoolManagement
         /// Datum der Erstzulassung
         /// </summary>
         public DateTime FirstRegistrationDate { get; set; }
-
-        /// <summary>
-        /// Referenz-Id der Automarke
-        /// </summary>
-        public int RefMarqueId { get; set; }
-
-        /// <summary>
-        /// Referenz-Id des Models
-        /// </summary>
-        public int RefVehicleModelId { get; set; }
 
         /// <summary>
         /// Kilometerstand bei Anschaffung

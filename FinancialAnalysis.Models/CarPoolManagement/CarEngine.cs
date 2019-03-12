@@ -28,9 +28,9 @@ namespace FinancialAnalysis.Models.CarPoolManagement
         public int Power { get; set; }
 
         /// <summary>
-        /// Referenz-Id auf Automodell
+        /// Referenz-Id auf die Motorisierung
         /// </summary>
-        public int RefCarModelId { get; set; }
+        public int RefCarTrimId { get; set; }
 
         /// <summary>
         /// Kraftstoffart

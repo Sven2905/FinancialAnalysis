@@ -25,5 +25,10 @@ namespace FinancialAnalysis.Models.CarPoolManagement
         /// Jahr
         /// </summary>
         public int Year { get; set; }
+
+        /// <summary>
+        /// Referenz-Id auf die Generation
+        /// </summary>
+        public int RefCarGenerationId { get; set; }
     }
 }

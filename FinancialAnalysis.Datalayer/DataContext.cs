@@ -64,6 +64,13 @@ namespace FinancialAnalysis.Datalayer
         public BalanceAccounts BalanceAccounts { get; set; } = new BalanceAccounts();
         public GainAndLossAccounts GainAndLossAccounts { get; set; } = new GainAndLossAccounts();
         public InvoiceReminders InvoiceReminders { get; set; } = new InvoiceReminders();
+        public CarBodies CarBodies { get; set; } = new CarBodies();
+        public CarEngines CarEngines { get; set; } = new CarEngines();
+        public CarGenerations CarGenerations { get; set; } = new CarGenerations();
+        public CarMakes CarMakes { get; set; } = new CarMakes();
+        public CarModels CarModels { get; set; } = new CarModels();
+        public CarTrims CarTrims { get; set; } = new CarTrims();
+        public Vehicles Vehicles { get; set; } = new Vehicles();
 
         public void Dispose()
         {
@@ -127,6 +134,13 @@ namespace FinancialAnalysis.Datalayer
             BalanceAccounts.CheckAndCreateStoredProcedures();
             GainAndLossAccounts.CheckAndCreateStoredProcedures();
             InvoiceReminders.CheckAndCreateStoredProcedures();
+            CarBodies.CheckAndCreateStoredProcedures();
+            CarEngines.CheckAndCreateStoredProcedures();
+            CarGenerations.CheckAndCreateStoredProcedures();
+            CarMakes.CheckAndCreateStoredProcedures();
+            CarModels.CheckAndCreateStoredProcedures();
+            CarTrims.CheckAndCreateStoredProcedures();
+            Vehicles.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()
@@ -194,6 +208,11 @@ namespace FinancialAnalysis.Datalayer
             {
                 _Import.SeedPaymentCondition();
             }
+
+            //if (!Instance.CarMakes.GetAll().Any())
+            //{
+            //    _Import.SeedCars();
+            //}
         }
     }
 }

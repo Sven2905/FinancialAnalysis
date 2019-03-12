@@ -2,6 +2,7 @@
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
+using FinancialAnalysis.Models.CarPoolManagement;
 using FinancialAnalysis.Models.ClientManagement;
 using FinancialAnalysis.Models.Enums;
 using FinancialAnalysis.Models.ProductManagement;
@@ -356,6 +357,76 @@ namespace FinancialAnalysis.Logic
                 }
             }
         }
+
+        public void SeedCars()
+        {
+            Dictionary<string, int> makes = new Dictionary<string, int>();
+            Dictionary<string, int> models = new Dictionary<string, int>();
+            Dictionary<string, int> generations = new Dictionary<string, int>();
+            Dictionary<string, int> bodies = new Dictionary<string, int>();
+
+            const string _FilePath = @".\Data\auto_databases_February_2019.csv";
+
+            using (var reader = new StreamReader(_FilePath))
+            {
+                var lineCounter = 0;
+                foreach (var line in reader.ReadToEnd().Split('\n'))
+                {
+                    lineCounter++;
+                    if (lineCounter > 1)
+                    {
+                        var values = line.Split(';');
+
+                        // MARKE
+
+                        if (!makes.Keys.Contains(values[3]))
+                        {
+                            CarMake carMake = new CarMake { Name = values[3] };
+                            var id = DataContext.Instance.CarMakes.Insert(carMake);
+                            makes.Add(carMake.Name, id);
+                        }
+
+                        // MODEL
+
+                        if (!models.Keys.Contains(values[5]))
+                        {
+                            CarModel carModel = new CarModel { Name = values[5], RefCarMakeId = makes[values[3]] };
+                            var id = DataContext.Instance.CarModels.Insert(carModel);
+                            models.Add(carModel.Name, id);
+                        }
+
+                        // BAUART
+
+                        if (!bodies.Keys.Contains(values[9]))
+                        {
+                            CarBody carBody = new CarBody { Name = values[9], RefCarModelId = models[values[5]] };
+                            var id = DataContext.Instance.CarBodies.Insert(carBody);
+                            bodies.Add(carBody.Name, id);
+                        }
+
+                        // GENERATION
+
+                        if (!generations.Keys.Contains(values[7]))
+                        {
+                            CarGeneration carGeneration = new CarGeneration { Name = values[7], RefCarBodyId = bodies[values[9]] };
+                            var id = DataContext.Instance.CarGenerations.Insert(carGeneration);
+                            generations.Add(carGeneration.Name, id);
+                        }
+
+                        //// MOTORISIERUNG
+
+                        CarTrim carTrim = new CarTrim { Name = values[1], RefCarGenerationId = generations[values[7]] };
+                        var trimId = DataContext.Instance.CarTrims.Insert(carTrim);
+
+                        //// MOTOR
+
+                        CarEngine carEngine = new CarEngine { CarGear = (CarGear)(Convert.ToInt32(values[12])), EngineType = (EngineType)(Convert.ToInt32(values[14])), Power = Convert.ToInt32(values[17]), Volume = Convert.ToInt32(values[16]), RefCarTrimId = trimId };
+                        DataContext.Instance.CarEngines.Insert(carEngine);
+                    }
+                }
+            }
+        }
+
 
         internal void SeedCostCenters()
         {

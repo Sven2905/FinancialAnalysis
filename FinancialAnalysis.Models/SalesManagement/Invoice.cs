@@ -78,14 +78,20 @@ namespace FinancialAnalysis.Models.SalesManagement
         public decimal PaidAmount
         {
             get { return _PaidAmount; }
-            set { _PaidAmount = value;
-                if (PaidAmount == TotalAmount)
+            set
+            {
+                _PaidAmount = value;
+                if (PaidAmount == TotalAmountWithPaymentCondition)
                 {
                     IsPaid = true;
                 }
             }
         }
 
+        /// <summary>
+        /// Endbetrag unter Berücksichtigung der Zahlungsbedingungen (Skonto)
+        /// </summary>
+        public decimal TotalAmountWithPaymentCondition => CheckForPaymentConditions();
 
         /// <summary>
         /// Referenz-Id des Mitarbeiters
@@ -116,5 +122,21 @@ namespace FinancialAnalysis.Models.SalesManagement
         /// Rechnungspositionen
         /// </summary>
         public SvenTechCollection<InvoicePosition> InvoicePositions { get; set; } = new SvenTechCollection<InvoicePosition>();
+
+        /// <summary>
+        /// Wenn die Zahlungsbedingungen eingehalten wurden, wird der automatisch der Prozentsatz abgezogen 
+        /// </summary>
+        /// <returns>Der letztendlich zu bezahlende Betrag</returns>
+        private decimal CheckForPaymentConditions()
+        {
+            var result = TotalAmount;
+
+            if (PaymentCondition?.CheckIfAdhered(InvoiceDueDate, PaidDate) == true)
+            {
+                return result * (100 - PaymentCondition.Percentage);
+            }
+
+            return result;
+        }
     }
 }
