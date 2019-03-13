@@ -130,15 +130,15 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public CarTrim GetByRefCarGenerationId(int id)
+        public IEnumerable<CarTrim> GetByRefCarGenerationId(int id)
         {
-            var output = new CarTrim();
+            IEnumerable<CarTrim> output = new List<CarTrim>();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<CarTrim>(
+                    output = con.Query<CarTrim>(
                         $"dbo.{TableName}_GetByRefCarGenerationId @RefCarGenerationId", new { RefCarGenerationId = id });
                 }
             }

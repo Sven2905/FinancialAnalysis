@@ -78,12 +78,12 @@ namespace FinancialAnalysis.Models.Accounting
         public int RefGainAndLossAccountId { get; set; }
 
         /// <summary>
-        /// Gesamtsumme des Kontenrahmens
+        /// Gesamtsumme des Habens
         /// </summary>
         public decimal TotalCreditAmount { get; set; }
 
         /// <summary>
-        /// Gesamtsumme des Kontenrahmens
+        /// Gesamtsumme des Solls
         /// </summary>
         public decimal TotalDebitAmount { get; set; }
     }

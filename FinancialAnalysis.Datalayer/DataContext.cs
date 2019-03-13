@@ -208,10 +208,10 @@ namespace FinancialAnalysis.Datalayer
             {
                 _Import.SeedPaymentCondition();
             }
-            //if (!Instance.CarMakes.GetAll().Any())
-            //{
-            //    _Import.SeedCars();
-            //}
+            if (!Instance.CarMakes.GetAll().Any())
+            {
+                _Import.SeedCars();
+            }
         }
     }
 }

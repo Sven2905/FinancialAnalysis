@@ -4,9 +4,68 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FinancialAnalysis.UserControls.CarPoolManagement"
+             xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
+             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+             xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <UserControl.DataContext>
+        <ViewModels:CarPoolViewModel />
+    </UserControl.DataContext>
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+
+        <dxwui:PageAdornerControl Header="Fuhrpark" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                                  Foreground="#3F729B" FontFamily="Tahoma">
+            <dxwui:PageAdornerControl.HeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <ContentPresenter Content="{Binding}" />
+                    </Grid>
+                </DataTemplate>
+            </dxwui:PageAdornerControl.HeaderTemplate>
+        </dxwui:PageAdornerControl>
+        <dx:DXTabControl Grid.Row="2"  Margin="50,0,50,20">
+            <dx:DXTabItem Header="Übersicht">
+                <Grid >
+                    <dxdo:DockLayoutManager>
+                        <dxdo:LayoutGroup Caption="LayoutRoot">
+                            <dxdo:LayoutPanel Caption="Fahrzeuge" ShowCloseButton="False" ShowPinButton="False">
+                                <Grid>
+                                    <TextBlock Text="Test" Margin="10,0"/>
+                                </Grid>
+                            </dxdo:LayoutPanel>
+                            <dxdo:LayoutPanel Caption="Informationen" ShowCloseButton="False" ShowPinButton="False">
+                                <Grid>
+                                    <dx:DXVirtualizingStackPanel>
+                                        <dxe:ComboBoxEdit Grid.Column="0" ItemsSource="{Binding CarMakes}" DisplayMember="Name" 
+                                                          EditValue="{Binding SelectedCarMake, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
+                                        <dxe:ComboBoxEdit Grid.Column="0" ItemsSource="{Binding CarModels}" DisplayMember="Name" 
+                                                          EditValue="{Binding SelectedCarModel, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
+                                        <dxe:ComboBoxEdit Grid.Column="0" ItemsSource="{Binding CarBodies}" DisplayMember="Name" 
+                                                          EditValue="{Binding SelectedCarBody, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
+                                        <dxe:ComboBoxEdit Grid.Column="0" ItemsSource="{Binding CarGenerations}" DisplayMember="Name" 
+                                                          EditValue="{Binding SelectedCarGeneration, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
+                                        <dxe:ComboBoxEdit Grid.Column="0" ItemsSource="{Binding CarTrims}" DisplayMember="Name" 
+                                                          EditValue="{Binding SelectedCarTrim, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
+                                    </dx:DXVirtualizingStackPanel>
+                                </Grid>
+                            </dxdo:LayoutPanel>
+                        </dxdo:LayoutGroup>
+                    </dxdo:DockLayoutManager>
+                </Grid>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
     </Grid>
 </UserControl>

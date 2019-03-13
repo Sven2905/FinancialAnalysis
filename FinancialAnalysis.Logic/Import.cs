@@ -415,7 +415,7 @@ namespace FinancialAnalysis.Logic
 
                         //// MOTORISIERUNG
 
-                        CarTrim carTrim = new CarTrim { Name = values[1], RefCarGenerationId = generations[values[7]] };
+                        CarTrim carTrim = new CarTrim { Name = values[1], RefCarGenerationId = generations[values[7]], Year= Convert.ToInt32(values[18]) };
                         var trimId = DataContext.Instance.CarTrims.Insert(carTrim);
 
                         //// MOTOR
@@ -426,7 +426,6 @@ namespace FinancialAnalysis.Logic
                 }
             }
         }
-
 
         internal void SeedCostCenters()
         {

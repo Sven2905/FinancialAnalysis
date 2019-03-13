@@ -43,6 +43,6 @@ namespace FinancialAnalysis.Models.Accounting
         /// <summary>
         /// Zugeordnete Kontenrahmen
         /// </summary>
-        public SvenTechCollection<CostAccount> CostAccounts { get; set; }
+        public SvenTechCollection<CostAccount> CostAccounts { get; set; } = new SvenTechCollection<CostAccount>();
     }
 }

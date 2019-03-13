@@ -20,8 +20,8 @@ namespace FinancialAnalysis.Datalayer.Accounting
         {
             InsertData();
             GetAllData();
-            //GetAllActive();
-            //GetAllPassiva();
+            GetAllActive();
+            GetAllPassiva();
             GetById();
             UpdateData();
             DeleteData();
@@ -61,7 +61,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     $"CREATE PROCEDURE [{TableName}_GetAllActive] AS BEGIN SET NOCOUNT ON; " +
                     "SELECT b.*, ca.*, SUM(c.Amount) as TotalCreditAmount, SUM(d.Amount) as TotalDebitAmount " +
                     $"FROM {TableName} b " +
-                    "INNER JOIN CostAccounts ca ON b.BalanceAccountId = ca.RefActiveBalanceAccountId " +
+                    "LEFT JOIN CostAccounts ca ON b.BalanceAccountId = ca.RefActiveBalanceAccountId " +
                     "LEFT JOIN Credits c ON c.RefCostAccountId = ca.CostAccountId " +
                     "LEFT JOIN Debits d ON d.RefCostAccountId = ca.CostAccountId " +
                     "GROUP BY b.AccountType, b.BalanceAccountId, b.Name, b.ParentId, " +
@@ -92,7 +92,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     $"CREATE PROCEDURE [{TableName}_GetAllPassiva] AS BEGIN SET NOCOUNT ON; " +
                     "SELECT b.*, ca.*, SUM(c.Amount) as TotalCreditAmount, SUM(d.Amount) as TotalDebitAmount  " +
                     $"FROM {TableName} b " +
-                    "INNER JOIN CostAccounts ca ON b.BalanceAccountId = ca.RefPassiveBalanceAccountId " +
+                    "LEFT JOIN CostAccounts ca ON b.BalanceAccountId = ca.RefPassiveBalanceAccountId " +
+                    "LEFT JOIN Credits c ON ca.CostAccountId = c.RefCostAccountId " +
+                    "LEFT JOIN Debits d ON ca.CostAccountId = d.RefCostAccountId " +
                     "GROUP BY b.AccountType, b.BalanceAccountId, b.Name, b.ParentId, " +
                     "ca.AccountNumber, ca.CostAccountId, ca.Description, ca.IsEditable, ca.IsVisible, ca.RefActiveBalanceAccountId, " +
                     "ca.RefCostAccountCategoryId, ca.RefGainAndLossAccountId, ca.RefPassiveBalanceAccountId, ca.RefTaxTypeId " +

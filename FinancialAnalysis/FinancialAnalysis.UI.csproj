@@ -151,6 +151,9 @@
     <Compile Include="Converter\ColorToBrushConverter.cs" />
     <Compile Include="Converter\NullToVisConverter.cs" />
     <Compile Include="Converter\NullToIsEnabledConverter.cs" />
+    <Compile Include="UserControls\Accounting\BalanceControl.xaml.cs">
+      <DependentUpon>BalanceControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Accounting\BookingHistoryControl.xaml.cs">
       <DependentUpon>BookingHistoryControl.xaml</DependentUpon>
     </Compile>
@@ -294,6 +297,10 @@
       <DependentUpon>ProductCategoriesWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\Style.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Accounting\BalanceControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

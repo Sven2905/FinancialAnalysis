@@ -129,15 +129,15 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public CarModel GetByRefCarMakeId(int id)
+        public IEnumerable<CarModel> GetByRefCarMakeId(int id)
         {
-            var output = new CarModel();
+            IEnumerable<CarModel> output = new List<CarModel>();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.QuerySingleOrDefault<CarModel>(
+                    output = con.Query<CarModel>(
                         $"dbo.{TableName}_GetByRefCarMakeId @RefCarMakeId", new { RefCarMakeId = id });
                 }
             }

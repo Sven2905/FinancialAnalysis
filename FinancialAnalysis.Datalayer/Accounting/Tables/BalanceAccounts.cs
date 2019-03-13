@@ -6,6 +6,7 @@ using System.Linq;
 using Dapper;
 using FinancialAnalysis.Models.Accounting;
 using Serilog;
+using Utilities;
 
 namespace FinancialAnalysis.Datalayer.Accounting
 {
@@ -150,14 +151,81 @@ namespace FinancialAnalysis.Datalayer.Accounting
             return output;
         }
 
+        public IEnumerable<BalanceAccount> GetAllActive()
+        {
+            var BalanceAccountDictionary = new Dictionary<int, BalanceAccount>();
+            IEnumerable<BalanceAccount> output = new List<BalanceAccount>();
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    output = con.Query<BalanceAccount, CostAccount, BalanceAccount>($"dbo.{TableName}_GetAllActive",
+                        (objBalanceAccount, objCostAccount) =>
+                        {
+                        if (!BalanceAccountDictionary.TryGetValue(objBalanceAccount.BalanceAccountId, out BalanceAccount BalanceAccountEntry))
+                            {
+                                BalanceAccountEntry = objBalanceAccount;
+                                BalanceAccountDictionary.Add(objBalanceAccount.BalanceAccountId, objBalanceAccount);
+                            }
+
+                            if (!BalanceAccountEntry.CostAccounts.Any(x => x.CostAccountId == objCostAccount.CostAccountId))
+                                objBalanceAccount.CostAccounts.Add(objCostAccount);
+
+                            return objBalanceAccount;
+                        }, splitOn: "CostAccountId",
+                        commandType: CommandType.StoredProcedure).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'GetAllActive' from table '{TableName}'", e);
+            }
+
+            return BalanceAccountDictionary.Values; ;
+        }
+
+        public IEnumerable<BalanceAccount> GetAllPassiva()
+        {
+            var BalanceAccountDictionary = new Dictionary<int, BalanceAccount>();
+            IEnumerable<BalanceAccount> output = new List<BalanceAccount>();
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    output = con.Query<BalanceAccount, CostAccount, BalanceAccount>($"dbo.{TableName}_GetAllPassiva",
+                        (objBalanceAccount, objCostAccount) =>
+                        {
+                            if (!BalanceAccountDictionary.TryGetValue(objBalanceAccount.BalanceAccountId, out BalanceAccount BalanceAccountEntry))
+                            {
+                                BalanceAccountEntry = objBalanceAccount;
+                                BalanceAccountDictionary.Add(objBalanceAccount.BalanceAccountId, objBalanceAccount);
+                            }
+
+                            if (!BalanceAccountEntry.CostAccounts.Any(x => x.CostAccountId == objCostAccount.CostAccountId))
+                                objBalanceAccount.CostAccounts.Add(objCostAccount);
+
+                            return objBalanceAccount;
+                        }, splitOn: "CostAccountId",
+                        commandType: CommandType.StoredProcedure).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'GetAllPassiva' from table '{TableName}'", e);
+            }
+
+            return BalanceAccountDictionary.Values;
+        }
+
         /// <summary>
         ///     Update BalanceAccount, if not exist, insert it
         /// </summary>
         /// <param name="BalanceAccount"></param>
         public void UpdateOrInsert(BalanceAccount BalanceAccount)
         {
-            if (BalanceAccount.BalanceAccountId == 0 ||
-                GetById(BalanceAccount.BalanceAccountId) is null)
+            if (BalanceAccount.BalanceAccountId == 0)
             {
                 Insert(BalanceAccount);
                 return;
@@ -181,8 +249,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// <param name="BalanceAccount"></param>
         public void Update(BalanceAccount BalanceAccount)
         {
-            if (BalanceAccount.BalanceAccountId == 0 ||
-                GetById(BalanceAccount.BalanceAccountId) is null) return;
+            if (BalanceAccount.BalanceAccountId == 0) return;
 
             try
             {
