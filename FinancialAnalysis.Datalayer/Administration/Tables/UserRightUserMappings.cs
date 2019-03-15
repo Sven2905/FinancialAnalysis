@@ -111,7 +111,7 @@ namespace FinancialAnalysis.Datalayer.Administration
         ///     Inserts the list of UserRightUserMapping items
         /// </summary>
         /// <param name="UserRightUserMapping"></param>
-        private void Insert(IEnumerable<UserRightUserMapping> UserRightUserMappings)
+        public void Insert(IEnumerable<UserRightUserMapping> UserRightUserMappings)
         {
             try
             {
@@ -188,7 +188,7 @@ namespace FinancialAnalysis.Datalayer.Administration
         ///     Update UserRightUserMapping
         /// </summary>
         /// <param name="UserRightUserMapping"></param>
-        private UserRightUserMapping Update(UserRightUserMapping UserRightUserMapping)
+        public UserRightUserMapping Update(UserRightUserMapping UserRightUserMapping)
         {
             try
             {
