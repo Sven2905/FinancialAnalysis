@@ -76,11 +76,11 @@ namespace FinancialAnalysis.Logic.ViewModels
             CurrentTime = DateTime.Now.ToString("G");
             if (IsServerConnected())
             {
-                DatabaseStatus= DatabaseStatus.Connected;
+                DatabaseStatus = DatabaseStatus.Connected;
             }
             else
             {
-                DatabaseStatus= DatabaseStatus.Disconnected;
+                DatabaseStatus = DatabaseStatus.Disconnected;
             }
         }
 
@@ -127,6 +127,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                                          UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
                                              Permission.AccessConfiguration);
 
+        public bool ShowSalesManagement => Globals.ActiveUser.IsAdministrator ||
+                                         UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
+                                             Permission.AccessSalesManagement);
         #endregion UserRights
     }
 }
