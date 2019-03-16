@@ -75,7 +75,7 @@
                                  VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
                                  Content="Zahlungskond." FontFamily="Tahoma"
                                  dxwuin:Navigation.NavigateTo="PaymentConditionControl" VerticalAlignment="Center"
-                                 Width="180"
+                                 Width="180" Visibility="{Binding Path=ShowPaymentCondition, Converter={StaticResource BoolToVis}}"
                                  Height="180" FontSize="20" Margin="2">
                     <!--Visibility="{Binding Path=ShowPendingSaleOrders, Converter={StaticResource BoolToVis}}">-->
                     <dx:SimpleButton.Glyph>
