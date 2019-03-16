@@ -57,6 +57,11 @@ namespace FinancialAnalysis.Models.Administration
         }
 
         /// <summary>
+        /// Key zur Authentifizierung der WebApi
+        /// </summary>
+        public string WebApiKey { get; set; }
+
+        /// <summary>
         /// Daten des Benutzerbild
         /// </summary>
         public byte[] Picture { get; set; }
