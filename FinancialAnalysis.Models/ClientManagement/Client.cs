@@ -1,11 +1,13 @@
 ﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
 
 namespace FinancialAnalysis.Models.ClientManagement
 {
     /// <summary>
     /// Klient
     /// </summary>
-    public class Client : ViewModelBase
+    [JsonObject(MemberSerialization.OptOut)]
+    public class Client : BindableBase
     {
         public Client()
         {

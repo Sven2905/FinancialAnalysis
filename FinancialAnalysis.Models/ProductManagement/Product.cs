@@ -1,11 +1,14 @@
-﻿using FinancialAnalysis.Models.Accounting;
+﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Models.Accounting;
+using Newtonsoft.Json;
 
 namespace FinancialAnalysis.Models.ProductManagement
 {
     /// <summary>
     /// Produkt
     /// </summary>
-    public class Product
+    [JsonObject(MemberSerialization.OptOut)]
+    public class Product : BindableBase
     {
         /// <summary>
         /// Id

@@ -1,4 +1,6 @@
-﻿using FinancialAnalysis.Models.Enums;
+﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Models.Enums;
+using Newtonsoft.Json;
 using Utilities;
 
 namespace FinancialAnalysis.Models.Accounting
@@ -6,7 +8,8 @@ namespace FinancialAnalysis.Models.Accounting
     /// <summary>
     /// Bilanz-Posten
     /// </summary>
-    public class BalanceAccount
+    [JsonObject(MemberSerialization.OptOut)]
+    public class BalanceAccount : BindableBase
     {
         public BalanceAccount()
         {

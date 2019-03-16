@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace FinancialAnalysis.Models.ProjectManagement
 {
     /// <summary>
     /// Krankenkasse
     /// </summary>
-    public class HealthInsurance
+    [JsonObject(MemberSerialization.OptOut)]
+    public class HealthInsurance : BindableBase
     {
         /// <summary>
         /// Id

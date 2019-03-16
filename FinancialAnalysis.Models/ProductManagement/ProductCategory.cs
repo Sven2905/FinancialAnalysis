@@ -1,9 +1,13 @@
-﻿namespace FinancialAnalysis.Models.ProductManagement
+﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
+
+namespace FinancialAnalysis.Models.ProductManagement
 {
     /// <summary>
     /// Produktkategorie
     /// </summary>
-    public class ProductCategory
+    [JsonObject(MemberSerialization.OptOut)]
+    public class ProductCategory : BindableBase
     {
         /// <summary>
         /// Id

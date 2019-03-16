@@ -1,11 +1,13 @@
 ﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
 
 namespace FinancialAnalysis.Models.Administration
 {
     /// <summary>
     /// Benutzerrechtzuordnung flache Struktur für TreeList
     /// </summary>
-    public class UserRightUserMappingFlatStructure : ViewModelBase
+    [JsonObject(MemberSerialization.OptOut)]
+    public class UserRightUserMappingFlatStructure : BindableBase
     {
         public UserRightUserMappingFlatStructure(UserRightUserMapping userRightUserMapping)
         {

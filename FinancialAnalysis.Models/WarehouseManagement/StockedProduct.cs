@@ -1,11 +1,13 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.ProductManagement;
+using Newtonsoft.Json;
 
 namespace FinancialAnalysis.Models.WarehouseManagement
 {
     /// <summary>
     /// Eingelagertes Produkt
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class StockedProduct : BindableBase
     {
         public StockedProduct()

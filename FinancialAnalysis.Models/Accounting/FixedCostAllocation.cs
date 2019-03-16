@@ -1,9 +1,13 @@
-﻿namespace FinancialAnalysis.Models.Accounting
+﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
+
+namespace FinancialAnalysis.Models.Accounting
 {
     /// <summary>
     /// Aufteilungsanteile auf Kostenstelle
     /// </summary>
-    public class FixedCostAllocation
+    [JsonObject(MemberSerialization.OptOut)]
+    public class FixedCostAllocation : BindableBase
     {
         /// <summary>
         /// Id

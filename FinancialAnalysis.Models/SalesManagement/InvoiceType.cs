@@ -1,10 +1,12 @@
 ﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
 
 namespace FinancialAnalysis.Models.SalesManagement
 {
     /// <summary>
     /// Rechnungstyp
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class InvoiceType : BindableBase
     {
         /// <summary>

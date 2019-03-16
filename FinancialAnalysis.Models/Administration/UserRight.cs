@@ -1,11 +1,13 @@
 ﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
 
 namespace FinancialAnalysis.Models.Administration
 {
     /// <summary>
     /// Benutzerrecht
     /// </summary>
-    public class UserRight : ViewModelBase
+    [JsonObject(MemberSerialization.OptOut)]
+    public class UserRight : BindableBase
     {
         public UserRight()
         {

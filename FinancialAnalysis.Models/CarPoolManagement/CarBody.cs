@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +11,8 @@ namespace FinancialAnalysis.Models.CarPoolManagement
     /// <summary>
     /// Bauart
     /// </summary>
-    public class CarBody
+    [JsonObject(MemberSerialization.OptOut)]
+    public class CarBody : BindableBase
     {
         /// <summary>
         /// Id der Bauart

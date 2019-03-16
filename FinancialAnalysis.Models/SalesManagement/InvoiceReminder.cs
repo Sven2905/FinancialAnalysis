@@ -1,4 +1,6 @@
-﻿using FinancialAnalysis.Models.Enums;
+﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Models.Enums;
+using Newtonsoft.Json;
 using System;
 
 namespace FinancialAnalysis.Models.SalesManagement
@@ -6,7 +8,8 @@ namespace FinancialAnalysis.Models.SalesManagement
     /// <summary>
     /// Mahnung
     /// </summary>
-    public class InvoiceReminder
+    [JsonObject(MemberSerialization.OptOut)]
+    public class InvoiceReminder : BindableBase
     {
         /// <summary>
         /// Id

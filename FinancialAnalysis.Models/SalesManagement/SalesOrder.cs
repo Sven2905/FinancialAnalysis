@@ -2,6 +2,7 @@
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.General;
 using FinancialAnalysis.Models.ProjectManagement;
+using Newtonsoft.Json;
 using System;
 using System.Linq;
 using System.Windows.Media;
@@ -12,6 +13,7 @@ namespace FinancialAnalysis.Models.SalesManagement
     /// <summary>
     /// Auftrag
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class SalesOrder : BindableBase
     {
         /// <summary>

@@ -1,11 +1,14 @@
 ﻿using System;
+using DevExpress.Mvvm;
+using Newtonsoft.Json;
 
 namespace FinancialAnalysis.Models.Accounting
 {
     /// <summary>
     /// Zahlungskondition
     /// </summary>
-    public class PaymentCondition
+    [JsonObject(MemberSerialization.OptOut)]
+    public class PaymentCondition : BindableBase
     {
         /// <summary>
         /// Id

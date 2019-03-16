@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +11,8 @@ namespace FinancialAnalysis.Models.CarPoolManagement
     /// <summary>
     /// Generation
     /// </summary>
-    public class CarGeneration
+    [JsonObject(MemberSerialization.OptOut)]
+    public class CarGeneration : BindableBase
     {
         /// <summary>
         /// Id der Generation

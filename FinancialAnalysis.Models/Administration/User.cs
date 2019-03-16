@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Utilities;
@@ -8,7 +9,8 @@ namespace FinancialAnalysis.Models.Administration
     /// <summary>
     /// Benutzer
     /// </summary>
-    public class User : ViewModelBase
+    [JsonObject(MemberSerialization.OptOut)]
+    public class User : BindableBase
     {
         #region Properties
 

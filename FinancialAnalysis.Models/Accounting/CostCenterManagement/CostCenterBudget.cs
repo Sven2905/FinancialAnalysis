@@ -1,12 +1,14 @@
 ﻿using DevExpress.Mvvm;
 using System;
+using Newtonsoft.Json;
 
 namespace FinancialAnalysis.Models.Accounting
 {
     /// <summary>
     /// Kostenstellen Budget
     /// </summary>
-    public class CostCenterBudget : ViewModelBase
+    [JsonObject(MemberSerialization.OptOut)]
+    public class CostCenterBudget : BindableBase
     {
         /// <summary>
         /// Id

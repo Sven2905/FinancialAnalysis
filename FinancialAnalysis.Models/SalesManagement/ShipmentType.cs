@@ -1,10 +1,12 @@
 ﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
 
 namespace FinancialAnalysis.Models.SalesManagement
 {
     /// <summary>
     /// Versandtyp
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class ShipmentType : BindableBase
     {
         /// <summary>

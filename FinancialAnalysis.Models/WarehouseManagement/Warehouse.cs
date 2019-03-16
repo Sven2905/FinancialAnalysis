@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
 using Utilities;
 
 namespace FinancialAnalysis.Models.WarehouseManagement
@@ -6,6 +7,7 @@ namespace FinancialAnalysis.Models.WarehouseManagement
     /// <summary>
     /// Lagerhaus
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class Warehouse : BindableBase
     {
         /// <summary>

@@ -1,8 +1,11 @@
-﻿namespace FinancialAnalysis.Models.Accounting.CostCenterManagement
+﻿using Newtonsoft.Json;
+
+namespace FinancialAnalysis.Models.Accounting.CostCenterManagement
 {
     /// <summary>
     /// Flache Sturktur der Kostenstellen für TreeLists
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class CostCenterFlatStructure
     {
         public int Key { get; set; }

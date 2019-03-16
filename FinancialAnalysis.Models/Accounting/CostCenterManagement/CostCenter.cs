@@ -1,12 +1,14 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.ProjectManagement;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace FinancialAnalysis.Models.Accounting
 {
     /// <summary>
     ///     Kostenstelle
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class CostCenter : BindableBase
     {
         /// <summary>

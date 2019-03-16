@@ -1,10 +1,12 @@
 ﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
 
 namespace FinancialAnalysis.Models.Accounting
 {
     /// <summary>
     /// Kontenrahmen
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class CostAccount : BindableBase
     {
         public CostAccount()

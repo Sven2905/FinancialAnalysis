@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace FinancialAnalysis.Models.Accounting
@@ -6,6 +7,7 @@ namespace FinancialAnalysis.Models.Accounting
     /// <summary>
     /// Kontenrahmenkategorie
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class CostAccountCategory : BindableBase
     {
         /// <summary>

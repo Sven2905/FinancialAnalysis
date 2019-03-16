@@ -1,10 +1,12 @@
 ﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
 
 namespace FinancialAnalysis.Models.ClientManagement
 {
     /// <summary>
     /// Firma
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class Company : BindableBase
     {
         /// <summary>

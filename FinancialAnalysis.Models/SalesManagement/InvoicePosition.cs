@@ -1,11 +1,13 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.ProductManagement;
+using Newtonsoft.Json;
 
 namespace FinancialAnalysis.Models.SalesManagement
 {
     /// <summary>
     /// Rechnungsposition
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class InvoicePosition : BindableBase
     {
         public InvoicePosition()

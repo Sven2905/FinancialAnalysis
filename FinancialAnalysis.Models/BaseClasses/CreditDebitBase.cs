@@ -1,11 +1,13 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Accounting;
+using Newtonsoft.Json;
 
 namespace FinancialAnalysis.Models.BaseClasses
 {
     /// <summary>
     /// Basisklasse für Soll- und Haben-Positionen
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class CreditDebitBase : BindableBase
     {
         /// <summary>

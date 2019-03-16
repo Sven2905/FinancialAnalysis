@@ -1,4 +1,5 @@
 ﻿using FinancialAnalysis.Models.BaseClasses;
+using Newtonsoft.Json;
 using FinancialAnalysis.Models.ClientManagement;
 
 namespace FinancialAnalysis.Models.Accounting
@@ -6,6 +7,7 @@ namespace FinancialAnalysis.Models.Accounting
     /// <summary>
     /// Kreditor
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class Creditor : CreditorDebitorBase
     {
         public Creditor()

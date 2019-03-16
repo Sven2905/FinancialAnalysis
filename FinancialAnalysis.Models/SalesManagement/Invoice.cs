@@ -2,11 +2,16 @@
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.ClientManagement;
 using FinancialAnalysis.Models.ProjectManagement;
+using Newtonsoft.Json;
 using System;
 using Utilities;
 
 namespace FinancialAnalysis.Models.SalesManagement
 {
+    /// <summary>
+    /// Rechnung
+    /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class Invoice : BindableBase
     {
         private decimal _PaidAmount;

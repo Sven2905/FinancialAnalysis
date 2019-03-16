@@ -1,5 +1,6 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Accounting;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -8,6 +9,7 @@ namespace FinancialAnalysis.Models.ProjectManagement
     /// <summary>
     /// Projekt
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class Project : BindableBase
     {
         /// <summary>

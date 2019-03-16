@@ -1,9 +1,13 @@
-﻿namespace FinancialAnalysis.Models.Administration
+﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
+
+namespace FinancialAnalysis.Models.Administration
 {
     /// <summary>
     /// Benutzerrechtzuordnung
     /// </summary>
-    public class UserRightUserMapping
+    [JsonObject(MemberSerialization.OptOut)]
+    public class UserRightUserMapping : BindableBase
     {
         public UserRightUserMapping()
         {

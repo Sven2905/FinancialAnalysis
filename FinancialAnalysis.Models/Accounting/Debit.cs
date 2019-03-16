@@ -1,10 +1,12 @@
 ﻿using FinancialAnalysis.Models.BaseClasses;
+using Newtonsoft.Json;
 
 namespace FinancialAnalysis.Models.Accounting
 {
     /// <summary>
     /// Soll
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class Debit : CreditDebitBase
     {
         public Debit()

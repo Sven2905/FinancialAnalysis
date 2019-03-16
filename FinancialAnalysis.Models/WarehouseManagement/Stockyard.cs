@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace FinancialAnalysis.Models.WarehouseManagement
@@ -6,6 +7,7 @@ namespace FinancialAnalysis.Models.WarehouseManagement
     /// <summary>
     /// Lagerplatz
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class Stockyard : BindableBase
     {
         /// <summary>

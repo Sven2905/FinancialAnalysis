@@ -1,9 +1,13 @@
-﻿namespace FinancialAnalysis.Models.Accounting
+﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
+
+namespace FinancialAnalysis.Models.Accounting
 {
     /// <summary>
     /// Gewinn- und Verlustrechnungskonto
     /// </summary>
-    public class GainAndLossAccount
+    [JsonObject(MemberSerialization.OptOut)]
+    public class GainAndLossAccount : BindableBase
     {
         public GainAndLossAccount()
         {

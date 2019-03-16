@@ -1,4 +1,6 @@
-﻿using FinancialAnalysis.Models.Enums;
+﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Models.Enums;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,8 @@ namespace FinancialAnalysis.Models.CarPoolManagement
     /// <summary>
     /// Motor
     /// </summary>
-    public class CarEngine
+    [JsonObject(MemberSerialization.OptOut)]
+    public class CarEngine : BindableBase
     {
         /// <summary>
         /// Id des Motors

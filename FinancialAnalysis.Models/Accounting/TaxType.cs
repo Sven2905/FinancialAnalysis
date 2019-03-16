@@ -1,10 +1,12 @@
 ﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
 
 namespace FinancialAnalysis.Models.Accounting
 {
     /// <summary>
     /// Steuertyp
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class TaxType : BindableBase
     {
         /// <summary>

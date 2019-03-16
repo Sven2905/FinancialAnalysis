@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
 using System;
 
 namespace FinancialAnalysis.Models.Accounting
@@ -6,6 +7,7 @@ namespace FinancialAnalysis.Models.Accounting
     /// <summary>
     /// Gespeichertes Dokument
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class ScannedDocument : BindableBase
     {
         /// <summary>

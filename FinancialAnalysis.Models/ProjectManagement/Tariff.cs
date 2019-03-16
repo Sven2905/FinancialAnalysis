@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace FinancialAnalysis.Models.ProjectManagement
 {
     /// <summary>
     /// Tarif
     /// </summary>
-    public class Tariff
+    [JsonObject(MemberSerialization.OptOut)]
+    public class Tariff : BindableBase
     {
         /// <summary>
         /// Id

@@ -1,11 +1,14 @@
-﻿using System;
+﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
+using System;
 
 namespace FinancialAnalysis.Models.ProjectManagement
 {
     /// <summary>
     /// Arbeitszeit am Projekt
     /// </summary>
-    public class ProjectWorkingTime
+    [JsonObject(MemberSerialization.OptOut)]
+    public class ProjectWorkingTime : BindableBase
     {
         /// <summary>
         /// Id

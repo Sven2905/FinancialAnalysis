@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
 using System;
 using Utilities;
 
@@ -7,6 +8,7 @@ namespace FinancialAnalysis.Models.SalesManagement
     /// <summary>
     /// Warenlieferung
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class Shipment : BindableBase
     {
         public Shipment()

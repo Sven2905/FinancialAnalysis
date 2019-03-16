@@ -1,4 +1,6 @@
-﻿using FinancialAnalysis.Models.Enums;
+﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Models.Enums;
+using Newtonsoft.Json;
 using System;
 
 namespace FinancialAnalysis.Models.CarPoolManagement
@@ -6,7 +8,8 @@ namespace FinancialAnalysis.Models.CarPoolManagement
     /// <summary>
     /// Fahrzeug
     /// </summary>
-    public class Vehicle
+    [JsonObject(MemberSerialization.OptOut)]
+    public class Vehicle : BindableBase
     {
         // Make - Model - Year - Body - Generation - Trim
 

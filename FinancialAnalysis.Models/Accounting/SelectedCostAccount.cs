@@ -1,5 +1,8 @@
-﻿namespace FinancialAnalysis.Models.Accounting
+﻿using Newtonsoft.Json;
+
+namespace FinancialAnalysis.Models.Accounting
 {
+    [JsonObject(MemberSerialization.OptOut)]
     public class SelectedCostAccount
     {
         public CostAccount CostAccount { get; set; }

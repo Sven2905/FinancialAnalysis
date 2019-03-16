@@ -1,9 +1,13 @@
-﻿namespace FinancialAnalysis.Models.ProjectManagement
+﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
+
+namespace FinancialAnalysis.Models.ProjectManagement
 {
     /// <summary>
     /// Zuordnung Mitarbeiter-Projekt
     /// </summary>
-    public class ProjectEmployeeMapping
+    [JsonObject(MemberSerialization.OptOut)]
+    public class ProjectEmployeeMapping : BindableBase
     {
         /// <summary>
         /// Id

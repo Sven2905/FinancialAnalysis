@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -7,6 +8,7 @@ namespace FinancialAnalysis.Models.ProjectManagement
     /// <summary>
     /// Mitarbeiter
     /// </summary>
+    [JsonObject(MemberSerialization.OptOut)]
     public class Employee : BindableBase
     {
         /// <summary>

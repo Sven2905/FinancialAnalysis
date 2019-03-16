@@ -1,11 +1,14 @@
-﻿using FinancialAnalysis.Models.Enums;
+﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Models.Enums;
+using Newtonsoft.Json;
 
 namespace FinancialAnalysis.Models.Accounting.CostCenterManagement
 {
     /// <summary>
     /// Aktuelle Kosten für Kostenstelle
     /// </summary>
-    public class CostCenterCurrentCosts
+    [JsonObject(MemberSerialization.OptOut)]
+    public class CostCenterCurrentCosts : BindableBase
     {
         /// <summary>
         /// Index des Monats

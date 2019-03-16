@@ -1,9 +1,13 @@
-﻿namespace FinancialAnalysis.Models.ProjectManagement
+﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
+
+namespace FinancialAnalysis.Models.ProjectManagement
 {
     /// <summary>
     /// Projektrolle
     /// </summary>
-    public class ProjectRole
+    [JsonObject(MemberSerialization.OptOut)]
+    public class ProjectRole : BindableBase
     {
         /// <summary>
         /// Id
