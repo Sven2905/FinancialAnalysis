@@ -64,9 +64,9 @@
                 <Grid Grid.Row="1" Grid.Column="1">
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="425" />
-                        <ColumnDefinition Width="20" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="0" />
+                        <ColumnDefinition Width="8*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -76,7 +76,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Text="Vorhandene Benutzer" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b"
-                       Margin="12,30,12,0" />
+                       Margin="12,30,0,0" />
 
                     <dxlc:LayoutControl Grid.Row="1" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}"
                                 ItemSpace="10" VerticalAlignment="Top">
@@ -94,7 +94,7 @@
                     </dxlc:LayoutControl>
 
                     <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
-                          Margin="12,0,12,0">
+                          Margin="12,0,17,0">
                         <ListView ItemsSource="{Binding FilteredUsers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding SelectedUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           x:Name="Users" BorderThickness="1" BorderBrush="DarkGray" FontSize="14">
@@ -147,17 +147,17 @@
 
                     <Grid Grid.RowSpan="4" Grid.Column="3" Margin="0,30,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
 
-                        <StackPanel>
-                            <TextBlock Text="Details" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="12,0" />
-                            <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10"
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Top" Text="Details" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="12,0" />
+                            <dxlc:LayoutControl DockPanel.Dock="Top" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10"
                                         Margin="0,0,0,0"
                                         IsEnabled="{Binding SelectedUser, Converter={StaticResource NullConverter}}">
-                                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
+                                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Stretch" Width="auto">
                                     <dxlc:LayoutGroup.Header>
                                         <TextBlock Text="Login Informationen" Foreground="#3f729b" FontWeight="Bold"
                                            FontFamily="Tahoma" />
@@ -183,10 +183,10 @@
                                     </dxlc:LayoutGroup>
                                 </dxlc:LayoutGroup>
                             </dxlc:LayoutControl>
-                            <dxlc:LayoutControl Grid.Column="0" Grid.Row="1" Orientation="Vertical"
+                            <dxlc:LayoutControl DockPanel.Dock="Top" Grid.Column="0" Grid.Row="1" Orientation="Vertical"
                                         ItemStyle="{StaticResource itemStyle}" ItemSpace="10" Margin="0,0,0,0"
                                         IsEnabled="{Binding SelectedUser, Converter={StaticResource NullConverter}}">
-                                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" Width="400">
+                                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Stretch" Width="auto">
                                     <dxlc:LayoutGroup.Header>
                                         <TextBlock Text="Benutzer Informationen" Foreground="#3f729b" FontWeight="Bold"
                                            FontFamily="Tahoma" />
@@ -225,7 +225,7 @@
                                     </dxlc:LayoutGroup>
                                 </dxlc:LayoutGroup>
                             </dxlc:LayoutControl>
-                            <dxe:ImageEdit Grid.Column="0" Grid.Row="2" Width="400" Height="400" VerticalAlignment="Top"
+                            <dxe:ImageEdit DockPanel.Dock="Top" Grid.Column="0" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Margin="12"
                                    Stretch="UniformToFill" Source="{Binding Image, Mode=TwoWay}" AllowNullInput="True">
                                 <dxe:ImageEdit.MenuTemplate>
                                     <ControlTemplate>
@@ -236,19 +236,16 @@
                                     </ControlTemplate>
                                 </dxe:ImageEdit.MenuTemplate>
                             </dxe:ImageEdit>
-                        </StackPanel>
+                        </DockPanel>
 
-                        <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" Margin="0,0,10,0">
-                            <TextBlock Text="Zugriffsrechte" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b"
-                               Margin="12,0"
-                               Visibility="{Binding SelectedUser, Converter={StaticResource NullVisConverter}}" />
-                            <dxg:TreeListControl VerticalAlignment="Top" MaxWidth="5000" MaxHeight="800"
+                        <DockPanel Grid.Row="0" Grid.Column="2" >
+                            <TextBlock DockPanel.Dock="Top" Text="Zugriffsrechte" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="12,0,0,0" />
+                            <dxg:TreeListControl DockPanel.Dock="Top" Margin="0,10,0,0" VerticalAlignment="Stretch" MaxWidth="5000" MaxHeight="800"
                                          ItemsSource="{Binding UserRightUserMappingFlatStructure, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         SelectionMode="Row" ShowBorder="True"
-                                         Height="800">
+                                         SelectionMode="Row" ShowBorder="True">
                                 <dxg:TreeListControl.View>
                                     <dxg:TreeListView EditFormColumnCount="2" EditFormShowMode="None"
-                                              EnableImmediatePosting="True" Width="750"
+                                              EnableImmediatePosting="True" Width="auto"
                                               AutoWidth="True" ShowTotalSummary="False" KeyFieldName="HierachicalId"
                                               ParentFieldName="ParentCategory"
                                               VerticalScrollbarVisibility="Auto">
@@ -260,7 +257,7 @@
                                 <dxg:TreeListColumn FieldName="Description" Header="Beschreibung" MaxWidth="450" Width="450"
                                             AllowEditing="False" />
                             </dxg:TreeListControl>
-                        </StackPanel>
+                        </DockPanel>
                     </Grid>
                 </Grid>
             </dx:DXTabItem>
