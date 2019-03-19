@@ -43,7 +43,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                                  "Date datetime, " +
                                  "Username nvarchar(150), " +
                                  "ReminderType int, " +
-                                 "IsLastReminder bit)";
+                                 "IsLastReminder bit," +
+                                 "IsClosed bit)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -82,6 +83,48 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         }
 
         /// <summary>
+        ///     Returns all open InvoiceReminder records
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<InvoiceReminder> GetOpenReminder()
+        {
+            IEnumerable<InvoiceReminder> output = new List<InvoiceReminder>();
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    output = con.Query<InvoiceReminder>($"dbo.{TableName}_GetOpenReminder");
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'GetOpenReminder' from table '{TableName}'", e);
+            }
+
+            return output;
+        }
+
+        public int GetAmountOfOpenReminder()
+        {
+            int output = 0;
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    output = con.QuerySingleOrDefault<int>($"dbo.{TableName}_GetAmountOfOpenReminder");
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'GetAmountOfOpenReminder' from table '{TableName}'", e);
+            }
+
+            return output;
+        }
+
+        /// <summary>
         ///     Inserts the InvoiceReminder item
         /// </summary>
         /// <param name="InvoiceReminder"></param>
@@ -96,7 +139,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 {
                     var result =
                         con.Query<int>(
-                            $"dbo.{TableName}_Insert @RefInvoiceId, @Date, @Username, @ReminderType, @IsLastReminder ",
+                            $"dbo.{TableName}_Insert @RefInvoiceId, @Date, @Username, @ReminderType, @IsLastReminder, @IsClosed ",
                             InvoiceReminder);
                     return result.Single();
                 }
@@ -201,7 +244,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     con.Execute(
-                        $"dbo.{TableName}_Update @InvoiceReminderId, @RefInvoiceId, @Date, @Username, @ReminderType, @IsLastReminder",
+                        $"dbo.{TableName}_Update @InvoiceReminderId, @RefInvoiceId, @Date, @Username, @ReminderType, @IsLastReminder, @IsClosed",
                         InvoiceReminder);
                 }
             }

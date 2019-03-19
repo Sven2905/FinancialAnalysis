@@ -40,5 +40,10 @@ namespace FinancialAnalysis.Models.SalesManagement
         /// Ist letzte Mahnung
         /// </summary>
         public bool IsLastReminder { get; set; } = false;
+
+        /// <summary>
+        /// Ist die Mahnung bezahlt
+        /// </summary>
+        public bool IsClosed { get; set; }
     }
 }

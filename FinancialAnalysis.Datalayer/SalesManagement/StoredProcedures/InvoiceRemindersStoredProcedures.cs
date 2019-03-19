@@ -19,6 +19,8 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
         public void CheckAndCreateProcedures()
         {
             GetAllData();
+            GetOpenReminder();
+            GetAmountOfOpenReminder();
             InsertData();
             GetById();
             UpdateData();
@@ -49,6 +51,57 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
             }
         }
 
+        private void GetAmountOfOpenReminder()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetAmountOfOpenReminder", DatabaseNames.FinancialAnalysisDB))
+            {
+                var sbSP = new StringBuilder();
+
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAmountOfOpenReminder] AS BEGIN SET NOCOUNT ON; " +
+                                "COUNT(RefInvoiceId) as Amount " +
+                                $"FROM {TableName} " +
+                                $"WHERE IsClosed = 0 " +
+                                $"GROUP BY RefInvoiceId " +
+                                "END");
+                using (var connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void GetOpenReminder()
+        {
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetOpenReminder", DatabaseNames.FinancialAnalysisDB))
+            {
+                var sbSP = new StringBuilder();
+
+                sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetOpenReminder] AS BEGIN SET NOCOUNT ON; " +
+                                "SELECT * " +
+                                $"FROM {TableName} " +
+                                $"WHERE IsClosed = 0 " +
+                                "END");
+                using (var connection =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    using (var cmd = new SqlCommand(sbSP.ToString(), connection))
+                    {
+                        connection.Open();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
         private void InsertData()
         {
             if (!Helper.StoredProcedureExists($"dbo.{TableName}_Insert", DatabaseNames.FinancialAnalysisDB))
@@ -56,9 +109,9 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @RefInvoiceId int, @Date datetime, @Username nvarchar(150), @ReminderType int, @IsLastReminder bit AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (RefInvoiceId, Date, Username, ReminderType, IsLastReminder) " +
-                    "VALUES (@RefInvoiceId, @Date, @Username, @ReminderType, @IsLastReminder); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @RefInvoiceId int, @Date datetime, @Username nvarchar(150), @ReminderType int, @IsLastReminder bit, @IsClosed bit AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (RefInvoiceId, Date, Username, ReminderType, IsLastReminder, IsClosed) " +
+                    "VALUES (@RefInvoiceId, @Date, @Username, @ReminderType, @IsLastReminder, @IsClosed); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -106,14 +159,15 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @InvoiceReminderId int, @RefInvoiceId int, @Date datetime, @Username nvarchar(150), @ReminderType int, @IsLastReminder bit " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @InvoiceReminderId int, @RefInvoiceId int, @Date datetime, @Username nvarchar(150), @ReminderType int, @IsLastReminder bit, @IsClosed bit " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "SET RefInvoiceId = @RefInvoiceId, " +
                     "Date = @Date, " +
                     "Username = @Username, " +
                     "ReminderType = @ReminderType, " +
-                    "IsLastReminder = @IsLastReminder " +
+                    "IsLastReminder = @IsLastReminder," +
+                    "IsClosed = @IsClosed " +
                     "WHERE InvoiceReminderId = @InvoiceReminderId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
