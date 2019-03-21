@@ -61,6 +61,41 @@ namespace FinancialAnalysis.Datalayer.Tables
         /// <returns></returns>
         public IEnumerable<TableVersion> GetAll()
         {
+            // https://stackoverflow.com/questions/28856802/best-way-to-do-bulk-inserts-using-dapper-net
+            // https://guptaashish.com/2013/09/17/sqldbtype-structured-another-gem-in-ado-net/
+            // https://www.codeproject.com/Articles/39161/C-and-Table-Value-Parameters
+            // https://stackoverflow.com/questions/9946287/correct-method-of-deleting-over-2100-rows-by-id-with-dapper/9947259#9947259
+
+            using (SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+            {
+
+                //    // Create a DataTable with the modified rows.  
+                //    DataTable addedCategories = CategoriesDataTable.GetChanges(DataRowState.Added);
+
+                //    // Configure the SqlCommand and SqlParameter.  
+                //    SqlCommand insertCommand = new SqlCommand("usp_InsertCategories", con);
+                //    insertCommand.CommandType = CommandType.StoredProcedure;
+                //    SqlParameter tvpParam = insertCommand.Parameters.AddWithValue("@tvpNewCategories", addedCategories);
+                //    tvpParam.SqlDbType = SqlDbType.Structured;
+
+                //    // Execute the command.  
+                //    insertCommand.ExecuteNonQuery();
+                //}
+
+                //using (SqlCommand command = new SqlCommand())
+                //{
+                //    con.Open();
+                //    command.Connection = con;
+                //    command.CommandText = "EmailAddresses_InsertBatch";
+                //    command.CommandType = CommandType.StoredProcedure;
+                //    var param = new SqlParameter("@EmailAddressBatch", SqlDbType.Structured);
+                //    param.TypeName = "dbo.dataTable";
+                //    param.Value = dataTable;
+                //    command.Parameters.Add(param);
+                //    command.ExecuteNonQuery();
+                //}
+            }
+
             IEnumerable<TableVersion> output = new List<TableVersion>();
             try
             {
@@ -92,7 +127,7 @@ namespace FinancialAnalysis.Datalayer.Tables
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.QuerySingleOrDefault<TableVersion>($"dbo.{TableName}_GetById @TableVersionId",
-                        new {TableVersionId = id});
+                        new { TableVersionId = id });
                 }
             }
             catch (Exception e)

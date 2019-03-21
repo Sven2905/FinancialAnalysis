@@ -1,7 +1,10 @@
 ﻿using DevExpress.Mvvm;
+using DevExpress.Mvvm.DataAnnotations;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
+using Notifications.Wpf;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -113,6 +116,16 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return false;
             }
 
+            //var notificationManager = new NotificationManager();
+
+            //notificationManager.Show(new NotificationContent
+            //{
+            //    Title = "Login",
+            //    Message = "Sie wurden erfolgreich eingeloggt.",
+            //    Type = NotificationType.Information
+            //});
+
+
             Globals.ActiveUser = foundUser;
             return true;
         }
@@ -120,7 +133,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         #endregion Methods
 
         #region Properties
-
+        
         public DelegateCommand LoginCommand { get; set; }
         public DelegateCommand ExitCommand { get; set; }
         public string UserName { get; set; }
