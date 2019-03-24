@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Util
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formulas", "Formulas\Formulas.csproj", "{E510CA7E-F91C-43C4-BDF7-8E9EFBA4F9E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiWrapper", "WebApiWrapper\WebApiWrapper.csproj", "{1263E5D1-6B44-4418-A076-3D889766D5E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,14 @@ Global
 		{E510CA7E-F91C-43C4-BDF7-8E9EFBA4F9E5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E510CA7E-F91C-43C4-BDF7-8E9EFBA4F9E5}.Release|x64.ActiveCfg = Release|Any CPU
 		{E510CA7E-F91C-43C4-BDF7-8E9EFBA4F9E5}.Release|x64.Build.0 = Release|Any CPU
+		{1263E5D1-6B44-4418-A076-3D889766D5E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1263E5D1-6B44-4418-A076-3D889766D5E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1263E5D1-6B44-4418-A076-3D889766D5E4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1263E5D1-6B44-4418-A076-3D889766D5E4}.Debug|x64.Build.0 = Debug|Any CPU
+		{1263E5D1-6B44-4418-A076-3D889766D5E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1263E5D1-6B44-4418-A076-3D889766D5E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1263E5D1-6B44-4418-A076-3D889766D5E4}.Release|x64.ActiveCfg = Release|Any CPU
+		{1263E5D1-6B44-4418-A076-3D889766D5E4}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

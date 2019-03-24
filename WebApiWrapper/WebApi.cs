@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace FinancialAnalysis.Logic
+namespace WebApiWrapper
 {
     public static class WebApi
     {
