@@ -31,7 +31,6 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            var test = WebApi.GetData<List<Employee>>("Employees");
 
 #if (DEBUG)
             UserName = "Admin";
