@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using Formulas;
 using Formulas.DepreciationMethods;
+using FinancialAnalysis.Models.ProjectManagement;
+using System.Collections.Generic;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -29,6 +31,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
+            var test = WebApi.GetData<List<Employee>>("Employees");
 
 #if (DEBUG)
             UserName = "Admin";

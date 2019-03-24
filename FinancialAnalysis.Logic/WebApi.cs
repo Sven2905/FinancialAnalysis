@@ -72,7 +72,7 @@ namespace FinancialAnalysis.Logic
 
         private static async Task<T> GetDataAsync<T>(string url)
         {
-            client.BaseAddress = new Uri(url);
+            //client.BaseAddress = new Uri(url);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Clear();
@@ -82,10 +82,14 @@ namespace FinancialAnalysis.Logic
             }
 
             var response = await client.GetStringAsync(url);
+            if (response == "[]")
+            {
+                return default(T);
+            }
             return JsonConvert.DeserializeObject<T>(response);
         }
 
-        private static T GetData<T>(string url, string webApiKey)
+        private static T GetData<T>(string url, string webApiKey = "")
         {
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -94,7 +98,7 @@ namespace FinancialAnalysis.Logic
             {
                 if (string.IsNullOrEmpty(webApiKey))
                 {
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Globals.ActiveUser.WebApiKey);
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Globals.ActiveUser.WebApiKey);
                 }
                 else
                 {
@@ -108,6 +112,11 @@ namespace FinancialAnalysis.Logic
             {
                 var responseContent = response.Content;
                 string responseString = responseContent.ReadAsStringAsync().Result;
+                if (responseString == "[]")
+                {
+                    return default(T);
+                }
+
                 return JsonConvert.DeserializeObject<T>(responseString);
             }
             return default(T);
