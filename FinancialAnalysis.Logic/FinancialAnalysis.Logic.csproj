@@ -227,6 +227,10 @@
       <Project>{3bcf7383-9805-4bd4-a8cd-fd978e348e15}</Project>
       <Name>FinancialAnalysis.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Formulas\Formulas.csproj">
+      <Project>{e510ca7e-f91c-43c4-bdf7-8e9efba4f9e5}</Project>
+      <Name>Formulas</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
       <Project>{69f19f6b-092b-4ee7-ad82-3944f3694952}</Project>
       <Name>Utilities</Name>

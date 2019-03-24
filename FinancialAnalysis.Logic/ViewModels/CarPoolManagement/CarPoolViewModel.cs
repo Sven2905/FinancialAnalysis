@@ -44,7 +44,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void GetCarBodies(int RefCarModelId)
         {
-            CarBodies = DataContext.Instance.CarBodies.GetByRefCarModelId(RefCarModelId).ToSvenTechCollection();
+            //CarBodies = DataContext.Instance.CarBodies.GetByRefCarModelId(RefCarModelId).ToSvenTechCollection();
             CarGenerations.Clear();
             CarTrims.Clear();
             CarEngine = null;
@@ -52,7 +52,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void GetCarGeneration(int RefCarBodyId)
         {
-            CarGenerations = DataContext.Instance.CarGenerations.GetByRefCarBodyId(RefCarBodyId).ToSvenTechCollection();
+            //CarGenerations = DataContext.Instance.CarGenerations.GetByRefCarBodyId(RefCarBodyId).ToSvenTechCollection();
             CarTrims.Clear();
             CarEngine = null;
         }

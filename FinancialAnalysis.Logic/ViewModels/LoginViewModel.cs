@@ -3,11 +3,12 @@ using DevExpress.Mvvm.DataAnnotations;
 using FinancialAnalysis.Datalayer;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
-using Notifications.Wpf;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Formulas;
+using Formulas.DepreciationMethods;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -28,6 +29,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
+
 #if (DEBUG)
             UserName = "Admin";
             Password = "Password";
@@ -35,8 +37,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             Task.Run(() => { Seed(); });
 
-            LoginCommand = new DelegateCommand(Login,
-                () => !string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrEmpty(Password));
+            LoginCommand = new DelegateCommand(Login, () => !string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrEmpty(Password));
             ExitCommand = new DelegateCommand(Exit);
         }
 

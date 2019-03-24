@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Dapper;
+using FinancialAnalysis.Models.CarPoolManagement;
+using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using Dapper;
-using FinancialAnalysis.Models.Accounting;
-using FinancialAnalysis.Models.CarPoolManagement;
-using Serilog;
+using Z.Dapper.Plus;
 
 namespace FinancialAnalysis.Datalayer.Accounting
 {
@@ -17,6 +17,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
         public CarBodies()
         {
             TableName = "CarBodies";
+            DapperPlusManager.Entity<CarBody>().Table(TableName).Identity(x => x.CarBodyId).BatchSize(500);
             CheckAndCreateTable();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -35,8 +36,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var commandStr =
                     $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}" +
                     "(CarBodyId int IDENTITY(1,1) PRIMARY KEY," +
-                    "Name nvarchar(150) NOT NULL, " +
-                    "RefCarModelId int)";
+                    "Name nvarchar(150) NOT NULL)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -92,7 +92,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @RefCarModelId ", CarBody);
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name ", CarBody);
                     id = result.Single();
                 }
             }
@@ -115,7 +115,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    foreach (var CarBody in CarBodies) Insert(CarBody);
+                    foreach (var CarBody in CarBodies)
+                    {
+                        Insert(CarBody);
+                    }
                 }
             }
             catch (Exception e)
@@ -125,28 +128,23 @@ namespace FinancialAnalysis.Datalayer.Accounting
         }
 
         /// <summary>
-        ///     Returns CarBody by Id
+        /// Bulk insert of CarBody items
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public IEnumerable<CarBody> GetByRefCarModelId(int id)
+        /// <param name="carBodies"></param>
+        public void BulkInsert(IEnumerable<CarBody> carBodies)
         {
-            IEnumerable<CarBody> output = new List<CarBody>();
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    output = con.Query<CarBody>(
-                        $"dbo.{TableName}_GetByRefCarModelId @RefCarModelId", new { RefCarModelId = id });
+                    con.BulkInsert(carBodies);
                 }
             }
             catch (Exception e)
             {
-                Log.Error($"Exception occured while 'GetByRefCarModelId' from table '{TableName}'", e);
+                Log.Error($"Exception occured while 'BulkInsert' into table '{TableName}'", e);
             }
-
-            return output;
         }
 
         /// <summary>
@@ -170,7 +168,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// <param name="User"></param>
         public void UpdateOrInsert(IEnumerable<CarBody> CarBodies)
         {
-            foreach (var CarBody in CarBodies) UpdateOrInsert(CarBody);
+            foreach (var CarBody in CarBodies)
+            {
+                UpdateOrInsert(CarBody);
+            }
         }
 
         /// <summary>
@@ -179,14 +180,17 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// <param name="CarBody"></param>
         public void Update(CarBody CarBody)
         {
-            if (CarBody.CarBodyId == 0) return;
+            if (CarBody.CarBodyId == 0)
+            {
+                return;
+            }
 
             try
             {
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @CarBodyId, @Name, @RefCarModelId",
+                    con.Execute($"dbo.{TableName}_Update @CarBodyId, @Name",
                         CarBody);
                 }
             }
@@ -207,7 +211,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Delete @CarBodyId", new {CarBodyId = id});
+                    con.Execute($"dbo.{TableName}_Delete @CarBodyId", new { CarBodyId = id });
                 }
             }
             catch (Exception e)

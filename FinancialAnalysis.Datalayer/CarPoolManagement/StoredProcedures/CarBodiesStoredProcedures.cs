@@ -56,9 +56,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @RefCarModelId int AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, RefCarModelId) " +
-                    "VALUES (@Name, @RefCarModelId); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150) AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Name) " +
+                    "VALUES (@Name); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -82,9 +82,11 @@ namespace FinancialAnalysis.Datalayer.Accounting
 
                 sbSP.AppendLine(
                     $"CREATE PROCEDURE [{TableName}_GetByRefCarModelId] @RefCarModelId int AS BEGIN SET NOCOUNT ON; " +
-                    "SELECT * " +
-                    $"FROM {TableName} " +
-                    "WHERE RefCarModelId = @RefCarModelId " +
+                    "SELECT cb.CarBodyId, cb.Name " +
+                    $"FROM {TableName} cb " +
+                    $"JOIN CarModelBodyMappings cmb " +
+                    $"ON cmb.RefCarBodyId = cb.CarBodyId " +
+                    "WHERE cmb.RefCarModelId = @RefCarModelId " +
                     "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -107,11 +109,10 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @CarBodyId int, @Name nvarchar(150), @RefCarModelId int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @CarBodyId int, @Name nvarchar(150) " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
-                    "SET Name = @Name, " +
-                    "RefCarModelId = @RefCarModelId " +
+                    "SET Name = @Name " +
                     "WHERE CarBodyId = @CarBodyId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

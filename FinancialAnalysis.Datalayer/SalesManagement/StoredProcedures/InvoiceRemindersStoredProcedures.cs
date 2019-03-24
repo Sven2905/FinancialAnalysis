@@ -58,7 +58,7 @@ namespace FinancialAnalysis.Datalayer.SalesManagement
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine($"CREATE PROCEDURE [{TableName}_GetAmountOfOpenReminder] AS BEGIN SET NOCOUNT ON; " +
-                                "COUNT(RefInvoiceId) as Amount " +
+                                "SELECT COUNT(RefInvoiceId) as Amount " +
                                 $"FROM {TableName} " +
                                 $"WHERE IsClosed = 0 " +
                                 $"GROUP BY RefInvoiceId " +

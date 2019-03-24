@@ -7,6 +7,7 @@ using Dapper;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.CarPoolManagement;
 using Serilog;
+using Z.Dapper.Plus;
 
 namespace FinancialAnalysis.Datalayer.Accounting
 {
@@ -17,6 +18,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
         public CarEngines()
         {
             TableName = "CarEngines";
+            DapperPlusManager.Entity<CarEngine>().Table(TableName).Identity(x => x.CarEngineId).BatchSize(500);
             CheckAndCreateTable();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -105,6 +107,26 @@ namespace FinancialAnalysis.Datalayer.Accounting
             }
 
             return id;
+        }
+
+        /// <summary>
+        /// Bulk insert of CarEngine items
+        /// </summary>
+        /// <param name="carEngines"></param>
+        public void BulkInsert(IEnumerable<CarEngine> carEngines)
+        {
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.BulkInsert(carEngines);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'BulkInsert' into table '{TableName}'", e);
+            }
         }
 
         /// <summary>

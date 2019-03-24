@@ -361,9 +361,23 @@ namespace FinancialAnalysis.Logic
         public void SeedCars()
         {
             Dictionary<string, int> makes = new Dictionary<string, int>();
+            List<CarMake> carMakes = new List<CarMake>();
             Dictionary<string, int> models = new Dictionary<string, int>();
+            List<CarModel> carModels = new List<CarModel>();
             Dictionary<string, int> generations = new Dictionary<string, int>();
+            List<CarGeneration> carGenerations = new List<CarGeneration>();
             Dictionary<string, int> bodies = new Dictionary<string, int>();
+            List<CarBody> carBodies = new List<CarBody>();
+            List<CarTrim> carTrims = new List<CarTrim>();
+            List<CarEngine> carEngines = new List<CarEngine>();
+            List<CarModelBodyMapping> carModelBodyMappings = new List<CarModelBodyMapping>();
+            HashSet<string> modelBodyMappings = new HashSet<string>();
+            int makeCounter = 1;
+            int modelCounter = 1;
+            int generationCounter = 1;
+            int bodyCounter = 1;
+            int trimCounter = 1;
+
 
             const string _FilePath = @".\Data\auto_databases_February_2019.csv";
 
@@ -372,58 +386,72 @@ namespace FinancialAnalysis.Logic
                 var lineCounter = 0;
                 foreach (var line in reader.ReadToEnd().Split('\n'))
                 {
+                    if (string.IsNullOrEmpty(line))
+                    {
+                        continue;
+                    }
+
                     lineCounter++;
                     if (lineCounter > 1)
                     {
                         var values = line.Split(';');
 
                         // MARKE
-
                         if (!makes.Keys.Contains(values[3]))
                         {
                             CarMake carMake = new CarMake { Name = values[3] };
-                            var id = DataContext.Instance.CarMakes.Insert(carMake);
-                            makes.Add(carMake.Name, id);
-                        }
-
-                        // MODEL
-
-                        if (!models.Keys.Contains(values[5]))
-                        {
-                            CarModel carModel = new CarModel { Name = values[5], RefCarMakeId = makes[values[3]] };
-                            var id = DataContext.Instance.CarModels.Insert(carModel);
-                            models.Add(carModel.Name, id);
+                            carMakes.Add(carMake);
+                            makes.Add(carMake.Name, makeCounter++);
                         }
 
                         // BAUART
-
                         if (!bodies.Keys.Contains(values[9]))
                         {
-                            CarBody carBody = new CarBody { Name = values[9], RefCarModelId = models[values[5]] };
-                            var id = DataContext.Instance.CarBodies.Insert(carBody);
-                            bodies.Add(carBody.Name, id);
+                            CarBody carBody = new CarBody { Name = values[9] };
+                            carBodies.Add(carBody);
+                            bodies.Add(carBody.Name, bodyCounter++);
+                        }
+
+                        // MODEL
+                        if (!models.Keys.Contains(values[5]))
+                        {
+                            CarModel carModel = new CarModel { Name = values[5], RefCarMakeId = makes[values[3]] };
+                            carModels.Add(carModel);
+                            models.Add(carModel.Name, modelCounter++);
                         }
 
                         // GENERATION
-
                         if (!generations.Keys.Contains(values[7]))
                         {
-                            CarGeneration carGeneration = new CarGeneration { Name = values[7], RefCarBodyId = bodies[values[9]] };
-                            var id = DataContext.Instance.CarGenerations.Insert(carGeneration);
-                            generations.Add(carGeneration.Name, id);
+                            CarGeneration carGeneration = new CarGeneration { Name = values[7], RefCarModelId = models[values[5]] };
+                            carGenerations.Add(carGeneration);
+                            generations.Add(carGeneration.Name, generationCounter++);
                         }
 
                         //// MOTORISIERUNG
+                        CarTrim carTrim = new CarTrim { Name = values[1], RefCarGenerationId = generations[values[7]], Year = Convert.ToInt32(values[18]) };
+                        carTrims.Add(carTrim);
+                        trimCounter++;
 
-                        CarTrim carTrim = new CarTrim { Name = values[1], RefCarGenerationId = generations[values[7]], Year= Convert.ToInt32(values[18]) };
-                        var trimId = DataContext.Instance.CarTrims.Insert(carTrim);
+                        if (!modelBodyMappings.Contains((bodyCounter - 1) + "_" + (modelCounter - 1)))
+                        {
+                            carModelBodyMappings.Add(new CarModelBodyMapping(modelCounter - 1, bodyCounter - 1));
+                            modelBodyMappings.Add((bodyCounter - 1) + "_" + (modelCounter - 1));
+                        }
 
                         //// MOTOR
-
-                        CarEngine carEngine = new CarEngine { CarGear = (CarGear)(Convert.ToInt32(values[12])), EngineType = (EngineType)(Convert.ToInt32(values[14])), Power = Convert.ToInt32(values[17]), Volume = Convert.ToInt32(values[16]), RefCarTrimId = trimId };
-                        DataContext.Instance.CarEngines.Insert(carEngine);
+                        CarEngine carEngine = new CarEngine { CarGear = (CarGear)(Convert.ToInt32(values[12])), EngineType = (EngineType)(Convert.ToInt32(values[14])), Power = Convert.ToInt32(values[17]), Volume = Convert.ToInt32(values[16]), RefCarTrimId = trimCounter - 1 };
+                        carEngines.Add(carEngine);
                     }
                 }
+
+                DataContext.Instance.CarMakes.BulkInsert(carMakes);
+                DataContext.Instance.CarModels.BulkInsert(carModels);
+                DataContext.Instance.CarBodies.BulkInsert(carBodies);
+                DataContext.Instance.CarGenerations.BulkInsert(carGenerations);
+                DataContext.Instance.CarTrims.BulkInsert(carTrims);
+                DataContext.Instance.CarEngines.BulkInsert(carEngines);
+                DataContext.Instance.CarModelBodyMappings.BulkInsert(carModelBodyMappings);
             }
         }
 

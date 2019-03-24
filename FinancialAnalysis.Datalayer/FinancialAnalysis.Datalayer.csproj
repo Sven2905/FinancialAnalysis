@@ -40,7 +40,7 @@
       <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net46\CommonServiceLocator.dll</HintPath>
     </Reference>
     <Reference Include="Dapper, Version=1.60.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\FinancialWebApi\packages\Dapper.1.60.1\lib\net451\Dapper.dll</HintPath>
+      <HintPath>..\packages\Dapper.1.60.1\lib\net451\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Mvvm.v18.2, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
@@ -72,7 +72,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="Z.Dapper.Plus, Version=1.4.10.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
-      <HintPath>..\..\FinancialWebApi\packages\Z.Dapper.Plus.1.4.10\lib\net45\Z.Dapper.Plus.dll</HintPath>
+      <HintPath>..\packages\Z.Dapper.Plus.1.4.10\lib\net45\Z.Dapper.Plus.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +99,7 @@
     <Compile Include="Administration\Tables\UserRightUserMappings.cs" />
     <Compile Include="Administration\Tables\UserRights.cs" />
     <Compile Include="Administration\Tables\Users.cs" />
+    <Compile Include="CarPoolManagement\StoredProcedures\CarModelBodyMappingsStoredProcedures.cs" />
     <Compile Include="CarPoolManagement\StoredProcedures\VehiclesStoredProcedures.cs" />
     <Compile Include="CarPoolManagement\StoredProcedures\CarEnginesStoredProcedures.cs" />
     <Compile Include="CarPoolManagement\StoredProcedures\CarTrimsStoredProcedures.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="CarPoolManagement\StoredProcedures\CarBodiesStoredProcedures.cs" />
     <Compile Include="CarPoolManagement\StoredProcedures\CarModelsStoredProcedures.cs" />
     <Compile Include="CarPoolManagement\StoredProcedures\CarMakesStoredProcedures.cs" />
+    <Compile Include="CarPoolManagement\Tables\CarModelBodyMappings.cs" />
     <Compile Include="CarPoolManagement\Tables\Vehicles.cs" />
     <Compile Include="CarPoolManagement\Tables\CarEngines.cs" />
     <Compile Include="CarPoolManagement\Tables\CarTrims.cs" />

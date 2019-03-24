@@ -111,6 +111,7 @@
     <Compile Include="CarPoolManagement\CarGeneration.cs" />
     <Compile Include="CarPoolManagement\CarMake.cs" />
     <Compile Include="CarPoolManagement\CarModel.cs" />
+    <Compile Include="CarPoolManagement\CarModelBodyMapping.cs" />
     <Compile Include="CarPoolManagement\CarTrim.cs" />
     <Compile Include="Enums\CarGear.cs" />
     <Compile Include="Enums\Permission.cs" />

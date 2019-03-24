@@ -26,6 +26,7 @@ namespace FinancialAnalysis.Datalayer
         public CarEngines CarEngines { get; set; } = new CarEngines();
         public CarGenerations CarGenerations { get; set; } = new CarGenerations();
         public CarMakes CarMakes { get; set; } = new CarMakes();
+        public CarModelBodyMappings CarModelBodyMappings { get; set; } = new CarModelBodyMappings();
         public CarModels CarModels { get; set; } = new CarModels();
         public CarTrims CarTrims { get; set; } = new CarTrims();
         public Clients Clients { get; set; } = new Clients();
@@ -141,6 +142,7 @@ namespace FinancialAnalysis.Datalayer
             CarModels.CheckAndCreateStoredProcedures();
             CarTrims.CheckAndCreateStoredProcedures();
             Vehicles.CheckAndCreateStoredProcedures();
+            CarModelBodyMappings.CheckAndCreateStoredProcedures();
         }
 
         private void AddReferences()

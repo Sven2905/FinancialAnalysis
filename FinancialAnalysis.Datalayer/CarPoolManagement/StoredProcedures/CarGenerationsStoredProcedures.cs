@@ -20,7 +20,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
         {
             InsertData();
             GetAllData();
-            GetByRefCarBodyId();
+            GetByRefCarModelId();
             UpdateData();
             DeleteData();
         }
@@ -56,9 +56,9 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @RefCarBodyId int AS BEGIN SET NOCOUNT ON; " +
-                    $"INSERT into {TableName} (Name, RefCarBodyId) " +
-                    "VALUES (@Name, @RefCarBodyId); " +
+                    $"CREATE PROCEDURE [{TableName}_Insert] @Name nvarchar(150), @RefCarModelId int AS BEGIN SET NOCOUNT ON; " +
+                    $"INSERT into {TableName} (Name, RefCarModelId) " +
+                    "VALUES (@Name, @RefCarModelId); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int) END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -74,17 +74,17 @@ namespace FinancialAnalysis.Datalayer.Accounting
             }
         }
 
-        private void GetByRefCarBodyId()
+        private void GetByRefCarModelId()
         {
-            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetByRefCarBodyId", DatabaseNames.FinancialAnalysisDB))
+            if (!Helper.StoredProcedureExists($"dbo.{TableName}_GetByRefCarModelId", DatabaseNames.FinancialAnalysisDB))
             {
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_GetByRefCarBodyId] @RefCarBodyId int AS BEGIN SET NOCOUNT ON; " +
+                    $"CREATE PROCEDURE [{TableName}_GetByRefCarModelId] @RefCarModelId int AS BEGIN SET NOCOUNT ON; " +
                     "SELECT * " +
                     $"FROM {TableName} " +
-                    "WHERE RefCarBodyId = @RefCarBodyId " +
+                    "WHERE RefCarModelId = @RefCarModelId " +
                     "END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
@@ -107,11 +107,11 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 var sbSP = new StringBuilder();
 
                 sbSP.AppendLine(
-                    $"CREATE PROCEDURE [{TableName}_Update] @CarGenerationId int, @Name nvarchar(150), @RefCarBodyId int " +
+                    $"CREATE PROCEDURE [{TableName}_Update] @CarGenerationId int, @Name nvarchar(150), @RefCarModelId int " +
                     "AS BEGIN SET NOCOUNT ON; " +
                     $"UPDATE {TableName} " +
                     "SET Name = @Name, " +
-                    "RefCarBodyId = @RefCarBodyId " +
+                    "RefCarModelId = @RefCarModelId " +
                     "WHERE CarGenerationId = @CarGenerationId END");
                 using (var connection =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))

@@ -25,8 +25,8 @@ namespace FinancialAnalysis.Models.CarPoolManagement
         public string Name { get; set; }
 
         /// <summary>
-        /// Referenz-Id auf die Bauart
+        /// Referenz-Id auf das Model
         /// </summary>
-        public int RefCarBodyId { get; set; }
+        public int RefCarModelId { get; set; }
     }
 }

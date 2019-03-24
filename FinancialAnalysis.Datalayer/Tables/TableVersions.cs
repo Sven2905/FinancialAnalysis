@@ -6,6 +6,7 @@ using Dapper;
 using FinancialAnalysis.Datalayer.StoredProcedures;
 using FinancialAnalysis.Models;
 using Serilog;
+using Z.Dapper.Plus;
 
 namespace FinancialAnalysis.Datalayer.Tables
 {
@@ -68,6 +69,7 @@ namespace FinancialAnalysis.Datalayer.Tables
 
             using (SqlConnection con = new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
             {
+
 
                 //    // Create a DataTable with the modified rows.  
                 //    DataTable addedCategories = CategoriesDataTable.GetChanges(DataRowState.Added);

@@ -7,6 +7,7 @@ using Dapper;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.CarPoolManagement;
 using Serilog;
+using Z.Dapper.Plus;
 
 namespace FinancialAnalysis.Datalayer.Accounting
 {
@@ -17,6 +18,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
         public CarGenerations()
         {
             TableName = "CarGenerations";
+            DapperPlusManager.Entity<CarGeneration>().Table(TableName).Identity(x => x.CarGenerationId).BatchSize(500);
             CheckAndCreateTable();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -36,7 +38,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     $"If not exists (select name from sysobjects where name = '{TableName}') CREATE TABLE {TableName}" +
                     "(CarGenerationId int IDENTITY(1,1) PRIMARY KEY," +
                     "Name nvarchar(150) NOT NULL, " +
-                    "RefCarBodyId int)";
+                    "RefCarModelId int)";
 
                 using (var command = new SqlCommand(commandStr, con))
                 {
@@ -92,7 +94,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @RefCarBodyId ", CarGeneration);
+                    var result = con.Query<int>($"dbo.{TableName}_Insert @Name, @RefCarModelId ", CarGeneration);
                     id = result.Single();
                 }
             }
@@ -102,6 +104,26 @@ namespace FinancialAnalysis.Datalayer.Accounting
             }
 
             return id;
+        }
+
+        /// <summary>
+        /// Bulk insert of CarGeneration items
+        /// </summary>
+        /// <param name="CarGenerations"></param>
+        public void BulkInsert(IEnumerable<CarGeneration> carGenerations)
+        {
+            try
+            {
+                using (IDbConnection con =
+                    new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
+                {
+                    con.BulkInsert(carGenerations);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Exception occured while 'BulkInsert' into table '{TableName}'", e);
+            }
         }
 
         /// <summary>
@@ -129,7 +151,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IEnumerable<CarGeneration> GetByRefCarBodyId(int id)
+        public IEnumerable<CarGeneration> GetByRefCarModelId(int id)
         {
             IEnumerable<CarGeneration> output = new List<CarGeneration>();
             try
@@ -138,12 +160,12 @@ namespace FinancialAnalysis.Datalayer.Accounting
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
                     output = con.Query<CarGeneration>(
-                        $"dbo.{TableName}_GetByRefCarBodyId @RefCarBodyId", new { RefCarBodyId = id });
+                        $"dbo.{TableName}_GetByRefCarModelId @RefCarModelId", new { RefCarModelId = id });
                 }
             }
             catch (Exception e)
             {
-                Log.Error($"Exception occured while 'GetByRefCarBodyId' from table '{TableName}'", e);
+                Log.Error($"Exception occured while 'GetByRefCarModelId' from table '{TableName}'", e);
             }
 
             return output;
@@ -186,7 +208,7 @@ namespace FinancialAnalysis.Datalayer.Accounting
                 using (IDbConnection con =
                     new SqlConnection(Helper.GetConnectionString(DatabaseNames.FinancialAnalysisDB)))
                 {
-                    con.Execute($"dbo.{TableName}_Update @CarGenerationId, @Name, @RefCarBodyId",
+                    con.Execute($"dbo.{TableName}_Update @CarGenerationId, @Name, @RefCarModelId",
                         CarGeneration);
                 }
             }
