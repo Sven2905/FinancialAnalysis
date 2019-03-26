@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Mvvm.v18.2, Version=18.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -44,7 +45,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Employees.cs" />
+    <Compile Include="Accounting\BalanceAccounts.cs" />
+    <Compile Include="Accounting\Bookings.cs" />
+    <Compile Include="Accounting\CostAccountCategories.cs" />
+    <Compile Include="Accounting\CostAccounts.cs" />
+    <Compile Include="Accounting\CostCenterBudgets.cs" />
+    <Compile Include="Accounting\CostCenterCategories.cs" />
+    <Compile Include="Accounting\CostCenters.cs" />
+    <Compile Include="Accounting\Debits.cs" />
+    <Compile Include="Accounting\Credits.cs" />
+    <Compile Include="Accounting\Debitors.cs" />
+    <Compile Include="Accounting\Creditors.cs" />
+    <Compile Include="Accounting\FixedCostAllocations.cs" />
+    <Compile Include="Accounting\GainAndLossAccounts.cs" />
+    <Compile Include="Accounting\PaymentConditions.cs" />
+    <Compile Include="Accounting\ScannedDocuments.cs" />
+    <Compile Include="Accounting\TaxTypes.cs" />
+    <Compile Include="Administration\Users.cs" />
+    <Compile Include="ProjectManagement\Employees.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebApi.cs" />
   </ItemGroup>
@@ -56,6 +74,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CarPoolManagement\" />
+    <Folder Include="ClientManagement\" />
+    <Folder Include="ProductManagement\" />
+    <Folder Include="SalesManagement\" />
+    <Folder Include="WarehouseManagement\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
