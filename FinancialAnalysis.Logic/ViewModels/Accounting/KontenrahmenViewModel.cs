@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
+using WebApiWrapper.Accounting;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -41,7 +42,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void RefreshCostAccounts()
         {
-            _CostAccounts = DataContext.Instance.CostAccounts.GetAll().ToList();
+            _CostAccounts = CostAccounts.GetAll().ToList();
         }
 
         private void FilterList()

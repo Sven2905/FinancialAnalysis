@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Windows;
 using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
 using Utilities;
+using WebApiWrapper.Accounting;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -47,7 +48,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private SvenTechCollection<CostCenterCategory> LoadAllCostCenterCategories()
         {
             var allCostCenterCategories = new SvenTechCollection<CostCenterCategory>();
-            return DataContext.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
+            return CostCenterCategories.GetAll().ToSvenTechCollection();
         }
 
         private void NewCostCenterCategory()
@@ -67,7 +68,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            DataContext.Instance.CostCenterCategories.Delete(SelectedCostCenterCategory.CostCenterCategoryId);
+            CostCenterCategories.Delete(SelectedCostCenterCategory.CostCenterCategoryId);
             _CostCenterCategories.Remove(SelectedCostCenterCategory);
             SelectedCostCenterCategory = null;
         }
@@ -75,10 +76,10 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveCostCenterCategory()
         {
             if (SelectedCostCenterCategory.CostCenterCategoryId != 0)
-                DataContext.Instance.CostCenterCategories.Update(SelectedCostCenterCategory);
+                CostCenterCategories.Update(SelectedCostCenterCategory);
             else
                 SelectedCostCenterCategory.CostCenterCategoryId =
-                    DataContext.Instance.CostCenterCategories.Insert(SelectedCostCenterCategory);
+                    CostCenterCategories.Insert(SelectedCostCenterCategory);
         }
 
         private bool Validation()

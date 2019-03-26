@@ -1,14 +1,10 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Utilities;
+using WebApiWrapper.Accounting;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -19,7 +15,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public PaymentConditionViewModel()
         {
-            PaymentConditions = DataContext.Instance.PaymentConditions.GetAll().ToSvenTechCollection();
+            PaymentConditionList = PaymentConditions.GetAll().ToSvenTechCollection();
             SetCommands();
             ValueLabel = "Dauer (in Tagen)";
         }
@@ -34,22 +30,29 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void CreateNewPaymentCondition()
         {
             SelectedPaymentCondition = new PaymentCondition();
-            PaymentConditions.Add(SelectedPaymentCondition);
+            PaymentConditionList.Add(SelectedPaymentCondition);
         }
 
         private void SavePaymentCondition()
         {
             SelectedPaymentCondition.PayType = PayType;
-            DataContext.Instance.PaymentConditions.UpdateOrInsert(SelectedPaymentCondition);
+            if (SelectedPaymentCondition.PaymentConditionId != 0)
+            {
+                PaymentConditions.Update(SelectedPaymentCondition);
+            }
+            else
+            {
+                PaymentConditions.Insert(SelectedPaymentCondition);
+            }
         }
 
         private void DeletePaymentCondition()
         {
             if (SelectedPaymentCondition.PaymentConditionId != 0)
             {
-                DataContext.Instance.PaymentConditions.Delete(SelectedPaymentCondition.PaymentConditionId);
+                PaymentConditions.Delete(SelectedPaymentCondition.PaymentConditionId);
             }
-            PaymentConditions.Remove(SelectedPaymentCondition);
+            PaymentConditionList.Remove(SelectedPaymentCondition);
         }
 
         public PayType PayType
@@ -76,7 +79,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         }
 
         public string ValueLabel { get; set; }
-        public SvenTechCollection<PaymentCondition> PaymentConditions { get; set; } = new SvenTechCollection<PaymentCondition>();
+        public SvenTechCollection<PaymentCondition> PaymentConditionList { get; set; } = new SvenTechCollection<PaymentCondition>();
         public ICommand NewPaymentConditionCommand { get; set; }
         public ICommand SavePaymentConditionCommand { get; set; }
         public ICommand DeletePaymentConditionCommand { get; set; }

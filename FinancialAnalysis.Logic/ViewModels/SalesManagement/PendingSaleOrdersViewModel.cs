@@ -1,5 +1,5 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Logic.SalesManagement;
 using FinancialAnalysis.Models.SalesManagement;
@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Windows.Input;
 using Utilities;
+using WebApiWrapper.SalesManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -47,7 +48,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void CloseOrder()
         {
             SelectedSalesOrder.IsClosed = true;
-            DataContext.Instance.SalesOrders.Update(SelectedSalesOrder);
+            SalesOrders.Update(SelectedSalesOrder);
             RefreshData();
             SelectedSalesOrder = null;
         }
@@ -78,9 +79,8 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void RefreshData()
         {
-            FilteredSalesOrders = SalesOrders = DataContext.Instance.SalesOrders.GetOpenedSalesOrders().ToSvenTechCollection();
+            FilteredSalesOrders = SalesOrderList = SalesOrders.GetOpenedSalesOrders().ToSvenTechCollection();
             CheckOrdersStatus();
-            var invoices = DataContext.Instance.Invoices.GetAll();
         }
 
         private void CountInvoicesForLabel()
@@ -91,7 +91,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void CheckOrdersStatus()
         {
-            foreach (var order in SalesOrders)
+            foreach (var order in SalesOrderList)
             {
                 order.CheckStatus();
             }
@@ -129,7 +129,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Properties
 
-        public SvenTechCollection<SalesOrder> SalesOrders { get; set; }
+        public SvenTechCollection<SalesOrder> SalesOrderList { get; set; }
         public SvenTechCollection<SalesOrder> FilteredSalesOrders { get; set; }
         public ICommand CloseOrderCommand { get; set; }
         public ICommand CreateInvoiceWindowCommand { get; set; }
@@ -147,11 +147,11 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _FilterText = value;
                 if (!string.IsNullOrEmpty(_FilterText))
                 {
-                    FilteredSalesOrders = SalesOrders.Where(x => x.SalesOrderId.ToString().Contains(_FilterText) || x.Debitor.Client.Name.IndexOf(_FilterText, StringComparison.OrdinalIgnoreCase) >= 0).ToSvenTechCollection();
+                    FilteredSalesOrders = SalesOrderList.Where(x => x.SalesOrderId.ToString().Contains(_FilterText) || x.Debitor.Client.Name.IndexOf(_FilterText, StringComparison.OrdinalIgnoreCase) >= 0).ToSvenTechCollection();
                 }
                 else
                 {
-                    FilteredSalesOrders = SalesOrders;
+                    FilteredSalesOrders = SalesOrderList;
                 }
             }
         }

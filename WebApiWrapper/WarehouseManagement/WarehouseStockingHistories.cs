@@ -1,9 +1,5 @@
 ﻿using FinancialAnalysis.Models.WarehouseManagement;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebApiWrapper.WarehouseManagement
 {
@@ -19,6 +15,14 @@ namespace WebApiWrapper.WarehouseManagement
         public static WarehouseStockingHistory GetById(int id)
         {
             return WebApi.GetDataById<WarehouseStockingHistory>(controllerName, id);
+        }
+
+        public static IEnumerable<WarehouseStockingHistory> GetLast10(int RefProductId, int RefStockyardId)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("RefProductId", RefProductId);
+            parameters.Add("RefStockyardId", RefStockyardId);
+            return WebApi.GetData<IEnumerable<WarehouseStockingHistory>>(controllerName, "GetLast10", parameters);
         }
 
         public static int Insert(WarehouseStockingHistory WarehouseStockingHistory)

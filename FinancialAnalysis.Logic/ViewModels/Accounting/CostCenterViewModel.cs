@@ -1,5 +1,5 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
@@ -8,6 +8,7 @@ using FinancialAnalysis.Models.Accounting.CostCenterManagement;
 using System;
 using System.Linq;
 using Utilities;
+using WebApiWrapper.Accounting;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -32,8 +33,8 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Properties
 
-        public SvenTechCollection<CostCenter> CostCenters { get; set; }
-        public SvenTechCollection<CostCenterCategory> CostCenterCategories { get; set; }
+        public SvenTechCollection<CostCenter> CostCenterList { get; set; }
+        public SvenTechCollection<CostCenterCategory> CostCenterCategoryList { get; set; }
         private CostCenter _SelectedCostCenter;
 
         public CostCenter SelectedCostCenter
@@ -66,7 +67,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 if (value != null && value.CostCenter != null)
                 {
-                    SelectedCostCenter = CostCenters.Single(x => x.CostCenterId == value.CostCenter.CostCenterId);
+                    SelectedCostCenter = CostCenterList.Single(x => x.CostCenterId == value.CostCenter.CostCenterId);
                 }
             }
         }
@@ -137,7 +138,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             int key = 0;
             CostCenterFlatStructures = new SvenTechCollection<CostCenterFlatStructure>();
-            foreach (var item in CostCenterCategories)
+            foreach (var item in CostCenterCategoryList)
             {
                 CostCenterFlatStructures.Add(new CostCenterFlatStructure()
                 {
@@ -148,7 +149,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 key++;
             }
 
-            foreach (var item in CostCenters)
+            foreach (var item in CostCenterList)
             {
                 CostCenterFlatStructures.Add(new CostCenterFlatStructure()
                 {
@@ -162,7 +163,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void GetCurrentCosts()
         {
-            var currentCosts = DataContext.Instance.CostCenterBudgets.GetAnnuallyCosts(SelectedCostCenter.CostCenterId, DateTime.Now.Year).ToList();
+            var currentCosts = CostCenterBudgets.GetAnnuallyCosts(SelectedCostCenter.CostCenterId, DateTime.Now.Year).ToList();
 
             if (Equals(currentCosts.Count, 0))
                 return;
@@ -222,15 +223,15 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void LoadCostCenters()
         {
-            CostCenters = DataContext.Instance.CostCenters.GetAll().ToSvenTechCollection();
-            CostCenterCategories = DataContext.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
+            CostCenterList = CostCenters.GetAll().ToSvenTechCollection();
+            CostCenterCategoryList = CostCenterCategories.GetAll().ToSvenTechCollection();
             SetupFlatStructure();
         }
 
         private void NewCostCenter()
         {
             SelectedCostCenter = new CostCenter();
-            CostCenters.Add(SelectedCostCenter);
+            CostCenterList.Add(SelectedCostCenter);
         }
 
         private void DeleteCostCenter()
@@ -240,13 +241,13 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             if (SelectedCostCenter.CostCenterId == 0)
             {
-                CostCenters.Remove(SelectedCostCenter);
+                CostCenterList.Remove(SelectedCostCenter);
                 SelectedCostCenter = null;
                 return;
             }
 
-            DataContext.Instance.CostCenters.Delete(SelectedCostCenter.CostCenterId);
-            CostCenters.Remove(SelectedCostCenter);
+            CostCenters.Delete(SelectedCostCenter.CostCenterId);
+            CostCenterList.Remove(SelectedCostCenter);
             SelectedCostCenter = null;
         }
 
@@ -254,13 +255,13 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (SelectedCostCenter.CostCenterId != 0)
             {
-                DataContext.Instance.CostCenters.Update(SelectedCostCenter);
-                DataContext.Instance.CostCenterBudgets.Update(SelectedCostCenter.ScheduledBudget);
+                CostCenters.Update(SelectedCostCenter);
+                CostCenterBudgets.Update(SelectedCostCenter.ScheduledBudget);
             }
             else
             {
-                int id = DataContext.Instance.CostCenters.Insert(SelectedCostCenter);
-                DataContext.Instance.CostCenterBudgets.Insert(SelectedCostCenter.ScheduledBudget);
+                int id = CostCenters.Insert(SelectedCostCenter);
+                CostCenterBudgets.Insert(SelectedCostCenter.ScheduledBudget);
             }
             SetupFlatStructure();
         }
@@ -277,7 +278,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void ChangeSelectedCostCenterCategory(SelectedCostCenterCategory SelectedCostCenterCategory)
         {
-            CostCenterCategories = DataContext.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
+            CostCenterCategoryList = CostCenterCategories.GetAll().ToSvenTechCollection();
             SelectedCostCenter.CostCenterCategory = SelectedCostCenterCategory.CostCenterCategory;
             SelectedCostCenter.RefCostCenterCategoryId =
                 SelectedCostCenterCategory.CostCenterCategory.CostCenterCategoryId;

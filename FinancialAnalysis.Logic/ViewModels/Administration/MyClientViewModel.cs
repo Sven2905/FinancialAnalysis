@@ -1,8 +1,9 @@
 using System.IO;
 using System.Windows.Media.Imaging;
 using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Models.ClientManagement;
+using WebApiWrapper.ClientManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -60,8 +61,8 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveClient()
         {
-            DataContext.Instance.Companies.Update(Client.Company);
-            DataContext.Instance.Clients.Update(Client);
+            Companies.Update(Client.Company);
+            Clients.Update(Client);
             Globals.CoreData.RefreshData();
         }
 

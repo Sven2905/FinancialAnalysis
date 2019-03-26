@@ -1,5 +1,4 @@
-﻿using FinancialAnalysis.Datalayer;
-using FinancialAnalysis.Models;
+﻿using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.CarPoolManagement;
@@ -12,17 +11,24 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using WebApiWrapper.Accounting;
+using WebApiWrapper.Administration;
+using WebApiWrapper.CarPoolManagement;
+using WebApiWrapper.ClientManagement;
+using WebApiWrapper.ProductManagement;
+using WebApiWrapper.ProjectManagement;
+using WebApiWrapper.SalesManagement;
 
 namespace FinancialAnalysis.Logic
 {
     public class Import
     {
-        private List<BalanceAccount> BalanceAccounts;
-        private List<GainAndLossAccount> GainAndLossAccounts;
+        private List<BalanceAccount> BalanceAccountList;
+        private List<GainAndLossAccount> GainAndLossAccountList;
 
         public void SeedGainAndLossAccounts()
         {
-            GainAndLossAccounts = new List<GainAndLossAccount>
+            GainAndLossAccountList = new List<GainAndLossAccount>
             {
                 new GainAndLossAccount(1, "Umsatzerlöse"),
                 new GainAndLossAccount(2, "Bestandsveränderungen fertige/unfertige Erzeugnisse"),
@@ -48,15 +54,12 @@ namespace FinancialAnalysis.Logic
                 new GainAndLossAccount(22, "Sonstige Steuern")
             };
 
-            for (int i = 0; i < GainAndLossAccounts.Count; i++)
-            {
-                DataContext.Instance.GainAndLossAccounts.Insert(GainAndLossAccounts[i]);
-            }
+                GainAndLossAccounts.Insert(GainAndLossAccountList);
         }
 
         public void SeedBalanceAccounts()
         {
-            BalanceAccounts = new List<BalanceAccount>
+            BalanceAccountList = new List<BalanceAccount>
                 {
                     // AKTIVA
                     new BalanceAccount(1, "A. Anlagevermögen", AccountType.Active, 0),
@@ -128,10 +131,7 @@ namespace FinancialAnalysis.Logic
                     new BalanceAccount(65, "E. Passive latente Steuern", AccountType.Passive, 0)
             };
 
-            for (int i = 0; i < BalanceAccounts.Count; i++)
-            {
-                DataContext.Instance.BalanceAccounts.Insert(BalanceAccounts[i]);
-            }
+            BalanceAccounts.Insert(BalanceAccountList);
         }
 
         public void ImportCostAccounts(Standardkontenrahmen standardkontenrahmen)
@@ -151,10 +151,11 @@ namespace FinancialAnalysis.Logic
                     break;
             }
 
-            var taxTypes = DataContext.Instance.TaxTypes.GetAll().ToList();
-            var costAccountCategories = new List<CostAccountCategory>();
 
-            costAccountCategories.AddRange(DataContext.Instance.CostAccountCategories.GetAll());
+            var taxTypeList = TaxTypes.GetAll().ToList();
+            var costAccountCategoryList = new List<CostAccountCategory>();
+
+            costAccountCategoryList.AddRange(CostAccountCategories.GetAll());
 
             using (var reader = new StreamReader(_FilePath))
             {
@@ -267,18 +268,18 @@ namespace FinancialAnalysis.Logic
                         }
                     }
 
-                    if (costAccountCategories.SingleOrDefault(x =>
+                    if (costAccountCategoryList.SingleOrDefault(x =>
                             x.Description == _Content[2] && x.ParentCategoryId == tempMainCat.ParentCategoryId) == null)
                     {
                         tempMainCat.Description = _Content[2];
 
-                        mainCatId = DataContext.Instance.CostAccountCategories.Insert(tempMainCat);
+                        mainCatId = CostAccountCategories.Insert(tempMainCat);
                         tempMainCat.CostAccountCategoryId = mainCatId;
-                        costAccountCategories.Add(tempMainCat);
+                        costAccountCategoryList.Add(tempMainCat);
                     }
                     else
                     {
-                        mainCatId = costAccountCategories.SingleOrDefault(x =>
+                        mainCatId = costAccountCategoryList.SingleOrDefault(x =>
                                 x.Description == _Content[2] && x.ParentCategoryId == tempMainCat.ParentCategoryId)
                             .CostAccountCategoryId;
                     }
@@ -287,19 +288,19 @@ namespace FinancialAnalysis.Logic
 
                     if (!string.IsNullOrEmpty(_Content[3]))
                     {
-                        if (costAccountCategories.SingleOrDefault(x =>
+                        if (costAccountCategoryList.SingleOrDefault(x =>
                                 x.Description == _Content[3] && x.ParentCategoryId == mainCatId) == null)
                         {
                             tempSubCat.Description = _Content[3];
                             tempSubCat.ParentCategoryId = mainCatId;
 
-                            subCatId = DataContext.Instance.CostAccountCategories.Insert(tempSubCat);
+                            subCatId = CostAccountCategories.Insert(tempSubCat);
                             tempSubCat.CostAccountCategoryId = subCatId;
-                            costAccountCategories.Add(tempSubCat);
+                            costAccountCategoryList.Add(tempSubCat);
                         }
                         else
                         {
-                            subCatId = costAccountCategories
+                            subCatId = costAccountCategoryList
                                 .SingleOrDefault(x => x.Description == _Content[3] && x.ParentCategoryId == mainCatId)
                                 .CostAccountCategoryId;
                         }
@@ -316,19 +317,19 @@ namespace FinancialAnalysis.Logic
                     // GuV Content[11]
                     int gainAndLossAccountId = 0;
 
-                    if (BalanceAccounts.SingleOrDefault(x => string.Equals(x.Name, _Content[9], StringComparison.OrdinalIgnoreCase)) != null)
+                    if (BalanceAccountList.SingleOrDefault(x => string.Equals(x.Name, _Content[9], StringComparison.OrdinalIgnoreCase)) != null)
                     {
-                        aktivaId = BalanceAccounts.Single(x => string.Equals(x.Name, _Content[9], StringComparison.OrdinalIgnoreCase)).BalanceAccountId;
+                        aktivaId = BalanceAccountList.Single(x => string.Equals(x.Name, _Content[9], StringComparison.OrdinalIgnoreCase)).BalanceAccountId;
                     }
 
-                    if (BalanceAccounts.SingleOrDefault(x => string.Equals(x.Name, _Content[10], StringComparison.OrdinalIgnoreCase)) != null)
+                    if (BalanceAccountList.SingleOrDefault(x => string.Equals(x.Name, _Content[10], StringComparison.OrdinalIgnoreCase)) != null)
                     {
-                        passivaId = BalanceAccounts.Single(x => string.Equals(x.Name, _Content[10], StringComparison.OrdinalIgnoreCase)).BalanceAccountId;
+                        passivaId = BalanceAccountList.Single(x => string.Equals(x.Name, _Content[10], StringComparison.OrdinalIgnoreCase)).BalanceAccountId;
                     }
 
-                    if (GainAndLossAccounts.SingleOrDefault(x => string.Equals(x.Name, _Content[11].Replace("\r", "").Trim(), StringComparison.OrdinalIgnoreCase)) != null)
+                    if (GainAndLossAccountList.SingleOrDefault(x => string.Equals(x.Name, _Content[11].Replace("\r", "").Trim(), StringComparison.OrdinalIgnoreCase)) != null)
                     {
-                        gainAndLossAccountId = GainAndLossAccounts.Single(x => string.Equals(x.Name, _Content[11].Replace("\r", "").Trim(), StringComparison.OrdinalIgnoreCase)).GainAndLossAccountId;
+                        gainAndLossAccountId = GainAndLossAccountList.Single(x => string.Equals(x.Name, _Content[11].Replace("\r", "").Trim(), StringComparison.OrdinalIgnoreCase)).GainAndLossAccountId;
                     }
 
                     var costAccount = new CostAccount
@@ -343,7 +344,7 @@ namespace FinancialAnalysis.Logic
                         RefGainAndLossAccountId = gainAndLossAccountId
                     };
 
-                    var taxType = taxTypes.SingleOrDefault(x => x.DescriptionShort == _Content[6].Trim());
+                    var taxType = taxTypeList.SingleOrDefault(x => x.DescriptionShort == _Content[6].Trim());
                     if (taxType != null)
                     {
                         costAccount.RefTaxTypeId = taxType.TaxTypeId;
@@ -353,7 +354,7 @@ namespace FinancialAnalysis.Logic
                         costAccount.RefTaxTypeId = 1;
                     }
 
-                    DataContext.Instance.CostAccounts.Insert(costAccount);
+                    CostAccounts.Insert(costAccount);
                 }
             }
         }
@@ -361,16 +362,16 @@ namespace FinancialAnalysis.Logic
         public void SeedCars()
         {
             Dictionary<string, int> makes = new Dictionary<string, int>();
-            List<CarMake> carMakes = new List<CarMake>();
+            List<CarMake> carMakeList = new List<CarMake>();
             Dictionary<string, int> models = new Dictionary<string, int>();
-            List<CarModel> carModels = new List<CarModel>();
+            List<CarModel> carModelList = new List<CarModel>();
             Dictionary<string, int> generations = new Dictionary<string, int>();
-            List<CarGeneration> carGenerations = new List<CarGeneration>();
+            List<CarGeneration> carGenerationList = new List<CarGeneration>();
             Dictionary<string, int> bodies = new Dictionary<string, int>();
-            List<CarBody> carBodies = new List<CarBody>();
-            List<CarTrim> carTrims = new List<CarTrim>();
-            List<CarEngine> carEngines = new List<CarEngine>();
-            List<CarModelBodyMapping> carModelBodyMappings = new List<CarModelBodyMapping>();
+            List<CarBody> carBodyList = new List<CarBody>();
+            List<CarTrim> carTrimList = new List<CarTrim>();
+            List<CarEngine> carEngineList = new List<CarEngine>();
+            List<CarModelBodyMapping> carModelBodyMappingList = new List<CarModelBodyMapping>();
             HashSet<string> modelBodyMappings = new HashSet<string>();
             int makeCounter = 1;
             int modelCounter = 1;
@@ -400,7 +401,7 @@ namespace FinancialAnalysis.Logic
                         if (!makes.Keys.Contains(values[3]))
                         {
                             CarMake carMake = new CarMake { Name = values[3] };
-                            carMakes.Add(carMake);
+                            carMakeList.Add(carMake);
                             makes.Add(carMake.Name, makeCounter++);
                         }
 
@@ -408,7 +409,7 @@ namespace FinancialAnalysis.Logic
                         if (!bodies.Keys.Contains(values[9]))
                         {
                             CarBody carBody = new CarBody { Name = values[9] };
-                            carBodies.Add(carBody);
+                            carBodyList.Add(carBody);
                             bodies.Add(carBody.Name, bodyCounter++);
                         }
 
@@ -416,7 +417,7 @@ namespace FinancialAnalysis.Logic
                         if (!models.Keys.Contains(values[5]))
                         {
                             CarModel carModel = new CarModel { Name = values[5], RefCarMakeId = makes[values[3]] };
-                            carModels.Add(carModel);
+                            carModelList.Add(carModel);
                             models.Add(carModel.Name, modelCounter++);
                         }
 
@@ -424,40 +425,40 @@ namespace FinancialAnalysis.Logic
                         if (!generations.Keys.Contains(values[7]))
                         {
                             CarGeneration carGeneration = new CarGeneration { Name = values[7], RefCarModelId = models[values[5]] };
-                            carGenerations.Add(carGeneration);
+                            carGenerationList.Add(carGeneration);
                             generations.Add(carGeneration.Name, generationCounter++);
                         }
 
                         //// MOTORISIERUNG
                         CarTrim carTrim = new CarTrim { Name = values[1], RefCarGenerationId = generations[values[7]], Year = Convert.ToInt32(values[18]) };
-                        carTrims.Add(carTrim);
+                        carTrimList.Add(carTrim);
                         trimCounter++;
 
                         if (!modelBodyMappings.Contains((bodyCounter - 1) + "_" + (modelCounter - 1)))
                         {
-                            carModelBodyMappings.Add(new CarModelBodyMapping(modelCounter - 1, bodyCounter - 1));
+                            carModelBodyMappingList.Add(new CarModelBodyMapping(modelCounter - 1, bodyCounter - 1));
                             modelBodyMappings.Add((bodyCounter - 1) + "_" + (modelCounter - 1));
                         }
 
                         //// MOTOR
                         CarEngine carEngine = new CarEngine { CarGear = (CarGear)(Convert.ToInt32(values[12])), EngineType = (EngineType)(Convert.ToInt32(values[14])), Power = Convert.ToInt32(values[17]), Volume = Convert.ToInt32(values[16]), RefCarTrimId = trimCounter - 1 };
-                        carEngines.Add(carEngine);
+                        carEngineList.Add(carEngine);
                     }
                 }
 
-                DataContext.Instance.CarMakes.BulkInsert(carMakes);
-                DataContext.Instance.CarModels.BulkInsert(carModels);
-                DataContext.Instance.CarBodies.BulkInsert(carBodies);
-                DataContext.Instance.CarGenerations.BulkInsert(carGenerations);
-                DataContext.Instance.CarTrims.BulkInsert(carTrims);
-                DataContext.Instance.CarEngines.BulkInsert(carEngines);
-                DataContext.Instance.CarModelBodyMappings.BulkInsert(carModelBodyMappings);
+                CarMakes.Insert(carMakeList);
+                CarModels.Insert(carModelList);
+                CarBodies.Insert(carBodyList);
+                CarGenerations.Insert(carGenerationList);
+                CarTrims.Insert(carTrimList);
+                CarEngines.Insert(carEngineList);
+                CarModelBodyMappings.Insert(carModelBodyMappingList);
             }
         }
 
         internal void SeedCostCenters()
         {
-            var costCenterCategories = new List<CostCenterCategory>
+            var costCenterCategoryList = new List<CostCenterCategory>
             {
                 new CostCenterCategory {Name = "Material"},
                 new CostCenterCategory {Name = "Fertigung"},
@@ -465,7 +466,7 @@ namespace FinancialAnalysis.Logic
                 new CostCenterCategory {Name = "Vertrieb"}
             };
 
-            DataContext.Instance.CostCenterCategories.Insert(costCenterCategories);
+            CostCenterCategories.Insert(costCenterCategoryList);
 
             var costCenters = new List<CostCenter>
             {
@@ -487,19 +488,19 @@ namespace FinancialAnalysis.Logic
 
             foreach (var item in costCenters)
             {
-                int id = DataContext.Instance.CostCenters.Insert(item);
+                int id = CostCenters.Insert(item);
                 var costCenterBudget = new CostCenterBudget()
                 {
                     RefCostCenterId = id,
                     Year = DateTime.Now.Year
                 };
-                DataContext.Instance.CostCenterBudgets.Insert(costCenterBudget);
+                CostCenterBudgets.Insert(costCenterBudget);
             }
         }
 
         private void CreateSKR03MainCategories()
         {
-            var _CostAccounts = new List<CostAccountCategory>
+            var costAccountList = new List<CostAccountCategory>
             {
                 new CostAccountCategory {Description = " 0 - Anlage- und Kapitalkonten"},
                 new CostAccountCategory {Description = " 1 - Finanz- und Privatkonten"},
@@ -511,12 +512,12 @@ namespace FinancialAnalysis.Logic
                 new CostAccountCategory {Description = " 9 - Vortrags-, Kapital- und statistische Konten"}
             };
 
-            DataContext.Instance.CostAccountCategories.Insert(_CostAccounts);
+            CostAccountCategories.Insert(costAccountList);
         }
 
         private void CreateSKR04MainCategories()
         {
-            var _CostAccounts = new List<CostAccountCategory>
+            var costAccountList = new List<CostAccountCategory>
             {
                 new CostAccountCategory {Description = " 0 - Anlagevermögen"},
                 new CostAccountCategory {Description = " 1 - Umlaufvermögen"},
@@ -529,7 +530,7 @@ namespace FinancialAnalysis.Logic
                 new CostAccountCategory {Description = " 9 - Vortrags-, Kapital- und statistische Konten"}
             };
 
-            DataContext.Instance.CostAccountCategories.Insert(_CostAccounts);
+            CostAccountCategories.Insert(costAccountList);
         }
 
         public void ImportUserRights()
@@ -587,18 +588,18 @@ namespace FinancialAnalysis.Logic
 
             foreach (var item in rights)
             {
-                item.UserRightId = DataContext.Instance.UserRights.Insert(item);
-                DataContext.Instance.UserRightUserMappings.Insert(new UserRightUserMapping
+                item.UserRightId = UserRights.Insert(item);
+                UserRightUserMappings.Insert(new UserRightUserMapping
                 { RefUserId = 1, RefUserRightId = item.UserRightId, IsGranted = true });
             }
         }
 
         public void SeedTypes()
         {
-            DataContext.Instance.InvoiceTypes.Insert(new InvoiceType { Name = "Allgemein" });
-            DataContext.Instance.SalesTypes.Insert(new SalesType { Name = "Allgemein" });
-            DataContext.Instance.ShipmentTypes.Insert(new ShipmentType { Name = "Allgemein" });
-            DataContext.Instance.ProductCategories.Insert(new ProductCategory { Name = "Allgemein" });
+            InvoiceTypes.Insert(new InvoiceType { Name = "Allgemein" });
+            SalesTypes.Insert(new SalesType { Name = "Allgemein" });
+            ShipmentTypes.Insert(new ShipmentType { Name = "Allgemein" });
+            ProductCategories.Insert(new ProductCategory { Name = "Allgemein" });
         }
 
         /// <summary>
@@ -606,7 +607,7 @@ namespace FinancialAnalysis.Logic
         /// </summary>
         public void SeedTaxTypes()
         {
-            var taxTypes = new List<TaxType>
+            var taxTypeList = new List<TaxType>
             {
                 new TaxType
                 {
@@ -701,7 +702,7 @@ namespace FinancialAnalysis.Logic
                 }
             };
 
-            DataContext.Instance.TaxTypes.Insert(taxTypes);
+            TaxTypes.Insert(taxTypeList);
         }
 
         public void SeedCompany()
@@ -714,7 +715,7 @@ namespace FinancialAnalysis.Logic
                 Postcode = 12345
             };
 
-            client.ClientId = DataContext.Instance.Clients.Insert(client);
+            client.ClientId = Clients.Insert(client);
 
             var company = new Company
             {
@@ -723,26 +724,26 @@ namespace FinancialAnalysis.Logic
                 RefClientId = client.ClientId
             };
 
-            DataContext.Instance.Companies.Insert(company);
+            Companies.Insert(company);
         }
 
         public void SeedHealthInsurance()
         {
             var healthInsurance = new HealthInsurance { Name = "Keine" };
 
-            DataContext.Instance.HealthInsurances.Insert(healthInsurance);
+            HealthInsurances.Insert(healthInsurance);
         }
 
         public void SeedPaymentCondition()
         {
             var paymentCondition = new PaymentCondition { Name = "Keine", Percentage = 0, TimeValue = 0, PayType = PayType.ThisMonth };
 
-            DataContext.Instance.PaymentConditions.Insert(paymentCondition);
+            PaymentConditions.Insert(paymentCondition);
         }
 
         private int GetIdOfCostAccount(int AccountNumber)
         {
-            return DataContext.Instance.CostAccounts.GetByAccountNumber(AccountNumber);
+            return CostAccounts.GetByAccountNumber(AccountNumber);
         }
     }
 }

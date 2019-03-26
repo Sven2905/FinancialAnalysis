@@ -1,12 +1,9 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
-using FinancialAnalysis.Datalayer;
-using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.ClientManagement;
+using System.ComponentModel;
 using Utilities;
+using WebApiWrapper.ClientManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -16,7 +13,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public ClientViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             InitializeButtonCommands();
             RefreshData();
@@ -39,13 +39,13 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
-        public SvenTechCollection<Client> Clients { get; set; }
+        public SvenTechCollection<Client> ClientList { get; set; }
         public bool SaveClientButtonEnabled { get; set; }
         public bool DeleteClientButtonEnabled { get; set; }
 
         private void RefreshData()
         {
-            Clients = DataContext.Instance.Clients.GetAll().ToSvenTechCollection();
+            ClientList = Clients.GetAll().ToSvenTechCollection();
         }
 
         private void InitializeButtonCommands()
@@ -70,16 +70,27 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveClient()
         {
-            DataContext.Instance.Clients.UpdateOrInsert(SelectedClient);
+            if (SelectedClient.ClientId != 0)
+            {
+                Clients.Update(SelectedClient);
+            }
+            else
+            {
+                Clients.Insert(SelectedClient);
+            }
             var notificationService = this.GetRequiredService<INotificationService>();
             INotification notification;
             if (SelectedClient.ClientId == 0)
+            {
                 notification = notificationService.CreatePredefinedNotification("Neue Firma",
                     $"Die Firma {SelectedClient.Name} wurde erfolgreich angelegt.", string.Empty);
+            }
             else
+            {
                 notification = notificationService.CreatePredefinedNotification("Firma geändert",
                     $"Die Änderungen an der Firma {SelectedClient.Name} wurden erfolgreich durchgeführt.",
                     string.Empty);
+            }
 
             notification.ShowAsync();
         }
@@ -87,12 +98,17 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void DeleteClient()
         {
             if (DeleteClientButtonEnabled)
-                DataContext.Instance.Clients.Delete(SelectedClient.ClientId);
+            {
+                Clients.Delete(SelectedClient.ClientId);
+            }
         }
 
         private void UseExistingClient()
         {
-            if (SelectedClient.IsNull()) SelectedClient = new Client();
+            if (SelectedClient.IsNull())
+            {
+                SelectedClient = new Client();
+            }
 
             SelectedClient.PropertyChanged += SelectedClient_PropertyChanged;
             ValidateClient();
@@ -114,7 +130,9 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void ValidateDeleteButton()
         {
             if (!SelectedClient.IsNull() && SelectedClient.ClientId != 0)
-                DeleteClientButtonEnabled = !DataContext.Instance.Clients.IsClientInUse(SelectedClient.ClientId);
+            {
+                DeleteClientButtonEnabled = !Clients.IsClientInUse(SelectedClient.ClientId);
+            }
         }
 
         private void SelectedClient_PropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -1,6 +1,7 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using System;
+using WebApiWrapper.Accounting;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -13,8 +14,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-                var bookings =
-                    DataContext.Instance.Bookings.GetByConditions(new DateTime(2018, 11, 24), DateTime.Now, 2);
+                var bookings = Bookings.GetByParameter(new DateTime(2018, 11, 24), DateTime.Now, 2);
         }
     }
 }

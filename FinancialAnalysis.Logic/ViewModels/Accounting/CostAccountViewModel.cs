@@ -4,10 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Accounting;
 using Utilities;
+using WebApiWrapper.Accounting;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -36,11 +37,11 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public void RefreshLists()
         {
-            CostAccountCategories = DataContext.Instance.CostAccountCategories.GetAll().ToSvenTechCollection();
-            CostAccountCategoriesHierachical = CostAccountCategories.ToHierachicalCollection<CostAccountCategory>()
+            CostAccountCategoryList = CostAccountCategories.GetAll().ToSvenTechCollection();
+            CostAccountCategoriesHierachical = CostAccountCategoryList.ToHierachicalCollection<CostAccountCategory>()
                 .ToSvenTechCollection();
-            TaxTypes = DataContext.Instance.TaxTypes.GetAll().ToSvenTechCollection();
-            _CostAccounts = DataContext.Instance.CostAccounts.GetAll().ToSvenTechCollection();
+            TaxTypeList = TaxTypes.GetAll().ToSvenTechCollection();
+            _CostAccounts = CostAccounts.GetAll().ToSvenTechCollection();
         }
 
         private void FilterCostAccounts()
@@ -58,7 +59,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private IEnumerable<int> GetChildIds(int motherId)
         {
             var result = new List<int>();
-            var ids = CostAccountCategories.Where(x => x.ParentCategoryId == motherId)
+            var ids = CostAccountCategoryList.Where(x => x.ParentCategoryId == motherId)
                 .Select(x => x.CostAccountCategoryId);
             result.AddRange(ids);
             if (ids.Any())
@@ -88,11 +89,11 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void _SelectedCostAccount_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            DataContext.Instance.CostAccounts.Update(SelectedCostAccount);
+            CostAccounts.Update(SelectedCostAccount);
         }
 
         public SvenTechCollection<CostAccountCategory> CostAccountCategoriesHierachical { get; set; }
-        public SvenTechCollection<TaxType> TaxTypes { get; set; }
+        public SvenTechCollection<TaxType> TaxTypeList { get; set; }
 
         public SvenTechCollection<CostAccount> FilteredCostAccounts { get; set; } =
             new SvenTechCollection<CostAccount>();
@@ -107,7 +108,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
-        public SvenTechCollection<CostAccountCategory> CostAccountCategories { get; set; } =
+        public SvenTechCollection<CostAccountCategory> CostAccountCategoryList { get; set; } =
             new SvenTechCollection<CostAccountCategory>();
 
         #endregion Properties

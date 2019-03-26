@@ -1,9 +1,10 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.ClientManagement;
 using Utilities;
+using WebApiWrapper.Accounting;
 
 namespace FinancialAnalysis.Logic.ViewModels.Accounting
 {
@@ -18,7 +19,7 @@ namespace FinancialAnalysis.Logic.ViewModels.Accounting
         {
             if (IsInDesignMode) return;
 
-            TaxTypes = DataContext.Instance.TaxTypes.GetAll().ToSvenTechCollection();
+            TaxTypeList = TaxTypes.GetAll().ToSvenTechCollection();
             SelectedTaxTypeId = 1;
         }
 
@@ -37,7 +38,7 @@ namespace FinancialAnalysis.Logic.ViewModels.Accounting
         public ClientType SelectedClientType { get; set; } = ClientType.Business;
         public bool ShowCustomerType { get; set; }
         public int SelectedTaxTypeId { get; set; }
-        public SvenTechCollection<TaxType> TaxTypes { get; set; } = new SvenTechCollection<TaxType>();
+        public SvenTechCollection<TaxType> TaxTypeList { get; set; } = new SvenTechCollection<TaxType>();
         public bool ShowTaxType { get; set; }
         public bool CompanyIsNotNull { get => Client != null; }
 

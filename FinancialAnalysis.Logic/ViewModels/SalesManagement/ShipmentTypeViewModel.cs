@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Windows;
 using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.SalesManagement;
 using Utilities;
+using WebApiWrapper.SalesManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -38,7 +39,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private SvenTechCollection<ShipmentType> LoadAllShipmentTypes()
         {
             var allShipmentTypes = new SvenTechCollection<ShipmentType>();
-                allShipmentTypes = DataContext.Instance.ShipmentTypes.GetAll().ToSvenTechCollection();
+                allShipmentTypes = ShipmentTypes.GetAll().ToSvenTechCollection();
 
             return allShipmentTypes;
         }
@@ -60,7 +61,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            DataContext.Instance.ShipmentTypes.Delete(SelectedShipmentType.ShipmentTypeId);
+            ShipmentTypes.Delete(SelectedShipmentType.ShipmentTypeId);
             _ShipmentTypes.Remove(SelectedShipmentType);
             SelectedShipmentType = null;
         }
@@ -68,9 +69,9 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveShipmentType()
         {
             if (SelectedShipmentType.ShipmentTypeId != 0)
-                DataContext.Instance.ShipmentTypes.Update(SelectedShipmentType);
+                ShipmentTypes.Update(SelectedShipmentType);
             else
-                DataContext.Instance.ShipmentTypes.Insert(SelectedShipmentType);
+                ShipmentTypes.Insert(SelectedShipmentType);
         }
 
         private bool Validation()

@@ -154,7 +154,7 @@ namespace FinancialAnalysis.UI
                   var window = new InvoiceListWindow();
                   if (window.DataContext is InvoiceListViewModel model)
                   {
-                      model.Invoices = msg.Invoices;
+                      model.InvoiceList = msg.Invoices;
                   }
                   window.ShowDialog();
               });

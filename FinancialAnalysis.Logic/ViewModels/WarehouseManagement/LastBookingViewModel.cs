@@ -1,5 +1,5 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Models.General;
 using FinancialAnalysis.Models.WarehouseManagement;
 using System;
@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utilities;
+using WebApiWrapper.WarehouseManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -37,15 +38,15 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
-        public SvenTechCollection<WarehouseStockingHistory> WarehouseStockingHistories { get; set; } = new SvenTechCollection<WarehouseStockingHistory>();
+        public SvenTechCollection<WarehouseStockingHistory> WarehouseStockingHistoryList { get; set; } = new SvenTechCollection<WarehouseStockingHistory>();
 
         public void LoadData()
         {
             if (_RefProductId > 0 && RefStockyardId > 0)
-                WarehouseStockingHistories = DataContext.Instance.WarehouseStockingHistories.GetLast10(_RefProductId, _RefStockyardId).ToSvenTechCollection();
+                WarehouseStockingHistoryList = WarehouseStockingHistories.GetLast10(_RefProductId, _RefStockyardId).ToSvenTechCollection();
             else
             {
-                WarehouseStockingHistories = null;
+                WarehouseStockingHistoryList = null;
             }
         }
     }

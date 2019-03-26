@@ -1,8 +1,9 @@
-﻿using FinancialAnalysis.Datalayer;
-using FinancialAnalysis.Models.Accounting;
+﻿using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.ClientManagement;
 using System.Linq;
 using Utilities;
+using WebApiWrapper.Accounting;
+using WebApiWrapper.ClientManagement;
 
 namespace FinancialAnalysis.Logic
 {
@@ -15,27 +16,27 @@ namespace FinancialAnalysis.Logic
 
         public static CoreData Instance { get; } = new CoreData();
 
-        public SvenTechCollection<TaxType> TaxTypes { get; private set; }
+        public SvenTechCollection<TaxType> TaxTypeList { get; private set; }
         public Client MyCompany { get; private set; }
 
         public TaxType GetTaxTypeById(int taxTypeId)
         {
-            return TaxTypes.SingleOrDefault(x => x.TaxTypeId == taxTypeId);
+            return TaxTypeList.SingleOrDefault(x => x.TaxTypeId == taxTypeId);
         }
 
         private Client LoadMyCompanyFromDb()
         {
-            return DataContext.Instance.Clients.GetById(1);
+            return Clients.GetById(1);
         }
 
         private SvenTechCollection<TaxType> LoadTaxTypesFromDb()
         {
-            return DataContext.Instance.TaxTypes.GetAll().ToSvenTechCollection();
+            return TaxTypes.GetAll().ToSvenTechCollection();
         }
 
         public void RefreshData()
         {
-            TaxTypes = LoadTaxTypesFromDb();
+            TaxTypeList = LoadTaxTypesFromDb();
             MyCompany = LoadMyCompanyFromDb();
         }
     }

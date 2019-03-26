@@ -61,7 +61,10 @@
     <Compile Include="Accounting\PaymentConditions.cs" />
     <Compile Include="Accounting\ScannedDocuments.cs" />
     <Compile Include="Accounting\TaxTypes.cs" />
+    <Compile Include="Administration\UserRightUserMappings.cs" />
+    <Compile Include="Administration\UserRights.cs" />
     <Compile Include="Administration\Users.cs" />
+    <Compile Include="CarPoolManagement\CarModelBodyMappings.cs" />
     <Compile Include="CarPoolManagement\CarEngines.cs" />
     <Compile Include="CarPoolManagement\CarGenerations.cs" />
     <Compile Include="CarPoolManagement\CarMakes.cs" />

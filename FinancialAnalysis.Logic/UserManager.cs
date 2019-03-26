@@ -1,13 +1,10 @@
-﻿using System;
+﻿using FinancialAnalysis.Models.Administration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Windows;
-using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
-using FinancialAnalysis.Logic.Messages;
-using FinancialAnalysis.Models.Administration;
 using Utilities;
+using WebApiWrapper.Administration;
 
 namespace FinancialAnalysis.Logic
 {
@@ -17,8 +14,7 @@ namespace FinancialAnalysis.Logic
 
         private UserManager()
         {
-            UserRights = LoadUserRightsFromDB();
-            UserList = LoadUsersFromDB();
+
         }
 
         #endregion Constructor
@@ -26,7 +22,7 @@ namespace FinancialAnalysis.Logic
         #region Properties
 
         public static UserManager Instance { get; } = new UserManager();
-        public List<UserRight> UserRights { get; }
+        public List<UserRight> UserRightList { get; private set; }
 
         #endregion Properties
 
@@ -37,26 +33,31 @@ namespace FinancialAnalysis.Logic
         private SvenTechCollection<User> LoadUsersFromDB()
         {
             var allUsers = new SvenTechCollection<User>();
-            return DataContext.Instance.Users.GetAll().ToSvenTechCollection();
+            return Users.GetAll().ToSvenTechCollection();
         }
 
         public User NewUser()
         {
             var newUser = new User();
 
-            foreach (var item in UserRights)
+            foreach (var item in UserRightList)
+            {
                 newUser.UserRightUserMappings.Add(new UserRightUserMapping(0, item.UserRightId, false)
                 { User = newUser, UserRight = item });
+            }
 
             return newUser;
         }
 
         public bool DeleteUser(User user)
         {
-            if (user == null || user.UserId == 0) return false;
+            if (user == null || user.UserId == 0)
+            {
+                return false;
+            }
 
-            DataContext.Instance.UserRightUserMappings.Delete(user.UserId);
-            DataContext.Instance.Users.Delete(user.UserId);
+            UserRightUserMappings.Delete(user.UserId);
+            Users.Delete(user.UserId);
             UserList.Remove(user);
 
             return true;
@@ -64,26 +65,57 @@ namespace FinancialAnalysis.Logic
 
         public User InsertOrUpdateUser(User user)
         {
-            if (user == null) throw new NullReferenceException("User is null!");
+            if (user == null)
+            {
+                throw new NullReferenceException("User is null!");
+            }
 
             var IsNewUser = user.UserId == 0;
 
             if (!IsNewUser)
             {
-                if (!string.IsNullOrEmpty(user.Password)) DataContext.Instance.Users.UpdatePassword(user);
+                if (!string.IsNullOrEmpty(user.Password))
+                {
+                    Users.UpdatePassword(user);
+                }
             }
             else
             {
-                if (string.IsNullOrEmpty(user.Password)) throw new ArgumentException("Password is not set!");
+                if (string.IsNullOrEmpty(user.Password))
+                {
+                    throw new ArgumentException("Password is not set!");
+                }
             }
 
-            DataContext.Instance.Users.UpdateOrInsert(user);
+            if (user.UserId == 0)
+            {
+                Users.Insert(user);
+            }
+            else
+            {
+                Users.Update(user);
+            }
 
             if (IsNewUser)
+            {
                 foreach (var item in user.UserRightUserMappings)
+                {
                     item.RefUserId = user.UserId;
+                }
+            }
 
-            DataContext.Instance.UserRightUserMappings.UpdateOrInsert(user.UserRightUserMappings);
+            foreach (var userRightMapping in user.UserRightUserMappings)
+            {
+                if (userRightMapping.UserRightUserMappingId == 0)
+                {
+                    UserRightUserMappings.Insert(userRightMapping);
+                }
+                else
+                {
+                    UserRightUserMappings.Update(userRightMapping);
+                }
+            }
+
             RefreshUsers();
 
             return user;
@@ -93,15 +125,23 @@ namespace FinancialAnalysis.Logic
         {
             var user = UserList.SingleOrDefault(x => x.UserId == userId);
             if (user == null)
+            {
                 return false;
+            }
+
             return IsUserRightGranted(user, permission);
         }
 
         public bool IsUserRightGranted(User user, Permission permission)
         {
             foreach (var right in user.UserRights.Keys)
+            {
                 if (right.Permission == permission)
+                {
                     return user.UserRights[right];
+                }
+            }
+
             return false;
         }
 
@@ -109,7 +149,10 @@ namespace FinancialAnalysis.Logic
         {
             var UserRightUserMappingFlatStructure = new SvenTechCollection<UserRightUserMappingFlatStructure>();
             foreach (var item in user.UserRightUserMappings)
+            {
                 UserRightUserMappingFlatStructure.Add(new UserRightUserMappingFlatStructure(item));
+            }
+
             return UserRightUserMappingFlatStructure;
         }
 
@@ -119,8 +162,10 @@ namespace FinancialAnalysis.Logic
             var userRightUserMappings = new List<UserRightUserMapping>();
 
             foreach (var item in UserRightUserMappingFlatStructure)
+            {
                 userRightUserMappings.Add(new UserRightUserMapping(item.RefUserId, item.RefUserRightId,
                     item.IsGranted));
+            }
 
             return userRightUserMappings;
         }
@@ -145,45 +190,65 @@ namespace FinancialAnalysis.Logic
                     0x7d, 0xc7, 0x1d, 0x6f, 0xb0, 0xe3, 0x80, 0xdc, 0x73
                 });
             WebApiWrapper.WebApi.WebApiKey = WebApiWrapper.WebApi.GetKey(username, password);
-            var user = DataContext.Instance.Users.GetUserByNameAndPassword(username, password);
-            return user;
+            if (string.IsNullOrEmpty(WebApiWrapper.WebApi.WebApiKey))
+            {
+                return null;
+            }
+
+            UserRightList = LoadUserRightsFromDB();
+            UserList = LoadUsersFromDB();
+            return UserList.Single(x => x.LoginUser == username && x.Password == password);
         }
 
         private List<UserRight> LoadUserRightsFromDB()
         {
-            return DataContext.Instance.UserRights.GetAll();
+            return UserRights.GetAll().ToList();
         }
 
         public void GrantPermission(User user, Permission permission)
         {
-            var right = Instance.UserRights.Single(x => x.Permission == permission);
+            var right = Instance.UserRightList.Single(x => x.Permission == permission);
             var tempUserRightUserMapping =
                 user.UserRightUserMappings.SingleOrDefault(x => x.RefUserRightId == right.UserRightId);
             if (tempUserRightUserMapping != null)
             {
                 tempUserRightUserMapping.IsGranted = true;
-                DataContext.Instance.UserRightUserMappings.UpdateOrInsert(tempUserRightUserMapping);
+                if (tempUserRightUserMapping.UserRightUserMappingId == 0)
+                {
+                    UserRightUserMappings.Insert(tempUserRightUserMapping);
+                }
+                else
+                {
+                    UserRightUserMappings.Update(tempUserRightUserMapping);
+                }
             }
             else
             {
-                DataContext.Instance.UserRightUserMappings.UpdateOrInsert(
+                UserRightUserMappings.Insert(
                     new UserRightUserMapping(user.UserId, right.UserRightId, true));
             }
         }
 
         public void RevokePermission(User user, Permission permission)
         {
-            var right = Instance.UserRights.Single(x => x.Permission == permission);
+            var right = Instance.UserRightList.Single(x => x.Permission == permission);
             var tempUserRightUserMapping =
                 user.UserRightUserMappings.SingleOrDefault(x => x.RefUserRightId == right.UserRightId);
             if (tempUserRightUserMapping != null)
             {
                 tempUserRightUserMapping.IsGranted = false;
-                DataContext.Instance.UserRightUserMappings.UpdateOrInsert(tempUserRightUserMapping);
+                if (tempUserRightUserMapping.UserRightUserMappingId == 0)
+                {
+                    UserRightUserMappings.Insert(tempUserRightUserMapping);
+                }
+                else
+                {
+                    UserRightUserMappings.Update(tempUserRightUserMapping);
+                }
             }
             else
             {
-                DataContext.Instance.UserRightUserMappings.UpdateOrInsert(
+                UserRightUserMappings.Insert(
                     new UserRightUserMapping(user.UserId, right.UserRightId, false));
             }
         }

@@ -1,7 +1,8 @@
 ﻿using System.IO;
 using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Models.Accounting;
+using WebApiWrapper.Accounting;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -20,7 +21,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void LoadDocumentById()
         {
-            content = DataContext.Instance.ScannedDocuments.GetById(ScannedDocumentId).Content;
+            content = ScannedDocuments.GetById(ScannedDocumentId).Content;
 
             var ms = new MemoryStream(content);
             ScannedDocument = ms;

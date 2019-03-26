@@ -1,17 +1,11 @@
 ﻿using DevExpress.Mvvm;
-using DevExpress.Mvvm.DataAnnotations;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Logic.Messages;
-using FinancialAnalysis.Models.Administration;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using Formulas;
-using Formulas.DepreciationMethods;
-using FinancialAnalysis.Models.ProjectManagement;
-using System.Collections.Generic;
-using WebApiWrapper.ProjectManagement;
+using WebApiWrapper.Administration;
+using WebApiWrapper.SalesManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -37,7 +31,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             Password = "Password";
 #endif
 
-            Task.Run(() => { Seed(); });
 
             LoginCommand = new DelegateCommand(Login, () => !string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrEmpty(Password));
             ExitCommand = new DelegateCommand(Exit);
@@ -49,29 +42,12 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void Seed()
         {
-            DataContext.Instance.CreateDatabaseSchema();
-            if (!DataContext.Instance.Users.GetAll().Any())
-            {
-                var user = new User
-                {
-                    IsAdministrator = true,
-                    Firstname = "Mr.",
-                    Lastname = "Admin",
-                    LoginUser = "Admin",
-                    Password = "Password",
-                    Mail = "admin@sven.tech",
-                    Contraction = "AD"
-                };
-
-                DataContext.Instance.Users.Insert(user);
-            }
-
             var _Import = new Import();
-            if (!DataContext.Instance.UserRights.GetAll().Any())
+            if (!UserRights.GetAll().Any())
             {
                 _Import.ImportUserRights();
             }
-            if (!DataContext.Instance.InvoiceTypes.GetAll().Any())
+            if (!InvoiceTypes.GetAll().Any())
             {
                 _Import.SeedTypes();
             }
@@ -81,6 +57,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (CheckCredentials())
             {
+                Task.Run(() => { Seed(); });
                 ShowError = false;
                 //Messenger.Default.Send(new OpenSplashScreenMessage());
                 Messenger.Default.Send(new OpenMainWindowMessage());
@@ -136,7 +113,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         #endregion Methods
 
         #region Properties
-        
+
         public DelegateCommand LoginCommand { get; set; }
         public DelegateCommand ExitCommand { get; set; }
         public string UserName { get; set; }

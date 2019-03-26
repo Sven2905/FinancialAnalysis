@@ -36,6 +36,11 @@ namespace WebApiWrapper.Accounting
             return WebApi.GetData<int>(controllerName, "GetNextDebitorNumber"); 
         }
 
+        public static int GetByAccountNumber(int AccountNumber)
+        {
+            return WebApi.GetDataById<int>(controllerName, AccountNumber, "GetNextDebitorNumber");
+        }
+
         public static int Insert(CostAccount CostAccount)
         {
             return WebApi.PostAsync(controllerName, CostAccount).Result;

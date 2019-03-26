@@ -216,10 +216,6 @@
     <Content Include="ToDo.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FinancialAnalysis.Datalayer\FinancialAnalysis.Datalayer.csproj">
-      <Project>{8efe4217-8830-48ac-aada-3c8e06acc2d3}</Project>
-      <Name>FinancialAnalysis.Datalayer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FinancialAnalysis.Models\FinancialAnalysis.Models.csproj">
       <Project>{3bcf7383-9805-4bd4-a8cd-fd978e348e15}</Project>
       <Name>FinancialAnalysis.Models</Name>

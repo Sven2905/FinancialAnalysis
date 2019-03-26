@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Windows;
 using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.SalesManagement;
 using Utilities;
+using WebApiWrapper.SalesManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -43,7 +44,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private SvenTechCollection<SalesType> LoadAllSalesTypes()
         {
             var allSalesTypes = new SvenTechCollection<SalesType>();
-            allSalesTypes = DataContext.Instance.SalesTypes.GetAll().ToSvenTechCollection();
+            allSalesTypes = SalesTypes.GetAll().ToSvenTechCollection();
 
             return allSalesTypes;
         }
@@ -65,7 +66,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            DataContext.Instance.SalesTypes.Delete(SelectedSalesType.SalesTypeId);
+            SalesTypes.Delete(SelectedSalesType.SalesTypeId);
             _SalesTypes.Remove(SelectedSalesType);
             SelectedSalesType = null;
         }
@@ -73,9 +74,9 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveSalesType()
         {
             if (SelectedSalesType.SalesTypeId != 0)
-                DataContext.Instance.SalesTypes.Update(SelectedSalesType);
+                SalesTypes.Update(SelectedSalesType);
             else
-                SelectedSalesType.SalesTypeId = DataContext.Instance.SalesTypes.Insert(SelectedSalesType);
+                SelectedSalesType.SalesTypeId = SalesTypes.Insert(SelectedSalesType);
         }
 
         private bool Validation()

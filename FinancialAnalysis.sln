@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialAnalysis.UI", "Fin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialAnalysis.Logic", "FinancialAnalysis.Logic\FinancialAnalysis.Logic.csproj", "{95C8F63A-3FF7-4B38-B9A8-85ED290F743B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialAnalysis.Datalayer", "FinancialAnalysis.Datalayer\FinancialAnalysis.Datalayer.csproj", "{8EFE4217-8830-48AC-AADA-3C8E06ACC2D3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialAnalysis.Models", "FinancialAnalysis.Models\FinancialAnalysis.Models.csproj", "{3BCF7383-9805-4BD4-A8CD-FD978E348E15}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{69F19F6B-092B-4EE7-AD82-3944F3694952}"
@@ -41,14 +39,6 @@ Global
 		{95C8F63A-3FF7-4B38-B9A8-85ED290F743B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{95C8F63A-3FF7-4B38-B9A8-85ED290F743B}.Release|x64.ActiveCfg = Release|x64
 		{95C8F63A-3FF7-4B38-B9A8-85ED290F743B}.Release|x64.Build.0 = Release|x64
-		{8EFE4217-8830-48AC-AADA-3C8E06ACC2D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8EFE4217-8830-48AC-AADA-3C8E06ACC2D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8EFE4217-8830-48AC-AADA-3C8E06ACC2D3}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{8EFE4217-8830-48AC-AADA-3C8E06ACC2D3}.Debug|x64.Build.0 = Debug|Any CPU
-		{8EFE4217-8830-48AC-AADA-3C8E06ACC2D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8EFE4217-8830-48AC-AADA-3C8E06ACC2D3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8EFE4217-8830-48AC-AADA-3C8E06ACC2D3}.Release|x64.ActiveCfg = Release|Any CPU
-		{8EFE4217-8830-48AC-AADA-3C8E06ACC2D3}.Release|x64.Build.0 = Release|Any CPU
 		{3BCF7383-9805-4BD4-A8CD-FD978E348E15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3BCF7383-9805-4BD4-A8CD-FD978E348E15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BCF7383-9805-4BD4-A8CD-FD978E348E15}.Debug|x64.ActiveCfg = Debug|Any CPU

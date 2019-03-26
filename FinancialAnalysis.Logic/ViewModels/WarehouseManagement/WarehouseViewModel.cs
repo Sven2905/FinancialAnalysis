@@ -1,10 +1,11 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.WarehouseManagement;
 using System;
 using System.Linq;
 using Utilities;
+using WebApiWrapper.WarehouseManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -57,7 +58,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private SvenTechCollection<Warehouse> LoadAllWarehouses()
         {
             var allWarehouses = new SvenTechCollection<Warehouse>();
-            allWarehouses = DataContext.Instance.Warehouses.GetAll().ToSvenTechCollection();
+            allWarehouses = Warehouses.GetAll().ToSvenTechCollection();
 
             return allWarehouses;
         }
@@ -82,7 +83,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            DataContext.Instance.Warehouses.Delete(SelectedWarehouse.WarehouseId);
+            Warehouses.Delete(SelectedWarehouse.WarehouseId);
             _Warehouses.Remove(SelectedWarehouse);
             SelectedWarehouse = null;
         }
@@ -91,11 +92,11 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (SelectedWarehouse.WarehouseId != 0)
             {
-                DataContext.Instance.Warehouses.Update(SelectedWarehouse);
+                Warehouses.Update(SelectedWarehouse);
             }
             else
             {
-                SelectedWarehouse.WarehouseId = DataContext.Instance.Warehouses.Insert(SelectedWarehouse);
+                SelectedWarehouse.WarehouseId = Warehouses.Insert(SelectedWarehouse);
             }
         }
 

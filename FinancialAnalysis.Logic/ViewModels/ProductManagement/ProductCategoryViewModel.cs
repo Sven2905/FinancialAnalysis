@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Windows;
 using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.ProductManagement;
 using Utilities;
+using WebApiWrapper.ProductManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -47,7 +48,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private SvenTechCollection<ProductCategory> LoadAllProductCategories()
         {
             var allProductCategories = new SvenTechCollection<ProductCategory>();
-            return DataContext.Instance.ProductCategories.GetAll().ToSvenTechCollection();
+            return ProductCategories.GetAll().ToSvenTechCollection();
         }
 
         private void NewProductCategory()
@@ -67,7 +68,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-                DataContext.Instance.ProductCategories.Delete(SelectedProductCategory.ProductCategoryId);
+                ProductCategories.Delete(SelectedProductCategory.ProductCategoryId);
                 _ProductCategories.Remove(SelectedProductCategory);
                 SelectedProductCategory = null;
         }
@@ -75,10 +76,10 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveProductCategory()
         {
                 if (SelectedProductCategory.ProductCategoryId != 0)
-                    DataContext.Instance.ProductCategories.Update(SelectedProductCategory);
+                    ProductCategories.Update(SelectedProductCategory);
                 else
                     SelectedProductCategory.ProductCategoryId =
-                        DataContext.Instance.ProductCategories.Insert(SelectedProductCategory);
+                        ProductCategories.Insert(SelectedProductCategory);
         }
 
         private bool Validation()

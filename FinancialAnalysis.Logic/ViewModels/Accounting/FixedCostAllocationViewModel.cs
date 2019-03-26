@@ -1,5 +1,5 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Logic.ViewModels.Accounting;
 using FinancialAnalysis.Models.Accounting;
@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utilities;
+using WebApiWrapper.Accounting;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -31,8 +32,8 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void GetData()
         {
-            CostCenterCategories = DataContext.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
-            FixedCostAllocations = DataContext.Instance.FixedCostAllocations.GetAll().ToSvenTechCollection();
+            CostCenterCategoryList = CostCenterCategories.GetAll().ToSvenTechCollection();
+            FixedCostAllocationList = FixedCostAllocations.GetAll().ToSvenTechCollection();
         }
 
         private void InitializeCommands()
@@ -46,7 +47,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public void AddFixedCostAllocation()
         {
-            if (FixedCostAllocations.Any(x => x.RefCostCenterId == SelectedFixedCostAllocation.CostCenter.CostCenterId))
+            if (FixedCostAllocationList.Any(x => x.RefCostCenterId == SelectedFixedCostAllocation.CostCenter.CostCenterId))
             {
                 Messenger.Default.Send(new OpenDialogWindowMessage("Hinweis", "Die Kostenstelle ist bereits enthalten.", System.Windows.MessageBoxImage.Asterisk));
                 return;
@@ -54,16 +55,16 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             SelectedFixedCostAllocation.RefCostCenterId = SelectedFixedCostAllocation.CostCenter.CostCenterId;
 
-            SelectedFixedCostAllocation.FixedCostAllocationId = DataContext.Instance.FixedCostAllocations.Insert(SelectedFixedCostAllocation);
-            SelectedFixedCostAllocation.CostCenter.CostCenterCategory = CostCenterCategories.Single(x => x.CostCenterCategoryId == SelectedFixedCostAllocation.CostCenter.RefCostCenterCategoryId);
-            FixedCostAllocations.Add(SelectedFixedCostAllocation);
+            SelectedFixedCostAllocation.FixedCostAllocationId = FixedCostAllocations.Insert(SelectedFixedCostAllocation);
+            SelectedFixedCostAllocation.CostCenter.CostCenterCategory = CostCenterCategoryList.Single(x => x.CostCenterCategoryId == SelectedFixedCostAllocation.CostCenter.RefCostCenterCategoryId);
+            FixedCostAllocationList.Add(SelectedFixedCostAllocation);
             SelectedFixedCostAllocation = new FixedCostAllocation();
         }
 
         public void DeleteFixedCostAllocation()
         {
-            DataContext.Instance.FixedCostAllocations.Delete(SelectedFixedCostAllocationTable);
-            FixedCostAllocations.Remove(SelectedFixedCostAllocationTable);
+            FixedCostAllocations.Delete(SelectedFixedCostAllocationTable.FixedCostAllocationId);
+            FixedCostAllocationList.Remove(SelectedFixedCostAllocationTable);
         }
 
         #endregion Methods
@@ -72,11 +73,11 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public DelegateCommand AddFixedCostAllocationCommand { get; set; }
         public DelegateCommand DeleteFixedCostAllocationCommand { get; set; }
-        public SvenTechCollection<CostCenterCategory> CostCenterCategories { get; set; }
+        public SvenTechCollection<CostCenterCategory> CostCenterCategoryList { get; set; }
         public CostCenterCategory SelectedCostCenterCategory { get; set; }
         public FixedCostAllocation SelectedFixedCostAllocation { get; set; } = new FixedCostAllocation();
         public FixedCostAllocation SelectedFixedCostAllocationTable { get; set; }
-        public SvenTechCollection<FixedCostAllocation> FixedCostAllocations { get; set; }
+        public SvenTechCollection<FixedCostAllocation> FixedCostAllocationList { get; set; }
 
         #endregion Methods
     }

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Windows;
 using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.ProjectManagement;
 using Utilities;
+using WebApiWrapper.ProjectManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -18,15 +19,15 @@ namespace FinancialAnalysis.Logic.ViewModels
             SaveProjectWorkingTimeCommand = new DelegateCommand(SaveSaveProjectWorkingTime, () => Validation());
         }
 
-        public SvenTechCollection<ProjectWorkingTime> ProjectWorkingTimes { get; set; }
-        public SvenTechCollection<Employee> Employees { get; set; }
-        public SvenTechCollection<Project> Projects { get; set; }
+        public SvenTechCollection<ProjectWorkingTime> ProjectWorkingTimeList { get; set; }
+        public SvenTechCollection<Employee> EmployeeList { get; set; }
+        public SvenTechCollection<Project> ProjectList { get; set; }
         public ProjectWorkingTime ProjectWorkingTime { get; set; } = new ProjectWorkingTime();
         public DelegateCommand SaveProjectWorkingTimeCommand { get; set; }
 
         private void SaveSaveProjectWorkingTime()
         {
-            DataContext.Instance.ProjectWorkingTimes.Insert(ProjectWorkingTime);
+            ProjectWorkingTimes.Insert(ProjectWorkingTime);
         }
 
         private void LoadData()
@@ -38,17 +39,17 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void LoadEmployees()
         {
-            Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
+            EmployeeList = Employees.GetAll().ToSvenTechCollection();
         }
 
         private void LoadProjects()
         {
-            Projects = DataContext.Instance.Projects.GetAll().ToSvenTechCollection();
+            ProjectList = Projects.GetAll().ToSvenTechCollection();
         }
 
         private void LoadProjectWorkingTimes()
         {
-            ProjectWorkingTimes = DataContext.Instance.ProjectWorkingTimes.GetAll().ToSvenTechCollection();
+            ProjectWorkingTimeList = ProjectWorkingTimes.GetAll().ToSvenTechCollection();
         }
 
         private bool Validation()

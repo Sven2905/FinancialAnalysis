@@ -1,5 +1,5 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Models.ProductManagement;
 using FinancialAnalysis.Models.WarehouseManagement;
 using System;
@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utilities;
+using WebApiWrapper.WarehouseManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -47,7 +48,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
-        public SvenTechCollection<Warehouse> Warehouses { get; set; }
+        public SvenTechCollection<Warehouse> WarehouseList { get; set; }
         public SvenTechCollection<WarehouseStockingFlatStructure> FilteredWarehousesFlatStructure { get; set; }
 
         #endregion Properties
@@ -56,7 +57,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public void Refresh()
         {
-            Warehouses = DataContext.Instance.Warehouses.GetByProductId(Product.ProductId).ToSvenTechCollection();
+            WarehouseList = Warehouses.GetByProductId(Product.ProductId).ToSvenTechCollection();
         }
 
         private SvenTechCollection<WarehouseStockingFlatStructure> CreateFlatStructure()
@@ -66,27 +67,27 @@ namespace FinancialAnalysis.Logic.ViewModels
             SvenTechCollection<WarehouseStockingFlatStructure> filteredList = new SvenTechCollection<WarehouseStockingFlatStructure>();
             int key = 1;
             int parentKey = 0;
-            for (int i = 0; i < Warehouses.Count; i++)
+            for (int i = 0; i < WarehouseList.Count; i++)
             {
-                for (int j = 0; j < Warehouses[i].Stockyards.Count; j++)
+                for (int j = 0; j < WarehouseList[i].Stockyards.Count; j++)
                 {
-                    for (int k = 0; k < Warehouses[i].Stockyards[j].StockedProducts.Count; k++)
+                    for (int k = 0; k < WarehouseList[i].Stockyards[j].StockedProducts.Count; k++)
                     {
-                        if (Warehouses[i].Stockyards[j].StockedProducts[k].RefProductId == Product.ProductId)
+                        if (WarehouseList[i].Stockyards[j].StockedProducts[k].RefProductId == Product.ProductId)
                         {
-                            var warehouse = filteredList.FirstOrDefault(x => x.Warehouse == Warehouses[i]);
+                            var warehouse = filteredList.FirstOrDefault(x => x.Warehouse == WarehouseList[i]);
                             if (warehouse == null)
                             {
-                                filteredList.Add(new WarehouseStockingFlatStructure() { Id = key, ParentKey = 0, Warehouse = Warehouses[i] });
+                                filteredList.Add(new WarehouseStockingFlatStructure() { Id = key, ParentKey = 0, Warehouse = WarehouseList[i] });
                                 parentKey = key;
                                 key++;
                             }
 
-                            var stockyard = filteredList.FirstOrDefault(x => x.Stockyard == Warehouses[i].Stockyards[j]);
+                            var stockyard = filteredList.FirstOrDefault(x => x.Stockyard == WarehouseList[i].Stockyards[j]);
                             if (stockyard == null)
                             {
-                                filteredList.Add(new WarehouseStockingFlatStructure() { Id = key, ParentKey = parentKey, Stockyard = Warehouses[i].Stockyards[j], Quantity = Warehouses[i].Stockyards[j].StockedProducts[k].Quantity });
-                                filteredList.Single(x => x.Id == parentKey).Quantity += Warehouses[i].Stockyards[j].StockedProducts[k].Quantity;
+                                filteredList.Add(new WarehouseStockingFlatStructure() { Id = key, ParentKey = parentKey, Stockyard = WarehouseList[i].Stockyards[j], Quantity = WarehouseList[i].Stockyards[j].StockedProducts[k].Quantity });
+                                filteredList.Single(x => x.Id == parentKey).Quantity += WarehouseList[i].Stockyards[j].StockedProducts[k].Quantity;
                                 key++;
                             }
                         }

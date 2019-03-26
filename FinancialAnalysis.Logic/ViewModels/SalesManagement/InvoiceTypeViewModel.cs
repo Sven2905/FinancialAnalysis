@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Windows;
 using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.SalesManagement;
 using Utilities;
+using WebApiWrapper.SalesManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -43,7 +44,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private SvenTechCollection<InvoiceType> LoadAllInvoiceTypes()
         {
             var allInvoiceTypes = new SvenTechCollection<InvoiceType>();
-            return DataContext.Instance.InvoiceTypes.GetAll().ToSvenTechCollection();
+            return InvoiceTypes.GetAll().ToSvenTechCollection();
         }
 
         private void NewInvoiceType()
@@ -63,7 +64,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            DataContext.Instance.InvoiceTypes.Delete(SelectedInvoiceType.InvoiceTypeId);
+            InvoiceTypes.Delete(SelectedInvoiceType.InvoiceTypeId);
             _InvoiceTypes.Remove(SelectedInvoiceType);
             SelectedInvoiceType = null;
         }
@@ -71,9 +72,9 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveInvoiceType()
         {
             if (SelectedInvoiceType.InvoiceTypeId != 0)
-                DataContext.Instance.InvoiceTypes.Update(SelectedInvoiceType);
+                InvoiceTypes.Update(SelectedInvoiceType);
             else
-                DataContext.Instance.InvoiceTypes.Insert(SelectedInvoiceType);
+                InvoiceTypes.Insert(SelectedInvoiceType);
         }
 
         private bool Validation()

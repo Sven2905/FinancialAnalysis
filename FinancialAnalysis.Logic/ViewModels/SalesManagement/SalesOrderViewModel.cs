@@ -1,5 +1,5 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Logic.SalesManagement;
 using FinancialAnalysis.Models.Accounting;
@@ -9,6 +9,10 @@ using FinancialAnalysis.Models.ProjectManagement;
 using FinancialAnalysis.Models.SalesManagement;
 using System.Threading.Tasks;
 using Utilities;
+using WebApiWrapper.Accounting;
+using WebApiWrapper.ProductManagement;
+using WebApiWrapper.ProjectManagement;
+using WebApiWrapper.SalesManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -71,12 +75,12 @@ namespace FinancialAnalysis.Logic.ViewModels
         public Employee Employee { get; set; }
         public SalesOrderPosition SalesOrderPosition { get; set; } = new SalesOrderPosition();
         public SalesOrderPosition SelectedSalesOrderPosition { get; set; }
-        public SvenTechCollection<Debitor> Debitors { get; set; } = new SvenTechCollection<Debitor>();
-        public SvenTechCollection<Employee> Employees { get; set; } = new SvenTechCollection<Employee>();
-        public SvenTechCollection<Product> Products { get; set; } = new SvenTechCollection<Product>();
-        public SvenTechCollection<SalesType> SalesTypes { get; set; } = new SvenTechCollection<SalesType>();
+        public SvenTechCollection<Debitor> DebitorList { get; set; } = new SvenTechCollection<Debitor>();
+        public SvenTechCollection<Employee> EmployeeList { get; set; } = new SvenTechCollection<Employee>();
+        public SvenTechCollection<Product> ProductList { get; set; } = new SvenTechCollection<Product>();
+        public SvenTechCollection<SalesType> SalesTypeList { get; set; } = new SvenTechCollection<SalesType>();
 
-        public SvenTechCollection<SalesOrderPosition> SalesOrderPositions { get; set; } =
+        public SvenTechCollection<SalesOrderPosition> SalesOrderPositionList { get; set; } =
             new SvenTechCollection<SalesOrderPosition>();
 
         public DelegateCommand NewSalesOrderCommand { get; set; }
@@ -181,12 +185,12 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             SalesOrder.RefShipmentTypeId = 1;
             SalesOrder.RefEmployeeId = Employee.EmployeeId;
-            SalesOrder.SalesOrderId = DataContext.Instance.SalesOrders.Insert(SalesOrder);
+            SalesOrder.SalesOrderId = SalesOrders.Insert(SalesOrder);
 
             foreach (var item in SalesOrder.SalesOrderPositions)
             {
                 item.RefSalesOrderId = SalesOrder.SalesOrderId;
-                DataContext.Instance.SalesOrderPositions.Insert(item);
+                SalesOrderPositions.Insert(item);
             }
         }
 
@@ -194,20 +198,20 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             SalesOrder = new SalesOrder();
             SelectedProduct = new Product();
-            SalesOrderPositions.Clear();
+            SalesOrderPositionList.Clear();
         }
 
         private void GetData()
         {
-            Debitors = DataContext.Instance.Debitors.GetAll().ToSvenTechCollection();
-            Products = DataContext.Instance.Products.GetAll().ToSvenTechCollection();
-            SalesTypes = DataContext.Instance.SalesTypes.GetAll().ToSvenTechCollection();
-            Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
+            DebitorList = Debitors.GetAll().ToSvenTechCollection();
+            ProductList = Products.GetAll().ToSvenTechCollection();
+            SalesTypeList = SalesTypes.GetAll().ToSvenTechCollection();
+            EmployeeList = Employees.GetAll().ToSvenTechCollection();
         }
 
         private void ChangeSelectedSalesType(SelectedSalesType SelectedSalesType)
         {
-            SalesTypes = DataContext.Instance.SalesTypes.GetAll().ToSvenTechCollection();
+            SalesTypeList = SalesTypes.GetAll().ToSvenTechCollection();
             SalesOrder.SalesType = SelectedSalesType.SalesType;
             SalesOrder.RefSalesTypeId = SelectedSalesType.SalesType.SalesTypeId;
             RaisePropertyChanged("SalesOrder");

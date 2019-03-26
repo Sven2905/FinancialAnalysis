@@ -1,6 +1,6 @@
 ﻿using DevExpress.Mvvm;
 using DevExpress.Xpf.Dialogs;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
@@ -12,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using Utilities;
+using WebApiWrapper.Accounting;
+using WebApiWrapper.ProjectManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -49,17 +51,17 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void LoadLists()
         {
-            FilteredTaxTypes = new SvenTechCollection<TaxType>(Globals.CoreData.TaxTypes);
-            CostAccounts = DataContext.Instance.CostAccounts.GetAllVisible().ToList();
-            CostCenterCategories = DataContext.Instance.CostCenterCategories.GetAll().ToSvenTechCollection();
-            Projects = DataContext.Instance.Projects.GetAll().ToSvenTechCollection();
+            FilteredTaxTypes = new SvenTechCollection<TaxType>(Globals.CoreData.TaxTypeList);
+            CostAccountList = CostAccounts.GetAllVisible().ToList();
+            CostCenterCategoryList = CostCenterCategories.GetAll().ToSvenTechCollection();
+            ProjectList = Projects.GetAll().ToSvenTechCollection();
         }
 
         private void ClearForm()
         {
             Amount = 0;
             Description = "";
-            ScannedDocuments.Clear();
+            ScannedDocumentList.Clear();
         }
 
         private void SetCommands()
@@ -106,7 +108,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }, () => ValidateBooking());
 
             DeleteSelectedScannedDocumentCommand =
-                new DelegateCommand(DeleteSelectedScannedDocument, () => ScannedDocuments.Count > 0);
+                new DelegateCommand(DeleteSelectedScannedDocument, () => ScannedDocumentList.Count > 0);
 
             CancelCommand = new DelegateCommand(ClearForm);
         }
@@ -115,7 +117,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (SelectedScannedDocument != null)
             {
-                ScannedDocuments.Remove(SelectedScannedDocument);
+                ScannedDocumentList.Remove(SelectedScannedDocument);
             }
         }
 
@@ -135,7 +137,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 Path = path
             };
 
-            ScannedDocuments.Add(scannedDocument);
+            ScannedDocumentList.Add(scannedDocument);
             RaisePropertiesChanged("ScannedDocuments");
         }
 
@@ -235,7 +237,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             booking.Debits.Add(debit);
             booking.Credits.Add(credit);
-            booking.ScannedDocuments = ScannedDocuments.ToList();
+            booking.ScannedDocuments = ScannedDocumentList.ToList();
 
             return booking;
         }
@@ -249,23 +251,23 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             var bookingId = 0;
 
-            bookingId = DataContext.Instance.Bookings.Insert(booking);
+            bookingId = Bookings.Insert(booking);
             foreach (var item in booking.Credits)
             {
                 item.RefBookingId = bookingId;
-                DataContext.Instance.Credits.Insert(item);
+                Credits.Insert(item);
             }
 
             foreach (var item in booking.Debits)
             {
                 item.RefBookingId = bookingId;
-                DataContext.Instance.Debits.Insert(item);
+                Debits.Insert(item);
             }
 
             foreach (var item in booking.ScannedDocuments)
             {
                 item.RefBookingId = bookingId;
-                DataContext.Instance.ScannedDocuments.Insert(item);
+                ScannedDocuments.Insert(item);
             }
         }
 
@@ -294,19 +296,19 @@ namespace FinancialAnalysis.Logic.ViewModels
             FilteredTaxTypes = new SvenTechCollection<TaxType>();
             if (CostAccountCreditor != null && CostAccountCreditor.AccountNumber > 69999)
             {
-                FilteredTaxTypes.Add(Globals.CoreData.TaxTypes[0]);
+                FilteredTaxTypes.Add(Globals.CoreData.TaxTypeList[0]);
                 FilteredTaxTypes.AddRange(
-                    Globals.CoreData.TaxTypes.Where(x => x.Description.ToLower().Contains("vorsteuer")));
+                    Globals.CoreData.TaxTypeList.Where(x => x.Description.ToLower().Contains("vorsteuer")));
             }
             else if (CostAccountDebitor != null && CostAccountDebitor.AccountNumber > 9999)
             {
-                FilteredTaxTypes.Add(Globals.CoreData.TaxTypes[0]);
+                FilteredTaxTypes.Add(Globals.CoreData.TaxTypeList[0]);
                 FilteredTaxTypes.AddRange(
-                    Globals.CoreData.TaxTypes.Where(x => x.Description.ToLower().Contains("umsatzsteuer")));
+                    Globals.CoreData.TaxTypeList.Where(x => x.Description.ToLower().Contains("umsatzsteuer")));
             }
             else
             {
-                FilteredTaxTypes = Globals.CoreData.TaxTypes;
+                FilteredTaxTypes = Globals.CoreData.TaxTypeList;
             }
         }
 
@@ -320,7 +322,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 _costAccountCreditorId = value;
-                CostAccountCreditor = CostAccounts.Single(x => x.CostAccountId == value);
+                CostAccountCreditor = CostAccountList.Single(x => x.CostAccountId == value);
             }
         }
 
@@ -330,7 +332,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 _costAccountDebitorId = value;
-                CostAccountDebitor = CostAccounts.Single(x => x.CostAccountId == value);
+                CostAccountDebitor = CostAccountList.Single(x => x.CostAccountId == value);
             }
         }
 
@@ -360,9 +362,9 @@ namespace FinancialAnalysis.Logic.ViewModels
         public string Description { get; set; }
         public CostAccount CostAccountDebitor { get; set; }
         public TaxType SelectedTax { get; set; }
-        public List<CostAccount> CostAccounts { get; set; }
-        public SvenTechCollection<CostCenterCategory> CostCenterCategories { get; set; } = new SvenTechCollection<CostCenterCategory>();
-        public SvenTechCollection<Project> Projects { get; set; } = new SvenTechCollection<Project>();
+        public List<CostAccount> CostAccountList { get; set; }
+        public SvenTechCollection<CostCenterCategory> CostCenterCategoryList { get; set; } = new SvenTechCollection<CostCenterCategory>();
+        public SvenTechCollection<Project> ProjectList { get; set; } = new SvenTechCollection<Project>();
         public SvenTechCollection<TaxType> FilteredTaxTypes { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
         public GrossNetType GrossNetType { get; set; }
@@ -371,7 +373,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public CostCenter SelectedCostCenter { get; set; }
         public CostCenterCategory SelectedCostCenterCategory { get; set; }
 
-        public ObservableCollection<ScannedDocument> ScannedDocuments { get; set; } =
+        public ObservableCollection<ScannedDocument> ScannedDocumentList { get; set; } =
             new ObservableCollection<ScannedDocument>();
 
         public decimal Amount

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Windows;
 using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.ProjectManagement;
 using Utilities;
+using WebApiWrapper.ProjectManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -14,14 +15,14 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (IsInDesignMode) return;
 
-            HealthInsurances = LoadAllHealthInsurances();
+            HealthInsuranceList = LoadAllHealthInsurances();
             NewHealthInsuranceCommand = new DelegateCommand(NewHealthInsurance);
             SaveHealthInsuranceCommand = new DelegateCommand(SaveUser, () => Validation());
             DeleteHealthInsuranceCommand =
                 new DelegateCommand(DeleteHealthInsurance, () => SelectedHealthInsurance != null);
         }
 
-        public SvenTechCollection<HealthInsurance> HealthInsurances { get; set; } =
+        public SvenTechCollection<HealthInsurance> HealthInsuranceList { get; set; } =
             new SvenTechCollection<HealthInsurance>();
 
         public DelegateCommand NewHealthInsuranceCommand { get; set; }
@@ -35,13 +36,13 @@ namespace FinancialAnalysis.Logic.ViewModels
         private SvenTechCollection<HealthInsurance> LoadAllHealthInsurances()
         {
             var allHealthInsurances = new SvenTechCollection<HealthInsurance>();
-            return DataContext.Instance.HealthInsurances.GetAll().ToSvenTechCollection();
+            return HealthInsurances.GetAll().ToSvenTechCollection();
         }
 
         private void NewHealthInsurance()
         {
             SelectedHealthInsurance = new HealthInsurance();
-            HealthInsurances.Add(SelectedHealthInsurance);
+            HealthInsuranceList.Add(SelectedHealthInsurance);
         }
 
         private void DeleteHealthInsurance()
@@ -50,23 +51,23 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             if (SelectedHealthInsurance.HealthInsuranceId == 0)
             {
-                HealthInsurances.Remove(SelectedHealthInsurance);
+                HealthInsuranceList.Remove(SelectedHealthInsurance);
                 SelectedHealthInsurance = null;
                 return;
             }
 
-            DataContext.Instance.HealthInsurances.Delete(SelectedHealthInsurance.HealthInsuranceId);
-            HealthInsurances.Remove(SelectedHealthInsurance);
+            HealthInsurances.Delete(SelectedHealthInsurance.HealthInsuranceId);
+            HealthInsuranceList.Remove(SelectedHealthInsurance);
             SelectedHealthInsurance = null;
         }
 
         private void SaveUser()
         {
             if (SelectedHealthInsurance.HealthInsuranceId != 0)
-                DataContext.Instance.HealthInsurances.Update(SelectedHealthInsurance);
+                HealthInsurances.Update(SelectedHealthInsurance);
             else
                 SelectedHealthInsurance.HealthInsuranceId =
-                    DataContext.Instance.HealthInsurances.Insert(SelectedHealthInsurance);
+                    HealthInsurances.Insert(SelectedHealthInsurance);
         }
 
         private bool Validation()

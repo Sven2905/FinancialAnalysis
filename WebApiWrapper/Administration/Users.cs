@@ -9,7 +9,7 @@ namespace WebApiWrapper.Administration
 {
     public static class Users
     {
-        private const string controllerName = "Employees";
+        private const string controllerName = "Users";
 
         public static IEnumerable<User> GetAll()
         {
@@ -42,6 +42,11 @@ namespace WebApiWrapper.Administration
         public static bool Update(User user)
         {
             return WebApi.PutAsync(controllerName, user).Result;
+        }
+
+        public static bool UpdatePassword(User user)
+        {
+            return WebApi.PutAsync(controllerName, user, "PutUpdatePassword").Result;
         }
 
         public static bool Delete(int id)

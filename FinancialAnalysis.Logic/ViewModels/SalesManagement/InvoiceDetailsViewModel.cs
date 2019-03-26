@@ -1,5 +1,5 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Models.SalesManagement;
 using System;
 using System.Collections.Generic;
@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WebApiWrapper.SalesManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -32,7 +33,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (Invoice?.InvoiceId > 0)
             {
-                DataContext.Instance.Invoices.Update(Invoice);
+                Invoices.Update(Invoice);
             }
         }
 
@@ -49,7 +50,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 Username = Globals.ActiveUser.Name
             };
 
-            DataContext.Instance.InvoiceReminders.Insert(reminder);
+            InvoiceReminders.Insert(reminder);
             Invoice.InvoiceReminders.Add(reminder);
         }
 

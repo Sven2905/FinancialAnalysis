@@ -1,5 +1,5 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Logic.ViewModels.Accounting;
 using FinancialAnalysis.Models;
@@ -7,6 +7,8 @@ using FinancialAnalysis.Models.Accounting;
 using System;
 using System.Linq;
 using Utilities;
+using WebApiWrapper.Accounting;
+using WebApiWrapper.ClientManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -64,7 +66,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (SelectedCreditor.CreditorId != 0)
             {
-                DataContext.Instance.Creditors.Delete(SelectedCreditor.CreditorId);
+                Creditors.Delete(SelectedCreditor.CreditorId);
             }
 
             FilteredCreditors.Remove(SelectedCreditor);
@@ -74,7 +76,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (SelectedDebitor.DebitorId != 0)
             {
-                DataContext.Instance.Debitors.Delete(SelectedDebitor.DebitorId);
+                Debitors.Delete(SelectedDebitor.DebitorId);
             }
 
             FilteredDebitors.Remove(SelectedDebitor);
@@ -107,11 +109,11 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             if (CompanyViewModel.Client.ClientId == 0)
             {
-                CompanyViewModel.Client.ClientId = DataContext.Instance.Clients.Insert(CompanyViewModel.Client);
+                CompanyViewModel.Client.ClientId = Clients.Insert(CompanyViewModel.Client);
             }
             else
             {
-                DataContext.Instance.Clients.Update(CompanyViewModel.Client);
+                Clients.Update(CompanyViewModel.Client);
             }
 
             if (CompanyViewModel.SelectedClientType == ClientType.Business)
@@ -125,11 +127,11 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     CompanyViewModel.Client.Company.RefClientId = CompanyViewModel.Client.ClientId;
                     CompanyViewModel.Client.Company.CompanyId =
-                        DataContext.Instance.Companies.Insert(CompanyViewModel.Client.Company);
+                        Companies.Insert(CompanyViewModel.Client.Company);
                 }
                 else
                 {
-                    DataContext.Instance.Companies.Update(CompanyViewModel.Client.Company);
+                    Companies.Update(CompanyViewModel.Client.Company);
                 }
             }
 
@@ -140,28 +142,28 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (SelectedCreditor.CreditorId == 0)
             {
-                var CreditorNumber = DataContext.Instance.CostAccounts.GetNextCreditorNumber();
+                var CreditorNumber = CostAccounts.GetNextCreditorNumber();
                 SelectedCreditor.RefClientId = CompanyViewModel.Client.ClientId;
                 SelectedCreditor.CostAccount.RefTaxTypeId = CompanyViewModel.SelectedTaxTypeId;
                 SelectedCreditor.CostAccount.AccountNumber = CreditorNumber;
                 SelectedCreditor.CostAccount.RefCostAccountCategoryId =
-                    DataContext.Instance.CostAccountCategories.GetCreditorId();
+                    CostAccountCategories.GetCreditorId();
                 SelectedCreditor.CostAccount.Description = CompanyViewModel.Client.Name;
                 SelectedCreditor.CostAccount.IsVisible = true;
                 SelectedCreditor.RefCostAccountId =
-                    DataContext.Instance.CostAccounts.Insert(SelectedCreditor.CostAccount);
-                DataContext.Instance.Creditors.Insert(SelectedCreditor);
+                    CostAccounts.Insert(SelectedCreditor.CostAccount);
+                Creditors.Insert(SelectedCreditor);
             }
             else
             {
-                DataContext.Instance.Clients.Update(CompanyViewModel.Client);
+                Clients.Update(CompanyViewModel.Client);
                 if (CompanyViewModel.SelectedClientType == ClientType.Business)
                 {
-                    DataContext.Instance.Companies.Update(CompanyViewModel.Client.Company);
+                    Companies.Update(CompanyViewModel.Client.Company);
                 }
 
-                DataContext.Instance.CostAccounts.Update(SelectedCreditor.CostAccount);
-                DataContext.Instance.Creditors.Update(SelectedCreditor);
+                CostAccounts.Update(SelectedCreditor.CostAccount);
+                Creditors.Update(SelectedCreditor);
             }
         }
 
@@ -169,28 +171,28 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (SelectedDebitor.DebitorId == 0)
             {
-                var DebitorNumber = DataContext.Instance.CostAccounts.GetNextDebitorNumber();
+                var DebitorNumber = CostAccounts.GetNextDebitorNumber();
                 SelectedDebitor.RefClientId = CompanyViewModel.Client.ClientId;
                 SelectedDebitor.CostAccount.RefTaxTypeId = CompanyViewModel.SelectedTaxTypeId;
                 SelectedDebitor.CostAccount.AccountNumber = DebitorNumber;
                 SelectedDebitor.CostAccount.RefCostAccountCategoryId =
-                    DataContext.Instance.CostAccountCategories.GetDebitorId();
+                    CostAccountCategories.GetDebitorId();
                 SelectedDebitor.CostAccount.Description = CompanyViewModel.Client.Name;
                 SelectedDebitor.CostAccount.IsVisible = true;
                 SelectedDebitor.RefCostAccountId =
-                    DataContext.Instance.CostAccounts.Insert(SelectedDebitor.CostAccount);
-                DataContext.Instance.Debitors.Insert(SelectedDebitor);
+                    CostAccounts.Insert(SelectedDebitor.CostAccount);
+                Debitors.Insert(SelectedDebitor);
             }
             else
             {
-                DataContext.Instance.Clients.Update(CompanyViewModel.Client);
+                Clients.Update(CompanyViewModel.Client);
                 if (CompanyViewModel.SelectedClientType == ClientType.Business)
                 {
-                    DataContext.Instance.Companies.Update(CompanyViewModel.Client.Company);
+                    Companies.Update(CompanyViewModel.Client.Company);
                 }
 
-                DataContext.Instance.CostAccounts.Update(SelectedDebitor.CostAccount);
-                DataContext.Instance.Debitors.Update(SelectedDebitor);
+                CostAccounts.Update(SelectedDebitor.CostAccount);
+                Debitors.Update(SelectedDebitor);
             }
         }
 
@@ -217,8 +219,8 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void RefreshData()
         {
-            FilteredCreditors = Creditors = DataContext.Instance.Creditors.GetAll().ToSvenTechCollection();
-            FilteredDebitors = Debitors = DataContext.Instance.Debitors.GetAll().ToSvenTechCollection();
+            FilteredCreditors = CreditorList = Creditors.GetAll().ToSvenTechCollection();
+            FilteredDebitors = DebitorList = Debitors.GetAll().ToSvenTechCollection();
         }
 
         private void InitializeButtonCommands()
@@ -257,12 +259,12 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             if (SelectedCreditor != null)
             {
-                return !DataContext.Instance.Creditors.IsCreditorInUse(SelectedCreditor.CreditorId);
+                return !Creditors.IsCreditorInUse(SelectedCreditor.CreditorId);
             }
 
             if (SelectedDebitor != null)
             {
-                return !DataContext.Instance.Debitors.IsDebitorInUse(SelectedDebitor.DebitorId);
+                return !Debitors.IsDebitorInUse(SelectedDebitor.DebitorId);
             }
 
             return false;
@@ -292,11 +294,11 @@ namespace FinancialAnalysis.Logic.ViewModels
                 if (!string.IsNullOrEmpty(value))
                 {
                     FilteredCreditors = new SvenTechCollection<Creditor>();
-                    FilteredCreditors.AddRange(Creditors.Where(x => x.Client.Name.ToLower().Contains(_CreditorFilterText.ToLower()) || x.CostAccount.AccountNumber.ToString().Contains(_CreditorFilterText)));
+                    FilteredCreditors.AddRange(CreditorList.Where(x => x.Client.Name.ToLower().Contains(_CreditorFilterText.ToLower()) || x.CostAccount.AccountNumber.ToString().Contains(_CreditorFilterText)));
                 }
                 else
                 {
-                    FilteredCreditors = Creditors;
+                    FilteredCreditors = CreditorList;
                 }
             }
         }
@@ -311,11 +313,11 @@ namespace FinancialAnalysis.Logic.ViewModels
                 if (!string.IsNullOrEmpty(value))
                 {
                     FilteredDebitors = new SvenTechCollection<Debitor>();
-                    FilteredDebitors.AddRange(Debitors.Where(x => x.Client.Name.ToLower().Contains(_DebitorFilterText.ToLower()) || x.CostAccount.AccountNumber.ToString().Contains(_DebitorFilterText)));
+                    FilteredDebitors.AddRange(DebitorList.Where(x => x.Client.Name.ToLower().Contains(_DebitorFilterText.ToLower()) || x.CostAccount.AccountNumber.ToString().Contains(_DebitorFilterText)));
                 }
                 else
                 {
-                    FilteredDebitors = Debitors;
+                    FilteredDebitors = DebitorList;
                 }
             }
         }
@@ -359,8 +361,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         }
 
         public int SelectedTab { get; set; } = 0;
-        public SvenTechCollection<Creditor> Creditors { get; private set; }
-        public SvenTechCollection<Debitor> Debitors { get; private set; }
+        public SvenTechCollection<Creditor> CreditorList { get; private set; }
+        public SvenTechCollection<Debitor> DebitorList { get; private set; }
 
         #endregion Properties
     }

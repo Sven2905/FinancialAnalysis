@@ -1,5 +1,5 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.WarehouseManagement;
@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Utilities;
+using WebApiWrapper.WarehouseManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -50,13 +51,13 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void LoadAllWarehouses()
         {
             var allWarehouses = new SvenTechCollection<Warehouse>();
-            Warehouses = DataContext.Instance.Warehouses.GetAllWithoutStock().ToSvenTechCollection();
+            WarehouseList = Warehouses.GetAllWithoutStock().ToSvenTechCollection();
         }
 
         private SvenTechCollection<Stockyard> LoadStockyards(int WarehouseId)
         {
             var allStockyards = new SvenTechCollection<Stockyard>();
-            allStockyards = DataContext.Instance.Stockyards.GetByRefWarehouseId(WarehouseId).ToSvenTechCollection();
+            allStockyards = Stockyards.GetByRefWarehouseId(WarehouseId).ToSvenTechCollection();
 
             return allStockyards;
         }
@@ -84,7 +85,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            DataContext.Instance.Stockyards.Delete(SelectedStockyard.StockyardId);
+            Stockyards.Delete(SelectedStockyard.StockyardId);
             SelectedWarehouse.Stockyards.Remove(SelectedStockyard);
             SelectedStockyard = null;
         }
@@ -93,11 +94,11 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (SelectedStockyard.StockyardId != 0)
             {
-                DataContext.Instance.Stockyards.Update(SelectedStockyard);
+                Stockyards.Update(SelectedStockyard);
             }
             else
             {
-                DataContext.Instance.Stockyards.Insert(SelectedStockyard);
+                Stockyards.Insert(SelectedStockyard);
             }
         }
 
@@ -118,7 +119,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void ChangeSelectedWarehouse(SelectedWarehouse SelectedWarehouse)
         {
-            Warehouses = DataContext.Instance.Warehouses.GetAll().ToSvenTechCollection();
+            WarehouseList = Warehouses.GetAll().ToSvenTechCollection();
             if (SelectedStockyard == null)
             {
                 SelectedStockyard = new Stockyard();
@@ -160,13 +161,13 @@ namespace FinancialAnalysis.Logic.ViewModels
                 lastNumber++;
             }
 
-            DataContext.Instance.Stockyards.Insert(newStockyards);
+            Stockyards.Insert(newStockyards);
 
             var selectedWarehouseId = SelectedWarehouse.WarehouseId;
 
             LoadAllWarehouses();
 
-            SelectedWarehouse = Warehouses.SingleOrDefault(x => x.WarehouseId == selectedWarehouseId);
+            SelectedWarehouse = WarehouseList.SingleOrDefault(x => x.WarehouseId == selectedWarehouseId);
         }
 
         #endregion Methods
@@ -186,7 +187,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand OpenWarehousesWindowCommand { get; set; }
         public User ActualUser => Globals.ActiveUser;
         public StockyardStatusViewModel StockyardStatusViewModel { get; set; } = new StockyardStatusViewModel();
-        public SvenTechCollection<Warehouse> Warehouses { get; set; } = new SvenTechCollection<Warehouse>();
+        public SvenTechCollection<Warehouse> WarehouseList { get; set; } = new SvenTechCollection<Warehouse>();
         public Warehouse SelectedWarehouse { get; set; }
 
         public Stockyard SelectedStockyard
@@ -197,7 +198,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _SelectedStockyard = value;
                 if (value != null)
                 {
-                    StockyardStatusViewModel.Stockyard = DataContext.Instance.Stockyards.GetStockById(_SelectedStockyard.StockyardId);
+                    StockyardStatusViewModel.Stockyard = Stockyards.GetStockById(_SelectedStockyard.StockyardId);
                 }
                 else
                 {

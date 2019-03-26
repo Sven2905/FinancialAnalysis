@@ -1,5 +1,5 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
@@ -9,6 +9,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Utilities;
+using WebApiWrapper.ProductManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -57,7 +58,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void GetData()
         {
             FilteredProducts = _Products = LoadAllProducts();
-            ProductCategories = LoadAllProductCategories();
+            ProductCategoryList = LoadAllProductCategories();
         }
 
         private void OpenProductCategoriesWindow()
@@ -68,13 +69,13 @@ namespace FinancialAnalysis.Logic.ViewModels
         private SvenTechCollection<Product> LoadAllProducts()
         {
             var allProducts = new SvenTechCollection<Product>();
-            return DataContext.Instance.Products.GetAll().ToSvenTechCollection();
+            return Products.GetAll().ToSvenTechCollection();
         }
 
         private SvenTechCollection<ProductCategory> LoadAllProductCategories()
         {
             var allProductCategories = new SvenTechCollection<ProductCategory>();
-            return DataContext.Instance.ProductCategories.GetAll().ToSvenTechCollection();
+            return ProductCategories.GetAll().ToSvenTechCollection();
         }
 
         private void NewProduct()
@@ -97,7 +98,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            DataContext.Instance.Products.Delete(SelectedProduct.ProductId);
+            Products.Delete(SelectedProduct.ProductId);
             _Products.Remove(SelectedProduct);
             SelectedProduct = null;
         }
@@ -106,11 +107,11 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (SelectedProduct.ProductId != 0)
             {
-                DataContext.Instance.Products.Update(SelectedProduct);
+                Products.Update(SelectedProduct);
             }
             else
             {
-                SelectedProduct.ProductId = DataContext.Instance.Products.Insert(SelectedProduct);
+                SelectedProduct.ProductId = Products.Insert(SelectedProduct);
             }
         }
 
@@ -168,7 +169,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void ChangeSelectedProductCategory(SelectedProductCategory SelectedProductCategory)
         {
-            ProductCategories = DataContext.Instance.ProductCategories.GetAll().ToSvenTechCollection();
+            ProductCategoryList = ProductCategories.GetAll().ToSvenTechCollection();
             SelectedProduct.ProductCategory = SelectedProductCategory.ProductCategory;
             SelectedProduct.RefProductCategoryId = SelectedProductCategory.ProductCategory.ProductCategoryId;
             RaisePropertyChanged("SelectedProduct");
@@ -180,10 +181,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public SvenTechCollection<Product> FilteredProducts { get; set; } = new SvenTechCollection<Product>();
         public ProductStockingStatusViewModel ProductStockingStatusViewModel { get; set; } = new ProductStockingStatusViewModel();
-        public SvenTechCollection<ProductCategory> ProductCategories { get; set; } =
+        public SvenTechCollection<ProductCategory> ProductCategoryList { get; set; } =
             new SvenTechCollection<ProductCategory>();
 
-        public SvenTechCollection<TaxType> TaxTypes => Globals.CoreData.TaxTypes;
+        public SvenTechCollection<TaxType> TaxTypes => Globals.CoreData.TaxTypeList;
         public DelegateCommand NewProductCommand { get; set; }
         public DelegateCommand SaveProductCommand { get; set; }
         public DelegateCommand DeleteProductCommand { get; set; }

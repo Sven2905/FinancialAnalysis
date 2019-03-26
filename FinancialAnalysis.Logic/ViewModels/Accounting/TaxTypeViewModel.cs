@@ -1,10 +1,11 @@
 ﻿using DevExpress.Mvvm;
 using DevExpress.Xpf.Grid;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Models.Accounting;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Utilities;
+using WebApiWrapper.Accounting;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -24,7 +25,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         }
 
         public TaxType SelectedItem { get; set; }
-        public ObservableCollection<TaxType> TaxTypes { get; set; }
+        public ObservableCollection<TaxType> TaxTypeList { get; set; }
         public ICommand RowUpdatedCommand { get; }
         public ICommand DeleteFocusedRowCommand { get; }
         public ICommand RefreshCommand { get; }
@@ -32,7 +33,14 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void AddNewItem(RowEventArgs e)
         {
             var newItem = (TaxType)e.Row;
-            DataContext.Instance.TaxTypes.UpdateOrInsert(newItem);
+            if (newItem.TaxTypeId == 0)
+            {
+            TaxTypes.Insert(newItem);
+            }
+            else
+            {
+                TaxTypes.Update(newItem);
+            }
         }
 
         private void DeleteItem()
@@ -42,13 +50,13 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            DataContext.Instance.TaxTypes.Delete(SelectedItem);
-            TaxTypes.Remove(SelectedItem);
+            TaxTypes.Delete(SelectedItem.TaxTypeId);
+            TaxTypeList.Remove(SelectedItem);
         }
 
         private void RefreshList()
         {
-            TaxTypes = DataContext.Instance.TaxTypes.GetAll().ToOberservableCollection();
+            TaxTypeList = TaxTypes.GetAll().ToOberservableCollection();
         }
     }
 }

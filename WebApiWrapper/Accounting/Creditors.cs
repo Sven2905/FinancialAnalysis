@@ -21,7 +21,7 @@ namespace WebApiWrapper.Accounting
             return WebApi.GetDataById<Creditor>(controllerName, id);
         }
 
-        public static bool GetIsCreditorInUse(int id)
+        public static bool IsCreditorInUse(int id)
         {
             return WebApi.GetDataById<bool>(controllerName, id, "GetIsCreditorInUse");
         }

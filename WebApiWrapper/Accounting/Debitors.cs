@@ -21,7 +21,7 @@ namespace WebApiWrapper.Accounting
             return WebApi.GetDataById<Debitor>(controllerName, id);
         }
 
-        public static bool GetIsDebitorInUse(int id)
+        public static bool IsDebitorInUse(int id)
         {
             return WebApi.GetDataById<bool>(controllerName, id, "GetIsDebitorInUse");
         }

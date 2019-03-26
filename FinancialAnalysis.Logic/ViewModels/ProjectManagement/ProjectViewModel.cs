@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Windows;
 using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.ProjectManagement;
 using Utilities;
+using WebApiWrapper.Accounting;
+using WebApiWrapper.ProjectManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -29,9 +31,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Properties
 
-        public SvenTechCollection<Project> Projects { get; set; }
-        public SvenTechCollection<Employee> Employees { get; set; }
-        public SvenTechCollection<CostCenter> CostCenters { get; set; }
+        public SvenTechCollection<Project> ProjectList { get; set; }
+        public SvenTechCollection<Employee> EmployeeList { get; set; }
+        public SvenTechCollection<CostCenter> CostCenterList { get; set; }
         public Employee SelectedLeader { get; set; }
         public DelegateCommand NewProjectCommand { get; set; }
         public DelegateCommand SaveProjectCommand { get; set; }
@@ -44,23 +46,23 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void LoadProjects()
         {
-            Projects = DataContext.Instance.Projects.GetAll().ToSvenTechCollection();
+            ProjectList = Projects.GetAll().ToSvenTechCollection();
         }
 
         private void LoadCostCenters()
         {
-            CostCenters = DataContext.Instance.CostCenters.GetAll().ToSvenTechCollection();
+            CostCenterList = CostCenters.GetAll().ToSvenTechCollection();
         }
 
         private void LoadEmployees()
         {
-            Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
+            EmployeeList = Employees.GetAll().ToSvenTechCollection();
         }
 
         private void NewProject()
         {
             SelectedProject = new Project();
-            Projects.Add(SelectedProject);
+            ProjectList.Add(SelectedProject);
         }
 
         private void DeleteProject()
@@ -69,22 +71,22 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             if (SelectedProject.ProjectId == 0)
             {
-                Projects.Remove(SelectedProject);
+                ProjectList.Remove(SelectedProject);
                 SelectedProject = null;
                 return;
             }
 
-            DataContext.Instance.CostCenters.Delete(SelectedProject.ProjectId);
-            Projects.Remove(SelectedProject);
+            CostCenters.Delete(SelectedProject.ProjectId);
+            ProjectList.Remove(SelectedProject);
             SelectedProject = null;
         }
 
         private void SaveProject()
         {
             if (SelectedProject.ProjectId != 0)
-                DataContext.Instance.Projects.Update(SelectedProject);
+                Projects.Update(SelectedProject);
             else
-                DataContext.Instance.Projects.Insert(SelectedProject);
+                Projects.Insert(SelectedProject);
 
             SelectedProject = new Project();
         }

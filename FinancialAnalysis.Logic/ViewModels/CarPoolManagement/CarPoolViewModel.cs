@@ -1,5 +1,5 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Models.CarPoolManagement;
 using System;
 using System.Collections.Generic;
@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utilities;
+using WebApiWrapper.CarPoolManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -25,54 +26,54 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void GetCarMakes()
         {
-            CarMakes = DataContext.Instance.CarMakes.GetAll().ToSvenTechCollection();
-            CarModels.Clear();
+            CarMakeList = CarMakes.GetAll().ToSvenTechCollection();
+            CarModelList.Clear();
             CarBodies.Clear();
             CarGenerations.Clear();
-            CarTrims.Clear();
+            CarTrimList.Clear();
             CarEngine = null;
         }
 
         private void GetCarModels(int RefCarMakeId)
         {
-            CarModels = DataContext.Instance.CarModels.GetByRefCarMakeId(RefCarMakeId).ToSvenTechCollection();
+            CarModelList = CarModels.GetByRefCarMakeId(RefCarMakeId).ToSvenTechCollection();
             CarBodies.Clear();
             CarGenerations.Clear();
-            CarTrims.Clear();
+            CarTrimList.Clear();
             CarEngine = null;
         }
 
         private void GetCarBodies(int RefCarModelId)
         {
-            //CarBodies = DataContext.Instance.CarBodies.GetByRefCarModelId(RefCarModelId).ToSvenTechCollection();
+            //CarBodies = CarBodies.GetByRefCarModelId(RefCarModelId).ToSvenTechCollection();
             CarGenerations.Clear();
-            CarTrims.Clear();
+            CarTrimList.Clear();
             CarEngine = null;
         }
 
         private void GetCarGeneration(int RefCarBodyId)
         {
-            //CarGenerations = DataContext.Instance.CarGenerations.GetByRefCarBodyId(RefCarBodyId).ToSvenTechCollection();
-            CarTrims.Clear();
+            //CarGenerations = CarGenerations.GetByRefCarBodyId(RefCarBodyId).ToSvenTechCollection();
+            CarTrimList.Clear();
             CarEngine = null;
         }
 
         private void GetCarTrims(int RefCarGenerationId)
         {
-            CarTrims = DataContext.Instance.CarTrims.GetByRefCarGenerationId(RefCarGenerationId).ToSvenTechCollection();
+            CarTrimList = CarTrims.GetByRefCarGenerationId(RefCarGenerationId).ToSvenTechCollection();
             CarEngine = null;
         }
 
         private void GetCarEngine(int RefCarTrimId)
         {
-            CarEngine = DataContext.Instance.CarEngines.GetByRefCarTrimId(RefCarTrimId);
+            //CarEngine = CarEngines.GetByRefCarTrimId(RefCarTrimId);
         }
 
-        public SvenTechCollection<CarMake> CarMakes { get; set; } = new SvenTechCollection<CarMake>();
-        public SvenTechCollection<CarModel> CarModels { get; set; } = new SvenTechCollection<CarModel>();
+        public SvenTechCollection<CarMake> CarMakeList { get; set; } = new SvenTechCollection<CarMake>();
+        public SvenTechCollection<CarModel> CarModelList { get; set; } = new SvenTechCollection<CarModel>();
         public SvenTechCollection<CarBody> CarBodies { get; set; } = new SvenTechCollection<CarBody>();
         public SvenTechCollection<CarGeneration> CarGenerations { get; set; } = new SvenTechCollection<CarGeneration>();
-        public SvenTechCollection<CarTrim> CarTrims { get; set; } = new SvenTechCollection<CarTrim>();
+        public SvenTechCollection<CarTrim> CarTrimList { get; set; } = new SvenTechCollection<CarTrim>();
         public SvenTechCollection<int> Years { get; set; } = new SvenTechCollection<int>();
         public CarEngine CarEngine { get; set; }
 

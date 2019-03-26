@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Models.Mail;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -36,16 +36,16 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveMailConfiguration()
         {
-            if (MailConfiguration.MailConfigurationId == 0)
-                MailConfiguration.MailConfigurationId =
-                    DataContext.Instance.MailConfigurations.Insert(MailConfiguration);
+            //if (MailConfiguration.MailConfigurationId == 0)
+            //    MailConfiguration.MailConfigurationId =
+            //        MailConfigurations.Insert(MailConfiguration);
         }
 
         private void LoadMailConfiguration()
         {
-            MailConfiguration = DataContext.Instance.MailConfigurations.GetAll().FirstOrDefault();
+            //MailConfiguration = MailConfigurations.GetAll().FirstOrDefault();
 
-            if (MailConfiguration == null) MailConfiguration = new MailConfiguration();
+            //if (MailConfiguration == null) MailConfiguration = new MailConfiguration();
         }
     }
 }

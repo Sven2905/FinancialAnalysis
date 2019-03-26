@@ -1,10 +1,11 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Models.ProjectManagement;
 using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
 using Utilities;
+using WebApiWrapper.ProjectManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -30,10 +31,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Properties
 
-        public SvenTechCollection<Employee> Employees { get; set; } = new SvenTechCollection<Employee>();
+        public SvenTechCollection<Employee> EmployeeList { get; set; } = new SvenTechCollection<Employee>();
         public SvenTechCollection<Employee> FilteredEmployees { get; set; } = new SvenTechCollection<Employee>();
 
-        public SvenTechCollection<HealthInsurance> HealthInsurances { get; set; } =
+        public SvenTechCollection<HealthInsurance> HealthInsuranceList { get; set; } =
             new SvenTechCollection<HealthInsurance>();
 
         public DelegateCommand NewUserCommand { get; set; }
@@ -65,11 +66,11 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _FilterText = value;
                 if (string.IsNullOrEmpty(_FilterText))
                 {
-                    FilteredEmployees = Employees;
+                    FilteredEmployees = EmployeeList;
                 }
                 else
                 {
-                    FilteredEmployees = Employees.Where(x => x.Name.ToLower().Contains(_FilterText.ToLower())).ToSvenTechCollection();
+                    FilteredEmployees = EmployeeList.Where(x => x.Name.ToLower().Contains(_FilterText.ToLower())).ToSvenTechCollection();
                 }
             }
         }
@@ -102,7 +103,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 RefHealthInsuranceId = 1
             };
-            Employees.Add(SelectedEmployee);
+            EmployeeList.Add(SelectedEmployee);
         }
 
         private void DeleteUser()
@@ -114,13 +115,13 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             if (SelectedEmployee.EmployeeId == 0)
             {
-                Employees.Remove(SelectedEmployee);
+                EmployeeList.Remove(SelectedEmployee);
                 SelectedEmployee = null;
                 return;
             }
 
-            DataContext.Instance.Employees.Delete(SelectedEmployee.EmployeeId);
-            Employees.Remove(SelectedEmployee);
+            Employees.Delete(SelectedEmployee.EmployeeId);
+            EmployeeList.Remove(SelectedEmployee);
             SelectedEmployee = null;
         }
 
@@ -128,23 +129,23 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (SelectedEmployee.EmployeeId == 0)
             {
-                SelectedEmployee.EmployeeId = DataContext.Instance.Employees.Insert(SelectedEmployee);
+                SelectedEmployee.EmployeeId = Employees.Insert(SelectedEmployee);
             }
             else
             {
-                DataContext.Instance.Employees.Update(SelectedEmployee);
+                Employees.Update(SelectedEmployee);
             }
             SelectedEmployee = null;
         }
 
         private void LoadEmployees()
         {
-            FilteredEmployees = Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
+            FilteredEmployees = EmployeeList = Employees.GetAll().ToSvenTechCollection();
         }
 
         private void LoadHealthInsurances()
         {
-            HealthInsurances = DataContext.Instance.HealthInsurances.GetAll().ToSvenTechCollection();
+            HealthInsuranceList = HealthInsurances.GetAll().ToSvenTechCollection();
         }
 
         private bool Validation()

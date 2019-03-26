@@ -1,5 +1,5 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Logic.SalesManagement;
 using FinancialAnalysis.Models.Accounting;
@@ -9,6 +9,9 @@ using FinancialAnalysis.Models.SalesManagement;
 using System.Linq;
 using System.Windows.Input;
 using Utilities;
+using WebApiWrapper.Accounting;
+using WebApiWrapper.ProjectManagement;
+using WebApiWrapper.SalesManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -43,9 +46,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void GetData()
         {
-            InvoiceTypes = DataContext.Instance.InvoiceTypes.GetAll().ToSvenTechCollection();
-            PaymentConditions = DataContext.Instance.PaymentConditions.GetAll().ToSvenTechCollection();
-            Employees = DataContext.Instance.Employees.GetAll().ToSvenTechCollection();
+            InvoiceTypeList = InvoiceTypes.GetAll().ToSvenTechCollection();
+            PaymentConditionList = PaymentConditions.GetAll().ToSvenTechCollection();
+            EmployeeList = Employees.GetAll().ToSvenTechCollection();
         }
 
         public void RemoveFromInvoiceDrop(IDropEventArgs e)
@@ -134,9 +137,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveInvoice()
         {
-            Invoice.InvoiceId = DataContext.Instance.Invoices.Insert(Invoice);
+            Invoice.InvoiceId = Invoices.Insert(Invoice);
             Invoice.TotalAmount = ProductsOnInvoice.Sum(x => x.Total);
-            Invoice.Employee = Employees.Single(x => x.EmployeeId == Invoice.RefEmployeeId);
+            Invoice.Employee = EmployeeList.Single(x => x.EmployeeId == Invoice.RefEmployeeId);
             Invoice.Debitor = SalesOrder.Debitor;
 
             SvenTechCollection<InvoicePosition> itemsToSave = new SvenTechCollection<InvoicePosition>();
@@ -145,7 +148,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 itemsToSave.Add(new InvoicePosition(Invoice.InvoiceId, item.SalesOrderPositionId, (int)item.Quantity));
             }
 
-            DataContext.Instance.InvoicePositions.Insert(itemsToSave);
+            InvoicePositions.Insert(itemsToSave);
 
             InvoiceReportData invoiceReportData = new InvoiceReportData()
             {
@@ -172,11 +175,11 @@ namespace FinancialAnalysis.Logic.ViewModels
         public ICommand RemoveFromInvoiceDropCommand { get; set; }
         public ICommand AddToInvoiceCommand { get; set; }
         public ICommand CreateInvoiceCommand { get; set; }
-        public SvenTechCollection<PaymentCondition> PaymentConditions { get; set; } = new SvenTechCollection<PaymentCondition>();
-        public SvenTechCollection<InvoiceType> InvoiceTypes { get; set; } = new SvenTechCollection<InvoiceType>();
+        public SvenTechCollection<PaymentCondition> PaymentConditionList { get; set; } = new SvenTechCollection<PaymentCondition>();
+        public SvenTechCollection<InvoiceType> InvoiceTypeList { get; set; } = new SvenTechCollection<InvoiceType>();
         public SvenTechCollection<SalesOrderPosition> OrderedProducts { get; set; } = new SvenTechCollection<SalesOrderPosition>();
         public SvenTechCollection<SalesOrderPosition> ProductsOnInvoice { get; set; } = new SvenTechCollection<SalesOrderPosition>();
-        public SvenTechCollection<Employee> Employees { get; set; } = new SvenTechCollection<Employee>();
+        public SvenTechCollection<Employee> EmployeeList { get; set; } = new SvenTechCollection<Employee>();
 
         #endregion Properties
     }

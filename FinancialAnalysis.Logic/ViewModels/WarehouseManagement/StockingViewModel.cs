@@ -1,5 +1,5 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Datalayer;
+
 using FinancialAnalysis.Models.ProductManagement;
 using FinancialAnalysis.Models.WarehouseManagement;
 using System;
@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Utilities;
+using WebApiWrapper.ProductManagement;
+using WebApiWrapper.WarehouseManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -81,8 +83,8 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
-        public SvenTechCollection<Warehouse> Warehouses { get; set; }
-        public SvenTechCollection<Product> Products { get; set; }
+        public SvenTechCollection<Warehouse> WarehouseList { get; set; }
+        public SvenTechCollection<Product> ProductList { get; set; }
 
         public int MaxValue
         {
@@ -106,7 +108,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _Stockyard = value;
                 if (value != null)
                 {
-                    StockyardStatusViewModel.Stockyard = DataContext.Instance.Stockyards.GetStockById(SelectedStockyard.StockyardId);
+                    StockyardStatusViewModel.Stockyard = Stockyards.GetStockById(SelectedStockyard.StockyardId);
                 }
                 else
                 {
@@ -130,7 +132,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 if (_SelectedStockyardTakeOut != null)
                 {
                     //TakeOutStockyardStatusViewModel.Stockyard = Warehouses.Single(x => x.WarehouseId == _SelectedStockyardTakeOut.RefWarehouseId).Stockyards.Single(x => x.StockyardId == _SelectedStockyardTakeOut.StockyardId);
-                    TakeOutStockyardStatusViewModel.Stockyard = DataContext.Instance.Stockyards.GetStockById(value.StockyardId);
+                    TakeOutStockyardStatusViewModel.Stockyard = Stockyards.GetStockById(value.StockyardId);
                 }
                 else
                 {
@@ -199,33 +201,33 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void Refresh()
         {
             ProductStockingStatusViewModel.Refresh();
-            FilteredWarehouses = DataContext.Instance.Warehouses.GetByProductId(_SelectedProduct.ProductId).ToSvenTechCollection();
+            FilteredWarehouses = Warehouses.GetByProductId(_SelectedProduct.ProductId).ToSvenTechCollection();
         }
 
         private void StoreSelectedProduct()
         {
             if (SelectedStockyard != null && SelectedProduct != null && Quantity > 0)
             {
-                var stockedProductOnStockyard = DataContext.Instance.StockedProducts.GetByRefProductIdAndRefStockyardId(SelectedProduct.ProductId, SelectedStockyard.StockyardId);
+                var stockedProductOnStockyard = StockedProducts.GetByRefProductIdAndRefStockyardId(SelectedProduct.ProductId, SelectedStockyard.StockyardId);
                 //var stockedProductOnStockyard = SelectedStockyard.StockedProducts.SingleOrDefault(x => x.RefProductId == SelectedProduct.ProductId);
 
                 if (stockedProductOnStockyard != null)
                 {
                     stockedProductOnStockyard.Quantity += Quantity;
-                    DataContext.Instance.StockedProducts.Update(stockedProductOnStockyard);
+                    StockedProducts.Update(stockedProductOnStockyard);
 
                     SaveBookingHistoryEntry();
                 }
                 else
                 {
                     var newStockedProduct = new StockedProduct(SelectedProduct, SelectedStockyard.StockyardId, Quantity);
-                    DataContext.Instance.StockedProducts.Insert(newStockedProduct);
+                    StockedProducts.Insert(newStockedProduct);
                     SaveBookingHistoryEntry();
                 }
                 Refresh();
                 LastBookingViewModel.LoadData();
                 StockyardStatusViewModel.Stockyard = null;
-                StockyardStatusViewModel.Stockyard = DataContext.Instance.Stockyards.GetStockById(SelectedStockyard.StockyardId);
+                StockyardStatusViewModel.Stockyard = Stockyards.GetStockById(SelectedStockyard.StockyardId);
                 ProductStockingStatusViewModel.Product = null;
                 ProductStockingStatusViewModel.Product = _SelectedProduct;
             }
@@ -239,7 +241,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 WarehouseStockingHistory.Quantity = QuantityTakeOut * (-1);
                 WarehouseStockingHistory.RefStockyardId = SelectedStockyardTakeOut.StockyardId;
             }
-            DataContext.Instance.WarehouseStockingHistories.Insert(WarehouseStockingHistory);
+            WarehouseStockingHistories.Insert(WarehouseStockingHistory);
         }
 
         private void TakeOutSelectedProduct()
@@ -253,18 +255,18 @@ namespace FinancialAnalysis.Logic.ViewModels
 
                 if (stockedProduct.Quantity == QuantityTakeOut)
                 {
-                    DataContext.Instance.StockedProducts.Delete(stockedProduct.StockedProductId);
+                    StockedProducts.Delete(stockedProduct.StockedProductId);
                     SaveBookingHistoryEntry();
                 }
                 else
                 {
                     stockedProduct.Quantity -= QuantityTakeOut;
-                    DataContext.Instance.StockedProducts.Update(stockedProduct);
+                    StockedProducts.Update(stockedProduct);
                     SaveBookingHistoryEntry();
                 }
                 GetData();
 
-                SelectedProduct = Products.SingleOrDefault(x => x.ProductId == lastProductid);
+                SelectedProduct = ProductList.SingleOrDefault(x => x.ProductId == lastProductid);
                 Refresh();
 
                 SelectedWarehouseTakeOut = FilteredWarehouses.SingleOrDefault(x => x.WarehouseId == lastWarehouseId);
@@ -275,7 +277,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
 
                 TakeOutStockyardStatusViewModel.Stockyard = null;
-                TakeOutStockyardStatusViewModel.Stockyard = DataContext.Instance.Stockyards.GetStockById(SelectedStockyardTakeOut.StockyardId);
+                TakeOutStockyardStatusViewModel.Stockyard = Stockyards.GetStockById(SelectedStockyardTakeOut.StockyardId);
                 ProductStockingStatusViewModel.Product = null;
                 ProductStockingStatusViewModel.Product = _SelectedProduct;
             }
@@ -283,8 +285,8 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void GetData()
         {
-            Products = DataContext.Instance.Products.GetAll().ToSvenTechCollection();
-            Warehouses = DataContext.Instance.Warehouses.GetAllWithoutStock().ToSvenTechCollection();
+            ProductList = Products.GetAll().ToSvenTechCollection();
+            WarehouseList = Warehouses.GetAllWithoutStock().ToSvenTechCollection();
         }
 
 
