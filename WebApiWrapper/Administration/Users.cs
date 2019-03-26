@@ -18,9 +18,7 @@ namespace WebApiWrapper.Administration
 
         public static User GetById(int id)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("Id", id);
-            return WebApi.GetData<User>(controllerName, "GetById", parameters);
+            return WebApi.GetDataById<User>(controllerName, id);
         }
 
         public static User GetUserByNameAndPassword(string username, string password)

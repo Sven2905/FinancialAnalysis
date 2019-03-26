@@ -18,9 +18,7 @@ namespace WebApiWrapper.Accounting
 
         public static CostAccount GetById(int id)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("Id", id);
-            return WebApi.GetData<CostAccount>(controllerName, "GetById", parameters);
+            return WebApi.GetDataById<CostAccount>(controllerName, id);
         }
 
         public static IEnumerable<CostAccount> GetAllVisible()

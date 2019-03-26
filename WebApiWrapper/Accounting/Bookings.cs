@@ -18,9 +18,7 @@ namespace WebApiWrapper.Accounting
 
         public static Booking GetById(int id)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("Id", id);
-            return WebApi.GetData<Booking>(controllerName, "GetById", parameters);
+            return WebApi.GetDataById<Booking>(controllerName, id);
         }
 
         public static IEnumerable<Booking> GetByParameter(DateTime startDate, DateTime endDate, int? creditId = null, int? debitId = null)
@@ -30,7 +28,7 @@ namespace WebApiWrapper.Accounting
             parameters.Add("endDate", endDate);
             parameters.Add("creditId", creditId);
             parameters.Add("debitId", debitId);
-            return WebApi.GetData<IEnumerable<Booking>>("BalanceAccounts", "GetByParameter", parameters);
+            return WebApi.GetData<IEnumerable<Booking>>(controllerName, "GetByParameter", parameters);
         }
 
         public static int Insert(Booking Booking)

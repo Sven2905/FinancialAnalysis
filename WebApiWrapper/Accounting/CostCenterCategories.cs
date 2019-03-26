@@ -18,9 +18,7 @@ namespace WebApiWrapper.Accounting
 
         public static CostCenterCategory GetById(int id)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("Id", id);
-            return WebApi.GetData<CostCenterCategory>(controllerName, "GetById", parameters);
+            return WebApi.GetDataById<CostCenterCategory>(controllerName, id);
         }
 
         public static int Insert(CostCenterCategory CostCenterCategory)

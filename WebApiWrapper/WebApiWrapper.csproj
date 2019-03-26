@@ -62,8 +62,37 @@
     <Compile Include="Accounting\ScannedDocuments.cs" />
     <Compile Include="Accounting\TaxTypes.cs" />
     <Compile Include="Administration\Users.cs" />
+    <Compile Include="CarPoolManagement\CarEngines.cs" />
+    <Compile Include="CarPoolManagement\CarGenerations.cs" />
+    <Compile Include="CarPoolManagement\CarMakes.cs" />
+    <Compile Include="CarPoolManagement\CarModels.cs" />
+    <Compile Include="CarPoolManagement\Vehicles.cs" />
+    <Compile Include="CarPoolManagement\CarTrims.cs" />
+    <Compile Include="CarPoolManagement\CarBodies.cs" />
+    <Compile Include="ClientManagement\Clients.cs" />
+    <Compile Include="ClientManagement\Companies.cs" />
+    <Compile Include="ProductManagement\ProductCategories.cs" />
+    <Compile Include="ProductManagement\Products.cs" />
     <Compile Include="ProjectManagement\Employees.cs" />
+    <Compile Include="ProjectManagement\ProjectWorkingTimes.cs" />
+    <Compile Include="ProjectManagement\Projects.cs" />
+    <Compile Include="ProjectManagement\ProjectRoles.cs" />
+    <Compile Include="ProjectManagement\HealthInsurances.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesManagement\InvoicePositions.cs" />
+    <Compile Include="SalesManagement\ShippedProducts.cs" />
+    <Compile Include="SalesManagement\ShipmentTypes.cs" />
+    <Compile Include="SalesManagement\Shipments.cs" />
+    <Compile Include="SalesManagement\SalesTypes.cs" />
+    <Compile Include="SalesManagement\SalesOrders.cs" />
+    <Compile Include="SalesManagement\SalesOrderPositions.cs" />
+    <Compile Include="SalesManagement\InvoiceTypes.cs" />
+    <Compile Include="SalesManagement\Invoices.cs" />
+    <Compile Include="SalesManagement\InvoiceReminders.cs" />
+    <Compile Include="WarehouseManagement\WarehouseStockingHistories.cs" />
+    <Compile Include="WarehouseManagement\Warehouses.cs" />
+    <Compile Include="WarehouseManagement\Stockyards.cs" />
+    <Compile Include="WarehouseManagement\StockedProducts.cs" />
     <Compile Include="WebApi.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,12 +104,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CarPoolManagement\" />
-    <Folder Include="ClientManagement\" />
-    <Folder Include="ProductManagement\" />
-    <Folder Include="SalesManagement\" />
-    <Folder Include="WarehouseManagement\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -18,9 +18,7 @@ namespace WebApiWrapper.Accounting
 
         public static TaxType GetById(int id)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("Id", id);
-            return WebApi.GetData<TaxType>(controllerName, "GetById", parameters);
+            return WebApi.GetDataById<TaxType>(controllerName, id);
         }
 
         public static int Insert(TaxType TaxType)

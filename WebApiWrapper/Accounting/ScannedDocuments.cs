@@ -18,9 +18,7 @@ namespace WebApiWrapper.Accounting
 
         public static ScannedDocument GetById(int id)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("Id", id);
-            return WebApi.GetData<ScannedDocument>(controllerName, "GetById", parameters);
+            return WebApi.GetDataById<ScannedDocument>(controllerName, id);
         }
 
         public static int Insert(ScannedDocument ScannedDocument)

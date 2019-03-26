@@ -11,6 +11,7 @@ using Formulas;
 using Formulas.DepreciationMethods;
 using FinancialAnalysis.Models.ProjectManagement;
 using System.Collections.Generic;
+using WebApiWrapper.ProjectManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -30,7 +31,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 return;
             }
-
 
 #if (DEBUG)
             UserName = "Admin";

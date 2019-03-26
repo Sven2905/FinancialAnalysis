@@ -18,9 +18,7 @@ namespace WebApiWrapper.Accounting
 
         public static Credit GetById(int id)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("Id", id);
-            return WebApi.GetData<Credit>(controllerName, "GetById", parameters);
+            return WebApi.GetDataById<Credit>(controllerName, id);
         }
 
         public static int Insert(Credit Credit)

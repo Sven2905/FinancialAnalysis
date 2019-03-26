@@ -18,16 +18,12 @@ namespace WebApiWrapper.Accounting
 
         public static Creditor GetById(int id)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("Id", id);
-            return WebApi.GetData<Creditor>(controllerName, "GetById", parameters);
+            return WebApi.GetDataById<Creditor>(controllerName, id);
         }
 
         public static bool GetIsCreditorInUse(int id)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("Id", id);
-            return WebApi.GetData<bool>(controllerName, "GetIsCreditorInUse", parameters);
+            return WebApi.GetDataById<bool>(controllerName, id, "GetIsCreditorInUse");
         }
 
         public static int Insert(Creditor Creditor)

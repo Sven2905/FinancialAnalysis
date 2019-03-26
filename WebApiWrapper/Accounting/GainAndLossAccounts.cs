@@ -18,9 +18,7 @@ namespace WebApiWrapper.Accounting
 
         public static GainAndLossAccount GetById(int id)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("Id", id);
-            return WebApi.GetData<GainAndLossAccount>(controllerName, "GetById", parameters);
+            return WebApi.GetDataById<GainAndLossAccount>(controllerName, id);
         }
 
         public static int Insert(GainAndLossAccount GainAndLossAccount)

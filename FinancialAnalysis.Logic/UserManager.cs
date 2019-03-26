@@ -18,7 +18,7 @@ namespace FinancialAnalysis.Logic
         private UserManager()
         {
             UserRights = LoadUserRightsFromDB();
-            Users = LoadUsersFromDB();
+            UserList = LoadUsersFromDB();
         }
 
         #endregion Constructor
@@ -32,7 +32,7 @@ namespace FinancialAnalysis.Logic
 
         #region Methods
 
-        public SvenTechCollection<User> Users { get; set; }
+        public SvenTechCollection<User> UserList { get; set; }
 
         private SvenTechCollection<User> LoadUsersFromDB()
         {
@@ -57,7 +57,7 @@ namespace FinancialAnalysis.Logic
 
             DataContext.Instance.UserRightUserMappings.Delete(user.UserId);
             DataContext.Instance.Users.Delete(user.UserId);
-            Users.Remove(user);
+            UserList.Remove(user);
 
             return true;
         }
@@ -91,7 +91,7 @@ namespace FinancialAnalysis.Logic
 
         public bool IsUserRightGranted(int userId, Permission permission)
         {
-            var user = Users.SingleOrDefault(x => x.UserId == userId);
+            var user = UserList.SingleOrDefault(x => x.UserId == userId);
             if (user == null)
                 return false;
             return IsUserRightGranted(user, permission);
@@ -127,16 +127,16 @@ namespace FinancialAnalysis.Logic
 
         public void RefreshUsers()
         {
-            Users = LoadUsersFromDB();
+            UserList = LoadUsersFromDB();
         }
 
         /// <summary>
         ///     Returns null if no user is found
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public User GetUserByNameAndPassword(string name, string password)
+        public User GetUserByNameAndPassword(string username, string password)
         {
             password = Encryption.ComputeHash(password, new SHA256CryptoServiceProvider(),
                 new byte[]
@@ -144,8 +144,8 @@ namespace FinancialAnalysis.Logic
                     0x6c, 0xa6, 0x27, 0x0d, 0x62, 0xd4, 0x80, 0xc7, 0x50, 0xc9, 0x93, 0xef, 0xfb, 0x64, 0x90, 0x16,
                     0x7d, 0xc7, 0x1d, 0x6f, 0xb0, 0xe3, 0x80, 0xdc, 0x73
                 });
-            var user = DataContext.Instance.Users.GetUserByNameAndPassword(name, password);
-
+            WebApiWrapper.WebApi.WebApiKey = WebApiWrapper.WebApi.GetKey(username, password);
+            var user = DataContext.Instance.Users.GetUserByNameAndPassword(username, password);
             return user;
         }
 

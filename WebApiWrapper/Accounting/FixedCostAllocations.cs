@@ -18,9 +18,7 @@ namespace WebApiWrapper.Accounting
 
         public static FixedCostAllocation GetById(int id)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("Id", id);
-            return WebApi.GetData<FixedCostAllocation>(controllerName, "GetById", parameters);
+            return WebApi.GetDataById<FixedCostAllocation>(controllerName, id);
         }
 
         public static int Insert(FixedCostAllocation FixedCostAllocation)

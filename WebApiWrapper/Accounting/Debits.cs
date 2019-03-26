@@ -18,9 +18,7 @@ namespace WebApiWrapper.Accounting
 
         public static Debit GetById(int id)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("Id", id);
-            return WebApi.GetData<Debit>(controllerName, "GetById", parameters);
+            return WebApi.GetDataById<Debit>(controllerName, id);
         }
 
         public static int Insert(Debit Debit)

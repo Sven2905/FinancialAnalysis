@@ -18,9 +18,7 @@ namespace WebApiWrapper.Accounting
 
         public static CostCenter GetById(int id)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("Id", id);
-            return WebApi.GetData<CostCenter>(controllerName, "GetById", parameters);
+            return WebApi.GetDataById<CostCenter>(controllerName, id);
         }
 
         public static int Insert(CostCenter CostCenter)

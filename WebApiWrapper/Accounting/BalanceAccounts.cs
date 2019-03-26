@@ -18,19 +18,17 @@ namespace WebApiWrapper.Accounting
 
         public static BalanceAccount GetById(int id)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("Id", id);
-            return WebApi.GetData<BalanceAccount>(controllerName, "GetById", parameters);
+            return WebApi.GetDataById<BalanceAccount>(controllerName, id);
         }
 
         public static IEnumerable<BalanceAccount> GetActiveAccounts()
         {
-            return WebApi.GetData<IEnumerable<BalanceAccount>>("BalanceAccounts", "GetActiveAccounts");
+            return WebApi.GetData<IEnumerable<BalanceAccount>>(controllerName, "GetActiveAccounts");
         }
 
         public static IEnumerable<BalanceAccount> GetPassiveAccounts()
         {
-            return WebApi.GetData<IEnumerable<BalanceAccount>>("BalanceAccounts", "GetPassiveAccounts");
+            return WebApi.GetData<IEnumerable<BalanceAccount>>(controllerName, "GetPassiveAccounts");
         }
 
         public static int Insert(BalanceAccount balanceAccount)

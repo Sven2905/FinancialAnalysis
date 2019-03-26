@@ -232,6 +232,10 @@
       <Project>{69f19f6b-092b-4ee7-ad82-3944f3694952}</Project>
       <Name>Utilities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WebApiWrapper\WebApiWrapper.csproj">
+      <Project>{1263e5d1-6b44-4418-a076-3d889766d5e4}</Project>
+      <Name>WebApiWrapper</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Calculation\" />

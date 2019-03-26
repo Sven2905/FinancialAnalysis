@@ -89,6 +89,19 @@ namespace WebApiWrapper
             return GetData<T>(url);
         }
 
+        public static T GetDataById<T>(string controller, int id, string action = "GetById")
+        {
+            var url = $"http://localhost:29005/api/{controller}/{action}?id={id}";
+            
+
+            if (url[url.Length - 1] == '&')
+            {
+                url = url.Remove(url.Length - 1, 1);
+            }
+
+            return GetData<T>(url);
+        }
+
         private static async Task<T> GetDataAsync<T>(string url)
         {
             //client.BaseAddress = new Uri(url);

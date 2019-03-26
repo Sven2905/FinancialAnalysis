@@ -18,9 +18,7 @@ namespace WebApiWrapper.Accounting
 
         public static CostAccountCategory GetById(int id)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("Id", id);
-            return WebApi.GetData<CostAccountCategory>(controllerName, "GetById", parameters);
+            return WebApi.GetDataById<CostAccountCategory>(controllerName, id);
         }
 
         public static int GetCreditorId()

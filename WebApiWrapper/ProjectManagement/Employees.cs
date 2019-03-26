@@ -18,9 +18,7 @@ namespace WebApiWrapper.ProjectManagement
 
         public static Employee GetById(int id)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("Id", id);
-            return WebApi.GetData<Employee>(controllerName, "GetById", parameters);
+            return WebApi.GetDataById<Employee>(controllerName, id);
         }
 
         public static int Insert(Employee employee)

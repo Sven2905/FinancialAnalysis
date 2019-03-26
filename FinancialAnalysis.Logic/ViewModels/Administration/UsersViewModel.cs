@@ -78,7 +78,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private SvenTechCollection<User> LoadAllUsers()
         {
-            return UserManager.Instance.Users;
+            return UserManager.Instance.UserList;
         }
 
         private void NewUser()
@@ -114,7 +114,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                     .ConvertUserRightUserMappingFlatStructureToNormal(UserRightUserMappingFlatStructure);
             SelectedUser = UserManager.Instance.InsertOrUpdateUser(SelectedUser);
             var selectedUserId = SelectedUser.UserId;
-            FilteredUsers = _Users = UserManager.Instance.Users;
+            FilteredUsers = _Users = UserManager.Instance.UserList;
 
             SelectedUser = _Users.Single(x => x.UserId == selectedUserId);
 

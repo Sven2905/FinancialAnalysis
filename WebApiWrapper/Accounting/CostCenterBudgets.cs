@@ -19,9 +19,7 @@ namespace WebApiWrapper.Accounting
 
         public static CostCenterBudget GetById(int id)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("Id", id);
-            return WebApi.GetData<CostCenterBudget>(controllerName, "GetById", parameters);
+            return WebApi.GetDataById<CostCenterBudget>(controllerName, id);
         }
 
         public static IEnumerable<CostCenterCurrentCosts> GetAnnuallyCosts(int RefCostCenterId, int Year)
