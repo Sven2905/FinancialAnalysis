@@ -45,5 +45,10 @@ namespace FinancialAnalysis.Models.Administration
         /// Übergeordnetes Recht, Default 0
         /// </summary>
         public int ParentCategory { get; set; }
+
+        /// <summary>
+        /// Gibt an, ob der Benutzer berechtigt ist
+        /// </summary>
+        public bool IsGranted { get; set; }
     }
 }

@@ -11,34 +11,34 @@ namespace WebApiWrapper.Accounting
     {
         private const string controllerName = "FixedCostAllocations";
 
-        public static IEnumerable<FixedCostAllocation> GetAll()
+        public static List<FixedCostAllocation> GetAll()
         {
-            return WebApi.GetData<IEnumerable<FixedCostAllocation>>(controllerName);
+            return WebApi<List<FixedCostAllocation>>.GetData(controllerName);
         }
 
         public static FixedCostAllocation GetById(int id)
         {
-            return WebApi.GetDataById<FixedCostAllocation>(controllerName, id);
+            return WebApi<FixedCostAllocation>.GetDataById(controllerName, id);
         }
 
         public static int Insert(FixedCostAllocation FixedCostAllocation)
         {
-            return WebApi.PostAsync(controllerName, FixedCostAllocation).Result;
+            return WebApi<int>.PostAsync(controllerName, FixedCostAllocation).Result;
         }
 
         public static int Insert(IEnumerable<FixedCostAllocation> FixedCostAllocations)
         {
-            return WebApi.PostAsync(controllerName, FixedCostAllocations).Result;
+            return WebApi<int>.PostAsync(controllerName, FixedCostAllocations).Result;
         }
 
         public static bool Update(FixedCostAllocation FixedCostAllocation)
         {
-            return WebApi.PutAsync(controllerName, FixedCostAllocation, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, FixedCostAllocation, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }

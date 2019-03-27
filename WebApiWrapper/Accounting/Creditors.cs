@@ -11,39 +11,39 @@ namespace WebApiWrapper.Accounting
     {
         private const string controllerName = "Creditors";
 
-        public static IEnumerable<Creditor> GetAll()
+        public static List<Creditor> GetAll()
         {
-            return WebApi.GetData<IEnumerable<Creditor>>(controllerName);
+            return WebApi<List<Creditor>>.GetData(controllerName);
         }
 
         public static Creditor GetById(int id)
         {
-            return WebApi.GetDataById<Creditor>(controllerName, id);
+            return WebApi<Creditor>.GetDataById(controllerName, id);
         }
 
         public static bool IsCreditorInUse(int id)
         {
-            return WebApi.GetDataById<bool>(controllerName, id, "GetIsCreditorInUse");
+            return WebApi<bool>.GetDataById(controllerName, id, "GetIsCreditorInUse");
         }
 
         public static int Insert(Creditor Creditor)
         {
-            return WebApi.PostAsync(controllerName, Creditor).Result;
+            return WebApi<int>.PostAsync(controllerName, Creditor).Result;
         }
 
         public static int Insert(IEnumerable<Creditor> Creditors)
         {
-            return WebApi.PostAsync(controllerName, Creditors).Result;
+            return WebApi<int>.PostAsync(controllerName, Creditors).Result;
         }
 
         public static bool Update(Creditor Creditor)
         {
-            return WebApi.PutAsync(controllerName, Creditor, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, Creditor, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }

@@ -11,34 +11,34 @@ namespace WebApiWrapper.Accounting
     {
         private const string controllerName = "GainAndLossAccounts";
 
-        public static IEnumerable<GainAndLossAccount> GetAll()
+        public static List<GainAndLossAccount> GetAll()
         {
-            return WebApi.GetData<IEnumerable<GainAndLossAccount>>(controllerName);
+            return WebApi<List<GainAndLossAccount>>.GetData(controllerName);
         }
 
         public static GainAndLossAccount GetById(int id)
         {
-            return WebApi.GetDataById<GainAndLossAccount>(controllerName, id);
+            return WebApi<GainAndLossAccount>.GetDataById(controllerName, id);
         }
 
         public static int Insert(GainAndLossAccount GainAndLossAccount)
         {
-            return WebApi.PostAsync(controllerName, GainAndLossAccount).Result;
+            return WebApi<int>.PostAsync(controllerName, GainAndLossAccount).Result;
         }
 
         public static int Insert(IEnumerable<GainAndLossAccount> GainAndLossAccounts)
         {
-            return WebApi.PostAsync(controllerName, GainAndLossAccounts).Result;
+            return WebApi<int>.PostAsync(controllerName, GainAndLossAccounts).Result;
         }
 
         public static bool Update(GainAndLossAccount GainAndLossAccount)
         {
-            return WebApi.PutAsync(controllerName, GainAndLossAccount, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, GainAndLossAccount, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }

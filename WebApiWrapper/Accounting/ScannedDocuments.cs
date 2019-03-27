@@ -11,34 +11,34 @@ namespace WebApiWrapper.Accounting
     {
         private const string controllerName = "ScannedDocuments";
 
-        public static IEnumerable<ScannedDocument> GetAll()
+        public static List<ScannedDocument> GetAll()
         {
-            return WebApi.GetData<IEnumerable<ScannedDocument>>(controllerName);
+            return WebApi<List<ScannedDocument>>.GetData(controllerName);
         }
 
         public static ScannedDocument GetById(int id)
         {
-            return WebApi.GetDataById<ScannedDocument>(controllerName, id);
+            return WebApi<ScannedDocument>.GetDataById(controllerName, id);
         }
 
         public static int Insert(ScannedDocument ScannedDocument)
         {
-            return WebApi.PostAsync(controllerName, ScannedDocument).Result;
+            return WebApi<int>.PostAsync(controllerName, ScannedDocument).Result;
         }
 
         public static int Insert(IEnumerable<ScannedDocument> ScannedDocuments)
         {
-            return WebApi.PostAsync(controllerName, ScannedDocuments).Result;
+            return WebApi<int>.PostAsync(controllerName, ScannedDocuments).Result;
         }
 
         public static bool Update(ScannedDocument ScannedDocument)
         {
-            return WebApi.PutAsync(controllerName, ScannedDocument, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, ScannedDocument, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }

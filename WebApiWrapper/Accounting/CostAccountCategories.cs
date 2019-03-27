@@ -11,44 +11,44 @@ namespace WebApiWrapper.Accounting
     {
         private const string controllerName = "CostAccountCategories";
 
-        public static IEnumerable<CostAccountCategory> GetAll()
+        public static List<CostAccountCategory> GetAll()
         {
-            return WebApi.GetData<IEnumerable<CostAccountCategory>>(controllerName);
+            return WebApi<List<CostAccountCategory>>.GetData(controllerName);
         }
 
         public static CostAccountCategory GetById(int id)
         {
-            return WebApi.GetDataById<CostAccountCategory>(controllerName, id);
+            return WebApi<CostAccountCategory>.GetDataById(controllerName, id);
         }
 
         public static int GetCreditorId()
         {
-            return WebApi.GetData<int>(controllerName, "GetCreditorId");
+            return WebApi<int>.GetData(controllerName, "GetCreditorId");
         }
 
         public static int GetDebitorId()
         {
-            return WebApi.GetData<int>(controllerName, "GetDebitorId");
+            return WebApi<int>.GetData(controllerName, "GetDebitorId");
         }
 
         public static int Insert(CostAccountCategory CostAccountCategory)
         {
-            return WebApi.PostAsync(controllerName, CostAccountCategory).Result;
+            return WebApi<int>.PostAsync(controllerName, CostAccountCategory).Result;
         }
 
         public static int Insert(IEnumerable<CostAccountCategory> CostAccountCategories)
         {
-            return WebApi.PostAsync(controllerName, CostAccountCategories).Result;
+            return WebApi<int>.PostAsync(controllerName, CostAccountCategories).Result;
         }
 
         public static bool Update(CostAccountCategory CostAccountCategory)
         {
-            return WebApi.PutAsync(controllerName, CostAccountCategory, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, CostAccountCategory, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }

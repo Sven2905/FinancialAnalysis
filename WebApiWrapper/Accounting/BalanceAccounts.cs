@@ -11,44 +11,44 @@ namespace WebApiWrapper.Accounting
     {
         private const string controllerName = "BalanceAccounts";
 
-        public static IEnumerable<BalanceAccount> GetAll()
+        public static List<BalanceAccount> GetAll()
         {
-            return WebApi.GetData<IEnumerable<BalanceAccount>>(controllerName);
+            return WebApi<List<BalanceAccount>>.GetData(controllerName);
         }
 
         public static BalanceAccount GetById(int id)
         {
-            return WebApi.GetDataById<BalanceAccount>(controllerName, id);
+            return WebApi<BalanceAccount>.GetDataById(controllerName, id);
         }
 
-        public static IEnumerable<BalanceAccount> GetActiveAccounts()
+        public static List<BalanceAccount> GetActiveAccounts()
         {
-            return WebApi.GetData<IEnumerable<BalanceAccount>>(controllerName, "GetActiveAccounts");
+            return WebApi<List<BalanceAccount>>.GetData(controllerName, "GetActiveAccounts");
         }
 
-        public static IEnumerable<BalanceAccount> GetPassiveAccounts()
+        public static List<BalanceAccount> GetPassiveAccounts()
         {
-            return WebApi.GetData<IEnumerable<BalanceAccount>>(controllerName, "GetPassiveAccounts");
+            return WebApi<List<BalanceAccount>>.GetData(controllerName, "GetPassiveAccounts");
         }
 
         public static int Insert(BalanceAccount balanceAccount)
         {
-            return WebApi.PostAsync(controllerName, balanceAccount).Result;
+            return WebApi<int>.PostAsync(controllerName, balanceAccount).Result;
         }
 
         public static int Insert(IEnumerable<BalanceAccount> balanceAccounts)
         {
-            return WebApi.PostAsync(controllerName, balanceAccounts).Result;
+            return WebApi<int>.PostAsync(controllerName, balanceAccounts).Result;
         }
 
         public static bool Update(BalanceAccount balanceAccount)
         {
-            return WebApi.PutAsync(controllerName, balanceAccount, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, balanceAccount, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }

@@ -11,34 +11,34 @@ namespace WebApiWrapper.SalesManagement
     {
         private const string controllerName = "InvoiceTypes";
 
-        public static IEnumerable<InvoiceType> GetAll()
+        public static List<InvoiceType> GetAll()
         {
-            return WebApi.GetData<IEnumerable<InvoiceType>>(controllerName);
+            return WebApi<List<InvoiceType>>.GetData(controllerName);
         }
 
         public static InvoiceType GetById(int id)
         {
-            return WebApi.GetDataById<InvoiceType>(controllerName, id);
+            return WebApi<InvoiceType>.GetDataById(controllerName, id);
         }
 
         public static int Insert(InvoiceType InvoiceType)
         {
-            return WebApi.PostAsync(controllerName, InvoiceType).Result;
+            return WebApi<int>.PostAsync(controllerName, InvoiceType).Result;
         }
 
         public static int Insert(IEnumerable<InvoiceType> InvoiceTypes)
         {
-            return WebApi.PostAsync(controllerName, InvoiceTypes).Result;
+            return WebApi<int>.PostAsync(controllerName, InvoiceTypes).Result;
         }
 
         public static bool Update(InvoiceType InvoiceType)
         {
-            return WebApi.PutAsync(controllerName, InvoiceType, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, InvoiceType, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }

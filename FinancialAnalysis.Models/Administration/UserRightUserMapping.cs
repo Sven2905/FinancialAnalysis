@@ -36,18 +36,8 @@ namespace FinancialAnalysis.Models.Administration
         public int RefUserId { get; set; }
 
         /// <summary>
-        /// Benutzer
-        /// </summary>
-        public User User { get; set; } = new User();
-
-        /// <summary>
         /// Referenz-Id Benutzerrecht
         /// </summary>
         public int RefUserRightId { get; set; }
-
-        /// <summary>
-        /// Benutzerrecht
-        /// </summary>
-        public UserRight UserRight { get; set; } = new UserRight();
     }
 }

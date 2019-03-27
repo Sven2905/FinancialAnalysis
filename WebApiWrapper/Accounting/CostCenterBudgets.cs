@@ -12,42 +12,42 @@ namespace WebApiWrapper.Accounting
     {
         private const string controllerName = "CostCenterBudgets";
 
-        public static IEnumerable<CostCenterBudget> GetAll()
+        public static List<CostCenterBudget> GetAll()
         {
-            return WebApi.GetData<IEnumerable<CostCenterBudget>>(controllerName);
+            return WebApi<List<CostCenterBudget>>.GetData(controllerName);
         }
 
         public static CostCenterBudget GetById(int id)
         {
-            return WebApi.GetDataById<CostCenterBudget>(controllerName, id);
+            return WebApi<CostCenterBudget>.GetDataById(controllerName, id);
         }
 
-        public static IEnumerable<CostCenterCurrentCosts> GetAnnuallyCosts(int RefCostCenterId, int Year)
+        public static List<CostCenterCurrentCosts> GetAnnuallyCosts(int RefCostCenterId, int Year)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("RefCostCenterId", RefCostCenterId);
             parameters.Add("Year", Year);
-            return WebApi.GetData<IEnumerable<CostCenterCurrentCosts>>(controllerName, "GetAnnuallyCosts", parameters);
+            return WebApi<List<CostCenterCurrentCosts>>.GetData(controllerName, "GetAnnuallyCosts", parameters);
         }
 
         public static int Insert(CostCenterBudget CostCenterBudget)
         {
-            return WebApi.PostAsync(controllerName, CostCenterBudget).Result;
+            return WebApi<int>.PostAsync(controllerName, CostCenterBudget).Result;
         }
 
         public static int Insert(IEnumerable<CostCenterBudget> CostCenterBudgets)
         {
-            return WebApi.PostAsync(controllerName, CostCenterBudgets).Result;
+            return WebApi<int>.PostAsync(controllerName, CostCenterBudgets).Result;
         }
 
         public static bool Update(CostCenterBudget CostCenterBudget)
         {
-            return WebApi.PutAsync(controllerName, CostCenterBudget, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, CostCenterBudget, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }

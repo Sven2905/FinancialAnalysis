@@ -11,14 +11,14 @@ namespace WebApiWrapper.WarehouseManagement
     {
         private const string controllerName = "StockedProducts";
 
-        public static IEnumerable<StockedProduct> GetAll()
+        public static List<StockedProduct> GetAll()
         {
-            return WebApi.GetData<IEnumerable<StockedProduct>>(controllerName);
+            return WebApi<List<StockedProduct>>.GetData(controllerName);
         }
 
         public static StockedProduct GetById(int id)
         {
-            return WebApi.GetDataById<StockedProduct>(controllerName, id);
+            return WebApi<StockedProduct>.GetDataById(controllerName, id);
         }
 
         public static StockedProduct GetByRefProductIdAndRefStockyardId(int refProductId, int refStockyardId)
@@ -26,32 +26,32 @@ namespace WebApiWrapper.WarehouseManagement
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("refProductId", refProductId);
             parameters.Add("refStockyardId", refStockyardId);
-            return WebApi.GetData<StockedProduct>(controllerName, "GetByRefProductIdAndRefStockyardId", parameters);
+            return WebApi<StockedProduct>.GetData(controllerName, "GetByRefProductIdAndRefStockyardId", parameters);
         }
 
-        public static IEnumerable<StockedProduct> GetByRefStockyardId(int RefStockyardId)
+        public static List<StockedProduct> GetByRefStockyardId(int RefStockyardId)
         {
-            return WebApi.GetDataById<IEnumerable<StockedProduct>>(controllerName, RefStockyardId, "GetByRefStockyardId");
+            return WebApi<List<StockedProduct>>.GetDataById(controllerName, RefStockyardId, "GetByRefStockyardId");
         }
 
         public static int Insert(StockedProduct StockedProduct)
         {
-            return WebApi.PostAsync(controllerName, StockedProduct).Result;
+            return WebApi<int>.PostAsync(controllerName, StockedProduct).Result;
         }
 
         public static int Insert(IEnumerable<StockedProduct> StockedProducts)
         {
-            return WebApi.PostAsync(controllerName, StockedProducts).Result;
+            return WebApi<int>.PostAsync(controllerName, StockedProducts).Result;
         }
 
         public static bool Update(StockedProduct StockedProduct)
         {
-            return WebApi.PutAsync(controllerName, StockedProduct, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, StockedProduct, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using Utilities;
+using WebApiWrapper;
 using WebApiWrapper.Administration;
 
 namespace FinancialAnalysis.Logic
@@ -42,8 +43,7 @@ namespace FinancialAnalysis.Logic
 
             foreach (var item in UserRightList)
             {
-                newUser.UserRightUserMappings.Add(new UserRightUserMapping(0, item.UserRightId, false)
-                { User = newUser, UserRight = item });
+                newUser.UserRightUserMappings.Add(new UserRightUserMapping(0, item.UserRightId, false));
             }
 
             return newUser;
@@ -134,15 +134,7 @@ namespace FinancialAnalysis.Logic
 
         public bool IsUserRightGranted(User user, Permission permission)
         {
-            foreach (var right in user.UserRights.Keys)
-            {
-                if (right.Permission == permission)
-                {
-                    return user.UserRights[right];
-                }
-            }
-
-            return false;
+            return user.UserRights.Single(x => x.Permission == permission).IsGranted;
         }
 
         public SvenTechCollection<UserRightUserMappingFlatStructure> GetUserRightUserMappingFlatStructure(User user)
@@ -150,7 +142,7 @@ namespace FinancialAnalysis.Logic
             var UserRightUserMappingFlatStructure = new SvenTechCollection<UserRightUserMappingFlatStructure>();
             foreach (var item in user.UserRightUserMappings)
             {
-                UserRightUserMappingFlatStructure.Add(new UserRightUserMappingFlatStructure(item));
+                UserRightUserMappingFlatStructure.Add(new UserRightUserMappingFlatStructure(user, UserManager.Instance.UserRightList.Single(x => x.UserRightId == item.RefUserRightId)));
             }
 
             return UserRightUserMappingFlatStructure;
@@ -189,15 +181,15 @@ namespace FinancialAnalysis.Logic
                     0x6c, 0xa6, 0x27, 0x0d, 0x62, 0xd4, 0x80, 0xc7, 0x50, 0xc9, 0x93, 0xef, 0xfb, 0x64, 0x90, 0x16,
                     0x7d, 0xc7, 0x1d, 0x6f, 0xb0, 0xe3, 0x80, 0xdc, 0x73
                 });
-            WebApiWrapper.WebApi.WebApiKey = WebApiWrapper.WebApi.GetKey(username, password);
-            if (string.IsNullOrEmpty(WebApiWrapper.WebApi.WebApiKey))
+            Configuration.GetKey(username, password);
+            if (string.IsNullOrEmpty(Configuration.WebApiKey))
             {
                 return null;
             }
 
             UserRightList = LoadUserRightsFromDB();
             UserList = LoadUsersFromDB();
-            return UserList.Single(x => x.LoginUser == username && x.Password == password);
+            return UserList.Single(x => x.LoginUser == username);
         }
 
         private List<UserRight> LoadUserRightsFromDB()

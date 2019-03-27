@@ -178,7 +178,7 @@
                                                 </Grid.ColumnDefinitions>
                                                 <dxe:ComboBoxEdit NullText="Bitte wählen" ValueMember="ProductCategoryId"
                                                           DisplayMember="Name"
-                                                          ItemsSource="{Binding ProductCategories}"
+                                                          ItemsSource="{Binding ProductCategoryList}"
                                                           EditValue="{Binding SelectedProduct.RefProductCategoryId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                           FontFamily="Tahoma" />
                                                 <dx:SimpleButton Grid.Column="1" Width="30" Margin="5,0,0,0"
@@ -207,7 +207,7 @@
                                     <dxlc:LayoutGroup>
                                         <dxlc:LayoutItem Label="Steuer" FontFamily="Tahoma">
                                             <dxe:ComboBoxEdit NullText="Bitte wählen" ValueMember="TaxTypeId"
-                                                      DisplayMember="Description" ItemsSource="{Binding TaxTypes}"
+                                                      DisplayMember="Description" ItemsSource="{Binding TaxTypeList}"
                                                       EditValue="{Binding SelectedProduct.RefTaxTypeId}"
                                                       FontFamily="Tahoma" />
                                         </dxlc:LayoutItem>

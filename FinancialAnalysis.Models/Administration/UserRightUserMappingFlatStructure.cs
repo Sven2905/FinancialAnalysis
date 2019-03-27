@@ -1,5 +1,6 @@
 ﻿using DevExpress.Mvvm;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace FinancialAnalysis.Models.Administration
 {
@@ -9,16 +10,16 @@ namespace FinancialAnalysis.Models.Administration
     [JsonObject(MemberSerialization.OptOut)]
     public class UserRightUserMappingFlatStructure : BindableBase
     {
-        public UserRightUserMappingFlatStructure(UserRightUserMapping userRightUserMapping)
+        public UserRightUserMappingFlatStructure(User user, UserRight userRight)
         {
-            UserRightUserMappingId = userRightUserMapping.UserRightUserMappingId;
-            RefUserId = userRightUserMapping.RefUserId;
-            IsGranted = userRightUserMapping.IsGranted;
-            RefUserRightId = userRightUserMapping.RefUserRightId;
-            ParentCategory = userRightUserMapping.UserRight.ParentCategory;
-            Name = userRightUserMapping.UserRight.Name;
-            Description = userRightUserMapping.UserRight.Description;
-            HierachicalId = (int)userRightUserMapping.UserRight.Permission;
+            //UserRightUserMappingId = userRightUserMapping.UserRightUserMappingId;
+            RefUserId = user.UserId;
+            IsGranted = user.UserRights.Single(x => x.UserRightId == userRight.UserRightId).IsGranted;
+            RefUserRightId = userRight.UserRightId;
+            ParentCategory = userRight.ParentCategory;
+            Name = userRight.Name;
+            Description = userRight.Description;
+            HierachicalId = (int)userRight.Permission;
         }
 
         public int UserRightUserMappingId { get; set; }

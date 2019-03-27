@@ -88,12 +88,12 @@
                                     <dxg:GridColumn FieldName="Description" Header="Beschreibung" Width="400" AllowEditing="{Binding SelectedCostAccount.IsEditable}" />
                                     <dxg:GridColumn FieldName="RefTaxTypeId" Header="Steuer" Width="110" AllowEditing="{Binding SelectedCostAccount.IsEditable}">
                                         <dxg:GridColumn.EditSettings>
-                                            <dxe:ComboBoxEditSettings ItemsSource="{Binding TaxTypes}" DisplayMember="Description" ValueMember="TaxTypeId" />
+                                            <dxe:ComboBoxEditSettings ItemsSource="{Binding TaxTypeList}" DisplayMember="Description" ValueMember="TaxTypeId" />
                                         </dxg:GridColumn.EditSettings>
                                     </dxg:GridColumn>
                                     <dxg:GridColumn FieldName="RefCostAccountCategoryId" Header="Kategorie" Width="100">
                                         <dxg:GridColumn.EditSettings>
-                                            <dxe:ComboBoxEditSettings ItemsSource="{Binding CostAccountCategories}"
+                                            <dxe:ComboBoxEditSettings ItemsSource="{Binding CostAccountCategoryList}"
                                                   DisplayMember="Description" ValueMember="CostAccountCategoryId" />
                                         </dxg:GridColumn.EditSettings>
                                     </dxg:GridColumn>

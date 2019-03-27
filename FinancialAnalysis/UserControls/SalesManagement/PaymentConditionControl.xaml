@@ -69,7 +69,7 @@
                     </Grid.RowDefinitions>
 
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding PaymentConditions}" SelectedItem="{Binding SelectedPaymentCondition}" x:Name="PaymentConditions"
+                        <ListView ItemsSource="{Binding PaymentConditionList}" SelectedItem="{Binding SelectedPaymentCondition}" x:Name="PaymentConditions"
                           BorderThickness="1" BorderBrush="DarkGray" FontSize="14">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>

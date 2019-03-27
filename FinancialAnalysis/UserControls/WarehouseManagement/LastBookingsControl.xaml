@@ -22,7 +22,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <dxg:GridControl ShowBorder="True" ItemsSource="{Binding WarehouseStockingHistories}">
+        <dxg:GridControl ShowBorder="True" ItemsSource="{Binding WarehouseStockingHistoryList}">
             <dxg:GridControl.View>
                 <dxg:TableView ShowHorizontalLines="True" ShowVerticalLines="False" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" MaxHeight="5000" MaxWidth="5000"
                                ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" EnableSelectedRowAppearance="False"

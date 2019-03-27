@@ -11,34 +11,34 @@ namespace WebApiWrapper.CarPoolManagement
     {
         private const string controllerName = "CarBodies";
 
-        public static IEnumerable<CarBody> GetAll()
+        public static List<CarBody> GetAll()
         {
-            return WebApi.GetData<IEnumerable<CarBody>>(controllerName);
+            return WebApi<List<CarBody>>.GetData(controllerName);
         }
 
-        public static IEnumerable<CarBody> GetByRefCarModelId(int RefCarModelId)
+        public static List<CarBody> GetByRefCarModelId(int RefCarModelId)
         {
-            return WebApi.GetDataById<IEnumerable<CarBody>>(controllerName, RefCarModelId, "GetByRefCarModelId");
+            return WebApi<List<CarBody>>.GetDataById(controllerName, RefCarModelId, "GetByRefCarModelId");
         }
 
         public static int Insert(CarBody CarBody)
         {
-            return WebApi.PostAsync(controllerName, CarBody).Result;
+            return WebApi<int>.PostAsync(controllerName, CarBody).Result;
         }
 
         public static int Insert(IEnumerable<CarBody> CarBodys)
         {
-            return WebApi.PostAsync(controllerName, CarBodys).Result;
+            return WebApi<int>.PostAsync(controllerName, CarBodys).Result;
         }
 
         public static bool Update(CarBody CarBody)
         {
-            return WebApi.PutAsync(controllerName, CarBody, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, CarBody, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }

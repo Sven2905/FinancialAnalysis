@@ -11,24 +11,24 @@ namespace WebApiWrapper.Accounting
     {
         private const string controllerName = "Debits";
 
-        public static IEnumerable<Debit> GetAll()
+        public static List<Debit> GetAll()
         {
-            return WebApi.GetData<IEnumerable<Debit>>(controllerName);
+            return WebApi<List<Debit>>.GetData(controllerName);
         }
 
         public static Debit GetById(int id)
         {
-            return WebApi.GetDataById<Debit>(controllerName, id);
+            return WebApi<Debit>.GetDataById(controllerName, id);
         }
 
         public static int Insert(Debit Debit)
         {
-            return WebApi.PostAsync(controllerName, Debit).Result;
+            return WebApi<int>.PostAsync(controllerName, Debit).Result;
         }
 
-        public static int Insert(IEnumerable<Debit> Debits)
+        public static int Insert(List<Debit> Debits)
         {
-            return WebApi.PostAsync(controllerName, Debits).Result;
+            return WebApi<int>.PostAsync(controllerName, Debits).Result;
         }
     }
 }

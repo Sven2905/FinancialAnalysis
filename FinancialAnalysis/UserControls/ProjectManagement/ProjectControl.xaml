@@ -71,7 +71,7 @@
                     </Grid.RowDefinitions>
 
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,50,0,0">
-                        <ListView ItemsSource="{Binding Projects}" SelectedItem="{Binding SelectedProject}" x:Name="Projects"
+                        <ListView ItemsSource="{Binding ProjectList}" SelectedItem="{Binding SelectedProject}" x:Name="Projects"
                           BorderThickness="1" BorderBrush="DarkGray" FontSize="14">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>

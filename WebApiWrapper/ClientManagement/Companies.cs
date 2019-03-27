@@ -13,22 +13,22 @@ namespace WebApiWrapper.ClientManagement
 
         public static int Insert(Company Company)
         {
-            return WebApi.PostAsync(controllerName, Company).Result;
+            return WebApi<int>.PostAsync(controllerName, Company).Result;
         }
 
         public static int Insert(IEnumerable<Company> Companies)
         {
-            return WebApi.PostAsync(controllerName, Companies).Result;
+            return WebApi<int>.PostAsync(controllerName, Companies).Result;
         }
 
         public static bool Update(Company Company)
         {
-            return WebApi.PutAsync(controllerName, Company, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, Company, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }

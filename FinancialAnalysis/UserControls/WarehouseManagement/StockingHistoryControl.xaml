@@ -79,7 +79,7 @@
                     <dxlc:LayoutGroup>
                         <dxlc:LayoutItem Label="Lager" FontFamily="Tahoma">
                             <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="8" Margin="0,3,0,3"
-                                              ItemsSource="{Binding Warehouses}"
+                                              ItemsSource="{Binding WarehouseList}"
                                               DisplayMember="Name"
                                               EditValue="{Binding SelectedWarehouse, UpdateSourceTrigger=PropertyChanged}"
                                               Foreground="#3F729B" />

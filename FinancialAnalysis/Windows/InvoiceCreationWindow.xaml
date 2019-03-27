@@ -76,12 +76,12 @@
                                                   FontFamily="Tahoma" Foreground="#3F729B" DisplayFormatString="dd.MM.yyyy" />
 
                                     <TextBlock Grid.Column="0" Grid.Row="6" Text="Zahlungsbedingungen" VerticalAlignment="Center" Foreground="#3F729B" FontFamily="Tahoma" />
-                                    <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="6" Margin="3" ItemsSource="{Binding PaymentConditions}"
+                                    <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="6" Margin="3" ItemsSource="{Binding PaymentConditionList}"
                                                       EditValue="{Binding Invoice.RefPaymentConditionId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       DisplayMember="Name" ValueMember="PaymentConditionId" Foreground="#3F729B" />
 
                                     <TextBlock Grid.Column="0" Grid.Row="8" Text="Bearbeiter" VerticalAlignment="Center" Foreground="#3F729B" FontFamily="Tahoma" />
-                                    <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="8" Margin="3" ItemsSource="{Binding Employees}"
+                                    <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="8" Margin="3" ItemsSource="{Binding EmployeeList}"
                                                       EditValue="{Binding Invoice.RefEmployeeId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       DisplayMember="Name" ValueMember="EmployeeId" Foreground="#3F729B" />
                                 </Grid>

@@ -11,34 +11,34 @@ namespace WebApiWrapper.Accounting
     {
         private const string controllerName = "CostCenterCategories";
 
-        public static IEnumerable<CostCenterCategory> GetAll()
+        public static List<CostCenterCategory> GetAll()
         {
-            return WebApi.GetData<IEnumerable<CostCenterCategory>>(controllerName);
+            return WebApi<List<CostCenterCategory>>.GetData(controllerName);
         }
 
         public static CostCenterCategory GetById(int id)
         {
-            return WebApi.GetDataById<CostCenterCategory>(controllerName, id);
+            return WebApi<CostCenterCategory>.GetDataById(controllerName, id);
         }
 
         public static int Insert(CostCenterCategory CostCenterCategory)
         {
-            return WebApi.PostAsync(controllerName, CostCenterCategory).Result;
+            return WebApi<int>.PostAsync(controllerName, CostCenterCategory).Result;
         }
 
         public static int Insert(IEnumerable<CostCenterCategory> CostCenterCategories)
         {
-            return WebApi.PostAsync(controllerName, CostCenterCategories).Result;
+            return WebApi<int>.PostAsync(controllerName, CostCenterCategories).Result;
         }
 
         public static bool Update(CostCenterCategory CostCenterCategory)
         {
-            return WebApi.PutAsync(controllerName, CostCenterCategory, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, CostCenterCategory, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }

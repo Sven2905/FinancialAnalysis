@@ -11,34 +11,34 @@ namespace WebApiWrapper.ProductManagement
     {
         private const string controllerName = "ProductCategories";
 
-        public static IEnumerable<ProductCategory> GetAll()
+        public static List<ProductCategory> GetAll()
         {
-            return WebApi.GetData<IEnumerable<ProductCategory>>(controllerName);
+            return WebApi<List<ProductCategory>>.GetData(controllerName);
         }
 
         public static ProductCategory GetById(int id)
         {
-            return WebApi.GetDataById<ProductCategory>(controllerName, id);
+            return WebApi<ProductCategory>.GetDataById(controllerName, id);
         }
 
         public static int Insert(ProductCategory ProductCategory)
         {
-            return WebApi.PostAsync(controllerName, ProductCategory).Result;
+            return WebApi<int>.PostAsync(controllerName, ProductCategory).Result;
         }
 
         public static int Insert(IEnumerable<ProductCategory> ProductCategories)
         {
-            return WebApi.PostAsync(controllerName, ProductCategories).Result;
+            return WebApi<int>.PostAsync(controllerName, ProductCategories).Result;
         }
 
         public static bool Update(ProductCategory ProductCategory)
         {
-            return WebApi.PutAsync(controllerName, ProductCategory, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, ProductCategory, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }

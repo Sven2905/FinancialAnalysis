@@ -116,7 +116,7 @@
                                                  AcceptsReturn="True" Foreground="#3F729B" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                         <dxg:LookUpEdit DisplayMember="DisplayName" ValueMember="CostAccountId" Foreground="#3F729B" 
                                                         Grid.Column="1" Grid.Row="6" Margin="0,3,0,3" PopupWidth="800" 
-                                                        ItemsSource="{Binding CostAccounts}" AutoComplete="True"
+                                                        ItemsSource="{Binding CostAccountList}" AutoComplete="True"
                                                         EditValue="{Binding CostAccountCreditorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                                         IsPopupAutoWidth="True" AutoPopulateColumns="False">
                                             <dxg:LookUpEdit.PopupContentTemplate>
@@ -146,7 +146,7 @@
                                         </dxg:LookUpEdit>
                                         <dxg:LookUpEdit DisplayMember="DisplayName" ValueMember="CostAccountId" Foreground="#3F729B" 
                                                         Grid.Column="1" Grid.Row="8" Margin="0,3,0,3" PopupWidth="800" 
-                                                        ItemsSource="{Binding CostAccounts}" 
+                                                        ItemsSource="{Binding CostAccountList}" 
                                                         EditValue="{Binding CostAccountDebitorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                                         AutoComplete="True" IsPopupAutoWidth="True" AutoPopulateColumns="False">
                                             <dxg:LookUpEdit.PopupContentTemplate>
@@ -194,12 +194,12 @@
                                                 <ColumnDefinition Width="*" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
-                                            <dxe:ComboBoxEdit Grid.Column="0" ItemsSource="{Binding CostCenterCategories}" DisplayMember="Name" EditValue="{Binding SelectedCostCenterCategory, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
+                                            <dxe:ComboBoxEdit Grid.Column="0" ItemsSource="{Binding CostCenterCategoryList}" DisplayMember="Name" EditValue="{Binding SelectedCostCenterCategory, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
                                             <TextBlock Grid.Column="1" Text="Kostenstelle: " VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#3F729B" FontFamily="Tahoma" Margin="50,0,0,0" />
                                             <dxe:ComboBoxEdit Grid.Column="2" ItemsSource="{Binding SelectedCostCenterCategory.CostCenters, UpdateSourceTrigger=PropertyChanged}" DisplayMember="Name" EditValue="{Binding SelectedCostCenter, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" IsEnabled="{Binding SelectedCostCenterCategory, Converter={StaticResource NullConverter}}" />
                                         </Grid>
 
-                                        <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="14" Margin="0,3,0,3" ItemsSource="{Binding Projects}" 
+                                        <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="14" Margin="0,3,0,3" ItemsSource="{Binding ProjectList}" 
                                                           DisplayMember="Name" EditValue="{Binding ProjectId}" Foreground="#3F729B" />
                                         <TextBlock Grid.Column="4" Grid.Row="2" Text="Betrag: " VerticalAlignment="Center" Margin="5,4.375,0,7" 
                                                    Foreground="#3F729B" FontFamily="Tahoma" />

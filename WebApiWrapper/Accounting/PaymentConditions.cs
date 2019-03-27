@@ -11,34 +11,34 @@ namespace WebApiWrapper.Accounting
     {
         private const string controllerName = "PaymentConditions";
 
-        public static IEnumerable<PaymentCondition> GetAll()
+        public static List<PaymentCondition> GetAll()
         {
-            return WebApi.GetData<IEnumerable<PaymentCondition>>(controllerName);
+            return WebApi<List<PaymentCondition>>.GetData(controllerName);
         }
 
         public static PaymentCondition GetById(int id)
         {
-            return WebApi.GetDataById<PaymentCondition>(controllerName, id);
+            return WebApi<PaymentCondition>.GetDataById(controllerName, id);
         }
 
         public static int Insert(PaymentCondition PaymentCondition)
         {
-            return WebApi.PostAsync(controllerName, PaymentCondition).Result;
+            return WebApi<int>.PostAsync(controllerName, PaymentCondition).Result;
         }
 
         public static int Insert(IEnumerable<PaymentCondition> PaymentConditions)
         {
-            return WebApi.PostAsync(controllerName, PaymentConditions).Result;
+            return WebApi<int>.PostAsync(controllerName, PaymentConditions).Result;
         }
 
         public static bool Update(PaymentCondition PaymentCondition)
         {
-            return WebApi.PutAsync(controllerName, PaymentCondition, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, PaymentCondition, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }

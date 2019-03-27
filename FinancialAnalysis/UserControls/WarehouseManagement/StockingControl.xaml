@@ -84,7 +84,7 @@
                             <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Lager" FontFamily="Tahoma">
                                     <dxe:ComboBoxEdit Margin="0,3,0,3"
-                                                      ItemsSource="{Binding Warehouses}"
+                                                      ItemsSource="{Binding WarehouseList}"
                                                       DisplayMember="Name"
                                                       EditValue="{Binding SelectedWarehouse, UpdateSourceTrigger=PropertyChanged}"
                                                       Foreground="#3F729B" />
@@ -102,7 +102,7 @@
                             <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Produkt" FontFamily="Tahoma">
                                     <dxe:ComboBoxEdit Margin="0,3,0,3"
-                                                          ItemsSource="{Binding Products}"
+                                                          ItemsSource="{Binding ProductList}"
                                                           DisplayMember="Name"
                                                           EditValue="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"
                                                           Foreground="#3F729B" />

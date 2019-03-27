@@ -11,34 +11,34 @@ namespace WebApiWrapper.Administration
     {
         private const string controllerName = "UserRights";
 
-        public static IEnumerable<UserRight> GetAll()
+        public static List<UserRight> GetAll()
         {
-            return WebApi.GetData<IEnumerable<UserRight>>(controllerName);
+            return WebApi<List<UserRight>>.GetData(controllerName);
         }
 
         public static UserRight GetById(int id)
         {
-            return WebApi.GetDataById<UserRight>(controllerName, id);
+            return WebApi<UserRight>.GetDataById(controllerName, id);
         }
 
         public static int Insert(UserRight UserRight)
         {
-            return WebApi.PostAsync(controllerName, UserRight).Result;
+            return WebApi<int>.PostAsync(controllerName, UserRight).Result;
         }
 
         public static int Insert(IEnumerable<UserRight> UserRights)
         {
-            return WebApi.PostAsync(controllerName, UserRights).Result;
+            return WebApi<int>.PostAsync(controllerName, UserRights).Result;
         }
 
         public static bool Update(UserRight UserRight)
         {
-            return WebApi.PutAsync(controllerName, UserRight).Result;
+            return WebApi<bool>.PutAsync(controllerName, UserRight).Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }

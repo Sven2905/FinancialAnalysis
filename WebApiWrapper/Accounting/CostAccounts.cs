@@ -11,54 +11,54 @@ namespace WebApiWrapper.Accounting
     {
         private const string controllerName = "CostAccounts";
 
-        public static IEnumerable<CostAccount> GetAll()
+        public static List<CostAccount> GetAll()
         {
-            return WebApi.GetData<IEnumerable<CostAccount>>(controllerName);
+            return WebApi<List<CostAccount>>.GetData(controllerName);
         }
 
         public static CostAccount GetById(int id)
         {
-            return WebApi.GetDataById<CostAccount>(controllerName, id);
+            return WebApi<CostAccount>.GetDataById(controllerName, id);
         }
 
-        public static IEnumerable<CostAccount> GetAllVisible()
+        public static List<CostAccount> GetAllVisible()
         {
-            return WebApi.GetData<IEnumerable<CostAccount>>(controllerName, "GetAllVisible");
+            return WebApi<List<CostAccount>>.GetData(controllerName, "GetAllVisible");
         }
 
         public static int GetNextCreditorNumber()
         {
-            return WebApi.GetData<int>(controllerName, "GetNextCreditorNumber");
+            return WebApi<int>.GetData(controllerName, "GetNextCreditorNumber");
         }
 
         public static int GetNextDebitorNumber()
         {
-            return WebApi.GetData<int>(controllerName, "GetNextDebitorNumber"); 
+            return WebApi<int>.GetData(controllerName, "GetNextDebitorNumber"); 
         }
 
         public static int GetByAccountNumber(int AccountNumber)
         {
-            return WebApi.GetDataById<int>(controllerName, AccountNumber, "GetNextDebitorNumber");
+            return WebApi<int>.GetDataById(controllerName, AccountNumber, "GetNextDebitorNumber");
         }
 
         public static int Insert(CostAccount CostAccount)
         {
-            return WebApi.PostAsync(controllerName, CostAccount).Result;
+            return WebApi<int>.PostAsync(controllerName, CostAccount).Result;
         }
 
         public static int Insert(IEnumerable<CostAccount> CostAccounts)
         {
-            return WebApi.PostAsync(controllerName, CostAccounts).Result;
+            return WebApi<int>.PostAsync(controllerName, CostAccounts).Result;
         }
 
         public static bool Update(CostAccount CostAccount)
         {
-            return WebApi.PutAsync(controllerName, CostAccount, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, CostAccount, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }

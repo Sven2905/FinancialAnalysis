@@ -11,34 +11,34 @@ namespace WebApiWrapper.ProjectManagement
     {
         private const string controllerName = "ProjectRoles";
 
-        public static IEnumerable<ProjectRole> GetAll()
+        public static List<ProjectRole> GetAll()
         {
-            return WebApi.GetData<IEnumerable<ProjectRole>>(controllerName);
+            return WebApi<List<ProjectRole>>.GetData(controllerName);
         }
 
         public static ProjectRole GetById(int id)
         {
-            return WebApi.GetDataById<ProjectRole>(controllerName, id);
+            return WebApi<ProjectRole>.GetDataById(controllerName, id);
         }
 
         public static int Insert(ProjectRole ProjectRole)
         {
-            return WebApi.PostAsync(controllerName, ProjectRole).Result;
+            return WebApi<int>.PostAsync(controllerName, ProjectRole).Result;
         }
 
         public static int Insert(IEnumerable<ProjectRole> ProjectRoles)
         {
-            return WebApi.PostAsync(controllerName, ProjectRoles).Result;
+            return WebApi<int>.PostAsync(controllerName, ProjectRoles).Result;
         }
 
         public static bool Update(ProjectRole ProjectRole)
         {
-            return WebApi.PutAsync(controllerName, ProjectRole, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, ProjectRole, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }

@@ -90,14 +90,14 @@
                     <Label Grid.Column="0" Grid.Row="3" Margin="3" Content="Produkt" />
                     <Label Grid.Column="0" Grid.Row="4" Margin="3" Content="Bemerkung" />
 
-                    <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="0" Margin="3" ItemsSource="{Binding SalesTypes}"
+                    <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="0" Margin="3" ItemsSource="{Binding SalesTypeList}"
                               DisplayMember="Name" ValueMember="SalesTypeId"
                               EditValue="{Binding SalesOrder.RefSalesTypeId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Foreground="#3F729B" />
 
                     <dxg:LookUpEdit Grid.Column="1" Grid.Row="1" DisplayMember="Client.Name" VerticalAlignment="Center"
                             Foreground="#3F729B" Margin="3"
-                            ItemsSource="{Binding Debitors}" PopupWidth="800"
+                            ItemsSource="{Binding DebitorList}" PopupWidth="800"
                             EditValue="{Binding SelectedDebitor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             AutoComplete="True"
                             IsPopupAutoWidth="True" AutoPopulateColumns="False">
@@ -137,14 +137,14 @@
 
                     <dxg:LookUpEdit Grid.Column="1" Grid.Row="3" DisplayMember="Name" VerticalAlignment="Center"
                             Foreground="#3F729B" Margin="3"
-                            ItemsSource="{Binding Products}" PopupWidth="550"
+                            ItemsSource="{Binding ProductList}" PopupWidth="550"
                             EditValue="{Binding SelectedProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             AutoComplete="True"
                             IsPopupAutoWidth="True" AutoPopulateColumns="False">
                         <dxg:LookUpEdit.PopupContentTemplate>
                             <ControlTemplate>
                                 <dxg:GridControl x:Name="PART_GridControl" AutoExpandAllGroups="True"
-                                         AutoGenerateColumns="None" ItemsSource="{Binding Products}"
+                                         AutoGenerateColumns="None" ItemsSource="{Binding ProductList}"
                                          EnableSmartColumnsGeneration="False">
                                     <dxg:GridControl.View>
                                         <dxg:TableView x:Name="View" ShowGroupedColumns="True" AutoWidth="True"
@@ -306,7 +306,7 @@
 
                     <Label Grid.Column="9" Grid.Row="0" Margin="3" Content="Ansprechpartner" VerticalAlignment="Center" />
 
-                    <dxe:ComboBoxEdit Grid.Column="10" Grid.Row="0" Margin="3" ItemsSource="{Binding Employees}" Width="200"
+                    <dxe:ComboBoxEdit Grid.Column="10" Grid.Row="0" Margin="3" ItemsSource="{Binding EmployeeList}" Width="200"
                               HorizontalAlignment="Left"
                               DisplayMember="Name"
                               EditValue="{Binding Employee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

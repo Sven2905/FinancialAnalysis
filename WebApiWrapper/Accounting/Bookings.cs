@@ -11,44 +11,44 @@ namespace WebApiWrapper.Accounting
     {
         private const string controllerName = "Bookings";
 
-        public static IEnumerable<Booking> GetAll()
+        public static List<Booking> GetAll()
         {
-            return WebApi.GetData<IEnumerable<Booking>>(controllerName);
+            return WebApi<List<Booking>>.GetData(controllerName);
         }
 
         public static Booking GetById(int id)
         {
-            return WebApi.GetDataById<Booking>(controllerName, id);
+            return WebApi<Booking>.GetDataById(controllerName, id);
         }
 
-        public static IEnumerable<Booking> GetByParameter(DateTime startDate, DateTime endDate, int? creditId = null, int? debitId = null)
+        public static List<Booking> GetByParameter(DateTime startDate, DateTime endDate, int? creditId = null, int? debitId = null)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("startDate", startDate);
             parameters.Add("endDate", endDate);
             parameters.Add("creditId", creditId);
             parameters.Add("debitId", debitId);
-            return WebApi.GetData<IEnumerable<Booking>>(controllerName, "GetByParameter", parameters);
+            return WebApi<List<Booking>>.GetData(controllerName, "GetByParameter", parameters);
         }
 
         public static int Insert(Booking Booking)
         {
-            return WebApi.PostAsync(controllerName, Booking).Result;
+            return WebApi<int>.PostAsync(controllerName, Booking).Result;
         }
 
         public static int Insert(IEnumerable<Booking> Bookings)
         {
-            return WebApi.PostAsync(controllerName, Bookings).Result;
+            return WebApi<int>.PostAsync(controllerName, Bookings).Result;
         }
 
         public static bool Update(Booking Booking)
         {
-            return WebApi.PutAsync(controllerName, Booking, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, Booking, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }

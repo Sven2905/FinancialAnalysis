@@ -323,7 +323,7 @@
                                 <dxlc:LayoutGroup>
                                     <dxlc:LayoutItem Label="Krankenkasse" FontFamily="Tahoma">
                                         <dxe:ComboBoxEdit ValueMember="HealthInsuranceId" DisplayMember="Name"
-                                                  ItemsSource="{Binding HealthInsurances}"
+                                                  ItemsSource="{Binding HealthInsuranceList}"
                                                   EditValue="{Binding SelectedEmployee.RefHealthInsuranceId}"
                                                   FontFamily="Tahoma" />
                                     </dxlc:LayoutItem>

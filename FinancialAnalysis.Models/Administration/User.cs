@@ -120,7 +120,7 @@ namespace FinancialAnalysis.Models.Administration
         /// <summary>
         /// Zugeordnete Rechte
         /// </summary>
-        public Dictionary<UserRight, bool> UserRights { get; set; } = new Dictionary<UserRight, bool>();
+        public List<UserRight> UserRights { get; set; } = new List<UserRight>();
 
         /// <summary>
         /// Benutzer-Rechte-Zuordnung

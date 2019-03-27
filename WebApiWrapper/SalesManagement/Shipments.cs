@@ -11,34 +11,34 @@ namespace WebApiWrapper.SalesManagement
     {
         private const string controllerName = "Shipments";
 
-        public static IEnumerable<Shipment> GetAll()
+        public static List<Shipment> GetAll()
         {
-            return WebApi.GetData<IEnumerable<Shipment>>(controllerName);
+            return WebApi<List<Shipment>>.GetData(controllerName);
         }
 
         public static Shipment GetById(int id)
         {
-            return WebApi.GetDataById<Shipment>(controllerName, id);
+            return WebApi<Shipment>.GetDataById(controllerName, id);
         }
 
         public static int Insert(Shipment Shipment)
         {
-            return WebApi.PostAsync(controllerName, Shipment).Result;
+            return WebApi<int>.PostAsync(controllerName, Shipment).Result;
         }
 
         public static int Insert(IEnumerable<Shipment> Shipments)
         {
-            return WebApi.PostAsync(controllerName, Shipments).Result;
+            return WebApi<int>.PostAsync(controllerName, Shipments).Result;
         }
 
         public static bool Update(Shipment Shipment)
         {
-            return WebApi.PutAsync(controllerName, Shipment, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, Shipment, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }

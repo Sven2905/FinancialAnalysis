@@ -11,39 +11,39 @@ namespace WebApiWrapper.SalesManagement
     {
         private const string controllerName = "SalesOrders";
 
-        public static IEnumerable<SalesOrder> GetAll()
+        public static List<SalesOrder> GetAll()
         {
-            return WebApi.GetData<IEnumerable<SalesOrder>>(controllerName);
+            return WebApi<List<SalesOrder>>.GetData(controllerName);
         }
 
         public static SalesOrder GetById(int id)
         {
-            return WebApi.GetDataById<SalesOrder>(controllerName, id);
+            return WebApi<SalesOrder>.GetDataById(controllerName, id);
         }
 
-        public static IEnumerable<SalesOrder> GetOpenedSalesOrders()
+        public static List<SalesOrder> GetOpenedSalesOrders()
         {
-            return WebApi.GetData<IEnumerable<SalesOrder>>(controllerName, "GetOpenedSalesOrders");
+            return WebApi<List<SalesOrder>>.GetData(controllerName, "GetOpenedSalesOrders");
         }
 
         public static int Insert(SalesOrder SalesOrder)
         {
-            return WebApi.PostAsync(controllerName, SalesOrder).Result;
+            return WebApi<int>.PostAsync(controllerName, SalesOrder).Result;
         }
 
         public static int Insert(IEnumerable<SalesOrder> SalesOrders)
         {
-            return WebApi.PostAsync(controllerName, SalesOrders).Result;
+            return WebApi<int>.PostAsync(controllerName, SalesOrders).Result;
         }
 
         public static bool Update(SalesOrder SalesOrder)
         {
-            return WebApi.PutAsync(controllerName, SalesOrder, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, SalesOrder, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi.DeleteAsync(controllerName, id).Result;
+            return WebApi<bool>.DeleteAsync(controllerName, id).Result;
         }
     }
 }
