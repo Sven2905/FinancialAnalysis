@@ -47,7 +47,7 @@ namespace WebApiWrapper.ClientManagement
 
         public static bool Delete(int id)
         {
-            return WebApi<int>.DeleteAsync(controllerName, id).Result;
+            return WebApi<int>.DeleteAsync(controllerName, id);
         }
     }
 }

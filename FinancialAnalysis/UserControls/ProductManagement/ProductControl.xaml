@@ -207,7 +207,7 @@
                                     <dxlc:LayoutGroup>
                                         <dxlc:LayoutItem Label="Steuer" FontFamily="Tahoma">
                                             <dxe:ComboBoxEdit NullText="Bitte wählen" ValueMember="TaxTypeId"
-                                                      DisplayMember="Description" ItemsSource="{Binding TaxTypeList}"
+                                                      DisplayMember="Description" ItemsSource="{Binding TaxTypes}"
                                                       EditValue="{Binding SelectedProduct.RefTaxTypeId}"
                                                       FontFamily="Tahoma" />
                                         </dxlc:LayoutItem>

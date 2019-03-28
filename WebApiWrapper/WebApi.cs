@@ -15,7 +15,7 @@ namespace WebApiWrapper
 
         public static T GetData(string controller, string action = "Get", Dictionary<string, object> parameters = null)
         {
-            var url = $"http://localhost:29005/api/{controller}/{action}";
+            var url = $"http://{WebApiConfiguration.Server}:{WebApiConfiguration.Port}/api/{controller}/{action}";
             if (parameters?.Count > 0)
             {
                 url += "?";
@@ -43,7 +43,7 @@ namespace WebApiWrapper
 
         public static T GetDataById(string controller, int id, string action = "GetById")
         {
-            var url = $"http://localhost:29005/api/{controller}/{action}?id={id}";
+            var url = $"http://{WebApiConfiguration.Server}:{WebApiConfiguration.Port}/api/{controller}/{action}?id={id}";
             
 
             if (url[url.Length - 1] == '&')
@@ -59,7 +59,7 @@ namespace WebApiWrapper
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Configuration.WebApiKey);
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + WebApiConfiguration.WebApiKey);
 
             var response = client.GetAsync(url).Result;
 
@@ -93,7 +93,7 @@ namespace WebApiWrapper
 
             try
             {
-                string url = $"http://localhost:29005/api/{controllerName}";
+                string url = $"http://{WebApiConfiguration.Server}:{WebApiConfiguration.Port}/api/{controllerName}";
                 if (!string.IsNullOrEmpty(actionName))
                 {
                     url += @"/" + actionName;
@@ -102,7 +102,7 @@ namespace WebApiWrapper
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Method = "POST";
-                httpWebRequest.Headers.Add("Authorization", "Bearer " + Configuration.WebApiKey);
+                httpWebRequest.Headers.Add("Authorization", "Bearer " + WebApiConfiguration.WebApiKey);
 
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
@@ -135,7 +135,7 @@ namespace WebApiWrapper
 
             try
             {
-                string url = $"http://localhost:29005/api/{controllerName}";
+                string url = $"http://{WebApiConfiguration.Server}:{WebApiConfiguration.Port}/api/{controllerName}";
                 if (!string.IsNullOrEmpty(actionName))
                 {
                     url += @"/" + actionName;
@@ -144,7 +144,7 @@ namespace WebApiWrapper
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Method = "PUT";
-                httpWebRequest.Headers.Add("Authorization", "Bearer " + Configuration.WebApiKey);
+                httpWebRequest.Headers.Add("Authorization", "Bearer " + WebApiConfiguration.WebApiKey);
 
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
@@ -165,42 +165,27 @@ namespace WebApiWrapper
             return await Task.FromResult(Convert.ToBoolean(resultString));
         }
 
-        public static Task<bool> DeleteAsync(string controllerName, object data, string actionName = "")
+        public static bool DeleteAsync(string controllerName, int id)
         {
-            string result = string.Empty;
+            string url = $"http://{WebApiConfiguration.Server}:{WebApiConfiguration.Port}/api/{controllerName}";
+            url += $"/{id}";
 
-            string json = JsonConvert.SerializeObject(data);
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpWebRequest.ContentType = "application/json";
+            httpWebRequest.Method = "DELETE";
+            httpWebRequest.Headers.Add("Authorization", "Bearer " + WebApiConfiguration.WebApiKey);
 
-            try
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
-                string url = $"http://localhost:29005/api/{controllerName}/{data}";
-                if (!string.IsNullOrEmpty(actionName))
+                string resultString = streamReader.ReadToEnd();
+                if (!string.IsNullOrEmpty(resultString) && resultString != "[]")
                 {
-                    url += @"/" + actionName;
-                }
-
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-                httpWebRequest.ContentType = "application/json";
-                httpWebRequest.Method = "DELETE";
-                httpWebRequest.Headers.Add("Authorization", "Bearer " + Configuration.WebApiKey);
-
-                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-                {
-                    streamWriter.Write(json);
-                    streamWriter.Flush();
-                }
-
-                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                {
-                    result = streamReader.ReadToEnd();
+                    return Convert.ToBoolean(streamReader.ReadToEnd());
                 }
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-            return Task.FromResult(Convert.ToBoolean(result));
+            return false;
+
         }
     }
 }

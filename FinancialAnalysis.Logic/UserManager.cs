@@ -181,8 +181,8 @@ namespace FinancialAnalysis.Logic
                     0x6c, 0xa6, 0x27, 0x0d, 0x62, 0xd4, 0x80, 0xc7, 0x50, 0xc9, 0x93, 0xef, 0xfb, 0x64, 0x90, 0x16,
                     0x7d, 0xc7, 0x1d, 0x6f, 0xb0, 0xe3, 0x80, 0xdc, 0x73
                 });
-            Configuration.GetKey(username, password);
-            if (string.IsNullOrEmpty(Configuration.WebApiKey))
+            WebApiConfiguration.GetKey(username, password);
+            if (string.IsNullOrEmpty(WebApiConfiguration.WebApiKey))
             {
                 return null;
             }

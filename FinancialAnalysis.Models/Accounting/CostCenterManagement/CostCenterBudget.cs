@@ -1,6 +1,6 @@
 ﻿using DevExpress.Mvvm;
-using System;
 using Newtonsoft.Json;
+using System;
 
 namespace FinancialAnalysis.Models.Accounting
 {
@@ -10,6 +10,25 @@ namespace FinancialAnalysis.Models.Accounting
     [JsonObject(MemberSerialization.OptOut)]
     public class CostCenterBudget : BindableBase
     {
+        #region Fields
+
+        private decimal _January = 0;
+        private decimal _February = 0;
+        private decimal _March = 0;
+        private decimal _April = 0;
+        private decimal _May = 0;
+        private decimal _June = 0;
+        private decimal _July = 0;
+        private decimal _August = 0;
+        private decimal _September = 0;
+        private decimal _October = 0;
+        private decimal _November = 0;
+        private decimal _December = 0;
+
+        #endregion Fields
+
+        #region Properties
+
         /// <summary>
         /// Id
         /// </summary>
@@ -28,62 +47,110 @@ namespace FinancialAnalysis.Models.Accounting
         /// <summary>
         /// Geplante Kosten für Januar
         /// </summary>
-        public decimal January { get; set; } = 0;
+        public decimal January
+        {
+            get { return _January; }
+            set { _January = value; RaisePropertyChanged(); }
+        }
 
         /// <summary>
         /// Geplante Kosten für Februar
         /// </summary>
-        public decimal February { get; set; } = 0;
+        public decimal February
+        {
+            get { return _February; }
+            set { _February = value; RaisePropertyChanged(); }
+        }
 
         /// <summary>
         /// Geplante Kosten für März
         /// </summary>
-        public decimal March { get; set; } = 0;
+        public decimal March
+        {
+            get { return _March; }
+            set { _March = value; RaisePropertyChanged(); }
+        }
 
         /// <summary>
         /// Geplante Kosten für April
         /// </summary>
-        public decimal April { get; set; } = 0;
+        public decimal April
+        {
+            get { return _April; }
+            set { _April = value; RaisePropertyChanged(); }
+        }
 
         /// <summary>
         /// Geplante Kosten für Mai
         /// </summary>
-        public decimal May { get; set; } = 0;
+        public decimal May
+        {
+            get { return _May; }
+            set { _May = value; RaisePropertyChanged(); }
+        }
 
         /// <summary>
         /// Geplante Kosten für Juni
         /// </summary>
-        public decimal June { get; set; } = 0;
+        public decimal June
+        {
+            get { return _June; }
+            set { _June = value; RaisePropertyChanged(); }
+        }
 
         /// <summary>
         /// Geplante Kosten für Juli
         /// </summary>
-        public decimal July { get; set; } = 0;
+        public decimal July
+        {
+            get { return _July; }
+            set { _July = value; RaisePropertyChanged(); }
+        }
 
         /// <summary>
         /// Geplante Kosten für August
         /// </summary>
-        public decimal August { get; set; } = 0;
+        public decimal August
+        {
+            get { return _August; }
+            set { _August = value; RaisePropertyChanged(); }
+        }
 
         /// <summary>
         /// Geplante Kosten für September
         /// </summary>
-        public decimal September { get; set; } = 0;
+        public decimal September
+        {
+            get { return _September; }
+            set { _September = value; RaisePropertyChanged(); }
+        }
 
         /// <summary>
         /// Geplante Kosten für Oktober
         /// </summary>
-        public decimal October { get; set; } = 0;
+        public decimal October
+        {
+            get { return _October; }
+            set { _October = value; RaisePropertyChanged(); }
+        }
 
         /// <summary>
         /// Geplante Kosten für November
         /// </summary>
-        public decimal November { get; set; } = 0;
+        public decimal November
+        {
+            get { return _November; }
+            set { _November = value; RaisePropertyChanged(); }
+        }
 
         /// <summary>
         /// Geplante Kosten für Dezember
         /// </summary>
-        public decimal December { get; set; } = 0;
+        public decimal December
+        {
+            get { return _December; }
+            set { _December = value; RaisePropertyChanged(); }
+        }
 
         /// <summary>
         /// Aufsummierte Kosten des 1. Quartals
@@ -96,9 +163,10 @@ namespace FinancialAnalysis.Models.Accounting
             }
             set
             {
-                January = value / 3;
-                February = value / 3;
-                March = value / 3;
+                _January = value / 3;
+                _February = value / 3;
+                _March = value / 3;
+                RaisePropertyChanged();
             }
         }
 
@@ -113,9 +181,10 @@ namespace FinancialAnalysis.Models.Accounting
             }
             set
             {
-                April = value / 3;
-                May = value / 3;
-                June = value / 3;
+                _April = value / 3;
+                _May = value / 3;
+                _June = value / 3;
+                RaisePropertyChanged();
             }
         }
 
@@ -130,9 +199,10 @@ namespace FinancialAnalysis.Models.Accounting
             }
             set
             {
-                July = value / 3;
-                August = value / 3;
-                September = value / 3;
+                _July = value / 3;
+                _August = value / 3;
+                _September = value / 3;
+                RaisePropertyChanged();
             }
         }
 
@@ -147,9 +217,10 @@ namespace FinancialAnalysis.Models.Accounting
             }
             set
             {
-                October = value / 3;
-                November = value / 3;
-                December = value / 3;
+                _October = value / 3;
+                _November = value / 3;
+                _December = value / 3;
+                RaisePropertyChanged();
             }
         }
 
@@ -164,11 +235,22 @@ namespace FinancialAnalysis.Models.Accounting
             }
             set
             {
-                Quarter1 = value / 4;
-                Quarter2 = value / 4;
-                Quarter3 = value / 4;
-                Quarter4 = value / 4;
+                _January = value / 12;
+                _February = value / 12;
+                _March = value / 12;
+                _April = value / 12;
+                _May = value / 12;
+                _June = value / 12;
+                _July = value / 12;
+                _August = value / 12;
+                _September = value / 12;
+                _October = value / 12;
+                _November = value / 12;
+                _December = value / 12;
+                RaisePropertyChanged();
             }
         }
+
+        #endregion Properties
     }
 }
