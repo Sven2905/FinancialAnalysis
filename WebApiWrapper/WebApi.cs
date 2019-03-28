@@ -161,6 +161,7 @@ namespace WebApiWrapper
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                return false;
             }
             return await Task.FromResult(Convert.ToBoolean(resultString));
         }

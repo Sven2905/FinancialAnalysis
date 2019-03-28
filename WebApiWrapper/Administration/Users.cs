@@ -41,7 +41,7 @@ namespace WebApiWrapper.Administration
 
         public static bool Update(User user)
         {
-            return WebApi<int>.PutAsync(controllerName, user).Result;
+            return WebApi<int>.PutAsync(controllerName, user, "Put").Result;
         }
 
         public static bool UpdatePassword(User user)
