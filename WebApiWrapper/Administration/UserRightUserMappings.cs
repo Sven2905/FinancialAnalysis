@@ -33,7 +33,7 @@ namespace WebApiWrapper.Administration
 
         public static bool Update(UserRightUserMapping UserRightUserMapping)
         {
-            return WebApi<int>.PutAsync(controllerName, UserRightUserMapping).Result;
+            return WebApi<int>.PutAsync(controllerName, UserRightUserMapping, "Put").Result;
         }
 
         public static bool Delete(int id)

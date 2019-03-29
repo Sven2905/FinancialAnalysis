@@ -108,7 +108,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveUser()
         {
-            SelectedUser.Password = Password;
+            SelectedUser.SetPassword(Password);
             SelectedUser.UserRightUserMappings =
                 UserManager.Instance
                     .ConvertUserRightUserMappingFlatStructureToNormal(UserRightUserMappingFlatStructure);

@@ -27,34 +27,7 @@ namespace FinancialAnalysis.Models.Administration
         /// <summary>
         /// Passwort
         /// </summary>
-        public string Password
-        {
-            get
-            {
-                if (_Password != string.Empty)
-                {
-                    return _Password;
-                }
-
-                return "";
-            }
-            set
-            {
-                if (value != "")
-                {
-                    _Password = Encryption.ComputeHash(value, new SHA256CryptoServiceProvider(),
-                        new byte[]
-                        {
-                            0x6c, 0xa6, 0x27, 0x0d, 0x62, 0xd4, 0x80, 0xc7, 0x50, 0xc9, 0x93, 0xef, 0xfb, 0x64, 0x90,
-                            0x16, 0x7d, 0xc7, 0x1d, 0x6f, 0xb0, 0xe3, 0x80, 0xdc, 0x73
-                        });
-                }
-                else
-                {
-                    _Password = "";
-                }
-            }
-        }
+        public string Password { get; set; } = string.Empty;
 
         /// <summary>
         /// Key zur Authentifizierung der WebApi
@@ -149,8 +122,24 @@ namespace FinancialAnalysis.Models.Administration
 
         private string _Firstname;
         private string _Lastname;
-        private string _Password = string.Empty;
 
         #endregion Fields
+
+        public void SetPassword(string password)
+        {
+            if (password != "")
+            {
+                Password = Encryption.ComputeHash(password, new SHA256CryptoServiceProvider(),
+                    new byte[]
+                    {
+                            0x6c, 0xa6, 0x27, 0x0d, 0x62, 0xd4, 0x80, 0xc7, 0x50, 0xc9, 0x93, 0xef, 0xfb, 0x64, 0x90,
+                            0x16, 0x7d, 0xc7, 0x1d, 0x6f, 0xb0, 0xe3, 0x80, 0xdc, 0x73
+                    });
+            }
+            else
+            {
+                Password = "";
+            }
+        }
     }
 }

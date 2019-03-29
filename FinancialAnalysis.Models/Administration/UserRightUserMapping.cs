@@ -13,11 +13,12 @@ namespace FinancialAnalysis.Models.Administration
         {
         }
 
-        public UserRightUserMapping(int RefUserId, int RefUserRightId, bool IsGranted)
+        public UserRightUserMapping(int RefUserId, int RefUserRightId, bool IsGranted, int UserRightUserMappingId)
         {
             this.RefUserId = RefUserId;
             this.RefUserRightId = RefUserRightId;
             this.IsGranted = IsGranted;
+            this.UserRightUserMappingId = UserRightUserMappingId;
         }
 
         /// <summary>

@@ -33,7 +33,6 @@ namespace FinancialAnalysis.Logic
 
         private SvenTechCollection<User> LoadUsersFromDB()
         {
-            var allUsers = new SvenTechCollection<User>();
             return Users.GetAll().ToSvenTechCollection();
         }
 
@@ -43,7 +42,7 @@ namespace FinancialAnalysis.Logic
 
             foreach (var item in UserRightList)
             {
-                newUser.UserRightUserMappings.Add(new UserRightUserMapping(0, item.UserRightId, false));
+                newUser.UserRightUserMappings.Add(new UserRightUserMapping(0, item.UserRightId, false, 0));
             }
 
             return newUser;
@@ -142,7 +141,7 @@ namespace FinancialAnalysis.Logic
             var UserRightUserMappingFlatStructure = new SvenTechCollection<UserRightUserMappingFlatStructure>();
             foreach (var item in user.UserRightUserMappings)
             {
-                UserRightUserMappingFlatStructure.Add(new UserRightUserMappingFlatStructure(user, UserManager.Instance.UserRightList.Single(x => x.UserRightId == item.RefUserRightId)));
+                UserRightUserMappingFlatStructure.Add(new UserRightUserMappingFlatStructure(user, Instance.UserRightList.Single(x => x.UserRightId == item.RefUserRightId), item.UserRightUserMappingId));
             }
 
             return UserRightUserMappingFlatStructure;
@@ -156,7 +155,7 @@ namespace FinancialAnalysis.Logic
             foreach (var item in UserRightUserMappingFlatStructure)
             {
                 userRightUserMappings.Add(new UserRightUserMapping(item.RefUserId, item.RefUserRightId,
-                    item.IsGranted));
+                    item.IsGranted, item.UserRightUserMappingId));
             }
 
             return userRightUserMappings;
@@ -217,7 +216,7 @@ namespace FinancialAnalysis.Logic
             else
             {
                 UserRightUserMappings.Insert(
-                    new UserRightUserMapping(user.UserId, right.UserRightId, true));
+                    new UserRightUserMapping(user.UserId, right.UserRightId, true, 0));
             }
         }
 
@@ -241,7 +240,7 @@ namespace FinancialAnalysis.Logic
             else
             {
                 UserRightUserMappings.Insert(
-                    new UserRightUserMapping(user.UserId, right.UserRightId, false));
+                    new UserRightUserMapping(user.UserId, right.UserRightId, false, 0));
             }
         }
 

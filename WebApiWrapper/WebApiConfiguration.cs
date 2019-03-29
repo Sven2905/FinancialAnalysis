@@ -13,7 +13,7 @@ namespace WebApiWrapper
     {
         public static string WebApiKey { get; private set; }
         private static readonly HttpClient client = new HttpClient();
-        public static string Server { get; set; } = "localhost";
+        public static string Server { get; set; } = "sven.tech";
         public static int Port { get; set; } = 29005;
 
         public static void GetKey(string username, string password)

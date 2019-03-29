@@ -10,9 +10,13 @@ namespace FinancialAnalysis.Models.Administration
     [JsonObject(MemberSerialization.OptOut)]
     public class UserRightUserMappingFlatStructure : BindableBase
     {
-        public UserRightUserMappingFlatStructure(User user, UserRight userRight)
+        public UserRightUserMappingFlatStructure(User user, UserRight userRight, int userRightMappingId = 0)
         {
-            //UserRightUserMappingId = userRightUserMapping.UserRightUserMappingId;
+            if (userRightMappingId != 0)
+            {
+                UserRightUserMappingId = userRightMappingId;
+            }
+
             RefUserId = user.UserId;
             IsGranted = user.UserRights.Single(x => x.UserRightId == userRight.UserRightId).IsGranted;
             RefUserRightId = userRight.UserRightId;

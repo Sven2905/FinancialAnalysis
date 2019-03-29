@@ -127,7 +127,7 @@ namespace WebApiWrapper
             return Task.FromResult(result);
         }
 
-        public static async Task<bool> PutAsync(string controllerName, object data, string actionName = "")
+        public static async Task<bool> PutAsync(string controllerName, object data, string actionName = "Put")
         {
             string resultString = string.Empty;
             HttpClient client = new HttpClient();
