@@ -22,7 +22,7 @@
     WindowStartupLocation="CenterScreen"
     xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
     xmlns:Converter="clr-namespace:FinancialAnalysis.UserControls"
-    IsEnabled="{Binding BindableProperty, Source={StaticResource MessageListener}}" Width="1200" Height="800"
+    IsEnabled="{Binding BindableProperty, Source={StaticResource MessageListener}}" Width="1920" Height="1040"
     ResizeMode="CanResizeWithGrip">
     <Window.DataContext>
         <ViewModels:MainViewModel />
@@ -39,20 +39,18 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-
-
-
-        <!--<StatusBar Grid.Row="1" Height="28" Margin="0" VerticalAlignment="Bottom" Grid.ColumnSpan="3"
-                   Background="#3f729b">
-            <StatusBarItem HorizontalAlignment="Left" Height="24" Content="{Binding CurrentTime}" Foreground="White"
-                           Margin="0,0,5,0" FontSize="14" FontFamily="Tahoma" />
-            <StatusBarItem HorizontalAlignment="Right" Height="24" Content="{Binding ActiveUser.Name}"
-                           Foreground="White" Margin="0,0,5,0" FontSize="14" FontFamily="Tahoma" />
-        </StatusBar>-->
         <dxb:StatusBarControl VerticalAlignment="Bottom" >
             <dxb:BarStaticItem Content="{Binding CurrentTime}"/>
             <dxb:BarStaticItem Content="Datenbankverbindung: " Alignment="Far" />
-            <dxb:BarStaticItem Content="{Binding DatabaseStatus, Converter={Converter:EnumToDisplaynameConverter}}" Alignment="Far" ShowBorder="True" />
+            <dxb:BarStaticItem Content="{Binding DatabaseStatusItem}" Alignment="Far" >
+                <dxb:BarStaticItem.ContentTemplate>
+                    <DataTemplate>
+                        <Path Data="{Binding Data}" Fill="White" Height="{Binding Height}" 
+                              Width="{Binding Width}" Stretch="Fill" />
+                    </DataTemplate>
+                </dxb:BarStaticItem.ContentTemplate>
+            </dxb:BarStaticItem>
+            <!--<dxb:BarStaticItem Content="{Binding DatabaseStatus, Converter={Converter:EnumToDisplaynameConverter}}" Alignment="Far" ShowBorder="True" />-->
             <dxb:BarStaticItem Alignment="Far" ShowBorder="True" />
             <dxb:BarStaticItem Content="{Binding ActiveUser.Name}" Alignment="Far" />
         </dxb:StatusBarControl>

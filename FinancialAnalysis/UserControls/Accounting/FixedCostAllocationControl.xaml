@@ -44,7 +44,7 @@
                         <dxlc:LayoutGroup>
                             <dxlc:LayoutItem Label="Kategorie" FontFamily="Tahoma">
                                 <dxe:ComboBoxEdit NullText="Bitte wählen" 
-                                                      DisplayMember="Name" ItemsSource="{Binding CostCenterCategories}"
+                                                      DisplayMember="Name" ItemsSource="{Binding CostCenterCategoryList}"
                                                       EditValue="{Binding SelectedCostCenterCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       FontFamily="Tahoma" />
                             </dxlc:LayoutItem>

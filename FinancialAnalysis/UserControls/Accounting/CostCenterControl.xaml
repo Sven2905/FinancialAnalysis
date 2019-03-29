@@ -94,7 +94,7 @@
                                             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0" HorizontalAlignment="Stretch">
                                                 <dxg:TreeListControl VerticalAlignment="Top" MaxWidth="530" MaxHeight="800"  HorizontalAlignment="Stretch"
                                          ItemsSource="{Binding CostCenterFlatStructures, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                          ShowBorder="True" Height="600" MinWidth="500" SelectedItem="{Binding SelectedCostCenterFlatStructure}">
+                                          ShowBorder="True" Height="600" MinWidth="500" SelectedItem="{Binding SelectedCostCenterFlatStructure, Mode=OneWayToSource}">
                                                     <dxg:TreeListControl.View>
                                                         <dxg:TreeListView EditFormShowMode="None"
                                               EnableImmediatePosting="True" ShowVerticalLines="False" AutoExpandAllNodes="True"

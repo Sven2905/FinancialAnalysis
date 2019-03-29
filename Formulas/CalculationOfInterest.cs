@@ -21,7 +21,7 @@ namespace Formulas
             {
                 factor = 1;
             }
-            return (360 * (endDate.Year - startDate.Year) + 30 * (endDate.Month - startDate.Month) + endDate.Day - Math.Min(startDate.Day, 30) - Math.Max(endDate.Day - 30, 0) * factor);
+            return (360 * (endDate.Year - startDate.Year)) + (30 * (endDate.Month - startDate.Month)) + endDate.Day - Math.Min(startDate.Day, 30) - Math.Max(endDate.Day - 30, 0) * factor;
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Formulas
         /// <returns>Kapital</returns>
         public static decimal CalculateCapitalForTimepoint(decimal startCapital, decimal rate, int days)
         {
-            return startCapital * (1 + (rate / 100) * days);
+            return startCapital * (1 + rate / 100 * days);
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace Formulas
         /// <returns></returns>
         public static decimal CalculateCashValue(decimal CapitalAtDay, decimal rate, int days)
         {
-            return (CapitalAtDay) / (1 + (rate / 100) * days);
+            return CapitalAtDay / (1 + (rate / 100) * days);
         }
     }
 }
