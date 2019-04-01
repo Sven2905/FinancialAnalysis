@@ -9,85 +9,71 @@
              xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             dx:ThemeManager.ThemeName="Office2016WhiteSE"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="800" d:DesignWidth="1200">
     <UserControl.DataContext>
         <ViewModels:FixedCostAllocationViewModel />
     </UserControl.DataContext>
 
-    <UserControl.Resources>
-        <Style x:Key="labelStyle" TargetType="{x:Type dxlc:LayoutItemLabel}">
-            <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="Foreground" Value="#3f729b" />
-        </Style>
-        <Style x:Key="itemStyle" TargetType="{x:Type dxlc:LayoutItem}">
-            <Setter Property="LabelPosition" Value="Top" />
-            <Setter Property="LabelStyle" Value="{StaticResource labelStyle}" />
-            <Setter Property="Foreground" Value="#3f729b" />
-        </Style>
-        <local:NullToIsEnabledConverter x:Key="NullConverter" />
-    </UserControl.Resources>
     <Grid>
-        <Grid HorizontalAlignment="Center">
+        <Grid HorizontalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="40" />
             </Grid.RowDefinitions>
 
-            <Grid HorizontalAlignment="Center">
-                <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" >
-                    <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Left" MinWidth="500">
-                        <dxlc:LayoutGroup.Header>
-                            <TextBlock Text="Kostenschlüssel" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
-                        </dxlc:LayoutGroup.Header>
-                        <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Kategorie" FontFamily="Tahoma">
-                                <dxe:ComboBoxEdit NullText="Bitte wählen" 
-                                                      DisplayMember="Name" ItemsSource="{Binding CostCenterCategoryList}"
-                                                      EditValue="{Binding SelectedCostCenterCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      FontFamily="Tahoma" />
-                            </dxlc:LayoutItem>
-                        </dxlc:LayoutGroup>
-                        <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Kostenstelle" FontFamily="Tahoma">
-                                <dxe:ComboBoxEdit NullText="Bitte wählen" 
-                                                      DisplayMember="Name" ItemsSource="{Binding SelectedCostCenterCategory.CostCenters}"
-                                                      EditValue="{Binding SelectedFixedCostAllocation.CostCenter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      IsEnabled="{Binding SelectedCostCenterCategory, Converter={StaticResource NullConverter}}"
-                                                      FontFamily="Tahoma" />
-                            </dxlc:LayoutItem>
-                        </dxlc:LayoutGroup>
-                        <dxlc:LayoutGroup>
-                            <dxlc:LayoutItem Label="Anteile" FontFamily="Tahoma">
-                                <dxe:TextEdit Text="{Binding SelectedFixedCostAllocation.Shares, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
-                            </dxlc:LayoutItem>
-                        </dxlc:LayoutGroup>
-                        <dxlc:LayoutGroup>
-                            <dx:SimpleButton Margin="0,10,0,0" Command="{Binding AddFixedCostAllocationCommand}" Height="25" Content="Hinzufügen" Width="100" FontFamily="Tahoma" />
-                        </dxlc:LayoutGroup>
-                    </dxlc:LayoutGroup>
-                </dxlc:LayoutControl>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
 
-            </Grid>
-            <dxg:GridControl Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" ShowBorder="True" ItemsSource="{Binding FixedCostAllocationList}"
-                             SelectedItem="{Binding SelectedFixedCostAllocationTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="500">
-                <dxg:GridColumn FieldName="CostCenter.CostCenterCategory.Name" Header="Kostenstellenkategorie" />
-                <dxg:GridColumn FieldName="CostCenter.Name" Header="Kostenstelle" />
-                <dxg:GridColumn FieldName="Shares" Header="Anteile" FixedWidth="True" />
-                <dxg:GridControl.View>
-                    <dxg:TableView ShowHorizontalLines="True" ShowVerticalLines="False" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" MaxHeight="5000" MaxWidth="5000"
+                <Grid Grid.Column="0" >
+
+                    <dxg:GridControl ShowBorder="True" ItemsSource="{Binding FixedCostAllocationList}" 
+                             SelectedItem="{Binding SelectedFixedCostAllocationTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <dxg:GridColumn FieldName="Name" Header="Name" />
+                        <dxg:GridControl.View>
+                            <dxg:TableView ShowHorizontalLines="True" ShowVerticalLines="False" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" MaxHeight="5000" MaxWidth="5000"
                                    ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" EnableSelectedRowAppearance="True"
                                    UseEvenRowBackground="True" ShowIndicator="False" AllowColumnMoving="False" AllowGrouping="False" AutoWidth="True" />
-                </dxg:GridControl.View>
-            </dxg:GridControl>
+                        </dxg:GridControl.View>
+                    </dxg:GridControl>
+                </Grid>
 
+                <Grid Grid.Column="1" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="2" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="12,0,0,0">
-                <!--<dx:SimpleButton Width="135" Height="30" Content="Speichern" Foreground="#3F729B" Command="{Binding NewCostCenterCommand}" FontFamily="Tahoma" />-->
-                <dx:SimpleButton Width="135" Height="30" Margin="0,0,5,0" Content="Löschen" Foreground="#3F729B" Command="{Binding DeleteFixedCostAllocationCommand}" FontFamily="Tahoma" />
+                    <VirtualizingStackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,10,0,10">
+                        <TextBlock Text="Name" VerticalAlignment="Center" Margin="10,0"/>
+                        <TextBox VerticalAlignment="Center" Width="150"/>
+                    </VirtualizingStackPanel>
+                    
+                    <dxg:GridControl Grid.Row="1" HorizontalAlignment="Center" ShowBorder="True" ItemsSource="{Binding FixedCostAllocationList}" Margin="10"
+                             SelectedItem="{Binding SelectedFixedCostAllocationTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                        <dxg:GridColumn FieldName="CostCenter.CostCenterCategory.Name" Header="Kostenstellenkategorie" />
+                        <dxg:GridColumn FieldName="CostCenter.Name" Header="Kostenstelle" />
+                        <dxg:GridColumn FieldName="Shares" Header="Anteile" FixedWidth="True" />
+                        <dxg:GridControl.View>
+                            <dxg:TableView ShowHorizontalLines="True" ShowVerticalLines="False" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" MaxHeight="5000" MaxWidth="5000"
+                                   ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="True" UseLegacyFilterEditor="False" EnableSelectedRowAppearance="True"
+                                   UseEvenRowBackground="True" ShowIndicator="False" AllowColumnMoving="False" AllowGrouping="False" AutoWidth="True" NewItemRowPosition="Bottom" />
+                        </dxg:GridControl.View>
+                    </dxg:GridControl>
+                </Grid>
+
+            </Grid>
+
+            <StackPanel Grid.Row="2" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" >
+                <dx:SimpleButton Width="135" Height="30" Content="Speichern" Foreground="#3F729B" Command="{Binding NewCostCenterCommand}" FontFamily="Tahoma" />
+                <dx:SimpleButton Width="135" Height="30" Margin="5,0,5,0" Content="Löschen" Foreground="#3F729B" Command="{Binding DeleteFixedCostAllocationCommand}" FontFamily="Tahoma" />
             </StackPanel>
-            
+
         </Grid>
     </Grid>
 </UserControl>

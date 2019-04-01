@@ -1,5 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using Utilities;
 
 namespace FinancialAnalysis.Models.Accounting
 {
@@ -9,24 +11,21 @@ namespace FinancialAnalysis.Models.Accounting
     [JsonObject(MemberSerialization.OptOut)]
     public class FixedCostAllocation : BindableBase
     {
+        public FixedCostAllocation()
+        {
+            FixedCostAllocationDetails = new SvenTechCollection<FixedCostAllocationDetail>();
+        }
+
         /// <summary>
         /// Id
         /// </summary>
         public int FixedCostAllocationId { get; set; }
 
         /// <summary>
-        /// Referenz-Id Kostenstelle
+        /// Name
         /// </summary>
-        public int RefCostCenterId { get; set; }
+        public string Name { get; set; }
 
-        /// <summary>
-        /// Kostenstelle
-        /// </summary>
-        public CostCenter CostCenter { get; set; } = new CostCenter();
-
-        /// <summary>
-        /// Anteile
-        /// </summary>
-        public double Shares { get; set; } = 0;
+        public SvenTechCollection<FixedCostAllocationDetail> FixedCostAllocationDetails { get; set; }
     }
 }

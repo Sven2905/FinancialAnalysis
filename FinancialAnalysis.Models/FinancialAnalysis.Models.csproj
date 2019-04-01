@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounting\Booking.cs" />
+    <Compile Include="Accounting\CostCenterManagement\FixedCostAllocationDetail.cs" />
     <Compile Include="Accounting\PaymentCondition.cs" />
     <Compile Include="Accounting\CostAccount.cs" />
     <Compile Include="Accounting\CostAccountCategory.cs" />
@@ -100,7 +101,7 @@
     <Compile Include="Accounting\CostCenterManagement\CostCenterFlatStructure.cs" />
     <Compile Include="Accounting\Credit.cs" />
     <Compile Include="Accounting\Debit.cs" />
-    <Compile Include="Accounting\FixedCostAllocation.cs" />
+    <Compile Include="Accounting\CostCenterManagement\FixedCostAllocation.cs" />
     <Compile Include="Accounting\GainAndLossAccount.cs" />
     <Compile Include="Accounting\BalanceAccount.cs" />
     <Compile Include="Accounting\ScannedDocument.cs" />
