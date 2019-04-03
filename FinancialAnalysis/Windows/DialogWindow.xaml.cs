@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using DevExpress.Xpf.Core;
 using FinancialAnalysis.Logic.ViewModels;
 
 namespace FinancialAnalysis
@@ -6,7 +7,7 @@ namespace FinancialAnalysis
     /// <summary>
     ///     Interaktionslogik für DialogWindow.xaml
     /// </summary>
-    public partial class DialogWindow : Window
+    public partial class DialogWindow : DXWindow
     {
         public DialogWindow()
         {

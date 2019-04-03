@@ -40,24 +40,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Methods
 
-        private void Seed()
-        {
-            var _Import = new Import();
-            if (!UserRights.GetAll().Any())
-            {
-                _Import.ImportUserRights();
-            }
-            if (!InvoiceTypes.GetAll().Any())
-            {
-                _Import.SeedTypes();
-            }
-        }
-
         private void Login()
         {
             if (CheckCredentials())
             {
-                Task.Run(() => { Seed(); });
                 ShowError = false;
                 //Messenger.Default.Send(new OpenSplashScreenMessage());
                 Messenger.Default.Send(new OpenMainWindowMessage());

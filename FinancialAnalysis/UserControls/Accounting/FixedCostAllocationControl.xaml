@@ -32,7 +32,7 @@
 
                 <Grid Grid.Column="0" >
 
-                    <dxg:GridControl ShowBorder="True" ItemsSource="{Binding FixedCostAllocationList}" 
+                    <dxg:GridControl ShowBorder="True" ItemsSource="{Binding FixedCostAllocationList}" Margin="10"
                              SelectedItem="{Binding SelectedFixedCostAllocationTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <dxg:GridColumn FieldName="Name" Header="Name" />
                         <dxg:GridControl.View>
@@ -54,8 +54,8 @@
                         <TextBox VerticalAlignment="Center" Width="150"/>
                     </VirtualizingStackPanel>
                     
-                    <dxg:GridControl Grid.Row="1" HorizontalAlignment="Center" ShowBorder="True" ItemsSource="{Binding FixedCostAllocationList}" Margin="10"
-                             SelectedItem="{Binding SelectedFixedCostAllocationTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                    <dxg:GridControl Grid.Row="1" HorizontalAlignment="Center" ShowBorder="True" ItemsSource="{Binding FixedCostAllocationList.FixedCostAllocationDetails}" Margin="10"
+                             SelectedItem="{Binding SelectedFixedCostAllocationDetail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
                         <dxg:GridColumn FieldName="CostCenter.CostCenterCategory.Name" Header="Kostenstellenkategorie" />
                         <dxg:GridColumn FieldName="CostCenter.Name" Header="Kostenstelle" />
                         <dxg:GridColumn FieldName="Shares" Header="Anteile" FixedWidth="True" />
@@ -70,7 +70,8 @@
             </Grid>
 
             <StackPanel Grid.Row="2" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" >
-                <dx:SimpleButton Width="135" Height="30" Content="Speichern" Foreground="#3F729B" Command="{Binding NewCostCenterCommand}" FontFamily="Tahoma" />
+                <dx:SimpleButton Width="135" Height="30" Margin="0,0,5,0" Content="Neu" Foreground="#3F729B" Command="{Binding AddFixedCostAllocationCommand}" FontFamily="Tahoma" />
+                <dx:SimpleButton Width="135" Height="30" Content="Speichern" Foreground="#3F729B" Command="{Binding SaveFixedCostAllocationCommand}" FontFamily="Tahoma" />
                 <dx:SimpleButton Width="135" Height="30" Margin="5,0,5,0" Content="Löschen" Foreground="#3F729B" Command="{Binding DeleteFixedCostAllocationCommand}" FontFamily="Tahoma" />
             </StackPanel>
 
