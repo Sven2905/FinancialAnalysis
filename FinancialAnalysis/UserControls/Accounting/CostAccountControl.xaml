@@ -30,7 +30,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-        <dxwui:PageAdornerControl Header="Kontenrahmen" Grid.Column="1" Grid.Row="0" Foreground="#3F729B" FontFamily="Tahoma">
+        <dxwui:PageAdornerControl Header="Kontenrahmen" Grid.Column="1" Grid.Row="0" Foreground="#3F729B" FontFamily="/Resources/Fonts/trajan-pro-3.otf#Trajan Pro 3">
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>

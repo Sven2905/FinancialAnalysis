@@ -34,7 +34,7 @@
         </Grid.RowDefinitions>
 
         <dxwui:PageAdornerControl Grid.ColumnSpan="3" Header="Lagerverwaltung" Grid.Row="0" Foreground="#3F729B"
-                                  FontFamily="Tahoma">
+                                  FontFamily="/Resources/Fonts/trajan-pro-3.otf#Trajan Pro 3">
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>

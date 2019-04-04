@@ -9,7 +9,7 @@
     x:Class="FinancialAnalysis.DialogWindow"
     mc:Ignorable="d"
     dx:ThemeManager.ThemeName="Office2016WhiteSE"
-    Title="{Binding Title}" Height="200" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    Title="{Binding Title}" Height="200" Width="500" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.DataContext>
         <ViewModels:DialogViewModel />
     </Window.DataContext>

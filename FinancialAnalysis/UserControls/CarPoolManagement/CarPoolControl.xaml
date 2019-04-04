@@ -24,7 +24,7 @@
         </Grid.RowDefinitions>
 
         <dxwui:PageAdornerControl Header="Fuhrpark" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                                  Foreground="#3F729B" FontFamily="Tahoma">
+                                  Foreground="#3F729B" FontFamily="/Resources/Fonts/trajan-pro-3.otf#Trajan Pro 3">
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>

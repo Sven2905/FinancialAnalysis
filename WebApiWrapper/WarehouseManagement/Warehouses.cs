@@ -33,12 +33,12 @@ namespace WebApiWrapper.WarehouseManagement
 
         public static int Insert(Warehouse Warehouse)
         {
-            return WebApi<int>.PostAsync(controllerName, Warehouse).Result;
+            return WebApi<int>.PostAsync(controllerName, Warehouse, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<Warehouse> Warehouses)
         {
-            return WebApi<int>.PostAsync(controllerName, Warehouses).Result;
+            return WebApi<int>.PostAsync(controllerName, Warehouses, "MultiPost").Result;
         }
 
         public static bool Update(Warehouse Warehouse)

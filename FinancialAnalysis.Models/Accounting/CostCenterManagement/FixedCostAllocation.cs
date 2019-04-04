@@ -11,11 +11,6 @@ namespace FinancialAnalysis.Models.Accounting
     [JsonObject(MemberSerialization.OptOut)]
     public class FixedCostAllocation : BindableBase
     {
-        public FixedCostAllocation()
-        {
-            FixedCostAllocationDetails = new SvenTechCollection<FixedCostAllocationDetail>();
-        }
-
         /// <summary>
         /// Id
         /// </summary>
@@ -26,6 +21,6 @@ namespace FinancialAnalysis.Models.Accounting
         /// </summary>
         public string Name { get; set; }
 
-        public SvenTechCollection<FixedCostAllocationDetail> FixedCostAllocationDetails { get; set; }
+        public List<FixedCostAllocationDetail> FixedCostAllocationDetails { get; set; } = new List<FixedCostAllocationDetail>();
     }
 }

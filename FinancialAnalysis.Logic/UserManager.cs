@@ -1,8 +1,11 @@
-﻿using FinancialAnalysis.Models.Administration;
+﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Logic.Messages;
+using FinancialAnalysis.Models.Administration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Windows;
 using Utilities;
 using WebApiWrapper;
 using WebApiWrapper.Administration;
@@ -180,7 +183,17 @@ namespace FinancialAnalysis.Logic
                     0x6c, 0xa6, 0x27, 0x0d, 0x62, 0xd4, 0x80, 0xc7, 0x50, 0xc9, 0x93, 0xef, 0xfb, 0x64, 0x90, 0x16,
                     0x7d, 0xc7, 0x1d, 0x6f, 0xb0, 0xe3, 0x80, 0xdc, 0x73
                 });
-            WebApiConfiguration.GetKey(username, password);
+
+            try
+            {
+                WebApiConfiguration.GetKey(username, password);
+            }
+            catch (Exception)
+            {
+                Messenger.Default.Send(new OpenDialogWindowMessage("Verbindungsfehler", "Die WebApi ist nicht erreichbar, bitte Verbindungsparameter überprüfen.", MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenWebApiConfigurationWindow());
+                return null;
+            }
             if (string.IsNullOrEmpty(WebApiConfiguration.WebApiKey))
             {
                 return null;

@@ -152,7 +152,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                     FilteredWarehouses = new SvenTechCollection<Warehouse>();
                     foreach (var item in _Warehouses)
                     {
-                        if (item.Name.Contains(FilterText))
+                        if (item.Name?.Contains(FilterText) == true)
                         {
                             FilteredWarehouses.Add(item);
                         }

@@ -39,7 +39,7 @@
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
-        <dxwui:PageAdornerControl Header="Lagerbewegung" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="Tahoma">
+        <dxwui:PageAdornerControl Header="Lagerbewegung" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="/Resources/Fonts/trajan-pro-3.otf#Trajan Pro 3">
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>

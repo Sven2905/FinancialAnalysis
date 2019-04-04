@@ -18,9 +18,7 @@ namespace WebApiWrapper.ClientManagement
 
         public static Client GetById(int id)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("Id", id);
-            return WebApi<Client>.GetData(controllerName, "GetById", parameters);
+            return WebApi<Client>.GetDataById(controllerName, id);
         }
 
         public static bool IsClientInUse(int id)

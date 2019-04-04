@@ -39,7 +39,7 @@
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
-        <dxwui:PageAdornerControl Header="Zeiterfassung" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="Tahoma">
+        <dxwui:PageAdornerControl Header="Zeiterfassung" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="/Resources/Fonts/trajan-pro-3.otf#Trajan Pro 3">
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>

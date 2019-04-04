@@ -44,6 +44,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// <summary>
         /// Kostenstellenkategorie
         /// </summary>
+        [JsonIgnore]
         public CostCenterCategory CostCenterCategory { get; set; }
 
         /// <summary>

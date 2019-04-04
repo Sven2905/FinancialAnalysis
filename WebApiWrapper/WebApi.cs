@@ -87,7 +87,7 @@ namespace WebApiWrapper
         /// <returns></returns>
         public static Task<int> PostAsync(string controllerName, object data, string actionName = "")
         {
-            int result = 0;
+            int result = -1;
 
             string json = JsonConvert.SerializeObject(data);
 
@@ -96,7 +96,7 @@ namespace WebApiWrapper
                 string url = $"http://{WebApiConfiguration.Instance.Server}:{WebApiConfiguration.Instance.Port}/api/{controllerName}";
                 if (!string.IsNullOrEmpty(actionName))
                 {
-                    url += @"/" + actionName;
+                    url += "/" + actionName;
                 }
 
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
@@ -116,7 +116,7 @@ namespace WebApiWrapper
                     string resultString = streamReader.ReadToEnd();
                     if (!string.IsNullOrEmpty(resultString) && resultString != "[]")
                     {
-                        result = Convert.ToInt32(streamReader.ReadToEnd());
+                        result = Convert.ToInt32(resultString);
                     }
                 }
             }
@@ -182,7 +182,7 @@ namespace WebApiWrapper
                 string resultString = streamReader.ReadToEnd();
                 if (!string.IsNullOrEmpty(resultString) && resultString != "[]")
                 {
-                    return Convert.ToBoolean(streamReader.ReadToEnd());
+                    return Convert.ToBoolean(resultString);
                 }
             }
             return false;

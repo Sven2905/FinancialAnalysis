@@ -23,12 +23,12 @@ namespace WebApiWrapper.Accounting
 
         public static int Insert(FixedCostAllocationDetail FixedCostAllocationDetail)
         {
-            return WebApi<int>.PostAsync(controllerName, FixedCostAllocationDetail).Result;
+            return WebApi<int>.PostAsync(controllerName, FixedCostAllocationDetail, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<FixedCostAllocationDetail> FixedCostAllocationDetails)
         {
-            return WebApi<int>.PostAsync(controllerName, FixedCostAllocationDetails).Result;
+            return WebApi<int>.PostAsync(controllerName, FixedCostAllocationDetails, "MultiPost").Result;
         }
 
         public static bool Update(FixedCostAllocationDetail FixedCostAllocationDetail)

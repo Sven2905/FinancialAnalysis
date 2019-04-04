@@ -39,17 +39,10 @@ namespace FinancialAnalysis.Logic.ViewModels
                 Messenger.Default.Send(new OpenWebApiConfigurationWindow());
             }
 
-            if (!PingHost(WebApiConfiguration.Instance.Server))
-            {
-                Messenger.Default.Send(new OpenDialogWindowMessage("Verbindungsfehler", "Die WebApi ist nicht erreichbar, bitte Verbindungsparameter überprüfen.", MessageBoxImage.Error));
-                Messenger.Default.Send(new OpenWebApiConfigurationWindow());
-            }
-
 #if (DEBUG)
             UserName = "Admin";
             Password = "Password";
 #endif
-
 
             LoginCommand = new DelegateCommand(Login, () => !string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrEmpty(Password));
             ExitCommand = new DelegateCommand(Exit);
@@ -120,32 +113,6 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             Globals.ActiveUser = foundUser;
             return true;
-        }
-
-        private bool PingHost(string nameOrAddress)
-        {
-            bool pingable = false;
-            Ping pinger = null;
-
-            try
-            {
-                pinger = new Ping();
-                PingReply reply = pinger.Send(nameOrAddress);
-                pingable = reply.Status == IPStatus.Success;
-            }
-            catch (PingException)
-            {
-                // Discard PingExceptions and return false;
-            }
-            finally
-            {
-                if (pinger != null)
-                {
-                    pinger.Dispose();
-                }
-            }
-
-            return pingable;
         }
 
         #endregion Methods

@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Administration;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -8,7 +9,16 @@ namespace FinancialAnalysis.Logic.ViewModels
         public ConfigurationViewModel()
         {
             if (IsInDesignMode) return;
+
+            OpenWebApiConfigurationCommand = new DelegateCommand(OpenWebApiConfigurationWindow);
         }
+
+        public void OpenWebApiConfigurationWindow()
+        {
+            Messenger.Default.Send(new OpenWebApiConfigurationWindow());
+        }
+
+        public DelegateCommand OpenWebApiConfigurationCommand { get; set; }
 
         #region UserRights
 

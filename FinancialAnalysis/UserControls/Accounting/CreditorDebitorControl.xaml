@@ -42,7 +42,7 @@
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <dxwui:PageAdornerControl Header="Kreditor / Debitor" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                                  Foreground="#3f729b" FontFamily="Tahoma">
+                                  Foreground="#3f729b" FontFamily="/Resources/Fonts/trajan-pro-3.otf#Trajan Pro 3">
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
