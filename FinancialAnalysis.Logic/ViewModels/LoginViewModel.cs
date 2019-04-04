@@ -1,9 +1,13 @@
 ﻿using DevExpress.Mvvm;
 
 using FinancialAnalysis.Logic.Messages;
+using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Windows;
+using Utilities;
+using WebApiWrapper;
 using WebApiWrapper.Administration;
 using WebApiWrapper.SalesManagement;
 
@@ -26,6 +30,21 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
+            if (File.Exists(@".\WebApiConfig.cfg"))
+            {
+                LoadWebApiConfigurationFromFile();
+            }
+            else
+            {
+                Messenger.Default.Send(new OpenWebApiConfigurationWindow());
+            }
+
+            if (!PingHost(WebApiConfiguration.Instance.Server))
+            {
+                Messenger.Default.Send(new OpenDialogWindowMessage("Verbindungsfehler", "Die WebApi ist nicht erreichbar, bitte Verbindungsparameter überprüfen.", MessageBoxImage.Error));
+                Messenger.Default.Send(new OpenWebApiConfigurationWindow());
+            }
+
 #if (DEBUG)
             UserName = "Admin";
             Password = "Password";
@@ -39,6 +58,13 @@ namespace FinancialAnalysis.Logic.ViewModels
         #endregion Constructor
 
         #region Methods
+
+        private void LoadWebApiConfigurationFromFile()
+        {
+            var webApiConfigurationFile = BinarySerialization.ReadFromBinaryFile<WebApiConfiguration>(@".\WebApiConfig.cfg");
+            WebApiConfiguration.Instance.Server = webApiConfigurationFile.Server;
+            WebApiConfiguration.Instance.Port = webApiConfigurationFile.Port;
+        }
 
         private void Login()
         {
@@ -94,6 +120,32 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             Globals.ActiveUser = foundUser;
             return true;
+        }
+
+        private bool PingHost(string nameOrAddress)
+        {
+            bool pingable = false;
+            Ping pinger = null;
+
+            try
+            {
+                pinger = new Ping();
+                PingReply reply = pinger.Send(nameOrAddress);
+                pingable = reply.Status == IPStatus.Success;
+            }
+            catch (PingException)
+            {
+                // Discard PingExceptions and return false;
+            }
+            finally
+            {
+                if (pinger != null)
+                {
+                    pinger.Dispose();
+                }
+            }
+
+            return pingable;
         }
 
         #endregion Methods

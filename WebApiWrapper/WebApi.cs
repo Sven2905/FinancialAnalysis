@@ -15,7 +15,7 @@ namespace WebApiWrapper
 
         public static T GetData(string controller, string action = "Get", Dictionary<string, object> parameters = null)
         {
-            var url = $"http://{WebApiConfiguration.Server}:{WebApiConfiguration.Port}/api/{controller}/{action}";
+            var url = $"http://{WebApiConfiguration.Instance.Server}:{WebApiConfiguration.Instance.Port}/api/{controller}/{action}";
             if (parameters?.Count > 0)
             {
                 url += "?";
@@ -43,7 +43,7 @@ namespace WebApiWrapper
 
         public static T GetDataById(string controller, int id, string action = "GetById")
         {
-            var url = $"http://{WebApiConfiguration.Server}:{WebApiConfiguration.Port}/api/{controller}/{action}?id={id}";
+            var url = $"http://{WebApiConfiguration.Instance.Server}:{WebApiConfiguration.Instance.Port}/api/{controller}/{action}?id={id}";
             
 
             if (url[url.Length - 1] == '&')
@@ -93,7 +93,7 @@ namespace WebApiWrapper
 
             try
             {
-                string url = $"http://{WebApiConfiguration.Server}:{WebApiConfiguration.Port}/api/{controllerName}";
+                string url = $"http://{WebApiConfiguration.Instance.Server}:{WebApiConfiguration.Instance.Port}/api/{controllerName}";
                 if (!string.IsNullOrEmpty(actionName))
                 {
                     url += @"/" + actionName;
@@ -135,7 +135,7 @@ namespace WebApiWrapper
 
             try
             {
-                string url = $"http://{WebApiConfiguration.Server}:{WebApiConfiguration.Port}/api/{controllerName}";
+                string url = $"http://{WebApiConfiguration.Instance.Server}:{WebApiConfiguration.Instance.Port}/api/{controllerName}";
                 if (!string.IsNullOrEmpty(actionName))
                 {
                     url += @"/" + actionName;
@@ -168,7 +168,7 @@ namespace WebApiWrapper
 
         public static bool DeleteAsync(string controllerName, int id)
         {
-            string url = $"http://{WebApiConfiguration.Server}:{WebApiConfiguration.Port}/api/{controllerName}";
+            string url = $"http://{WebApiConfiguration.Instance.Server}:{WebApiConfiguration.Instance.Port}/api/{controllerName}";
             url += $"/{id}";
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);

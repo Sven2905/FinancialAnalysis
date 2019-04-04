@@ -127,6 +127,7 @@
     <Compile Include="General\Globals.cs" />
     <Compile Include="Mail\Mail.cs" />
     <Compile Include="Messages\OpenClientWindowMessage.cs" />
+    <Compile Include="Messages\OpenWebApiConfigurationWindow.cs" />
     <Compile Include="Messages\OpenDatabaseConfigurationWindow.cs" />
     <Compile Include="Messages\OpenDialogWindowMessage.cs" />
     <Compile Include="Messages\OpenInvoiceListWindowMessage.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="ViewModels\Administration\MailViewModel.cs" />
     <Compile Include="ViewModels\Accounting\BalanceViewModel.cs" />
     <Compile Include="ViewModels\CarPoolManagement\CarPoolViewModel.cs" />
+    <Compile Include="ViewModels\WebApiConfigurationViewModel.cs" />
     <Compile Include="ViewModels\DatabaseConfigurationViewModel.cs" />
     <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="ViewModels\Accounting\KontenrahmenViewModel.cs" />

@@ -244,6 +244,9 @@
     <Compile Include="Windows\CompanyWindow.xaml.cs">
       <DependentUpon>CompanyWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\WebApiWindow.xaml.cs">
+      <DependentUpon>WebApiWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\DatabaseConfigurationWindow.xaml.cs">
       <DependentUpon>DatabaseConfigurationWindow.xaml</DependentUpon>
     </Compile>
@@ -425,6 +428,10 @@
     <Page Include="Windows\CompanyWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WebApiWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\DatabaseConfigurationWindow.xaml">
       <SubType>Designer</SubType>

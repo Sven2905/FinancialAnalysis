@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 
 namespace WebApiWrapper
 {
-    public static class WebApiConfiguration
+    [Serializable]
+    public class WebApiConfiguration
     {
+        public static WebApiConfiguration Instance { get; } = new WebApiConfiguration();
         public static string WebApiKey { get; private set; }
         private static readonly HttpClient client = new HttpClient();
-        public static string Server { get; set; } = "sven.tech";
-        public static int Port { get; set; } = 29005;
+        public string Server { get; set; }
+        public int Port { get; set; }
 
         public static void GetKey(string username, string password)
         {
@@ -22,7 +24,7 @@ namespace WebApiWrapper
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Clear();
 
-            var response = client.GetAsync($"http://{Server}:{Port}/api/Token/Get?username={username}&password={password}").Result;
+            var response = client.GetAsync($"http://{Instance.Server}:{Instance.Port}/api/Token/Get?username={username}&password={password}").Result;
 
             if (response.IsSuccessStatusCode)
             {

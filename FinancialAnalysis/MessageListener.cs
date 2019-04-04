@@ -164,6 +164,12 @@ namespace FinancialAnalysis.UI
                     var window = new DatabaseConfigurationWindow();
                     window.ShowDialog();
                 });
+            Messenger.Default.Register<OpenWebApiConfigurationWindow>(this,
+                msg =>
+                {
+                    var window = new WebApiConfigurationWindow();
+                    window.ShowDialog();
+                });
         }
 
         #endregion Methods
