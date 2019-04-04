@@ -116,8 +116,8 @@
                         <dxg:GridColumn FieldName="Shares" Header="Anteile" FixedWidth="True" />
                         <dxg:GridControl.View>
                             <dxg:TableView ShowHorizontalLines="True" ShowVerticalLines="False" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" MaxHeight="5000" MaxWidth="5000"
-                                   ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="True" UseLegacyFilterEditor="False" EnableSelectedRowAppearance="True"
-                                   UseEvenRowBackground="True" ShowIndicator="False" AllowColumnMoving="False" AllowGrouping="False" AutoWidth="True" NewItemRowPosition="Bottom" />
+                                   ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" EnableSelectedRowAppearance="True"
+                                   UseEvenRowBackground="True" ShowIndicator="False" AllowColumnMoving="False" AllowGrouping="False" AutoWidth="True" NewItemRowPosition="None" />
                         </dxg:GridControl.View>
                     </dxg:GridControl>
                 </Grid>

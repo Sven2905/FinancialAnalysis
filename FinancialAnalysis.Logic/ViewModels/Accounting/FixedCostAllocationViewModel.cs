@@ -29,6 +29,12 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #endregion Constructor
 
+        #region Fields
+
+        private FixedCostAllocationDetail _SelectedFixedCostAllocationDetail;
+
+        #endregion Fields
+
         #region Methods
 
         private void GetData()
@@ -168,11 +174,26 @@ namespace FinancialAnalysis.Logic.ViewModels
         public SvenTechCollection<CostCenterCategory> CostCenterCategoryList { get; set; }
         public CostCenterCategory SelectedCostCenterCategory { get; set; }
         public CostCenter SelectedCostCenter { get; set; }
-        public int Shares { get; set; }
-
         public FixedCostAllocation SelectedFixedCostAllocation { get; set; }
-        public FixedCostAllocationDetail SelectedFixedCostAllocationDetail { get; set; }
+        public double Shares { get; set; }
         public SvenTechCollection<FixedCostAllocation> FixedCostAllocationList { get; set; }
+
+
+        public FixedCostAllocationDetail SelectedFixedCostAllocationDetail
+        {
+            get { return _SelectedFixedCostAllocationDetail; }
+            set
+            {
+                _SelectedFixedCostAllocationDetail = value;
+                if (_SelectedFixedCostAllocationDetail != null)
+                {
+                    Shares = _SelectedFixedCostAllocationDetail.Shares;
+                    SelectedCostCenterCategory = CostCenterCategoryList.SingleOrDefault(x => x.CostCenterCategoryId == _SelectedFixedCostAllocationDetail.CostCenter.RefCostCenterCategoryId);
+                    SelectedCostCenter = SelectedCostCenterCategory.CostCenters.SingleOrDefault(x => x.CostCenterId == _SelectedFixedCostAllocationDetail.RefCostCenterId);
+                }
+            }
+        }
+
 
         #endregion Methods
     }
