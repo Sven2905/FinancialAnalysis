@@ -1,5 +1,6 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Administration;
+using Notifications.Wpf;
 
 namespace FinancialAnalysis.Logic
 {

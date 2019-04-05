@@ -1,11 +1,11 @@
 ﻿using DevExpress.Mvvm;
 using DevExpress.Xpf.Dialogs;
-
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.ProjectManagement;
+using MathNet.Numerics.Differentiation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,12 +27,11 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 return;
             }
-
             SetCommands();
 
             Messenger.Default.Register<SelectedCostAccount>(this, ChangeSelectedCostAccount);
 
-            LoadLists();
+            GetData();
             SelectedTax = FilteredTaxTypes.SingleOrDefault(x => x.TaxTypeId == 1);
         }
 
@@ -49,12 +48,13 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Methods
 
-        private void LoadLists()
+        private void GetData()
         {
             FilteredTaxTypes = new SvenTechCollection<TaxType>(Globals.CoreData.TaxTypeList);
             CostAccountList = CostAccounts.GetAllVisible().ToList();
             CostCenterCategoryList = CostCenterCategories.GetAll().ToSvenTechCollection();
             ProjectList = Projects.GetAll().ToSvenTechCollection();
+            FixedCostAllocationList = FixedCostAllocations.GetAll().ToSvenTechCollection();
         }
 
         private void ClearForm()
@@ -162,6 +162,25 @@ namespace FinancialAnalysis.Logic.ViewModels
             return CostAccountCreditorId != 0 && CostAccountDebitorId != 0 && SelectedTax != null && SelectedCostCenter != null && !string.IsNullOrEmpty(Description);
         }
 
+        //private bool ValidateBookingMode()
+        //{
+        //    if (IsFixedCostAllocationActive)
+        //    {
+        //        if (true)
+        //        {
+
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (SelectedCostCenter != null)
+        //        {
+        //            return true;
+        //        }
+        //        return false;
+        //    }
+        //}
+
         private Booking CreateBookingItem()
         {
             if (!ValidateBooking())
@@ -192,14 +211,14 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             if (SelectedBookingType == BookingType.Invoice)
             {
-                if (SelectedTax.Description.ToLower().Contains("Vorsteuer"))
+                if (SelectedTax.Description.IndexOf("Vorsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     credit = new Credit(amountWithoutTax, CostAccountDebitorId, booking.BookingId);
                     debit = new Debit(amountWithoutTax + tax, CostAccountDebitorId, booking.BookingId);
                     var creditTax = new Credit(tax, SelectedTax.RefCostAccount, booking.BookingId);
                     booking.Credits.Add(creditTax);
                 }
-                else if (SelectedTax.Description.ToLower().Contains("Umsatzsteuer"))
+                else if (SelectedTax.Description.IndexOf("Umsatzsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     credit = new Credit(amountWithoutTax + tax, CostAccountDebitorId, booking.BookingId);
                     debit = new Debit(amountWithoutTax + tax, CostAccountDebitorId, booking.BookingId);
@@ -214,14 +233,14 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             else if (SelectedBookingType == BookingType.CreditAdvice)
             {
-                if (SelectedTax.Description.ToLower().Contains("Vorsteuer"))
+                if (SelectedTax.Description.IndexOf("Vorsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     credit = new Credit(amountWithoutTax + tax, CostAccountDebitorId, booking.BookingId);
                     debit = new Debit(amountWithoutTax, CostAccountDebitorId, booking.BookingId);
                     var debitTax = new Debit(tax, SelectedTax.RefCostAccount, booking.BookingId);
                     booking.Debits.Add(debitTax);
                 }
-                else if (SelectedTax.Description.ToLower().Contains("Umsatzsteuer"))
+                else if (SelectedTax.Description.IndexOf("Umsatzsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     credit = new Credit(amountWithoutTax + tax, CostAccountDebitorId, booking.BookingId);
                     debit = new Debit(amountWithoutTax + tax, CostAccountDebitorId, booking.BookingId);
@@ -298,13 +317,13 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 FilteredTaxTypes.Add(Globals.CoreData.TaxTypeList[0]);
                 FilteredTaxTypes.AddRange(
-                    Globals.CoreData.TaxTypeList.Where(x => x.Description.ToLower().Contains("vorsteuer")));
+                    Globals.CoreData.TaxTypeList.Where(x => x.Description.IndexOf("vorsteuer", StringComparison.OrdinalIgnoreCase) >= 0));
             }
             else if (CostAccountDebitor != null && CostAccountDebitor.AccountNumber > 9999)
             {
                 FilteredTaxTypes.Add(Globals.CoreData.TaxTypeList[0]);
                 FilteredTaxTypes.AddRange(
-                    Globals.CoreData.TaxTypeList.Where(x => x.Description.ToLower().Contains("umsatzsteuer")));
+                    Globals.CoreData.TaxTypeList.Where(x => x.Description.IndexOf("umsatzsteuer", StringComparison.OrdinalIgnoreCase) >= 0));
             }
             else
             {
@@ -366,12 +385,14 @@ namespace FinancialAnalysis.Logic.ViewModels
         public SvenTechCollection<CostCenterCategory> CostCenterCategoryList { get; set; } = new SvenTechCollection<CostCenterCategory>();
         public SvenTechCollection<Project> ProjectList { get; set; } = new SvenTechCollection<Project>();
         public SvenTechCollection<TaxType> FilteredTaxTypes { get; set; }
+        public SvenTechCollection<FixedCostAllocation> FixedCostAllocationList { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
         public GrossNetType GrossNetType { get; set; }
         public ScannedDocument SelectedScannedDocument { get; set; }
         public BookingType SelectedBookingType { get; set; } = BookingType.Invoice;
         public CostCenter SelectedCostCenter { get; set; }
         public CostCenterCategory SelectedCostCenterCategory { get; set; }
+        public bool IsFixedCostAllocationActive { get; set; }
 
         public ObservableCollection<ScannedDocument> ScannedDocumentList { get; set; } =
             new ObservableCollection<ScannedDocument>();

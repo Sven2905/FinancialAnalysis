@@ -5,7 +5,7 @@ namespace Formulas
     /// <summary>
     /// Formeln zur einfachen Zinsrechnung
     /// </summary>
-    public static class CalculationOfInterest
+    public class CalculationOfInterest
     {
         /// <summary>
         /// Berechnung der Zinstage.

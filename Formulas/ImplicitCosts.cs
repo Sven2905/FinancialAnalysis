@@ -9,7 +9,7 @@ namespace Formulas
     /// <summary>
     /// Kalkulatorische Kosten
     /// </summary>
-    public static class ImplicitCosts
+    public class ImplicitCosts
     {
         /// <summary>
         /// Berechnet die Kalkulatorische Zinsen

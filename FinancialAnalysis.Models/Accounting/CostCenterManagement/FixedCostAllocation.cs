@@ -1,6 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 using Utilities;
 
 namespace FinancialAnalysis.Models.Accounting
@@ -22,5 +23,68 @@ namespace FinancialAnalysis.Models.Accounting
         public string Name { get; set; }
 
         public List<FixedCostAllocationDetail> FixedCostAllocationDetails { get; set; } = new List<FixedCostAllocationDetail>();
+
+        public string DisplayAllDetails
+        {
+            get
+            {
+                return Name + " (" + DisplayCostCenters + " mit " + DisplayShares +")";
+            }
+        }
+
+        public double[] Shares
+        {
+            get
+            {
+                if (FixedCostAllocationDetails?.Count > 0)
+                {
+                    return FixedCostAllocationDetails.Select(x => x.Shares).ToArray();
+                }
+                else
+                {
+                    return new double[0];
+                }
+            }
+        }
+
+        public string DisplayShares
+        {
+            get
+            {
+                if (FixedCostAllocationDetails?.Count > 0)
+                {
+                    string result = string.Empty;
+                    foreach (var share in Shares)
+                    {
+                        result += share + ":";
+                    }
+                    return result.Remove(result.Length - 1, 1);
+                }
+                else
+                {
+                    return "-";
+                }
+            }
+        }
+
+        public string DisplayCostCenters
+        {
+            get
+            {
+                if (FixedCostAllocationDetails?.Count > 0)
+                {
+                    string result = string.Empty;
+                    foreach (var detail in FixedCostAllocationDetails)
+                    {
+                        result += detail.CostCenter.Name + ":";
+                    }
+                    return result.Remove(result.Length - 1, 1);
+                }
+                else
+                {
+                    return "-";
+                }
+            }
+        }
     }
 }

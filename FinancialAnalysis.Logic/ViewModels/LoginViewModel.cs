@@ -110,7 +110,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             //    Type = NotificationType.Information
             //});
 
-
             Globals.ActiveUser = foundUser;
             return true;
         }

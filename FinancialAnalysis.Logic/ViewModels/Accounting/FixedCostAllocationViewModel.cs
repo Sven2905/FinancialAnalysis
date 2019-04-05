@@ -1,8 +1,9 @@
 ﻿using DevExpress.Mvvm;
-
+using FinancialAnalysis.Logic.General;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Logic.ViewModels.Accounting;
 using FinancialAnalysis.Models.Accounting;
+using Notifications.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -136,6 +137,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (DoesCostCenterAlreadyExist(SelectedCostCenter.CostCenterId))
             {
                 Messenger.Default.Send(new OpenDialogWindowMessage("Fehler", "Kostenstelle ist bereits enhalten.", MessageBoxImage.Asterisk));
+                NotificationMessages.ShowError();
                 return;
             }
 
@@ -148,12 +150,26 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 FixedCostAllocationDetails.Update(SelectedFixedCostAllocationDetail);
             }
+
+            NotificationMessages.ShowSuccess();
         }
 
         public void DeleteFixedCostAllocationDetail()
         {
-            var itemToRemove = SelectedFixedCostAllocation?.FixedCostAllocationDetails.Single(x => x.CostCenter == SelectedFixedCostAllocationDetail.CostCenter);
-            SelectedFixedCostAllocation?.FixedCostAllocationDetails.Remove(itemToRemove);
+            try
+            {
+                var itemToRemove = SelectedFixedCostAllocation?.FixedCostAllocationDetails.Single(x => x.CostCenter == SelectedFixedCostAllocationDetail.CostCenter);
+                SelectedFixedCostAllocation?.FixedCostAllocationDetails.Remove(itemToRemove);
+                if (itemToRemove.FixedCostAllocationDetailId != 0)
+                {
+                    FixedCostAllocationDetails.Delete(itemToRemove.FixedCostAllocationDetailId);
+                }
+                NotificationMessages.ShowSuccess();
+            }
+            catch (Exception)
+            {
+                NotificationMessages.ShowError();
+            }
         }
 
         private bool DoesCostCenterAlreadyExist(int costCenterId)
@@ -175,9 +191,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         public CostCenterCategory SelectedCostCenterCategory { get; set; }
         public CostCenter SelectedCostCenter { get; set; }
         public FixedCostAllocation SelectedFixedCostAllocation { get; set; }
-        public double Shares { get; set; }
         public SvenTechCollection<FixedCostAllocation> FixedCostAllocationList { get; set; }
-
+        public double Shares { get; set; }
 
         public FixedCostAllocationDetail SelectedFixedCostAllocationDetail
         {
@@ -193,7 +208,6 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
             }
         }
-
 
         #endregion Methods
     }

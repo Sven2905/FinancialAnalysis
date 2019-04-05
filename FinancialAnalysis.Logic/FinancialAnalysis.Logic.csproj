@@ -125,6 +125,7 @@
     <Compile Include="CoreData.cs" />
     <Compile Include="General\Extensions.cs" />
     <Compile Include="General\Globals.cs" />
+    <Compile Include="General\NotificationMessages.cs" />
     <Compile Include="Mail\Mail.cs" />
     <Compile Include="Messages\OpenClientWindowMessage.cs" />
     <Compile Include="Messages\OpenWebApiConfigurationWindow.cs" />
