@@ -23,12 +23,12 @@ namespace WebApiWrapper.ProductManagement
 
         public static int Insert(ProductCategory ProductCategory)
         {
-            return WebApi<int>.PostAsync(controllerName, ProductCategory).Result;
+            return WebApi<int>.PostAsync(controllerName, ProductCategory, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<ProductCategory> ProductCategories)
         {
-            return WebApi<int>.PostAsync(controllerName, ProductCategories).Result;
+            return WebApi<int>.PostAsync(controllerName, ProductCategories, "MultiPost").Result;
         }
 
         public static bool Update(ProductCategory ProductCategory)

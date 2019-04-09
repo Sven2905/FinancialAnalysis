@@ -33,12 +33,12 @@ namespace WebApiWrapper.WarehouseManagement
 
         public static int Insert(Stockyard Stockyard)
         {
-            return WebApi<bool>.PostAsync(controllerName, Stockyard).Result;
+            return WebApi<bool>.PostAsync(controllerName, Stockyard, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<Stockyard> Stockyards)
         {
-            return WebApi<bool>.PostAsync(controllerName, Stockyards).Result;
+            return WebApi<bool>.PostAsync(controllerName, Stockyards, "MultiPost").Result;
         }
 
         public static bool Update(Stockyard Stockyard)

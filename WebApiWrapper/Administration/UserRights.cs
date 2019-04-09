@@ -23,17 +23,17 @@ namespace WebApiWrapper.Administration
 
         public static int Insert(UserRight UserRight)
         {
-            return WebApi<int>.PostAsync(controllerName, UserRight).Result;
+            return WebApi<int>.PostAsync(controllerName, UserRight, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<UserRight> UserRights)
         {
-            return WebApi<int>.PostAsync(controllerName, UserRights).Result;
+            return WebApi<int>.PostAsync(controllerName, UserRights, "MultiPost").Result;
         }
 
         public static bool Update(UserRight UserRight)
         {
-            return WebApi<bool>.PutAsync(controllerName, UserRight).Result;
+            return WebApi<bool>.PutAsync(controllerName, UserRight, "Put").Result;
         }
 
         public static bool Delete(int id)

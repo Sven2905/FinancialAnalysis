@@ -23,12 +23,12 @@ namespace WebApiWrapper.CarPoolManagement
 
         public static int Insert(CarBody CarBody)
         {
-            return WebApi<int>.PostAsync(controllerName, CarBody).Result;
+            return WebApi<int>.PostAsync(controllerName, CarBody, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<CarBody> CarBodys)
         {
-            return WebApi<int>.PostAsync(controllerName, CarBodys).Result;
+            return WebApi<int>.PostAsync(controllerName, CarBodys, "MultiPost").Result;
         }
 
         public static bool Update(CarBody CarBody)

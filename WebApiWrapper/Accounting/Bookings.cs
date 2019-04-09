@@ -33,12 +33,12 @@ namespace WebApiWrapper.Accounting
 
         public static int Insert(Booking Booking)
         {
-            return WebApi<int>.PostAsync(controllerName, Booking).Result;
+            return WebApi<int>.PostAsync(controllerName, Booking, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<Booking> Bookings)
         {
-            return WebApi<int>.PostAsync(controllerName, Bookings).Result;
+            return WebApi<int>.PostAsync(controllerName, Bookings, "MultiPost").Result;
         }
 
         public static bool Update(Booking Booking)

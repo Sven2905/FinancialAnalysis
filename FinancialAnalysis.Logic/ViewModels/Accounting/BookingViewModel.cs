@@ -5,7 +5,6 @@ using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.ProjectManagement;
-using MathNet.Numerics.Differentiation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -159,27 +158,28 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private bool ValidateBooking()
         {
-            return CostAccountCreditorId != 0 && CostAccountDebitorId != 0 && SelectedTax != null && SelectedCostCenter != null && !string.IsNullOrEmpty(Description);
+            return CostAccountCreditorId != 0 && CostAccountDebitorId != 0 && SelectedTax != null && ValidateBookingMode() && !string.IsNullOrEmpty(Description);
         }
 
-        //private bool ValidateBookingMode()
-        //{
-        //    if (IsFixedCostAllocationActive)
-        //    {
-        //        if (true)
-        //        {
-
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (SelectedCostCenter != null)
-        //        {
-        //            return true;
-        //        }
-        //        return false;
-        //    }
-        //}
+        private bool ValidateBookingMode()
+        {
+            if (IsFixedCostAllocationActive)
+            {
+                if (SelectedFixedCostAllocation != null)
+                {
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                if (SelectedCostCenter != null)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
 
         private Booking CreateBookingItem()
         {
@@ -258,6 +258,18 @@ namespace FinancialAnalysis.Logic.ViewModels
             booking.Credits.Add(credit);
             booking.ScannedDocuments = ScannedDocumentList.ToList();
 
+            if (IsFixedCostAllocationActive)
+            {
+                foreach (var item in SelectedFixedCostAllocation.FixedCostAllocationDetails)
+                {
+                    booking.BookingCostCenterMappingList.Add(new BookingCostCenterMapping(0, item.RefCostCenterId, booking.Amount * (decimal)(item.Shares / SelectedFixedCostAllocation.Shares.Sum())));
+                }
+            }
+            else
+            {
+                booking.BookingCostCenterMappingList.Add(new BookingCostCenterMapping(0, SelectedCostCenter.CostCenterId, booking.Amount));
+            }
+
             return booking;
         }
 
@@ -268,35 +280,42 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            var bookingId = 0;
+            var bookingId = Bookings.Insert(booking);
+            if (bookingId == 0)
+            {
+                return;
+            }
 
-            bookingId = Bookings.Insert(booking);
             foreach (var item in booking.Credits)
             {
                 item.RefBookingId = bookingId;
-                Credits.Insert(item);
             }
+            Credits.Insert(booking.Credits);
 
             foreach (var item in booking.Debits)
             {
                 item.RefBookingId = bookingId;
-                Debits.Insert(item);
             }
+            Debits.Insert(booking.Debits);
 
             foreach (var item in booking.ScannedDocuments)
             {
                 item.RefBookingId = bookingId;
-                ScannedDocuments.Insert(item);
             }
+            ScannedDocuments.Insert(booking.ScannedDocuments);
+
+            foreach (var item in booking.BookingCostCenterMappingList)
+            {
+                item.RefBookingId = bookingId;
+            }
+            BookingCostCenterMappings.Insert(booking.BookingCostCenterMappingList);
         }
 
         private void AddToStack(Booking booking)
         {
-            var bookingItem = CreateBookingItem();
-
-            if (bookingItem != null)
+            if (booking != null)
             {
-                BookingsOnStack.Add(bookingItem);
+                BookingsOnStack.Add(booking);
             }
         }
 
@@ -313,13 +332,13 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void FilterTaxType()
         {
             FilteredTaxTypes = new SvenTechCollection<TaxType>();
-            if (CostAccountCreditor != null && CostAccountCreditor.AccountNumber > 69999)
+            if (CostAccountCreditor?.AccountNumber > 69999)
             {
                 FilteredTaxTypes.Add(Globals.CoreData.TaxTypeList[0]);
                 FilteredTaxTypes.AddRange(
                     Globals.CoreData.TaxTypeList.Where(x => x.Description.IndexOf("vorsteuer", StringComparison.OrdinalIgnoreCase) >= 0));
             }
-            else if (CostAccountDebitor != null && CostAccountDebitor.AccountNumber > 9999)
+            else if (CostAccountDebitor?.AccountNumber > 9999)
             {
                 FilteredTaxTypes.Add(Globals.CoreData.TaxTypeList[0]);
                 FilteredTaxTypes.AddRange(
@@ -389,10 +408,11 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DateTime Date { get; set; } = DateTime.Now;
         public GrossNetType GrossNetType { get; set; }
         public ScannedDocument SelectedScannedDocument { get; set; }
-        public BookingType SelectedBookingType { get; set; } = BookingType.Invoice;
+        public BookingType SelectedBookingType { get; set; }
         public CostCenter SelectedCostCenter { get; set; }
         public CostCenterCategory SelectedCostCenterCategory { get; set; }
         public bool IsFixedCostAllocationActive { get; set; }
+        public FixedCostAllocation SelectedFixedCostAllocation { get; set; }
 
         public ObservableCollection<ScannedDocument> ScannedDocumentList { get; set; } =
             new ObservableCollection<ScannedDocument>();

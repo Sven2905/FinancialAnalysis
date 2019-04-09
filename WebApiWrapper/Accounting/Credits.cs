@@ -23,12 +23,12 @@ namespace WebApiWrapper.Accounting
 
         public static int Insert(Credit Credit)
         {
-            return WebApi<int>.PostAsync(controllerName, Credit).Result;
+            return WebApi<int>.PostAsync(controllerName, Credit, "SinglePost").Result;
         }
 
         public static int Insert(List<Credit> Credits)
         {
-            return WebApi<int>.PostAsync(controllerName, Credits).Result;
+            return WebApi<int>.PostAsync(controllerName, Credits, "MultiPost").Result;
         }
     }
 }

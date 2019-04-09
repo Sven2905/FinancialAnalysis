@@ -51,6 +51,11 @@ namespace FinancialAnalysis.Models.Accounting
         public List<ScannedDocument> ScannedDocuments { get; set; } = new List<ScannedDocument>();
 
         /// <summary>
+        /// Liste der zugeordneten Beträge pro Kostenstelle
+        /// </summary>
+        public List<BookingCostCenterMapping> BookingCostCenterMappingList { get; set; } = new List<BookingCostCenterMapping>();
+
+        /// <summary>
         /// Liste der Soll-Positionen
         /// </summary>
         public List<Debit> Debits { get; set; } = new List<Debit>();
@@ -69,6 +74,11 @@ namespace FinancialAnalysis.Models.Accounting
         /// Zugeordnete Kostenstelle
         /// </summary>
         public CostCenter CostCenter { get; set; }
+
+        /// <summary>
+        /// Zugeordneter Kostenstellenverteilungsschlüssel
+        /// </summary>
+        public int RefFixedCostAllocationId { get; set; }
 
         #endregion Properties
     }

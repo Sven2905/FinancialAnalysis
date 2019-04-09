@@ -23,12 +23,12 @@ namespace WebApiWrapper.Accounting
 
         public static int Insert(Debit Debit)
         {
-            return WebApi<int>.PostAsync(controllerName, Debit).Result;
+            return WebApi<int>.PostAsync(controllerName, Debit, "SinglePost").Result;
         }
 
         public static int Insert(List<Debit> Debits)
         {
-            return WebApi<int>.PostAsync(controllerName, Debits).Result;
+            return WebApi<int>.PostAsync(controllerName, Debits, "MultiPost").Result;
         }
     }
 }

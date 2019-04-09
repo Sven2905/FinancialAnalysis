@@ -31,12 +31,12 @@ namespace WebApiWrapper.Administration
 
         public static int Insert(User user)
         {
-            return WebApi<int>.PostAsync(controllerName, user).Result;
+            return WebApi<int>.PostAsync(controllerName, user, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<User> users)
         {
-            return WebApi<int>.PostAsync(controllerName, users).Result;
+            return WebApi<int>.PostAsync(controllerName, users, "MultiPost").Result;
         }
 
         public static bool Update(User user)

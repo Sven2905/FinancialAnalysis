@@ -23,12 +23,12 @@ namespace WebApiWrapper.SalesManagement
 
         public static int Insert(InvoiceReminder InvoiceReminder)
         {
-            return WebApi<int>.PostAsync(controllerName, InvoiceReminder).Result;
+            return WebApi<int>.PostAsync(controllerName, InvoiceReminder, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<InvoiceReminder> InvoiceReminders)
         {
-            return WebApi<int>.PostAsync(controllerName, InvoiceReminders).Result;
+            return WebApi<int>.PostAsync(controllerName, InvoiceReminders, "MultiPost").Result;
         }
 
         public static bool Update(InvoiceReminder InvoiceReminder)

@@ -61,5 +61,10 @@ namespace FinancialAnalysis.Models.Accounting
         /// Liste aller Projekte denen die Kostenstelle zugeordnet ist
         /// </summary>
         public List<Project> Projects { get; set; }
+
+        /// <summary>
+        /// Liste der zugeordneten Beträge
+        /// </summary>
+        public List<BookingCostCenterMapping> BookingCostCenterMappingList { get; set; } = new List<BookingCostCenterMapping>();
     }
 }

@@ -142,7 +142,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             byte[] data;
             var encoder = new JpegBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+            encoder.Frames.Add(BitmapFrame.Create(bitmapImage, null, null, null));
             using (var ms = new MemoryStream())
             {
                 encoder.Save(ms);
@@ -203,7 +203,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                     FilteredProducts = new SvenTechCollection<Product>();
                     foreach (var item in _Products)
                     {
-                        if (item.Name.ToLower().Contains(FilterText.ToLower()))
+                        if (item.Name.IndexOf(FilterText, StringComparison.OrdinalIgnoreCase) >= 0)
                         {
                             FilteredProducts.Add(item);
                         }

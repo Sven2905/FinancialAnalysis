@@ -30,12 +30,12 @@ namespace WebApiWrapper.ClientManagement
 
         public static int Insert(Client Client)
         {
-            return WebApi<bool>.PostAsync(controllerName, Client).Result;
+            return WebApi<bool>.PostAsync(controllerName, Client, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<Client> Clients)
         {
-            return WebApi<bool>.PostAsync(controllerName, Clients).Result;
+            return WebApi<bool>.PostAsync(controllerName, Clients, "MultiPost").Result;
         }
 
         public static bool Update(Client Client)

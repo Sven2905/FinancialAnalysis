@@ -23,12 +23,12 @@ namespace WebApiWrapper.ProjectManagement
 
         public static int Insert(Project Project)
         {
-            return WebApi<int>.PostAsync(controllerName, Project).Result;
+            return WebApi<int>.PostAsync(controllerName, Project, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<Project> Projects)
         {
-            return WebApi<int>.PostAsync(controllerName, Projects).Result;
+            return WebApi<int>.PostAsync(controllerName, Projects, "MultiPost").Result;
         }
 
         public static bool Update(Project Project)

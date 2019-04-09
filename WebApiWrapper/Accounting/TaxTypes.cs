@@ -23,12 +23,12 @@ namespace WebApiWrapper.Accounting
 
         public static int Insert(TaxType TaxType)
         {
-            return WebApi<int>.PostAsync(controllerName, TaxType).Result;
+            return WebApi<int>.PostAsync(controllerName, TaxType, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<TaxType> TaxTypes)
         {
-            return WebApi<int>.PostAsync(controllerName, TaxTypes).Result;
+            return WebApi<int>.PostAsync(controllerName, TaxTypes, "MultiPost").Result;
         }
 
         public static bool Update(TaxType TaxType)

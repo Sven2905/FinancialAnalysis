@@ -57,6 +57,7 @@
     <Compile Include="Accounting\Debitors.cs" />
     <Compile Include="Accounting\Creditors.cs" />
     <Compile Include="Accounting\FixedCostAllocationDetails.cs" />
+    <Compile Include="Accounting\BookingCostCenterMappings.cs" />
     <Compile Include="Accounting\FixedCostAllocations.cs" />
     <Compile Include="Accounting\GainAndLossAccounts.cs" />
     <Compile Include="Accounting\PaymentConditions.cs" />

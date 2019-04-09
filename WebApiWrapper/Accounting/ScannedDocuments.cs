@@ -23,12 +23,12 @@ namespace WebApiWrapper.Accounting
 
         public static int Insert(ScannedDocument ScannedDocument)
         {
-            return WebApi<int>.PostAsync(controllerName, ScannedDocument).Result;
+            return WebApi<int>.PostAsync(controllerName, ScannedDocument, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<ScannedDocument> ScannedDocuments)
         {
-            return WebApi<int>.PostAsync(controllerName, ScannedDocuments).Result;
+            return WebApi<int>.PostAsync(controllerName, ScannedDocuments, "MultiPost").Result;
         }
 
         public static bool Update(ScannedDocument ScannedDocument)

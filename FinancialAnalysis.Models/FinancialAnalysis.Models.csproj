@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounting\Booking.cs" />
+    <Compile Include="Accounting\BookingCostCenterMapping.cs" />
     <Compile Include="Accounting\CostCenterManagement\FixedCostAllocationDetail.cs" />
     <Compile Include="Accounting\PaymentCondition.cs" />
     <Compile Include="Accounting\CostAccount.cs" />

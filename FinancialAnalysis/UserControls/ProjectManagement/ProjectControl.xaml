@@ -152,7 +152,7 @@
                                 <dxlc:LayoutGroup>
                                     <dxlc:LayoutItem Label="Kostenstelle" FontFamily="Tahoma">
                                         <dxe:ComboBoxEdit ValueMember="CostCenterId" DisplayMember="Name"
-                                                  ItemsSource="{Binding CostCenters}"
+                                                  ItemsSource="{Binding CostCenterList}"
                                                   EditValue="{Binding SelectedProject.RefCostCenterId}"
                                                   FontFamily="Tahoma" />
                                     </dxlc:LayoutItem>
@@ -160,7 +160,7 @@
                                 <dxlc:LayoutGroup>
                                     <dxlc:LayoutItem Label="Projektleiter" FontFamily="Tahoma">
                                         <dxe:ComboBoxEdit ValueMember="EmployeeId" DisplayMember="Name"
-                                                  ItemsSource="{Binding Employees}"
+                                                  ItemsSource="{Binding EmployeeList}"
                                                   EditValue="{Binding SelectedProject.RefEmployeeId}"
                                                   FontFamily="Tahoma" />
                                     </dxlc:LayoutItem>

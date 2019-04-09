@@ -1,5 +1,4 @@
 ﻿using DevExpress.Mvvm;
-
 using System;
 using WebApiWrapper.Accounting;
 
@@ -13,8 +12,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 return;
             }
-
-                var bookings = Bookings.GetByParameter(new DateTime(2018, 11, 24), DateTime.Now, 2);
+            var bookings = Bookings.GetByParameter(new DateTime(2018, 11, 24), DateTime.Now, 2);
         }
     }
 }

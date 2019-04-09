@@ -23,12 +23,12 @@ namespace WebApiWrapper.Accounting
 
         public static int Insert(PaymentCondition PaymentCondition)
         {
-            return WebApi<int>.PostAsync(controllerName, PaymentCondition).Result;
+            return WebApi<int>.PostAsync(controllerName, PaymentCondition, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<PaymentCondition> PaymentConditions)
         {
-            return WebApi<int>.PostAsync(controllerName, PaymentConditions).Result;
+            return WebApi<int>.PostAsync(controllerName, PaymentConditions, "MultiPost").Result;
         }
 
         public static bool Update(PaymentCondition PaymentCondition)

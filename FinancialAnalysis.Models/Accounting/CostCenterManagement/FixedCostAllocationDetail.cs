@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace FinancialAnalysis.Models.Accounting
 {
     /// <summary>
-    /// Kostenstellenaufteilungdetais
+    /// Kostenstellenaufteilungdetails
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
     public class FixedCostAllocationDetail : BindableBase

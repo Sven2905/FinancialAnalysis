@@ -23,12 +23,12 @@ namespace WebApiWrapper.Accounting
 
         public static int Insert(GainAndLossAccount GainAndLossAccount)
         {
-            return WebApi<int>.PostAsync(controllerName, GainAndLossAccount).Result;
+            return WebApi<int>.PostAsync(controllerName, GainAndLossAccount, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<GainAndLossAccount> GainAndLossAccounts)
         {
-            return WebApi<int>.PostAsync(controllerName, GainAndLossAccounts).Result;
+            return WebApi<int>.PostAsync(controllerName, GainAndLossAccounts, "MultiPost").Result;
         }
 
         public static bool Update(GainAndLossAccount GainAndLossAccount)

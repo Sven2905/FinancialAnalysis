@@ -28,12 +28,12 @@ namespace WebApiWrapper.Accounting
 
         public static int Insert(Debitor Debitor)
         {
-            return WebApi<int>.PostAsync(controllerName, Debitor).Result;
+            return WebApi<int>.PostAsync(controllerName, Debitor, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<Debitor> Debitors)
         {
-            return WebApi<int>.PostAsync(controllerName, Debitors).Result;
+            return WebApi<int>.PostAsync(controllerName, Debitors, "MultiPost").Result;
         }
 
         public static bool Update(Debitor Debitor)

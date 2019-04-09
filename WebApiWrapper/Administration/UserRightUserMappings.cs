@@ -23,12 +23,12 @@ namespace WebApiWrapper.Administration
 
         public static int Insert(UserRightUserMapping UserRightUserMapping)
         {
-            return WebApi<bool>.PostAsync(controllerName, UserRightUserMapping).Result;
+            return WebApi<bool>.PostAsync(controllerName, UserRightUserMapping, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<UserRightUserMapping> UserRightUserMappings)
         {
-            return WebApi<bool>.PostAsync(controllerName, UserRightUserMappings).Result;
+            return WebApi<bool>.PostAsync(controllerName, UserRightUserMappings, "MultiPost").Result;
         }
 
         public static bool Update(UserRightUserMapping UserRightUserMapping)

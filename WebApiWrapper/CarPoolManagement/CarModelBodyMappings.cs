@@ -13,12 +13,12 @@ namespace WebApiWrapper.CarPoolManagement
 
         public static int Insert(CarModelBodyMapping CarModelBodyMapping)
         {
-            return WebApi<int>.PostAsync(controllerName, CarModelBodyMapping).Result;
+            return WebApi<int>.PostAsync(controllerName, CarModelBodyMapping, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<CarModelBodyMapping> CarModelBodyMappings)
         {
-            return WebApi<int>.PostAsync(controllerName, CarModelBodyMappings).Result;
+            return WebApi<int>.PostAsync(controllerName, CarModelBodyMappings, "MultiPost").Result;
         }
     }
 }

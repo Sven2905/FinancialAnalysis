@@ -23,12 +23,12 @@ namespace WebApiWrapper.SalesManagement
 
         public static int Insert(InvoiceType InvoiceType)
         {
-            return WebApi<int>.PostAsync(controllerName, InvoiceType).Result;
+            return WebApi<int>.PostAsync(controllerName, InvoiceType, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<InvoiceType> InvoiceTypes)
         {
-            return WebApi<int>.PostAsync(controllerName, InvoiceTypes).Result;
+            return WebApi<int>.PostAsync(controllerName, InvoiceTypes, "MultiPost").Result;
         }
 
         public static bool Update(InvoiceType InvoiceType)

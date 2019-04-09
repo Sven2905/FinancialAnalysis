@@ -33,12 +33,12 @@ namespace WebApiWrapper.Accounting
 
         public static int Insert(BalanceAccount balanceAccount)
         {
-            return WebApi<int>.PostAsync(controllerName, balanceAccount).Result;
+            return WebApi<int>.PostAsync(controllerName, balanceAccount, "SinglePost").Result;
         }
 
         public static int Insert(IEnumerable<BalanceAccount> balanceAccounts)
         {
-            return WebApi<int>.PostAsync(controllerName, balanceAccounts).Result;
+            return WebApi<int>.PostAsync(controllerName, balanceAccounts, "MultiPost").Result;
         }
 
         public static bool Update(BalanceAccount balanceAccount)
