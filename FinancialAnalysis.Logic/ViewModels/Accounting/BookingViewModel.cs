@@ -188,7 +188,16 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return null;
             }
 
-            var booking = new Booking(Amount, Date, SelectedCostCenter.CostCenterId, Description);
+            Booking booking = new Booking();
+
+            if (IsFixedCostAllocationActive)
+            {
+                booking = new Booking(Amount, Date, 0, Description);
+            }
+            else
+            {
+                booking = new Booking(Amount, Date, SelectedCostCenter.CostCenterId, Description);
+            }
 
             decimal tax = 0;
             decimal amountWithoutTax = 0;
