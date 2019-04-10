@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FinancialAnalysis.Models.Accounting
 {
@@ -15,11 +16,10 @@ namespace FinancialAnalysis.Models.Accounting
         {
         }
 
-        public Booking(decimal amount, DateTime date, int refCostCenterId, string description = "")
+        public Booking(decimal amount, DateTime date, string description = "")
         {
             Amount = amount;
             Date = date;
-            RefCostCenterId = refCostCenterId;
             Description = description;
         }
 
@@ -66,19 +66,21 @@ namespace FinancialAnalysis.Models.Accounting
         public List<Credit> Credits { get; set; } = new List<Credit>();
 
         /// <summary>
-        /// Referenz-Id der zugeordneten Kostenstelle
-        /// </summary>
-        public int RefCostCenterId { get; set; }
-
-        /// <summary>
-        /// Zugeordnete Kostenstelle
-        /// </summary>
-        public CostCenter CostCenter { get; set; }
-
-        /// <summary>
         /// Zugeordneter Kostenstellenverteilungsschlüssel
         /// </summary>
         public int RefFixedCostAllocationId { get; set; }
+
+        /// <summary>
+        /// Gibt den ersten Kreditor der Soll-Positionen zurück
+        /// </summary>
+        [JsonIgnore]
+        public CostAccount Creditor { get => Credits?.FirstOrDefault().CostAccount; }
+
+        /// <summary>
+        /// Gibt den ersten Debitor der Haben-Positionen zurück
+        /// </summary>
+        [JsonIgnore]
+        public CostAccount Debitor { get => Debits?.FirstOrDefault().CostAccount; }
 
         #endregion Properties
     }

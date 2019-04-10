@@ -188,16 +188,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return null;
             }
 
-            Booking booking = new Booking();
-
-            if (IsFixedCostAllocationActive)
-            {
-                booking = new Booking(Amount, Date, 0, Description);
-            }
-            else
-            {
-                booking = new Booking(Amount, Date, SelectedCostCenter.CostCenterId, Description);
-            }
+            Booking booking = new Booking(Amount, Date, Description);
 
             decimal tax = 0;
             decimal amountWithoutTax = 0;
@@ -269,6 +260,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             if (IsFixedCostAllocationActive)
             {
+                booking.RefFixedCostAllocationId = SelectedFixedCostAllocation.FixedCostAllocationId;
                 foreach (var item in SelectedFixedCostAllocation.FixedCostAllocationDetails)
                 {
                     booking.BookingCostCenterMappingList.Add(new BookingCostCenterMapping(0, item.RefCostCenterId, booking.Amount * (decimal)(item.Shares / SelectedFixedCostAllocation.Shares.Sum())));
@@ -276,6 +268,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             else
             {
+                booking.RefFixedCostAllocationId = 0;
                 booking.BookingCostCenterMappingList.Add(new BookingCostCenterMapping(0, SelectedCostCenter.CostCenterId, booking.Amount));
             }
 
