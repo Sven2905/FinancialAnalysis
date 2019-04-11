@@ -19,14 +19,12 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Viewbox Width="60" Height="60" Stretch="Uniform" StretchDirection="DownOnly" HorizontalAlignment="Left"
-                 Margin="30,0,0,0" Grid.Column="0">
+                 Margin="30,0,0,0" Grid.Column="0" >
             <Canvas Width="60" Height="60">
-                <Path Data="{Binding ImageVector}"
-                      Fill="{Binding Brush}" Height="60" Width="60" Stretch="Fill" />
+                <Path Data="{Binding ImageVector}" Fill="{Binding Brush}" Height="60" Width="60" Stretch="Fill" />
             </Canvas>
         </Viewbox>
-        <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="30,0,30,10" TextWrapping="Wrap"
-                   Text="{Binding Message}" />
+        <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="30,-30,30,10" TextWrapping="Wrap" Text="{Binding Message}" />
         <dx:SimpleButton Content="OK" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"
                          VerticalAlignment="Bottom" Width="75" Margin="0,0,0,15" Command="{Binding CloseCommand}" />
     </Grid>

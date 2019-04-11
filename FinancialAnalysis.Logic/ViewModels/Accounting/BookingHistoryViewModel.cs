@@ -19,7 +19,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             GetData();
             SearchCommand = new DelegateCommand(SearchForData);
-            CancelBookingCommand = new DelegateCommand(CancelSelectedBooking);
+            CancelBookingCommand = new DelegateCommand(() => CheckForCancelingSelectedBooking(), ValidationForCancelingButton);
             Messenger.Default.Register<YesNoDialogResult>(this, GetDialogResult);
         }
 
@@ -28,18 +28,31 @@ namespace FinancialAnalysis.Logic.ViewModels
             CostAccountList = CostAccounts.GetAll().ToSvenTechCollection();
         }
 
-        private void SearchForData()
+        private bool ValidationForCancelingButton()
         {
-            ResultList = Bookings.GetByParameter(StartDate, EndDate, CostAccountCreditorId, CostAccountDebitorId).ToSvenTechCollection();
+            return !SelectedBooking.IsCanceled;
         }
 
-        private void CancelSelectedBooking()
+        private void SearchForData()
+        {
+            ResultList = Bookings.GetByParameter(StartDate, EndDate, CostAccountCreditorId, CostAccountDebitorId, OnlyCanceledBookings).ToSvenTechCollection();
+        }
+
+        private void CheckForCancelingSelectedBooking()
         {
             Messenger.Default.Send(new OpenYesNoDialogWindowMessage("Stornieren", "Möchten Sie die ausgewählte Buchung wirklich stornieren?"));
             if (CancelConfirmation)
             {
-                var test = 42;
+                CancelingSelectedBooking();
             }
+        }
+
+        private void CancelingSelectedBooking()
+        {
+            SelectedBooking.IsCanceled = true;
+            Bookings.UpdateCancelingStatus(SelectedBooking);
+
+            Booking cancelBooking = new Booking(SelectedBooking.Amount, DateTime.Now, "Stornierung von " + SelectedBooking.Description);
         }
 
         private void GetDialogResult(YesNoDialogResult YesNoDialogResult)
@@ -53,6 +66,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DateTime EndDate { get; set; } = DateTime.Now;
         public int? CostAccountCreditorId { get; set; }
         public int? CostAccountDebitorId { get; set; }
+        public bool OnlyCanceledBookings { get; set; }
         public Booking SelectedBooking { get; set; }
         public DelegateCommand SearchCommand { get; set; }
         public DelegateCommand CancelBookingCommand { get; set; }

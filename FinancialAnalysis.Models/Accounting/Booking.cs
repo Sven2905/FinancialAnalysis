@@ -97,6 +97,11 @@ namespace FinancialAnalysis.Models.Accounting
         }
 
         /// <summary>
+        /// Gibt an, ob die Buchung bereits storniert wurde
+        /// </summary>
+        public bool IsCanceled { get; set; }
+
+        /// <summary>
         /// Gibt den ersten Kreditor der Soll-Positionen zurück
         /// </summary>
         [JsonIgnore]

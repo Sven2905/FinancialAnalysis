@@ -115,6 +115,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public void AddFixedCostAllocationDetail()
         {
+            if (SelectedFixedCostAllocation == null)
+                return;
+
             if (DoesCostCenterAlreadyExist(SelectedCostCenter.CostCenterId))
             {
                 Messenger.Default.Send(new OpenDialogWindowMessage("Fehler", "Kostenstelle ist bereits enhalten.", MessageBoxImage.Asterisk));
@@ -129,7 +132,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             };
 
             newFixedCostAllocationDetail.CostCenter.CostCenterCategory = SelectedCostCenterCategory;
-            SelectedFixedCostAllocation?.FixedCostAllocationDetails.Add(newFixedCostAllocationDetail);
+            SelectedFixedCostAllocation.FixedCostAllocationDetails.Add(newFixedCostAllocationDetail);
         }
 
         public void SaveFixedCostAllocationDetail()

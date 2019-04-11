@@ -153,6 +153,11 @@
                                                     </dxg:LookUpEdit>
                                                 </dxlc:LayoutItem>
                                             </dxlc:LayoutGroup>
+                                            <dxlc:LayoutGroup>
+                                                <dxlc:LayoutItem Label="Nur stornierte Buchungen anzeigen" FontFamily="Tahoma">
+                                                    <dxe:CheckEdit IsChecked="{Binding OnlyCanceledBookings}" />
+                                                </dxlc:LayoutItem>
+                                            </dxlc:LayoutGroup>
                                             <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
                                                 <dx:SimpleButton Width="120" Height="30" Content="Suchen" Foreground="#3F729B" Command="{Binding SearchCommand}" FontFamily="Tahoma" />
                                             </StackPanel>
@@ -172,15 +177,16 @@
                                     </Grid.RowDefinitions>
                                     <dxg:GridControl Grid.Row="0" HorizontalAlignment="Center" ShowBorder="True" ItemsSource="{Binding ResultList}" Margin="10" 
                                                      SelectedItem="{Binding SelectedBooking, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
-                                        <dxg:GridColumn FieldName="Date" Header="Datum" />
+                                        <dxg:GridColumn FieldName="IsCanceled" Header="Storno" Width="20" VisibleIndex="0"/>
+                                        <dxg:GridColumn FieldName="Date" Header="Datum" VisibleIndex="1" Width="50"/>
                                         <dxg:GridColumn FieldName="Description" Header="Beschreibung" />
-                                        <dxg:GridColumn FieldName="Amount" Header="Betrag" >
+                                        <dxg:GridColumn FieldName="Creditor.DisplayName" Header="Kreditor" />
+                                        <dxg:GridColumn FieldName="Debitor.DisplayName" Header="Debitor" />
+                                        <dxg:GridColumn FieldName="Amount" Header="Betrag" Width="30" >
                                             <dxg:GridColumn.EditSettings>
                                                 <dxe:TextEditSettings DisplayFormat="c2"/>
                                             </dxg:GridColumn.EditSettings>
                                         </dxg:GridColumn>
-                                        <dxg:GridColumn FieldName="Creditor.DisplayName" Header="Kreditor" />
-                                        <dxg:GridColumn FieldName="Debitor.DisplayName" Header="Debitor" />
                                         <dxg:GridControl.View>
                                             <dxg:TableView ShowHorizontalLines="True" ShowVerticalLines="False" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" MaxHeight="5000" 
                                                            MaxWidth="5000" ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" 

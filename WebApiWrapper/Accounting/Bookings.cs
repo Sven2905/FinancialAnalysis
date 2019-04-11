@@ -21,13 +21,17 @@ namespace WebApiWrapper.Accounting
             return WebApi<Booking>.GetDataById(controllerName, id);
         }
 
-        public static List<Booking> GetByParameter(DateTime startDate, DateTime endDate, int? costAccountCreditorId = null, int? costAccountDebitorId = null)
+        public static List<Booking> GetByParameter(DateTime startDate, DateTime endDate, int? costAccountCreditorId = null, int? costAccountDebitorId = null, bool OnlyCanceledBookings = false)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("startDate", startDate);
             parameters.Add("endDate", endDate);
             parameters.Add("costAccountCreditorId", costAccountCreditorId);
             parameters.Add("costAccountDebitorId", costAccountDebitorId);
+            if (OnlyCanceledBookings)
+            {
+                parameters.Add("OnlyCanceledBookings", OnlyCanceledBookings);
+            }
             return WebApi<List<Booking>>.GetData(controllerName, "GetByParameter", parameters);
         }
 
@@ -41,14 +45,9 @@ namespace WebApiWrapper.Accounting
             return WebApi<int>.PostAsync(controllerName, Bookings, "MultiPost").Result;
         }
 
-        public static bool Update(Booking Booking)
+        public static bool UpdateCancelingStatus(Booking Booking)
         {
-            return WebApi<bool>.PutAsync(controllerName, Booking, "Put").Result;
-        }
-
-        public static bool Delete(int id)
-        {
-            return WebApi<bool>.DeleteAsync(controllerName, id);
+            return WebApi<bool>.PutAsync(controllerName, Booking, "PutUpdateCancelingStatus").Result;
         }
     }
 }
