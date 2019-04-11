@@ -170,6 +170,17 @@ namespace FinancialAnalysis.UI
                     var window = new WebApiConfigurationWindow();
                     window.ShowDialog();
                 });
+            Messenger.Default.Register<OpenYesNoDialogWindowMessage>(this,
+                msg =>
+                {
+                    var window = new YesNoDialogWindow();
+                    if (window.DataContext is YesNoDialogViewModel model)
+                    {
+                        model.Title = msg.Title;
+                        model.Message = msg.Message;
+                    }
+                    window.ShowDialog();
+                });
         }
 
         #endregion Methods

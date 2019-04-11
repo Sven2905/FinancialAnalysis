@@ -21,13 +21,13 @@ namespace WebApiWrapper.Accounting
             return WebApi<Booking>.GetDataById(controllerName, id);
         }
 
-        public static List<Booking> GetByParameter(DateTime startDate, DateTime endDate, int? creditId = null, int? debitId = null)
+        public static List<Booking> GetByParameter(DateTime startDate, DateTime endDate, int? costAccountCreditorId = null, int? costAccountDebitorId = null)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("startDate", startDate);
             parameters.Add("endDate", endDate);
-            parameters.Add("creditId", creditId);
-            parameters.Add("debitId", debitId);
+            parameters.Add("costAccountCreditorId", costAccountCreditorId);
+            parameters.Add("costAccountDebitorId", costAccountDebitorId);
             return WebApi<List<Booking>>.GetData(controllerName, "GetByParameter", parameters);
         }
 

@@ -143,6 +143,7 @@
     <Compile Include="Messages\OpenTypeMessages\OpenWarehousesWindowMessage.cs" />
     <Compile Include="Messages\OpenTypeMessages\OpenInvoiceTypesWindowMessage.cs" />
     <Compile Include="Messages\OpenTypeMessages\OpenSalesTypesWindowMessage.cs" />
+    <Compile Include="Messages\OpenYesNoDialogWindowMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\RequiredValidationRule.cs" />
     <Compile Include="SalesManagement\SalesReportPDFCreator.cs" />
@@ -201,6 +202,8 @@
     <Compile Include="General\XmlHelper.cs" />
     <Compile Include="ViewModels\ProjectManagement\ProjectWorkingTimeViewModel.cs" />
     <Compile Include="ViewModels\ProjectManagement\HealthInsuranceViewModel.cs" />
+    <Compile Include="ViewModels\YesNoDialogViewModel.cs" />
+    <Compile Include="YesNoDialogResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -4,14 +4,14 @@ using FinancialAnalysis.Logic.ViewModels;
 namespace FinancialAnalysis
 {
     /// <summary>
-    ///     Interaktionslogik für DialogWindow.xaml
+    /// Interaction logic for YesNoDialogWindow.xaml
     /// </summary>
-    public partial class DialogWindow : DXWindow
+    public partial class YesNoDialogWindow : DXWindow
     {
-        public DialogWindow()
+        public YesNoDialogWindow()
         {
             InitializeComponent();
-            var vm = new DialogViewModel();
+            var vm = new YesNoDialogViewModel();
             DataContext = vm;
             if (vm.CloseAction == null) vm.CloseAction = () => { };
 

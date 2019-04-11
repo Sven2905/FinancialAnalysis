@@ -12,6 +12,8 @@ namespace FinancialAnalysis.Models.Accounting
     [JsonObject(MemberSerialization.OptOut)]
     public class Booking : BindableBase
     {
+        #region Constructor
+
         public Booking()
         {
         }
@@ -22,6 +24,14 @@ namespace FinancialAnalysis.Models.Accounting
             Date = date;
             Description = description;
         }
+
+        #endregion Constructor
+
+        #region Fields
+
+        private FixedCostAllocation fixedCostAllocation = new FixedCostAllocation();
+
+        #endregion Fields
 
         #region Properties
 
@@ -66,15 +76,31 @@ namespace FinancialAnalysis.Models.Accounting
         public List<Credit> Credits { get; set; } = new List<Credit>();
 
         /// <summary>
-        /// Zugeordneter Kostenstellenverteilungsschlüssel
+        /// Referenz auf zugeordneten Kostenstellenverteilungsschlüssel
         /// </summary>
         public int RefFixedCostAllocationId { get; set; }
+
+        /// <summary>
+        /// Zugeordneter Kostenstellenverteilungsschlüssel
+        /// </summary>
+        public FixedCostAllocation FixedCostAllocation
+        {
+            get
+            {
+                if (fixedCostAllocation == null)
+                {
+                    fixedCostAllocation = new FixedCostAllocation();
+                }
+                return fixedCostAllocation;
+            }
+            set { fixedCostAllocation = value; }
+        }
 
         /// <summary>
         /// Gibt den ersten Kreditor der Soll-Positionen zurück
         /// </summary>
         [JsonIgnore]
-        public CostAccount Creditor { get => Credits?.FirstOrDefault().CostAccount; }
+        public CostAccount Creditor { get => Credits?.LastOrDefault().CostAccount; }
 
         /// <summary>
         /// Gibt den ersten Debitor der Haben-Positionen zurück

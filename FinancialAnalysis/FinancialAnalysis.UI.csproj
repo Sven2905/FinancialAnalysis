@@ -301,6 +301,9 @@
     <Compile Include="Windows\TypesWindows\ProductCategoriesWindow.xaml.cs">
       <DependentUpon>ProductCategoriesWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\YesNoDialog.xaml.cs">
+      <DependentUpon>YesNoDialogWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Resources\Style.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -521,6 +524,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\TypesWindows\ProductCategoriesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\YesNoDialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

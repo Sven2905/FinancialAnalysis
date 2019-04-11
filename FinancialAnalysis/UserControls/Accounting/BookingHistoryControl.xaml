@@ -13,6 +13,7 @@
              xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
              mc:Ignorable="d"
              dx:ThemeManager.ThemeName="Office2016WhiteSE"
              d:DesignHeight="1050" d:DesignWidth="1920">
@@ -65,7 +66,7 @@
                     </Grid.ColumnDefinitions>
                     <dxdo:DockLayoutManager>
                         <dxdo:LayoutGroup Caption="LayoutRoot">
-                            <dxdo:LayoutPanel Caption="Filter" ShowCloseButton="False" ShowPinButton="True" >
+                            <dxdo:LayoutPanel Caption="Filter" ShowCloseButton="False" ShowPinButton="False" >
                                 <Grid>
                                     <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" >
                                         <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" >
@@ -165,20 +166,71 @@
                         <dxdo:LayoutGroup Caption="LayoutRoot">
                             <dxdo:LayoutPanel Caption="Ergebnis" ShowCloseButton="False" ShowPinButton="False" >
                                 <Grid>
-                                    <dxg:GridControl Grid.Row="3" HorizontalAlignment="Center" ShowBorder="True" ItemsSource="{Binding ResultList}" Margin="10" 
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <dxg:GridControl Grid.Row="0" HorizontalAlignment="Center" ShowBorder="True" ItemsSource="{Binding ResultList}" Margin="10" 
                                                      SelectedItem="{Binding SelectedBooking, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
                                         <dxg:GridColumn FieldName="Date" Header="Datum" />
                                         <dxg:GridColumn FieldName="Description" Header="Beschreibung" />
-                                        <dxg:GridColumn FieldName="Amount" Header="Betrag" />
+                                        <dxg:GridColumn FieldName="Amount" Header="Betrag" >
+                                            <dxg:GridColumn.EditSettings>
+                                                <dxe:TextEditSettings DisplayFormat="c2"/>
+                                            </dxg:GridColumn.EditSettings>
+                                        </dxg:GridColumn>
                                         <dxg:GridColumn FieldName="Creditor.DisplayName" Header="Kreditor" />
                                         <dxg:GridColumn FieldName="Debitor.DisplayName" Header="Debitor" />
                                         <dxg:GridControl.View>
                                             <dxg:TableView ShowHorizontalLines="True" ShowVerticalLines="False" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" MaxHeight="5000" 
                                                            MaxWidth="5000" ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" 
                                                            EnableSelectedRowAppearance="True" UseEvenRowBackground="True" ShowIndicator="False" AllowColumnMoving="False" AllowGrouping="False" 
-                                                           AutoWidth="True" NewItemRowPosition="None" />
+                                                           AutoWidth="True" NewItemRowPosition="None" HighlightItemOnHover="True">
+                                                <dxg:TableView.RowCellMenuCustomizations>
+                                                    <dxb:BarButtonItem Glyph="{dx:DXImage Image=Delete_32x32.png}" Content="Stornieren" Command="{Binding View.DataContext.CancelBookingCommand}"/>
+                                                </dxg:TableView.RowCellMenuCustomizations>
+                                            </dxg:TableView>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
+                                    <Grid Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition Width="3*" />
+                                            <ColumnDefinition Width="3*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid Grid.Column="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+
+                                            <TextBlock Grid.Row="0" Text="Kostenstellen" FontSize="24" FontFamily="Tahoma" Foreground="#3F729B" Margin="10,0" />
+
+                                            <VirtualizingStackPanel Grid.Row="1" Orientation="Horizontal">
+                                                <TextBlock Grid.Row="0" Text="Verteilschlüssel: " FontFamily="Tahoma" Foreground="#3F729B" Margin="10,5,0,5" />
+                                                <TextBlock Grid.Row="0" VerticalAlignment="Center" Text="{Binding SelectedBooking.FixedCostAllocation.DisplayShares}" 
+                                                           FontFamily="Tahoma" Foreground="#3F729B" />
+                                            </VirtualizingStackPanel>
+                                            
+                                            <dxg:GridControl Grid.Row="2" HorizontalAlignment="Center" ShowBorder="False" ItemsSource="{Binding SelectedBooking.BookingCostCenterMappingList}" Margin="10" >
+                                                <dxg:GridColumn FieldName="CostCenter.Name" Header="Name" />
+                                                <dxg:GridColumn FieldName="Amount" Header="Betrag" >
+                                                    <dxg:GridColumn.EditSettings>
+                                                        <dxe:TextEditSettings DisplayFormat="c2"/>
+                                                    </dxg:GridColumn.EditSettings>
+                                                </dxg:GridColumn>
+                                                <dxg:GridControl.View>
+                                                    <dxg:TableView ShowHorizontalLines="True" ShowVerticalLines="False" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" MaxHeight="5000" 
+                                                           MaxWidth="5000" ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" 
+                                                           EnableSelectedRowAppearance="False" UseEvenRowBackground="True" ShowIndicator="False" AllowColumnMoving="False" AllowGrouping="False" 
+                                                           AutoWidth="True" NewItemRowPosition="None" AllowSorting="False" HighlightItemOnHover="True" ShowColumnHeaders="False"/>
+                                                </dxg:GridControl.View>
+                                            </dxg:GridControl>
+                                            
+                                        </Grid>
+                                    </Grid>
                                 </Grid>
                             </dxdo:LayoutPanel>
                         </dxdo:LayoutGroup>

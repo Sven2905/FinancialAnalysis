@@ -62,7 +62,7 @@ namespace FinancialAnalysis.Models.Accounting
                 }
                 else
                 {
-                    return "-";
+                    return "1";
                 }
             }
         }
