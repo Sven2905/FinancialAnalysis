@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace FinancialAnalysis.Models.Mail
+namespace FinancialAnalysis.Models.MailManagement
 {
     /// <summary>
     /// Daten zum Mailversand

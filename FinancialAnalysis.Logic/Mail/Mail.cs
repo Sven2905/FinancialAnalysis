@@ -5,15 +5,13 @@ using System.Net.Mime;
 using System.Windows;
 using DevExpress.Mvvm;
 using FinancialAnalysis.Logic.Messages;
-using FinancialAnalysis.Models.Mail;
+using FinancialAnalysis.Models.MailManagement;
 using Serilog;
 
 namespace FinancialAnalysis.Logic
 {
     public static class Mail
     {
-            
-
         public static void Send(MailData mailData, MailConfiguration mailConfiguration)
         {
             Log.Logger = new LoggerConfiguration()
@@ -38,7 +36,7 @@ namespace FinancialAnalysis.Logic
             {
                 var client = new SmtpClient(mailConfiguration.Server)
                 {
-                    Credentials = new NetworkCredential(mailConfiguration.LoginUser, mailConfiguration.Password)
+                    Credentials = new NetworkCredential(mailConfiguration.LoginUser, mailConfiguration.GetPasswordDecrypted())
                 };
                 client.Send(message);
                 message.Attachments.Dispose();

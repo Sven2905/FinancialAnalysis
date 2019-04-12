@@ -11,7 +11,7 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.DataContext>
-        <ViewModels:MailViewModel />
+        <ViewModels:MailConfigurationViewModel />
     </UserControl.DataContext>
     <Grid >
         <Grid.RowDefinitions>
@@ -45,7 +45,7 @@
             <dxe:TextEdit NullText="User" Height="22" Width="150" HorizontalAlignment="Left"
                           Text="{Binding MailConfiguration.LoginUser}" Margin="2" />
             <dxe:PasswordBoxEdit NullText="Password" Height="22" Width="150" HorizontalAlignment="Left"
-                                 Text="{Binding MailConfiguration.Password}" Margin="2" />
+                                 Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="2" />
             <dx:SimpleButton Height="22" Width="150" Content="Speichern" Glyph="{dx:DXImage Image=Save_16x16.png}"
                              HorizontalAlignment="Left" Command="{Binding SaveMailConfigCommand}" Margin="2"
                              FontFamily="Tahoma" />

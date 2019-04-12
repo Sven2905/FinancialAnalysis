@@ -1,4 +1,4 @@
-﻿using FinancialAnalysis.Models.Mail;
+﻿using FinancialAnalysis.Models.MailManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,17 +23,17 @@ namespace WebApiWrapper.MailManagement
 
         public static int Insert(MailConfiguration MailConfiguration)
         {
-            return WebApi<bool>.PostAsync(controllerName, MailConfiguration, "SinglePost").Result;
+            return WebApi<int>.PostAsync(controllerName, MailConfiguration).Result;
         }
 
         public static bool Update(MailConfiguration MailConfiguration)
         {
-            return WebApi<int>.PutAsync(controllerName, MailConfiguration, "Put").Result;
+            return WebApi<bool>.PutAsync(controllerName, MailConfiguration, "Put").Result;
         }
 
         public static bool Delete(int id)
         {
-            return WebApi<int>.DeleteAsync(controllerName, id);
+            return WebApi<bool>.DeleteAsync(controllerName, id);
         }
     }
 }

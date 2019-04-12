@@ -1,16 +1,15 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using Utilities;
 
-namespace FinancialAnalysis.Models.Mail
+namespace FinancialAnalysis.Models.MailManagement
 {
     /// <summary>
     /// Maileinstellungen
     /// </summary>
-    [Serializable]
+    [JsonObject(MemberSerialization.OptOut)]
     public class MailConfiguration
     {
-        private string _Password = string.Empty;
-
         /// <summary>
         /// Id
         /// </summary>
@@ -34,24 +33,20 @@ namespace FinancialAnalysis.Models.Mail
         /// <summary>
         /// Passwort
         /// </summary>
-        public string Password
-        {
-            get
-            {
-                if (_Password != string.Empty)
-                {
-                    return Encryption.DecryptText(_Password, @"G*ZCx[WD;d<k3*Gc");
-                }
+        public string Password { get; set; }
 
+        public void SetPassword(string newPassword)
+        {
+            Password = Encryption.EncryptText(newPassword, @"G*ZCx[WD;d<k3*Gc");
+        }
+
+        public string GetPasswordDecrypted()
+        {
+            if (string.IsNullOrEmpty(Password))
+            {
                 return "";
             }
-            set
-            {
-                if (value != "")
-                {
-                    _Password = Encryption.EncryptText(value, @"G*ZCx[WD;d<k3*Gc");
-                }
-            }
+            return Encryption.DecryptText(Password, @"G*ZCx[WD;d<k3*Gc");
         }
     }
 }

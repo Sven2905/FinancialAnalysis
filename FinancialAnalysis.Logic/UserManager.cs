@@ -91,7 +91,7 @@ namespace FinancialAnalysis.Logic
 
             if (user.UserId == 0)
             {
-                Users.Insert(user);
+                user.UserId = Users.Insert(user);
             }
             else
             {
@@ -142,6 +142,10 @@ namespace FinancialAnalysis.Logic
         public SvenTechCollection<UserRightUserMappingFlatStructure> GetUserRightUserMappingFlatStructure(User user)
         {
             var UserRightUserMappingFlatStructure = new SvenTechCollection<UserRightUserMappingFlatStructure>();
+            if (user.UserRights.Count == 0)
+            {
+                user.UserRights = UserRights.GetAll();
+            }
             foreach (var item in user.UserRightUserMappings)
             {
                 UserRightUserMappingFlatStructure.Add(new UserRightUserMappingFlatStructure(user, Instance.UserRightList.Single(x => x.UserRightId == item.RefUserRightId), item.UserRightUserMappingId));

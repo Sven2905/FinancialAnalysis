@@ -5,6 +5,7 @@ using System.Windows.Media.Imaging;
 using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Administration;
 using Utilities;
+using WebApiWrapper.Administration;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {

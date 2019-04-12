@@ -1,5 +1,4 @@
 using DevExpress.Mvvm;
-
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.Enums;
 using FinancialAnalysis.Models.General;
@@ -16,6 +15,11 @@ namespace FinancialAnalysis.Logic.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
+        //       _
+        //   .__(.)< (MEOW)
+        //    \___)   
+        //  ~~~~~~~~~~~~~~~~~~
+
         private string _currentTime;
 
         /// <summary>

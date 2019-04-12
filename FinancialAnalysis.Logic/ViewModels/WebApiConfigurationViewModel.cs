@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Logic.General;
 using FinancialAnalysis.Models.Administration;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             WebApiConfiguration.Instance.Server = Server;
             WebApiConfiguration.Instance.Port = Port;
             BinarySerialization.WriteToBinaryFile(@".\WebApiConfig.cfg", WebApiConfiguration.Instance);
+            NotificationMessages.ShowSuccess(message: "Einstellungen wurden erfolgreich gespeichert.");
         }
 
         private void LoadFromFile()
