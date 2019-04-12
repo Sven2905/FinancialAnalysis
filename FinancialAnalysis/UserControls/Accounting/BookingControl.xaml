@@ -235,7 +235,7 @@
                                             </dxmvvm:Interaction.Behaviors>
                                         </dxe:ComboBoxEdit>
                                         <dxe:ListBoxEdit Grid.Column="7" Grid.Row="4" Grid.RowSpan="7" Margin="10,0,-153,2" Height="300" 
-                                                         MinWidth="375" HorizontalAlignment="Left" ItemsSource="{Binding ScannedDocuments}" 
+                                                         MinWidth="375" HorizontalAlignment="Left" ItemsSource="{Binding ScannedDocumentList}" 
                                                          SelectedItem="{Binding SelectedScannedDocument}">
                                             <dxmvvm:Interaction.Behaviors>
                                                 <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding DoubleClickListBoxCommand}"

@@ -76,6 +76,7 @@
     <Compile Include="CarPoolManagement\CarBodies.cs" />
     <Compile Include="ClientManagement\Clients.cs" />
     <Compile Include="ClientManagement\Companies.cs" />
+    <Compile Include="Mail\MailConfigurations.cs" />
     <Compile Include="WebApiConfiguration.cs" />
     <Compile Include="ProductManagement\ProductCategories.cs" />
     <Compile Include="ProductManagement\Products.cs" />

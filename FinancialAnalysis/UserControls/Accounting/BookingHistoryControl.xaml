@@ -177,12 +177,13 @@
                                     </Grid.RowDefinitions>
                                     <dxg:GridControl Grid.Row="0" HorizontalAlignment="Center" ShowBorder="True" ItemsSource="{Binding ResultList}" Margin="10" 
                                                      SelectedItem="{Binding SelectedBooking, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
-                                        <dxg:GridColumn FieldName="IsCanceled" Header="Storno" Width="20" VisibleIndex="0"/>
-                                        <dxg:GridColumn FieldName="Date" Header="Datum" VisibleIndex="1" Width="50"/>
-                                        <dxg:GridColumn FieldName="Description" Header="Beschreibung" />
+                                        <dxg:GridColumn FieldName="BookingId" Header="Nr." Width="20" VisibleIndex="1"/>
+                                        <dxg:GridColumn FieldName="IsCanceled" Header="Storno" Width="20" VisibleIndex="1"/>
+                                        <dxg:GridColumn FieldName="Date" Header="Datum" VisibleIndex="2" Width="50"/>
+                                        <dxg:GridColumn FieldName="Description" Header="Beschreibung" VisibleIndex="3" />
                                         <dxg:GridColumn FieldName="Creditor.DisplayName" Header="Kreditor" />
                                         <dxg:GridColumn FieldName="Debitor.DisplayName" Header="Debitor" />
-                                        <dxg:GridColumn FieldName="Amount" Header="Betrag" Width="30" >
+                                        <dxg:GridColumn FieldName="Amount" Header="Betrag" Width="35" >
                                             <dxg:GridColumn.EditSettings>
                                                 <dxe:TextEditSettings DisplayFormat="c2"/>
                                             </dxg:GridColumn.EditSettings>
@@ -200,8 +201,8 @@
                                     </dxg:GridControl>
                                     <Grid Grid.Row="1">
                                         <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="2*" />
-                                            <ColumnDefinition Width="3*" />
                                             <ColumnDefinition Width="3*" />
                                         </Grid.ColumnDefinitions>
 
@@ -235,6 +236,35 @@
                                                 </dxg:GridControl.View>
                                             </dxg:GridControl>
                                             
+                                        </Grid>
+
+                                        <Grid Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+
+                                            <TextBlock Grid.Row="0" Text="Dokumente" FontSize="24" FontFamily="Tahoma" Foreground="#3F729B" Margin="10,0" />
+
+                                            <dxe:ListBoxEdit Grid.Row="1" HorizontalAlignment="Stretch" ItemsSource="{Binding SelectedBooking.ScannedDocuments}" 
+                                                         SelectedItem="{Binding SelectedScannedDocument}" Margin="10">
+                                                <dxmvvm:Interaction.Behaviors>
+                                                    <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding DoubleClickListBoxCommand}"
+                                           PassEventArgsToCommand="True" />
+                                                </dxmvvm:Interaction.Behaviors>
+                                                <dxe:ListBoxEdit.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel Orientation="Vertical" />
+                                                    </ItemsPanelTemplate>
+                                                </dxe:ListBoxEdit.ItemsPanel>
+                                                <dxe:ListBoxEdit.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid ToolTip="{Binding ToolTip}">
+                                                            <TextBlock Text="{Binding FileName}" HorizontalAlignment="Center" />
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </dxe:ListBoxEdit.ItemTemplate>
+                                            </dxe:ListBoxEdit>
                                         </Grid>
                                     </Grid>
                                 </Grid>

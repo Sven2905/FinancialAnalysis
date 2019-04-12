@@ -43,13 +43,7 @@ namespace WebApiWrapper
 
         public static T GetDataById(string controller, int id, string action = "GetById")
         {
-            var url = $"http://{WebApiConfiguration.Instance.Server}:{WebApiConfiguration.Instance.Port}/api/{controller}/{action}?id={id}";
-            
-
-            if (url[url.Length - 1] == '&')
-            {
-                url = url.Remove(url.Length - 1, 1);
-            }
+            var url = $"http://{WebApiConfiguration.Instance.Server}:{WebApiConfiguration.Instance.Port}/api/{controller}/{action}/{id}";
 
             return GetData(url);
         }

@@ -188,7 +188,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return null;
             }
 
-            Booking booking = new Booking(Amount, Date, Description);
+            Booking booking = new Booking(Amount * (-1), Date, Description);
 
             decimal tax = 0;
             decimal amountWithoutTax = 0;
@@ -214,14 +214,14 @@ namespace FinancialAnalysis.Logic.ViewModels
                 if (SelectedTax.Description.IndexOf("Vorsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     credit = new Credit(amountWithoutTax, CostAccountCreditorId, booking.BookingId);
-                    debit = new Debit(amountWithoutTax + tax, CostAccountDebitorId, booking.BookingId);
+                    debit = new Debit((amountWithoutTax + tax) * (-1), CostAccountDebitorId, booking.BookingId);
                     var creditTax = new Credit(tax, SelectedTax.RefCostAccount, booking.BookingId);
                     booking.Credits.Add(creditTax);
                 }
                 else if (SelectedTax.Description.IndexOf("Umsatzsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     credit = new Credit(amountWithoutTax + tax, CostAccountCreditorId, booking.BookingId);
-                    debit = new Debit(amountWithoutTax + tax, CostAccountDebitorId, booking.BookingId);
+                    debit = new Debit((amountWithoutTax + tax) * (-1), CostAccountDebitorId, booking.BookingId);
                     var debitTax = new Debit(tax, SelectedTax.RefCostAccount, booking.BookingId);
                     booking.Debits.Add(debitTax);
                 }
@@ -235,22 +235,22 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 if (SelectedTax.Description.IndexOf("Vorsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
-                    credit = new Credit(amountWithoutTax + tax, CostAccountDebitorId, booking.BookingId);
+                    credit = new Credit((amountWithoutTax + tax) * (-1), CostAccountDebitorId, booking.BookingId);
                     debit = new Debit(amountWithoutTax, CostAccountCreditorId, booking.BookingId);
                     var debitTax = new Debit(tax, SelectedTax.RefCostAccount, booking.BookingId);
                     booking.Debits.Add(debitTax);
                 }
                 else if (SelectedTax.Description.IndexOf("Umsatzsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
-                    credit = new Credit(amountWithoutTax + tax, CostAccountDebitorId, booking.BookingId);
-                    debit = new Debit(amountWithoutTax + tax, CostAccountCreditorId, booking.BookingId);
+                    credit = new Credit(amountWithoutTax, CostAccountDebitorId, booking.BookingId);
+                    debit = new Debit((amountWithoutTax + tax) * (-1), CostAccountCreditorId, booking.BookingId);
                     var creditTax = new Credit(tax, SelectedTax.RefCostAccount, booking.BookingId);
                     booking.Credits.Add(creditTax);
                 }
                 else
                 {
                     credit = new Credit(Amount, CostAccountDebitorId, booking.BookingId);
-                    debit = new Debit(Amount, CostAccountCreditorId, booking.BookingId);
+                    debit = new Debit(Amount * (-1), CostAccountCreditorId, booking.BookingId);
                 }
             }
 
