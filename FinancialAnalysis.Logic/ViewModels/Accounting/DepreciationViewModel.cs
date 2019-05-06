@@ -58,10 +58,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             switch (DepreciationType)
             {
-                case DepreciationType.ArithmenticDegressive:
+                case DepreciationType.SumOfTheYearsDigitMethod:
                     DepreciationValues = Depreciations.CalculateArithmenticDegressiveValuesForYears(InitialValue, AssetValue, Years).ToSvenTechCollection();
                     break;
-                case DepreciationType.GeometryDregressive:
+                case DepreciationType.DecliningBalanceMethod:
                     DepreciationValues = Depreciations.CalculateGeometryDregressiveForYears(InitialValue, AssetValue, Years).ToSvenTechCollection();
                     break;
                 case DepreciationType.Linear:

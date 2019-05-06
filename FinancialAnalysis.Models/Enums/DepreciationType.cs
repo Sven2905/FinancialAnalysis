@@ -9,8 +9,8 @@ namespace FinancialAnalysis.Models
 {
     public enum DepreciationType
     {
-        [Display(Name = "Arithmetisch-degressiv")] ArithmenticDegressive,
-        [Display(Name = "Geometrisch-degressiv")] GeometryDregressive,
+        [Display(Name = "Arithmetisch-degressiv")] SumOfTheYearsDigitMethod,
+        [Display(Name = "Geometrisch-degressiv")] DecliningBalanceMethod,
         [Display(Name = "Linear")] Linear
     }
 }

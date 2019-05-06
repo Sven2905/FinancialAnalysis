@@ -1,6 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.MailManagement;
 using System.Linq;
+using Utilities;
 using WebApiWrapper.MailManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -24,6 +25,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         public MailConfiguration MailConfiguration { get; set; }
         public DelegateCommand SaveMailConfigCommand { get; set; }
         public DelegateCommand SendTestMailCommand { get; set; }
+        public SvenTechCollection<MailConfiguration> MailConfigurationList { get; set; }
+        public MailConfiguration SelectedMailConfiguration { get; set; }
 
         private void SendTestMail()
         {
@@ -55,7 +58,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void LoadMailConfiguration()
         {
-            MailConfiguration = MailConfigurations.GetAll().FirstOrDefault();
+            MailConfigurationList = MailConfigurations.GetAll().ToSvenTechCollection();
 
             if (MailConfiguration == null)
             {

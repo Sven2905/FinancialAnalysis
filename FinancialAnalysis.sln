@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2000
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialAnalysis.UI", "FinancialAnalysis\FinancialAnalysis.UI.csproj", "{4F9C8FF5-7ADD-4828-AAEE-D950B6E41FBE}"
 EndProject
@@ -14,8 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formulas", "Formulas\Formulas.csproj", "{E510CA7E-F91C-43C4-BDF7-8E9EFBA4F9E5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiWrapper", "WebApiWrapper\WebApiWrapper.csproj", "{1263E5D1-6B44-4418-A076-3D889766D5E4}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{9218939B-4D32-4EAD-AF83-281C2AFEDC36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,10 +71,6 @@ Global
 		{1263E5D1-6B44-4418-A076-3D889766D5E4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1263E5D1-6B44-4418-A076-3D889766D5E4}.Release|x64.ActiveCfg = Release|Any CPU
 		{1263E5D1-6B44-4418-A076-3D889766D5E4}.Release|x64.Build.0 = Release|Any CPU
-		{9218939B-4D32-4EAD-AF83-281C2AFEDC36}.Debug|Any CPU.ActiveCfg = Debug
-		{9218939B-4D32-4EAD-AF83-281C2AFEDC36}.Debug|x64.ActiveCfg = Debug
-		{9218939B-4D32-4EAD-AF83-281C2AFEDC36}.Release|Any CPU.ActiveCfg = Release
-		{9218939B-4D32-4EAD-AF83-281C2AFEDC36}.Release|x64.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

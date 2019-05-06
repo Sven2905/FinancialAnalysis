@@ -9,7 +9,7 @@
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="1050" d:DesignWidth="1920">
     <UserControl.DataContext>
         <ViewModels:MailConfigurationViewModel />
     </UserControl.DataContext>
@@ -36,22 +36,34 @@
                 </DataTemplate>
             </dxwui:PageAdornerControl.HeaderTemplate>
         </dxwui:PageAdornerControl>
-        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <Label Content="MailConfiguration" FontWeight="Bold" FontSize="14" FontFamily="Tahoma" />
-            <dxe:TextEdit NullText="Server" Height="22" Width="150" HorizontalAlignment="Left"
-                          Text="{Binding MailConfiguration.Server}" Margin="2" />
-            <dxe:TextEdit NullText="Address" Height="22" Width="150" HorizontalAlignment="Left"
-                          Text="{Binding MailConfiguration.Address}" Margin="2" />
-            <dxe:TextEdit NullText="User" Height="22" Width="150" HorizontalAlignment="Left"
-                          Text="{Binding MailConfiguration.LoginUser}" Margin="2" />
-            <dxe:PasswordBoxEdit NullText="Password" Height="22" Width="150" HorizontalAlignment="Left"
+
+        <Grid Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Width="500" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0">
+                <ListView ItemsSource="{Binding MailConfigurationList}" DisplayMemberPath="Address" SelectedItem="{Binding SelectedMailConfiguration}" x:Name="Mails"
+                          BorderThickness="1" BorderBrush="DarkGray" FontSize="14" />
+            </ScrollViewer>
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Label Content="MailConfiguration" FontWeight="Bold" FontSize="14" FontFamily="Tahoma" />
+                <dxe:TextEdit NullText="Server" Height="22" Width="150" HorizontalAlignment="Left"
+                          Text="{Binding SelectedMailConfiguration.Server}" Margin="2" />
+                <dxe:TextEdit NullText="Address" Height="22" Width="150" HorizontalAlignment="Left"
+                          Text="{Binding SelectedMailConfiguration.Address}" Margin="2" />
+                <dxe:TextEdit NullText="User" Height="22" Width="150" HorizontalAlignment="Left"
+                          Text="{Binding SelectedMailConfiguration.LoginUser}" Margin="2" />
+                <dxe:PasswordBoxEdit NullText="Password" Height="22" Width="150" HorizontalAlignment="Left"
                                  Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="2" />
-            <dx:SimpleButton Height="22" Width="150" Content="Speichern" Glyph="{dx:DXImage Image=Save_16x16.png}"
+                <dx:SimpleButton Height="22" Width="150" Content="Speichern" Glyph="{dx:DXImage Image=Save_16x16.png}"
                              HorizontalAlignment="Left" Command="{Binding SaveMailConfigCommand}" Margin="2"
                              FontFamily="Tahoma" />
-            <dx:SimpleButton Height="22" Width="150" Content="Testmail senden"
+                <dx:SimpleButton Height="22" Width="150" Content="Testmail senden"
                              Glyph="{dx:DXImage Image=Mail_16x16.png}" HorizontalAlignment="Left"
                              Command="{Binding SendTestMailCommand}" Margin="2" FontFamily="Tahoma" />
-        </StackPanel>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>
