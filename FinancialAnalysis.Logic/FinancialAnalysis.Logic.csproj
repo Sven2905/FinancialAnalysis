@@ -159,6 +159,7 @@
     <Compile Include="ViewModels\Accounting\ClientViewModel.cs" />
     <Compile Include="ViewModels\Accounting\CompanyViewModel.cs" />
     <Compile Include="ViewModels\Accounting\CostAccountViewModel.cs" />
+    <Compile Include="ViewModels\Accounting\DepreciationBaseViewModel.cs" />
     <Compile Include="ViewModels\Accounting\DepreciationViewModel.cs" />
     <Compile Include="ViewModels\Accounting\FixedCostAllocationViewModel.cs" />
     <Compile Include="ViewModels\Accounting\CreditorDebitorViewModel.cs" />

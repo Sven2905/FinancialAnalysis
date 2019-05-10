@@ -1,5 +1,6 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models;
+using FinancialAnalysis.Models.Accounting;
 using Formulas.DepreciationMethods;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utilities;
+using WebApiWrapper.Accounting;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -14,62 +16,85 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         public DepreciationViewModel()
         {
-            CalculateCommand = new DelegateCommand(Calculate);
+            GetData();
+            NewDepreciationItemCommand = new DelegateCommand(NewSelectedDepreciationItem);
+
+            SaveDepreciationItemCommand = new DelegateCommand(() => SaveSelectedDepreciationItem(), 
+                SelectedDepreciationItem != null && SelectedDepreciationItem.InitialValue > 0 
+                && !string.IsNullOrEmpty(SelectedDepreciationItem.Name) && SelectedDepreciationItem.Years > 0 && SelectedDepreciationItem.StartYear > 0);
+
+            DeleteDepreciationItemCommand = new DelegateCommand(() => DeleteSelectedDepreciationItem(), SelectedDepreciationItem != null);
         }
 
-        private DepreciationType _DepreciationType;
-        private int _Years;
-        private decimal _InitialValue;
-        private decimal _AssetValue;
+        #region Fields
 
-        public DepreciationType DepreciationType
+        private string _FilterText;
+
+        #endregion Fields
+
+        #region Properties
+
+        public DelegateCommand NewDepreciationItemCommand { get; set; }
+        public DelegateCommand SaveDepreciationItemCommand { get; set; }
+        public DelegateCommand DeleteDepreciationItemCommand { get; set; }
+        public string FilterText
         {
-            get { return _DepreciationType; }
-            set { _DepreciationType = value; Calculate(); }
-        }
-
-        public int Years
-        {
-            get { return _Years; }
-            set { _Years = value; Calculate(); }
-        }
-
-        public decimal InitialValue
-        {
-            get { return _InitialValue; }
-            set { _InitialValue = value; Calculate(); }
-        }
-
-        public decimal AssetValue
-        {
-            get { return _AssetValue; }
-            set { _AssetValue = value; Calculate(); }
-        }
-
-        public SvenTechCollection<DepreciationValue> DepreciationValues { get; set; }
-        public DelegateCommand CalculateCommand { get; set; }
-
-        private void Calculate()
-        {
-            if (Years <= 0 || InitialValue <= 0)
+            get { return _FilterText; }
+            set
             {
-                return;
-            }
-
-            switch (DepreciationType)
-            {
-                case DepreciationType.SumOfTheYearsDigitMethod:
-                    DepreciationValues = Depreciations.CalculateArithmenticDegressiveValuesForYears(InitialValue, AssetValue, Years).ToSvenTechCollection();
-                    break;
-                case DepreciationType.DecliningBalanceMethod:
-                    DepreciationValues = Depreciations.CalculateGeometryDregressiveForYears(InitialValue, AssetValue, Years).ToSvenTechCollection();
-                    break;
-                case DepreciationType.Linear:
-                    DepreciationValues = Depreciations.CalculateLinearValueForYears(InitialValue, AssetValue, Years).ToSvenTechCollection();
-                    break;
-                default:
-                    break;
+                _FilterText = value;
+                if (!string.IsNullOrEmpty(value))
+                {
+                    FilteredDepreciationItems = new SvenTechCollection<DepreciationItem>();
+                    FilteredDepreciationItems.AddRange(DepreciationItemList.Where(x => x.Name.ToLower().Contains(_FilterText.ToLower())));
+                }
+                else
+                    FilteredDepreciationItems = DepreciationItemList;
             }
         }
+
+        private DepreciationItem _SelectedDepreciationItem;
+        public SvenTechCollection<DepreciationItem> DepreciationItemList { get; set; }
+        public SvenTechCollection<DepreciationItem> FilteredDepreciationItems { get; set; }
+        public DepreciationItem SelectedDepreciationItem
+        {
+            get { return _SelectedDepreciationItem; }
+            set { _SelectedDepreciationItem = value; DepreciationBaseViewModel.DepreciationItem = value; }
+        }
+
+        public DepreciationBaseViewModel DepreciationBaseViewModel { get; set; } = new DepreciationBaseViewModel();
+
+        #endregion Properties
+
+        #region Methods
+
+        private void GetData()
+        {
+            DepreciationItemList = DepreciationItems.GetAll().ToSvenTechCollection();
+        }
+
+        private void SaveSelectedDepreciationItem()
+        {
+            if (SelectedDepreciationItem.DepreciationItemId > 0)
+                DepreciationItems.Insert(SelectedDepreciationItem);
+            else
+                DepreciationItems.Update(SelectedDepreciationItem);
+        }
+
+        private void DeleteSelectedDepreciationItem()
+        {
+            DepreciationItemList.Remove(SelectedDepreciationItem);
+            FilteredDepreciationItems.Remove(SelectedDepreciationItem);
+            if (SelectedDepreciationItem.DepreciationItemId > 0)
+                DepreciationItems.Delete(SelectedDepreciationItem.DepreciationItemId);
+        }
+
+        private void NewSelectedDepreciationItem()
+        {
+            SelectedDepreciationItem = new DepreciationItem();
+        }
+
+        #endregion Methods
+
     }
 }
