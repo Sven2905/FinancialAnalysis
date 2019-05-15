@@ -94,6 +94,7 @@
     <Compile Include="Accounting\Booking.cs" />
     <Compile Include="Accounting\BookingCostCenterMapping.cs" />
     <Compile Include="Accounting\CostCenterManagement\FixedCostAllocationDetail.cs" />
+    <Compile Include="Accounting\DepreciationItem.cs" />
     <Compile Include="Accounting\PaymentCondition.cs" />
     <Compile Include="Accounting\CostAccount.cs" />
     <Compile Include="Accounting\CostAccountCategory.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="CarPoolManagement\CarModelBodyMapping.cs" />
     <Compile Include="CarPoolManagement\CarTrim.cs" />
     <Compile Include="Enums\CarGear.cs" />
+    <Compile Include="Enums\DepreciationType.cs" />
     <Compile Include="Enums\Permission.cs" />
     <Compile Include="Administration\UserRight.cs" />
     <Compile Include="Administration\User.cs" />

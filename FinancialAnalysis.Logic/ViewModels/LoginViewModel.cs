@@ -1,5 +1,5 @@
 ﻿using DevExpress.Mvvm;
-
+using DeviceId;
 using FinancialAnalysis.Logic.Messages;
 using System.IO;
 using System.Linq;
@@ -25,6 +25,14 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public LoginViewModel()
         {
+    //        string deviceId = new DeviceIdBuilder()
+    //.AddMachineName()
+    //.AddMacAddress()
+    //.AddProcessorId()
+    //.AddMotherboardSerialNumber()
+    //.ToString();
+
+
             if (IsInDesignMode)
             {
                 return;
@@ -100,15 +108,6 @@ namespace FinancialAnalysis.Logic.ViewModels
                 ErrorText = "Benutzer ist deaktiviert!";
                 return false;
             }
-
-            //var notificationManager = new NotificationManager();
-
-            //notificationManager.Show(new NotificationContent
-            //{
-            //    Title = "Login",
-            //    Message = "Sie wurden erfolgreich eingeloggt.",
-            //    Type = NotificationType.Information
-            //});
 
             Globals.ActiveUser = foundUser;
             return true;

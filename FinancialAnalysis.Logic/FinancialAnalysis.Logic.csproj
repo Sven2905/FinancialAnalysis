@@ -80,6 +80,9 @@
     <Reference Include="DevExpress.XtraGrid.v18.2, Version=18.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.CodeParser.v18.2, Version=18.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraReports.v18.2, Version=18.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DeviceId, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeviceId.4.2.0\lib\net40\DeviceId.dll</HintPath>
+    </Reference>
     <Reference Include="MathNet.Numerics, Version=4.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.4.7.0\lib\net461\MathNet.Numerics.dll</HintPath>
     </Reference>
@@ -109,6 +112,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -158,6 +162,8 @@
     <Compile Include="ViewModels\Accounting\ClientViewModel.cs" />
     <Compile Include="ViewModels\Accounting\CompanyViewModel.cs" />
     <Compile Include="ViewModels\Accounting\CostAccountViewModel.cs" />
+    <Compile Include="ViewModels\Accounting\DepreciationBaseViewModel.cs" />
+    <Compile Include="ViewModels\Accounting\DepreciationViewModel.cs" />
     <Compile Include="ViewModels\Accounting\FixedCostAllocationViewModel.cs" />
     <Compile Include="ViewModels\Accounting\CreditorDebitorViewModel.cs" />
     <Compile Include="ViewModels\Accounting\CostCenterViewModel.cs" />

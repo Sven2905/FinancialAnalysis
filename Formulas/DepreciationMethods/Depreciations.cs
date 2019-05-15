@@ -6,7 +6,7 @@ namespace Formulas.DepreciationMethods
     /// <summary>
     /// Abschreibungen
     /// </summary>
-    public class Depreciations
+    public static class Depreciations
     {
         /// <summary>
         /// Berechnung des Degressionsbetrags (Arithmetisch-degressive Abschreibung)

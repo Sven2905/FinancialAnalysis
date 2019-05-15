@@ -169,6 +169,12 @@
     <Compile Include="UserControls\Accounting\CompanyControl.xaml.cs">
       <DependentUpon>CompanyControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Accounting\DepreciationBaseControl.xaml.cs">
+      <DependentUpon>DepreciationBaseControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Accounting\DepreciationControl.xaml.cs">
+      <DependentUpon>DepreciationControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Accounting\FixedCostAllocationControl.xaml.cs">
       <DependentUpon>FixedCostAllocationControl.xaml</DependentUpon>
     </Compile>
@@ -327,6 +333,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\Accounting\CompanyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Accounting\DepreciationBaseControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Accounting\DepreciationControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
