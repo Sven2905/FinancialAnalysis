@@ -2,6 +2,7 @@ using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.Enums;
 using FinancialAnalysis.Models.General;
+using Formulas.DepreciationMethods;
 using System;
 using System.Configuration;
 using System.Data.SqlClient;

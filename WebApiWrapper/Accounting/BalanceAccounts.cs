@@ -21,14 +21,36 @@ namespace WebApiWrapper.Accounting
             return WebApi<BalanceAccount>.GetDataById(controllerName, id);
         }
 
-        public static List<BalanceAccount> GetActiveAccounts()
+        public static List<BalanceAccountResultItem> GetActiveAccounts(DateTime StartDate, DateTime EndDate)
         {
-            return WebApi<List<BalanceAccount>>.GetData(controllerName, "GetActiveAccounts");
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("StartDate", StartDate);
+            parameters.Add("EndDate", EndDate);
+            return WebApi<List<BalanceAccountResultItem>>.GetData(controllerName, "GetActiveAccounts", parameters);
         }
 
-        public static List<BalanceAccount> GetPassiveAccounts()
+        public static List<BalanceAccountResultDetailItem> GetActiveAccountsDetailed(DateTime StartDate, DateTime EndDate)
         {
-            return WebApi<List<BalanceAccount>>.GetData(controllerName, "GetPassiveAccounts");
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("StartDate", StartDate);
+            parameters.Add("EndDate", EndDate);
+            return WebApi<List<BalanceAccountResultDetailItem>>.GetData(controllerName, "GetActiveAccountsDetailed", parameters);
+        }
+
+        public static List<BalanceAccountResultItem> GetPassiveAccounts(DateTime StartDate, DateTime EndDate)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("StartDate", StartDate);
+            parameters.Add("EndDate", EndDate);
+            return WebApi<List<BalanceAccountResultItem>>.GetData(controllerName, "GetPassiveAccounts", parameters);
+        }
+
+        public static List<BalanceAccountResultDetailItem> GetPassiveAccountsDetailed(DateTime StartDate, DateTime EndDate)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("StartDate", StartDate);
+            parameters.Add("EndDate", EndDate);
+            return WebApi<List<BalanceAccountResultDetailItem>>.GetData(controllerName, "GetPassiveAccountsDetailed", parameters);
         }
 
         public static int Insert(BalanceAccount balanceAccount)

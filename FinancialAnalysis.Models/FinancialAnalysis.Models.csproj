@@ -89,6 +89,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounting\BalanceAccountResultDetailItem.cs" />
+    <Compile Include="Accounting\BalanceAccountResultItem.cs" />
     <Compile Include="Accounting\Booking.cs" />
     <Compile Include="Accounting\BookingCostCenterMapping.cs" />
     <Compile Include="Accounting\CostCenterManagement\FixedCostAllocationDetail.cs" />
