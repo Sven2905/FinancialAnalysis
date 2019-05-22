@@ -34,7 +34,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SetCommands()
         {
-            NewStockyardCommand = new DelegateCommand(NewStockyard);
+            NewStockyardCommand = new DelegateCommand(NewStockyard, () => WarehouseList.Count > 0);
             SaveStockyardCommand = new DelegateCommand(SaveStockyard, () => Validation());
             DeleteStockyardCommand = new DelegateCommand(DeleteStockyard,
                 () => SelectedStockyard != null && SelectedStockyard.IsEmpty);
@@ -64,11 +64,14 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void NewStockyard()
         {
-            SelectedStockyard = new Stockyard
+            if (SelectedWarehouse != null)
             {
-                RefWarehouseId = SelectedWarehouse.WarehouseId
-            };
-            SelectedWarehouse.Stockyards.Add(SelectedStockyard);
+                SelectedStockyard = new Stockyard
+                {
+                    RefWarehouseId = SelectedWarehouse.WarehouseId
+                };
+                SelectedWarehouse.Stockyards.Add(SelectedStockyard);
+            }
         }
 
         private void DeleteStockyard()

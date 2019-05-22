@@ -7,7 +7,7 @@
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
         mc:Ignorable="d"
-        dx:ThemeManager.ThemeName="Office2016WhiteSE"
+        dx:ThemeManager.ThemeName="Office2019White"
         WindowStartupLocation="CenterScreen"
         Title="{Binding Title}" Height="175" Width="350">
     <Window.DataContext>

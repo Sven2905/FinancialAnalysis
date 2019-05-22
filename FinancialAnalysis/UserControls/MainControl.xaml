@@ -14,7 +14,7 @@
              xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
              x:Class="FinancialAnalysis.UserControls.MainControl"
              mc:Ignorable="d"
-             dx:ThemeManager.ThemeName="Office2016WhiteSE"
+             dx:ThemeManager.ThemeName="Office2019White"
              d:DesignHeight="900" d:DesignWidth="1600">
     <UserControl.DataContext>
         <ViewModels:MainViewModel />

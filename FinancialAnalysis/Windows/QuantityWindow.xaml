@@ -8,7 +8,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FinancialAnalysis.Windows"
         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
-        dx:ThemeManager.ThemeName="Office2016WhiteSE"
+        dx:ThemeManager.ThemeName="Office2019White"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"

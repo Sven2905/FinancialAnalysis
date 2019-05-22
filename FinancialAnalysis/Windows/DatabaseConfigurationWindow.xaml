@@ -11,7 +11,7 @@
         xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     WindowStyle="None" ResizeMode="NoResize"
-        dxc:ThemeManager.ThemeName="Office2016WhiteSE"
+        dx:ThemeManager.ThemeName="Office2019White"
         WindowStartupLocation="CenterScreen"
         BorderThickness="1"
         Padding="-4,0"

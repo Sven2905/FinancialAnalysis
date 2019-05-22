@@ -15,7 +15,7 @@
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
              mc:Ignorable="d"
-             dx:ThemeManager.ThemeName="Office2016WhiteSE"
+             dx:ThemeManager.ThemeName="Office2019White"
              d:DesignHeight="1050" d:DesignWidth="1920">
 
     <UserControl.DataContext>

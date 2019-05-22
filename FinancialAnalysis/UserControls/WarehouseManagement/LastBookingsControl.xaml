@@ -11,7 +11,7 @@
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-             dx:ThemeManager.ThemeName="Office2016WhiteSE"
+             dx:ThemeManager.ThemeName="Office2019White"
              mc:Ignorable="d"
               d:DesignHeight="1000" d:DesignWidth="1900">
     <UserControl.DataContext>

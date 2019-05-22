@@ -14,7 +14,7 @@
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
     x:Class="FinancialAnalysis.UserControls.TaxTypeControl"
-    dx:ThemeManager.ThemeName="Office2016WhiteSE"
+    dx:ThemeManager.ThemeName="Office2019White"
     mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>

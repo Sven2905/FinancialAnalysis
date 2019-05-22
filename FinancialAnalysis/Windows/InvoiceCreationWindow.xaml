@@ -13,7 +13,7 @@
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     mc:Ignorable="d"
-    dx:ThemeManager.ThemeName="Office2016WhiteSE"
+    dx:ThemeManager.ThemeName="Office2019White"
     WindowState="Maximized"
     Title="Rechnungen" Height="1050" Width="1920">
     <dx:DXWindow.DataContext>

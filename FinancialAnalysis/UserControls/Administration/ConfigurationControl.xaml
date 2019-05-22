@@ -14,7 +14,7 @@
              xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
              x:Class="FinancialAnalysis.UserControls.ConfigurationControl"
              mc:Ignorable="d"
-             dx:ThemeManager.ThemeName="Office2016WhiteSE"
+             dx:ThemeManager.ThemeName="Office2019White"
              d:DesignHeight="900" d:DesignWidth="1600">
     <UserControl.DataContext>
         <ViewModels:ConfigurationViewModel />

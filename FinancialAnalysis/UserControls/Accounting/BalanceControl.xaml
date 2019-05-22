@@ -13,7 +13,7 @@
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              mc:Ignorable="d" 
-             dx:ThemeManager.ThemeName="Office2016WhiteSE"
+             dx:ThemeManager.ThemeName="Office2019White"
              d:DesignHeight="1050" d:DesignWidth="1920">
     <UserControl.DataContext>
         <ViewModels:BalanceViewModel />

@@ -13,7 +13,7 @@
     xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
     xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
     mc:Ignorable="d"
-    dx:ThemeManager.ThemeName="Office2016WhiteSE">
+    dx:ThemeManager.ThemeName="Office2019White">
 
     <UserControl.Resources>
         <Style x:Key="labelStyle" TargetType="{x:Type dxlc:LayoutItemLabel}">

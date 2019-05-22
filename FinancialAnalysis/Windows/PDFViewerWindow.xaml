@@ -9,7 +9,7 @@
     x:Class="FinancialAnalysis.Windows.PDFViewerWindow"
     xmlns:dxpdf="http://schemas.devexpress.com/winfx/2008/xaml/pdf"
     mc:Ignorable="d"
-    dx:ThemeManager.ThemeName="Office2016WhiteSE"
+    dx:ThemeManager.ThemeName="Office2019White"
     Title="PDF Viewer" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <dx:DXWindow.DataContext>
         <ViewModels:PDFViewerViewModel />
