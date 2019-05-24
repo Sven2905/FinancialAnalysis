@@ -56,6 +56,9 @@ namespace FinancialAnalysis.Models.Accounting
             set { _DepreciationType = value; OnPropertyChanged(nameof(DepreciationType)); }
         }
 
+        public DateTime StartDate { get; set; }
+        public int RefCreditorId { get; set; }
+        public int RefDebitorId { get; set; }
         public int StartYear { get; set; }
         public bool IsDepreciated { get; set; }
 

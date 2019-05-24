@@ -1,0 +1,86 @@
+﻿<dx:DXWindow x:Class="FinancialAnalysis.Windows.TimeBookingWindow" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:FinancialAnalysis.Windows"
+             xmlns:timemanagement="clr-namespace:FinancialAnalysis.UserControls.TimeManagement"
+             xmlns:models="clr-namespace:FinancialAnalysis.Models;assembly=FinancialAnalysis.Models"
+             xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             dx:ThemeManager.ThemeName="Office2019White"
+             mc:Ignorable="d"
+             Title="Zeiterfassung" Height="800" Width="1200" WindowStartupLocation="CenterScreen">
+    <dx:DXWindow.DataContext>
+        <ViewModels:TimeBookingViewModel />
+    </dx:DXWindow.DataContext>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            
+            <Label Grid.Row="0" Grid.Column="0" Content="Buchungszeit " VerticalAlignment="Center" />
+            <dxe:DateEdit Grid.Row="0" Grid.Column="2" DateTime="{Binding BookingTime}" FontFamily="Tahoma" HorizontalAlignment="Left"
+                          DisplayFormatString="dd.MM.yyyy HH:mm" Mask="dd.MM.yyyy HH:mm" Width="130" HorizontalContentAlignment="Right" >
+                <dxe:DateEdit.StyleSettings>
+                    <dxe:DateEditPickerStyleSettings />
+                </dxe:DateEdit.StyleSettings>
+            </dxe:DateEdit>
+
+            <Label Content="Buchungstyp " Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
+            <dxe:ComboBoxEdit Grid.Row="2" Grid.Column="2" Margin="0,3" EditValue="{Binding TimeBookingType}" 
+                              SelectedIndex="0" Width="200" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Foreground="#3F729B" FontFamily="Tahoma">
+                <dxmvvm:Interaction.Behaviors>
+                    <dxmvvm:EnumItemsSourceBehavior EnumType="{x:Type models:TimeBookingType}" />
+                </dxmvvm:Interaction.Behaviors>
+            </dxe:ComboBoxEdit>
+
+            <Label Grid.Row="2" Grid.Column="4" Content="Projekt " VerticalAlignment="Center" />
+            <dxg:LookUpEdit Grid.Row="2" Grid.Column="6" DisplayMember="Name" ValueMember="EmployeeId" Foreground="#3F729B" 
+                            Margin="0,3" PopupWidth="800" ItemsSource="{Binding ProjectList, UpdateSourceTrigger=PropertyChanged}" 
+                            EditValue="{Binding SelectedProjectId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            AutoComplete="True" IsPopupAutoWidth="True" AutoPopulateColumns="False" Width="200" />
+
+            <dx:SimpleButton Grid.Row="4" Grid.Column="0" Content="Buchen" Width="120" />
+        </Grid>
+
+        <dxg:GridControl Grid.Column="0" Grid.Row="1" ItemsSource="{Binding TimeBookings, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                         SelectedItem="{Binding SelectedTimeBooking}" SelectionMode="Row" ShowBorder="False" Margin="5">
+            <dxg:GridControl.View>
+                <dxg:TableView BestFitMode="Smart" Foreground="#3F729B" EditFormColumnCount="2" ShowIndicator="False" 
+                                           EditFormShowMode="None" NewItemRowPosition="None" AutoWidth="True" ShowVerticalLines="False" 
+                                           ShowGroupPanel="False" ShowTotalSummary="False" VerticalScrollbarVisibility="Auto">
+                </dxg:TableView>
+            </dxg:GridControl.View>
+            <dxg:GridColumn FieldName="Date" Header="Datum" Width="50" />
+            <dxg:GridColumn FieldName="Desired" Header="Soll" Width="60" AllowEditing="False" />
+            <dxg:GridColumn FieldName="Hours" Header="Stunden" Width="60" AllowEditing="False" />
+            <dxg:GridColumn FieldName="Absent" Header="Abwesenheit" Width="60" AllowEditing="{Binding SelectedCostAccount.IsEditable}" />
+            <dxg:GridColumn FieldName="Reason" Header="Grund" Width="110" AllowEditing="{Binding SelectedCostAccount.IsEditable}" />
+        </dxg:GridControl>
+    </Grid>
+</dx:DXWindow>

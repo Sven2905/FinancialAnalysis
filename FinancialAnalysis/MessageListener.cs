@@ -181,6 +181,16 @@ namespace FinancialAnalysis.UI
                     }
                     window.ShowDialog();
                 });
+            Messenger.Default.Register<OpenTimeBookingWindowMessage>(this,
+                msg =>
+                {
+                    var window = new TimeBookingWindow();
+                    if (window.DataContext is TimeBookingViewModel model)
+                    {
+                        model.RefEmployeeId = msg.RefEmployeeId;
+                    }
+                    window.ShowDialog();
+                });
         }
 
         #endregion Methods

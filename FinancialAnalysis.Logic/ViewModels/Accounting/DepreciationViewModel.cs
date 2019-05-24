@@ -55,6 +55,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private DepreciationItem _SelectedDepreciationItem;
         public SvenTechCollection<DepreciationItem> DepreciationItemList { get; set; }
+        public SvenTechCollection<CostAccount> CostAccountList { get; private set; }
         public SvenTechCollection<DepreciationItem> FilteredDepreciationItems { get; set; }
         public DepreciationItem SelectedDepreciationItem
         {
@@ -71,6 +72,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void GetData()
         {
             DepreciationItemList = DepreciationItems.GetAll().ToSvenTechCollection();
+            CostAccountList = CostAccounts.GetAll().ToSvenTechCollection();
         }
 
         private void SaveSelectedDepreciationItem()
@@ -95,6 +97,5 @@ namespace FinancialAnalysis.Logic.ViewModels
         }
 
         #endregion Methods
-
     }
 }

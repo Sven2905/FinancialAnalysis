@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinancialAnalysis.Models.Enums
+namespace FinancialAnalysis.Models
 {
     public enum CarGear
     {

@@ -30,7 +30,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="0" Grid.Column="0" Margin="10,5">
+            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="10,5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="5" />
@@ -39,16 +39,16 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="5" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="5" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Art: " VerticalAlignment="Center" />
-                <dxe:ComboBoxEdit Grid.Column="2" EditValue="{Binding DepreciationItem.DepreciationType, UpdateSourceTrigger=PropertyChanged}" Width="150" 
-                                                          SelectedIndex="0" HorizontalAlignment="Left" Foreground="#3F729B" FontFamily="Tahoma">
+                <dxe:ComboBoxEdit Grid.Column="2" EditValue="{Binding DepreciationItem.DepreciationType, UpdateSourceTrigger=PropertyChanged}" 
+                                                          SelectedIndex="0" HorizontalAlignment="Stretch" Foreground="#3F729B" FontFamily="Tahoma">
                     <dxmvvm:Interaction.Behaviors>
                         <dxmvvm:EnumItemsSourceBehavior EnumType="{x:Type models:DepreciationType}" />
                     </dxmvvm:Interaction.Behaviors>
@@ -57,7 +57,7 @@
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Dauer (Jahre): " VerticalAlignment="Center" Width="75"/>
                 <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding DepreciationItem.Years, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
                 <TextBlock Grid.Row="0" Grid.Column="4" Text="Startkapital: " VerticalAlignment="Center"/>
-                <TextBox Grid.Row="0" Grid.Column="6" Text="{Binding DepreciationItem.InitialValue, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="150" />
+                <TextBox Grid.Row="0" Grid.Column="6" Text="{Binding DepreciationItem.InitialValue, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
                 <TextBlock Grid.Row="2" Grid.Column="4" Text="Restwert: " VerticalAlignment="Center"/>
                 <TextBox Grid.Row="2" Grid.Column="6" Text="{Binding DepreciationItem.AssetValue, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
             </Grid>

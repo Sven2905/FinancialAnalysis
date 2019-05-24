@@ -128,19 +128,92 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="5" />
                                             <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="5" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="5" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="30" />
                                             <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="5" />
+                                            <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
 
                                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Name: " VerticalAlignment="Center" Width="75"/>
-                                        <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding SelectedDepreciationItem.Name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="350"/>
+                                        <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding SelectedDepreciationItem.Name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
                                         <TextBlock Grid.Row="2" Grid.Column="0" Text="Initialjahr: " VerticalAlignment="Center" />
-                                        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding SelectedDepreciationItem.StartYear, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150"/>
+                                        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding SelectedDepreciationItem.StartYear, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Stretch" />
 
+                                        <TextBlock Grid.Row="0" Grid.Column="4" Text="Soll: " VerticalAlignment="Center" />
+                                        <dxg:LookUpEdit Grid.Row="0" Grid.Column="6"  DisplayMember="DisplayName" ValueMember="CostAccountId" 
+                                                        Foreground="#3F729B" Margin="0,3,0,3" PopupWidth="800"
+                                                        ItemsSource="{Binding CostAccountList, UpdateSourceTrigger=PropertyChanged}" AutoComplete="True"
+                                                        EditValue="{Binding SelectedDepreciationItem.RefCreditorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                        IsPopupAutoWidth="True" AutoPopulateColumns="False">
+                                            <dxg:LookUpEdit.PopupContentTemplate>
+                                                <ControlTemplate>
+                                                    <dxg:GridControl x:Name="PART_GridControl" AutoExpandAllGroups="True" 
+                                                                     AutoGenerateColumns="None" ItemsSource="{Binding CostAccountList, UpdateSourceTrigger=PropertyChanged}" 
+                                                                     EnableSmartColumnsGeneration="False">
+                                                        <dxg:GridControl.View>
+                                                            <dxg:TableView x:Name="View" ShowGroupedColumns="True" AutoWidth="True" 
+                                                                           AllowPerPixelScrolling="True" ScrollAnimationDuration="0" 
+                                                                           ShowAutoFilterRow="True" ShowTotalSummary="True" 
+                                                                           IsSynchronizedWithCurrentItem="False" />
+                                                        </dxg:GridControl.View>
+                                                        <dxg:GridColumn Binding="{Binding AccountNumber}" Header="Number" Width="50">
+                                                            <dxg:GridColumn.EditSettings>
+                                                                <dxe:TextEditSettings ShowNullTextForEmptyValue="False" />
+                                                            </dxg:GridColumn.EditSettings>
+                                                        </dxg:GridColumn>
+                                                        <dxg:GridColumn Binding="{Binding Description}" Header="Bezeichnung" Width="450">
+                                                            <dxg:GridColumn.EditSettings>
+                                                                <dxe:TextEditSettings ShowNullTextForEmptyValue="False" />
+                                                            </dxg:GridColumn.EditSettings>
+                                                        </dxg:GridColumn>
+                                                    </dxg:GridControl>
+                                                </ControlTemplate>
+                                            </dxg:LookUpEdit.PopupContentTemplate>
+                                        </dxg:LookUpEdit>
+                                        
+                                        <TextBlock Grid.Row="2" Grid.Column="4" Text="Haben: " VerticalAlignment="Center" />
+                                        <dxg:LookUpEdit Grid.Row="2" Grid.Column="6" DisplayMember="DisplayName" ValueMember="CostAccountId" 
+                                                        Foreground="#3F729B" Margin="0,3,0,3" PopupWidth="800" 
+                                                        ItemsSource="{Binding CostAccountList, UpdateSourceTrigger=PropertyChanged}" AutoComplete="True"
+                                                        EditValue="{Binding SelectedDepreciationItem.RefDebitorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                        IsPopupAutoWidth="True" AutoPopulateColumns="False">
+                                            <dxg:LookUpEdit.PopupContentTemplate>
+                                                <ControlTemplate>
+                                                    <dxg:GridControl x:Name="PART_GridControl" AutoExpandAllGroups="True" 
+                                                                     AutoGenerateColumns="None" ItemsSource="{Binding CostAccountList, UpdateSourceTrigger=PropertyChanged}" 
+                                                                     EnableSmartColumnsGeneration="False">
+                                                        <dxg:GridControl.View>
+                                                            <dxg:TableView x:Name="View" ShowGroupedColumns="True" AutoWidth="True" 
+                                                                           AllowPerPixelScrolling="True" ScrollAnimationDuration="0" 
+                                                                           ShowAutoFilterRow="True" ShowTotalSummary="True" 
+                                                                           IsSynchronizedWithCurrentItem="False" />
+                                                        </dxg:GridControl.View>
+                                                        <dxg:GridColumn Binding="{Binding AccountNumber}" Header="Number" Width="50">
+                                                            <dxg:GridColumn.EditSettings>
+                                                                <dxe:TextEditSettings ShowNullTextForEmptyValue="False" />
+                                                            </dxg:GridColumn.EditSettings>
+                                                        </dxg:GridColumn>
+                                                        <dxg:GridColumn Binding="{Binding Description}" Header="Bezeichnung" Width="450">
+                                                            <dxg:GridColumn.EditSettings>
+                                                                <dxe:TextEditSettings ShowNullTextForEmptyValue="False" />
+                                                            </dxg:GridColumn.EditSettings>
+                                                        </dxg:GridColumn>
+                                                    </dxg:GridControl>
+                                                </ControlTemplate>
+                                            </dxg:LookUpEdit.PopupContentTemplate>
+                                        </dxg:LookUpEdit>
+
+                                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Startjahr: " VerticalAlignment="Center" />
+                                        <dxe:DateEdit Grid.Row="4" Grid.Column="2" Height="25" Margin="0,3,0,3" Foreground="#3F729B" 
+                                                      DisplayFormatString="dd.MM.yyyy" DateTime="{Binding SelectedDepreciationItem.StartDate}" />
                                     </Grid>
                                     <accounting:DepreciationBaseControl Grid.Row="1" DataContext="{Binding DepreciationBaseViewModel}" Margin="10,0"/>
                                 </Grid>

@@ -144,6 +144,7 @@
     <Compile Include="Enums\Gender.cs" />
     <Compile Include="Enums\Months.cs" />
     <Compile Include="Enums\ReminderType.cs" />
+    <Compile Include="Enums\TimeBookingType.cs" />
     <Compile Include="General\IconItem.cs" />
     <Compile Include="General\SvenTechColors.cs" />
     <Compile Include="Enums\GrossNetType.cs" />
@@ -199,6 +200,11 @@
     <Compile Include="Enums\Status.cs" />
     <Compile Include="Enums\TaxCategory.cs" />
     <Compile Include="TextValuePoint.cs" />
+    <Compile Include="TimeManagement\AbsentReason.cs" />
+    <Compile Include="TimeManagement\EmployeeAbsence.cs" />
+    <Compile Include="TimeManagement\ObligatoryHours.cs" />
+    <Compile Include="TimeManagement\TimeBalance.cs" />
+    <Compile Include="TimeManagement\TimeBooking.cs" />
     <Compile Include="UnitOfMeasure.cs" />
     <Compile Include="WarehouseManagement\SelectedWarehouse.cs" />
     <Compile Include="WarehouseManagement\StockedProduct.cs" />
@@ -229,6 +235,7 @@
       <DependentUpon>SalesOrderReport.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.4.2.1\build\Fody.targets" Condition="Exists('..\packages\Fody.4.2.1\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
