@@ -200,11 +200,13 @@
     <Compile Include="Enums\Status.cs" />
     <Compile Include="Enums\TaxCategory.cs" />
     <Compile Include="TextValuePoint.cs" />
-    <Compile Include="TimeManagement\AbsentReason.cs" />
-    <Compile Include="TimeManagement\EmployeeAbsence.cs" />
-    <Compile Include="TimeManagement\ObligatoryHours.cs" />
+    <Compile Include="TimeManagement\TimeAbsentReason.cs" />
+    <Compile Include="TimeManagement\TimeEmployeeAbsence.cs" />
+    <Compile Include="TimeManagement\TimeHolidayType.cs" />
+    <Compile Include="TimeManagement\TimeObligatoryHour.cs" />
     <Compile Include="TimeManagement\TimeBalance.cs" />
     <Compile Include="TimeManagement\TimeBooking.cs" />
+    <Compile Include="TimeManagement\TimeHolidayEmployee.cs" />
     <Compile Include="UnitOfMeasure.cs" />
     <Compile Include="WarehouseManagement\SelectedWarehouse.cs" />
     <Compile Include="WarehouseManagement\StockedProduct.cs" />

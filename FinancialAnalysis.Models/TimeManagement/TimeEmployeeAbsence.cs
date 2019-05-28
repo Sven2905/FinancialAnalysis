@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Models.TimeManagement
 {
-    public class EmployeeAbsence : BindableBase
+    public class TimeEmployeeAbsence : BindableBase
     {
-        public int EmployeeAbsenceId { get; set; }
+        public int TimeEmployeeAbsenceId { get; set; }
+        public int RefEmployeeId { get; set; }
         public DateTime FirstDay { get; set; }
         public DateTime LastDay { get; set; }
         public bool OnlyWorkingDays { get; set; }
-        public int RefEmployeeId { get; set; }
-        public int RefAbsentReasonId { get; set; }
+        public int RefTimeAbsentReasonId { get; set; }
     }
 }

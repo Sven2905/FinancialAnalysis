@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Models.TimeManagement
 {
-    public class AbsentReason : BindableBase
+    public class TimeHolidayType : BindableBase
     {
-        public int AbsentReasonId { get; set; }
+        public int TimeHolidayTypeId { get; set; }
         public string Name { get; set; }
-        public string Abbreviation { get; set; }
-        public bool DeleteAble { get; set; } = true;
+        public string Description { get; set; }
     }
 }
