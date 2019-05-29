@@ -1,0 +1,171 @@
+﻿<UserControl x:Class="FinancialAnalysis.UserControls.TimeManagement.HolidayRequestControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FinancialAnalysis.UserControls.TimeManagement"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
+             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+             xmlns:usercontrols="clr-namespace:FinancialAnalysis.UserControls"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             dx:ThemeManager.ThemeName="Office2019White"
+             mc:Ignorable="d" 
+             d:DesignHeight="1050" d:DesignWidth="1920">
+    <UserControl.DataContext>
+        <ViewModels:HolidayRequestViewModel />
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+
+        <dxwui:PageAdornerControl Header="Urlaubsantrag" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                                  Foreground="#3F729B" FontFamily="/Resources/Fonts/trajan-pro-3.otf#Trajan Pro 3">
+            <dxwui:PageAdornerControl.HeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <ContentPresenter Content="{Binding}" />
+                    </Grid>
+                </DataTemplate>
+            </dxwui:PageAdornerControl.HeaderTemplate>
+        </dxwui:PageAdornerControl>
+        <dx:DXTabControl Grid.Row="2"  Margin="50,0,50,20">
+            <dx:DXTabItem Header="Übersicht">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Content="Mitarbeiter" Margin="5,0" VerticalAlignment="Center" />
+                        <dxg:LookUpEdit Grid.Row="0" Grid.Column="1" DisplayMember="Name" ValueMember="EmployeeId" Foreground="#3F729B" HorizontalAlignment="Stretch" 
+                                        PopupWidth="800" ItemsSource="{Binding EmployeeList, UpdateSourceTrigger=PropertyChanged}" 
+                                        EditValue="{Binding NewTimeHolidayEmployee.RefEmployeeId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                        AutoComplete="True" IsPopupAutoWidth="True" AutoPopulateColumns="False" Margin="5,2"/>
+
+                        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="Zeitraum" FontSize="20" FontWeight="Bold" Margin="5,0" />
+                        <Label Grid.Row="2" Grid.Column="0" Content="Von" VerticalAlignment="Center" Margin="10,0" />
+                        <dxe:DateEdit Grid.Column="1" Grid.Row="2"  Margin="5,2" Foreground="#3F729B" 
+                                      DisplayFormatString="dd.MM.yyyy" DateTime="{Binding NewTimeHolidayEmployee.FirstDay}" />
+                        <dxe:CheckEdit Grid.Row="2" Grid.Column="3" Content="Halber Tag" IsChecked="{Binding NewTimeHolidayEmployee.IsHalfFirstDay}" />
+
+                        <Label Grid.Row="3" Grid.Column="0" Content="Bis" VerticalAlignment="Center" Margin="10,0" />
+                        <dxe:DateEdit Grid.Row="3" Grid.Column="1" Margin="5,2" Foreground="#3F729B" 
+                                      DisplayFormatString="dd.MM.yyyy" DateTime="{Binding NewTimeHolidayEmployee.LastDay}" />
+                        <dxe:CheckEdit Grid.Row="3" Grid.Column="3" Content="Halber Tag" IsChecked="{Binding NewTimeHolidayEmployee.IsHalfLastDay}" />
+
+                        <dxe:CheckEdit Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Content="Nur Werktage" IsChecked="{Binding NewTimeHolidayEmployee.OnlyWorkingDays}" />
+
+                        <Label Grid.Row="4" Grid.Column="0" Content="Grund" Margin="10,0" />
+                        <dxe:TextEdit Grid.Row="4" Grid.RowSpan="2" Grid.Column="1" Margin="5,2" Text="{Binding NewTimeHolidayEmployee.Reason}"
+                                      AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top"/>
+
+                        <dxe:CheckEdit Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2" Content="Sonderurlaub" IsChecked="{Binding NewTimeHolidayEmployee.IsSpecialLeave}" />
+                        <dx:SimpleButton Grid.Row="6" Grid.Column="0" Command="{Binding RequestCommand}" Grid.ColumnSpan="2" Content="Beantragen" Width="120" Height="25" HorizontalAlignment="Left" Margin="5,10" />
+                    </Grid>
+
+                    <!--<usercontrols:InfoBoxControl Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" DataContext="{Binding HolidayInfoBoxViewModel}" Width="300" />-->
+                    <Grid Grid.Row="0" Grid.Column="1" Margin="10,0" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Verfügbare Urlaubstage" FontSize="20" FontWeight="Bold" />
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="Resturlaub letztes Kalenderjahr" Margin="5,0" />
+                        <Label Grid.Row="2" Grid.Column="0" Content="Anspruch für lauf. Kalenderjahr" Margin="5,0" />
+                        <Label Grid.Row="3" Grid.Column="0" Content="Anspruch zum Zeitpunkt des Antrags" Margin="5,0" />
+                        <Label Grid.Row="4" Grid.Column="0" Content="Verbleibender Anspruch" Margin="5,0" FontWeight="Bold" />
+
+                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding RemainingDaysLastYear}" Margin="5,0"/>
+                        <Label Grid.Row="2" Grid.Column="1" Content="{Binding SelectedEmployee.VacationDays}" Margin="5,0"/>
+                        <Label Grid.Row="3" Grid.Column="1" Content="{Binding RemainingDays}" Margin="5,0"/>
+                        <Label Grid.Row="4" Grid.Column="1" Content="{Binding RemainingDaysAfterRequest}" Margin="5,0"/>
+
+                        <Label Grid.Row="1" Grid.Column="2" Content="Tag(e)" Margin="5,0"/>
+                        <Label Grid.Row="2" Grid.Column="2" Content="Tag(e)" Margin="5,0"/>
+                        <Label Grid.Row="3" Grid.Column="2" Content="Tag(e)" Margin="5,0"/>
+                        <Label Grid.Row="4" Grid.Column="2" Content="Tag(e)" Margin="5,0"/>
+                    </Grid>
+
+                    <Grid Grid.Row="1" Grid.Column="0" Margin="10,20,10,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Content="Bereits beantragter Urlaub" FontSize="20" FontWeight="Bold" />
+
+                        <ScrollViewer Grid.Column="0" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" >
+                            <ItemsControl ItemsSource="{Binding HolidayEmployeeList}" Grid.Column="2" Grid.Row="0" BorderThickness="1" BorderBrush="DarkGray" Padding="5" FontSize="14" HorizontalAlignment="Stretch" >
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Path Grid.Column="0" Data="{Binding IconData}" Fill="{Binding IconColor}" Width="20" Height="15" Stretch="Fill" Margin="10,0" />
+                                            <VirtualizingStackPanel Grid.Column="1" Orientation="Horizontal" Margin="10,0,0,0">
+                                                <TextBlock Text="{Binding FirstDay}" />
+                                                <TextBlock Text=" - " />
+                                                <TextBlock Text="{Binding LastDay}" />
+                                            </VirtualizingStackPanel>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
+    </Grid>
+</UserControl>

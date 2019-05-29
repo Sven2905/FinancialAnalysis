@@ -7,27 +7,14 @@
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
              xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
-             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
              xmlns:usercontrols="clr-namespace:FinancialAnalysis.UserControls"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              dx:ThemeManager.ThemeName="Office2019White"
              mc:Ignorable="d" 
              d:DesignHeight="1050" d:DesignWidth="1920">
     <UserControl.DataContext>
         <ViewModels:TimeBookingOverviewViewModel />
     </UserControl.DataContext>
-    <UserControl.Resources>
-        <Style x:Key="labelStyle" TargetType="{x:Type dxlc:LayoutItemLabel}">
-            <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="Foreground" Value="#3f729b" />
-        </Style>
-        <Style x:Key="itemStyle" TargetType="{x:Type dxlc:LayoutItem}">
-            <Setter Property="LabelPosition" Value="Top" />
-            <Setter Property="LabelStyle" Value="{StaticResource labelStyle}" />
-            <Setter Property="Foreground" Value="#3f729b" />
-        </Style>
-    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

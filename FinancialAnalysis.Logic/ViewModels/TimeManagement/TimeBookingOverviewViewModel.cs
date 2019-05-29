@@ -43,6 +43,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             Unit = "h",
             Value = 0,
         };
+
         public InfoBoxViewModel HolidayInfoBoxViewModel { get; set; } = new InfoBoxViewModel()
         {
             Color = SvenTechColors.BrushBlue,
@@ -80,6 +81,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private DateTime selectedDate;
         public string DateString { get; set; }
         public TimeBooking SelectedTimeBooking { get; set; }
+        public TimeHolidayType SelectedTimeHolidayType { get; set; }
         public TimeBookingType TimeBookingType { get; set; }
         public SvenTechCollection<TimeBooking> TimeBookingList { get; set; } = new SvenTechCollection<TimeBooking>();
         public SvenTechCollection<Employee> EmployeeList { get; set; }

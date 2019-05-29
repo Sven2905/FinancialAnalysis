@@ -175,6 +175,7 @@
     <Compile Include="ViewModels\Administration\MailConfigurationViewModel.cs" />
     <Compile Include="ViewModels\Accounting\BalanceViewModel.cs" />
     <Compile Include="ViewModels\CarPoolManagement\CarPoolViewModel.cs" />
+    <Compile Include="ViewModels\TimeManagement\HolidayRequestViewModel.cs" />
     <Compile Include="ViewModels\TimeManagement\TimeBookingOverviewViewModel.cs" />
     <Compile Include="ViewModels\TimeManagement\TimeBookingViewModel.cs" />
     <Compile Include="ViewModels\WebApiConfigurationViewModel.cs" />

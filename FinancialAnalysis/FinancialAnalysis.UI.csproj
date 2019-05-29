@@ -217,6 +217,9 @@
     <Compile Include="UserControls\StatusControl.xaml.cs">
       <DependentUpon>StatusControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TimeManagement\HolidayRequestControl.xaml.cs">
+      <DependentUpon>HolidayRequestControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TimeManagement\TimeBookingOverviewControl.xaml.cs">
       <DependentUpon>TimeBookingOverviewControl.xaml</DependentUpon>
     </Compile>
@@ -405,6 +408,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\StatusControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TimeManagement\HolidayRequestControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
