@@ -1,12 +1,8 @@
-﻿using System;
+﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Models.Accounting;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows;
-using DevExpress.Mvvm;
-
-using FinancialAnalysis.Logic.Messages;
-using FinancialAnalysis.Models.Accounting;
 using Utilities;
 using WebApiWrapper.Accounting;
 
@@ -18,7 +14,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public CostAccountViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             RefreshLists();
         }
@@ -47,10 +46,16 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void FilterCostAccounts()
         {
             FilteredCostAccounts.Clear();
-            if (SelectedCategory.IsNull()) return;
+            if (SelectedCategory.IsNull())
+            {
+                return;
+            }
 
-            var ids = GetChildIds(SelectedCategory.CostAccountCategoryId).ToList();
-            if (ids.IsNull()) return;
+            List<int> ids = GetChildIds(SelectedCategory.CostAccountCategoryId).ToList();
+            if (ids.IsNull())
+            {
+                return;
+            }
 
             ids.Add(SelectedCategory.CostAccountCategoryId);
             FilteredCostAccounts.AddRange(_CostAccounts.Where(x => ids.Contains(x.RefCostAccountCategoryId)));
@@ -58,13 +63,17 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private IEnumerable<int> GetChildIds(int motherId)
         {
-            var result = new List<int>();
-            var ids = CostAccountCategoryList.Where(x => x.ParentCategoryId == motherId)
+            List<int> result = new List<int>();
+            IEnumerable<int> ids = CostAccountCategoryList.Where(x => x.ParentCategoryId == motherId)
                 .Select(x => x.CostAccountCategoryId);
             result.AddRange(ids);
             if (ids.Any())
-                foreach (var id in ids)
+            {
+                foreach (int id in ids)
+                {
                     result.AddRange(GetChildIds(id));
+                }
+            }
 
             return result;
         }
@@ -79,11 +88,15 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 if (_SelectedCostAccount != null)
+                {
                     _SelectedCostAccount.PropertyChanged -= _SelectedCostAccount_PropertyChanged;
+                }
 
                 _SelectedCostAccount = value;
                 if (_SelectedCostAccount != null)
+                {
                     _SelectedCostAccount.PropertyChanged += _SelectedCostAccount_PropertyChanged;
+                }
             }
         }
 

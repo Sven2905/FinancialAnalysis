@@ -133,12 +133,12 @@ namespace FinancialAnalysis.Models.SalesManagement
         {
             if (Shipments?.Count > 0)
             {
-                foreach (var item in SalesOrderPositions)
+                foreach (SalesOrderPosition item in SalesOrderPositions)
                 {
                     int shippedProductsAmount = 0;
-                    foreach (var Shipment in Shipments)
+                    foreach (Shipment Shipment in Shipments)
                     {
-                        foreach (var ShippedProduct in Shipment.ShippedProducts)
+                        foreach (ShippedProduct ShippedProduct in Shipment.ShippedProducts)
                         {
                             if (ShippedProduct.RefSalesOrderPositionId == item.SalesOrderPositionId)
                             {
@@ -160,7 +160,7 @@ namespace FinancialAnalysis.Models.SalesManagement
 
             if (Invoices?.Count > 0)
             {
-                foreach (var Invoice in Invoices)
+                foreach (Invoice Invoice in Invoices)
                 {
                     if (!Invoice.IsPaid && Invoice.PaidAmount > 0)
                     {

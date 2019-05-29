@@ -1,8 +1,7 @@
+using DevExpress.Mvvm;
+using FinancialAnalysis.Models.ClientManagement;
 using System.IO;
 using System.Windows.Media.Imaging;
-using DevExpress.Mvvm;
-
-using FinancialAnalysis.Models.ClientManagement;
 using WebApiWrapper.ClientManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -13,7 +12,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public MyClientViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             Client = Globals.CoreData.MyCompany;
             SaveClientCommand = new DelegateCommand(SaveClient, Validation);
@@ -37,9 +39,13 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 _Client = value;
                 if (_Client != null && _Client.Company.Logo != null)
+                {
                     Image = ConvertToImage(_Client.Company.Logo);
+                }
                 else
+                {
                     Image = null;
+                }
             }
         }
 
@@ -68,11 +74,14 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public BitmapImage ConvertToImage(byte[] array)
         {
-            if (array == null) return null;
-
-            using (var ms = new MemoryStream(array))
+            if (array == null)
             {
-                var image = new BitmapImage();
+                return null;
+            }
+
+            using (MemoryStream ms = new MemoryStream(array))
+            {
+                BitmapImage image = new BitmapImage();
                 image.BeginInit();
                 image.CacheOption = BitmapCacheOption.OnLoad; // here
                 image.StreamSource = ms;
@@ -83,12 +92,15 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private byte[] ConvertToByteArray(BitmapImage bitmapImage)
         {
-            if (bitmapImage == null) return null;
+            if (bitmapImage == null)
+            {
+                return null;
+            }
 
             byte[] data;
-            var encoder = new JpegBitmapEncoder();
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
-            using (var ms = new MemoryStream())
+            using (MemoryStream ms = new MemoryStream())
             {
                 encoder.Save(ms);
                 data = ms.ToArray();
@@ -99,7 +111,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private bool Validation()
         {
-            if (Client == null) return false;
+            if (Client == null)
+            {
+                return false;
+            }
 
             return !string.IsNullOrEmpty(Client.Name) && !string.IsNullOrEmpty(Client.Street) &&
                    !string.IsNullOrEmpty(Client.City);

@@ -1,15 +1,9 @@
 ﻿using DevExpress.Mvvm;
-using DeviceId;
 using FinancialAnalysis.Logic.Messages;
 using System.IO;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Threading.Tasks;
 using System.Windows;
 using Utilities;
 using WebApiWrapper;
-using WebApiWrapper.Administration;
-using WebApiWrapper.SalesManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -25,12 +19,12 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public LoginViewModel()
         {
-    //        string deviceId = new DeviceIdBuilder()
-    //.AddMachineName()
-    //.AddMacAddress()
-    //.AddProcessorId()
-    //.AddMotherboardSerialNumber()
-    //.ToString();
+            //        string deviceId = new DeviceIdBuilder()
+            //.AddMachineName()
+            //.AddMacAddress()
+            //.AddProcessorId()
+            //.AddMotherboardSerialNumber()
+            //.ToString();
 
 
             if (IsInDesignMode)
@@ -62,7 +56,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void LoadWebApiConfigurationFromFile()
         {
-            var webApiConfigurationFile = BinarySerialization.ReadFromBinaryFile<WebApiConfiguration>(@".\WebApiConfig.cfg");
+            WebApiConfiguration webApiConfigurationFile = BinarySerialization.ReadFromBinaryFile<WebApiConfiguration>(@".\WebApiConfig.cfg");
             WebApiConfiguration.Instance.Server = webApiConfigurationFile.Server;
             WebApiConfiguration.Instance.Port = webApiConfigurationFile.Port;
         }
@@ -93,7 +87,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private bool CheckCredentials()
         {
-            var foundUser = UserManager.Instance.GetUserByNameAndPassword(UserName, Password);
+            Models.Administration.User foundUser = UserManager.Instance.GetUserByNameAndPassword(UserName, Password);
 
             if (foundUser == null)
             {

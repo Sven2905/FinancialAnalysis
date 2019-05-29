@@ -11,9 +11,12 @@ namespace FinancialAnalysis.Windows
         public InvoiceTypesWindow()
         {
             InitializeComponent();
-            var vm = new InvoiceTypeViewModel();
+            InvoiceTypeViewModel vm = new InvoiceTypeViewModel();
             DataContext = vm;
-            if (vm.CloseAction == null) vm.CloseAction = () => { };
+            if (vm.CloseAction == null)
+            {
+                vm.CloseAction = () => { };
+            }
 
             vm.CloseAction = Close;
         }

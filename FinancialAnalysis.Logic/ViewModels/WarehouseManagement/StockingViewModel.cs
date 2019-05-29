@@ -2,8 +2,6 @@
 
 using FinancialAnalysis.Models.ProductManagement;
 using FinancialAnalysis.Models.WarehouseManagement;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Utilities;
@@ -44,7 +42,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public Product SelectedProduct
         {
-            get { return _SelectedProduct; }
+            get => _SelectedProduct;
             set
             {
                 _SelectedProduct = value;
@@ -70,16 +68,24 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (IsTakeOut)
             {
                 if (_SelectedStockyardTakeOut != null)
+                {
                     LastBookingViewModel.RefStockyardId = _SelectedStockyardTakeOut.StockyardId;
+                }
                 else
+                {
                     LastBookingViewModel.RefStockyardId = 0;
+                }
             }
             else
             {
                 if (_Stockyard != null)
+                {
                     LastBookingViewModel.RefStockyardId = _Stockyard.StockyardId;
+                }
                 else
+                {
                     LastBookingViewModel.RefStockyardId = 0;
+                }
             }
         }
 
@@ -92,9 +98,11 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 if (SelectedStockyardTakeOut != null && SelectedProduct != null)
                 {
-                    var tempStockedProduct = SelectedStockyardTakeOut.StockedProducts.SingleOrDefault(x => x.RefProductId == SelectedProduct.ProductId);
+                    StockedProduct tempStockedProduct = SelectedStockyardTakeOut.StockedProducts.SingleOrDefault(x => x.RefProductId == SelectedProduct.ProductId);
                     if (tempStockedProduct != null)
+                    {
                         return tempStockedProduct.Quantity;
+                    }
                 }
                 return 0;
             }
@@ -102,7 +110,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public Stockyard SelectedStockyard
         {
-            get { return _Stockyard; }
+            get => _Stockyard;
             set
             {
                 _Stockyard = value;
@@ -125,7 +133,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public Stockyard SelectedStockyardTakeOut
         {
-            get { return _SelectedStockyardTakeOut; }
+            get => _SelectedStockyardTakeOut;
             set
             {
                 _SelectedStockyardTakeOut = value;
@@ -148,7 +156,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public int Quantity
         {
-            get { return _Quantity; }
+            get => _Quantity;
             set
             {
                 if (value < 1)
@@ -164,7 +172,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public int QuantityTakeOut
         {
-            get { return _QuantityTakeOut; }
+            get => _QuantityTakeOut;
             set
             {
                 if (value < 1)
@@ -208,7 +216,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (SelectedStockyard != null && SelectedProduct != null && Quantity > 0)
             {
-                var stockedProductOnStockyard = StockedProducts.GetByRefProductIdAndRefStockyardId(SelectedProduct.ProductId, SelectedStockyard.StockyardId);
+                StockedProduct stockedProductOnStockyard = StockedProducts.GetByRefProductIdAndRefStockyardId(SelectedProduct.ProductId, SelectedStockyard.StockyardId);
                 //var stockedProductOnStockyard = SelectedStockyard.StockedProducts.SingleOrDefault(x => x.RefProductId == SelectedProduct.ProductId);
 
                 if (stockedProductOnStockyard != null)
@@ -220,7 +228,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
                 else
                 {
-                    var newStockedProduct = new StockedProduct(SelectedProduct, SelectedStockyard.StockyardId, Quantity);
+                    StockedProduct newStockedProduct = new StockedProduct(SelectedProduct, SelectedStockyard.StockyardId, Quantity);
                     StockedProducts.Insert(newStockedProduct);
                     SaveBookingHistoryEntry();
                 }
@@ -246,12 +254,12 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void TakeOutSelectedProduct()
         {
-            var stockedProduct = SelectedStockyardTakeOut.StockedProducts.SingleOrDefault(x => x.RefProductId == SelectedProduct.ProductId);
+            StockedProduct stockedProduct = SelectedStockyardTakeOut.StockedProducts.SingleOrDefault(x => x.RefProductId == SelectedProduct.ProductId);
             if (stockedProduct != null)
             {
-                var lastWarehouseId = SelectedWarehouseTakeOut.WarehouseId;
-                var lastStockyardId = SelectedStockyardTakeOut.StockyardId;
-                var lastProductid = SelectedProduct.ProductId;
+                int lastWarehouseId = SelectedWarehouseTakeOut.WarehouseId;
+                int lastStockyardId = SelectedStockyardTakeOut.StockyardId;
+                int lastProductid = SelectedProduct.ProductId;
 
                 if (stockedProduct.Quantity == QuantityTakeOut)
                 {

@@ -1,11 +1,10 @@
-﻿using System.ComponentModel;
+﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Models.Administration;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
-using DevExpress.Mvvm;
-using FinancialAnalysis.Models.Administration;
 using Utilities;
-using WebApiWrapper.Administration;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -15,7 +14,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public UsersViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             _Users = LoadAllUsers();
             NewUserCommand = new DelegateCommand(NewUser);
@@ -42,23 +44,30 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             UserRightUserMappingFlatStructure.OnItemPropertyChanged -=
                 UserRightUserMappingFlatStructure_OnItemPropertyChanged;
-            var right = (UserRightUserMappingFlatStructure) item;
-            foreach (var UserRightUserMapping in UserRightUserMappingFlatStructure)
+            UserRightUserMappingFlatStructure right = (UserRightUserMappingFlatStructure)item;
+            foreach (UserRightUserMappingFlatStructure UserRightUserMapping in UserRightUserMappingFlatStructure)
             {
                 if (UserRightUserMapping.ParentCategory == right.HierachicalId && right.IsGranted)
+                {
                     UserRightUserMapping.IsGranted = true;
+                }
                 else if (UserRightUserMapping.ParentCategory == right.HierachicalId && right.IsGranted == false)
+                {
                     UserRightUserMapping.IsGranted = false;
+                }
+
                 if (UserRightUserMapping.RefUserRightId == right.HierachicalId && right.IsGranted)
+                {
                     UserRightUserMapping.IsGranted = true;
+                }
             }
 
             if (right.IsGranted)
             {
-                var parentId = right.ParentCategory;
+                int parentId = right.ParentCategory;
                 do
                 {
-                    var parentRight =
+                    UserRightUserMappingFlatStructure parentRight =
                         UserRightUserMappingFlatStructure.SingleOrDefault(x => x.HierachicalId == parentId);
                     if (parentRight != null)
                     {
@@ -93,7 +102,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteUser()
         {
-            if (SelectedUser == null) return;
+            if (SelectedUser == null)
+            {
+                return;
+            }
 
             if (SelectedUser.UserId == 0)
             {
@@ -114,21 +126,27 @@ namespace FinancialAnalysis.Logic.ViewModels
                 UserManager.Instance
                     .ConvertUserRightUserMappingFlatStructureToNormal(UserRightUserMappingFlatStructure);
             SelectedUser = UserManager.Instance.InsertOrUpdateUser(SelectedUser);
-            var selectedUserId = SelectedUser.UserId;
+            int selectedUserId = SelectedUser.UserId;
             FilteredUsers = _Users = UserManager.Instance.UserList;
 
             SelectedUser = _Users.Single(x => x.UserId == selectedUserId);
 
-            if (selectedUserId == Globals.ActiveUser.UserId) Globals.ActiveUser = SelectedUser;
+            if (selectedUserId == Globals.ActiveUser.UserId)
+            {
+                Globals.ActiveUser = SelectedUser;
+            }
         }
 
         public BitmapImage ConvertToImage(byte[] array)
         {
-            if (array == null) return null;
-
-            using (var ms = new MemoryStream(array))
+            if (array == null)
             {
-                var image = new BitmapImage();
+                return null;
+            }
+
+            using (MemoryStream ms = new MemoryStream(array))
+            {
+                BitmapImage image = new BitmapImage();
                 image.BeginInit();
                 image.CacheOption = BitmapCacheOption.OnLoad; // here
                 image.StreamSource = ms;
@@ -139,12 +157,15 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private byte[] ConvertToByteArray(BitmapImage bitmapImage)
         {
-            if (bitmapImage == null) return null;
+            if (bitmapImage == null)
+            {
+                return null;
+            }
 
             byte[] data;
-            var encoder = new JpegBitmapEncoder();
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
-            using (var ms = new MemoryStream())
+            using (MemoryStream ms = new MemoryStream())
             {
                 encoder.Save(ms);
                 data = ms.ToArray();
@@ -155,17 +176,42 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private bool Validation()
         {
-            if (SelectedUser == null) return false;
+            if (SelectedUser == null)
+            {
+                return false;
+            }
+
             if (string.IsNullOrEmpty(SelectedUser.Firstname) || string.IsNullOrEmpty(SelectedUser.Lastname) ||
-                string.IsNullOrEmpty(SelectedUser.LoginUser)) return false;
+                string.IsNullOrEmpty(SelectedUser.LoginUser))
+            {
+                return false;
+            }
+
             if (SelectedUser.UserId == 0)
+            {
                 if (string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(PasswordRepeat))
+                {
                     return false;
-            if (!string.IsNullOrEmpty(Password) && string.IsNullOrEmpty(PasswordRepeat)) return false;
-            if (string.IsNullOrEmpty(Password) && !string.IsNullOrEmpty(PasswordRepeat)) return false;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(Password) && string.IsNullOrEmpty(PasswordRepeat))
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(Password) && !string.IsNullOrEmpty(PasswordRepeat))
+            {
+                return false;
+            }
+
             if (IsPasswordSet())
+            {
                 if (!IsPasswordIdentical())
+                {
                     return false;
+                }
+            }
 
             return true;
         }
@@ -203,10 +249,14 @@ namespace FinancialAnalysis.Logic.ViewModels
                 if (!string.IsNullOrEmpty(_FilterText))
                 {
                     FilteredUsers = new SvenTechCollection<User>();
-                    foreach (var item in _Users)
+                    foreach (User item in _Users)
+                    {
                         if (item.LoginUser.Contains(FilterText) || item.Firstname.Contains(FilterText) ||
                             item.Lastname.Contains(FilterText))
+                        {
                             FilteredUsers.Add(item);
+                        }
+                    }
                 }
                 else
                 {
@@ -232,9 +282,13 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
 
                 if (_SelectedUser != null && _SelectedUser.Picture != null)
+                {
                     Image = ConvertToImage(SelectedUser.Picture);
+                }
                 else
+                {
                     Image = null;
+                }
             }
         }
 
@@ -244,7 +298,10 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 _Image = value;
-                if (SelectedUser != null) _SelectedUser.Picture = ConvertToByteArray(value);
+                if (SelectedUser != null)
+                {
+                    _SelectedUser.Picture = ConvertToByteArray(value);
+                }
             }
         }
 

@@ -34,7 +34,7 @@ namespace Formulas.DepreciationMethods
                 new DepreciationValue(0, 0, initialValue)
             };
 
-            var yearlyAssetValue = CalculateArithmenticDegressiveYearly(initialValue, assetValue, years);
+            decimal yearlyAssetValue = CalculateArithmenticDegressiveYearly(initialValue, assetValue, years);
             int year = 1;
             for (int i = years; i > 0; i--)
             {
@@ -70,11 +70,11 @@ namespace Formulas.DepreciationMethods
                 new DepreciationValue(0, 0, initialValue)
             };
 
-            var yearlyDepreciationRate = CalculateGeometryDregressiveValuesRate(initialValue, assetValue, years);
+            decimal yearlyDepreciationRate = CalculateGeometryDregressiveValuesRate(initialValue, assetValue, years);
             int year = 1;
             for (int i = years; i > 0; i--)
             {
-                var yearlyAssetValue = initialValue * (yearlyDepreciationRate / 100);
+                decimal yearlyAssetValue = initialValue * (yearlyDepreciationRate / 100);
                 initialValue -= yearlyAssetValue;
                 depreciationValues.Add(new DepreciationValue(year++, yearlyAssetValue, initialValue));
             }
@@ -108,7 +108,7 @@ namespace Formulas.DepreciationMethods
                 new DepreciationValue(0, 0, initialValue)
             };
 
-            var yearlyAssetValue = CalculateLinearYearly(initialValue, assetValue, years);
+            decimal yearlyAssetValue = CalculateLinearYearly(initialValue, assetValue, years);
             int year = 1;
             for (int i = years; i > 0; i--)
             {

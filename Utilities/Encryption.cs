@@ -13,22 +13,22 @@ namespace Utilities
 
             // Set your salt here, change it to meet your flavor:
             // The salt bytes must be at least 8 bytes.
-            byte[] saltBytes = {1, 2, 3, 4, 5, 6, 7, 8};
+            byte[] saltBytes = { 1, 2, 3, 4, 5, 6, 7, 8 };
 
-            using (var ms = new MemoryStream())
+            using (MemoryStream ms = new MemoryStream())
             {
-                using (var AES = new RijndaelManaged())
+                using (RijndaelManaged AES = new RijndaelManaged())
                 {
                     AES.KeySize = 256;
                     AES.BlockSize = 128;
 
-                    var key = new Rfc2898DeriveBytes(passwordBytes, saltBytes, 1000);
+                    Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(passwordBytes, saltBytes, 1000);
                     AES.Key = key.GetBytes(AES.KeySize / 8);
                     AES.IV = key.GetBytes(AES.BlockSize / 8);
 
                     AES.Mode = CipherMode.CBC;
 
-                    using (var cs = new CryptoStream(ms, AES.CreateEncryptor(), CryptoStreamMode.Write))
+                    using (CryptoStream cs = new CryptoStream(ms, AES.CreateEncryptor(), CryptoStreamMode.Write))
                     {
                         cs.Write(bytesToBeEncrypted, 0, bytesToBeEncrypted.Length);
                         cs.Close();
@@ -47,22 +47,22 @@ namespace Utilities
 
             // Set your salt here, change it to meet your flavor:
             // The salt bytes must be at least 8 bytes.
-            byte[] saltBytes = {1, 2, 3, 4, 5, 6, 7, 8};
+            byte[] saltBytes = { 1, 2, 3, 4, 5, 6, 7, 8 };
 
-            using (var ms = new MemoryStream())
+            using (MemoryStream ms = new MemoryStream())
             {
-                using (var AES = new RijndaelManaged())
+                using (RijndaelManaged AES = new RijndaelManaged())
                 {
                     AES.KeySize = 256;
                     AES.BlockSize = 128;
 
-                    var key = new Rfc2898DeriveBytes(passwordBytes, saltBytes, 1000);
+                    Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(passwordBytes, saltBytes, 1000);
                     AES.Key = key.GetBytes(AES.KeySize / 8);
                     AES.IV = key.GetBytes(AES.BlockSize / 8);
 
                     AES.Mode = CipherMode.CBC;
 
-                    using (var cs = new CryptoStream(ms, AES.CreateDecryptor(), CryptoStreamMode.Write))
+                    using (CryptoStream cs = new CryptoStream(ms, AES.CreateDecryptor(), CryptoStreamMode.Write))
                     {
                         cs.Write(bytesToBeDecrypted, 0, bytesToBeDecrypted.Length);
                         cs.Close();
@@ -78,15 +78,15 @@ namespace Utilities
         public static string EncryptText(string input, string password)
         {
             // Get the bytes of the string
-            var bytesToBeEncrypted = Encoding.UTF8.GetBytes(input);
-            var passwordBytes = Encoding.UTF8.GetBytes(password);
+            byte[] bytesToBeEncrypted = Encoding.UTF8.GetBytes(input);
+            byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
 
             // Hash the password with SHA256
             passwordBytes = SHA256.Create().ComputeHash(passwordBytes);
 
-            var bytesEncrypted = AES_Encrypt(bytesToBeEncrypted, passwordBytes);
+            byte[] bytesEncrypted = AES_Encrypt(bytesToBeEncrypted, passwordBytes);
 
-            var result = Convert.ToBase64String(bytesEncrypted);
+            string result = Convert.ToBase64String(bytesEncrypted);
 
             return result;
         }
@@ -94,64 +94,73 @@ namespace Utilities
         public static string DecryptText(string input, string password)
         {
             // Get the bytes of the string
-            var bytesToBeDecrypted = Convert.FromBase64String(input);
-            var passwordBytes = Encoding.UTF8.GetBytes(password);
+            byte[] bytesToBeDecrypted = Convert.FromBase64String(input);
+            byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
             passwordBytes = SHA256.Create().ComputeHash(passwordBytes);
 
-            var bytesDecrypted = AES_Decrypt(bytesToBeDecrypted, passwordBytes);
+            byte[] bytesDecrypted = AES_Decrypt(bytesToBeDecrypted, passwordBytes);
 
-            var result = Encoding.UTF8.GetString(bytesDecrypted);
+            string result = Encoding.UTF8.GetString(bytesDecrypted);
 
             return result;
         }
 
         public static string EncryptStringWithSalt(string text, string password)
         {
-            var baPwd = Encoding.UTF8.GetBytes(password);
+            byte[] baPwd = Encoding.UTF8.GetBytes(password);
 
             // Hash the password with SHA256
-            var baPwdHash = SHA256.Create().ComputeHash(baPwd);
+            byte[] baPwdHash = SHA256.Create().ComputeHash(baPwd);
 
-            var baText = Encoding.UTF8.GetBytes(text);
+            byte[] baText = Encoding.UTF8.GetBytes(text);
 
-            var baSalt = GetRandomBytes();
-            var baEncrypted = new byte[baSalt.Length + baText.Length];
+            byte[] baSalt = GetRandomBytes();
+            byte[] baEncrypted = new byte[baSalt.Length + baText.Length];
 
             // Combine Salt + Text
-            for (var i = 0; i < baSalt.Length; i++) baEncrypted[i] = baSalt[i];
+            for (int i = 0; i < baSalt.Length; i++)
+            {
+                baEncrypted[i] = baSalt[i];
+            }
 
-            for (var i = 0; i < baText.Length; i++) baEncrypted[i + baSalt.Length] = baText[i];
+            for (int i = 0; i < baText.Length; i++)
+            {
+                baEncrypted[i + baSalt.Length] = baText[i];
+            }
 
             baEncrypted = AES_Encrypt(baEncrypted, baPwdHash);
 
-            var result = Convert.ToBase64String(baEncrypted);
+            string result = Convert.ToBase64String(baEncrypted);
             return result;
         }
 
         public static string DecryptStringWithSalt(string text, string password)
         {
-            var baPwd = Encoding.UTF8.GetBytes(password);
+            byte[] baPwd = Encoding.UTF8.GetBytes(password);
 
             // Hash the password with SHA256
-            var baPwdHash = SHA256.Create().ComputeHash(baPwd);
+            byte[] baPwdHash = SHA256.Create().ComputeHash(baPwd);
 
-            var baText = Convert.FromBase64String(text);
+            byte[] baText = Convert.FromBase64String(text);
 
-            var baDecrypted = AES_Decrypt(baText, baPwdHash);
+            byte[] baDecrypted = AES_Decrypt(baText, baPwdHash);
 
             // Remove salt
-            var saltLength = GetSaltLength();
-            var baResult = new byte[baDecrypted.Length - saltLength];
-            for (var i = 0; i < baResult.Length; i++) baResult[i] = baDecrypted[i + saltLength];
+            int saltLength = GetSaltLength();
+            byte[] baResult = new byte[baDecrypted.Length - saltLength];
+            for (int i = 0; i < baResult.Length; i++)
+            {
+                baResult[i] = baDecrypted[i + saltLength];
+            }
 
-            var result = Encoding.UTF8.GetString(baResult);
+            string result = Encoding.UTF8.GetString(baResult);
             return result;
         }
 
         public static byte[] GetRandomBytes()
         {
-            var saltLength = GetSaltLength();
-            var ba = new byte[saltLength];
+            int saltLength = GetSaltLength();
+            byte[] ba = new byte[saltLength];
             RandomNumberGenerator.Create().GetBytes(ba);
             return ba;
         }
@@ -163,14 +172,14 @@ namespace Utilities
 
         public static string ComputeHash(string input, HashAlgorithm algorithm, byte[] salt)
         {
-            var inputBytes = Encoding.UTF8.GetBytes(input);
+            byte[] inputBytes = Encoding.UTF8.GetBytes(input);
 
             // Combine salt and input bytes
-            var saltedInput = new byte[salt.Length + inputBytes.Length];
+            byte[] saltedInput = new byte[salt.Length + inputBytes.Length];
             salt.CopyTo(saltedInput, 0);
             inputBytes.CopyTo(saltedInput, salt.Length);
 
-            var hashedBytes = algorithm.ComputeHash(saltedInput);
+            byte[] hashedBytes = algorithm.ComputeHash(saltedInput);
 
             return BitConverter.ToString(hashedBytes);
         }

@@ -6,7 +6,10 @@ namespace FinancialAnalysis.Logic.ViewModels.Accounting
     {
         public PaymentConditionViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
         }
     }
 }

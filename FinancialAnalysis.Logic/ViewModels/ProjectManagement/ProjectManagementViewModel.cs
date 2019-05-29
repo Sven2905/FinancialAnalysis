@@ -7,7 +7,10 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         public ProjectManagementViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
         }
 
         public User ActualUser => Globals.ActiveUser;

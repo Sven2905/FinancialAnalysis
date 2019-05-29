@@ -11,9 +11,12 @@ namespace FinancialAnalysis.Windows
         public CostCenterCategoriesWindow()
         {
             InitializeComponent();
-            var vm = new CostCenterCategoryViewModel();
+            CostCenterCategoryViewModel vm = new CostCenterCategoryViewModel();
             DataContext = vm;
-            if (vm.CloseAction == null) vm.CloseAction = () => { };
+            if (vm.CloseAction == null)
+            {
+                vm.CloseAction = () => { };
+            }
 
             vm.CloseAction = Close;
         }

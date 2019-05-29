@@ -1,12 +1,9 @@
-﻿using System;
+﻿using FinancialAnalysis.Models.MailManagement;
+using Serilog;
+using System;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
-using System.Windows;
-using DevExpress.Mvvm;
-using FinancialAnalysis.Logic.Messages;
-using FinancialAnalysis.Models.MailManagement;
-using Serilog;
 
 namespace FinancialAnalysis.Logic
 {
@@ -20,7 +17,7 @@ namespace FinancialAnalysis.Logic
                 .WriteTo.File("logs\\Mail.txt", rollingInterval: RollingInterval.Month)
                 .CreateLogger();
 
-            var message = new MailMessage(mailConfiguration.Address, mailData.To)
+            MailMessage message = new MailMessage(mailConfiguration.Address, mailData.To)
             {
                 Subject = mailData.Subject,
                 Body = mailData.Body
@@ -28,13 +25,13 @@ namespace FinancialAnalysis.Logic
 
             if (mailData.AttachmentStream != null)
             {
-                var attachment = new Attachment(mailData.AttachmentStream, MediaTypeNames.Application.Octet);
+                Attachment attachment = new Attachment(mailData.AttachmentStream, MediaTypeNames.Application.Octet);
                 message.Attachments.Add(attachment);
             }
 
             try
             {
-                var client = new SmtpClient(mailConfiguration.Server)
+                SmtpClient client = new SmtpClient(mailConfiguration.Server)
                 {
                     Credentials = new NetworkCredential(mailConfiguration.LoginUser, mailConfiguration.GetPasswordDecrypted())
                 };

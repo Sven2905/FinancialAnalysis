@@ -1,11 +1,6 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Enums;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Models.CarPoolManagement
 {

@@ -19,9 +19,11 @@ namespace WebApiWrapper.WarehouseManagement
 
         public static List<WarehouseStockingHistory> GetLast10(int RefProductId, int RefStockyardId)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("RefProductId", RefProductId);
-            parameters.Add("RefStockyardId", RefStockyardId);
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "RefProductId", RefProductId },
+                { "RefStockyardId", RefStockyardId }
+            };
             return WebApi<List<WarehouseStockingHistory>>.GetData(controllerName, "GetLast10", parameters);
         }
 

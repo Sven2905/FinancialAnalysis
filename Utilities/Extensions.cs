@@ -21,12 +21,18 @@ namespace Utilities
 
         public static void AddRange<T>(this ObservableCollection<T> destination, IEnumerable<T> source)
         {
-            foreach (var item in source) destination.Add(item);
+            foreach (T item in source)
+            {
+                destination.Add(item);
+            }
         }
 
         public static bool In<T>(this T source, params T[] list)
         {
-            if (null == source) throw new ArgumentNullException("source");
+            if (null == source)
+            {
+                throw new ArgumentNullException("source");
+            }
 
             return list.Contains(source);
         }
@@ -48,32 +54,40 @@ namespace Utilities
 
         public static int ToInt(this string input)
         {
-            int result;
-            if (!int.TryParse(input, out result)) result = 0;
+            if (!int.TryParse(input, out int result))
+            {
+                result = 0;
+            }
 
             return result;
         }
 
         public static decimal ToDecimal(this string input)
         {
-            decimal result;
-            if (!decimal.TryParse(input, out result)) result = 0;
+            if (!decimal.TryParse(input, out decimal result))
+            {
+                result = 0;
+            }
 
             return result;
         }
 
         public static double ToDouble(this string input)
         {
-            double result;
-            if (!double.TryParse(input, out result)) result = 0;
+            if (!double.TryParse(input, out double result))
+            {
+                result = 0;
+            }
 
             return result;
         }
 
         public static float ToFloat(this string input)
         {
-            float result;
-            if (!float.TryParse(input, out result)) result = 0;
+            if (!float.TryParse(input, out float result))
+            {
+                result = 0;
+            }
 
             return result;
         }
@@ -87,19 +101,25 @@ namespace Utilities
         {
             try
             {
-                var t = typeof(T);
-                var u = Nullable.GetUnderlyingType(t);
+                Type t = typeof(T);
+                Type u = Nullable.GetUnderlyingType(t);
 
                 if (u != null)
                 {
-                    if (value == null || value.Equals("")) return default(T);
+                    if (value == null || value.Equals(""))
+                    {
+                        return default(T);
+                    }
 
-                    return (T) Convert.ChangeType(value, u);
+                    return (T)Convert.ChangeType(value, u);
                 }
 
-                if (value == null || value.Equals("")) return default(T);
+                if (value == null || value.Equals(""))
+                {
+                    return default(T);
+                }
 
-                return (T) Convert.ChangeType(value, t);
+                return (T)Convert.ChangeType(value, t);
             }
             catch
             {
@@ -112,9 +132,12 @@ namespace Utilities
         /// </summary>
         public static TimeSpan Sum(this IEnumerable<TimeSpan> timeSpans)
         {
-            var sumTillNowTimeSpan = TimeSpan.Zero;
+            TimeSpan sumTillNowTimeSpan = TimeSpan.Zero;
 
-            foreach (var timeSpan in timeSpans) sumTillNowTimeSpan += timeSpan;
+            foreach (TimeSpan timeSpan in timeSpans)
+            {
+                sumTillNowTimeSpan += timeSpan;
+            }
 
             return sumTillNowTimeSpan;
         }
@@ -137,9 +160,9 @@ namespace Utilities
         /// <returns>New object with same values.</returns>
         public static T Clone<T>(this T obj)
         {
-            var inst = obj.GetType().GetMethod("MemberwiseClone", BindingFlags.Instance | BindingFlags.NonPublic);
+            MethodInfo inst = obj.GetType().GetMethod("MemberwiseClone", BindingFlags.Instance | BindingFlags.NonPublic);
 
-            return (T) inst?.Invoke(obj, null);
+            return (T)inst?.Invoke(obj, null);
         }
     }
 }

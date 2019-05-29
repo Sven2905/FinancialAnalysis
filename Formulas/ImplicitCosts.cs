@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Formulas
+﻿namespace Formulas
 {
     /// <summary>
     /// Kalkulatorische Kosten
@@ -20,7 +14,7 @@ namespace Formulas
         /// <returns>Kalkulatorische Zinsen</returns>
         public static decimal CalculatedInterestRate(decimal capital, decimal assetValue, decimal rate)
         {
-            return 1 / 2 * (capital + assetValue)* rate;
+            return 1 / 2 * (capital + assetValue) * rate;
         }
     }
 }

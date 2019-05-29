@@ -32,10 +32,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void AddNewItem(RowEventArgs e)
         {
-            var newItem = (TaxType)e.Row;
+            TaxType newItem = (TaxType)e.Row;
             if (newItem.TaxTypeId == 0)
             {
-            TaxTypes.Insert(newItem);
+                TaxTypes.Insert(newItem);
             }
             else
             {

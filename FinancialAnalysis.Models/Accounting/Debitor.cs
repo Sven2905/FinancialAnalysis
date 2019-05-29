@@ -1,6 +1,6 @@
 ﻿using FinancialAnalysis.Models.BaseClasses;
-using Newtonsoft.Json;
 using FinancialAnalysis.Models.ClientManagement;
+using Newtonsoft.Json;
 
 namespace FinancialAnalysis.Models.Accounting
 {

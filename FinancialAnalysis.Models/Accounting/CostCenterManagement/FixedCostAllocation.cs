@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
-using Utilities;
 
 namespace FinancialAnalysis.Models.Accounting
 {
@@ -24,13 +23,7 @@ namespace FinancialAnalysis.Models.Accounting
 
         public List<FixedCostAllocationDetail> FixedCostAllocationDetails { get; set; } = new List<FixedCostAllocationDetail>();
 
-        public string DisplayAllDetails
-        {
-            get
-            {
-                return Name + " (" + DisplayCostCenters + " mit " + DisplayShares +")";
-            }
-        }
+        public string DisplayAllDetails => Name + " (" + DisplayCostCenters + " mit " + DisplayShares + ")";
 
         public double[] Shares
         {
@@ -54,7 +47,7 @@ namespace FinancialAnalysis.Models.Accounting
                 if (FixedCostAllocationDetails?.Count > 0)
                 {
                     string result = string.Empty;
-                    foreach (var share in Shares)
+                    foreach (double share in Shares)
                     {
                         result += share + ":";
                     }
@@ -74,7 +67,7 @@ namespace FinancialAnalysis.Models.Accounting
                 if (FixedCostAllocationDetails?.Count > 0)
                 {
                     string result = string.Empty;
-                    foreach (var detail in FixedCostAllocationDetails)
+                    foreach (FixedCostAllocationDetail detail in FixedCostAllocationDetails)
                     {
                         result += detail.CostCenter.Name + ":";
                     }

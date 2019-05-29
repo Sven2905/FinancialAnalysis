@@ -11,9 +11,12 @@ namespace FinancialAnalysis
         public YesNoDialogWindow()
         {
             InitializeComponent();
-            var vm = new YesNoDialogViewModel();
+            YesNoDialogViewModel vm = new YesNoDialogViewModel();
             DataContext = vm;
-            if (vm.CloseAction == null) vm.CloseAction = () => { };
+            if (vm.CloseAction == null)
+            {
+                vm.CloseAction = () => { };
+            }
 
             vm.CloseAction = Close;
         }

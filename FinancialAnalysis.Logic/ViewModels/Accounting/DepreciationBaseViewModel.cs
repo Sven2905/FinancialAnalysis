@@ -2,11 +2,6 @@
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using Formulas.DepreciationMethods;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -22,16 +17,20 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public DepreciationItem DepreciationItem
         {
-            get { return _DepreciationItem; }
+            get => _DepreciationItem;
             set
             {
                 if (_DepreciationItem != null)
+                {
                     _DepreciationItem.PropertyChanged -= DepreciationItem_PropertyChanged;
+                }
 
                 _DepreciationItem = value;
 
                 if (value != null)
+                {
                     _DepreciationItem.PropertyChanged += DepreciationItem_PropertyChanged;
+                }
             }
         }
 

@@ -50,13 +50,13 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void LoadAllWarehouses()
         {
-            var allWarehouses = new SvenTechCollection<Warehouse>();
+            SvenTechCollection<Warehouse> allWarehouses = new SvenTechCollection<Warehouse>();
             WarehouseList = Warehouses.GetAllWithoutStock().ToSvenTechCollection();
         }
 
         private SvenTechCollection<Stockyard> LoadStockyards(int WarehouseId)
         {
-            var allStockyards = new SvenTechCollection<Stockyard>();
+            SvenTechCollection<Stockyard> allStockyards = new SvenTechCollection<Stockyard>();
             allStockyards = Stockyards.GetByRefWarehouseId(WarehouseId).ToSvenTechCollection();
 
             return allStockyards;
@@ -134,16 +134,16 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void GenerateStockyards()
         {
-            var newStockyards = new List<Stockyard>();
+            List<Stockyard> newStockyards = new List<Stockyard>();
 
-            var lastStockyard = SelectedWarehouse.Stockyards.LastOrDefault(x =>
+            Stockyard lastStockyard = SelectedWarehouse.Stockyards.LastOrDefault(x =>
                 x.Name.ToLower().Contains(Prefix.ToLower()) && x.Name.ToLower().Contains(Suffix.ToLower()));
 
-            var lastNumber = 1;
+            int lastNumber = 1;
 
             if (lastStockyard != null)
             {
-                var lastNumberString = lastStockyard.Name.ToLower();
+                string lastNumberString = lastStockyard.Name.ToLower();
                 if (!string.IsNullOrEmpty(Prefix))
                 {
                     lastNumberString = lastNumberString.Replace(Prefix.ToLower(), "");
@@ -157,7 +157,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 lastNumber = Convert.ToInt32(lastNumberString) + 1;
             }
 
-            for (var i = 0; i < NumberOfStockyardsToCreate; i++)
+            for (int i = 0; i < NumberOfStockyardsToCreate; i++)
             {
                 newStockyards.Add(new Stockyard
                 { Name = Prefix + lastNumber + Suffix, RefWarehouseId = SelectedWarehouse.WarehouseId });
@@ -166,7 +166,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             Stockyards.Insert(newStockyards);
 
-            var selectedWarehouseId = SelectedWarehouse.WarehouseId;
+            int selectedWarehouseId = SelectedWarehouse.WarehouseId;
 
             LoadAllWarehouses();
 
@@ -195,7 +195,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public Stockyard SelectedStockyard
         {
-            get { return _SelectedStockyard; }
+            get => _SelectedStockyard;
             set
             {
                 _SelectedStockyard = value;

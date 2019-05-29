@@ -1,12 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Logic.General;
-using FinancialAnalysis.Models.Administration;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utilities;
 using WebApiWrapper;
 
@@ -40,7 +35,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void LoadFromFile()
         {
-            var webApiConfigurationFile = BinarySerialization.ReadFromBinaryFile<WebApiConfiguration>(@".\WebApiConfig.cfg");
+            WebApiConfiguration webApiConfigurationFile = BinarySerialization.ReadFromBinaryFile<WebApiConfiguration>(@".\WebApiConfig.cfg");
             Server = webApiConfigurationFile.Server;
             Port = webApiConfigurationFile.Port;
         }

@@ -1,9 +1,6 @@
 ﻿using FinancialAnalysis.Models.Accounting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebApiWrapper.Accounting
 {
@@ -23,33 +20,41 @@ namespace WebApiWrapper.Accounting
 
         public static List<BalanceAccountResultItem> GetActiveAccounts(DateTime StartDate, DateTime EndDate)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("StartDate", StartDate);
-            parameters.Add("EndDate", EndDate);
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "StartDate", StartDate },
+                { "EndDate", EndDate }
+            };
             return WebApi<List<BalanceAccountResultItem>>.GetData(controllerName, "GetActiveAccounts", parameters);
         }
 
         public static List<BalanceAccountResultDetailItem> GetActiveAccountsDetailed(DateTime StartDate, DateTime EndDate)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("StartDate", StartDate);
-            parameters.Add("EndDate", EndDate);
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "StartDate", StartDate },
+                { "EndDate", EndDate }
+            };
             return WebApi<List<BalanceAccountResultDetailItem>>.GetData(controllerName, "GetActiveAccountsDetailed", parameters);
         }
 
         public static List<BalanceAccountResultItem> GetPassiveAccounts(DateTime StartDate, DateTime EndDate)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("StartDate", StartDate);
-            parameters.Add("EndDate", EndDate);
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "StartDate", StartDate },
+                { "EndDate", EndDate }
+            };
             return WebApi<List<BalanceAccountResultItem>>.GetData(controllerName, "GetPassiveAccounts", parameters);
         }
 
         public static List<BalanceAccountResultDetailItem> GetPassiveAccountsDetailed(DateTime StartDate, DateTime EndDate)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("StartDate", StartDate);
-            parameters.Add("EndDate", EndDate);
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "StartDate", StartDate },
+                { "EndDate", EndDate }
+            };
             return WebApi<List<BalanceAccountResultDetailItem>>.GetData(controllerName, "GetPassiveAccountsDetailed", parameters);
         }
 

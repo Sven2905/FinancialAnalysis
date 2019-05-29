@@ -1,10 +1,7 @@
-﻿using System;
-using System.Windows;
-using DevExpress.Mvvm;
-
-using FinancialAnalysis.Logic.Messages;
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.ProductManagement;
+using System;
 using Utilities;
 using WebApiWrapper.ProductManagement;
 
@@ -16,7 +13,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public ProductCategoryViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             FilteredProductCategories = _ProductCategories = LoadAllProductCategories();
             NewProductCategoryCommand = new DelegateCommand(NewProductCategory);
@@ -47,7 +47,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private SvenTechCollection<ProductCategory> LoadAllProductCategories()
         {
-            var allProductCategories = new SvenTechCollection<ProductCategory>();
+            SvenTechCollection<ProductCategory> allProductCategories = new SvenTechCollection<ProductCategory>();
             return ProductCategories.GetAll().ToSvenTechCollection();
         }
 
@@ -59,7 +59,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteProductCategory()
         {
-            if (SelectedProductCategory == null) return;
+            if (SelectedProductCategory == null)
+            {
+                return;
+            }
 
             if (SelectedProductCategory.ProductCategoryId == 0)
             {
@@ -68,34 +71,52 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-                ProductCategories.Delete(SelectedProductCategory.ProductCategoryId);
-                _ProductCategories.Remove(SelectedProductCategory);
-                SelectedProductCategory = null;
+            ProductCategories.Delete(SelectedProductCategory.ProductCategoryId);
+            _ProductCategories.Remove(SelectedProductCategory);
+            SelectedProductCategory = null;
         }
 
         private void SaveProductCategory()
         {
-                if (SelectedProductCategory.ProductCategoryId != 0)
-                    ProductCategories.Update(SelectedProductCategory);
-                else
-                    SelectedProductCategory.ProductCategoryId =
+            if (SelectedProductCategory.ProductCategoryId != 0)
+            {
+                ProductCategories.Update(SelectedProductCategory);
+            }
+            else
+            {
+                SelectedProductCategory.ProductCategoryId =
                         ProductCategories.Insert(SelectedProductCategory);
+            }
         }
 
         private bool Validation()
         {
-            if (SelectedProductCategory == null) return false;
-            if (string.IsNullOrEmpty(SelectedProductCategory.Name)) return false;
+            if (SelectedProductCategory == null)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(SelectedProductCategory.Name))
+            {
+                return false;
+            }
+
             return true;
         }
 
         public void SendSelectedToParent()
         {
-            if (SelectedProductCategory == null) return;
+            if (SelectedProductCategory == null)
+            {
+                return;
+            }
 
-            if (SelectedProductCategory.ProductCategoryId == 0) SaveProductCategory();
+            if (SelectedProductCategory.ProductCategoryId == 0)
+            {
+                SaveProductCategory();
+            }
 
-            Messenger.Default.Send(new SelectedProductCategory {ProductCategory = SelectedProductCategory});
+            Messenger.Default.Send(new SelectedProductCategory { ProductCategory = SelectedProductCategory });
         }
 
         #endregion Methods
@@ -119,9 +140,13 @@ namespace FinancialAnalysis.Logic.ViewModels
                 if (!string.IsNullOrEmpty(_FilterText))
                 {
                     FilteredProductCategories = new SvenTechCollection<ProductCategory>();
-                    foreach (var item in _ProductCategories)
+                    foreach (ProductCategory item in _ProductCategories)
+                    {
                         if (item.Name.Contains(FilterText))
+                        {
                             FilteredProductCategories.Add(item);
+                        }
+                    }
                 }
                 else
                 {

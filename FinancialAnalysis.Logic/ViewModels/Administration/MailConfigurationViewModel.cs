@@ -1,6 +1,5 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.MailManagement;
-using System.Linq;
 using Utilities;
 using WebApiWrapper.MailManagement;
 
@@ -33,7 +32,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (MailConfiguration.LoginUser != "" && MailConfiguration.Password != "" && MailConfiguration.Server != "")
             {
                 MailConfiguration.SetPassword(Password);
-                var mailData = new MailData
+                MailData mailData = new MailData
                 {
                     Body = "Dies ist eine automatisch generierte Testmail.",
                     Subject = "Testmail",

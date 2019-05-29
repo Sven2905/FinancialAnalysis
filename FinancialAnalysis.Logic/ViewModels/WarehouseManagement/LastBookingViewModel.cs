@@ -1,12 +1,5 @@
 ﻿using DevExpress.Mvvm;
-
-using FinancialAnalysis.Models.General;
 using FinancialAnalysis.Models.WarehouseManagement;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utilities;
 using WebApiWrapper.WarehouseManagement;
 
@@ -20,7 +13,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public int RefStockyardId
         {
-            get { return _RefStockyardId; }
+            get => _RefStockyardId;
             set
             {
                 _RefStockyardId = value;
@@ -30,7 +23,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public int RefProductId
         {
-            get { return _RefProductId; }
+            get => _RefProductId;
             set
             {
                 _RefProductId = value;
@@ -43,7 +36,9 @@ namespace FinancialAnalysis.Logic.ViewModels
         public void LoadData()
         {
             if (_RefProductId > 0 && RefStockyardId > 0)
+            {
                 WarehouseStockingHistoryList = WarehouseStockingHistories.GetLast10(_RefProductId, _RefStockyardId).ToSvenTechCollection();
+            }
             else
             {
                 WarehouseStockingHistoryList = null;

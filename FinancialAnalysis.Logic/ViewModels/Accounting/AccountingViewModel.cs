@@ -7,7 +7,10 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         public AccountingViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
         }
 
         #region UserRights

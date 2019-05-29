@@ -9,7 +9,7 @@ namespace FinancialAnalysis.UserControls
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((bool) value)
+            if ((bool)value)
             {
                 return new SolidColorBrush(Color.FromRgb(0, 200, 81));
             }

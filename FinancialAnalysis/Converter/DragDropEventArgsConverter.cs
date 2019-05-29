@@ -4,17 +4,13 @@ using DevExpress.Xpf.Grid.DragDrop;
 using FinancialAnalysis.Models.Interfaces;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Markup;
 
 namespace FinancialAnalysis.UserControls
 {
     public class DragDropEventArgsConverter : MarkupExtension, IEventArgsConverter
     {
-        static DragDropEventArgsConverter Instance = new DragDropEventArgsConverter();
+        private static readonly DragDropEventArgsConverter Instance = new DragDropEventArgsConverter();
 
         public DragDropEventArgsConverter() { }
 
@@ -37,29 +33,17 @@ namespace FinancialAnalysis.UserControls
 
         public virtual bool Handled
         {
-            get { return InnerArgs.Handled; }
-            set { InnerArgs.Handled = value; }
+            get => InnerArgs.Handled;
+            set => InnerArgs.Handled = value;
         }
 
-        public virtual IList Items
-        {
-            get { return InnerArgs.DraggedRows; }
-        }
+        public virtual IList Items => InnerArgs.DraggedRows;
 
-        public virtual object TargetRow
-        {
-            get { return InnerArgs.TargetRow; }
-        }
+        public virtual object TargetRow => InnerArgs.TargetRow;
 
-        public virtual DropTargetType DropTargetType
-        {
-            get { return InnerArgs.DropTargetType; }
-        }
+        public virtual DropTargetType DropTargetType => InnerArgs.DropTargetType;
 
-        public virtual GridControl GridControl
-        {
-            get { return InnerArgs.GridControl; }
-        }
+        public virtual GridControl GridControl => InnerArgs.GridControl;
 
         public DropEventArgsWrapper(GridDropEventArgs baseArgs)
         {

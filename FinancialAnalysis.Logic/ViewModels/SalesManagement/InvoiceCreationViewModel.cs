@@ -60,11 +60,15 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             if (e.Items?.Count > 0 && e.Items[0] is SalesOrderPosition)
             {
-                var item = (SalesOrderPosition)e.Items[0];
+                SalesOrderPosition item = (SalesOrderPosition)e.Items[0];
                 if (item.Quantity > 1)
+                {
                     Messenger.Default.Send(new OpenQuantityWindowMessage((int)item.Quantity));
+                }
                 else
+                {
                     _Quantity = 1;
+                }
 
                 TransferPosition(OrderedProducts, ProductsOnInvoice, item, _Quantity);
 
@@ -81,7 +85,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             if (e.Items?.Count > 0 && e.Items[0] is SalesOrderPosition)
             {
-                var item = (SalesOrderPosition)e.Items[0];
+                SalesOrderPosition item = (SalesOrderPosition)e.Items[0];
                 if (item.Quantity > 1)
                 {
                     Messenger.Default.Send(new OpenQuantityWindowMessage((int)item.Quantity));
@@ -121,7 +125,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             else
             {
-                var itemClone = item.Clone();
+                SalesOrderPosition itemClone = item.Clone();
                 itemClone.Quantity = Quantity;
                 if (target.SingleOrDefault(x => x.SalesOrderPositionId == item.SalesOrderPositionId) != null)
                 {
@@ -143,7 +147,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             Invoice.Debitor = SalesOrder.Debitor;
 
             SvenTechCollection<InvoicePosition> itemsToSave = new SvenTechCollection<InvoicePosition>();
-            foreach (var item in ProductsOnInvoice)
+            foreach (SalesOrderPosition item in ProductsOnInvoice)
             {
                 itemsToSave.Add(new InvoicePosition(Invoice.InvoiceId, item.SalesOrderPositionId, (int)item.Quantity));
             }
@@ -167,7 +171,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public SalesOrder SalesOrder
         {
-            get { return _SalesOrder; }
+            get => _SalesOrder;
             set { _SalesOrder = value; ProductsOnInvoice = _SalesOrder.SalesOrderPositions; }
         }
 

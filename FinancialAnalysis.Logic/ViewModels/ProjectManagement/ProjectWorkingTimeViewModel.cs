@@ -1,8 +1,4 @@
-﻿using System;
-using System.Windows;
-using DevExpress.Mvvm;
-
-using FinancialAnalysis.Logic.Messages;
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.ProjectManagement;
 using Utilities;
 using WebApiWrapper.ProjectManagement;
@@ -13,7 +9,10 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         public ProjectWorkingTimeViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             LoadData();
             SaveProjectWorkingTimeCommand = new DelegateCommand(SaveSaveProjectWorkingTime, () => Validation());
@@ -55,7 +54,10 @@ namespace FinancialAnalysis.Logic.ViewModels
         private bool Validation()
         {
             if (ProjectWorkingTime.RefEmployeeId == 0 || ProjectWorkingTime.RefProjectId == 0 ||
-                ProjectWorkingTime.StartTime == ProjectWorkingTime.EndTime) return false;
+                ProjectWorkingTime.StartTime == ProjectWorkingTime.EndTime)
+            {
+                return false;
+            }
 
             return true;
         }

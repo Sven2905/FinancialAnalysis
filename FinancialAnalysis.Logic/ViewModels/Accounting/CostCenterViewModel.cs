@@ -1,10 +1,9 @@
 ﻿using DevExpress.Mvvm;
-
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
-using FinancialAnalysis.Models.Enums;
 using FinancialAnalysis.Models.Accounting.CostCenterManagement;
+using FinancialAnalysis.Models.Enums;
 using System;
 using System.Linq;
 using Utilities;
@@ -39,7 +38,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public CostCenter SelectedCostCenter
         {
-            get { return _SelectedCostCenter; }
+            get => _SelectedCostCenter;
             set
             {
                 if (_SelectedCostCenter != null)
@@ -116,7 +115,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             };
 
             if (SelectedCostCenter == null || Equals(SelectedCostCenter.CostCenterId, 0))
+            {
                 return;
+            }
 
             GetCurrentCosts();
 
@@ -141,7 +142,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             int key = 0;
             CostCenterFlatStructures = new SvenTechCollection<CostCenterFlatStructure>();
-            foreach (var item in CostCenterCategoryList)
+            foreach (CostCenterCategory item in CostCenterCategoryList)
             {
                 CostCenterFlatStructures.Add(new CostCenterFlatStructure()
                 {
@@ -152,7 +153,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 key++;
             }
 
-            foreach (var item in CostCenterList)
+            foreach (CostCenter item in CostCenterList)
             {
                 CostCenterFlatStructures.Add(new CostCenterFlatStructure()
                 {
@@ -166,7 +167,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void GetCurrentCosts()
         {
-            var currentCosts = CostCenterBudgets.GetAnnuallyCosts(SelectedCostCenter.CostCenterId, DateTime.Now.Year).ToList();
+            System.Collections.Generic.List<CostCenterCurrentCosts> currentCosts = CostCenterBudgets.GetAnnuallyCosts(SelectedCostCenter.CostCenterId, DateTime.Now.Year).ToList();
 
             CostCenterCurrentBudget.Year = DateTime.Now.Year;
             if (Equals(currentCosts.Count, 0))
@@ -176,7 +177,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             else
             {
 
-                foreach (var item in currentCosts)
+                foreach (CostCenterCurrentCosts item in currentCosts)
                 {
                     switch (item.MonthIndex)
                     {
@@ -244,7 +245,9 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void DeleteCostCenter()
         {
             if (SelectedCostCenter == null)
+            {
                 return;
+            }
 
             if (SelectedCostCenter.CostCenterId == 0)
             {

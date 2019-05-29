@@ -1,8 +1,4 @@
-﻿using System;
-using System.Windows;
-using DevExpress.Mvvm;
-
-using FinancialAnalysis.Logic.Messages;
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.ProjectManagement;
 using Utilities;
 using WebApiWrapper.ProjectManagement;
@@ -13,7 +9,10 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         public HealthInsuranceViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             HealthInsuranceList = LoadAllHealthInsurances();
             NewHealthInsuranceCommand = new DelegateCommand(NewHealthInsurance);
@@ -35,7 +34,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private SvenTechCollection<HealthInsurance> LoadAllHealthInsurances()
         {
-            var allHealthInsurances = new SvenTechCollection<HealthInsurance>();
+            SvenTechCollection<HealthInsurance> allHealthInsurances = new SvenTechCollection<HealthInsurance>();
             return HealthInsurances.GetAll().ToSvenTechCollection();
         }
 
@@ -47,7 +46,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteHealthInsurance()
         {
-            if (SelectedHealthInsurance == null) return;
+            if (SelectedHealthInsurance == null)
+            {
+                return;
+            }
 
             if (SelectedHealthInsurance.HealthInsuranceId == 0)
             {
@@ -64,19 +66,36 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveUser()
         {
             if (SelectedHealthInsurance.HealthInsuranceId != 0)
+            {
                 HealthInsurances.Update(SelectedHealthInsurance);
+            }
             else
+            {
                 SelectedHealthInsurance.HealthInsuranceId =
                     HealthInsurances.Insert(SelectedHealthInsurance);
+            }
         }
 
         private bool Validation()
         {
-            if (SelectedHealthInsurance == null) return false;
-            if (string.IsNullOrEmpty(SelectedHealthInsurance.Name)) return false;
+            if (SelectedHealthInsurance == null)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(SelectedHealthInsurance.Name))
+            {
+                return false;
+            }
+
             if (SelectedHealthInsurance.HealthInsuranceId == 0)
+            {
                 if (string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(PasswordRepeat))
+                {
                     return false;
+                }
+            }
+
             return true;
         }
     }

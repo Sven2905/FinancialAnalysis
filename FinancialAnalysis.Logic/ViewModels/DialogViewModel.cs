@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DevExpress.Mvvm;
+using System;
 using System.Windows;
 using System.Windows.Media;
-using DevExpress.Mvvm;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -13,7 +13,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public DialogViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             CloseCommand = new DelegateCommand(() => CloseAction());
         }

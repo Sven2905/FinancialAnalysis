@@ -1,7 +1,7 @@
-﻿using System;
+﻿using FinancialAnalysis.Models;
+using System;
 using System.Globalization;
 using System.Windows;
-using FinancialAnalysis.Models;
 
 namespace FinancialAnalysis.UserControls
 {
@@ -12,7 +12,7 @@ namespace FinancialAnalysis.UserControls
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var clientType = (ClientType) value;
+            ClientType clientType = (ClientType)value;
 
             switch (clientType)
             {

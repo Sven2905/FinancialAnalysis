@@ -11,9 +11,12 @@ namespace FinancialAnalysis
         public KontenrahmenWindow()
         {
             InitializeComponent();
-            var vm = new KontenrahmenViewModel();
+            KontenrahmenViewModel vm = new KontenrahmenViewModel();
             DataContext = vm;
-            if (vm.CloseAction == null) vm.CloseAction = () => { };
+            if (vm.CloseAction == null)
+            {
+                vm.CloseAction = () => { };
+            }
 
             vm.CloseAction = Close;
         }

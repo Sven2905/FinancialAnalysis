@@ -11,9 +11,12 @@ namespace FinancialAnalysis
         public DialogWindow()
         {
             InitializeComponent();
-            var vm = new DialogViewModel();
+            DialogViewModel vm = new DialogViewModel();
             DataContext = vm;
-            if (vm.CloseAction == null) vm.CloseAction = () => { };
+            if (vm.CloseAction == null)
+            {
+                vm.CloseAction = () => { };
+            }
 
             vm.CloseAction = Close;
         }

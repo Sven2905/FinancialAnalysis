@@ -18,7 +18,7 @@ namespace FinancialAnalysis.Logic.SalesManagement
 
         public static void CreateOrderReport(SalesOrderReportData salesOrderReportData, bool IsPreview)
         {
-            var listReportData = new List<SalesOrderReportData> { salesOrderReportData };
+            List<SalesOrderReportData> listReportData = new List<SalesOrderReportData> { salesOrderReportData };
 
             _SalesOrderReport = new SalesOrderReport
             {
@@ -58,7 +58,7 @@ namespace FinancialAnalysis.Logic.SalesManagement
 
         public static void CreateInvoiceReport(InvoiceReportData InvoiceReportData, bool IsPreview)
         {
-            var listReportData = new List<InvoiceReportData> { InvoiceReportData };
+            List<InvoiceReportData> listReportData = new List<InvoiceReportData> { InvoiceReportData };
 
             _InvoiceReport = new InvoiceReport
             {

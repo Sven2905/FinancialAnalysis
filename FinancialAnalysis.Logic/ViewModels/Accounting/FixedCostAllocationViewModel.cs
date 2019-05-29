@@ -1,14 +1,9 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Logic.General;
 using FinancialAnalysis.Logic.Messages;
-using FinancialAnalysis.Logic.ViewModels.Accounting;
 using FinancialAnalysis.Models.Accounting;
-using Notifications.Wpf;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using Utilities;
 using WebApiWrapper.Accounting;
@@ -22,7 +17,9 @@ namespace FinancialAnalysis.Logic.ViewModels
         public FixedCostAllocationViewModel()
         {
             if (IsInDesignMode)
+            {
                 return;
+            }
 
             GetData();
             InitializeCommands();
@@ -43,9 +40,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             CostCenterCategoryList = CostCenterCategories.GetAll().ToSvenTechCollection();
             FixedCostAllocationList = FixedCostAllocations.GetAll().ToSvenTechCollection();
 
-            foreach (var fixedCostAllocation in FixedCostAllocationList)
+            foreach (FixedCostAllocation fixedCostAllocation in FixedCostAllocationList)
             {
-                foreach (var detail in fixedCostAllocation.FixedCostAllocationDetails)
+                foreach (FixedCostAllocationDetail detail in fixedCostAllocation.FixedCostAllocationDetails)
                 {
                     detail.CostCenter.CostCenterCategory = CostCenterCategoryList.Single(x => x.CostCenterCategoryId == detail.CostCenter.RefCostCenterCategoryId);
                 }
@@ -80,7 +77,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (SelectedFixedCostAllocation.FixedCostAllocationId > 0)
             {
                 FixedCostAllocations.Update(SelectedFixedCostAllocation);
-                foreach (var item in SelectedFixedCostAllocation.FixedCostAllocationDetails)
+                foreach (FixedCostAllocationDetail item in SelectedFixedCostAllocation.FixedCostAllocationDetails)
                 {
                     if (item.RefFixedCostAllocationId == 0)
                     {
@@ -96,7 +93,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             else
             {
                 int id = FixedCostAllocations.Insert(SelectedFixedCostAllocation);
-                foreach (var item in SelectedFixedCostAllocation.FixedCostAllocationDetails)
+                foreach (FixedCostAllocationDetail item in SelectedFixedCostAllocation.FixedCostAllocationDetails)
                 {
                     item.RefFixedCostAllocationId = id;
                     FixedCostAllocationDetails.Insert(item);
@@ -116,7 +113,9 @@ namespace FinancialAnalysis.Logic.ViewModels
         public void AddFixedCostAllocationDetail()
         {
             if (SelectedFixedCostAllocation == null)
+            {
                 return;
+            }
 
             if (DoesCostCenterAlreadyExist(SelectedCostCenter.CostCenterId))
             {
@@ -161,7 +160,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             try
             {
-                var itemToRemove = SelectedFixedCostAllocation?.FixedCostAllocationDetails.Single(x => x.CostCenter == SelectedFixedCostAllocationDetail.CostCenter);
+                FixedCostAllocationDetail itemToRemove = SelectedFixedCostAllocation?.FixedCostAllocationDetails.Single(x => x.CostCenter == SelectedFixedCostAllocationDetail.CostCenter);
                 SelectedFixedCostAllocation?.FixedCostAllocationDetails.Remove(itemToRemove);
                 if (itemToRemove.FixedCostAllocationDetailId != 0)
                 {
@@ -199,7 +198,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public FixedCostAllocationDetail SelectedFixedCostAllocationDetail
         {
-            get { return _SelectedFixedCostAllocationDetail; }
+            get => _SelectedFixedCostAllocationDetail;
             set
             {
                 _SelectedFixedCostAllocationDetail = value;

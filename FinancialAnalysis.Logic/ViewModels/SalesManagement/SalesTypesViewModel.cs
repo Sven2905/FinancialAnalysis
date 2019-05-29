@@ -1,10 +1,7 @@
-﻿using System;
-using System.Windows;
-using DevExpress.Mvvm;
-
-using FinancialAnalysis.Logic.Messages;
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.SalesManagement;
+using System;
 using Utilities;
 using WebApiWrapper.SalesManagement;
 
@@ -16,7 +13,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public SalesTypesViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             FilteredSalesTypes = _SalesTypes = LoadAllSalesTypes();
             NewSalesTypeCommand = new DelegateCommand(NewSalesType);
@@ -43,7 +43,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private SvenTechCollection<SalesType> LoadAllSalesTypes()
         {
-            var allSalesTypes = new SvenTechCollection<SalesType>();
+            SvenTechCollection<SalesType> allSalesTypes = new SvenTechCollection<SalesType>();
             allSalesTypes = SalesTypes.GetAll().ToSvenTechCollection();
 
             return allSalesTypes;
@@ -57,7 +57,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteSalesType()
         {
-            if (SelectedSalesType == null) return;
+            if (SelectedSalesType == null)
+            {
+                return;
+            }
 
             if (SelectedSalesType.SalesTypeId == 0)
             {
@@ -74,23 +77,41 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveSalesType()
         {
             if (SelectedSalesType.SalesTypeId != 0)
+            {
                 SalesTypes.Update(SelectedSalesType);
+            }
             else
+            {
                 SelectedSalesType.SalesTypeId = SalesTypes.Insert(SelectedSalesType);
+            }
         }
 
         private bool Validation()
         {
-            if (SelectedSalesType == null) return false;
-            if (string.IsNullOrEmpty(SelectedSalesType.Name)) return false;
+            if (SelectedSalesType == null)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(SelectedSalesType.Name))
+            {
+                return false;
+            }
+
             return true;
         }
 
         public void SendSelectedToParent()
         {
-            if (SelectedSalesType == null) return;
+            if (SelectedSalesType == null)
+            {
+                return;
+            }
 
-            if (SelectedSalesType.SalesTypeId == 0) SaveSalesType();
+            if (SelectedSalesType.SalesTypeId == 0)
+            {
+                SaveSalesType();
+            }
 
             Messenger.Default.Send(new SelectedSalesType { SalesType = SelectedSalesType });
         }
@@ -114,9 +135,13 @@ namespace FinancialAnalysis.Logic.ViewModels
                 if (!string.IsNullOrEmpty(_FilterText))
                 {
                     FilteredSalesTypes = new SvenTechCollection<SalesType>();
-                    foreach (var item in _SalesTypes)
+                    foreach (SalesType item in _SalesTypes)
+                    {
                         if (item.Name.Contains(FilterText))
+                        {
                             FilteredSalesTypes.Add(item);
+                        }
+                    }
                 }
                 else
                 {

@@ -1,12 +1,5 @@
-﻿using DevExpress.Mvvm;
-using DevExpress.Xpf.PivotGrid;
-using DevExpress.Xpf.Printing;
+﻿using DevExpress.Xpf.Printing;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace FinancialAnalysis.Logic
@@ -22,8 +15,10 @@ namespace FinancialAnalysis.Logic
         public void Execute(object parameter)
         {
             DocumentPreview preview = new DocumentPreview();
-            PrintableControlLink link = new PrintableControlLink(parameter as IPrintableControl);
-            link.Landscape = true;
+            PrintableControlLink link = new PrintableControlLink(parameter as IPrintableControl)
+            {
+                Landscape = true
+            };
             link.CreateDocument(false);
             link.PrintingSystem.Document.AutoFitToPagesWidth = 1;
             link.ExportToPdf("Pivot.pdf");

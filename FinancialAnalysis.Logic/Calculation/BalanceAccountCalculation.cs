@@ -3,8 +3,6 @@ using FinancialAnalysis.Models.Accounting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utilities;
 using WebApiWrapper.Accounting;
 
@@ -43,7 +41,7 @@ namespace FinancialAnalysis.Logic.Calculation
 
         public void GetAndCalculateData(DateTime StartDate, DateTime EndDate)
         {
-            var newEndDate = new DateTime(EndDate.Year, EndDate.Month, EndDate.Day, 23, 59, 59);
+            DateTime newEndDate = new DateTime(EndDate.Year, EndDate.Month, EndDate.Day, 23, 59, 59);
             ActiveAccountList = BalanceAccounts.GetActiveAccounts(StartDate, newEndDate).ToSvenTechCollection();
             //ActiveAccountDetailedList = BalanceAccounts.GetActiveAccountsDetailed(StartDate, newEndDate).ToSvenTechCollection();
             PassiveAccountList = BalanceAccounts.GetPassiveAccounts(StartDate, newEndDate).ToSvenTechCollection();
@@ -65,7 +63,7 @@ namespace FinancialAnalysis.Logic.Calculation
             {
 
             }
-            else if(SumPassiveAccounts < SumPassiveAccounts)
+            else if (SumPassiveAccounts < SumPassiveAccounts)
             {
 
             }
@@ -97,11 +95,11 @@ namespace FinancialAnalysis.Logic.Calculation
 
         private void GetParentCategories()
         {
-            var allCategories = BalanceAccounts.GetAll();
-            var parent = new BalanceAccount();
-            var mainParent = new BalanceAccount();
+            List<BalanceAccount> allCategories = BalanceAccounts.GetAll();
+            BalanceAccount parent = new BalanceAccount();
+            BalanceAccount mainParent = new BalanceAccount();
 
-            foreach (var item in ActiveAccountDetailedList)
+            foreach (BalanceAccountResultDetailItem item in ActiveAccountDetailedList)
             {
                 if (item.ParentId != 0)
                 {
@@ -115,7 +113,7 @@ namespace FinancialAnalysis.Logic.Calculation
                 }
             }
 
-            foreach (var item in PassiveAccountDetailedList)
+            foreach (BalanceAccountResultDetailItem item in PassiveAccountDetailedList)
             {
                 if (item.ParentId != 0)
                 {

@@ -15,14 +15,14 @@ namespace FinancialAnalysis.Logic
         /// </summary>
         public static string ToXml(object obj, XmlSerializerNamespaces ns)
         {
-            var T = obj.GetType();
+            Type T = obj.GetType();
 
-            var xs = new XmlSerializer(T);
-            var ws = new XmlWriterSettings
-                {Indent = true, NewLineOnAttributes = NewLineOnAttributes, OmitXmlDeclaration = true};
+            XmlSerializer xs = new XmlSerializer(T);
+            XmlWriterSettings ws = new XmlWriterSettings
+            { Indent = true, NewLineOnAttributes = NewLineOnAttributes, OmitXmlDeclaration = true };
 
-            var sb = new StringBuilder();
-            using (var writer = XmlWriter.Create(sb, ws))
+            StringBuilder sb = new StringBuilder();
+            using (XmlWriter writer = XmlWriter.Create(sb, ws))
             {
                 xs.Serialize(writer, obj, ns);
             }
@@ -35,7 +35,7 @@ namespace FinancialAnalysis.Logic
         /// </summary>
         public static string ToXml(object obj)
         {
-            var ns = new XmlSerializerNamespaces();
+            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
             ns.Add("", "");
             return ToXml(obj, ns);
         }
@@ -45,10 +45,10 @@ namespace FinancialAnalysis.Logic
         /// </summary>
         public static T FromXml<T>(string xml)
         {
-            var xs = new XmlSerializer(typeof(T));
-            using (var sr = new StringReader(xml))
+            XmlSerializer xs = new XmlSerializer(typeof(T));
+            using (StringReader sr = new StringReader(xml))
             {
-                return (T) xs.Deserialize(sr);
+                return (T)xs.Deserialize(sr);
             }
         }
 
@@ -57,9 +57,9 @@ namespace FinancialAnalysis.Logic
         /// </summary>
         public static object FromXml(string xml, string typeName)
         {
-            var T = Type.GetType(typeName);
-            var xs = new XmlSerializer(T);
-            using (var sr = new StringReader(xml))
+            Type T = Type.GetType(typeName);
+            XmlSerializer xs = new XmlSerializer(T);
+            using (StringReader sr = new StringReader(xml))
             {
                 return xs.Deserialize(sr);
             }
@@ -70,13 +70,13 @@ namespace FinancialAnalysis.Logic
         /// </summary>
         public static void ToXmlFile(object obj, string filePath)
         {
-            var xs = new XmlSerializer(obj.GetType());
-            var ns = new XmlSerializerNamespaces();
-            var ws = new XmlWriterSettings
-                {Indent = true, NewLineOnAttributes = NewLineOnAttributes, OmitXmlDeclaration = true};
+            XmlSerializer xs = new XmlSerializer(obj.GetType());
+            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+            XmlWriterSettings ws = new XmlWriterSettings
+            { Indent = true, NewLineOnAttributes = NewLineOnAttributes, OmitXmlDeclaration = true };
             ns.Add("", "");
 
-            using (var writer = XmlWriter.Create(filePath, ws))
+            using (XmlWriter writer = XmlWriter.Create(filePath, ws))
             {
                 xs.Serialize(writer, obj);
             }
@@ -87,10 +87,10 @@ namespace FinancialAnalysis.Logic
         /// </summary>
         public static T FromXmlFile<T>(string filePath)
         {
-            var sr = new StreamReader(filePath);
+            StreamReader sr = new StreamReader(filePath);
             try
             {
-                var result = FromXml<T>(sr.ReadToEnd());
+                T result = FromXml<T>(sr.ReadToEnd());
                 return result;
             }
             catch (Exception e)

@@ -1,6 +1,5 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Accounting;
-using FinancialAnalysis.Models.ClientManagement;
 using FinancialAnalysis.Models.ProjectManagement;
 using Newtonsoft.Json;
 using System;
@@ -82,7 +81,7 @@ namespace FinancialAnalysis.Models.SalesManagement
         /// </summary>
         public decimal PaidAmount
         {
-            get { return _PaidAmount; }
+            get => _PaidAmount;
             set
             {
                 _PaidAmount = value;
@@ -116,7 +115,7 @@ namespace FinancialAnalysis.Models.SalesManagement
         /// <summary>
         /// Ausstehender Betrag
         /// </summary>
-        public decimal OutstandingAmount { get => TotalAmount - PaidAmount; }
+        public decimal OutstandingAmount => TotalAmount - PaidAmount;
 
         /// <summary>
         /// Mahnungen
@@ -134,7 +133,7 @@ namespace FinancialAnalysis.Models.SalesManagement
         /// <returns>Der letztendlich zu bezahlende Betrag</returns>
         private decimal CheckForPaymentConditions()
         {
-            var result = TotalAmount;
+            decimal result = TotalAmount;
 
             if (PaymentCondition?.CheckIfAdhered(InvoiceDueDate, PaidDate) == true)
             {

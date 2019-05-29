@@ -11,9 +11,12 @@ namespace FinancialAnalysis.Windows
         public SalesTypesWindow()
         {
             InitializeComponent();
-            var vm = new SalesTypesViewModel();
+            SalesTypesViewModel vm = new SalesTypesViewModel();
             DataContext = vm;
-            if (vm.CloseAction == null) vm.CloseAction = () => { };
+            if (vm.CloseAction == null)
+            {
+                vm.CloseAction = () => { };
+            }
 
             vm.CloseAction = Close;
         }

@@ -2,14 +2,12 @@ using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.Enums;
 using FinancialAnalysis.Models.General;
-using Formulas.DepreciationMethods;
 using System;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Timers;
-using System.Windows.Media;
 using WebApiWrapper.SalesManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels

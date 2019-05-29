@@ -2,10 +2,6 @@
 
 using FinancialAnalysis.Models.SalesManagement;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using WebApiWrapper.SalesManagement;
 
@@ -41,7 +37,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             // TODO Report
 
-            var reminder = new InvoiceReminder()
+            InvoiceReminder reminder = new InvoiceReminder()
             {
                 Date = DateTime.Now,
                 IsLastReminder = false,

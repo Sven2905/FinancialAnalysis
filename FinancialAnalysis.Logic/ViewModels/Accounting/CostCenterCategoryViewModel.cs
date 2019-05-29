@@ -1,10 +1,7 @@
-﻿using System;
-using System.Windows;
-using DevExpress.Mvvm;
-
-using FinancialAnalysis.Logic.Messages;
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
+using System;
 using Utilities;
 using WebApiWrapper.Accounting;
 
@@ -16,7 +13,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public CostCenterCategoryViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             FilteredCostCenterCategories = _CostCenterCategories = LoadAllCostCenterCategories();
             NewCostCenterCategoryCommand = new DelegateCommand(NewCostCenterCategory);
@@ -47,7 +47,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private SvenTechCollection<CostCenterCategory> LoadAllCostCenterCategories()
         {
-            var allCostCenterCategories = new SvenTechCollection<CostCenterCategory>();
+            SvenTechCollection<CostCenterCategory> allCostCenterCategories = new SvenTechCollection<CostCenterCategory>();
             return CostCenterCategories.GetAll().ToSvenTechCollection();
         }
 
@@ -59,7 +59,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteCostCenterCategory()
         {
-            if (SelectedCostCenterCategory == null) return;
+            if (SelectedCostCenterCategory == null)
+            {
+                return;
+            }
 
             if (SelectedCostCenterCategory.CostCenterCategoryId == 0)
             {
@@ -76,24 +79,42 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveCostCenterCategory()
         {
             if (SelectedCostCenterCategory.CostCenterCategoryId != 0)
+            {
                 CostCenterCategories.Update(SelectedCostCenterCategory);
+            }
             else
+            {
                 SelectedCostCenterCategory.CostCenterCategoryId =
                     CostCenterCategories.Insert(SelectedCostCenterCategory);
+            }
         }
 
         private bool Validation()
         {
-            if (SelectedCostCenterCategory == null) return false;
-            if (string.IsNullOrEmpty(SelectedCostCenterCategory.Name)) return false;
+            if (SelectedCostCenterCategory == null)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(SelectedCostCenterCategory.Name))
+            {
+                return false;
+            }
+
             return true;
         }
 
         public void SendSelectedToParent()
         {
-            if (SelectedCostCenterCategory == null) return;
+            if (SelectedCostCenterCategory == null)
+            {
+                return;
+            }
 
-            if (SelectedCostCenterCategory.CostCenterCategoryId == 0) SaveCostCenterCategory();
+            if (SelectedCostCenterCategory.CostCenterCategoryId == 0)
+            {
+                SaveCostCenterCategory();
+            }
 
             Messenger.Default.Send(new SelectedCostCenterCategory { CostCenterCategory = SelectedCostCenterCategory });
         }
@@ -119,9 +140,13 @@ namespace FinancialAnalysis.Logic.ViewModels
                 if (!string.IsNullOrEmpty(_FilterText))
                 {
                     FilteredCostCenterCategories = new SvenTechCollection<CostCenterCategory>();
-                    foreach (var item in _CostCenterCategories)
+                    foreach (CostCenterCategory item in _CostCenterCategories)
+                    {
                         if (item.Name.Contains(FilterText))
+                        {
                             FilteredCostCenterCategories.Add(item);
+                        }
+                    }
                 }
                 else
                 {

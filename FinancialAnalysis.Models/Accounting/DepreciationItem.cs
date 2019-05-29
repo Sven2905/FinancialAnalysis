@@ -1,11 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinancialAnalysis.Models.Accounting
 {
@@ -34,25 +30,25 @@ namespace FinancialAnalysis.Models.Accounting
 
         public int Years
         {
-            get { return _Years; }
+            get => _Years;
             set { _Years = value; OnPropertyChanged(nameof(Years)); }
         }
 
         public decimal InitialValue
         {
-            get { return _InitialValue; }
+            get => _InitialValue;
             set { _InitialValue = value; OnPropertyChanged(nameof(InitialValue)); }
         }
 
         public decimal AssetValue
         {
-            get { return _AssetValue; }
+            get => _AssetValue;
             set { _AssetValue = value; OnPropertyChanged(nameof(AssetValue)); }
         }
 
         public DepreciationType DepreciationType
         {
-            get { return _DepreciationType; }
+            get => _DepreciationType;
             set { _DepreciationType = value; OnPropertyChanged(nameof(DepreciationType)); }
         }
 

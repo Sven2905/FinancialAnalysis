@@ -3,7 +3,6 @@ using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Accounting;
 using System;
 using System.IO;
-using System.Linq;
 using Utilities;
 using WebApiWrapper.Accounting;
 
@@ -73,24 +72,24 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 RefFixedCostAllocationId = SelectedBooking.RefFixedCostAllocationId,
                 FixedCostAllocation = SelectedBooking.FixedCostAllocation,
-                
+
             };
 
             cancelBooking.BookingId = Bookings.Insert(cancelBooking);
 
-            foreach (var item in SelectedBooking.Credits)
+            foreach (Credit item in SelectedBooking.Credits)
             {
                 cancelBooking.Credits.Add(new Credit(item.Amount * (-1), item.RefCostAccountId, cancelBooking.BookingId));
             }
 
-            foreach (var item in SelectedBooking.Debits)
+            foreach (Debit item in SelectedBooking.Debits)
             {
                 cancelBooking.Debits.Add(new Debit(item.Amount * (-1), item.RefCostAccountId, cancelBooking.BookingId));
             }
 
-            foreach (var item in SelectedBooking.BookingCostCenterMappingList)
+            foreach (BookingCostCenterMapping item in SelectedBooking.BookingCostCenterMappingList)
             {
-                cancelBooking.BookingCostCenterMappingList.Add(new BookingCostCenterMapping(cancelBooking.BookingId, item.RefCostCenterId, item.Amount * (-1)) {CostCenter = item.CostCenter });
+                cancelBooking.BookingCostCenterMappingList.Add(new BookingCostCenterMapping(cancelBooking.BookingId, item.RefCostCenterId, item.Amount * (-1)) { CostCenter = item.CostCenter });
             }
 
             Credits.Insert(cancelBooking.Credits);

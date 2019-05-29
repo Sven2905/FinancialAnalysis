@@ -19,7 +19,7 @@ namespace Utilities
                 return null;
             }
 
-            var encryptedData = ProtectedData.Protect(
+            byte[] encryptedData = ProtectedData.Protect(
                 Encoding.Unicode.GetBytes(input.ToInsecureString()),
                 entropy,
                 DataProtectionScope.CurrentUser);
@@ -36,7 +36,7 @@ namespace Utilities
 
             try
             {
-                var decryptedData = ProtectedData.Unprotect(
+                byte[] decryptedData = ProtectedData.Unprotect(
                     Convert.FromBase64String(encryptedData),
                     entropy,
                     DataProtectionScope.CurrentUser);
@@ -56,9 +56,9 @@ namespace Utilities
                 return null;
             }
 
-            var secure = new SecureString();
+            SecureString secure = new SecureString();
 
-            foreach (var c in input)
+            foreach (char c in input)
             {
                 secure.AppendChar(c);
             }
@@ -74,7 +74,7 @@ namespace Utilities
                 return null;
             }
 
-            var ptr = Marshal.SecureStringToBSTR(input);
+            IntPtr ptr = Marshal.SecureStringToBSTR(input);
 
             try
             {

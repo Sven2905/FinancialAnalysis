@@ -1,12 +1,6 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
-using Formulas.DepreciationMethods;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utilities;
 using WebApiWrapper.Accounting;
 
@@ -19,8 +13,8 @@ namespace FinancialAnalysis.Logic.ViewModels
             GetData();
             NewDepreciationItemCommand = new DelegateCommand(NewSelectedDepreciationItem);
 
-            SaveDepreciationItemCommand = new DelegateCommand(() => SaveSelectedDepreciationItem(), 
-                SelectedDepreciationItem != null && SelectedDepreciationItem.InitialValue > 0 
+            SaveDepreciationItemCommand = new DelegateCommand(() => SaveSelectedDepreciationItem(),
+                SelectedDepreciationItem != null && SelectedDepreciationItem.InitialValue > 0
                 && !string.IsNullOrEmpty(SelectedDepreciationItem.Name) && SelectedDepreciationItem.Years > 0 && SelectedDepreciationItem.StartYear > 0);
 
             DeleteDepreciationItemCommand = new DelegateCommand(() => DeleteSelectedDepreciationItem(), SelectedDepreciationItem != null);
@@ -39,7 +33,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand DeleteDepreciationItemCommand { get; set; }
         public string FilterText
         {
-            get { return _FilterText; }
+            get => _FilterText;
             set
             {
                 _FilterText = value;
@@ -49,7 +43,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                     FilteredDepreciationItems.AddRange(DepreciationItemList.Where(x => x.Name.ToLower().Contains(_FilterText.ToLower())));
                 }
                 else
+                {
                     FilteredDepreciationItems = DepreciationItemList;
+                }
             }
         }
 
@@ -59,7 +55,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public SvenTechCollection<DepreciationItem> FilteredDepreciationItems { get; set; }
         public DepreciationItem SelectedDepreciationItem
         {
-            get { return _SelectedDepreciationItem; }
+            get => _SelectedDepreciationItem;
             set { _SelectedDepreciationItem = value; DepreciationBaseViewModel.DepreciationItem = value; }
         }
 
@@ -78,9 +74,13 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveSelectedDepreciationItem()
         {
             if (SelectedDepreciationItem.DepreciationItemId > 0)
+            {
                 DepreciationItems.Insert(SelectedDepreciationItem);
+            }
             else
+            {
                 DepreciationItems.Update(SelectedDepreciationItem);
+            }
         }
 
         private void DeleteSelectedDepreciationItem()
@@ -88,7 +88,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             DepreciationItemList.Remove(SelectedDepreciationItem);
             FilteredDepreciationItems.Remove(SelectedDepreciationItem);
             if (SelectedDepreciationItem.DepreciationItemId > 0)
+            {
                 DepreciationItems.Delete(SelectedDepreciationItem.DepreciationItemId);
+            }
         }
 
         private void NewSelectedDepreciationItem()

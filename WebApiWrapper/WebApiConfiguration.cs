@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebApiWrapper
 {
@@ -24,11 +20,11 @@ namespace WebApiWrapper
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Clear();
 
-            var response = client.GetAsync($"http://{Instance.Server}:{Instance.Port}/api/Token/Get?username={username}&password={password}").Result;
+            HttpResponseMessage response = client.GetAsync($"http://{Instance.Server}:{Instance.Port}/api/Token/Get?username={username}&password={password}").Result;
 
             if (response.IsSuccessStatusCode)
             {
-                var responseContent = response.Content;
+                HttpContent responseContent = response.Content;
                 string responseString = responseContent.ReadAsStringAsync().Result;
 
                 WebApiKey = JsonConvert.DeserializeObject<string>(responseString);

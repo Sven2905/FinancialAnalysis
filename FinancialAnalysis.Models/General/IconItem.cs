@@ -1,5 +1,4 @@
 ﻿using DevExpress.Mvvm;
-using System;
 using System.Windows.Media;
 
 namespace FinancialAnalysis.Models.General

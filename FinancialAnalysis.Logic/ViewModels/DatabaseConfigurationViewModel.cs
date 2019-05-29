@@ -1,11 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Administration;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels

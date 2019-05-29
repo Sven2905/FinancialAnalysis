@@ -1,7 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.ProjectManagement;
-using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace FinancialAnalysis.Models.Accounting
 {

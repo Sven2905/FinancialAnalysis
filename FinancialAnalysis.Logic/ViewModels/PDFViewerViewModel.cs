@@ -1,7 +1,6 @@
-﻿using System.IO;
-using DevExpress.Mvvm;
-
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Accounting;
+using System.IO;
 using WebApiWrapper.Accounting;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -16,21 +15,24 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public PDFViewerViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
         }
 
         private void LoadDocumentById()
         {
             content = ScannedDocuments.GetById(ScannedDocumentId).Content;
 
-            var ms = new MemoryStream(content);
+            MemoryStream ms = new MemoryStream(content);
             ScannedDocument = ms;
         }
 
         private void LoadDocumentByPath()
         {
             content = File.ReadAllBytes(_Path);
-            var ms = new MemoryStream(content);
+            MemoryStream ms = new MemoryStream(content);
             ScannedDocument = ms;
         }
 
@@ -49,7 +51,10 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 _ScannedDocumentId = value;
-                if (_ScannedDocumentId != 0) LoadDocumentById();
+                if (_ScannedDocumentId != 0)
+                {
+                    LoadDocumentById();
+                }
             }
         }
 
@@ -59,7 +64,10 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 _Path = value;
-                if (!string.IsNullOrEmpty(_Path)) LoadDocumentByPath();
+                if (!string.IsNullOrEmpty(_Path))
+                {
+                    LoadDocumentByPath();
+                }
             }
         }
 

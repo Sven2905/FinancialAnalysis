@@ -17,7 +17,10 @@ namespace FinancialAnalysis.Logic.ViewModels.Accounting
 
         public CompanyViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             TaxTypeList = TaxTypes.GetAll().ToSvenTechCollection();
             SelectedTaxTypeId = 1;
@@ -30,8 +33,12 @@ namespace FinancialAnalysis.Logic.ViewModels.Accounting
             {
                 _Client = value;
                 if (Client != null)
+                {
                     if (Client.IsCompany)
+                    {
                         SelectedClientType = ClientType.Business;
+                    }
+                }
             }
         }
 
@@ -40,7 +47,7 @@ namespace FinancialAnalysis.Logic.ViewModels.Accounting
         public int SelectedTaxTypeId { get; set; }
         public SvenTechCollection<TaxType> TaxTypeList { get; set; } = new SvenTechCollection<TaxType>();
         public bool ShowTaxType { get; set; }
-        public bool CompanyIsNotNull { get => Client != null; }
+        public bool CompanyIsNotNull => Client != null;
 
         public CustomerType SelectedCustomerType
         {

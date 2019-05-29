@@ -1,6 +1,6 @@
-﻿using System;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 using Newtonsoft.Json;
+using System;
 
 namespace FinancialAnalysis.Models.Accounting
 {
@@ -43,7 +43,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// <returns></returns>
         public bool CheckIfAdhered(DateTime dueDate, DateTime payDate)
         {
-            var result = false;
+            bool result = false;
 
             switch (PayType)
             {

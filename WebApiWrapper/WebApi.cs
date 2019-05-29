@@ -15,12 +15,12 @@ namespace WebApiWrapper
 
         public static T GetData(string controller, string action = "Get", Dictionary<string, object> parameters = null)
         {
-            var url = $"http://{WebApiConfiguration.Instance.Server}:{WebApiConfiguration.Instance.Port}/api/{controller}/{action}";
+            string url = $"http://{WebApiConfiguration.Instance.Server}:{WebApiConfiguration.Instance.Port}/api/{controller}/{action}";
             if (parameters?.Count > 0)
             {
                 url += "?";
 
-                foreach (var item in parameters)
+                foreach (KeyValuePair<string, object> item in parameters)
                 {
                     if (item.Value is DateTime)
                     {
@@ -43,7 +43,7 @@ namespace WebApiWrapper
 
         public static T GetDataById(string controller, int id, string action = "GetById")
         {
-            var url = $"http://{WebApiConfiguration.Instance.Server}:{WebApiConfiguration.Instance.Port}/api/{controller}/{action}/{id}";
+            string url = $"http://{WebApiConfiguration.Instance.Server}:{WebApiConfiguration.Instance.Port}/api/{controller}/{action}/{id}";
 
             return GetData(url);
         }
@@ -55,11 +55,11 @@ namespace WebApiWrapper
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + WebApiConfiguration.WebApiKey);
 
-            var response = client.GetAsync(url).Result;
+            HttpResponseMessage response = client.GetAsync(url).Result;
 
             if (response.IsSuccessStatusCode)
             {
-                var responseContent = response.Content;
+                HttpContent responseContent = response.Content;
                 string responseString = responseContent.ReadAsStringAsync().Result;
                 if (responseString == "[]")
                 {
@@ -93,19 +93,19 @@ namespace WebApiWrapper
                     url += "/" + actionName;
                 }
 
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Method = "POST";
                 httpWebRequest.Headers.Add("Authorization", "Bearer " + WebApiConfiguration.WebApiKey);
 
-                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                using (StreamWriter streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
                     streamWriter.Write(json);
                     streamWriter.Flush();
                 }
 
-                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                HttpWebResponse httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (StreamReader streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 {
                     string resultString = streamReader.ReadToEnd();
                     if (!string.IsNullOrEmpty(resultString) && resultString != "[]")
@@ -135,19 +135,19 @@ namespace WebApiWrapper
                     url += @"/" + actionName;
                 }
 
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Method = "PUT";
                 httpWebRequest.Headers.Add("Authorization", "Bearer " + WebApiConfiguration.WebApiKey);
 
-                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                using (StreamWriter streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
                     streamWriter.Write(json);
                     streamWriter.Flush();
                 }
 
-                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                HttpWebResponse httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (StreamReader streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 {
                     resultString = streamReader.ReadToEnd();
                 }
@@ -165,13 +165,13 @@ namespace WebApiWrapper
             string url = $"http://{WebApiConfiguration.Instance.Server}:{WebApiConfiguration.Instance.Port}/api/{controllerName}";
             url += $"/{id}";
 
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
             httpWebRequest.ContentType = "application/json";
             httpWebRequest.Method = "DELETE";
             httpWebRequest.Headers.Add("Authorization", "Bearer " + WebApiConfiguration.WebApiKey);
 
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            HttpWebResponse httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (StreamReader streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
                 string resultString = streamReader.ReadToEnd();
                 if (!string.IsNullOrEmpty(resultString) && resultString != "[]")

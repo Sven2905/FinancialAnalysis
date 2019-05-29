@@ -77,7 +77,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             OpenFileCommand = new DelegateCommand(() =>
             {
-                var fileDialog = new DXOpenFileDialog();
+                DXOpenFileDialog fileDialog = new DXOpenFileDialog();
                 if (fileDialog.ShowDialog().Value)
                 {
                     CreateScannedDocumentItem(fileDialog.FileName);
@@ -122,12 +122,12 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void CreateScannedDocumentItem(string path)
         {
-            var file = File.ReadAllBytes(path);
+            byte[] file = File.ReadAllBytes(path);
 
-            var temp = path.Split('\\');
-            var fileName = temp[temp.Length - 1].Replace(".pdf", "").Replace(".PDF", "");
+            string[] temp = path.Split('\\');
+            string fileName = temp[temp.Length - 1].Replace(".pdf", "").Replace(".PDF", "");
 
-            var scannedDocument = new ScannedDocument
+            ScannedDocument scannedDocument = new ScannedDocument
             {
                 Content = file,
                 Date = DateTime.Now,
@@ -206,8 +206,8 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
             }
 
-            var debit = new Debit();
-            var credit = new Credit();
+            Debit debit = new Debit();
+            Credit credit = new Credit();
 
             if (SelectedBookingType == BookingType.Invoice)
             {
@@ -215,14 +215,14 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     credit = new Credit(amountWithoutTax, CostAccountCreditorId, booking.BookingId);
                     debit = new Debit((amountWithoutTax + tax) * (-1), CostAccountDebitorId, booking.BookingId);
-                    var creditTax = new Credit(tax, SelectedTax.RefCostAccount, booking.BookingId);
+                    Credit creditTax = new Credit(tax, SelectedTax.RefCostAccount, booking.BookingId);
                     booking.Credits.Add(creditTax);
                 }
                 else if (SelectedTax.Description.IndexOf("Umsatzsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     credit = new Credit(amountWithoutTax + tax, CostAccountCreditorId, booking.BookingId);
                     debit = new Debit((amountWithoutTax + tax) * (-1), CostAccountDebitorId, booking.BookingId);
-                    var debitTax = new Debit(tax, SelectedTax.RefCostAccount, booking.BookingId);
+                    Debit debitTax = new Debit(tax, SelectedTax.RefCostAccount, booking.BookingId);
                     booking.Debits.Add(debitTax);
                 }
                 else
@@ -237,14 +237,14 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     credit = new Credit((amountWithoutTax + tax) * (-1), CostAccountDebitorId, booking.BookingId);
                     debit = new Debit(amountWithoutTax, CostAccountCreditorId, booking.BookingId);
-                    var debitTax = new Debit(tax, SelectedTax.RefCostAccount, booking.BookingId);
+                    Debit debitTax = new Debit(tax, SelectedTax.RefCostAccount, booking.BookingId);
                     booking.Debits.Add(debitTax);
                 }
                 else if (SelectedTax.Description.IndexOf("Umsatzsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     credit = new Credit(amountWithoutTax, CostAccountDebitorId, booking.BookingId);
                     debit = new Debit((amountWithoutTax + tax) * (-1), CostAccountCreditorId, booking.BookingId);
-                    var creditTax = new Credit(tax, SelectedTax.RefCostAccount, booking.BookingId);
+                    Credit creditTax = new Credit(tax, SelectedTax.RefCostAccount, booking.BookingId);
                     booking.Credits.Add(creditTax);
                 }
                 else
@@ -261,7 +261,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (IsFixedCostAllocationActive)
             {
                 booking.RefFixedCostAllocationId = SelectedFixedCostAllocation.FixedCostAllocationId;
-                foreach (var item in SelectedFixedCostAllocation.FixedCostAllocationDetails)
+                foreach (FixedCostAllocationDetail item in SelectedFixedCostAllocation.FixedCostAllocationDetails)
                 {
                     booking.BookingCostCenterMappingList.Add(new BookingCostCenterMapping(0, item.RefCostCenterId, booking.Amount * (decimal)(item.Shares / SelectedFixedCostAllocation.Shares.Sum())));
                 }
@@ -282,31 +282,31 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
-            var bookingId = Bookings.Insert(booking);
+            int bookingId = Bookings.Insert(booking);
             if (bookingId == 0)
             {
                 return;
             }
 
-            foreach (var item in booking.Credits)
+            foreach (Credit item in booking.Credits)
             {
                 item.RefBookingId = bookingId;
             }
             Credits.Insert(booking.Credits);
 
-            foreach (var item in booking.Debits)
+            foreach (Debit item in booking.Debits)
             {
                 item.RefBookingId = bookingId;
             }
             Debits.Insert(booking.Debits);
 
-            foreach (var item in booking.ScannedDocuments)
+            foreach (ScannedDocument item in booking.ScannedDocuments)
             {
                 item.RefBookingId = bookingId;
             }
             ScannedDocuments.Insert(booking.ScannedDocuments);
 
-            foreach (var item in booking.BookingCostCenterMappingList)
+            foreach (BookingCostCenterMapping item in booking.BookingCostCenterMappingList)
             {
                 item.RefBookingId = bookingId;
             }
@@ -323,7 +323,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveStackToDb()
         {
-            foreach (var item in BookingsOnStack)
+            foreach (Booking item in BookingsOnStack)
             {
                 SaveBookingToDB(item);
             }

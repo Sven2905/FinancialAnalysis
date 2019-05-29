@@ -4,7 +4,6 @@ using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Logic.ViewModels.Accounting;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
-using System;
 using System.Linq;
 using Utilities;
 using WebApiWrapper.Accounting;
@@ -84,7 +83,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveItem()
         {
-            var clientId = SaveClient();
+            int clientId = SaveClient();
 
             if (SelectedCreditor != null)
             {
@@ -142,7 +141,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (SelectedCreditor.CreditorId == 0)
             {
-                var CreditorNumber = CostAccounts.GetNextCreditorNumber();
+                int CreditorNumber = CostAccounts.GetNextCreditorNumber();
                 SelectedCreditor.RefClientId = CompanyViewModel.Client.ClientId;
                 SelectedCreditor.CostAccount.RefTaxTypeId = CompanyViewModel.SelectedTaxTypeId;
                 SelectedCreditor.CostAccount.AccountNumber = CreditorNumber;
@@ -171,7 +170,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             if (SelectedDebitor.DebitorId == 0)
             {
-                var DebitorNumber = CostAccounts.GetNextDebitorNumber();
+                int DebitorNumber = CostAccounts.GetNextDebitorNumber();
                 SelectedDebitor.RefClientId = CompanyViewModel.Client.ClientId;
                 SelectedDebitor.CostAccount.RefTaxTypeId = CompanyViewModel.SelectedTaxTypeId;
                 SelectedDebitor.CostAccount.AccountNumber = DebitorNumber;
@@ -211,8 +210,10 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             else
             {
-                SelectedDebitor = new Debitor();
-                SelectedDebitor.Client = CompanyViewModel.Client;
+                SelectedDebitor = new Debitor
+                {
+                    Client = CompanyViewModel.Client
+                };
                 FilteredDebitors.Add(SelectedDebitor);
             }
         }
@@ -287,7 +288,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public string CreditorFilterText
         {
-            get { return _CreditorFilterText; }
+            get => _CreditorFilterText;
             set
             {
                 _CreditorFilterText = value;
@@ -306,7 +307,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public string DebitorFilterText
         {
-            get { return _DebitorFilterText; }
+            get => _DebitorFilterText;
             set
             {
                 _DebitorFilterText = value;

@@ -41,9 +41,9 @@ namespace FinancialAnalysis.Logic
 
         public User NewUser()
         {
-            var newUser = new User();
+            User newUser = new User();
 
-            foreach (var item in UserRightList)
+            foreach (UserRight item in UserRightList)
             {
                 newUser.UserRightUserMappings.Add(new UserRightUserMapping(0, item.UserRightId, false, 0));
             }
@@ -72,7 +72,7 @@ namespace FinancialAnalysis.Logic
                 throw new NullReferenceException("User is null!");
             }
 
-            var IsNewUser = user.UserId == 0;
+            bool IsNewUser = user.UserId == 0;
 
             if (!IsNewUser)
             {
@@ -100,13 +100,13 @@ namespace FinancialAnalysis.Logic
 
             if (IsNewUser)
             {
-                foreach (var item in user.UserRightUserMappings)
+                foreach (UserRightUserMapping item in user.UserRightUserMappings)
                 {
                     item.RefUserId = user.UserId;
                 }
             }
 
-            foreach (var userRightMapping in user.UserRightUserMappings)
+            foreach (UserRightUserMapping userRightMapping in user.UserRightUserMappings)
             {
                 if (userRightMapping.UserRightUserMappingId == 0)
                 {
@@ -125,7 +125,7 @@ namespace FinancialAnalysis.Logic
 
         public bool IsUserRightGranted(int userId, Permission permission)
         {
-            var user = UserList.SingleOrDefault(x => x.UserId == userId);
+            User user = UserList.SingleOrDefault(x => x.UserId == userId);
             if (user == null)
             {
                 return false;
@@ -141,12 +141,12 @@ namespace FinancialAnalysis.Logic
 
         public SvenTechCollection<UserRightUserMappingFlatStructure> GetUserRightUserMappingFlatStructure(User user)
         {
-            var UserRightUserMappingFlatStructure = new SvenTechCollection<UserRightUserMappingFlatStructure>();
+            SvenTechCollection<UserRightUserMappingFlatStructure> UserRightUserMappingFlatStructure = new SvenTechCollection<UserRightUserMappingFlatStructure>();
             if (user.UserRights.Count == 0)
             {
                 user.UserRights = UserRights.GetAll();
             }
-            foreach (var item in user.UserRightUserMappings)
+            foreach (UserRightUserMapping item in user.UserRightUserMappings)
             {
                 UserRightUserMappingFlatStructure.Add(new UserRightUserMappingFlatStructure(user, Instance.UserRightList.Single(x => x.UserRightId == item.RefUserRightId), item.UserRightUserMappingId));
             }
@@ -157,9 +157,9 @@ namespace FinancialAnalysis.Logic
         public List<UserRightUserMapping> ConvertUserRightUserMappingFlatStructureToNormal(
             SvenTechCollection<UserRightUserMappingFlatStructure> UserRightUserMappingFlatStructure)
         {
-            var userRightUserMappings = new List<UserRightUserMapping>();
+            List<UserRightUserMapping> userRightUserMappings = new List<UserRightUserMapping>();
 
-            foreach (var item in UserRightUserMappingFlatStructure)
+            foreach (UserRightUserMappingFlatStructure item in UserRightUserMappingFlatStructure)
             {
                 userRightUserMappings.Add(new UserRightUserMapping(item.RefUserId, item.RefUserRightId,
                     item.IsGranted, item.UserRightUserMappingId));
@@ -215,8 +215,8 @@ namespace FinancialAnalysis.Logic
 
         public void GrantPermission(User user, Permission permission)
         {
-            var right = Instance.UserRightList.Single(x => x.Permission == permission);
-            var tempUserRightUserMapping =
+            UserRight right = Instance.UserRightList.Single(x => x.Permission == permission);
+            UserRightUserMapping tempUserRightUserMapping =
                 user.UserRightUserMappings.SingleOrDefault(x => x.RefUserRightId == right.UserRightId);
             if (tempUserRightUserMapping != null)
             {
@@ -239,8 +239,8 @@ namespace FinancialAnalysis.Logic
 
         public void RevokePermission(User user, Permission permission)
         {
-            var right = Instance.UserRightList.Single(x => x.Permission == permission);
-            var tempUserRightUserMapping =
+            UserRight right = Instance.UserRightList.Single(x => x.Permission == permission);
+            UserRightUserMapping tempUserRightUserMapping =
                 user.UserRightUserMappings.SingleOrDefault(x => x.RefUserRightId == right.UserRightId);
             if (tempUserRightUserMapping != null)
             {

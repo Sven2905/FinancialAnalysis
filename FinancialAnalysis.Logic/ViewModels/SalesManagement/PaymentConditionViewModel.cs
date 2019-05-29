@@ -57,7 +57,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public PayType PayType
         {
-            get { return _PayType; }
+            get => _PayType;
             set
             {
                 _PayType = value;
@@ -74,7 +74,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public PaymentCondition SelectedPaymentCondition
         {
-            get { return _SelectedPaymentCondition; }
+            get => _SelectedPaymentCondition;
             set { _SelectedPaymentCondition = value; PayType = _SelectedPaymentCondition.PayType; }
         }
 

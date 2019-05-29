@@ -93,7 +93,7 @@ namespace FinancialAnalysis.Models.Accounting
                 }
                 return fixedCostAllocation;
             }
-            set { fixedCostAllocation = value; }
+            set => fixedCostAllocation = value;
         }
 
         /// <summary>
@@ -105,13 +105,13 @@ namespace FinancialAnalysis.Models.Accounting
         /// Gibt den ersten Kreditor der Soll-Positionen zurück
         /// </summary>
         [JsonIgnore]
-        public CostAccount Creditor { get => Credits?.LastOrDefault()?.CostAccount; }
+        public CostAccount Creditor => Credits?.LastOrDefault()?.CostAccount;
 
         /// <summary>
         /// Gibt den ersten Debitor der Haben-Positionen zurück
         /// </summary>
         [JsonIgnore]
-        public CostAccount Debitor { get => Debits?.FirstOrDefault()?.CostAccount; }
+        public CostAccount Debitor => Debits?.FirstOrDefault()?.CostAccount;
 
         #endregion Properties
     }

@@ -1,10 +1,6 @@
 ﻿using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Accounting.CostCenterManagement;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebApiWrapper.Accounting
 {
@@ -24,9 +20,11 @@ namespace WebApiWrapper.Accounting
 
         public static List<CostCenterCurrentCosts> GetAnnuallyCosts(int RefCostCenterId, int Year)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("RefCostCenterId", RefCostCenterId);
-            parameters.Add("Year", Year);
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "RefCostCenterId", RefCostCenterId },
+                { "Year", Year }
+            };
             return WebApi<List<CostCenterCurrentCosts>>.GetData(controllerName, "GetAnnuallyCosts", parameters);
         }
 

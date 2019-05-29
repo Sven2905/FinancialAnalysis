@@ -1,10 +1,7 @@
-﻿using System;
-using System.Windows;
-using DevExpress.Mvvm;
-
-using FinancialAnalysis.Logic.Messages;
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.SalesManagement;
+using System;
 using Utilities;
 using WebApiWrapper.SalesManagement;
 
@@ -16,7 +13,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public InvoiceTypeViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             _InvoiceTypes = LoadAllInvoiceTypes();
             NewInvoiceTypeCommand = new DelegateCommand(NewInvoiceType);
@@ -43,7 +43,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private SvenTechCollection<InvoiceType> LoadAllInvoiceTypes()
         {
-            var allInvoiceTypes = new SvenTechCollection<InvoiceType>();
+            SvenTechCollection<InvoiceType> allInvoiceTypes = new SvenTechCollection<InvoiceType>();
             return InvoiceTypes.GetAll().ToSvenTechCollection();
         }
 
@@ -55,7 +55,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteInvoiceType()
         {
-            if (SelectedInvoiceType == null) return;
+            if (SelectedInvoiceType == null)
+            {
+                return;
+            }
 
             if (SelectedInvoiceType.InvoiceTypeId == 0)
             {
@@ -72,23 +75,41 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveInvoiceType()
         {
             if (SelectedInvoiceType.InvoiceTypeId != 0)
+            {
                 InvoiceTypes.Update(SelectedInvoiceType);
+            }
             else
+            {
                 InvoiceTypes.Insert(SelectedInvoiceType);
+            }
         }
 
         private bool Validation()
         {
-            if (SelectedInvoiceType == null) return false;
-            if (string.IsNullOrEmpty(SelectedInvoiceType.Name)) return false;
+            if (SelectedInvoiceType == null)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(SelectedInvoiceType.Name))
+            {
+                return false;
+            }
+
             return true;
         }
 
         public void SendSelectedToParent()
         {
-            if (SelectedInvoiceType == null) return;
+            if (SelectedInvoiceType == null)
+            {
+                return;
+            }
 
-            if (SelectedInvoiceType.InvoiceTypeId == 0) SaveInvoiceType();
+            if (SelectedInvoiceType.InvoiceTypeId == 0)
+            {
+                SaveInvoiceType();
+            }
 
             Messenger.Default.Send(new SelectedInvoiceType { InvoiceType = SelectedInvoiceType });
         }
@@ -115,9 +136,13 @@ namespace FinancialAnalysis.Logic.ViewModels
                 if (!string.IsNullOrEmpty(_FilterText))
                 {
                     FilteredInvoiceTypes = new SvenTechCollection<InvoiceType>();
-                    foreach (var item in _InvoiceTypes)
+                    foreach (InvoiceType item in _InvoiceTypes)
+                    {
                         if (item.Name.Contains(FilterText))
+                        {
                             FilteredInvoiceTypes.Add(item);
+                        }
+                    }
                 }
                 else
                 {

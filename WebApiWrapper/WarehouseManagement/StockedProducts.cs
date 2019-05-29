@@ -1,9 +1,5 @@
 ﻿using FinancialAnalysis.Models.WarehouseManagement;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebApiWrapper.WarehouseManagement
 {
@@ -23,9 +19,11 @@ namespace WebApiWrapper.WarehouseManagement
 
         public static StockedProduct GetByRefProductIdAndRefStockyardId(int refProductId, int refStockyardId)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("refProductId", refProductId);
-            parameters.Add("refStockyardId", refStockyardId);
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "refProductId", refProductId },
+                { "refStockyardId", refStockyardId }
+            };
             return WebApi<StockedProduct>.GetData(controllerName, "GetByRefProductIdAndRefStockyardId", parameters);
         }
 

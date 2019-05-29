@@ -68,7 +68,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public Debitor SelectedDebitor
         {
-            get { return _SelectedDebitor; }
+            get => _SelectedDebitor;
             set { _SelectedDebitor = value; SalesOrder.Debitor = _SelectedDebitor; SalesOrder.RefDebitorId = _SelectedDebitor.DebitorId; }
         }
 
@@ -171,7 +171,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void CreatePDFFile(bool IsPreview)
         {
-            var salesOrderReportData = new SalesOrderReportData
+            SalesOrderReportData salesOrderReportData = new SalesOrderReportData
             {
                 MyCompany = Globals.CoreData.MyCompany,
                 SalesOrder = SalesOrder,
@@ -187,7 +187,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SalesOrder.RefEmployeeId = Employee.EmployeeId;
             SalesOrder.SalesOrderId = SalesOrders.Insert(SalesOrder);
 
-            foreach (var item in SalesOrder.SalesOrderPositions)
+            foreach (SalesOrderPosition item in SalesOrder.SalesOrderPositions)
             {
                 item.RefSalesOrderId = SalesOrder.SalesOrderId;
                 SalesOrderPositions.Insert(item);

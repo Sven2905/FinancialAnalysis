@@ -1,9 +1,9 @@
-﻿using System.Windows;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Logic.ViewModels;
 using FinancialAnalysis.UI.Desktop;
 using FinancialAnalysis.Windows;
+using System.Windows;
 
 namespace FinancialAnalysis.UI
 {
@@ -40,8 +40,11 @@ namespace FinancialAnalysis.UI
             Messenger.Default.Register<OpenKontenrahmenWindowMessage>(this,
                 msg =>
                 {
-                    var window = new KontenrahmenWindow();
-                    if (window.DataContext is KontenrahmenViewModel model) model.AccountingType = msg.AccountingType;
+                    KontenrahmenWindow window = new KontenrahmenWindow();
+                    if (window.DataContext is KontenrahmenViewModel model)
+                    {
+                        model.AccountingType = msg.AccountingType;
+                    }
 
                     window.ShowDialog();
                 });
@@ -49,7 +52,7 @@ namespace FinancialAnalysis.UI
             Messenger.Default.Register<OpenDialogWindowMessage>(this,
                 msg =>
                 {
-                    var window = new DialogWindow();
+                    DialogWindow window = new DialogWindow();
                     if (window.DataContext is DialogViewModel model)
                     {
                         model.Message = msg.Message;
@@ -62,19 +65,23 @@ namespace FinancialAnalysis.UI
             Messenger.Default.Register<OpenClientWindowMessage>(this,
                 msg =>
                 {
-                    var window = new CompanyWindow();
+                    CompanyWindow window = new CompanyWindow();
                     window.ShowDialog();
                 });
             Messenger.Default.Register<OpenPDFViewerWindowMessage>(this,
                 msg =>
                 {
-                    var window = new PDFViewerWindow();
+                    PDFViewerWindow window = new PDFViewerWindow();
                     if (window.DataContext is PDFViewerViewModel model)
                     {
                         if (msg.ScannedDocumentId != 0)
+                        {
                             model.ScannedDocumentId = msg.ScannedDocumentId;
+                        }
                         else if (!string.IsNullOrEmpty(msg.Path))
+                        {
                             model.Path = msg.Path;
+                        }
                         else
                         {
                             model.MemoryStream = msg.MemoryStream;
@@ -86,8 +93,8 @@ namespace FinancialAnalysis.UI
             Messenger.Default.Register<OpenMainWindowMessage>(this,
                 msg =>
                 {
-                    var window = new MainWindow();
-                    var model = window.DataContext as MainViewModel;
+                    MainWindow window = new MainWindow();
+                    MainViewModel model = window.DataContext as MainViewModel;
                     Application.Current.MainWindow.Close();
                     Application.Current.MainWindow = null;
                     Application.Current.MainWindow = window;
@@ -101,37 +108,37 @@ namespace FinancialAnalysis.UI
             Messenger.Default.Register<OpenProductCategoriesWindowMessage>(this,
                 msg =>
                 {
-                    var window = new ProductCategoriesWindow();
+                    ProductCategoriesWindow window = new ProductCategoriesWindow();
                     window.ShowDialog();
                 });
             Messenger.Default.Register<OpenCostCenterCategoriesWindowMessage>(this,
                 msg =>
                 {
-                    var window = new CostCenterCategoriesWindow();
+                    CostCenterCategoriesWindow window = new CostCenterCategoriesWindow();
                     window.ShowDialog();
                 });
             Messenger.Default.Register<OpenSalesTypesWindowMessage>(this,
                 msg =>
                 {
-                    var window = new SalesTypesWindow();
+                    SalesTypesWindow window = new SalesTypesWindow();
                     window.ShowDialog();
                 });
             Messenger.Default.Register<OpenInvoiceTypesWindowMessage>(this,
                 msg =>
                 {
-                    var window = new InvoiceTypesWindow();
+                    InvoiceTypesWindow window = new InvoiceTypesWindow();
                     window.ShowDialog();
                 });
             Messenger.Default.Register<OpenWarehousesWindowMessage>(this,
                 msg =>
                 {
-                    var window = new WarehousesWindow();
+                    WarehousesWindow window = new WarehousesWindow();
                     window.ShowDialog();
                 });
             Messenger.Default.Register<OpenQuantityWindowMessage>(this,
                msg =>
                {
-                   var window = new QuantityWindow();
+                   QuantityWindow window = new QuantityWindow();
                    if (window.DataContext is QuantityViewModel model)
                    {
                        model.MaxQuantity = msg.MaxQuantity;
@@ -141,7 +148,7 @@ namespace FinancialAnalysis.UI
             Messenger.Default.Register<OpenInvoiceCreationWindowMessage>(this,
               msg =>
               {
-                  var window = new InvoiceCreationWindow();
+                  InvoiceCreationWindow window = new InvoiceCreationWindow();
                   if (window.DataContext is InvoiceCreationViewModel model)
                   {
                       model.SalesOrder = msg.SalesOrder;
@@ -151,7 +158,7 @@ namespace FinancialAnalysis.UI
             Messenger.Default.Register<OpenInvoiceListWindowMessage>(this,
               msg =>
               {
-                  var window = new InvoiceListWindow();
+                  InvoiceListWindow window = new InvoiceListWindow();
                   if (window.DataContext is InvoiceListViewModel model)
                   {
                       model.InvoiceList = msg.Invoices;
@@ -161,19 +168,19 @@ namespace FinancialAnalysis.UI
             Messenger.Default.Register<OpenDatabaseConfigurationWindow>(this,
                 msg =>
                 {
-                    var window = new DatabaseConfigurationWindow();
+                    DatabaseConfigurationWindow window = new DatabaseConfigurationWindow();
                     window.ShowDialog();
                 });
             Messenger.Default.Register<OpenWebApiConfigurationWindow>(this,
                 msg =>
                 {
-                    var window = new WebApiConfigurationWindow();
+                    WebApiConfigurationWindow window = new WebApiConfigurationWindow();
                     window.ShowDialog();
                 });
             Messenger.Default.Register<OpenYesNoDialogWindowMessage>(this,
                 msg =>
                 {
-                    var window = new YesNoDialogWindow();
+                    YesNoDialogWindow window = new YesNoDialogWindow();
                     if (window.DataContext is YesNoDialogViewModel model)
                     {
                         model.Title = msg.Title;
@@ -184,7 +191,7 @@ namespace FinancialAnalysis.UI
             Messenger.Default.Register<OpenTimeBookingWindowMessage>(this,
                 msg =>
                 {
-                    var window = new TimeBookingWindow();
+                    TimeBookingWindow window = new TimeBookingWindow();
                     if (window.DataContext is TimeBookingViewModel model)
                     {
                         model.RefEmployeeId = msg.RefEmployeeId;

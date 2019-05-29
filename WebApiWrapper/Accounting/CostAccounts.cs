@@ -1,9 +1,5 @@
 ﻿using FinancialAnalysis.Models.Accounting;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebApiWrapper.Accounting
 {
@@ -33,7 +29,7 @@ namespace WebApiWrapper.Accounting
 
         public static int GetNextDebitorNumber()
         {
-            return WebApi<int>.GetData(controllerName, "GetNextDebitorNumber"); 
+            return WebApi<int>.GetData(controllerName, "GetNextDebitorNumber");
         }
 
         public static int GetByAccountNumber(int AccountNumber)

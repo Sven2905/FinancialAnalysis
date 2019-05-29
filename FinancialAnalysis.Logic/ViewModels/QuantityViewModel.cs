@@ -1,9 +1,5 @@
 ﻿using DevExpress.Mvvm;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -20,7 +16,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public int MaxQuantity
         {
-            get { return _MaxQuantity; }
+            get => _MaxQuantity;
             set { _MaxQuantity = value; Quantity = _MaxQuantity; }
         }
 
@@ -30,7 +26,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SendToParent()
         {
-            Messenger.Default.Send(new SelectedQuantity { Quantity = Quantity});
+            Messenger.Default.Send(new SelectedQuantity { Quantity = Quantity });
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
+using System.Windows;
 
 namespace FinancialAnalysis.Logic.Messages
 {
@@ -8,7 +8,10 @@ namespace FinancialAnalysis.Logic.Messages
         public OpenDialogWindowMessage(string Title, string Message,
             MessageBoxImage MessageBoxImage = MessageBoxImage.None)
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             this.Title = Title;
             this.Message = Message;

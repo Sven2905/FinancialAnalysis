@@ -1,10 +1,7 @@
-﻿using System;
-using System.Windows;
-using DevExpress.Mvvm;
-
-using FinancialAnalysis.Logic.Messages;
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.ProjectManagement;
+using System;
 using Utilities;
 using WebApiWrapper.Accounting;
 using WebApiWrapper.ProjectManagement;
@@ -17,7 +14,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public ProjectViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             LoadProjects();
             LoadEmployees();
@@ -67,7 +67,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteProject()
         {
-            if (SelectedProject == null) return;
+            if (SelectedProject == null)
+            {
+                return;
+            }
 
             if (SelectedProject.ProjectId == 0)
             {
@@ -84,9 +87,13 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveProject()
         {
             if (SelectedProject.ProjectId != 0)
+            {
                 Projects.Update(SelectedProject);
+            }
             else
+            {
                 Projects.Insert(SelectedProject);
+            }
 
             SelectedProject = new Project();
         }
@@ -97,38 +104,41 @@ namespace FinancialAnalysis.Logic.ViewModels
                 SelectedProject.RefCostCenterId == 0 ||
                 string.IsNullOrEmpty(SelectedProject.Name
                 ))
+            {
                 return false;
+            }
+
             return true;
         }
 
         public TimeSpan CalculateWorkHours(DateTime StartTime, DateTime EndTime)
         {
-            var WorkTime = StartTime - EndTime;
+            TimeSpan WorkTime = StartTime - EndTime;
 
             if (WorkTime.TotalHours > 6 && WorkTime.TotalHours < new TimeSpan(6, 30, 0).TotalHours)
             {
-                var requiredBreakTime = WorkTime - new TimeSpan(6, 0, 0);
+                TimeSpan requiredBreakTime = WorkTime - new TimeSpan(6, 0, 0);
 
                 return WorkTime - requiredBreakTime;
             }
 
             if (WorkTime.TotalHours > 6 && WorkTime.TotalHours < 9)
             {
-                var requiredBreakTime = new TimeSpan(0, 30, 0);
+                TimeSpan requiredBreakTime = new TimeSpan(0, 30, 0);
 
                 return WorkTime - requiredBreakTime;
             }
 
             if (WorkTime.TotalHours > 9 && WorkTime.TotalHours < new TimeSpan(9, 15, 0).TotalHours)
             {
-                var requiredBreakTime = WorkTime - new TimeSpan(6, 0, 0);
+                TimeSpan requiredBreakTime = WorkTime - new TimeSpan(6, 0, 0);
 
                 return WorkTime - requiredBreakTime;
             }
 
             if (WorkTime.TotalHours > 9)
             {
-                var requiredBreakTime = new TimeSpan(0, 45, 0);
+                TimeSpan requiredBreakTime = new TimeSpan(0, 45, 0);
 
                 return WorkTime - requiredBreakTime;
             }

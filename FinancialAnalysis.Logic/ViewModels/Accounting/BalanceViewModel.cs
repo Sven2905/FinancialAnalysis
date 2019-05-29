@@ -1,11 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Logic.Calculation;
-using FinancialAnalysis.Models.Accounting;
 using System;
-using System.Linq;
 using System.Windows.Input;
-using Utilities;
-using WebApiWrapper.Accounting;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {

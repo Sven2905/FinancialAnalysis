@@ -55,7 +55,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void ShowPDFOrderReport()
         {
-            var salesOrderReportData = new SalesOrderReportData
+            SalesOrderReportData salesOrderReportData = new SalesOrderReportData
             {
                 MyCompany = Globals.CoreData.MyCompany,
                 SalesOrder = SelectedSalesOrder,
@@ -85,13 +85,15 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void CountInvoicesForLabel()
         {
-            if(SelectedSalesOrder != null && OpenInvoices != null)
+            if (SelectedSalesOrder != null && OpenInvoices != null)
+            {
                 InvoicesCount = $" {SelectedSalesOrder.Invoices.Count} ({OpenInvoices.Count})";
+            }
         }
 
         private void CheckOrdersStatus()
         {
-            foreach (var order in SalesOrderList)
+            foreach (SalesOrder order in SalesOrderList)
             {
                 order.CheckStatus();
             }
@@ -99,11 +101,11 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void CreateInvoice()
         {
-            var invoiceSalesOrder = SelectedSalesOrder.Clone();
+            SalesOrder invoiceSalesOrder = SelectedSalesOrder.Clone();
 
-            foreach (var invoice in SelectedSalesOrder.Invoices)
+            foreach (Invoice invoice in SelectedSalesOrder.Invoices)
             {
-                foreach (var invoicePosition in invoice.InvoicePositions)
+                foreach (InvoicePosition invoicePosition in invoice.InvoicePositions)
                 {
                     invoiceSalesOrder.SalesOrderPositions.SingleOrDefault(x => x.SalesOrderPositionId == invoicePosition.RefSalesOrderPositionId).Quantity -= invoicePosition.Quantity;
                 }
@@ -141,7 +143,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public string FilterText
         {
-            get { return _FilterText; }
+            get => _FilterText;
             set
             {
                 _FilterText = value;
@@ -158,7 +160,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public SalesOrder SelectedSalesOrder
         {
-            get { return _SelectedSalesOrder; }
+            get => _SelectedSalesOrder;
             set { _SelectedSalesOrder = value; CountInvoicesForLabel(); }
         }
 

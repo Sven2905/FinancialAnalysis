@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using DevExpress.Mvvm;
-
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using WebApiWrapper.Accounting;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -15,7 +14,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public KontenrahmenViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             RefreshCostAccounts();
             RefreshCommand = new DelegateCommand(() => { RefreshCostAccounts(); });
@@ -62,8 +64,10 @@ namespace FinancialAnalysis.Logic.ViewModels
         public void SendSelectedToParent()
         {
             if (SelectedItem != null)
+            {
                 Messenger.Default.Send(new SelectedCostAccount
-                    {AccountingType = AccountingType, CostAccount = SelectedItem});
+                { AccountingType = AccountingType, CostAccount = SelectedItem });
+            }
         }
 
         #endregion Methods
@@ -79,7 +83,10 @@ namespace FinancialAnalysis.Logic.ViewModels
             get => _Filter;
             set
             {
-                if (_Filter == value) return;
+                if (_Filter == value)
+                {
+                    return;
+                }
 
                 _Filter = value;
                 RaisePropertyChanged();

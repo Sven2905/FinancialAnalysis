@@ -1,9 +1,5 @@
 ﻿using FinancialAnalysis.Models.Administration;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebApiWrapper.Administration
 {
@@ -23,9 +19,11 @@ namespace WebApiWrapper.Administration
 
         public static User GetUserByNameAndPassword(string username, string password)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("username", username);
-            parameters.Add("password", password);
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "username", username },
+                { "password", password }
+            };
             return WebApi<User>.GetData(controllerName, "GetUserByNameAndPassword", parameters);
         }
 

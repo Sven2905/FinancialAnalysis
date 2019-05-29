@@ -8,7 +8,10 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         public ConfigurationViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             OpenWebApiConfigurationCommand = new DelegateCommand(OpenWebApiConfigurationWindow);
         }

@@ -78,7 +78,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 Clients.Insert(SelectedClient);
             }
-            var notificationService = this.GetRequiredService<INotificationService>();
+            INotificationService notificationService = this.GetRequiredService<INotificationService>();
             INotification notification;
             if (SelectedClient.ClientId == 0)
             {

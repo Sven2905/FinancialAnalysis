@@ -1,9 +1,6 @@
 ﻿using FinancialAnalysis.Models.Accounting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebApiWrapper.Accounting
 {
@@ -23,11 +20,13 @@ namespace WebApiWrapper.Accounting
 
         public static List<Booking> GetByParameter(DateTime startDate, DateTime endDate, int? costAccountCreditorId = null, int? costAccountDebitorId = null, bool OnlyCanceledBookings = false)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("startDate", startDate);
-            parameters.Add("endDate", endDate);
-            parameters.Add("costAccountCreditorId", costAccountCreditorId);
-            parameters.Add("costAccountDebitorId", costAccountDebitorId);
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "startDate", startDate },
+                { "endDate", endDate },
+                { "costAccountCreditorId", costAccountCreditorId },
+                { "costAccountDebitorId", costAccountDebitorId }
+            };
             if (OnlyCanceledBookings)
             {
                 parameters.Add("OnlyCanceledBookings", OnlyCanceledBookings);

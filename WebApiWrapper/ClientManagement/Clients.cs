@@ -1,9 +1,5 @@
 ﻿using FinancialAnalysis.Models.ClientManagement;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebApiWrapper.ClientManagement
 {
@@ -23,8 +19,10 @@ namespace WebApiWrapper.ClientManagement
 
         public static bool IsClientInUse(int id)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("Id", id);
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "Id", id }
+            };
             return WebApi<bool>.GetData(controllerName, "GetIsClientInUse", parameters);
         }
 

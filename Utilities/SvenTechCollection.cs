@@ -47,7 +47,10 @@ namespace Utilities
         public new void Add(T item)
         {
             base.Add(item);
-            if (item is INotifyPropertyChanged) ((INotifyPropertyChanged) item).PropertyChanged += Item_PropertyChanged;
+            if (item is INotifyPropertyChanged)
+            {
+                ((INotifyPropertyChanged)item).PropertyChanged += Item_PropertyChanged;
+            }
         }
 
         /// <summary>
@@ -59,14 +62,23 @@ namespace Utilities
         /// </param>
         public void AddRange(IEnumerable<T> collection)
         {
-            if (collection.IsNull()) throw new ArgumentNullException("collection");
+            if (collection.IsNull())
+            {
+                throw new ArgumentNullException("collection");
+            }
 
-            foreach (var item in collection) Add(item);
+            foreach (T item in collection)
+            {
+                Add(item);
+            }
         }
 
         private void Item_PropertyChanged(object senderItem, PropertyChangedEventArgs e)
         {
-            if (!OnItemPropertyChanged.IsNull()) OnItemPropertyChanged(this, senderItem, e);
+            if (!OnItemPropertyChanged.IsNull())
+            {
+                OnItemPropertyChanged(this, senderItem, e);
+            }
         }
     }
 }

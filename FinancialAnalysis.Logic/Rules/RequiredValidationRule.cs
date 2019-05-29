@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 using System.Windows.Controls;
 
 namespace FinancialAnalysis.Logic.Rules
@@ -14,7 +9,10 @@ namespace FinancialAnalysis.Logic.Rules
         {
             string error = GetErrorMessage(FieldName, value);
             if (!string.IsNullOrEmpty(error))
+            {
                 return new ValidationResult(false, error);
+            }
+
             return ValidationResult.ValidResult;
         }
         public string FieldName { get; set; }
@@ -22,9 +20,15 @@ namespace FinancialAnalysis.Logic.Rules
         {
             string errorMessage = string.Empty;
             if (nullValue != null && nullValue.Equals(fieldValue))
+            {
                 errorMessage = string.Format($"You cannot leave Field {fieldName} empty");
+            }
+
             if (fieldValue == null || string.IsNullOrEmpty(fieldValue?.ToString()))
+            {
                 errorMessage = string.Format($"You cannot leave Field {fieldName} empty");
+            }
+
             return errorMessage;
         }
     }

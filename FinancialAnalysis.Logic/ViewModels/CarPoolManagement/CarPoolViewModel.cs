@@ -1,11 +1,6 @@
 ﻿using DevExpress.Mvvm;
 
 using FinancialAnalysis.Models.CarPoolManagement;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utilities;
 using WebApiWrapper.CarPoolManagement;
 
@@ -79,32 +74,62 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public CarMake SelectedCarMake
         {
-            get { return _SelectedCarMake; }
-            set { _SelectedCarMake = value; if (_SelectedCarMake != null) GetCarModels(value.CarMakeId); }
+            get => _SelectedCarMake;
+            set
+            {
+                _SelectedCarMake = value; if (_SelectedCarMake != null)
+                {
+                    GetCarModels(value.CarMakeId);
+                }
+            }
         }
 
         public CarModel SelectedCarModel
         {
-            get { return _SelectedCarModel; }
-            set { _SelectedCarModel = value; if (_SelectedCarModel != null) GetCarBodies(value.CarModelId); }
+            get => _SelectedCarModel;
+            set
+            {
+                _SelectedCarModel = value; if (_SelectedCarModel != null)
+                {
+                    GetCarBodies(value.CarModelId);
+                }
+            }
         }
 
         public CarBody SelectedCarBody
         {
-            get { return _SelectedCarBody; }
-            set { _SelectedCarBody = value; if (_SelectedCarBody != null) GetCarGeneration(value.CarBodyId); }
+            get => _SelectedCarBody;
+            set
+            {
+                _SelectedCarBody = value; if (_SelectedCarBody != null)
+                {
+                    GetCarGeneration(value.CarBodyId);
+                }
+            }
         }
 
         public CarGeneration SelectedCarGeneration
         {
-            get { return _SelectedCarGeneration; }
-            set { _SelectedCarGeneration = value; if (_SelectedCarGeneration != null) GetCarTrims(value.CarGenerationId); }
+            get => _SelectedCarGeneration;
+            set
+            {
+                _SelectedCarGeneration = value; if (_SelectedCarGeneration != null)
+                {
+                    GetCarTrims(value.CarGenerationId);
+                }
+            }
         }
 
         public CarTrim SelectedCarTrim
         {
-            get { return _SelectedCarTrim; }
-            set { _SelectedCarTrim = value; if (_SelectedCarTrim != null) GetCarEngine(value.CarTrimId); }
+            get => _SelectedCarTrim;
+            set
+            {
+                _SelectedCarTrim = value; if (_SelectedCarTrim != null)
+                {
+                    GetCarEngine(value.CarTrimId);
+                }
+            }
         }
 
     }

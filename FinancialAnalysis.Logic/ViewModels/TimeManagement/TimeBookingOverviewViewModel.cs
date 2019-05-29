@@ -5,10 +5,7 @@ using FinancialAnalysis.Models.General;
 using FinancialAnalysis.Models.ProjectManagement;
 using FinancialAnalysis.Models.TimeManagement;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utilities;
 using WebApiWrapper.ProjectManagement;
 
@@ -67,7 +64,9 @@ namespace FinancialAnalysis.Logic.ViewModels
         public void NewTimeBooking()
         {
             if (SelectedEmployee != null)
+            {
                 Messenger.Default.Send(new OpenTimeBookingWindowMessage { RefEmployeeId = SelectedEmployee.EmployeeId });
+            }
         }
 
         public void DeleteTimeBooking()

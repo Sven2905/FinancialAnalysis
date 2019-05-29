@@ -2,11 +2,7 @@
 
 using FinancialAnalysis.Models.ProductManagement;
 using FinancialAnalysis.Models.WarehouseManagement;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utilities;
 using WebApiWrapper.WarehouseManagement;
 
@@ -18,7 +14,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public ProductStockingStatusViewModel()
         {
-            
+
         }
 
         #endregion Constructor
@@ -33,13 +29,13 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public Product Product
         {
-            get { return _Product; }
+            get => _Product;
             set
             {
                 _Product = value;
                 if (_Product != null)
                 {
-                FilteredWarehousesFlatStructure = CreateFlatStructure();
+                    FilteredWarehousesFlatStructure = CreateFlatStructure();
                 }
                 else
                 {
@@ -75,7 +71,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                     {
                         if (WarehouseList[i].Stockyards[j].StockedProducts[k].RefProductId == Product.ProductId)
                         {
-                            var warehouse = filteredList.FirstOrDefault(x => x.Warehouse == WarehouseList[i]);
+                            WarehouseStockingFlatStructure warehouse = filteredList.FirstOrDefault(x => x.Warehouse == WarehouseList[i]);
                             if (warehouse == null)
                             {
                                 filteredList.Add(new WarehouseStockingFlatStructure() { Id = key, ParentKey = 0, Warehouse = WarehouseList[i] });
@@ -83,7 +79,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                                 key++;
                             }
 
-                            var stockyard = filteredList.FirstOrDefault(x => x.Stockyard == WarehouseList[i].Stockyards[j]);
+                            WarehouseStockingFlatStructure stockyard = filteredList.FirstOrDefault(x => x.Stockyard == WarehouseList[i].Stockyards[j]);
                             if (stockyard == null)
                             {
                                 filteredList.Add(new WarehouseStockingFlatStructure() { Id = key, ParentKey = parentKey, Stockyard = WarehouseList[i].Stockyards[j], Quantity = WarehouseList[i].Stockyards[j].StockedProducts[k].Quantity });

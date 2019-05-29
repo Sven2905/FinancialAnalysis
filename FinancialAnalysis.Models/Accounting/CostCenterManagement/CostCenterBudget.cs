@@ -49,7 +49,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// </summary>
         public decimal January
         {
-            get { return _January; }
+            get => _January;
             set { _January = value; RaisePropertyChanged(); }
         }
 
@@ -58,7 +58,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// </summary>
         public decimal February
         {
-            get { return _February; }
+            get => _February;
             set { _February = value; RaisePropertyChanged(); }
         }
 
@@ -67,7 +67,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// </summary>
         public decimal March
         {
-            get { return _March; }
+            get => _March;
             set { _March = value; RaisePropertyChanged(); }
         }
 
@@ -76,7 +76,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// </summary>
         public decimal April
         {
-            get { return _April; }
+            get => _April;
             set { _April = value; RaisePropertyChanged(); }
         }
 
@@ -85,7 +85,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// </summary>
         public decimal May
         {
-            get { return _May; }
+            get => _May;
             set { _May = value; RaisePropertyChanged(); }
         }
 
@@ -94,7 +94,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// </summary>
         public decimal June
         {
-            get { return _June; }
+            get => _June;
             set { _June = value; RaisePropertyChanged(); }
         }
 
@@ -103,7 +103,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// </summary>
         public decimal July
         {
-            get { return _July; }
+            get => _July;
             set { _July = value; RaisePropertyChanged(); }
         }
 
@@ -112,7 +112,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// </summary>
         public decimal August
         {
-            get { return _August; }
+            get => _August;
             set { _August = value; RaisePropertyChanged(); }
         }
 
@@ -121,7 +121,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// </summary>
         public decimal September
         {
-            get { return _September; }
+            get => _September;
             set { _September = value; RaisePropertyChanged(); }
         }
 
@@ -130,7 +130,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// </summary>
         public decimal October
         {
-            get { return _October; }
+            get => _October;
             set { _October = value; RaisePropertyChanged(); }
         }
 
@@ -139,7 +139,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// </summary>
         public decimal November
         {
-            get { return _November; }
+            get => _November;
             set { _November = value; RaisePropertyChanged(); }
         }
 
@@ -148,7 +148,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// </summary>
         public decimal December
         {
-            get { return _December; }
+            get => _December;
             set { _December = value; RaisePropertyChanged(); }
         }
 
@@ -157,10 +157,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// </summary>
         public decimal Quarter1
         {
-            get
-            {
-                return January + February + March;
-            }
+            get => January + February + March;
             set
             {
                 _January = value / 3;
@@ -175,10 +172,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// </summary>
         public decimal Quarter2
         {
-            get
-            {
-                return April + May + June;
-            }
+            get => April + May + June;
             set
             {
                 _April = value / 3;
@@ -193,10 +187,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// </summary>
         public decimal Quarter3
         {
-            get
-            {
-                return July + August + September;
-            }
+            get => July + August + September;
             set
             {
                 _July = value / 3;
@@ -211,10 +202,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// </summary>
         public decimal Quarter4
         {
-            get
-            {
-                return October + November + December;
-            }
+            get => October + November + December;
             set
             {
                 _October = value / 3;
@@ -229,10 +217,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// </summary>
         public decimal Annually
         {
-            get
-            {
-                return Quarter1 + Quarter2 + Quarter3 + Quarter4;
-            }
+            get => Quarter1 + Quarter2 + Quarter3 + Quarter4;
             set
             {
                 _January = value / 12;

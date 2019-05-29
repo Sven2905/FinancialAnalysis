@@ -1,8 +1,4 @@
-﻿using System;
-using System.Windows;
-using DevExpress.Mvvm;
-
-using FinancialAnalysis.Logic.Messages;
+﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.SalesManagement;
 using Utilities;
@@ -16,7 +12,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public ShipmentTypeViewModel()
         {
-            if (IsInDesignMode) return;
+            if (IsInDesignMode)
+            {
+                return;
+            }
 
             _ShipmentTypes = LoadAllShipmentTypes();
             NewShipmentTypeCommand = new DelegateCommand(NewShipmentType);
@@ -38,8 +37,8 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private SvenTechCollection<ShipmentType> LoadAllShipmentTypes()
         {
-            var allShipmentTypes = new SvenTechCollection<ShipmentType>();
-                allShipmentTypes = ShipmentTypes.GetAll().ToSvenTechCollection();
+            SvenTechCollection<ShipmentType> allShipmentTypes = new SvenTechCollection<ShipmentType>();
+            allShipmentTypes = ShipmentTypes.GetAll().ToSvenTechCollection();
 
             return allShipmentTypes;
         }
@@ -52,7 +51,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void DeleteShipmentType()
         {
-            if (SelectedShipmentType == null) return;
+            if (SelectedShipmentType == null)
+            {
+                return;
+            }
 
             if (SelectedShipmentType.ShipmentTypeId == 0)
             {
@@ -69,15 +71,27 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveShipmentType()
         {
             if (SelectedShipmentType.ShipmentTypeId != 0)
+            {
                 ShipmentTypes.Update(SelectedShipmentType);
+            }
             else
+            {
                 ShipmentTypes.Insert(SelectedShipmentType);
+            }
         }
 
         private bool Validation()
         {
-            if (SelectedShipmentType == null) return false;
-            if (string.IsNullOrEmpty(SelectedShipmentType.Name)) return false;
+            if (SelectedShipmentType == null)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(SelectedShipmentType.Name))
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -101,9 +115,13 @@ namespace FinancialAnalysis.Logic.ViewModels
                 if (!string.IsNullOrEmpty(_FilterText))
                 {
                     FilteredShipmentTypes = new SvenTechCollection<ShipmentType>();
-                    foreach (var item in _ShipmentTypes)
+                    foreach (ShipmentType item in _ShipmentTypes)
+                    {
                         if (item.Name.Contains(FilterText))
+                        {
                             FilteredShipmentTypes.Add(item);
+                        }
+                    }
                 }
                 else
                 {

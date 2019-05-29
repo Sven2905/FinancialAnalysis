@@ -60,7 +60,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public string FilterText
         {
-            get { return _FilterText; }
+            get => _FilterText;
             set
             {
                 _FilterText = value;
@@ -165,9 +165,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return null;
             }
 
-            using (var ms = new MemoryStream(array))
+            using (MemoryStream ms = new MemoryStream(array))
             {
-                var image = new BitmapImage();
+                BitmapImage image = new BitmapImage();
                 image.BeginInit();
                 image.CacheOption = BitmapCacheOption.OnLoad; // here
                 image.StreamSource = ms;
@@ -184,9 +184,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
 
             byte[] data;
-            var encoder = new JpegBitmapEncoder();
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
-            using (var ms = new MemoryStream())
+            using (MemoryStream ms = new MemoryStream())
             {
                 encoder.Save(ms);
                 data = ms.ToArray();

@@ -57,7 +57,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private SvenTechCollection<Warehouse> LoadAllWarehouses()
         {
-            var allWarehouses = new SvenTechCollection<Warehouse>();
+            SvenTechCollection<Warehouse> allWarehouses = new SvenTechCollection<Warehouse>();
             allWarehouses = Warehouses.GetAll().ToSvenTechCollection();
 
             return allWarehouses;
@@ -150,7 +150,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 if (!string.IsNullOrEmpty(_FilterText))
                 {
                     FilteredWarehouses = new SvenTechCollection<Warehouse>();
-                    foreach (var item in _Warehouses)
+                    foreach (Warehouse item in _Warehouses)
                     {
                         if (item.Name?.Contains(FilterText) == true)
                         {

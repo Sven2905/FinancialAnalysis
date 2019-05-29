@@ -68,13 +68,13 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private SvenTechCollection<Product> LoadAllProducts()
         {
-            var allProducts = new SvenTechCollection<Product>();
+            SvenTechCollection<Product> allProducts = new SvenTechCollection<Product>();
             return Products.GetAll().ToSvenTechCollection();
         }
 
         private SvenTechCollection<ProductCategory> LoadAllProductCategories()
         {
-            var allProductCategories = new SvenTechCollection<ProductCategory>();
+            SvenTechCollection<ProductCategory> allProductCategories = new SvenTechCollection<ProductCategory>();
             return ProductCategories.GetAll().ToSvenTechCollection();
         }
 
@@ -122,9 +122,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return null;
             }
 
-            using (var ms = new MemoryStream(array))
+            using (MemoryStream ms = new MemoryStream(array))
             {
-                var image = new BitmapImage();
+                BitmapImage image = new BitmapImage();
                 image.BeginInit();
                 image.CacheOption = BitmapCacheOption.OnLoad; // here
                 image.StreamSource = ms;
@@ -141,9 +141,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
 
             byte[] data;
-            var encoder = new JpegBitmapEncoder();
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bitmapImage, null, null, null));
-            using (var ms = new MemoryStream())
+            using (MemoryStream ms = new MemoryStream())
             {
                 encoder.Save(ms);
                 data = ms.ToArray();
@@ -201,7 +201,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 if (!string.IsNullOrEmpty(_FilterText))
                 {
                     FilteredProducts = new SvenTechCollection<Product>();
-                    foreach (var item in _Products)
+                    foreach (Product item in _Products)
                     {
                         if (item.Name.IndexOf(FilterText, StringComparison.OrdinalIgnoreCase) >= 0)
                         {

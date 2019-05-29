@@ -1,5 +1,4 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Models.Enums;
 using Newtonsoft.Json;
 using System;
 

@@ -11,9 +11,12 @@ namespace FinancialAnalysis.Windows
         public WarehousesWindow()
         {
             InitializeComponent();
-            var vm = new WarehouseViewModel();
+            WarehouseViewModel vm = new WarehouseViewModel();
             DataContext = vm;
-            if (vm.CloseAction == null) vm.CloseAction = () => { };
+            if (vm.CloseAction == null)
+            {
+                vm.CloseAction = () => { };
+            }
 
             vm.CloseAction = Close;
         }
