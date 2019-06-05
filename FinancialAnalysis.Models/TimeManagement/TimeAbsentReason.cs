@@ -1,7 +1,9 @@
 ﻿using DevExpress.Mvvm;
+using Newtonsoft.Json;
 
 namespace FinancialAnalysis.Models.TimeManagement
 {
+    [JsonObject(MemberSerialization.OptOut)]
     public class TimeAbsentReason : BindableBase
     {
         public int TimeAbsentReasonId { get; set; }

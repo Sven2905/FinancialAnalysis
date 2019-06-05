@@ -132,6 +132,7 @@
     <Compile Include="General\Extensions.cs" />
     <Compile Include="General\Globals.cs" />
     <Compile Include="General\NotificationMessages.cs" />
+    <Compile Include="Manager\BookingManager.cs" />
     <Compile Include="Messages\OpenTimeBookingWindowMessage.cs" />
     <Compile Include="ViewModels\InfoBoxViewModel.cs" />
     <Compile Include="Mail\Mail.cs" />
@@ -157,7 +158,7 @@
     <Compile Include="Rules\RequiredValidationRule.cs" />
     <Compile Include="SalesManagement\SalesReportPDFCreator.cs" />
     <Compile Include="SelectedQuantity.cs" />
-    <Compile Include="UserManager.cs" />
+    <Compile Include="Manager\UserManager.cs" />
     <Compile Include="ViewModels\Accounting\AccountingViewModel.cs" />
     <Compile Include="ViewModels\Accounting\BookingHistoryViewModel.cs" />
     <Compile Include="ViewModels\Accounting\BookingViewModel.cs" />
@@ -175,9 +176,11 @@
     <Compile Include="ViewModels\Administration\MailConfigurationViewModel.cs" />
     <Compile Include="ViewModels\Accounting\BalanceViewModel.cs" />
     <Compile Include="ViewModels\CarPoolManagement\CarPoolViewModel.cs" />
-    <Compile Include="ViewModels\TimeManagement\HolidayRequestViewModel.cs" />
+    <Compile Include="ViewModels\TimeManagement\TimeFastBookingViewModel.cs" />
+    <Compile Include="ViewModels\TimeManagement\TimeHolidayRequestViewModel.cs" />
     <Compile Include="ViewModels\TimeManagement\TimeBookingOverviewViewModel.cs" />
     <Compile Include="ViewModels\TimeManagement\TimeBookingViewModel.cs" />
+    <Compile Include="ViewModels\TimeManagement\TimeManagementViewModel.cs" />
     <Compile Include="ViewModels\WebApiConfigurationViewModel.cs" />
     <Compile Include="ViewModels\DatabaseConfigurationViewModel.cs" />
     <Compile Include="ViewModels\DialogViewModel.cs" />

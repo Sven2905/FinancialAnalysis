@@ -17,27 +17,27 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public bool ShowBookings => Globals.ActiveUser.IsAdministrator
                                     || UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
-                                        Permission.AccessBookings);
+                                        Permission.AccountingBookings);
 
         public bool ShowBookingHistories => Globals.ActiveUser.IsAdministrator
                                             || UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
-                                                Permission.AccessBookingHistory);
+                                                Permission.AccountingBookingHistory);
 
         public bool ShowCostAccounts => Globals.ActiveUser.IsAdministrator
                                         || UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
-                                            Permission.AccessCostAccounts);
+                                            Permission.AccountingCostAccounts);
 
         public bool ShowCreditorDebitors => Globals.ActiveUser.IsAdministrator
                                             || UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
-                                                Permission.AccessCreditorDebitors);
+                                                Permission.AccountingCreditorDebitors);
 
         public bool ShowTaxTypes => Globals.ActiveUser.IsAdministrator
                                     || UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
-                                        Permission.AccessTaxTypes);
+                                        Permission.AccountingTaxTypes);
 
         public bool ShowCostCenters => Globals.ActiveUser.IsAdministrator
                                     || UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
-                                        Permission.AccessCostCenters);
+                                        Permission.AccountingCostCenters);
         #endregion UserRights
     }
 }

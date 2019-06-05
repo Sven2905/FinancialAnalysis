@@ -223,6 +223,12 @@
                                             <dxe:TextEdit Text="{Binding SelectedUser.Mail, Mode=TwoWay}" FontFamily="Tahoma" />
                                         </dxlc:LayoutItem>
                                     </dxlc:LayoutGroup>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="Mitarbeiter" FontFamily="Tahoma">
+                                            <dxe:ComboBoxEdit Margin="3" ItemsSource="{Binding EmployeeList}" HorizontalAlignment="Stretch" DisplayMember="Name" ValueMember="EmployeeId" ClearSelectionOnBackspace="True"
+                                                              EditValue="{Binding SelectedUser.RefEmployeeId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
                                 </dxlc:LayoutGroup>
                             </dxlc:LayoutControl>
                             <dxe:ImageEdit DockPanel.Dock="Top" Grid.Column="0" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Margin="12"

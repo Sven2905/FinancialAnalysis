@@ -1,11 +1,9 @@
-﻿Stunden buchen für Mitarbeiter
-Tabelle für Stunden anlegen
-Krankenkasse UserControl / ViewModel
+﻿Krankenkasse UserControl / ViewModel
 Projektdetails (Kosten, Stunden, ...)
 Debitoren für Produkte n:m
-Anzeige / Auswertung WarehouseStockingHistory
 Kosten- und Leistungsrechnung für Preisbestimmung
 Abschreibungen
 Skonti
 Rechteverwaltung vervollständigen
 Mahngebühr
+User und Mitarbeiter beim Speichern synchronisieren

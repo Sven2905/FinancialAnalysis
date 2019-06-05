@@ -65,6 +65,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
+        public TimeFastBookingViewModel TimeFastBookingViewModel { get; set; } = new TimeFastBookingViewModel();
         public StatusViewModel SalesOrderStatusViewModel { get; set; } = new StatusViewModel();
         public StatusViewModel DebitorStatusViewModel { get; set; } = new StatusViewModel();
         public DatabaseStatus DatabaseStatus { get; set; }
@@ -121,27 +122,31 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public bool ShowAccounting => Globals.ActiveUser.IsAdministrator ||
                                       UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
-                                          Permission.AccessAccounting);
+                                          Permission.Accounting);
 
         public bool ShowProjectManagement => Globals.ActiveUser.IsAdministrator ||
                                              UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
-                                                 Permission.AccessProjectManagement);
+                                                 Permission.ProjectManagement);
 
         public bool ShowProducts => Globals.ActiveUser.IsAdministrator ||
                                     UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
-                                        Permission.AccessProducts);
+                                        Permission.Products);
 
         public bool ShowWarehouseManagement => Globals.ActiveUser.IsAdministrator ||
                                                UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
-                                                   Permission.AccessWarehouseManagement);
+                                                   Permission.WarehouseManagement);
 
         public bool ShowConfiguration => Globals.ActiveUser.IsAdministrator ||
                                          UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
-                                             Permission.AccessConfiguration);
+                                             Permission.Configuration);
 
         public bool ShowSalesManagement => Globals.ActiveUser.IsAdministrator ||
                                          UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
-                                             Permission.AccessSalesManagement);
+                                             Permission.SalesManagement);
+
+        public bool ShowTimeManagement => Globals.ActiveUser.IsAdministrator ||
+                                         UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
+                                             Permission.TimeManagement);
         #endregion UserRights
     }
 }

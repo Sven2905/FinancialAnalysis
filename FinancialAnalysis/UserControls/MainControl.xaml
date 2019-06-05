@@ -12,6 +12,7 @@
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
              xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+             xmlns:timemanagement="clr-namespace:FinancialAnalysis.UserControls.TimeManagement"
              x:Class="FinancialAnalysis.UserControls.MainControl"
              mc:Ignorable="d"
              dx:ThemeManager.ThemeName="Office2019White"
@@ -42,6 +43,8 @@
         </Grid>
         <!--<Image Source="/Images/SmallLogo.png" HorizontalAlignment="Left" Margin="3,3,3,3" />-->
 
+        <timemanagement:TimeFastBookingControl DataContext="{Binding TimeFastBookingViewModel}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,50,0,0"/>
+        
         <Viewbox Width="60" Height="60" Stretch="Uniform" StretchDirection="DownOnly" HorizontalAlignment="Left"
                  Margin="15,0,0,0">
             <Canvas Width="60" Height="60">
@@ -136,22 +139,12 @@
                     </dx:SimpleButton>
                     <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
                                  VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
-                                 Content="Zeiterfassung" dxwuin:Navigation.NavigateTo="TimeBookingOverviewControl"
-                                 FontFamily="Tahoma"  Visibility="{Binding Path=ShowSalesManagement, Converter={StaticResource BoolToVis}}"
+                                 Content="Zeiterfassung" dxwuin:Navigation.NavigateTo="TimeManagementControl"
+                                 FontFamily="Tahoma"  Visibility="{Binding Path=ShowTimeManagement, Converter={StaticResource BoolToVis}}"
                                  VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2">
                         <!--Visibility="{Binding Path=ShowProducts, Converter={StaticResource BoolToVis}}">-->
                         <dx:SimpleButton.Glyph>
                             <dx:SvgImageSource Uri="/Images/light/User-clock.svg" Size="120,100" />
-                        </dx:SimpleButton.Glyph>
-                    </dx:SimpleButton>
-                    <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
-                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
-                                 Content="Urlaubsantrag" dxwuin:Navigation.NavigateTo="HolidayRequestControl"
-                                 FontFamily="Tahoma"  Visibility="{Binding Path=ShowSalesManagement, Converter={StaticResource BoolToVis}}"
-                                 VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2">
-                        <!--Visibility="{Binding Path=ShowProducts, Converter={StaticResource BoolToVis}}">-->
-                        <dx:SimpleButton.Glyph>
-                            <dx:SvgImageSource Uri="/Images/light/cocktail.svg" Size="120,100" />
                         </dx:SimpleButton.Glyph>
                     </dx:SimpleButton>
                 </StackPanel>

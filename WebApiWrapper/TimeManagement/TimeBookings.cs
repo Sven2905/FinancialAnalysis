@@ -1,4 +1,5 @@
 ﻿using FinancialAnalysis.Models.TimeManagement;
+using System;
 using System.Collections.Generic;
 
 namespace WebApiWrapper.TimeManagement
@@ -10,6 +11,28 @@ namespace WebApiWrapper.TimeManagement
         public static List<TimeBooking> GetAll()
         {
             return WebApi<List<TimeBooking>>.GetData(controllerName);
+        }
+
+        public static List<TimeBooking> GetDataForDay(DateTime Date, int RefEmployeeId)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "date", Date },
+                { "refEmployeeId", RefEmployeeId },
+            };
+
+            return WebApi<List<TimeBooking>>.GetData(controllerName, "GetDataForDay", parameters);
+        }
+
+        public static List<TimeBooking> GetDataForMonth(DateTime date, int refEmployeeId)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "date", date },
+                { "refEmployeeId", refEmployeeId },
+            };
+
+            return WebApi<List<TimeBooking>>.GetData(controllerName, "GetDataForMonth", parameters);
         }
 
         public static TimeBooking GetById(int id)

@@ -16,7 +16,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         #region UserRights
 
         public bool ShowProducts =>
-            UserManager.Instance.IsUserRightGranted(Globals.ActiveUser, Permission.AccessProducts) ||
+            UserManager.Instance.IsUserRightGranted(Globals.ActiveUser, Permission.Products) ||
             Globals.ActiveUser.IsAdministrator;
 
         #endregion UserRights

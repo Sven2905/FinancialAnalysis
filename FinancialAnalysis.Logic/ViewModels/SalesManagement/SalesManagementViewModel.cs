@@ -15,9 +15,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region UserRights
 
-        public bool ShowSalesOrders => Globals.ActiveUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActiveUser, Permission.AccessSalesOrders);
-        public bool ShowPaymentCondition => Globals.ActiveUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActiveUser, Permission.AccessPaymentCondiditions);
-        public bool ShowPendingSaleOrders => Globals.ActiveUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActiveUser, Permission.AccessPendingSaleOrders);
+        public bool ShowSalesOrders => Globals.ActiveUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActiveUser, Permission.SalesOrders);
+        public bool ShowPaymentCondition => Globals.ActiveUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActiveUser, Permission.AccountingPaymentCondiditions);
+        public bool ShowPendingSaleOrders => Globals.ActiveUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActiveUser, Permission.SalesPendingSaleOrders);
 
         #endregion UserRights
     }

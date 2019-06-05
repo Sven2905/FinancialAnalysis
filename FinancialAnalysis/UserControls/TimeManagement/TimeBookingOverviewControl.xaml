@@ -15,6 +15,9 @@
     <UserControl.DataContext>
         <ViewModels:TimeBookingOverviewViewModel />
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -64,11 +67,25 @@
                         </VirtualizingStackPanel>
 
                         <VirtualizingStackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
-                            <Label  Content="Mitarbeiter " VerticalAlignment="Center" Margin="0,0,10,0" />
-                            <dxg:LookUpEdit DisplayMember="Name" ValueMember="EmployeeId" Foreground="#3F729B" HorizontalAlignment="Left" 
-                                            PopupWidth="800" ItemsSource="{Binding EmployeeList, UpdateSourceTrigger=PropertyChanged}" 
+                            <Label  Content="Mitarbeiter " VerticalAlignment="Center" Margin="0,0,10,0" Visibility="{Binding ShowTimeHolidayRequestForOthers, Converter={StaticResource BoolToVis}}" />
+                            <dxg:LookUpEdit DisplayMember="Name" Foreground="#3F729B" Width="200" AutoPopulateColumns="False"
+                                            ItemsSource="{Binding EmployeeList, UpdateSourceTrigger=PropertyChanged}" 
                                             EditValue="{Binding SelectedEmployeeId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                            AutoComplete="True" IsPopupAutoWidth="True" AutoPopulateColumns="False" Width="200" Grid.RowSpan="3" />
+                                            AutoComplete="True" IsPopupAutoWidth="True" Margin="5,2" ValueMember="EmployeeId"
+                                            Visibility="{Binding ShowTimeHolidayRequestForOthers, Converter={StaticResource BoolToVis}}" >
+                                <dxg:LookUpEdit.PopupContentTemplate>
+                                    <ControlTemplate>
+                                        <dxg:GridControl Name="PART_GridControl">
+                                            <dxg:GridControl.Columns>
+                                                <dxg:GridColumn FieldName="Name"/>
+                                            </dxg:GridControl.Columns>
+                                            <dxg:GridControl.View>
+                                                <dxg:TableView AutoWidth="True"/>
+                                            </dxg:GridControl.View>
+                                        </dxg:GridControl>
+                                    </ControlTemplate>
+                                </dxg:LookUpEdit.PopupContentTemplate>
+                            </dxg:LookUpEdit>
                         </VirtualizingStackPanel>
 
                         <VirtualizingStackPanel Grid.Row="4" Margin="0, 10" Orientation="Horizontal">

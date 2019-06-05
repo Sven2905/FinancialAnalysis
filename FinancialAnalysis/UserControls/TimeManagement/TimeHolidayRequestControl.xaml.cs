@@ -3,11 +3,11 @@
 namespace FinancialAnalysis.UserControls.TimeManagement
 {
     /// <summary>
-    /// Interaction logic for HolidayRequestControl.xaml
+    /// Interaction logic for TimeHolidayRequestControl.xaml
     /// </summary>
-    public partial class HolidayRequestControl : UserControl
+    public partial class TimeHolidayRequestControl : UserControl
     {
-        public HolidayRequestControl()
+        public TimeHolidayRequestControl()
         {
             InitializeComponent();
         }

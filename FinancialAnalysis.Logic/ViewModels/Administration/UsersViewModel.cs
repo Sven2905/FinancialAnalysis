@@ -1,10 +1,13 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Administration;
+using FinancialAnalysis.Models.ProjectManagement;
+using System;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
 using Utilities;
+using WebApiWrapper.ProjectManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -19,6 +22,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return;
             }
 
+            GetData();
             _Users = LoadAllUsers();
             NewUserCommand = new DelegateCommand(NewUser);
             SaveUserCommand = new DelegateCommand(SaveUser, () => Validation());
@@ -38,6 +42,11 @@ namespace FinancialAnalysis.Logic.ViewModels
         #endregion Fields
 
         #region Methods
+
+        private void GetData()
+        {
+            EmployeeList = Employees.GetAll().ToSvenTechCollection();
+        }
 
         private void UserRightUserMappingFlatStructure_OnItemPropertyChanged(object sender, object item,
             PropertyChangedEventArgs e)
@@ -234,6 +243,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             new SvenTechCollection<UserRightUserMappingFlatStructure>();
 
         public SvenTechCollection<User> FilteredUsers { get; set; } = new SvenTechCollection<User>();
+        public SvenTechCollection<Employee> EmployeeList { get; set; } = new SvenTechCollection<Employee>();
         public DelegateCommand NewUserCommand { get; set; }
         public DelegateCommand SaveUserCommand { get; set; }
         public DelegateCommand DeleteUserCommand { get; set; }

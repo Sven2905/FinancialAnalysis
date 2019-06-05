@@ -1,11 +1,13 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.General;
 using FinancialAnalysis.Models.ProjectManagement;
+using Newtonsoft.Json;
 using System;
 using System.Windows.Media;
 
 namespace FinancialAnalysis.Models.TimeManagement
 {
+    [JsonObject(MemberSerialization.OptOut)]
     public class TimeHolidayEmployee : BindableBase
     {
         #region Fields

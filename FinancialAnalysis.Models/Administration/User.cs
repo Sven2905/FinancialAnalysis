@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Models.ProjectManagement;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -63,6 +64,16 @@ namespace FinancialAnalysis.Models.Administration
         /// Ausgabe: Vorname Nachname
         /// </summary>
         public string Name => Firstname + " " + Lastname;
+
+        /// <summary>
+        /// Referenz-Id zum Mitarbeiter
+        /// </summary>
+        public int RefEmployeeId { get; set; }
+
+        /// <summary>
+        /// Mitarbeiterinformationen
+        /// </summary>
+        public Employee Employee { get; set; }
 
         /// <summary>
         /// Vorname

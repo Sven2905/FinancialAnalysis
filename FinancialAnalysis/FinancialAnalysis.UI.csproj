@@ -159,6 +159,9 @@
     <Compile Include="Converter\ColorToBrushConverter.cs" />
     <Compile Include="Converter\NullToVisConverter.cs" />
     <Compile Include="Converter\NullToIsEnabledConverter.cs" />
+    <Compile Include="UserControls\TimeManagement\TimeFastBookingControl.xaml.cs">
+      <DependentUpon>TimeFastBookingControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\InfoBoxControl.xaml.cs">
       <DependentUpon>InfoBoxControl.xaml</DependentUpon>
     </Compile>
@@ -217,8 +220,11 @@
     <Compile Include="UserControls\StatusControl.xaml.cs">
       <DependentUpon>StatusControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\TimeManagement\HolidayRequestControl.xaml.cs">
-      <DependentUpon>HolidayRequestControl.xaml</DependentUpon>
+    <Compile Include="UserControls\TimeManagement\TimeHolidayRequestControl.xaml.cs">
+      <DependentUpon>TimeHolidayRequestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TimeManagement\TimeManagementControl.xaml.cs">
+      <DependentUpon>TimeManagementControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TimeManagement\TimeBookingOverviewControl.xaml.cs">
       <DependentUpon>TimeBookingOverviewControl.xaml</DependentUpon>
@@ -331,6 +337,10 @@
     <Compile Include="Windows\YesNoDialog.xaml.cs">
       <DependentUpon>YesNoDialogWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="UserControls\TimeManagement\TimeFastBookingControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\InfoBoxControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -411,9 +421,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\TimeManagement\HolidayRequestControl.xaml">
+    <Page Include="UserControls\TimeManagement\TimeHolidayRequestControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TimeManagement\TimeManagementControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\TimeManagement\TimeBookingOverviewControl.xaml">
       <SubType>Designer</SubType>

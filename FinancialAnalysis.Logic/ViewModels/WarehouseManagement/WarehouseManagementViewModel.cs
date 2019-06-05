@@ -15,8 +15,8 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region UserRights
 
-        public bool ShowStocking => Globals.ActiveUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActiveUser, Permission.AccessWarehouses);
-        public bool ShowStockyards => Globals.ActiveUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActiveUser, Permission.AccessStockyards);
+        public bool ShowStocking => Globals.ActiveUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActiveUser, Permission.Warehouses);
+        public bool ShowStockyards => Globals.ActiveUser.IsAdministrator || UserManager.Instance.IsUserRightGranted(Globals.ActiveUser, Permission.WarehouseStockyards);
 
         #endregion UserRights
     }

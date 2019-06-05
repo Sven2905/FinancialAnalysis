@@ -52,7 +52,7 @@
             </dxe:DateEdit>
 
             <Label Content="Buchungstyp " Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
-            <dxe:ComboBoxEdit Grid.Row="2" Grid.Column="2" Margin="0,3" EditValue="{Binding TimeBookingType}" 
+            <dxe:ComboBoxEdit Grid.Row="2" Grid.Column="2" Margin="0,3" EditValue="{Binding SelectedTimeBooking.TimeBookingType, UpdateSourceTrigger=PropertyChanged}" 
                               SelectedIndex="0" Width="200" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Foreground="#3F729B" FontFamily="Tahoma">
                 <dxmvvm:Interaction.Behaviors>
                     <dxmvvm:EnumItemsSourceBehavior EnumType="{x:Type models:TimeBookingType}" />
@@ -62,10 +62,10 @@
             <Label Grid.Row="2" Grid.Column="4" Content="Projekt " VerticalAlignment="Center" />
             <dxg:LookUpEdit Grid.Row="2" Grid.Column="6" DisplayMember="Name" ValueMember="EmployeeId" Foreground="#3F729B" 
                             Margin="0,3" PopupWidth="800" ItemsSource="{Binding ProjectList, UpdateSourceTrigger=PropertyChanged}" 
-                            EditValue="{Binding SelectedProjectId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            EditValue="{Binding SelectedTimeBooking.RefProjectId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                             AutoComplete="True" IsPopupAutoWidth="True" AutoPopulateColumns="False" Width="200" />
 
-            <dx:SimpleButton Grid.Row="4" Grid.Column="0" Content="Buchen" Width="120" />
+            <dx:SimpleButton Grid.Row="4" Grid.Column="0" Content="Buchen" Width="120" Command="{Binding CreateNewBookingCommand}"/>
         </Grid>
 
         <dxg:GridControl Grid.Column="0" Grid.Row="1" ItemsSource="{Binding TimeBookings, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
