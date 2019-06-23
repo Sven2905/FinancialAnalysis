@@ -188,7 +188,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 return null;
             }
 
-            Booking booking = new Booking(Amount * (-1), Date, Description);
+            Booking booking = new Booking(Amount, Date, Description);
 
             decimal tax = 0;
             decimal amountWithoutTax = 0;
@@ -214,16 +214,21 @@ namespace FinancialAnalysis.Logic.ViewModels
                 if (SelectedTax.Description.IndexOf("Vorsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     credit = new Credit(amountWithoutTax, CostAccountCreditorId, booking.BookingId);
-                    debit = new Debit((amountWithoutTax + tax) * (-1), CostAccountDebitorId, booking.BookingId);
-                    Credit creditTax = new Credit(tax, SelectedTax.RefCostAccount, booking.BookingId);
+                    debit = new Debit(amountWithoutTax, CostAccountDebitorId, booking.BookingId);
+                    Credit creditTax = new Credit(tax, CostAccountCreditorId, booking.BookingId);
+                    Debit debitTax = new Debit(tax, SelectedTax.RefCostAccount, booking.BookingId);
+
                     booking.Credits.Add(creditTax);
+                    booking.Debits.Add(debitTax);
                 }
                 else if (SelectedTax.Description.IndexOf("Umsatzsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
-                    credit = new Credit(amountWithoutTax + tax, CostAccountCreditorId, booking.BookingId);
-                    debit = new Debit((amountWithoutTax + tax) * (-1), CostAccountDebitorId, booking.BookingId);
-                    Debit debitTax = new Debit(tax, SelectedTax.RefCostAccount, booking.BookingId);
+                    credit = new Credit(amountWithoutTax, CostAccountCreditorId, booking.BookingId);
+                    debit = new Debit(amountWithoutTax, CostAccountDebitorId, booking.BookingId);
+                    Credit creditTax = new Credit(tax, SelectedTax.RefCostAccount, booking.BookingId);
+                    Debit debitTax = new Debit(tax, CostAccountDebitorId, booking.BookingId);
                     booking.Debits.Add(debitTax);
+                    booking.Credits.Add(creditTax);
                 }
                 else
                 {
@@ -233,18 +238,23 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             else if (SelectedBookingType == BookingType.CreditAdvice)
             {
+                // ToDo Check with Tobias !!!
+
                 if (SelectedTax.Description.IndexOf("Vorsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
-                    credit = new Credit((amountWithoutTax + tax) * (-1), CostAccountDebitorId, booking.BookingId);
+                    credit = new Credit(amountWithoutTax * (-1), CostAccountDebitorId, booking.BookingId);
                     debit = new Debit(amountWithoutTax, CostAccountCreditorId, booking.BookingId);
+                    Credit creditTax = new Credit(tax, CostAccountCreditorId, booking.BookingId);
                     Debit debitTax = new Debit(tax, SelectedTax.RefCostAccount, booking.BookingId);
+                    booking.Credits.Add(creditTax);
                     booking.Debits.Add(debitTax);
                 }
                 else if (SelectedTax.Description.IndexOf("Umsatzsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     credit = new Credit(amountWithoutTax, CostAccountDebitorId, booking.BookingId);
-                    debit = new Debit((amountWithoutTax + tax) * (-1), CostAccountCreditorId, booking.BookingId);
+                    debit = new Debit(amountWithoutTax * (-1), CostAccountCreditorId, booking.BookingId);
                     Credit creditTax = new Credit(tax, SelectedTax.RefCostAccount, booking.BookingId);
+                    Debit debitTax = new Debit(tax, CostAccountDebitorId, booking.BookingId);
                     booking.Credits.Add(creditTax);
                 }
                 else
@@ -263,13 +273,13 @@ namespace FinancialAnalysis.Logic.ViewModels
                 booking.RefFixedCostAllocationId = SelectedFixedCostAllocation.FixedCostAllocationId;
                 foreach (FixedCostAllocationDetail item in SelectedFixedCostAllocation.FixedCostAllocationDetails)
                 {
-                    booking.BookingCostCenterMappingList.Add(new BookingCostCenterMapping(0, item.RefCostCenterId, booking.Amount * (decimal)(item.Shares / SelectedFixedCostAllocation.Shares.Sum())));
+                    booking.BookingCostCenterMappingList.Add(new BookingCostCenterMapping(0, item.RefCostCenterId, amountWithoutTax * (decimal)(item.Shares / SelectedFixedCostAllocation.Shares.Sum())));
                 }
             }
             else
             {
                 booking.RefFixedCostAllocationId = 0;
-                booking.BookingCostCenterMappingList.Add(new BookingCostCenterMapping(0, SelectedCostCenter.CostCenterId, booking.Amount));
+                booking.BookingCostCenterMappingList.Add(new BookingCostCenterMapping(0, SelectedCostCenter.CostCenterId, amountWithoutTax));
             }
 
             return booking;

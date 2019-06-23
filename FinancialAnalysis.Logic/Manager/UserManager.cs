@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Timers;
 using System.Windows;
 using Utilities;
 using WebApiWrapper;
@@ -18,10 +19,25 @@ namespace FinancialAnalysis.Logic
 
         private UserManager()
         {
+            tokenTimer.Interval = timerInvervall;
+            tokenTimer.Elapsed += TokenTimer_Elapsed;
+        }
 
+        private void TokenTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            WebApiConfiguration.GetKey(username, password); ;
         }
 
         #endregion Constructor
+
+        #region Fields
+
+        private const int timerInvervall = 1000 * 60 * 15; // every 15 Minutes
+        private readonly Timer tokenTimer = new Timer();
+        private string username;
+        private string password;
+
+        #endregion Fields
 
         #region Properties
 
@@ -190,7 +206,11 @@ namespace FinancialAnalysis.Logic
 
             try
             {
+                this.username = username;
+                this.password = password;
                 WebApiConfiguration.GetKey(username, password);
+                tokenTimer.Enabled = true;
+                tokenTimer.Start();
             }
             catch (Exception)
             {

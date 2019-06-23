@@ -43,12 +43,12 @@ namespace FinancialAnalysis.Logic.Calculation
         {
             DateTime newEndDate = new DateTime(EndDate.Year, EndDate.Month, EndDate.Day, 23, 59, 59);
             ActiveAccountList = BalanceAccounts.GetActiveAccounts(StartDate, newEndDate).ToSvenTechCollection();
-            //ActiveAccountDetailedList = BalanceAccounts.GetActiveAccountsDetailed(StartDate, newEndDate).ToSvenTechCollection();
+            ActiveAccountDetailedList = BalanceAccounts.GetActiveAccountsDetailed(StartDate, newEndDate).ToSvenTechCollection();
             PassiveAccountList = BalanceAccounts.GetPassiveAccounts(StartDate, newEndDate).ToSvenTechCollection();
             //PassiveAccountDetailedList = BalanceAccounts.GetPassiveAccountsDetailed(StartDate, newEndDate).ToSvenTechCollection();
 
-            //CalculateSums();
-            //CalculateCompensation();
+            // CalculateSums();
+            CalculateCompensation();
             //GetParentCategories();
 
             RaisePropertyChanged("SumActiveAccounts");
@@ -61,7 +61,7 @@ namespace FinancialAnalysis.Logic.Calculation
         {
             if (SumActiveAccounts > SumPassiveAccounts)
             {
-
+                PassiveAccountList[0].Amount += SumActiveAccounts - SumPassiveAccounts;
             }
             else if (SumPassiveAccounts < SumPassiveAccounts)
             {
