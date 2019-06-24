@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using Utilities;
 using WebApiWrapper.Accounting;
 using WebApiWrapper.ProjectManagement;
@@ -77,11 +78,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             OpenFileCommand = new DelegateCommand(() =>
             {
-                DXOpenFileDialog fileDialog = new DXOpenFileDialog();
-                if (fileDialog.ShowDialog().Value)
-                {
-                    CreateScannedDocumentItem(fileDialog.FileName);
-                }
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "pdf Dateien (*.pdf)|*.pdf";
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    CreateScannedDocumentItem(openFileDialog.FileName);
             });
 
             DoubleClickListBoxCommand = new DelegateCommand(() =>

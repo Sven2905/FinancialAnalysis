@@ -11,6 +11,7 @@
              xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:rules="clr-namespace:FinancialAnalysis.Logic.Rules;assembly=FinancialAnalysis.Logic"
+             xmlns:timemanagement="clr-namespace:FinancialAnalysis.UserControls.TimeManagement"
              mc:Ignorable="d"
              d:DesignHeight="1000" d:DesignWidth="1900">
     <UserControl.DataContext>
@@ -347,13 +348,18 @@
                                     </dxlc:LayoutItem>
                                 </dxlc:LayoutGroup>
                                 <dxlc:LayoutGroup>
-                                    <dxlc:LayoutItem Label="Arbeitsstunden / Woche" FontFamily="Tahoma">
-                                        <dxe:TextEdit Text="{Binding SelectedEmployee.WorkHoursPerWeek}" FontFamily="Tahoma" />
-                                    </dxlc:LayoutItem>
-                                </dxlc:LayoutGroup>
-                                <dxlc:LayoutGroup>
                                     <dxlc:LayoutItem Label="Tarif" FontFamily="Tahoma">
                                         <dxe:TextEdit Text="{Binding SelectedEmployee.Tariff}" FontFamily="Tahoma" />
+                                    </dxlc:LayoutItem>
+                                </dxlc:LayoutGroup>
+                            </dxlc:LayoutGroup>
+                            <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
+                                <dxlc:LayoutGroup.Header>
+                                    <TextBlock Text="Arbeitszeiten" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                                </dxlc:LayoutGroup.Header>
+                                <dxlc:LayoutGroup>
+                                    <dxlc:LayoutItem Label="" FontFamily="Tahoma">
+                                        <timemanagement:TimeObligatoryHourControl DataContext="{Binding TimeObligatoryHourViewModel}" />
                                     </dxlc:LayoutItem>
                                 </dxlc:LayoutGroup>
                             </dxlc:LayoutGroup>

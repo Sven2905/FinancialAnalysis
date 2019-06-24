@@ -1,4 +1,5 @@
 ﻿using FinancialAnalysis.Models.TimeManagement;
+using System;
 using System.Collections.Generic;
 
 namespace WebApiWrapper.TimeManagement
@@ -15,6 +16,28 @@ namespace WebApiWrapper.TimeManagement
         public static TimeBalance GetById(int id)
         {
             return WebApi<TimeBalance>.GetDataById(controllerName, id);
+        }
+
+        public static TimeBalance GetByDateAndRefEmployeeId(DateTime Date, int RefEmployeeId)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "Date", Date },
+                { "RefEmployeeId", RefEmployeeId },
+            };
+
+            return WebApi<TimeBalance>.GetData(controllerName, "GetByDateAndRefEmployeeId", parameters);
+        }
+
+        public static TimeBalance GetLastByDateAndRefEmployeeId(DateTime Date, int RefEmployeeId)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "Date", Date },
+                { "RefEmployeeId", RefEmployeeId },
+            };
+
+            return WebApi<TimeBalance>.GetData(controllerName, "GetLastByDateAndRefEmployeeId", parameters);
         }
 
         public static int Insert(TimeBalance TimeBalance)

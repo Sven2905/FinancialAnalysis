@@ -117,11 +117,6 @@ namespace FinancialAnalysis.Models.ProjectManagement
         public decimal Salary { get; set; }
 
         /// <summary>
-        /// Arbeitsstunden pro Woche
-        /// </summary>
-        public float WorkHoursPerWeek { get; set; }
-
-        /// <summary>
         /// Urlaubstage pro Jahr
         /// </summary>
         public int VacationDays { get; set; }

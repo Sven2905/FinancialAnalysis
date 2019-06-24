@@ -181,6 +181,7 @@
     <Compile Include="ViewModels\TimeManagement\TimeBookingOverviewViewModel.cs" />
     <Compile Include="ViewModels\TimeManagement\TimeBookingViewModel.cs" />
     <Compile Include="ViewModels\TimeManagement\TimeManagementViewModel.cs" />
+    <Compile Include="ViewModels\TimeManagement\TimeObligatoryHourViewModel.cs" />
     <Compile Include="ViewModels\WebApiConfigurationViewModel.cs" />
     <Compile Include="ViewModels\DatabaseConfigurationViewModel.cs" />
     <Compile Include="ViewModels\DialogViewModel.cs" />

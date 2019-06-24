@@ -19,7 +19,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public TimeBookingViewModel()
         {
             GetData();
-            CreateNewBookingCommand = new DelegateCommand(CreateNewBooking, () => bookingManager.ValidateBooking(SelectedTimeBooking, RefEmployeeId)); 
+            CreateNewBookingCommand = new DelegateCommand(SaveNewBooking, () => bookingManager.ValidateBooking(SelectedTimeBooking)); 
         }
 
         #endregion Constructor
@@ -33,11 +33,11 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Methods
 
-        private void CreateNewBooking()
+        private void SaveNewBooking()
         {
             SelectedTimeBooking.TimeStamp = DateTime.Now;
             SelectedTimeBooking.RefEmployeeId = RefEmployeeId;
-            TimeBookings.Insert(SelectedTimeBooking);
+            bookingManager.SaveTimeBooking(SelectedTimeBooking);
         }
 
         private void GetData()

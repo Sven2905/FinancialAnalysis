@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="FinancialAnalysis.UserControls.TimeManagement.TimeObligatoryHourControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
+             xmlns:local="clr-namespace:FinancialAnalysis.UserControls.TimeManagement"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+             mc:Ignorable="d" 
+             dx:ThemeManager.ThemeName="Office2019White">
+    <UserControl.DataContext>
+        <ViewModels:TimeObligatoryHourViewModel />
+    </UserControl.DataContext>
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Margin="0,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Montag" />
+            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Dienstag" />
+            <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="Mittwoch" />
+            <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="Donnerstag" />
+            <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="Freitag" />
+            <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Text="Samstag" />
+            <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Text="Sonntag" />
+
+            <TextBox Grid.Row="0" Grid.Column="2" Height="20" Margin="0,2" HorizontalContentAlignment="Right" Text="{Binding HoursMonday, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Row="1" Grid.Column="2" Height="20" Margin="0,2" HorizontalContentAlignment="Right" Text="{Binding HoursTuesday, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Row="2" Grid.Column="2" Height="20" Margin="0,2" HorizontalContentAlignment="Right" Text="{Binding HoursWednesday, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Row="3" Grid.Column="2" Height="20" Margin="0,2" HorizontalContentAlignment="Right" Text="{Binding HoursThursday, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Row="4" Grid.Column="2" Height="20" Margin="0,2" HorizontalContentAlignment="Right" Text="{Binding HoursFriday, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Row="5" Grid.Column="2" Height="20" Margin="0,2" HorizontalContentAlignment="Right" Text="{Binding HoursSaturday, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Row="6" Grid.Column="2" Height="20" Margin="0,2" HorizontalContentAlignment="Right" Text="{Binding HoursSunday, UpdateSourceTrigger=PropertyChanged}" />
+
+            <TextBlock Grid.Row="0" Grid.Column="4" VerticalAlignment="Center" Text="Stunden" />
+            <TextBlock Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" Text="Stunden" />
+            <TextBlock Grid.Row="2" Grid.Column="4" VerticalAlignment="Center" Text="Stunden" />
+            <TextBlock Grid.Row="3" Grid.Column="4" VerticalAlignment="Center" Text="Stunden" />
+            <TextBlock Grid.Row="4" Grid.Column="4" VerticalAlignment="Center" Text="Stunden" />
+            <TextBlock Grid.Row="5" Grid.Column="4" VerticalAlignment="Center" Text="Stunden" />
+            <TextBlock Grid.Row="6" Grid.Column="4" VerticalAlignment="Center" Text="Stunden" />
+            <TextBlock Grid.Row="7" Grid.Column="4" VerticalAlignment="Center" Text="Stunden" FontWeight="Bold" />
+
+            <TextBlock Grid.Row="7" Grid.Column="0" Text="Gesamt" FontWeight="Bold" Margin="0,2"/>
+            <TextBlock Grid.Row="7" Grid.Column="2" Text="{Binding HoursSum}" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,2"/>
+        </Grid>
+    </Grid>
+</UserControl>

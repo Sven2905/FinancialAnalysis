@@ -30,7 +30,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             Messenger.Default.Register<SelectedSalesType>(this, ChangeSelectedSalesType);
 
-            Task.Run(() => GetData());
+             GetData();
             Messenger.Default.Register<SelectedSalesType>(this, ChangeSelectedSalesType);
             SetCommands();
         }

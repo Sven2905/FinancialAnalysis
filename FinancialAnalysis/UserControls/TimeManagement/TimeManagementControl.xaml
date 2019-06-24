@@ -66,6 +66,15 @@
                             <dx:SvgImageSource Uri="/Images/light/cocktail.svg" Size="100,100" />
                         </dx:SimpleButton.Glyph>
                     </dx:SimpleButton>
+                    <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top" 
+                                     VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1" 
+                                     Content="Urlaubsantrag" FontFamily="Tahoma" dxwuin:Navigation.NavigateTo="TimeObligatoryHourControl" 
+                                     VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2" 
+                                     Visibility="{Binding Path=ShowTimeHolidayRequest, Converter={StaticResource BoolToVis}}">
+                        <dx:SimpleButton.Glyph>
+                            <dx:SvgImageSource Uri="/Images/light/business-time.svg" Size="120,100" />
+                        </dx:SimpleButton.Glyph>
+                    </dx:SimpleButton>
                 </VirtualizingStackPanel>
                 <VirtualizingStackPanel HorizontalAlignment="Left"/>
             </VirtualizingStackPanel>

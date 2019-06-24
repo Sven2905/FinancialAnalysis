@@ -35,6 +35,17 @@ namespace WebApiWrapper.TimeManagement
             return WebApi<List<TimeBooking>>.GetData(controllerName, "GetDataForMonth", parameters);
         }
 
+        public static List<TimeBooking> GetDataSinceDayForRefEmployeeId(DateTime date, int refEmployeeId)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "date", date },
+                { "refEmployeeId", refEmployeeId },
+            };
+
+            return WebApi<List<TimeBooking>>.GetData(controllerName, "GetDataSinceDayForRefEmployeeId", parameters);
+        }
+
         public static TimeBooking GetById(int id)
         {
             return WebApi<TimeBooking>.GetDataById(controllerName, id);

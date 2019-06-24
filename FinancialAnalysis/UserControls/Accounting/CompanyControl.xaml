@@ -131,7 +131,7 @@
                     </dxlc:LayoutGroup.Header>
                     <dxlc:LayoutGroup>
                         <dxlc:LayoutItem Label="Vorausgewählte Steuer" FontFamily="Tahoma">
-                            <dxe:ComboBoxEdit ItemsSource="{Binding TaxTypes}" DisplayMember="Description"
+                            <dxe:ComboBoxEdit ItemsSource="{Binding TaxTypeList}" DisplayMember="Description"
                                               ValueMember="TaxTypeId"
                                               FontFamily="Tahoma" EditValue="{Binding SelectedTaxTypeId}"
                                               Foreground="#3f729b" />

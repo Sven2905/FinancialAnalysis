@@ -34,8 +34,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         public SvenTechCollection<Employee> EmployeeList { get; set; } = new SvenTechCollection<Employee>();
         public SvenTechCollection<Employee> FilteredEmployees { get; set; } = new SvenTechCollection<Employee>();
 
-        public SvenTechCollection<HealthInsurance> HealthInsuranceList { get; set; } =
-            new SvenTechCollection<HealthInsurance>();
+        public SvenTechCollection<HealthInsurance> HealthInsuranceList { get; set; } = new SvenTechCollection<HealthInsurance>();
+        public TimeObligatoryHourViewModel TimeObligatoryHourViewModel { get; set; } = new TimeObligatoryHourViewModel();
 
         public DelegateCommand NewUserCommand { get; set; }
         public DelegateCommand SaveUserCommand { get; set; }
@@ -47,14 +47,13 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 _SelectedEmployee = value;
+                if (_SelectedEmployee != null)
+                    TimeObligatoryHourViewModel.EmployeeId = _SelectedEmployee.EmployeeId;
+
                 if (_SelectedEmployee != null && _SelectedEmployee.Picture != null)
-                {
                     Image = ConvertToImage(_SelectedEmployee.Picture);
-                }
                 else
-                {
                     Image = null;
-                }
             }
         }
 
@@ -135,6 +134,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 Employees.Update(SelectedEmployee);
             }
+
+            TimeObligatoryHourViewModel.EmployeeId = SelectedEmployee.EmployeeId;
+            TimeObligatoryHourViewModel.SaveData();
             SelectedEmployee = null;
         }
 
@@ -151,9 +153,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private bool Validation()
         {
             if (SelectedEmployee == null)
-            {
                 return false;
-            }
 
             return SelectedEmployee.IsValidForSaving;
         }
@@ -161,9 +161,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public BitmapImage ConvertToImage(byte[] array)
         {
             if (array == null)
-            {
                 return null;
-            }
 
             using (MemoryStream ms = new MemoryStream(array))
             {
@@ -179,9 +177,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private byte[] ConvertToByteArray(BitmapImage bitmapImage)
         {
             if (bitmapImage == null)
-            {
                 return null;
-            }
 
             byte[] data;
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
