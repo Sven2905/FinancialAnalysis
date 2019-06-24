@@ -7,5 +7,4 @@ Skonti
 Rechteverwaltung vervollständigen
 Mahngebühr
 User und Mitarbeiter beim Speichern synchronisieren
-Kostenstelle nur NETTO!!!
 Leistungsabhängige Abschreibungen

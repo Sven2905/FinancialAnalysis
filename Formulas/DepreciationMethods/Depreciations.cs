@@ -118,5 +118,42 @@ namespace Formulas.DepreciationMethods
 
             return depreciationValues;
         }
+
+        /// <summary>
+        /// Berechnet den Abschreibungsbetrag je Leistungseinheit
+        /// </summary>
+        /// <param name="initialValue">Anschaffungs-/Herstellungskosten</param>
+        /// <param name="totalPower">Gesamtleistung</param>
+        /// <returns></returns>
+        public static decimal CalculatePerfomanceBasedBasicValue(decimal initialValue, decimal totalPower)
+        {
+            return initialValue / totalPower;
+        }
+
+        /// <summary>
+        /// Berechnet den Abschreibungsbetrag pro Jahr
+        /// </summary>
+        /// <param name="initialValue">Anschaffungs-/Herstellungskosten</param>
+        /// <param name="totalPower">Gesamtleistung</param>
+        /// <param name="yearlyPower">Jahresleistung</param>
+        /// <returns></returns>
+        public static List<DepreciationValue> CalculatePerfomanceBased(decimal initialValue, decimal totalPower, List<int> yearlyPower)
+        {
+            List<DepreciationValue> depreciationValues = new List<DepreciationValue>
+            {
+                new DepreciationValue(0, 0, initialValue)
+            };
+
+            var baseValue = CalculatePerfomanceBasedBasicValue(initialValue, totalPower);
+
+            for (int i = 0; i < yearlyPower.Count; i++)
+            {
+                decimal yearlyDepreciation = yearlyPower[i] * baseValue;
+                initialValue -= yearlyDepreciation;
+                depreciationValues.Add(new DepreciationValue(i+1, yearlyDepreciation, initialValue));
+            }
+
+            return depreciationValues;
+        }
     }
 }
