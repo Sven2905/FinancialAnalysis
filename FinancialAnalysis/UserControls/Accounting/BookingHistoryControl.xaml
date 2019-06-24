@@ -202,8 +202,8 @@
                                     <Grid Grid.Row="1">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="2*" />
                                             <ColumnDefinition Width="3*" />
+                                            <ColumnDefinition Width="2*" />
                                         </Grid.ColumnDefinitions>
 
                                         <Grid Grid.Column="0">
@@ -220,7 +220,7 @@
                                                 <TextBlock Grid.Row="0" VerticalAlignment="Center" Text="{Binding SelectedBooking.FixedCostAllocation.DisplayShares}" 
                                                            FontFamily="Tahoma" Foreground="#3F729B" />
                                             </VirtualizingStackPanel>
-                                            
+
                                             <dxg:GridControl Grid.Row="2" HorizontalAlignment="Center" ShowBorder="False" ItemsSource="{Binding SelectedBooking.BookingCostCenterMappingList}" Margin="10" >
                                                 <dxg:GridColumn FieldName="CostCenter.Name" Header="Name" />
                                                 <dxg:GridColumn FieldName="Amount" Header="Betrag" >
@@ -235,10 +235,37 @@
                                                            AutoWidth="True" NewItemRowPosition="None" AllowSorting="False" HighlightItemOnHover="True" ShowColumnHeaders="False"/>
                                                 </dxg:GridControl.View>
                                             </dxg:GridControl>
-                                            
-                                        </Grid>
 
+                                        </Grid>
                                         <Grid Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+
+                                            <TextBlock Grid.Row="0" Text="Details" FontSize="24" FontFamily="Tahoma" Foreground="#3F729B" Margin="10,0" />
+                                            <ItemsControl Grid.Row="1"  ItemsSource="{Binding SelectedBooking.Pairs}" HorizontalContentAlignment="Stretch" Margin="10" BorderThickness="0">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid Margin="0,2">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="250" />
+                                                                <ColumnDefinition Width="75" />
+                                                                <ColumnDefinition Width="50" />
+                                                                <ColumnDefinition Width="250" />
+                                                                <ColumnDefinition Width="75" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Column="0" Text="{Binding Item2.CostAccount.DisplayName}" Margin="0,0,5,0"/>
+                                                            <TextBlock Grid.Column="1" Text="{Binding Item2.Amount, StringFormat=C2}" HorizontalAlignment="Right"/>
+                                                            <TextBlock Grid.Column="2" HorizontalAlignment="Center" Text=" an " />
+                                                            <TextBlock Grid.Column="3" Text="{Binding Item1.CostAccount.DisplayName}" Margin="0,0,5,0"/>
+                                                            <TextBlock Grid.Column="4" Text="{Binding Item1.Amount, StringFormat=C2}" HorizontalAlignment="Right"/>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </Grid>
+                                        <Grid Grid.Column="2">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="*" />

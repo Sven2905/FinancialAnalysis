@@ -117,15 +117,15 @@
                                         </Separator.LayoutTransform>
                                     </Separator>
 
-                                    <dxg:TreeListControl Grid.Column="0" Grid.Row="2" Focusable="False"
-                                         ItemsSource="{Binding BalanceAccountCalculation.ActiveAccountList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         SelectionMode="None" ShowBorder="False" Margin="10,5">
+                                    <dxg:TreeListControl Grid.Column="0" Grid.Row="2" Focusable="False" 
+                                                         ItemsSource="{Binding BalanceAccountCalculation.ActiveAccountList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                         SelectionMode="None" ShowBorder="False" Margin="10,5">
                                         <dxg:TreeListControl.View>
                                             <dxg:TreeListView EditFormColumnCount="2" EditFormShowMode="None" 
-                                              EnableImmediatePosting="True" Width="auto" ShowColumnHeaders="True" 
-                                              AutoWidth="True" KeyFieldName="BalanceAccountId" AutoExpandAllNodes="True"
-                                              ParentFieldName="ParentId" ShowIndicator="False" ShowHorizontalLines="True" ShowVerticalLines="False"
-                                              VerticalScrollbarVisibility="Auto">
+                                                              EnableImmediatePosting="True" Width="auto" ShowColumnHeaders="True" 
+                                                              AutoWidth="True" KeyFieldName="BalanceAccountId" AutoExpandAllNodes="True"
+                                                              ParentFieldName="ParentId" ShowIndicator="False" ShowHorizontalLines="True" ShowVerticalLines="False" 
+                                                              VerticalScrollbarVisibility="Auto">
                                             </dxg:TreeListView>
                                         </dxg:TreeListControl.View>
                                         <dxg:TreeListColumn FieldName="Name" Header="Name" AllowEditing="False" />

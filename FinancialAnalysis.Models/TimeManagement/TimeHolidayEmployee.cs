@@ -12,8 +12,8 @@ namespace FinancialAnalysis.Models.TimeManagement
     {
         #region Fields
 
-        private DateTime _FirstDay;
-        private DateTime _LastDay;
+        private DateTime _FirstDay = DateTime.Now;
+        private DateTime _LastDay = DateTime.Now;
         private bool _IsHalfFirstDay;
         private bool _IsHalfLastDay;
         private bool _OnlyWorkingDays;
