@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FinancialAnalysis.UserControls.Accounting"
+             xmlns:UserControls="clr-namespace:FinancialAnalysis.UserControls"
              xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
              xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
@@ -18,9 +19,14 @@
     <UserControl.DataContext>
         <ViewModels:DepreciationBaseViewModel />
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <UserControls:InverseBooleanToVisiblityConverter x:Key="InverseBoolToVis"/>
+        <UserControls:BooleanToVisiblityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
     <Grid >
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
@@ -46,7 +52,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="Art: " VerticalAlignment="Center" />
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Art: " VerticalAlignment="Center" Width="75" />
                 <dxe:ComboBoxEdit Grid.Column="2" EditValue="{Binding DepreciationItem.DepreciationType, UpdateSourceTrigger=PropertyChanged}" 
                                                           SelectedIndex="0" HorizontalAlignment="Stretch" Foreground="#3F729B" FontFamily="Tahoma">
                     <dxmvvm:Interaction.Behaviors>
@@ -54,15 +60,54 @@
                     </dxmvvm:Interaction.Behaviors>
                 </dxe:ComboBoxEdit>
 
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="Dauer (Jahre): " VerticalAlignment="Center" Width="75"/>
-                <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding DepreciationItem.Years, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Dauer (Jahre): " VerticalAlignment="Center" Width="75" Visibility="{Binding IsPerfomanceBased, Converter={StaticResource BoolToVis}}" />
+                <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding DepreciationItem.Years, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Visibility="{Binding IsPerfomanceBased, Converter={StaticResource BoolToVis}}" />
                 <TextBlock Grid.Row="0" Grid.Column="4" Text="Startkapital: " VerticalAlignment="Center"/>
                 <TextBox Grid.Row="0" Grid.Column="6" Text="{Binding DepreciationItem.InitialValue, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
-                <TextBlock Grid.Row="2" Grid.Column="4" Text="Restwert: " VerticalAlignment="Center"/>
-                <TextBox Grid.Row="2" Grid.Column="6" Text="{Binding DepreciationItem.AssetValue, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+                <TextBlock Grid.Row="2" Grid.Column="4" Text="Restwert: " VerticalAlignment="Center" Visibility="{Binding IsPerfomanceBased, Converter={StaticResource BoolToVis}}" />
+                <TextBox Grid.Row="2" Grid.Column="6" Text="{Binding DepreciationItem.AssetValue, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Visibility="{Binding IsPerfomanceBased, Converter={StaticResource BoolToVis}}" />
             </Grid>
 
-            <dxg:GridControl Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" ShowBorder="false" ItemsSource="{Binding DepreciationValues}" Margin="10">
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Margin="0,10" Visibility="{Binding IsPerfomanceBased, Converter={StaticResource InverseBoolToVis}}" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Margin="10,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Width="75" Text="Leistung: " Margin="0,0,5,0"/>
+                    <TextBox Grid.Column="1" Text="{Binding Power, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+                </Grid>
+
+                <VirtualizingStackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
+                    <dxg:GridControl Grid.Column="0" Grid.Row="1" ShowBorder="false" ItemsSource="{Binding YearlyPowers}" SelectedItem="{Binding SelectedPerformanceDepreciationItem}" Margin="10" Width="125" HorizontalAlignment="Left">
+                    <dxg:GridControl.View>
+                        <dxg:TableView ShowHorizontalLines="True" ShowVerticalLines="False" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" MaxHeight="5000" MaxWidth="5000"
+                               ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" EnableSelectedRowAppearance="true"
+                               UseEvenRowBackground="True" ShowIndicator="False" AllowColumnMoving="False" AllowGrouping="False" AutoWidth="False" />
+                    </dxg:GridControl.View>
+                    <dxg:GridColumn FieldName="Year" Header="Jahr" Width="50" />
+                    <dxg:GridColumn FieldName="Power" Header="Leistung" Width="75"/>
+                </dxg:GridControl>
+
+                <Grid Grid.Column="0" Grid.Row="1" Margin="0,10">
+                    <VirtualizingStackPanel Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                        <dx:SimpleButton Height="30" Content="Hinzufügen" Command="{Binding AddYearlyPowerCommand}" Margin="0,0,0,5" />
+                        <dx:SimpleButton Height="30" Content="Entfernen" Command="{Binding RemoveYearlyPowerCommand}" />
+                    </VirtualizingStackPanel>
+                </Grid>
+                </VirtualizingStackPanel>
+            </Grid>
+
+            <dxg:GridControl Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" ShowBorder="false" ItemsSource="{Binding DepreciationValues}" Margin="10">
                 <dxg:GridControl.View>
                     <dxg:TableView ShowHorizontalLines="True" ShowVerticalLines="False" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" MaxHeight="5000" MaxWidth="5000"
                                ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" EnableSelectedRowAppearance="False"

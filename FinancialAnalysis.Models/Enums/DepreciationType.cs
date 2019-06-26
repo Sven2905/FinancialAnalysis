@@ -6,6 +6,7 @@ namespace FinancialAnalysis.Models
     {
         [Display(Name = "Arithmetisch-degressiv")] SumOfTheYearsDigitMethod,
         [Display(Name = "Geometrisch-degressiv")] DecliningBalanceMethod,
-        [Display(Name = "Linear")] Linear
+        [Display(Name = "Linear")] Linear,
+        [Display(Name = "Leistungsabhängig")] PerfomanceBased,
     }
 }

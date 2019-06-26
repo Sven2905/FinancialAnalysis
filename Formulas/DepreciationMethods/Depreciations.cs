@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Formulas.DepreciationMethods
 {
@@ -27,7 +28,7 @@ namespace Formulas.DepreciationMethods
         /// <param name="assetValue">Restwerts</param>
         /// <param name="years">Nutzungsjahre</param>
         /// <returns>Jährliche Abschreibungsbeträge</returns>
-        public static List<DepreciationValue> CalculateArithmenticDegressiveValuesForYears(decimal initialValue, decimal assetValue, int years)
+        public static IEnumerable<DepreciationValue> CalculateArithmenticDegressiveValuesForYears(decimal initialValue, decimal assetValue, int years)
         {
             List<DepreciationValue> depreciationValues = new List<DepreciationValue>
             {
@@ -38,7 +39,7 @@ namespace Formulas.DepreciationMethods
             int year = 1;
             for (int i = years; i > 0; i--)
             {
-                initialValue -= i * yearlyAssetValue;
+                initialValue = Math.Max(initialValue - i * yearlyAssetValue, 0);
                 depreciationValues.Add(new DepreciationValue(year++, i * yearlyAssetValue, initialValue));
             }
             return depreciationValues;
@@ -63,7 +64,7 @@ namespace Formulas.DepreciationMethods
         /// <param name="assetValue">Restwerts</param>
         /// <param name="years">Nutzungsjahre</param>
         /// <returns>Jährliche Abschreibungsbeträge</returns>
-        public static List<DepreciationValue> CalculateGeometryDregressiveForYears(decimal initialValue, decimal assetValue, int years)
+        public static IEnumerable<DepreciationValue> CalculateGeometryDregressiveForYears(decimal initialValue, decimal assetValue, int years)
         {
             List<DepreciationValue> depreciationValues = new List<DepreciationValue>
             {
@@ -75,7 +76,7 @@ namespace Formulas.DepreciationMethods
             for (int i = years; i > 0; i--)
             {
                 decimal yearlyAssetValue = initialValue * (yearlyDepreciationRate / 100);
-                initialValue -= yearlyAssetValue;
+                initialValue = Math.Max(initialValue - yearlyAssetValue, 0);
                 depreciationValues.Add(new DepreciationValue(year++, yearlyAssetValue, initialValue));
             }
 
@@ -101,7 +102,7 @@ namespace Formulas.DepreciationMethods
         /// <param name="yearlyDepreciation">Jährliche Abschreibung</param>
         /// <param name="years">Dauer in Jahren</param>
         /// <returns>Jährliche Abschreibungsbeträge</returns>
-        public static List<DepreciationValue> CalculateLinearValueForYears(decimal initialValue, decimal assetValue, int years)
+        public static IEnumerable<DepreciationValue> CalculateLinearValueForYears(decimal initialValue, decimal assetValue, int years)
         {
             List<DepreciationValue> depreciationValues = new List<DepreciationValue>
             {
@@ -112,7 +113,7 @@ namespace Formulas.DepreciationMethods
             int year = 1;
             for (int i = years; i > 0; i--)
             {
-                initialValue -= yearlyAssetValue;
+                initialValue = Math.Max(initialValue - yearlyAssetValue, 0);
                 depreciationValues.Add(new DepreciationValue(year++, yearlyAssetValue, initialValue));
             }
 
@@ -131,14 +132,18 @@ namespace Formulas.DepreciationMethods
         }
 
         /// <summary>
-        /// Berechnet den Abschreibungsbetrag pro Jahr
+        /// Berechnet den Abschreibungsbetrag pro Jahr (Leistungsabhängig)
         /// </summary>
         /// <param name="initialValue">Anschaffungs-/Herstellungskosten</param>
         /// <param name="totalPower">Gesamtleistung</param>
         /// <param name="yearlyPower">Jahresleistung</param>
         /// <returns></returns>
-        public static List<DepreciationValue> CalculatePerfomanceBased(decimal initialValue, decimal totalPower, List<int> yearlyPower)
+        public static IEnumerable<DepreciationValue> CalculatePerfomanceBased(decimal initialValue, IEnumerable<PerformanceDepreciationItem> yearlyPower)
         {
+            var yearlyPowerList = yearlyPower.ToList();
+
+            decimal totalPower = yearlyPowerList.Sum(x => x.Power);
+
             List<DepreciationValue> depreciationValues = new List<DepreciationValue>
             {
                 new DepreciationValue(0, 0, initialValue)
@@ -146,10 +151,10 @@ namespace Formulas.DepreciationMethods
 
             var baseValue = CalculatePerfomanceBasedBasicValue(initialValue, totalPower);
 
-            for (int i = 0; i < yearlyPower.Count; i++)
+            for (int i = 0; i < yearlyPowerList.Count; i++)
             {
-                decimal yearlyDepreciation = yearlyPower[i] * baseValue;
-                initialValue -= yearlyDepreciation;
+                decimal yearlyDepreciation = yearlyPowerList[i].Power * baseValue;
+                initialValue = Math.Max(initialValue - yearlyDepreciation, 0);
                 depreciationValues.Add(new DepreciationValue(i+1, yearlyDepreciation, initialValue));
             }
 

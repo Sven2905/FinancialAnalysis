@@ -45,6 +45,7 @@
     <Compile Include="DepreciationMethods\DepreciationValue.cs" />
     <Compile Include="CalculationOfInterest.cs" />
     <Compile Include="DepreciationMethods\Depreciations.cs" />
+    <Compile Include="DepreciationMethods\PerformanceDepreciationItem.cs" />
     <Compile Include="ImplicitCosts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
