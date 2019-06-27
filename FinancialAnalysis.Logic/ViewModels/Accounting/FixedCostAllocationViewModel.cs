@@ -1,5 +1,4 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Logic.General;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models.Accounting;
 using System;
@@ -139,7 +138,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (DoesCostCenterAlreadyExist(SelectedCostCenter.CostCenterId))
             {
                 Messenger.Default.Send(new OpenDialogWindowMessage("Fehler", "Kostenstelle ist bereits enhalten.", MessageBoxImage.Asterisk));
-                NotificationMessages.ShowError();
                 return;
             }
 
@@ -152,8 +150,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 FixedCostAllocationDetails.Update(SelectedFixedCostAllocationDetail);
             }
-
-            NotificationMessages.ShowSuccess();
         }
 
         public void DeleteFixedCostAllocationDetail()
@@ -166,11 +162,10 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     FixedCostAllocationDetails.Delete(itemToRemove.FixedCostAllocationDetailId);
                 }
-                NotificationMessages.ShowSuccess();
             }
             catch (Exception)
             {
-                NotificationMessages.ShowError();
+                // TODO Error Message
             }
         }
 

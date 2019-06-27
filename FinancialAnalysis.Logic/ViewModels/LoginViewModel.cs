@@ -1,5 +1,6 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Logic.Messages;
+using System;
 using System.IO;
 using System.Windows;
 using Utilities;
@@ -26,20 +27,13 @@ namespace FinancialAnalysis.Logic.ViewModels
             //.AddMotherboardSerialNumber()
             //.ToString();
 
-
             if (IsInDesignMode)
-            {
                 return;
-            }
 
             if (File.Exists(@".\WebApiConfig.cfg"))
-            {
                 LoadWebApiConfigurationFromFile();
-            }
             else
-            {
                 Messenger.Default.Send(new OpenWebApiConfigurationWindow());
-            }
 
 #if (DEBUG)
             UserName = "Admin";
