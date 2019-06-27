@@ -94,20 +94,8 @@ namespace FinancialAnalysis.Logic.Manager
 
         private void SaveBalance(TimeBooking timeBooking)
         {
-            TimeSpan nettoWorkingTime;
-
             var bookings = TimeBookings.GetDataForDay(timeBooking.BookingTime, timeBooking.RefEmployeeId);
             var hours = timeBooking.BookingTime - bookings.First().BookingTime;
-
-            if (bookings.Any(x => x.TimeBookingType == TimeBookingType.StartBreak))
-            {
-                var breakTime = bookings.First(x => x.TimeBookingType == TimeBookingType.StartBreak).BookingTime - bookings.First(x => x.TimeBookingType == TimeBookingType.EndBreak).BookingTime;
-                nettoWorkingTime = CalculateNettoWorkingTime(hours, breakTime); // TODO Change to new method
-            }
-            else
-            {
-                nettoWorkingTime = CalculateNettoWorkingTime(hours, new TimeSpan(0));
-            }
 
             var obligatoryHours = TimeObligatoryHours.GetByRefEmployeeId(timeBooking.RefEmployeeId);
             if (obligatoryHours.Count > 0)
@@ -115,7 +103,8 @@ namespace FinancialAnalysis.Logic.Manager
                 var day = obligatoryHours.SingleOrDefault(x => x.DayOfWeek == timeBooking.BookingTime.DayOfWeek);
                 if (day != null)
                 {
-                    var balanceValue = nettoWorkingTime.TotalHours - day.HoursPerDay;
+                    var dayItem = CreateDayItem(bookings, day);
+                    var balanceValue = dayItem.WorkingHours.TotalHours - day.HoursPerDay;
 
                     var lastItem = TimeBalances.GetLastByDateAndRefEmployeeId(timeBooking.BookingTime, timeBooking.RefEmployeeId);
 
@@ -219,8 +208,8 @@ namespace FinancialAnalysis.Logic.Manager
             DateTime logout = DateTime.MinValue;
             DateTime startBreak = DateTime.MinValue;
             DateTime endBreak = DateTime.MinValue;
-            double sumWorkingTime = 0;
-            double sumBreakTime = 0;
+            TimeSpan sumWorkingTime = 0;
+            TimeSpan sumBreakTime = 0;
 
             for (int i = 0; i < timeBookingList.Count; i++)
             {
@@ -232,7 +221,7 @@ namespace FinancialAnalysis.Logic.Manager
                     case TimeBookingType.Logout:
                         logout = timeBookingList[i].BookingTime;
                         if (logout > login)
-                            sumWorkingTime += logout.Subtract(login).TotalHours;
+                            sumWorkingTime += logout.Subtract(login);
                         break;
                     case TimeBookingType.StartBreak:
                         startBreak = timeBookingList[i].BookingTime;
@@ -240,7 +229,7 @@ namespace FinancialAnalysis.Logic.Manager
                     case TimeBookingType.EndBreak:
                         endBreak = timeBookingList[i].BookingTime;
                         if (logout > login)
-                            sumBreakTime += logout.Subtract(login).TotalHours;
+                            sumBreakTime += logout.Subtract(login);
                         break;
                 }
             }
@@ -256,72 +245,72 @@ namespace FinancialAnalysis.Logic.Manager
             return timeBookingDayItem;
         }
 
-        private TimeBookingDayItem CheckBreaktime(double sumWorkingTime, double sumBreakTime)
+        private TimeBookingDayItem CheckBreaktime(TimeSpan sumWorkingTime, TimeSpan sumBreakTime)
         {
             TimeBookingDayItem timeBookingDayItem = new TimeBookingDayItem();
 
-            if (sumWorkingTime >= 9.25 && sumBreakTime >= 0.75)
+            if (sumWorkingTime.TotalHours >= 9.25 && sumBreakTime.TotalHours >= 0.75)
             {
-                timeBookingDayItem.WorkingHours = TimeSpan.FromHours(sumWorkingTime);
-                timeBookingDayItem.BreaktimeHours = TimeSpan.FromHours(sumBreakTime);
+                timeBookingDayItem.WorkingHours = sumWorkingTime;
+                timeBookingDayItem.BreaktimeHours = sumBreakTime;
                 return timeBookingDayItem;
             }
-            else if (sumWorkingTime >= 9.25 && sumBreakTime < 0.75)
+            else if (sumWorkingTime.TotalHours >= 9.25 && sumBreakTime.TotalHours < 0.75)
             {
                 var breakDifference = TimeSpan.FromHours(0.75).Subtract(timeBookingDayItem.BreaktimeHours);
-                timeBookingDayItem.WorkingHours = TimeSpan.FromHours(sumWorkingTime).Subtract(breakDifference);
+                timeBookingDayItem.WorkingHours = sumWorkingTime.Subtract(breakDifference);
                 timeBookingDayItem.BreaktimeHours = TimeSpan.FromHours(0.75);
                 return timeBookingDayItem;
             }
-            else if (sumWorkingTime >= 9)
+            else if (sumWorkingTime.TotalHours >= 9)
             {
-                var differenceWorkingTime = sumWorkingTime - 9;
-                if (sumBreakTime >= 0.5 + differenceWorkingTime)
+                var differenceWorkingTime = sumWorkingTime - TimeSpan.FromHours(9);
+                if (sumBreakTime >= TimeSpan.FromHours(0.5) + differenceWorkingTime)
                 {
-                    timeBookingDayItem.WorkingHours = TimeSpan.FromHours(sumWorkingTime);
-                    timeBookingDayItem.BreaktimeHours = TimeSpan.FromHours(sumBreakTime);
+                    timeBookingDayItem.WorkingHours = sumWorkingTime;
+                    timeBookingDayItem.BreaktimeHours = sumBreakTime;
                 }
                 else
                 {
-                    var breakDifference = TimeSpan.FromHours(0.5 + differenceWorkingTime).Subtract(timeBookingDayItem.BreaktimeHours);
-                    timeBookingDayItem.WorkingHours = TimeSpan.FromHours(sumWorkingTime - differenceWorkingTime);
+                    var breakDifference = (TimeSpan.FromHours(0.5) + differenceWorkingTime).Subtract(timeBookingDayItem.BreaktimeHours);
+                    timeBookingDayItem.WorkingHours = sumWorkingTime - differenceWorkingTime;
                     timeBookingDayItem.BreaktimeHours = TimeSpan.FromHours(0.5) + breakDifference;
                 }
                 return timeBookingDayItem;
             }
-            else if (sumWorkingTime >= 6.5 && sumBreakTime >= 0.5)
+            else if (sumWorkingTime.TotalHours >= 6.5 && sumBreakTime.TotalHours >= 0.5)
             {
-                timeBookingDayItem.WorkingHours = TimeSpan.FromHours(sumWorkingTime);
-                timeBookingDayItem.BreaktimeHours = TimeSpan.FromHours(sumBreakTime);
+                timeBookingDayItem.WorkingHours = sumWorkingTime;
+                timeBookingDayItem.BreaktimeHours = sumBreakTime;
                 return timeBookingDayItem;
             }
-            else if (sumWorkingTime >= 6.5 && sumBreakTime < 0.5)
+            else if (sumWorkingTime.TotalHours >= 6.5 && sumBreakTime.TotalHours < 0.5)
             {
                 var breakDifference = TimeSpan.FromHours(0.5).Subtract(timeBookingDayItem.BreaktimeHours);
-                timeBookingDayItem.WorkingHours = TimeSpan.FromHours(sumWorkingTime).Subtract(breakDifference);
+                timeBookingDayItem.WorkingHours = sumWorkingTime.Subtract(breakDifference);
                 timeBookingDayItem.BreaktimeHours = TimeSpan.FromHours(0.5);
                 return timeBookingDayItem;
             }
-            else if (sumWorkingTime >= 6)
+            else if (sumWorkingTime.TotalHours >= 6)
             {
-                var differenceWorkingTime = sumWorkingTime - 6;
+                var differenceWorkingTime = sumWorkingTime - TimeSpan.FromHours(6);
                 if (sumBreakTime >= differenceWorkingTime)
                 {
-                    timeBookingDayItem.WorkingHours = TimeSpan.FromHours(sumWorkingTime);
-                    timeBookingDayItem.BreaktimeHours = TimeSpan.FromHours(sumBreakTime);
+                    timeBookingDayItem.WorkingHours = sumWorkingTime;
+                    timeBookingDayItem.BreaktimeHours = sumBreakTime;
                 }
                 else
                 {
-                    var breakDifference = TimeSpan.FromHours(differenceWorkingTime).Subtract(timeBookingDayItem.BreaktimeHours);
-                    timeBookingDayItem.WorkingHours = TimeSpan.FromHours(sumWorkingTime - differenceWorkingTime);
-                    timeBookingDayItem.BreaktimeHours = TimeSpan.FromHours(differenceWorkingTime);
+                    var breakDifference = differenceWorkingTime.Subtract(timeBookingDayItem.BreaktimeHours);
+                    timeBookingDayItem.WorkingHours = sumWorkingTime - differenceWorkingTime;
+                    timeBookingDayItem.BreaktimeHours = differenceWorkingTime;
                 }
                 return timeBookingDayItem;
             }
             else
             {
-                timeBookingDayItem.WorkingHours = TimeSpan.FromHours(sumWorkingTime);
-                timeBookingDayItem.BreaktimeHours = TimeSpan.FromHours(sumBreakTime);
+                timeBookingDayItem.WorkingHours = sumWorkingTime;
+                timeBookingDayItem.BreaktimeHours = sumBreakTime;
                 return timeBookingDayItem;
             }
         }
