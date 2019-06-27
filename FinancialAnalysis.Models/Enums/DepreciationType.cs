@@ -4,9 +4,9 @@ namespace FinancialAnalysis.Models
 {
     public enum DepreciationType
     {
-        [Display(Name = "Arithmetisch-degressiv")] SumOfTheYearsDigitMethod,
-        [Display(Name = "Geometrisch-degressiv")] DecliningBalanceMethod,
-        [Display(Name = "Linear")] Linear,
-        [Display(Name = "Leistungsabhängig")] PerfomanceBased,
+        [Display(Name = "Linear")] Linear = 1,
+        [Display(Name = "Leistungsabhängig")] PerfomanceBased = 2,
+        [Display(Name = "Arithmetisch-degressiv")] SumOfTheYearsDigitMethod = 3,
+        [Display(Name = "Geometrisch-degressiv")] DecliningBalanceMethod = 4,
     }
 }
