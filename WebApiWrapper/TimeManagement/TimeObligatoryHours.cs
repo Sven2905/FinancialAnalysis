@@ -7,9 +7,9 @@ namespace WebApiWrapper.TimeManagement
     {
         private const string controllerName = "TimeObligatoryHours";
 
-        public static List<TimeObligatoryHour> GetAll()
+        public static List<FinancialAnalysis.Models.TimeManagement.TimeObligatoryHour> GetAll()
         {
-            return WebApi<List<TimeObligatoryHour>>.GetData(controllerName);
+            return WebApi<List<FinancialAnalysis.Models.TimeManagement.TimeObligatoryHour>>.GetData(controllerName);
         }
 
         public static TimeObligatoryHour GetById(int id)
@@ -27,12 +27,12 @@ namespace WebApiWrapper.TimeManagement
             return WebApi<int>.PostAsync(controllerName, TimeObligatoryHour, "SinglePost").Result;
         }
 
-        public static int Insert(IEnumerable<TimeObligatoryHour> TimeObligatoryHours)
+        public static int Insert(IEnumerable<FinancialAnalysis.Models.TimeManagement.TimeObligatoryHour> TimeObligatoryHours)
         {
             return WebApi<int>.PostAsync(controllerName, TimeObligatoryHours, "MultiPost").Result;
         }
 
-        public static bool Update(TimeObligatoryHour TimeObligatoryHour)
+        public static bool Update(FinancialAnalysis.Models.TimeManagement.TimeObligatoryHour TimeObligatoryHour)
         {
             return WebApi<bool>.PutAsync(controllerName, TimeObligatoryHour, "Put").Result;
         }

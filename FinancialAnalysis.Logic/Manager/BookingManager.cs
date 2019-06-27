@@ -7,7 +7,7 @@ using WebApiWrapper.TimeManagement;
 
 namespace FinancialAnalysis.Logic.Manager
 {
-    public class BookingManager
+    public class TimeBookingManager
     {
         public bool ValidateBooking(TimeBooking timeBooking)
         {
@@ -102,7 +102,7 @@ namespace FinancialAnalysis.Logic.Manager
             if (bookings.Any(x => x.TimeBookingType == TimeBookingType.StartBreak))
             {
                 var breakTime = bookings.First(x => x.TimeBookingType == TimeBookingType.StartBreak).BookingTime - bookings.First(x => x.TimeBookingType == TimeBookingType.EndBreak).BookingTime;
-                nettoWorkingTime = CalculateNettoWorkingTime(hours, breakTime);
+                nettoWorkingTime = CalculateNettoWorkingTime(hours, breakTime); // TODO Change to new method
             }
             else
             {
@@ -138,6 +138,7 @@ namespace FinancialAnalysis.Logic.Manager
             }
         }
 
+        [Obsolete("Use new method", false)]
         private TimeSpan CalculateNettoWorkingTime(TimeSpan WorkingTime, TimeSpan BreakTime)
         {
             if (WorkingTime.TotalHours >= 9.25 && BreakTime.TotalMinutes >= 45)
@@ -180,5 +181,149 @@ namespace FinancialAnalysis.Logic.Manager
             }
         }
 
+        public IEnumerable<TimeBookingDayItem> GetBookingItemsForMonth(DateTime dateTime, int refEmployeeId)
+        {
+            List<TimeBooking> bookingsForMonth = TimeBookings.GetDataForMonth(dateTime, refEmployeeId);
+
+            return CreateDayItems(bookingsForMonth);
+        }
+
+        private IEnumerable<TimeBookingDayItem> CreateDayItems(IEnumerable<TimeBooking> timeBookings)
+        {
+            if (!timeBookings.Any())
+                return new List<TimeBookingDayItem>();
+
+            List<TimeBookingDayItem> timeBookingDayItems = new List<TimeBookingDayItem>();
+
+            var timeObligatoryHours = TimeObligatoryHours.GetByRefEmployeeId(timeBookings.ToList()[0].RefEmployeeId);
+
+            var itemsPerDay = timeBookings.GroupBy(x => x.BookingTime.Date);
+            foreach (var item in itemsPerDay)
+            {
+                var timeObgligatoryHoursDay = timeObligatoryHours.SingleOrDefault(x => x.DayOfWeek == item.ToList()[0].BookingTime.DayOfWeek);
+                var newDayItem = CreateDayItem(item, timeObgligatoryHoursDay);
+                if (newDayItem != null)
+                    timeBookingDayItems.Add(newDayItem);
+            }
+
+            return timeBookingDayItems;
+        }
+
+        private TimeBookingDayItem CreateDayItem(IEnumerable<TimeBooking> timeBookings, TimeObligatoryHour timeObligatoryHour)
+        {
+            List<TimeBooking> timeBookingList = timeBookings.ToList();
+            if (!timeBookings.Any(x => x.TimeBookingType == TimeBookingType.Logout))
+                return null;
+
+            DateTime login = DateTime.MinValue;
+            DateTime logout = DateTime.MinValue;
+            DateTime startBreak = DateTime.MinValue;
+            DateTime endBreak = DateTime.MinValue;
+            double sumWorkingTime = 0;
+            double sumBreakTime = 0;
+
+            for (int i = 0; i < timeBookingList.Count; i++)
+            {
+                switch (timeBookingList[i].TimeBookingType)
+                {
+                    case TimeBookingType.Login:
+                        login = timeBookingList[i].BookingTime;
+                        break;
+                    case TimeBookingType.Logout:
+                        logout = timeBookingList[i].BookingTime;
+                        if (logout > login)
+                            sumWorkingTime += logout.Subtract(login).TotalHours;
+                        break;
+                    case TimeBookingType.StartBreak:
+                        startBreak = timeBookingList[i].BookingTime;
+                        break;
+                    case TimeBookingType.EndBreak:
+                        endBreak = timeBookingList[i].BookingTime;
+                        if (logout > login)
+                            sumBreakTime += logout.Subtract(login).TotalHours;
+                        break;
+                }
+            }
+
+            TimeBookingDayItem timeBookingDayItem = CheckBreaktime(sumWorkingTime, sumBreakTime);
+            timeBookingDayItem.BookingDate = timeBookingList[0].BookingTime.Date;
+            timeBookingDayItem.ObligatoryHours = timeObligatoryHour.HoursPerDay;
+
+            var timeBalance = TimeBalances.GetByDateAndRefEmployeeId(timeBookingList[0].BookingTime, timeBookingList[0].RefEmployeeId);
+            if (timeBalance != null)
+                timeBookingDayItem.Balance = timeBalance.Balance;
+
+            return timeBookingDayItem;
+        }
+
+        private TimeBookingDayItem CheckBreaktime(double sumWorkingTime, double sumBreakTime)
+        {
+            TimeBookingDayItem timeBookingDayItem = new TimeBookingDayItem();
+
+            if (sumWorkingTime >= 9.25 && sumBreakTime >= 0.75)
+            {
+                timeBookingDayItem.WorkingHours = TimeSpan.FromHours(sumWorkingTime);
+                timeBookingDayItem.BreaktimeHours = TimeSpan.FromHours(sumBreakTime);
+                return timeBookingDayItem;
+            }
+            else if (sumWorkingTime >= 9.25 && sumBreakTime < 0.75)
+            {
+                var breakDifference = TimeSpan.FromHours(0.75).Subtract(timeBookingDayItem.BreaktimeHours);
+                timeBookingDayItem.WorkingHours = TimeSpan.FromHours(sumWorkingTime).Subtract(breakDifference);
+                timeBookingDayItem.BreaktimeHours = TimeSpan.FromHours(0.75);
+                return timeBookingDayItem;
+            }
+            else if (sumWorkingTime >= 9)
+            {
+                var differenceWorkingTime = sumWorkingTime - 9;
+                if (sumBreakTime >= 0.5 + differenceWorkingTime)
+                {
+                    timeBookingDayItem.WorkingHours = TimeSpan.FromHours(sumWorkingTime);
+                    timeBookingDayItem.BreaktimeHours = TimeSpan.FromHours(sumBreakTime);
+                }
+                else
+                {
+                    var breakDifference = TimeSpan.FromHours(0.5 + differenceWorkingTime).Subtract(timeBookingDayItem.BreaktimeHours);
+                    timeBookingDayItem.WorkingHours = TimeSpan.FromHours(sumWorkingTime - differenceWorkingTime);
+                    timeBookingDayItem.BreaktimeHours = TimeSpan.FromHours(0.5) + breakDifference;
+                }
+                return timeBookingDayItem;
+            }
+            else if (sumWorkingTime >= 6.5 && sumBreakTime >= 0.5)
+            {
+                timeBookingDayItem.WorkingHours = TimeSpan.FromHours(sumWorkingTime);
+                timeBookingDayItem.BreaktimeHours = TimeSpan.FromHours(sumBreakTime);
+                return timeBookingDayItem;
+            }
+            else if (sumWorkingTime >= 6.5 && sumBreakTime < 0.5)
+            {
+                var breakDifference = TimeSpan.FromHours(0.5).Subtract(timeBookingDayItem.BreaktimeHours);
+                timeBookingDayItem.WorkingHours = TimeSpan.FromHours(sumWorkingTime).Subtract(breakDifference);
+                timeBookingDayItem.BreaktimeHours = TimeSpan.FromHours(0.5);
+                return timeBookingDayItem;
+            }
+            else if (sumWorkingTime >= 6)
+            {
+                var differenceWorkingTime = sumWorkingTime - 6;
+                if (sumBreakTime >= differenceWorkingTime)
+                {
+                    timeBookingDayItem.WorkingHours = TimeSpan.FromHours(sumWorkingTime);
+                    timeBookingDayItem.BreaktimeHours = TimeSpan.FromHours(sumBreakTime);
+                }
+                else
+                {
+                    var breakDifference = TimeSpan.FromHours(differenceWorkingTime).Subtract(timeBookingDayItem.BreaktimeHours);
+                    timeBookingDayItem.WorkingHours = TimeSpan.FromHours(sumWorkingTime - differenceWorkingTime);
+                    timeBookingDayItem.BreaktimeHours = TimeSpan.FromHours(differenceWorkingTime);
+                }
+                return timeBookingDayItem;
+            }
+            else
+            {
+                timeBookingDayItem.WorkingHours = TimeSpan.FromHours(sumWorkingTime);
+                timeBookingDayItem.BreaktimeHours = TimeSpan.FromHours(sumBreakTime);
+                return timeBookingDayItem;
+            }
+        }
     }
 }

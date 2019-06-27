@@ -40,7 +40,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public bool AllowStartBreak { get; set; }
         public bool AllowEndBreak { get; set; }
         public bool AllowLogout { get; set; }
-        BookingManager bookingManager = new BookingManager();
+        TimeBookingManager bookingManager = new TimeBookingManager();
         Timer timer = new Timer();
 
         public DelegateCommand LoginCommand { get; set; }

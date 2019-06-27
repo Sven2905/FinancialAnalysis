@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Logic.Manager;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.General;
@@ -8,6 +9,7 @@ using System;
 using System.Linq;
 using Utilities;
 using WebApiWrapper.ProjectManagement;
+using WebApiWrapper.TimeManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -29,6 +31,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         #region Fields
 
         private DateTime selectedDate;
+        private int selectedEmployeeId;
+        TimeBookingManager timeBookingManager = new TimeBookingManager();
 
         #endregion Fields
 
@@ -60,6 +64,12 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void GetData()
         {
             EmployeeList = Employees.GetAll().ToSvenTechCollection();
+            GetTimeBookings();
+        }
+
+        private void GetTimeBookings()
+        {
+            TimeBookingList = timeBookingManager.GetBookingItemsForMonth(DateTime.Now, SelectedEmployeeId).ToSvenTechCollection();
         }
 
         public void NextMonth()
@@ -110,13 +120,18 @@ namespace FinancialAnalysis.Logic.ViewModels
             Value = 20,
         };
 
+        public int SelectedEmployeeId
+        {
+            get { return selectedEmployeeId; }
+            set { selectedEmployeeId = value; RaisePropertiesChanged(); GetTimeBookings(); }
+        }
+
         public string DateString { get; set; }
         public TimeBooking SelectedTimeBooking { get; set; } = new TimeBooking();
         public TimeHolidayType SelectedTimeHolidayType { get; set; }
         public TimeBookingType TimeBookingType { get; set; }
-        public SvenTechCollection<TimeBooking> TimeBookingList { get; set; } = new SvenTechCollection<TimeBooking>();
+        public SvenTechCollection<TimeBookingDayItem> TimeBookingList { get; set; } = new SvenTechCollection<TimeBookingDayItem>();
         public SvenTechCollection<Employee> EmployeeList { get; set; }
-        public int SelectedEmployeeId { get; set; }
         public bool ShowTimeBookingForOthers { get; set; }
         public DelegateCommand NextMonthCommand { get; set; }
         public DelegateCommand LastMonthCommand { get; set; }

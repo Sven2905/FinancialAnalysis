@@ -26,8 +26,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Fields
 
-        private DateTime _BookingTime = DateTime.Now;
-        private BookingManager bookingManager = new BookingManager();
+        private DateTime bookingTime = DateTime.Now;
+        private readonly TimeBookingManager bookingManager = new TimeBookingManager();
+        private int refEmployeeId;
+        private TimeBooking selectedTimeBooking = new TimeBooking();
 
         #endregion Fields
 
@@ -36,18 +38,18 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveNewBooking()
         {
             SelectedTimeBooking.TimeStamp = DateTime.Now;
-            SelectedTimeBooking.RefEmployeeId = RefEmployeeId;
             bookingManager.SaveTimeBooking(SelectedTimeBooking);
         }
 
         private void GetData()
         {
             ProjectList = Projects.GetAll().ToSvenTechCollection();
+            
         }
 
         private void LoadTimeBookingsForDay()
         {
-            BookingsForSelectedDay = TimeBookings.GetDataForDay(_BookingTime, RefEmployeeId);
+            BookingsForSelectedDay = TimeBookings.GetDataForDay(bookingTime, RefEmployeeId);
         }
 
         #endregion Methods
@@ -56,22 +58,24 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public DateTime BookingTime
         {
-            get { return _BookingTime; }
-            set { _BookingTime = value; RaisePropertyChanged(); LoadTimeBookingsForDay(); }
+            get { return bookingTime; }
+            set { bookingTime = value; RaisePropertyChanged(); LoadTimeBookingsForDay(); }
         }
-
-        private int _RefEmployeeId;
 
         public int RefEmployeeId
         {
-            get { return _RefEmployeeId; }
-            set { _RefEmployeeId = value; RaisePropertyChanged(); LoadTimeBookingsForDay(); }
+            get { return refEmployeeId; }
+            set { refEmployeeId = value; SelectedTimeBooking.RefEmployeeId = value; RaisePropertyChanged(); LoadTimeBookingsForDay(); }
         }
-          
-        public TimeBooking SelectedTimeBooking { get; set; } = new TimeBooking();
+
+        public TimeBooking SelectedTimeBooking
+        {
+            get { return selectedTimeBooking; }
+            set { selectedTimeBooking = value; RaisePropertyChanged(); }
+        }
+
         public List<TimeBooking> BookingsForSelectedDay { get; set; } = new List<TimeBooking>();
         public SvenTechCollection<Project> ProjectList { get; private set; }
-        public SvenTechCollection<TimeBooking> TimeBookingList { get; set; }
         public DelegateCommand CreateNewBookingCommand { get; set; }
 
         #endregion Properties

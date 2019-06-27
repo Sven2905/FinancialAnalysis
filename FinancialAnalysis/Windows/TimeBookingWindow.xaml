@@ -44,7 +44,7 @@
             </Grid.ColumnDefinitions>
             
             <Label Grid.Row="0" Grid.Column="0" Content="Buchungszeit " VerticalAlignment="Center" />
-            <dxe:DateEdit Grid.Row="0" Grid.Column="2" DateTime="{Binding BookingTime}" FontFamily="Tahoma" HorizontalAlignment="Left"
+            <dxe:DateEdit Grid.Row="0" Grid.Column="2" DateTime="{Binding SelectedTimeBooking.BookingTime}" FontFamily="Tahoma" HorizontalAlignment="Left"
                           DisplayFormatString="dd.MM.yyyy HH:mm" Mask="dd.MM.yyyy HH:mm" Width="130" HorizontalContentAlignment="Right" >
                 <dxe:DateEdit.StyleSettings>
                     <dxe:DateEditPickerStyleSettings />
@@ -68,7 +68,7 @@
             <dx:SimpleButton Grid.Row="4" Grid.Column="0" Content="Buchen" Width="120" Command="{Binding CreateNewBookingCommand}"/>
         </Grid>
 
-        <dxg:GridControl Grid.Column="0" Grid.Row="1" ItemsSource="{Binding TimeBookings, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+        <dxg:GridControl Grid.Column="0" Grid.Row="1" ItemsSource="{Binding BookingsForSelectedDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
                          SelectedItem="{Binding SelectedTimeBooking}" SelectionMode="Row" ShowBorder="False" Margin="5">
             <dxg:GridControl.View>
                 <dxg:TableView BestFitMode="Smart" Foreground="#3F729B" EditFormColumnCount="2" ShowIndicator="False" 
@@ -81,6 +81,7 @@
             <dxg:GridColumn FieldName="Hours" Header="Stunden" Width="60" AllowEditing="False" />
             <dxg:GridColumn FieldName="Absent" Header="Abwesenheit" Width="60" AllowEditing="{Binding SelectedCostAccount.IsEditable}" />
             <dxg:GridColumn FieldName="Reason" Header="Grund" Width="110" AllowEditing="{Binding SelectedCostAccount.IsEditable}" />
+            <dxg:GridColumn FieldName="AbsentHours" Header="Abwesende Std." Width="60" AllowEditing="false" />
         </dxg:GridControl>
     </Grid>
 </dx:DXWindow>

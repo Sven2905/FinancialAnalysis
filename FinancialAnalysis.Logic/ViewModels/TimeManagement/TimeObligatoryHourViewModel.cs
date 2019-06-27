@@ -20,7 +20,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         #region Fields
 
         private int _EmployeeId;
-        private List<TimeObligatoryHour> _TimeObligatoryHours = new List<TimeObligatoryHour>();
+        private List<Models.TimeManagement.TimeObligatoryHour> _TimeObligatoryHours = new List<Models.TimeManagement.TimeObligatoryHour>();
 
         #endregion Fields
 
@@ -31,7 +31,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             if (EmployeeId == 0)
                 return;
 
-            _TimeObligatoryHours = TimeObligatoryHours.GetByRefEmployeeId(EmployeeId);
+            _TimeObligatoryHours = WebApiWrapper.TimeManagement.TimeObligatoryHours.GetByRefEmployeeId(EmployeeId);
 
             if (_TimeObligatoryHours.Count > 0)
             {
@@ -95,23 +95,23 @@ namespace FinancialAnalysis.Logic.ViewModels
                             item.HoursPerDay = HoursSaturday;
                             break;
                     }
-                    TimeObligatoryHours.Update(item);
+                    WebApiWrapper.TimeManagement.TimeObligatoryHours.Update(item);
                 }
             }
             else
             {
-                List<TimeObligatoryHour> itemsToSave = new List<TimeObligatoryHour>()
+                List<Models.TimeManagement.TimeObligatoryHour> itemsToSave = new List<Models.TimeManagement.TimeObligatoryHour>()
                 {
-                    new TimeObligatoryHour(EmployeeId, HoursMonday, DayOfWeek.Monday),
-                    new TimeObligatoryHour(EmployeeId, HoursTuesday, DayOfWeek.Tuesday),
-                    new TimeObligatoryHour(EmployeeId, HoursWednesday, DayOfWeek.Wednesday),
-                    new TimeObligatoryHour(EmployeeId, HoursThursday, DayOfWeek.Thursday),
-                    new TimeObligatoryHour(EmployeeId, HoursFriday, DayOfWeek.Friday),
-                    new TimeObligatoryHour(EmployeeId, HoursSaturday, DayOfWeek.Saturday),
-                    new TimeObligatoryHour(EmployeeId, HoursSunday, DayOfWeek.Sunday),
+                    new Models.TimeManagement.TimeObligatoryHour(EmployeeId, HoursMonday, DayOfWeek.Monday),
+                    new Models.TimeManagement.TimeObligatoryHour(EmployeeId, HoursTuesday, DayOfWeek.Tuesday),
+                    new Models.TimeManagement.TimeObligatoryHour(EmployeeId, HoursWednesday, DayOfWeek.Wednesday),
+                    new Models.TimeManagement.TimeObligatoryHour(EmployeeId, HoursThursday, DayOfWeek.Thursday),
+                    new Models.TimeManagement.TimeObligatoryHour(EmployeeId, HoursFriday, DayOfWeek.Friday),
+                    new Models.TimeManagement.TimeObligatoryHour(EmployeeId, HoursSaturday, DayOfWeek.Saturday),
+                    new Models.TimeManagement.TimeObligatoryHour(EmployeeId, HoursSunday, DayOfWeek.Sunday),
                 };
 
-                TimeObligatoryHours.Insert(itemsToSave);
+                WebApiWrapper.TimeManagement.TimeObligatoryHours.Insert(itemsToSave);
 
                 LoadData();
             }

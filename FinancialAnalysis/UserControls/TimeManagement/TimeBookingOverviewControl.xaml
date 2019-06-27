@@ -9,6 +9,7 @@
              xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
              xmlns:usercontrols="clr-namespace:FinancialAnalysis.UserControls"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              dx:ThemeManager.ThemeName="Office2019White"
              mc:Ignorable="d" 
              d:DesignHeight="1050" d:DesignWidth="1920">
@@ -107,7 +108,7 @@
                         <usercontrols:InfoBoxControl DataContext="{Binding HolidayInfoBoxViewModel}" Width="300" />
                     </VirtualizingStackPanel>
 
-                    <dxg:GridControl Grid.Column="0" Grid.Row="1" ItemsSource="{Binding TimeBookings, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    <dxg:GridControl Grid.Column="0" Grid.Row="1" ItemsSource="{Binding TimeBookingList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                      SelectedItem="{Binding SelectedTimeBooking}" SelectionMode="Row" ShowBorder="False" Margin="10,0">
                         <dxg:GridControl.View>
                             <dxg:TableView BestFitMode="Smart" Foreground="#3F729B" EditFormColumnCount="2" ShowIndicator="False" 
@@ -115,9 +116,20 @@
                                            ShowGroupPanel="False" ShowTotalSummary="False" VerticalScrollbarVisibility="Auto">
                             </dxg:TableView>
                         </dxg:GridControl.View>
-                        <dxg:GridColumn FieldName="Date" Header="Datum" Width="50" />
-                        <dxg:GridColumn FieldName="Desired" Header="Soll" Width="60" AllowEditing="False" />
-                        <dxg:GridColumn FieldName="Hours" Header="Stunden" Width="60" AllowEditing="False" />
+                        <dxg:GridColumn FieldName="BookingDate" Header="Datum" Width="50" />
+                        <dxg:GridColumn FieldName="WorkingHours" Header="Stunden" Width="60" AllowEditing="False" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings Mask="HH:mm:ss" MaskType="DateTime" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="ObligatoryHours" Header="Soll" Width="60" AllowEditing="False" />
+                        <dxg:GridColumn FieldName="BreaktimeHours" Header="Pause" Width="60" AllowEditing="False" />
+                        <dxg:GridColumn FieldName="DailySaldo" Header="+/- Tag" Width="60" AllowEditing="False" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings DisplayFormat="n2"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="Balance" Header="Saldo" Width="60" AllowEditing="False" />
                         <dxg:GridColumn FieldName="Absent" Header="Abwesenheit" Width="60" AllowEditing="{Binding SelectedCostAccount.IsEditable}" />
                         <dxg:GridColumn FieldName="Reason" Header="Grund" Width="110" AllowEditing="{Binding SelectedCostAccount.IsEditable}" />
                     </dxg:GridControl>

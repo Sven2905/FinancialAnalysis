@@ -201,6 +201,7 @@
     <Compile Include="Enums\TaxCategory.cs" />
     <Compile Include="TextValuePoint.cs" />
     <Compile Include="TimeManagement\TimeAbsentReason.cs" />
+    <Compile Include="TimeManagement\TimeBookingDayItem.cs" />
     <Compile Include="TimeManagement\TimeEmployeeAbsence.cs" />
     <Compile Include="TimeManagement\TimeHolidayType.cs" />
     <Compile Include="TimeManagement\TimeObligatoryHour.cs" />
