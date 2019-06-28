@@ -112,26 +112,31 @@
                                      SelectedItem="{Binding SelectedTimeBooking}" SelectionMode="Row" ShowBorder="False" Margin="10,0">
                         <dxg:GridControl.View>
                             <dxg:TableView BestFitMode="Smart" Foreground="#3F729B" EditFormColumnCount="2" ShowIndicator="False" 
-                                           EditFormShowMode="None" NewItemRowPosition="None" AutoWidth="True" ShowVerticalLines="False" 
-                                           ShowGroupPanel="False" ShowTotalSummary="False" VerticalScrollbarVisibility="Auto">
+                                           EditFormShowMode="None" NewItemRowPosition="None" AutoWidth="False" ShowVerticalLines="False" 
+                                           ShowGroupPanel="False" ShowTotalSummary="False" VerticalScrollbarVisibility="Auto" >
                             </dxg:TableView>
                         </dxg:GridControl.View>
-                        <dxg:GridColumn FieldName="BookingDate" Header="Datum" Width="50" />
+                        <dxg:GridColumn FieldName="BookingDate" Header="Datum" Width="80" />
+                        <dxg:GridColumn FieldName="BookingDay" Header="Datum" Width="80" />
                         <dxg:GridColumn FieldName="WorkingHours" Header="Stunden" Width="60" AllowEditing="False" >
                             <dxg:GridColumn.EditSettings>
-                                <dxe:TextEditSettings Mask="HH:mm:ss" MaskType="DateTime" MaskUseAsDisplayFormat="True"/>
+                                <dxe:TextEditSettings Mask="HH:mm" MaskType="DateTime" MaskUseAsDisplayFormat="True" HorizontalContentAlignment="Right"/>
                             </dxg:GridColumn.EditSettings>
                         </dxg:GridColumn>
                         <dxg:GridColumn FieldName="ObligatoryHours" Header="Soll" Width="60" AllowEditing="False" />
-                        <dxg:GridColumn FieldName="BreaktimeHours" Header="Pause" Width="60" AllowEditing="False" />
+                        <dxg:GridColumn FieldName="BreaktimeHours" Header="Pause" Width="60" AllowEditing="False" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings Mask="HH:mm" MaskType="DateTime" MaskUseAsDisplayFormat="True" HorizontalContentAlignment="Right"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
                         <dxg:GridColumn FieldName="DailySaldo" Header="+/- Tag" Width="60" AllowEditing="False" >
                             <dxg:GridColumn.EditSettings>
-                                <dxe:TextEditSettings DisplayFormat="n2"/>
+                                <dxe:TextEditSettings DisplayFormat="n2" HorizontalContentAlignment="Right"/>
                             </dxg:GridColumn.EditSettings>
                         </dxg:GridColumn>
                         <dxg:GridColumn FieldName="Balance" Header="Saldo" Width="60" AllowEditing="False" />
-                        <dxg:GridColumn FieldName="Absent" Header="Abwesenheit" Width="60" AllowEditing="{Binding SelectedCostAccount.IsEditable}" />
-                        <dxg:GridColumn FieldName="Reason" Header="Grund" Width="110" AllowEditing="{Binding SelectedCostAccount.IsEditable}" />
+                        <dxg:GridColumn FieldName="Absent" Header="Abwesenheit" Width="120" AllowEditing="{Binding SelectedCostAccount.IsEditable}" />
+                        <dxg:GridColumn FieldName="Reason" Header="Grund" Width="200" AllowEditing="{Binding SelectedCostAccount.IsEditable}" />
                     </dxg:GridControl>
                 </Grid>
             </dx:DXTabItem>

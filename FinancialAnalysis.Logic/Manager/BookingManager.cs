@@ -127,54 +127,43 @@ namespace FinancialAnalysis.Logic.Manager
             }
         }
 
-        [Obsolete("Use new method", false)]
-        private TimeSpan CalculateNettoWorkingTime(TimeSpan WorkingTime, TimeSpan BreakTime)
-        {
-            if (WorkingTime.TotalHours >= 9.25 && BreakTime.TotalMinutes >= 45)
-            {
-                return WorkingTime - BreakTime;
-            }
-            else if (WorkingTime.TotalHours >= 9.25 && BreakTime.TotalMinutes < 45)
-            {
-                return WorkingTime - new TimeSpan(0, 45, 0);
-            }
-            else if (WorkingTime.TotalHours >= 9 && WorkingTime.TotalHours < 9.25 && BreakTime.TotalMinutes < 45)
-            {
-                var temp = WorkingTime - new TimeSpan(9, 0, 0);
-                if (temp + new TimeSpan(0, 30, 0) < BreakTime)
-                {
-                    return WorkingTime - BreakTime;
-                }
-                return WorkingTime - (temp + new TimeSpan(0, 30, 0));
-            }
-            else if (WorkingTime.TotalHours >= 6.5 && BreakTime.TotalMinutes >= 30)
-            {
-                return WorkingTime - BreakTime;
-            }
-            else if (WorkingTime.TotalHours >= 6.5 && BreakTime.Minutes < 30)
-            {
-                return WorkingTime - new TimeSpan(0, 30, 0);
-            }
-            else if (WorkingTime.TotalHours >= 6)
-            {
-                var temp = WorkingTime - new TimeSpan(6, 0, 0);
-                if (temp < BreakTime)
-                {
-                    return WorkingTime - BreakTime;
-                }
-                return WorkingTime - temp;
-            }
-            else
-            {
-                return WorkingTime;
-            }
-        }
-
         public IEnumerable<TimeBookingDayItem> GetBookingItemsForMonth(DateTime dateTime, int refEmployeeId)
         {
             List<TimeBooking> bookingsForMonth = TimeBookings.GetDataForMonth(dateTime, refEmployeeId);
 
-            return CreateDayItems(bookingsForMonth);
+            var timeBookingDayItems = CreateDayItems(bookingsForMonth).ToList();
+            var startDate = new DateTime(dateTime.Year, dateTime.Month, 1);
+
+            while (startDate.Month == dateTime.Month && startDate.Date <= DateTime.Now.Date)
+            {
+                if (!timeBookingDayItems.Any(x => x.BookingDate.Date == startDate.Date))
+                {
+                    TimeBookingDayItem timeBookingDayItem = new TimeBookingDayItem();
+                    timeBookingDayItem.BookingDate = startDate;
+                    timeBookingDayItem.WorkingHours = new TimeSpan(0);
+                    timeBookingDayItem.BreaktimeHours = new TimeSpan(0);
+                    timeBookingDayItem.ObligatoryHours = GetObgligaryHoursForDay(startDate, refEmployeeId);
+
+                    var balanceForDay = TimeBalances.GetByDateAndRefEmployeeId(startDate, refEmployeeId);
+
+                    if (balanceForDay != null)
+                        timeBookingDayItem.Balance = balanceForDay.Balance;
+                    else
+                    {
+                        var lastBalance = TimeBalances.GetLastByDateAndRefEmployeeId(startDate, refEmployeeId);
+                        if (lastBalance != null)
+                            timeBookingDayItem.Balance = lastBalance.Balance;
+                        else
+                            timeBookingDayItem.Balance = 0;
+                    }
+
+                    timeBookingDayItems.Add(timeBookingDayItem);
+                }
+
+                startDate = startDate.AddDays(1);
+            }
+
+            return timeBookingDayItems.OrderBy(x => x.BookingDate);
         }
 
         private IEnumerable<TimeBookingDayItem> CreateDayItems(IEnumerable<TimeBooking> timeBookings)
@@ -208,8 +197,8 @@ namespace FinancialAnalysis.Logic.Manager
             DateTime logout = DateTime.MinValue;
             DateTime startBreak = DateTime.MinValue;
             DateTime endBreak = DateTime.MinValue;
-            TimeSpan sumWorkingTime = 0;
-            TimeSpan sumBreakTime = 0;
+            TimeSpan sumWorkingTime = new TimeSpan(0);
+            TimeSpan sumBreakTime = new TimeSpan(0);
 
             for (int i = 0; i < timeBookingList.Count; i++)
             {
@@ -234,7 +223,7 @@ namespace FinancialAnalysis.Logic.Manager
                 }
             }
 
-            TimeBookingDayItem timeBookingDayItem = CheckBreaktime(sumWorkingTime, sumBreakTime);
+            TimeBookingDayItem timeBookingDayItem = CorrectWorkingTime(sumWorkingTime, sumBreakTime);
             timeBookingDayItem.BookingDate = timeBookingList[0].BookingTime.Date;
             timeBookingDayItem.ObligatoryHours = timeObligatoryHour.HoursPerDay;
 
@@ -245,7 +234,7 @@ namespace FinancialAnalysis.Logic.Manager
             return timeBookingDayItem;
         }
 
-        private TimeBookingDayItem CheckBreaktime(TimeSpan sumWorkingTime, TimeSpan sumBreakTime)
+        private TimeBookingDayItem CorrectWorkingTime(TimeSpan sumWorkingTime, TimeSpan sumBreakTime)
         {
             TimeBookingDayItem timeBookingDayItem = new TimeBookingDayItem();
 
@@ -303,7 +292,7 @@ namespace FinancialAnalysis.Logic.Manager
                 {
                     var breakDifference = differenceWorkingTime.Subtract(timeBookingDayItem.BreaktimeHours);
                     timeBookingDayItem.WorkingHours = sumWorkingTime - differenceWorkingTime;
-                    timeBookingDayItem.BreaktimeHours = differenceWorkingTime;
+                    timeBookingDayItem.BreaktimeHours = breakDifference;
                 }
                 return timeBookingDayItem;
             }
@@ -313,6 +302,15 @@ namespace FinancialAnalysis.Logic.Manager
                 timeBookingDayItem.BreaktimeHours = sumBreakTime;
                 return timeBookingDayItem;
             }
+        }
+
+        public double GetObgligaryHoursForDay(DateTime dateTime, int refEmployeeId)
+        {
+            var obligatoryHours = TimeObligatoryHours.GetByRefEmployeeId(refEmployeeId);
+            if (obligatoryHours == null || obligatoryHours.Count == 0 || obligatoryHours.SingleOrDefault(x => x.DayOfWeek == dateTime.DayOfWeek) == null)
+                return 0;
+
+            return obligatoryHours.Single(x => x.DayOfWeek == dateTime.DayOfWeek).HoursPerDay;
         }
     }
 }

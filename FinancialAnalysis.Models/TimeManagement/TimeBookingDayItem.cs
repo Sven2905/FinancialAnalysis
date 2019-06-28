@@ -10,6 +10,7 @@ namespace FinancialAnalysis.Models.TimeManagement
     public class TimeBookingDayItem : BindableBase
     {
         public DateTime BookingDate { get; set; }
+        public DayOfWeek BookingDay => BookingDate.DayOfWeek;
         public double ObligatoryHours { get; set; }
         public TimeSpan WorkingHours { get; set; }
         public double Balance { get; set; }

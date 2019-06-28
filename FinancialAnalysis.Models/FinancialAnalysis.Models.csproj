@@ -145,9 +145,11 @@
     <Compile Include="Enums\Months.cs" />
     <Compile Include="Enums\ReminderType.cs" />
     <Compile Include="Enums\TimeBookingType.cs" />
+    <Compile Include="Enums\TimerType.cs" />
     <Compile Include="General\IconItem.cs" />
     <Compile Include="General\SvenTechColors.cs" />
     <Compile Include="Enums\GrossNetType.cs" />
+    <Compile Include="General\TimerLastRuntime.cs" />
     <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="Interfaces\IDropEventArgs.cs" />
     <Compile Include="Enums\PayType.cs" />

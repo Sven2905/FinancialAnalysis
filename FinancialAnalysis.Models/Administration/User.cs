@@ -76,6 +76,11 @@ namespace FinancialAnalysis.Models.Administration
         public Employee Employee { get; set; }
 
         /// <summary>
+        /// Soll der Saldo automatisch täglich gespeichert werden, wenn keine Buchung eingetragen wurde
+        /// </summary>
+        public bool IsAutomaticTimeBookingActive { get; set; } = true;
+
+        /// <summary>
         /// Vorname
         /// </summary>
         public string Firstname

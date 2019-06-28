@@ -70,18 +70,24 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void GetTimeBookings()
         {
             TimeBookingList = timeBookingManager.GetBookingItemsForMonth(DateTime.Now, SelectedEmployeeId).ToSvenTechCollection();
+
+            var balanceItem = TimeBalances.GetLastByDateAndRefEmployeeId(DateTime.Now, SelectedEmployeeId);
+            if (balanceItem != null)
+                BalanceInfoBoxViewModel.Value = (decimal)balanceItem.Balance;
         }
 
         public void NextMonth()
         {
             selectedDate = selectedDate.AddMonths(1);
             DateString = selectedDate.ToString("MMMM yyyy");
+            GetTimeBookings();
         }
 
         public void LastMonth()
         {
             selectedDate = selectedDate.AddMonths(-1);
             DateString = selectedDate.ToString("MMMM yyyy");
+            GetTimeBookings();
         }
 
         public void NewTimeBooking()
