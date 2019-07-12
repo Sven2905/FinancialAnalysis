@@ -198,6 +198,28 @@ namespace FinancialAnalysis.UI
                     }
                     window.ShowDialog();
                 });
+            Messenger.Default.Register<OpenCreditSplitWindowMessage>(this,
+                msg =>
+                {
+                    CreditSplitWindow window = new CreditSplitWindow();
+                    if (window.DataContext is CreditSplitViewModel model)
+                    {
+                        model.TotalAmount = msg.TotalAmount;
+                        model.BookingType = msg.BookingType;
+                    }
+                    window.ShowDialog();
+                });
+            Messenger.Default.Register<OpenDebitSplitWindowMessage>(this,
+               msg =>
+               {
+                   DebitSplitWindow window = new DebitSplitWindow();
+                   if (window.DataContext is DebitSplitViewModel model)
+                   {
+                       model.TotalAmount = msg.TotalAmount;
+                       model.BookingType = msg.BookingType;
+                   }
+                   window.ShowDialog();
+               });
         }
 
         #endregion Methods

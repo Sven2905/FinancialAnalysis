@@ -18,9 +18,8 @@ namespace FinancialAnalysis.Models.Accounting
         {
         }
 
-        public Booking(decimal amount, DateTime date, string description = "")
+        public Booking(DateTime date, string description = "")
         {
-            Amount = amount;
             Date = date;
             Description = description;
         }
@@ -43,12 +42,35 @@ namespace FinancialAnalysis.Models.Accounting
         /// <summary>
         /// Gesamtbetrag
         /// </summary>
-        public decimal Amount { get; set; }
+        public decimal Amount
+        {
+            get
+            {
+                if (Credits != null)
+                    return Credits.Sum(x => x.Amount);
+                else
+                    return 0;
+            }
+        }
+
+        public decimal AmountWithoutTax
+        {
+            get
+            {
+                if (Credits != null && Debits != null)
+                    if (Amount > 0)
+                        return Math.Min(Credits.Where(x => x.IsTax == false).Sum(x => x.Amount), Debits.Where(x => x.IsTax == false).Sum(x => x.Amount));
+                    else
+                        return Math.Max(Credits.Where(x => x.IsTax == false).Sum(x => x.Amount), Debits.Where(x => x.IsTax == false).Sum(x => x.Amount));
+                else
+                    return 0;
+            }
+        }
 
         /// <summary>
         /// Datum der Buchung
         /// </summary>
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
 
         /// <summary>
         /// Beschreibungstext
@@ -120,7 +142,7 @@ namespace FinancialAnalysis.Models.Accounting
                 List<Tuple<Credit, Debit>> pairs = new List<Tuple<Credit, Debit>>();
                 if (Credits?.Count > 0)
                 {
-                    for (int i = Credits.Count - 1; i >= 0; i--)
+                    for (int i = Credits.ToList().Count - 1; i >= 0; i--)
                         pairs.Add(new Tuple<Credit, Debit>(Credits[i], Debits[i]));
 
                     return pairs;

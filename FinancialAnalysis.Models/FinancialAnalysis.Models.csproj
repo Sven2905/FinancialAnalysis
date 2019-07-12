@@ -94,6 +94,8 @@
     <Compile Include="Accounting\Booking.cs" />
     <Compile Include="Accounting\BookingCostCenterMapping.cs" />
     <Compile Include="Accounting\CostCenterManagement\FixedCostAllocationDetail.cs" />
+    <Compile Include="Accounting\CreditSplitList.cs" />
+    <Compile Include="Accounting\DebitSplitList.cs" />
     <Compile Include="Accounting\DepreciationItem.cs" />
     <Compile Include="Accounting\PaymentCondition.cs" />
     <Compile Include="Accounting\CostAccount.cs" />

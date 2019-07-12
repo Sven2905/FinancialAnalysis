@@ -18,7 +18,7 @@ namespace FinancialAnalysis.Models.BaseClasses
         /// <summary>
         /// Referenz-Id Kontenrahmen
         /// </summary>
-        public int RefCostAccountId { get; set; }
+        public int RefCostAccountId { get; set; } = 1;
 
         /// <summary>
         /// Kontenrahmen
@@ -29,5 +29,15 @@ namespace FinancialAnalysis.Models.BaseClasses
         /// Referenz-Id Buchung
         /// </summary>
         public int RefBookingId { get; set; }
+
+        /// <summary>
+        /// Beschreibung / Bezeichnung zur Buchung
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Gibt an, ob es sich dabei um einen Steuerbetrag handelt
+        /// </summary>
+        public bool IsTax { get; set; }
     }
 }

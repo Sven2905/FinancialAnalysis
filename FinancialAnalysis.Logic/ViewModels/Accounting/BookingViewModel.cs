@@ -1,5 +1,6 @@
 ﻿using DevExpress.Mvvm;
 using DevExpress.Xpf.Dialogs;
+using FinancialAnalysis.Logic.Manager;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
@@ -30,6 +31,8 @@ namespace FinancialAnalysis.Logic.ViewModels
             SetCommands();
 
             Messenger.Default.Register<SelectedCostAccount>(this, ChangeSelectedCostAccount);
+            Messenger.Default.Register<CreditSplitList>(this, AddCreditSplitsToList);
+            Messenger.Default.Register<DebitSplitList>(this, AddDebitSplitsToList);
 
             GetData();
             SelectedTax = FilteredTaxTypes.SingleOrDefault(x => x.TaxTypeId == 1);
@@ -62,6 +65,8 @@ namespace FinancialAnalysis.Logic.ViewModels
             Amount = 0;
             Description = "";
             ScannedDocumentList.Clear();
+            Credits.Clear();
+            Debits.Clear();
         }
 
         private void SetCommands()
@@ -74,6 +79,14 @@ namespace FinancialAnalysis.Logic.ViewModels
             GetDebitorCommand = new DelegateCommand(() =>
             {
                 Messenger.Default.Send(new OpenKontenrahmenWindowMessage { AccountingType = AccountingType.Debit });
+            });
+            OpenDebitSplitWindowCommand = new DelegateCommand(() =>
+            {
+                Messenger.Default.Send(new OpenDebitSplitWindowMessage(SelectedBookingType, Amount));
+            });
+            OpenCreditSplitWindowCommand = new DelegateCommand(() =>
+            {
+                Messenger.Default.Send(new OpenCreditSplitWindowMessage(SelectedBookingType, Amount));
             });
 
             OpenFileCommand = new DelegateCommand(() =>
@@ -94,22 +107,52 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             AddToStackCommand = new DelegateCommand(() =>
             {
-                AddToStack(CreateBookingItem());
-                ClearForm();
+                AccountBookingManager.Instance.NewBookingItem(Date, Description);
+                if (Credits.Count == 0 && Debits.Count == 0)
+                    AccountBookingManager.Instance.CreateAndAddCreditDebit(GrossNetType, SelectedBookingType, Amount, CostAccountCreditor, CostAccountDebitor, SelectedTax);
+
+                else if (Credits.Count > 0 && Debits.Count == 0)
+                {
+                    Debits.Add(new Debit(Amount, CostAccountDebitorId, 0));
+                    AccountBookingManager.Instance.AddCreditsAndDebits(Credits.ToList(), Debits.ToList());
+                }
+                else if (Credits.Count == 0 && Debits.Count > 0)
+                {
+                    Credits.Add(new Credit(Amount, CostAccountCreditorId, 0));
+                    AccountBookingManager.Instance.AddCreditsAndDebits(Credits.ToList(), Debits.ToList());
+                }
+                else
+                {
+                    AccountBookingManager.Instance.AddCreditsAndDebits(Credits.ToList(), Debits.ToList());
+                }
+
+                AccountBookingManager.Instance.AddScannedDocuments(ScannedDocumentList);
+
+                if (IsFixedCostAllocationActive)
+                    AccountBookingManager.Instance.AddFixedCostAllocation(SelectedFixedCostAllocation);
+                else
+                    AccountBookingManager.Instance.AddCostCenter(SelectedCostCenter);
+
+                BookingsOnStack = AccountBookingManager.Instance.BookingList.ToSvenTechCollection();
+
+                    ClearForm();
             }, () => ValidateBooking());
+
 
             SaveStackToDbCommand = new DelegateCommand(SaveStackToDb, () => BookingsOnStack.Count > 0);
 
-            SaveBookingCommand = new DelegateCommand(() =>
-            {
-                SaveBookingToDB(CreateBookingItem());
-                ClearForm();
-            }, () => ValidateBooking());
+            DeleteCommand = new DelegateCommand(DeleteBooking, () => SelectedBooking != null);
 
             DeleteSelectedScannedDocumentCommand =
                 new DelegateCommand(DeleteSelectedScannedDocument, () => ScannedDocumentList.Count > 0);
 
             CancelCommand = new DelegateCommand(ClearForm);
+        }
+
+        private void DeleteBooking()
+        {
+            AccountBookingManager.Instance.RemoveBookingFromList(SelectedBooking.BookingId);
+            BookingsOnStack = AccountBookingManager.Instance.BookingList.ToSvenTechCollection();
         }
 
         private void DeleteSelectedScannedDocument()
@@ -158,7 +201,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private bool ValidateBooking()
         {
-            return CostAccountCreditorId != 0 && CostAccountDebitorId != 0 && SelectedTax != null && ValidateBookingMode() && !string.IsNullOrEmpty(Description);
+            return (CostAccountCreditorId != 0 || Credits.Count > 0) && (CostAccountDebitorId != 0 || Debits.Count > 0) && ValidateBookingMode() && !string.IsNullOrEmpty(Description);
         }
 
         private bool ValidateBookingMode()
@@ -181,162 +224,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
-        private Booking CreateBookingItem()
-        {
-            if (!ValidateBooking())
-            {
-                return null;
-            }
-
-            Booking booking = new Booking(Amount, Date, Description);
-
-            decimal tax = 0;
-            decimal amountWithoutTax = 0;
-            if (SelectedTax.AmountOfTax > 0)
-            {
-                if (GrossNetType == GrossNetType.Brutto)
-                {
-                    tax = Amount / (100 + SelectedTax.AmountOfTax) * SelectedTax.AmountOfTax;
-                    amountWithoutTax = Amount - tax;
-                }
-                else
-                {
-                    tax = Amount / 100 * SelectedTax.AmountOfTax;
-                    amountWithoutTax = Amount;
-                }
-            }
-
-            Debit debit = new Debit();
-            Credit credit = new Credit();
-
-            if (SelectedBookingType == BookingType.Invoice)
-            {
-                if (SelectedTax.Description.IndexOf("Vorsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    credit = new Credit(amountWithoutTax, CostAccountCreditorId, booking.BookingId);
-                    debit = new Debit(amountWithoutTax, CostAccountDebitorId, booking.BookingId);
-                    Credit creditTax = new Credit(tax, CostAccountCreditorId, booking.BookingId);
-                    Debit debitTax = new Debit(tax, SelectedTax.RefCostAccount, booking.BookingId);
-
-                    booking.Credits.Add(creditTax);
-                    booking.Debits.Add(debitTax);
-                }
-                else if (SelectedTax.Description.IndexOf("Umsatzsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    credit = new Credit(amountWithoutTax, CostAccountCreditorId, booking.BookingId);
-                    debit = new Debit(amountWithoutTax, CostAccountDebitorId, booking.BookingId);
-                    Credit creditTax = new Credit(tax, SelectedTax.RefCostAccount, booking.BookingId);
-                    Debit debitTax = new Debit(tax, CostAccountDebitorId, booking.BookingId);
-                    booking.Debits.Add(debitTax);
-                    booking.Credits.Add(creditTax);
-                }
-                else
-                {
-                    credit = new Credit(Amount, CostAccountCreditorId, booking.BookingId);
-                    debit = new Debit(Amount, CostAccountDebitorId, booking.BookingId);
-                }
-            }
-            else if (SelectedBookingType == BookingType.CreditAdvice)
-            {
-                // ToDo Check with Tobias !!!
-
-                if (SelectedTax.Description.IndexOf("Vorsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    credit = new Credit(amountWithoutTax * (-1), CostAccountDebitorId, booking.BookingId);
-                    debit = new Debit(amountWithoutTax, CostAccountCreditorId, booking.BookingId);
-                    Credit creditTax = new Credit(tax, CostAccountCreditorId, booking.BookingId);
-                    Debit debitTax = new Debit(tax, SelectedTax.RefCostAccount, booking.BookingId);
-                    booking.Credits.Add(creditTax);
-                    booking.Debits.Add(debitTax);
-                }
-                else if (SelectedTax.Description.IndexOf("Umsatzsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    credit = new Credit(amountWithoutTax, CostAccountDebitorId, booking.BookingId);
-                    debit = new Debit(amountWithoutTax * (-1), CostAccountCreditorId, booking.BookingId);
-                    Credit creditTax = new Credit(tax, SelectedTax.RefCostAccount, booking.BookingId);
-                    Debit debitTax = new Debit(tax, CostAccountDebitorId, booking.BookingId);
-                    booking.Credits.Add(creditTax);
-                }
-                else
-                {
-                    credit = new Credit(Amount, CostAccountDebitorId, booking.BookingId);
-                    debit = new Debit(Amount * (-1), CostAccountCreditorId, booking.BookingId);
-                }
-            }
-
-            booking.Debits.Add(debit);
-            booking.Credits.Add(credit);
-            booking.ScannedDocuments = ScannedDocumentList.ToList();
-
-            if (IsFixedCostAllocationActive)
-            {
-                booking.RefFixedCostAllocationId = SelectedFixedCostAllocation.FixedCostAllocationId;
-                foreach (FixedCostAllocationDetail item in SelectedFixedCostAllocation.FixedCostAllocationDetails)
-                {
-                    booking.BookingCostCenterMappingList.Add(new BookingCostCenterMapping(0, item.RefCostCenterId, amountWithoutTax * (decimal)(item.Shares / SelectedFixedCostAllocation.Shares.Sum())));
-                }
-            }
-            else
-            {
-                booking.RefFixedCostAllocationId = 0;
-                booking.BookingCostCenterMappingList.Add(new BookingCostCenterMapping(0, SelectedCostCenter.CostCenterId, amountWithoutTax));
-            }
-
-            return booking;
-        }
-
-        private void SaveBookingToDB(Booking booking)
-        {
-            if (booking == null)
-            {
-                return;
-            }
-
-            int bookingId = Bookings.Insert(booking);
-            if (bookingId == 0)
-            {
-                return;
-            }
-
-            foreach (Credit item in booking.Credits)
-            {
-                item.RefBookingId = bookingId;
-            }
-            Credits.Insert(booking.Credits);
-
-            foreach (Debit item in booking.Debits)
-            {
-                item.RefBookingId = bookingId;
-            }
-            Debits.Insert(booking.Debits);
-
-            foreach (ScannedDocument item in booking.ScannedDocuments)
-            {
-                item.RefBookingId = bookingId;
-            }
-            ScannedDocuments.Insert(booking.ScannedDocuments);
-
-            foreach (BookingCostCenterMapping item in booking.BookingCostCenterMappingList)
-            {
-                item.RefBookingId = bookingId;
-            }
-            BookingCostCenterMappings.Insert(booking.BookingCostCenterMappingList);
-        }
-
-        private void AddToStack(Booking booking)
-        {
-            if (booking != null)
-            {
-                BookingsOnStack.Add(booking);
-            }
-        }
-
         private void SaveStackToDb()
         {
-            foreach (Booking item in BookingsOnStack)
-            {
-                SaveBookingToDB(item);
-            }
+            AccountBookingManager.Instance.SaveBookingsToDB();
 
             BookingsOnStack.Clear();
         }
@@ -360,6 +250,16 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 FilteredTaxTypes = Globals.CoreData.TaxTypeList;
             }
+        }
+
+        private void AddDebitSplitsToList(DebitSplitList debitSplitList)
+        {
+            Debits.AddRange(debitSplitList.Debits);
+        }
+
+        private void AddCreditSplitsToList(CreditSplitList creditSplitList)
+        {
+            Credits.AddRange(creditSplitList.Credits);
         }
 
         #endregion Methods
@@ -388,13 +288,15 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public DelegateCommand AddToStackCommand { get; set; }
         public DelegateCommand SaveStackToDbCommand { get; set; }
-        public DelegateCommand SaveBookingCommand { get; set; }
         public DelegateCommand CancelCommand { get; set; }
+        public DelegateCommand DeleteCommand { get; set; }
         public DelegateCommand GetCreditorCommand { get; set; }
         public DelegateCommand GetDebitorCommand { get; set; }
         public DelegateCommand OpenFileCommand { get; set; }
         public DelegateCommand DoubleClickListBoxCommand { get; set; }
         public DelegateCommand DeleteSelectedScannedDocumentCommand { get; set; }
+        public DelegateCommand OpenCreditSplitWindowCommand { get; set; }
+        public DelegateCommand OpenDebitSplitWindowCommand { get; set; }
         public User ActualUser => Globals.ActiveUser;
 
         public CostAccount CostAccountCreditor
@@ -409,7 +311,6 @@ namespace FinancialAnalysis.Logic.ViewModels
         }
 
         public SvenTechCollection<Booking> BookingsOnStack { get; set; } = new SvenTechCollection<Booking>();
-        public string Description { get; set; }
         public CostAccount CostAccountDebitor { get; set; }
         public TaxType SelectedTax { get; set; }
         public List<CostAccount> CostAccountList { get; set; }
@@ -417,7 +318,6 @@ namespace FinancialAnalysis.Logic.ViewModels
         public SvenTechCollection<Project> ProjectList { get; set; } = new SvenTechCollection<Project>();
         public SvenTechCollection<TaxType> FilteredTaxTypes { get; set; }
         public SvenTechCollection<FixedCostAllocation> FixedCostAllocationList { get; set; }
-        public DateTime Date { get; set; } = DateTime.Now;
         public GrossNetType GrossNetType { get; set; }
         public ScannedDocument SelectedScannedDocument { get; set; }
         public BookingType SelectedBookingType { get; set; }
@@ -425,7 +325,11 @@ namespace FinancialAnalysis.Logic.ViewModels
         public CostCenterCategory SelectedCostCenterCategory { get; set; }
         public bool IsFixedCostAllocationActive { get; set; }
         public FixedCostAllocation SelectedFixedCostAllocation { get; set; }
-
+        public Booking SelectedBooking { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
+        public string Description { get; set; }
+        public ObservableCollection<Credit> Credits = new ObservableCollection<Credit>();
+        public ObservableCollection<Debit> Debits = new ObservableCollection<Debit>();
         public ObservableCollection<ScannedDocument> ScannedDocumentList { get; set; } =
             new ObservableCollection<ScannedDocument>();
 

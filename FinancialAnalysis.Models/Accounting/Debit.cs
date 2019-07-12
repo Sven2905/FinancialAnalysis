@@ -24,5 +24,10 @@ namespace FinancialAnalysis.Models.Accounting
         /// Id
         /// </summary>
         public int DebitId { get; set; }
+
+        /// <summary>
+        /// Referenz auf die zugehörige Soll-Buchung
+        /// </summary>
+        public int RefDebitId { get; set; }
     }
 }

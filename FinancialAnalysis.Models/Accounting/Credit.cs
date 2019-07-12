@@ -24,5 +24,10 @@ namespace FinancialAnalysis.Models.Accounting
         /// Id
         /// </summary>
         public int CreditId { get; set; }
+
+        /// <summary>
+        /// Referenz auf die zugehörige Haben-Buchung
+        /// </summary>
+        public int RefCreditId { get; set; }
     }
 }

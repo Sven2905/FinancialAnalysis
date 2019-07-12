@@ -68,7 +68,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             SelectedBooking.IsCanceled = true;
             Bookings.UpdateCancelingStatus(SelectedBooking);
 
-            Booking cancelBooking = new Booking(SelectedBooking.Amount * (-1), DateTime.Now, "Stornierung von Buchung " + SelectedBooking.BookingId + " - " + SelectedBooking.Description)
+            Booking cancelBooking = new Booking(DateTime.Now, "Stornierung von Buchung " + SelectedBooking.BookingId + " - " + SelectedBooking.Description)
             {
                 RefFixedCostAllocationId = SelectedBooking.RefFixedCostAllocationId,
                 FixedCostAllocation = SelectedBooking.FixedCostAllocation,

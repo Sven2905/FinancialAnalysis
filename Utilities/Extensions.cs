@@ -164,5 +164,15 @@ namespace Utilities
 
             return (T)inst?.Invoke(obj, null);
         }
+
+        public static decimal ToBrutto(this decimal value, decimal percent)
+        {
+            return value * (1 + percent / 100);
+        }
+
+        public static decimal ToNetto(this decimal value, decimal percent)
+        {
+            return value / (1 + percent / 100) * 100;
+        }
     }
 }

@@ -128,8 +128,13 @@
     <Compile Include="CoreData.cs" />
     <Compile Include="General\Extensions.cs" />
     <Compile Include="General\Globals.cs" />
-    <Compile Include="Manager\BookingManager.cs" />
+    <Compile Include="Manager\AccountBookingManager.cs" />
+    <Compile Include="Manager\TimeBookingManager.cs" />
+    <Compile Include="Messages\OpenCreditSplitWindowMessage.cs" />
+    <Compile Include="Messages\OpenDebitSplitWindowMessage.cs" />
     <Compile Include="Messages\OpenTimeBookingWindowMessage.cs" />
+    <Compile Include="ViewModels\Accounting\DebitSplitViewModel.cs" />
+    <Compile Include="ViewModels\Accounting\CreditSplitViewModel.cs" />
     <Compile Include="ViewModels\InfoBoxViewModel.cs" />
     <Compile Include="Mail\Mail.cs" />
     <Compile Include="Messages\OpenClientWindowMessage.cs" />
