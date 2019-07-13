@@ -83,11 +83,11 @@ namespace FinancialAnalysis.Logic.ViewModels
             OpenDebitSplitWindowCommand = new DelegateCommand(() =>
             {
                 Messenger.Default.Send(new OpenDebitSplitWindowMessage(SelectedBookingType, Amount));
-            });
+            }, () => Amount != 0);
             OpenCreditSplitWindowCommand = new DelegateCommand(() =>
             {
                 Messenger.Default.Send(new OpenCreditSplitWindowMessage(SelectedBookingType, Amount));
-            });
+            }, () => Amount != 0);
 
             OpenFileCommand = new DelegateCommand(() =>
             {
@@ -135,7 +135,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
                 BookingsOnStack = AccountBookingManager.Instance.BookingList.ToSvenTechCollection();
 
-                    ClearForm();
+                ClearForm();
             }, () => ValidateBooking());
 
 
@@ -255,11 +255,15 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void AddDebitSplitsToList(DebitSplitList debitSplitList)
         {
             Debits.AddRange(debitSplitList.Debits);
+            CostAccountDebitorId = 0;
+            RaisePropertiesChanged("DebitsString");
         }
 
         private void AddCreditSplitsToList(CreditSplitList creditSplitList)
         {
             Credits.AddRange(creditSplitList.Credits);
+            CostAccountCreditorId = 0;
+            RaisePropertiesChanged("CreditsString");
         }
 
         #endregion Methods
@@ -272,7 +276,13 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 _costAccountCreditorId = value;
-                CostAccountCreditor = CostAccountList.Single(x => x.CostAccountId == value);
+                if (value != 0)
+                    CostAccountCreditor = CostAccountList.Single(x => x.CostAccountId == value);
+                else
+                    CostAccountCreditor = null;
+
+                Credits.Clear();
+                RaisePropertiesChanged("CreditsString");
             }
         }
 
@@ -282,7 +292,54 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 _costAccountDebitorId = value;
-                CostAccountDebitor = CostAccountList.Single(x => x.CostAccountId == value);
+                if (value != 0)
+                    CostAccountDebitor = CostAccountList.Single(x => x.CostAccountId == value);
+                else
+                    CostAccountDebitor = null;
+                Debits.Clear();
+                RaisePropertiesChanged("DebitsString");
+            }
+        }
+
+        public string CreditsString
+        {
+            get
+            {
+                if (Credits.Count == 0)
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    var costAccounts = Credits.Select(x => x.CostAccount.DisplayName).Distinct();
+                    string result = string.Empty;
+                    foreach (var item in costAccounts)
+                    {
+                        result += item + Environment.NewLine;
+                    }
+                    return result;
+                }
+            }
+        }
+
+        public string DebitsString
+        {
+            get
+            {
+                if (Debits.Count == 0)
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    var costAccounts = Debits.Select(x => x.CostAccount.DisplayName).Distinct();
+                    string result = string.Empty;
+                    foreach (var item in costAccounts)
+                    {
+                        result += item + Environment.NewLine;
+                    }
+                    return result;
+                }
             }
         }
 
