@@ -17,7 +17,7 @@
     dx:ThemeManager.ThemeName="Office2019White"
     Background="#FAFAFA"
     WindowState="Maximized"
-    Title="Financial Analysis"
+    Title="Financial Analysis - Sven Technology"
     WindowStyle="ThreeDBorderWindow"
     WindowStartupLocation="CenterScreen"
     xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"

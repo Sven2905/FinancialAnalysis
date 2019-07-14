@@ -16,6 +16,8 @@
     xmlns:models="clr-namespace:FinancialAnalysis.Models;assembly=FinancialAnalysis.Models"
     xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
     xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
+    xmlns:ve="http://schemas.devexpress.com/winfx/2008/xaml/docking/visualelements"
+    xmlns:dxt="http://schemas.devexpress.com/winfx/2008/xaml/docking/themekeys"
     x:Class="FinancialAnalysis.UserControls.BookingControl"
     mc:Ignorable="d"
     dx:ThemeManager.ThemeName="Office2019White"
@@ -25,8 +27,23 @@
     </UserControl.DataContext>
     <UserControl.Resources>
         <local:NullToIsEnabledConverter x:Key="NullConverter" />
-        <local:BooleanToVisiblityConverter x:Key="BoolToVis"/>
-        <local:InverseBooleanToVisiblityConverter x:Key="InvBoolToVis"/>
+        <local:BooleanToVisiblityConverter x:Key="BoolToVis" />
+        <local:InverseBooleanToVisiblityConverter x:Key="InvBoolToVis" />
+        <ControlTemplate x:Key="{dxt:DockPaneElementsThemeKey ResourceKey=Template, IsThemeIndependent=True}" TargetType="ve:DockPane">
+            <Grid ve:DockPane.HitTestType="Bounds" Background="Red" Margin="{Binding Path=LayoutItem.ActualMargin, RelativeSource={RelativeSource TemplatedParent}}">
+                <Border Margin="{TemplateBinding ActualBorderMargin}" BorderThickness="{TemplateBinding ActualBorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="{TemplateBinding ActualCaptionCornerRadius}" />
+                <Border SnapsToDevicePixels="True" Background="{TemplateBinding Background}" Margin="{TemplateBinding ActualBorderMargin}" Padding="{TemplateBinding ActualBorderPadding}" BorderThickness="{TemplateBinding ActualBorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="{TemplateBinding ActualCaptionCornerRadius}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <ve:DockPaneHeaderPresenter x:Name="PART_Header" Grid.Row="0" Content="{TemplateBinding Header}" Margin="{DynamicResource {dxt:DockPaneElementsThemeKey ResourceKey=HeaderMargin}}" />
+                        <ve:DockPaneContentPresenter x:Name="PART_Content" Grid.Row="1" Content="{TemplateBinding Content}" Margin="{Binding Path=LayoutItem.ActualPadding, RelativeSource={RelativeSource TemplatedParent}}" />
+                    </Grid>
+                </Border>
+            </Grid>
+        </ControlTemplate>
     </UserControl.Resources>
 
     <dxmvvm:Interaction.Behaviors>
@@ -61,297 +78,317 @@
                     <dxdo:DockLayoutManager>
                         <dxdo:LayoutGroup Caption="LayoutRoot" Orientation="Vertical" >
                             <dxdo:LayoutGroup Caption="LayoutRoot" Orientation="Horizontal" ItemHeight="2*">
-                                <dxdo:LayoutPanel Caption="Informationen" ShowCloseButton="False" ShowPinButton="False" ItemWidth="2*">
+                                <dxdo:LayoutGroup Caption="LayoutRoot" Orientation="Vertical" ItemHeight="2*" ItemWidth="2*">
+                                    <dxdo:LayoutPanel Caption="Allgemeines" ShowCloseButton="False" ShowPinButton="False" ItemWidth="2*">
+                                        <Grid Margin="20,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
 
-                                    <Grid Margin="20,0">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
+                                            <Grid Grid.Row="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="50" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="50" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
 
-                                        <dxdo:LayoutGroup Caption="Allgemeines" GroupBorderStyle="Group" Orientation="Vertical" ShowCaption="True">
-                                            <dxdo:LayoutGroup ItemHeight="Auto" Orientation="Vertical">
-                                                <dxdo:LayoutControlItem>
-                                                    <Grid>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="Auto" />
-                                                            <ColumnDefinition Width="Auto" />
-                                                            <ColumnDefinition Width="100" />
-                                                            <ColumnDefinition Width="Auto" />
-                                                            <ColumnDefinition Width="Auto" />
-                                                            <ColumnDefinition Width="100" />
-                                                            <ColumnDefinition Width="Auto" />
-                                                            <ColumnDefinition Width="Auto" />
-                                                            <ColumnDefinition Width="Auto" />
-                                                        </Grid.ColumnDefinitions>
-
-                                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Typ: " VerticalAlignment="Center" Margin="10,0" Foreground="#3F729B" FontFamily="Tahoma" />
-                                                        <dxe:ListBoxEdit Grid.Column="1" Grid.Row="0" Width="100" HorizontalAlignment="Left" 
+                                                <TextBlock Grid.Column="0" Grid.Row="0" Text="Typ: " VerticalAlignment="Center" Margin="10,0" Foreground="#3F729B" FontFamily="Tahoma" />
+                                                <dxe:ListBoxEdit Grid.Column="1" Grid.Row="0" Width="100" HorizontalAlignment="Left" 
                                                          ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:BookingType}, SplitNames=True}" 
                                                          BorderBrush="Transparent" Background="Transparent" VerticalAlignment="Top" 
                                                          EditValue="{Binding SelectedBookingType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                                          FontFamily="Tahoma" Foreground="#3F729B">
-                                                            <dxe:ListBoxEdit.StyleSettings>
-                                                                <dxe:RadioListBoxEditStyleSettings />
-                                                            </dxe:ListBoxEdit.StyleSettings>
-                                                        </dxe:ListBoxEdit>
+                                                    <dxe:ListBoxEdit.StyleSettings>
+                                                        <dxe:RadioListBoxEditStyleSettings />
+                                                    </dxe:ListBoxEdit.StyleSettings>
+                                                </dxe:ListBoxEdit>
 
-                                                        <TextBlock Grid.Column="3" Grid.Row="0" Text="Datum: " VerticalAlignment="Center" Margin="10,0" Foreground="#3F729B" FontFamily="Tahoma" />
-                                                        <dxe:DateEdit Grid.Column="4" Grid.Row="0" Height="25" Margin="0,3,0,3" Foreground="#3F729B" Width="120" HorizontalAlignment="Left" 
+                                                <TextBlock Grid.Column="3" Grid.Row="0" Text="Datum: " VerticalAlignment="Center" Margin="10,0" Foreground="#3F729B" FontFamily="Tahoma" />
+                                                <dxe:DateEdit Grid.Column="4" Grid.Row="0" Height="25" Margin="0,3,0,3" Foreground="#3F729B" Width="120" HorizontalAlignment="Left" 
                                                                       DisplayFormatString="dd.MM.yyyy" DateTime="{Binding Date}" />
 
-                                                        <TextBlock Grid.Column="6" Grid.Row="0" Text="Betrag: " VerticalAlignment="Center" Margin="10,0" 
+                                                <TextBlock Grid.Column="6" Grid.Row="0" Text="Betrag: " VerticalAlignment="Center" Margin="10,0" 
                                                                    Foreground="#3F729B" FontFamily="Tahoma" />
-                                                        <dxe:TextEdit Grid.Column="7" Grid.Row="0" Mask="C" MaskType="Numeric" Height="25" VerticalAlignment="Center"
+                                                <dxe:TextEdit Grid.Column="7" Grid.Row="0" Mask="C" MaskType="Numeric" Height="25" VerticalAlignment="Center"
                                                                       Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" MaskUseAsDisplayFormat="True" 
                                                                       HorizontalContentAlignment="Right" Width="80" />
 
-                                                        <dxe:ComboBoxEdit Grid.Column="8" Grid.Row="2" Margin="10,0" EditValue="{Binding GrossNetType}"  Height="25"
+                                                <dxe:ComboBoxEdit Grid.Column="8" Grid.Row="2" Margin="10,0" EditValue="{Binding GrossNetType,UpdateSourceTrigger=PropertyChanged}"  Height="25"
                                                           SelectedIndex="0" Width="100" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Foreground="#3F729B" FontFamily="Tahoma">
-                                                            <dxmvvm:Interaction.Behaviors>
-                                                                <dxmvvm:EnumItemsSourceBehavior EnumType="{x:Type models:GrossNetType}" />
-                                                            </dxmvvm:Interaction.Behaviors>
-                                                        </dxe:ComboBoxEdit>
-                                                    </Grid>
-                                                </dxdo:LayoutControlItem>
-                                                <dxdo:LayoutControlItem>
-                                                    <Grid>
-                                                        <Grid.RowDefinitions>
-                                                            <RowDefinition Height="Auto" />
-                                                            <RowDefinition Height="Auto" />
-                                                        </Grid.RowDefinitions>
-                                                        <TextBlock Grid.Row="0" Text="Beschreibung: " VerticalAlignment="Top" Margin="10,0" Foreground="#3F729B" FontFamily="Tahoma" />
+                                                    <dxmvvm:Interaction.Behaviors>
+                                                        <dxmvvm:EnumItemsSourceBehavior EnumType="{x:Type models:GrossNetType}" />
+                                                    </dxmvvm:Interaction.Behaviors>
+                                                </dxe:ComboBoxEdit>
+                                            </Grid>
+                                            <Grid Grid.Row="1">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Grid.Row="0" Text="Beschreibung: " VerticalAlignment="Top" Margin="10,0" Foreground="#3F729B" FontFamily="Tahoma" />
 
-                                                        <TextBox Grid.Row="1" Height="100" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Margin="10,5,10,0" 
+                                                <TextBox Grid.Row="1" Height="70" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Margin="10,5,10,5" Width="425" HorizontalAlignment="Left"
                                                                  AcceptsReturn="True" Foreground="#3F729B" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                                    </Grid>
-                                                </dxdo:LayoutControlItem>
-                                            </dxdo:LayoutGroup>
-                                        </dxdo:LayoutGroup>
+                                            </Grid>
+                                        </Grid>
+                                    </dxdo:LayoutPanel>
+                                    <dxdo:LayoutGroup Caption="LayoutRoot" Orientation="Horizontal" ItemHeight="2*">
+                                        <dxdo:LayoutPanel Caption="Kontenrahmen" ShowCloseButton="False" ShowPinButton="False" ItemWidth="3*" >
+                                            <Grid Margin="10">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="10" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
 
-                                        <Grid Grid.Row="1" >
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="3*" />
-                                                <ColumnDefinition Width="10" />
-                                                <ColumnDefinition Width="2*" />
-                                            </Grid.ColumnDefinitions>
-                                            <dxdo:LayoutGroup Grid.Column="0" Caption="Kontenrahmen" GroupBorderStyle="Group" Orientation="Vertical" ShowCaption="True">
-                                                <dxdo:LayoutControlItem>
-                                                    <Grid Margin="10">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="Auto" />
-                                                            <ColumnDefinition Width="10" />
-                                                            <ColumnDefinition Width="*" />
-                                                            <ColumnDefinition Width="Auto" />
-                                                        </Grid.ColumnDefinitions>
-                                                        <Grid.RowDefinitions>
-                                                            <RowDefinition Height="Auto" />
-                                                            <RowDefinition Height="Auto" />
-                                                            <RowDefinition Height="Auto" />
-                                                            <RowDefinition Height="Auto" />
-                                                            <RowDefinition Height="Auto" />
-                                                        </Grid.RowDefinitions>
+                                                <TextBlock Grid.Column="0" Grid.Row="0" Text="Soll: " VerticalAlignment="Center" Margin="5" Foreground="#3F729B" FontFamily="Tahoma" />
+                                                <dxg:GridControl Grid.Column="2" Grid.Row="1" MinHeight="100" MaxHeight="2000" MaxWidth="4000" ItemsSource="{Binding DebitsDisplay}" VerticalAlignment="Stretch" 
+                                                                 ShowBorder="False" >
+                                                    <dxg:GridControl.View>
+                                                        <dxg:TableView AllowEditing="False" AllowMoveColumnToDropArea="False" AutoWidth="True" VerticalScrollbarVisibility="Auto" ShowHorizontalLines="False"
+                                                               AllowColumnMoving="False" AllowGrouping="False" AllowResizing="False" VerticalAlignment="Stretch" ShowIndicator="False" ShowColumnHeaders="False"
+                                                               UseEvenRowBackground="False" AllowGroupingSortingBySingleColumnOnly="True" ShowGroupPanel="False" ShowTotalSummary="True" NavigationStyle="None" />
+                                                    </dxg:GridControl.View>
+                                                    <dxg:GridControl.TotalSummary>
+                                                        <dxg:GridSummaryItem FieldName="Amount" SummaryType="Sum" DisplayFormat="{}{0:c2}" />
+                                                    </dxg:GridControl.TotalSummary>
+                                                    <dxg:GridColumn FieldName="CostAccount.AccountNumber" Width="35" VisibleIndex="0" />
+                                                    <dxg:GridColumn FieldName="CostAccount.Description" VisibleIndex="1" />
+                                                    <dxg:GridColumn FieldName="Description" VisibleIndex="2" />
+                                                    <dxg:GridColumn FieldName="Amount" Header="Betrag" Width="50" VisibleIndex="3" >
+                                                        <dxg:GridColumn.EditSettings>
+                                                            <dxe:TextEditSettings Mask="C" MaskType="Numeric" MaskUseAsDisplayFormat="True" />
+                                                        </dxg:GridColumn.EditSettings>
+                                                    </dxg:GridColumn>
+                                                </dxg:GridControl>
 
-                                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Soll: " VerticalAlignment="Center" Margin="5" Foreground="#3F729B" FontFamily="Tahoma" />
-                                                        <!--<TextBlock Grid.Column="2" Grid.Row="1" Text="{Binding DebitsString}" />-->
+                                                <dx:SimpleButton Grid.Column="3" Grid.Row="1" Margin="8,0" Width="40" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding ClearDebitsCommand}">
+                                                    <dx:SimpleButton.Glyph>
+                                                        <dx:SvgImageSource Uri="/Images/regular/Trash.svg" Size="18,20" />
+                                                    </dx:SimpleButton.Glyph>
+                                                </dx:SimpleButton>
 
-                                                        <dxg:GridControl Grid.Column="2" Grid.Row="1" MinHeight="100" MaxHeight="2000" MaxWidth="4000" ItemsSource="{Binding Credits}" VerticalAlignment="Stretch" >
-                                                            <dxg:GridControl.View>
-                                                                <dxg:TableView AllowEditing="False" AllowMoveColumnToDropArea="False" AutoWidth="True" VerticalScrollbarVisibility="Auto" ShowHorizontalLines="False" 
-                                                               AllowColumnMoving="False" AllowGrouping="False" AllowResizing="False" VerticalAlignment="Stretch" ShowIndicator="False" 
-                                                               UseEvenRowBackground="True" AllowGroupingSortingBySingleColumnOnly="True" ShowGroupPanel="False" />
-                                                            </dxg:GridControl.View>
-                                                            <dxg:GridColumn FieldName="Date" Header="Datum" Width="30" />
-                                                            <dxg:GridColumn FieldName="Description" Header="Beschreibung" />
-                                                        </dxg:GridControl>
+                                                <TextBlock Grid.Column="0" Grid.Row="2" Text="Haben: " VerticalAlignment="Center" Margin="5" Foreground="#3F729B" FontFamily="Tahoma"  />
+                                                <dxg:GridControl Grid.Column="2" Grid.Row="3" MinHeight="100" MaxHeight="2000" MaxWidth="4000" ItemsSource="{Binding CreditsDisplay}" VerticalAlignment="Stretch" 
+                                                                 ShowBorder="False" >
+                                                    <dxg:GridControl.View>
+                                                        <dxg:TableView AllowEditing="False" AllowMoveColumnToDropArea="False" AutoWidth="True" VerticalScrollbarVisibility="Auto" ShowHorizontalLines="False"
+                                                               AllowColumnMoving="False" AllowGrouping="False" AllowResizing="False" VerticalAlignment="Stretch" ShowIndicator="False" ShowColumnHeaders="False"
+                                                               UseEvenRowBackground="False" AllowGroupingSortingBySingleColumnOnly="True" ShowGroupPanel="False" ShowTotalSummary="True" NavigationStyle="None" />
+                                                    </dxg:GridControl.View>
+                                                    <dxg:GridControl.TotalSummary>
+                                                        <dxg:GridSummaryItem FieldName="Amount" SummaryType="Sum" DisplayFormat="{}{0:c2}" />
+                                                    </dxg:GridControl.TotalSummary>
+                                                    <dxg:GridColumn FieldName="CostAccount.AccountNumber" Width="35" VisibleIndex="0" />
+                                                    <dxg:GridColumn FieldName="CostAccount.Description" VisibleIndex="1" />
+                                                    <dxg:GridColumn FieldName="Description" VisibleIndex="2" />
+                                                    <dxg:GridColumn FieldName="Amount" Header="Betrag" Width="50" VisibleIndex="3">
+                                                        <dxg:GridColumn.EditSettings>
+                                                            <dxe:TextEditSettings Mask="C" MaskType="Numeric" MaskUseAsDisplayFormat="True" />
+                                                        </dxg:GridColumn.EditSettings>
+                                                    </dxg:GridColumn>
+                                                </dxg:GridControl>
 
-                                                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Haben: " VerticalAlignment="Center" Margin="5" Foreground="#3F729B" FontFamily="Tahoma"  />
-                                                        <TextBlock Grid.Column="2" Grid.Row="3" Text="{Binding CreditsString}" />
-                                                        <TextBlock Grid.Column="0" Grid.Row="4" Text="Steuer: " VerticalAlignment="Center" Margin="5" Foreground="#3F729B" FontFamily="Tahoma" />
+                                                <dx:SimpleButton Grid.Column="3" Grid.Row="3" Margin="8,0" Width="40" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding ClearCreditsCommand}">
+                                                    <dx:SimpleButton.Glyph>
+                                                        <dx:SvgImageSource Uri="/Images/regular/Trash.svg" Size="18,20" />
+                                                    </dx:SimpleButton.Glyph>
+                                                </dx:SimpleButton>
 
-                                                        <dxg:LookUpEdit DisplayMember="DisplayName" ValueMember="CostAccountId" Foreground="#3F729B" 
-                                                                        Grid.Column="2" Grid.Row="0" Margin="0,3,0,3" PopupWidth="800" 
-                                                                        ItemsSource="{Binding CostAccountList, UpdateSourceTrigger=PropertyChanged}" AutoComplete="True" 
-                                                                        EditValue="{Binding CostAccountDebitorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                                        IsPopupAutoWidth="True" AutoPopulateColumns="False">
-                                                            <dxg:LookUpEdit.PopupContentTemplate>
-                                                                <ControlTemplate>
-                                                                    <dxg:GridControl x:Name="PART_GridControl" AutoExpandAllGroups="True" 
+                                                <TextBlock Grid.Column="0" Grid.Row="4" Text="Steuer: " VerticalAlignment="Center" Margin="5" Foreground="#3F729B" FontFamily="Tahoma" />
+
+                                                <dxg:LookUpEdit DisplayMember="DisplayName" ValueMember="CostAccountId" Foreground="#3F729B" 
+                                                                Grid.Column="2" Grid.Row="0" Margin="0,3,0,3" PopupWidth="800" 
+                                                                ItemsSource="{Binding CostAccountList, UpdateSourceTrigger=PropertyChanged}" AutoComplete="True" 
+                                                                IsEnabled="{Binding IsEnabledDebitorDropDown}"
+                                                                EditValue="{Binding CostAccountDebitorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                                IsPopupAutoWidth="True" AutoPopulateColumns="False">
+                                                    <dxg:LookUpEdit.PopupContentTemplate>
+                                                        <ControlTemplate>
+                                                            <dxg:GridControl x:Name="PART_GridControl" AutoExpandAllGroups="True" 
                                                                      AutoGenerateColumns="None" ItemsSource="{Binding CostAccountList, UpdateSourceTrigger=PropertyChanged}" 
                                                                      EnableSmartColumnsGeneration="False">
-                                                                        <dxg:GridControl.View>
-                                                                            <dxg:TableView x:Name="View" ShowGroupedColumns="True" AutoWidth="True" 
+                                                                <dxg:GridControl.View>
+                                                                    <dxg:TableView x:Name="View" ShowGroupedColumns="True" AutoWidth="True" 
                                                                            AllowPerPixelScrolling="True" ScrollAnimationDuration="0" 
                                                                            ShowAutoFilterRow="True" ShowTotalSummary="True" 
                                                                            IsSynchronizedWithCurrentItem="False" />
-                                                                        </dxg:GridControl.View>
-                                                                        <dxg:GridColumn Binding="{Binding AccountNumber}" Header="Number" Width="50">
-                                                                            <dxg:GridColumn.EditSettings>
-                                                                                <dxe:TextEditSettings ShowNullTextForEmptyValue="False" />
-                                                                            </dxg:GridColumn.EditSettings>
-                                                                        </dxg:GridColumn>
-                                                                        <dxg:GridColumn Binding="{Binding Description}" Header="Bezeichnung" Width="450">
-                                                                            <dxg:GridColumn.EditSettings>
-                                                                                <dxe:TextEditSettings ShowNullTextForEmptyValue="False" />
-                                                                            </dxg:GridColumn.EditSettings>
-                                                                        </dxg:GridColumn>
-                                                                    </dxg:GridControl>
-                                                                </ControlTemplate>
-                                                            </dxg:LookUpEdit.PopupContentTemplate>
-                                                        </dxg:LookUpEdit>
+                                                                </dxg:GridControl.View>
+                                                                <dxg:GridColumn Binding="{Binding AccountNumber}" Header="Number" Width="50">
+                                                                    <dxg:GridColumn.EditSettings>
+                                                                        <dxe:TextEditSettings ShowNullTextForEmptyValue="False" />
+                                                                    </dxg:GridColumn.EditSettings>
+                                                                </dxg:GridColumn>
+                                                                <dxg:GridColumn Binding="{Binding Description}" Header="Bezeichnung" Width="450">
+                                                                    <dxg:GridColumn.EditSettings>
+                                                                        <dxe:TextEditSettings ShowNullTextForEmptyValue="False" />
+                                                                    </dxg:GridColumn.EditSettings>
+                                                                </dxg:GridColumn>
+                                                            </dxg:GridControl>
+                                                        </ControlTemplate>
+                                                    </dxg:LookUpEdit.PopupContentTemplate>
+                                                </dxg:LookUpEdit>
 
-                                                        <dxg:LookUpEdit DisplayMember="DisplayName" ValueMember="CostAccountId" Foreground="#3F729B" 
-                                                                        Grid.Column="2" Grid.Row="2" Margin="0,3,0,3" PopupWidth="800" 
-                                                                        ItemsSource="{Binding CostAccountList}" 
-                                                                        EditValue="{Binding CostAccountCreditorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                                        AutoComplete="True" IsPopupAutoWidth="True" AutoPopulateColumns="False">
-                                                            <dxg:LookUpEdit.PopupContentTemplate>
-                                                                <ControlTemplate>
-                                                                    <dxg:GridControl x:Name="PART_GridControl" AutoExpandAllGroups="True" 
+                                                <dxg:LookUpEdit DisplayMember="DisplayName" ValueMember="CostAccountId" Foreground="#3F729B" 
+                                                                Grid.Column="2" Grid.Row="2" Margin="0,3,0,3" PopupWidth="800" 
+                                                                ItemsSource="{Binding CostAccountList}" 
+                                                                IsEnabled="{Binding IsEnabledCreditorDropDown}" 
+                                                                EditValue="{Binding CostAccountCreditorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                                                AutoComplete="True" IsPopupAutoWidth="True" AutoPopulateColumns="False">
+                                                    <dxg:LookUpEdit.PopupContentTemplate>
+                                                        <ControlTemplate>
+                                                            <dxg:GridControl x:Name="PART_GridControl" AutoExpandAllGroups="True" 
                                                                      AutoGenerateColumns="None" ItemsSource="{Binding CostAccountList}" 
                                                                      EnableSmartColumnsGeneration="False">
-                                                                        <dxg:GridControl.View>
-                                                                            <dxg:TableView x:Name="View" ShowGroupedColumns="True" AutoWidth="True" 
+                                                                <dxg:GridControl.View>
+                                                                    <dxg:TableView x:Name="View" ShowGroupedColumns="True" AutoWidth="True" 
                                                                            AllowPerPixelScrolling="True" ScrollAnimationDuration="0" 
                                                                            ShowAutoFilterRow="True" ShowTotalSummary="True" 
                                                                            IsSynchronizedWithCurrentItem="False" />
-                                                                        </dxg:GridControl.View>
-                                                                        <dxg:GridColumn Binding="{Binding AccountNumber}" Header="Kontenrahmen" Width="50" SortOrder="Ascending">
-                                                                            <dxg:GridColumn.EditSettings>
-                                                                                <dxe:TextEditSettings ShowNullTextForEmptyValue="False" />
-                                                                            </dxg:GridColumn.EditSettings>
-                                                                        </dxg:GridColumn>
-                                                                        <dxg:GridColumn Binding="{Binding Description}" Header="Bezeichnung" Width="450">
-                                                                            <dxg:GridColumn.EditSettings>
-                                                                                <dxe:TextEditSettings ShowNullTextForEmptyValue="False" />
-                                                                            </dxg:GridColumn.EditSettings>
-                                                                        </dxg:GridColumn>
-                                                                    </dxg:GridControl>
-                                                                </ControlTemplate>
-                                                            </dxg:LookUpEdit.PopupContentTemplate>
-                                                        </dxg:LookUpEdit>
+                                                                </dxg:GridControl.View>
+                                                                <dxg:GridColumn Binding="{Binding AccountNumber}" Header="Kontenrahmen" Width="50" SortOrder="Ascending">
+                                                                    <dxg:GridColumn.EditSettings>
+                                                                        <dxe:TextEditSettings ShowNullTextForEmptyValue="False" />
+                                                                    </dxg:GridColumn.EditSettings>
+                                                                </dxg:GridColumn>
+                                                                <dxg:GridColumn Binding="{Binding Description}" Header="Bezeichnung" Width="450">
+                                                                    <dxg:GridColumn.EditSettings>
+                                                                        <dxe:TextEditSettings ShowNullTextForEmptyValue="False" />
+                                                                    </dxg:GridColumn.EditSettings>
+                                                                </dxg:GridColumn>
+                                                            </dxg:GridControl>
+                                                        </ControlTemplate>
+                                                    </dxg:LookUpEdit.PopupContentTemplate>
+                                                </dxg:LookUpEdit>
 
-                                                        <dxe:ComboBoxEdit Grid.Column="2" Grid.Row="4" Margin="0,3,0,3" ItemsSource="{Binding FilteredTaxTypes}" 
+                                                <dxe:ComboBoxEdit Grid.Column="2" Grid.Row="4" Margin="0,3,0,3" ItemsSource="{Binding FilteredTaxTypes}" IsEnabled="{Binding IsEnabledTaxDropDown}"
                                                           DisplayMember="Description" EditValue="{Binding SelectedTax, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
 
-                                                        <VirtualizingStackPanel Grid.Column="3" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5,0">
-                                                            <dx:SimpleButton Margin="3" Width="40" Command="{Binding OpenDebitSplitWindowCommand}">
-                                                                <dx:SimpleButton.Glyph>
-                                                                    <dx:SvgImageSource Uri="/Images/regular/plus.svg" Size="18,20" />
-                                                                </dx:SimpleButton.Glyph>
-                                                            </dx:SimpleButton>
-                                                            <dx:SimpleButton Margin="3" Width="40" Command="{Binding GetDebitorCommand}">
-                                                                <dx:SimpleButton.Glyph>
-                                                                    <dx:SvgImageSource Uri="/Images/regular/search.svg" Size="20,20" />
-                                                                </dx:SimpleButton.Glyph>
-                                                            </dx:SimpleButton>
-                                                        </VirtualizingStackPanel>
+                                                <VirtualizingStackPanel Grid.Column="3" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5,0">
+                                                    <dx:SimpleButton Margin="3" Width="40" Command="{Binding OpenDebitSplitWindowCommand}">
+                                                        <dx:SimpleButton.Glyph>
+                                                            <dx:SvgImageSource Uri="/Images/regular/plus.svg" Size="18,20" />
+                                                        </dx:SimpleButton.Glyph>
+                                                    </dx:SimpleButton>
+                                                    <dx:SimpleButton Margin="3" Width="40" Command="{Binding GetDebitorCommand}">
+                                                        <dx:SimpleButton.Glyph>
+                                                            <dx:SvgImageSource Uri="/Images/regular/search.svg" Size="20,20" />
+                                                        </dx:SimpleButton.Glyph>
+                                                    </dx:SimpleButton>
+                                                </VirtualizingStackPanel>
 
-                                                        <VirtualizingStackPanel Grid.Column="3" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5,0">
-                                                            <dx:SimpleButton Margin="3" Width="40" Command="{Binding OpenCreditSplitWindowCommand}">
-                                                                <dx:SimpleButton.Glyph>
-                                                                    <dx:SvgImageSource Uri="/Images/regular/plus.svg" Size="18,20" />
-                                                                </dx:SimpleButton.Glyph>
-                                                            </dx:SimpleButton>
-                                                            <dx:SimpleButton Margin="3" Width="40" Command="{Binding GetCreditorCommand}">
-                                                                <dx:SimpleButton.Glyph>
-                                                                    <dx:SvgImageSource Uri="/Images/regular/search.svg" Size="20,20" />
-                                                                </dx:SimpleButton.Glyph>
-                                                            </dx:SimpleButton>
-                                                        </VirtualizingStackPanel>
-                                                    </Grid>
-                                                </dxdo:LayoutControlItem>
-                                            </dxdo:LayoutGroup>
-
-                                            <dxdo:LayoutGroup Grid.Column="2" Caption="Kostenstelle" GroupBorderStyle="Group" Orientation="Vertical" ShowCaption="True">
-                                                <dxdo:LayoutControlItem>
-                                                    <Grid Margin="10">
-                                                        <Grid.RowDefinitions>
-                                                            <RowDefinition Height="Auto" />
-                                                            <RowDefinition Height="5" />
-                                                            <RowDefinition Height="Auto" />
-                                                            <RowDefinition Height="5" />
-                                                            <RowDefinition Height="Auto" />
-                                                            <RowDefinition Height="5" />
-                                                            <RowDefinition Height="Auto" />
-                                                            <RowDefinition Height="5" />
-                                                            <RowDefinition Height="Auto" />
-                                                        </Grid.RowDefinitions>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="Auto" />
-                                                            <ColumnDefinition Width="10" />
-                                                            <ColumnDefinition Width="*" />
-                                                        </Grid.ColumnDefinitions>
-
-                                                        <dxe:ToggleSwitch Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Center" IsChecked="{Binding IsFixedCostAllocationActive}" CheckedStateContent="via Verteilungsschlüssel" UncheckedStateContent="Buchen auf Kostenstelle" ToggleSwitchWidth="40" ContentPlacement="Both" Width="350"/>
-
-                                                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Kostenstellenkategorie: " Visibility="{Binding IsFixedCostAllocationActive, Converter={StaticResource BoolToVis}}" VerticalAlignment="Center" Margin="5" Foreground="#3F729B" FontFamily="Tahoma" />
-                                                        <TextBlock Grid.Column="0" Grid.Row="4" Text="Kostenstelle:" HorizontalAlignment="Left" Foreground="#3F729B" FontFamily="Tahoma" Visibility="{Binding IsFixedCostAllocationActive, Converter={StaticResource BoolToVis}}" Margin="5"/>
-                                                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Verteilungsschlüssel: " Visibility="{Binding IsFixedCostAllocationActive, Converter={StaticResource InvBoolToVis}}" VerticalAlignment="Center" Margin="5" Foreground="#3F729B" FontFamily="Tahoma" />
-                                                        <TextBlock Grid.Column="0" Grid.Row="6" Text="Projekt: " VerticalAlignment="Center" Margin="5,7,0,6" Foreground="#3F729B" FontFamily="Tahoma" />
-
-                                                        <dxe:ComboBoxEdit Grid.Row="2" Grid.Column="2" ItemsSource="{Binding CostCenterCategoryList}" DisplayMember="Name" Visibility="{Binding IsFixedCostAllocationActive, Converter={StaticResource BoolToVis}}"
-                                                              EditValue="{Binding SelectedCostCenterCategory, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
-                                                        <dxe:ComboBoxEdit Grid.Row="4" Grid.Column="2" ItemsSource="{Binding SelectedCostCenterCategory.CostCenters, UpdateSourceTrigger=PropertyChanged}" DisplayMember="Name" 
-                                                              EditValue="{Binding SelectedCostCenter, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" 
-                                                              IsEnabled="{Binding SelectedCostCenterCategory, Converter={StaticResource NullConverter}}" Visibility="{Binding IsFixedCostAllocationActive, Converter={StaticResource BoolToVis}}"/>
-
-                                                        <dxe:ComboBoxEdit Grid.Row="2" Grid.Column="2" Margin="0,3,0,3" ItemsSource="{Binding FixedCostAllocationList}" Visibility="{Binding IsFixedCostAllocationActive, Converter={StaticResource InvBoolToVis}}"
-                                                          DisplayMember="DisplayAllDetails" EditValue="{Binding SelectedFixedCostAllocation, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
-
-                                                        <dxe:ComboBoxEdit Grid.Row="6" Grid.Column="2" Margin="0,3,0,3" ItemsSource="{Binding ProjectList}" 
-                                                          DisplayMember="Name" EditValue="{Binding ProjectId, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
-
-                                                    </Grid>
-                                                </dxdo:LayoutControlItem>
-                                            </dxdo:LayoutGroup>
-                                        </Grid>
-                                    </Grid>
-                                </dxdo:LayoutPanel>
-                                <dxdo:LayoutPanel Caption="Dokumente" ShowCloseButton="False" ShowPinButton="False" ItemHeight="2*">
+                                                <VirtualizingStackPanel Grid.Column="3" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5,0">
+                                                    <dx:SimpleButton Margin="3" Width="40" Command="{Binding OpenCreditSplitWindowCommand}">
+                                                        <dx:SimpleButton.Glyph>
+                                                            <dx:SvgImageSource Uri="/Images/regular/plus.svg" Size="18,20" />
+                                                        </dx:SimpleButton.Glyph>
+                                                    </dx:SimpleButton>
+                                                    <dx:SimpleButton Margin="3" Width="40" Command="{Binding GetCreditorCommand}">
+                                                        <dx:SimpleButton.Glyph>
+                                                            <dx:SvgImageSource Uri="/Images/regular/search.svg" Size="20,20" />
+                                                        </dx:SimpleButton.Glyph>
+                                                    </dx:SimpleButton>
+                                                </VirtualizingStackPanel>
+                                            </Grid>
+                                        </dxdo:LayoutPanel>
+                                        <dxdo:LayoutPanel Caption="Kostenstelle" ShowCloseButton="False" ShowPinButton="False" ItemWidth="2*">
                                             <Grid Margin="10">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="Auto" />
-                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="5" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="5" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="5" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="5" />
+                                                    <RowDefinition Height="Auto" />
                                                 </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="150" />
+                                                    <ColumnDefinition Width="10" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
 
-                                                <!--<TextBlock Grid.Column="4" Grid.Row="4" Text="Rechnungen: " VerticalAlignment="Top" Margin="5,10,0,0" 
-                                                   Foreground="#3F729B" FontFamily="Tahoma" />-->
+                                                <dxe:ToggleSwitch Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Center" IsChecked="{Binding IsFixedCostAllocationActive}" CheckedStateContent="via Verteilungsschlüssel" UncheckedStateContent="Buchen auf Kostenstelle" ToggleSwitchWidth="40" ContentPlacement="Both" Width="350"/>
 
+                                                <TextBlock Grid.Column="0" Grid.Row="2" Text="Kostenstellenkategorie: " Visibility="{Binding IsFixedCostAllocationActive, Converter={StaticResource BoolToVis}}" VerticalAlignment="Center" Margin="5" Foreground="#3F729B" FontFamily="Tahoma" />
+                                                <TextBlock Grid.Column="0" Grid.Row="4" Text="Kostenstelle:" HorizontalAlignment="Left" Foreground="#3F729B" FontFamily="Tahoma" Visibility="{Binding IsFixedCostAllocationActive, Converter={StaticResource BoolToVis}}" Margin="5"/>
+                                                <TextBlock Grid.Column="0" Grid.Row="2" Text="Verteilungsschlüssel: " Visibility="{Binding IsFixedCostAllocationActive, Converter={StaticResource InvBoolToVis}}" VerticalAlignment="Center" Margin="5" Foreground="#3F729B" FontFamily="Tahoma" />
+                                                <TextBlock Grid.Column="0" Grid.Row="6" Text="Projekt: " VerticalAlignment="Center" Margin="5" Foreground="#3F729B" FontFamily="Tahoma" />
 
-                                                <dx:SimpleButton Content="Datei auswählen" Margin="3" Height="30" HorizontalAlignment="Left" Width="120"
+                                                <dxe:ComboBoxEdit Grid.Row="2" Grid.Column="2" ItemsSource="{Binding CostCenterCategoryList}" DisplayMember="Name" Visibility="{Binding IsFixedCostAllocationActive, Converter={StaticResource BoolToVis}}"
+                                                              EditValue="{Binding SelectedCostCenterCategory, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" Margin="0,3" />
+                                                <dxe:ComboBoxEdit Grid.Row="4" Grid.Column="2" ItemsSource="{Binding SelectedCostCenterCategory.CostCenters, UpdateSourceTrigger=PropertyChanged}" DisplayMember="Name" 
+                                                              EditValue="{Binding SelectedCostCenter, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" 
+                                                              IsEnabled="{Binding SelectedCostCenterCategory, Converter={StaticResource NullConverter}}" Visibility="{Binding IsFixedCostAllocationActive, Converter={StaticResource BoolToVis}}"/>
+
+                                                <dxe:ComboBoxEdit Grid.Row="2" Grid.Column="2" Margin="0,3" ItemsSource="{Binding FixedCostAllocationList}" Visibility="{Binding IsFixedCostAllocationActive, Converter={StaticResource InvBoolToVis}}"
+                                                          DisplayMember="DisplayAllDetails" EditValue="{Binding SelectedFixedCostAllocation, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
+
+                                                <dxe:ComboBoxEdit Grid.Row="6" Grid.Column="2" Margin="0,3,0,3" ItemsSource="{Binding ProjectList}" 
+                                                          DisplayMember="Name" EditValue="{Binding ProjectId, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
+
+                                            </Grid>
+                                        </dxdo:LayoutPanel>
+                                    </dxdo:LayoutGroup>
+                                </dxdo:LayoutGroup>
+                                <dxdo:LayoutPanel Caption="Dokumente" ShowCloseButton="False" ShowPinButton="False" ItemHeight="2*">
+                                    <Grid Margin="10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        
+                                        <dx:SimpleButton Content="Datei auswählen" Margin="3" Height="30" HorizontalAlignment="Left" Width="120"
                                                          Command="{Binding OpenFileCommand}" Foreground="#3F729B" VerticalAlignment="Top" FontFamily="Tahoma" />
 
 
-                                                <dxe:ListBoxEdit Grid.Row="1" Margin="0,3,0,0" HorizontalAlignment="Stretch" ItemsSource="{Binding ScannedDocumentList}" 
+                                        <dxe:ListBoxEdit Grid.Row="1" Margin="0,3,0,0" HorizontalAlignment="Stretch" ItemsSource="{Binding ScannedDocumentList}" 
                                                          SelectedItem="{Binding SelectedScannedDocument}" VerticalAlignment="Stretch">
-                                                    <dxmvvm:Interaction.Behaviors>
-                                                        <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding DoubleClickListBoxCommand}"
+                                            <dxmvvm:Interaction.Behaviors>
+                                                <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding DoubleClickListBoxCommand}"
                                            PassEventArgsToCommand="True" />
-                                                    </dxmvvm:Interaction.Behaviors>
-                                                    <dxe:ListBoxEdit.ContextMenu>
-                                                        <ContextMenu StaysOpen="true">
-                                                            <ContextMenu.BitmapEffect>
-                                                                <OuterGlowBitmapEffect />
-                                                            </ContextMenu.BitmapEffect>
-                                                            <MenuItem Header="Entfernen" Tag="Delete" Command="{Binding DeleteSelectedScannedDocumentCommand}" />
-                                                        </ContextMenu>
-                                                    </dxe:ListBoxEdit.ContextMenu>
-                                                    <dxe:ListBoxEdit.ItemsPanel>
-                                                        <ItemsPanelTemplate>
-                                                            <StackPanel Orientation="Vertical" />
-                                                        </ItemsPanelTemplate>
-                                                    </dxe:ListBoxEdit.ItemsPanel>
-                                                    <dxe:ListBoxEdit.ItemTemplate>
-                                                        <DataTemplate>
-                                                            <Grid ToolTip="{Binding ToolTip}">
-                                                                <TextBlock Text="{Binding FileName}" HorizontalAlignment="Center" />
-                                                            </Grid>
-                                                        </DataTemplate>
-                                                    </dxe:ListBoxEdit.ItemTemplate>
-                                                </dxe:ListBoxEdit>
-                                            </Grid>
+                                            </dxmvvm:Interaction.Behaviors>
+                                            <dxe:ListBoxEdit.ContextMenu>
+                                                <ContextMenu StaysOpen="true">
+                                                    <ContextMenu.BitmapEffect>
+                                                        <OuterGlowBitmapEffect />
+                                                    </ContextMenu.BitmapEffect>
+                                                    <MenuItem Header="Entfernen" Tag="Delete" Command="{Binding DeleteSelectedScannedDocumentCommand}" />
+                                                </ContextMenu>
+                                            </dxe:ListBoxEdit.ContextMenu>
+                                            <dxe:ListBoxEdit.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Vertical" />
+                                                </ItemsPanelTemplate>
+                                            </dxe:ListBoxEdit.ItemsPanel>
+                                            <dxe:ListBoxEdit.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid ToolTip="{Binding ToolTip}">
+                                                        <TextBlock Text="{Binding FileName}" HorizontalAlignment="Center" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </dxe:ListBoxEdit.ItemTemplate>
+                                        </dxe:ListBoxEdit>
+                                    </Grid>
                                 </dxdo:LayoutPanel>
+
                             </dxdo:LayoutGroup>
                             <dxdo:LayoutPanel Caption="Stapel" ShowCloseButton="False" ShowPinButton="False" >
                                 <Grid>
@@ -360,18 +397,18 @@
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
 
-                                            <VirtualizingStackPanel Orientation="Horizontal" Margin="15">
-                                                <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Stapel hinzufügen" 
+                                    <VirtualizingStackPanel Orientation="Horizontal" Margin="15">
+                                        <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Stapel hinzufügen" 
                                                              Foreground="#3F729B" Command="{Binding AddToStackCommand}" FontFamily="Tahoma" />
-                                                <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Verwerfen" Foreground="#3F729B" 
+                                        <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Verwerfen" Foreground="#3F729B" 
                                                              Command="{Binding CancelCommand}" FontFamily="Tahoma" />
-                                                <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Stapel buchen" Foreground="#3F729B" 
+                                        <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Stapel buchen" Foreground="#3F729B" 
                                                              Command="{Binding SaveStackToDbCommand}" FontFamily="Tahoma" />
-                                                <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Buchung löschen" Foreground="#3F729B" 
+                                        <dx:SimpleButton Width="150" Height="30" Margin="5,0,5,0" Content="Buchung löschen" Foreground="#3F729B" 
                                                              Command="{Binding DeleteCommand}" FontFamily="Tahoma" />
-                                            </VirtualizingStackPanel>
+                                    </VirtualizingStackPanel>
 
-                                    <dxg:GridControl Grid.Row="1" MinHeight="100" MaxHeight="2000" MaxWidth="4000" ItemsSource="{Binding BookingsOnStack}" SelectedItem="{Binding SelectedBooking}" VerticalAlignment="Stretch" Margin="20,0" >
+                                    <dxg:GridControl Grid.Row="1" MinHeight="100" MaxHeight="2000" MaxWidth="4000" ItemsSource="{Binding BookingsOnStack}" SelectedItem="{Binding SelectedBooking}" VerticalAlignment="Stretch" Margin="20,5" >
                                         <dxg:GridControl.View>
                                             <dxg:TableView AllowEditing="False" AllowMoveColumnToDropArea="False" AutoWidth="True" VerticalScrollbarVisibility="Auto" ShowHorizontalLines="False" 
                                                                AllowColumnMoving="False" AllowGrouping="False" AllowResizing="False" VerticalAlignment="Stretch" ShowIndicator="False" 

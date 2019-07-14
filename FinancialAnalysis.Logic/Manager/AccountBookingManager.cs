@@ -20,6 +20,11 @@ namespace FinancialAnalysis.Logic.Manager
         public ObservableCollection<Booking> BookingList { get; set; } = new ObservableCollection<Booking>();
         public Booking SelectedBooking { get; set; }
 
+        /// <summary>
+        /// Creates a new booking item, selects it and adds it to the BookingList
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="description"></param>
         public void NewBookingItem(DateTime date, string description)
         {
             if (string.IsNullOrEmpty(description))
@@ -35,6 +40,11 @@ namespace FinancialAnalysis.Logic.Manager
             BookingList.Add(booking);
         }
 
+        /// <summary>
+        /// Adds debits and credits to the SelectedBooking item
+        /// </summary>
+        /// <param name="credits"></param>
+        /// <param name="debits"></param>
         public void AddCreditsAndDebits(List<Credit> credits, List<Debit> debits)
         {
             if (credits == null || debits == null
@@ -61,6 +71,16 @@ namespace FinancialAnalysis.Logic.Manager
                 SelectedBooking.Debits.AddRange(debits);
         }
 
+        /// <summary>
+        /// Creates credits and debits and add them to the SelectedBooking item
+        /// </summary>
+        /// <param name="grossNetType"></param>
+        /// <param name="bookingType"></param>
+        /// <param name="amount"></param>
+        /// <param name="costAccountCreditor"></param>
+        /// <param name="costAccountDebitor"></param>
+        /// <param name="taxType"></param>
+        /// <returns></returns>
         public bool CreateAndAddCreditDebit(GrossNetType grossNetType, BookingType bookingType, decimal amount, CostAccount costAccountCreditor, CostAccount costAccountDebitor, TaxType taxType)
         {
             if (costAccountCreditor == null || costAccountDebitor == null || taxType == null)
@@ -77,13 +97,13 @@ namespace FinancialAnalysis.Logic.Manager
             {
                 if (taxType.Description.IndexOf("Vorsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
-                    SelectedBooking.Credits.AddRange(CreateCredits(grossNetType, nonTax, amount, costAccountCreditor));
+                    SelectedBooking.Credits.AddRange(CreateCredits(grossNetType, nonTax, tax + amountWithoutTax, costAccountCreditor));
                     SelectedBooking.Debits.AddRange(CreateDebits(grossNetType, taxType, amount, costAccountDebitor));
                 }
                 else if (taxType.Description.IndexOf("Umsatzsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     SelectedBooking.Credits.AddRange(CreateCredits(grossNetType, taxType, amount, costAccountCreditor));
-                    SelectedBooking.Debits.AddRange(CreateDebits(grossNetType, nonTax, amount, costAccountDebitor));
+                    SelectedBooking.Debits.AddRange(CreateDebits(grossNetType, nonTax, tax + amountWithoutTax, costAccountDebitor));
                 }
                 else
                 {
@@ -115,6 +135,70 @@ namespace FinancialAnalysis.Logic.Manager
             return true;
         }
 
+        public void CreateCreditDebit(GrossNetType grossNetType, BookingType bookingType, decimal amount, CostAccount costAccountCreditor, CostAccount costAccountDebitor, TaxType taxType, out List<Credit> credits, out List<Debit> debits)
+        {
+            credits = new List<Credit>();
+            debits = new List<Debit>();
+
+            if (costAccountCreditor == null || costAccountDebitor == null || taxType == null)
+                return ;
+
+            CalculateTax(grossNetType, taxType, amount, out decimal tax, out decimal amountWithoutTax);
+
+            Debit debit = new Debit();
+            Credit credit = new Credit();
+
+            TaxType nonTax = TaxTypes.GetById(1);
+
+            if (bookingType == BookingType.Invoice)
+            {
+                if (taxType.Description.IndexOf("Vorsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    credits.AddRange(CreateCredits(grossNetType, nonTax, tax + amountWithoutTax, costAccountCreditor));
+                    debits.AddRange(CreateDebits(grossNetType, taxType, amount, costAccountDebitor));
+                }
+                else if (taxType.Description.IndexOf("Umsatzsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    credits.AddRange(CreateCredits(grossNetType, taxType, amount, costAccountCreditor));
+                    debits.AddRange(CreateDebits(grossNetType, nonTax, tax + amountWithoutTax, costAccountDebitor));
+                }
+                else
+                {
+                    credits.AddRange(CreateCredits(grossNetType, nonTax, amount, costAccountCreditor));
+                    debits.AddRange(CreateDebits(grossNetType, nonTax, amount, costAccountDebitor));
+                }
+            }
+            else if (bookingType == BookingType.CreditAdvice)
+            {
+                // ToDo Check with Tobias !!!
+
+                if (taxType.Description.IndexOf("Vorsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    credits.AddRange(CreateCredits(grossNetType, nonTax, amount * (-1), costAccountCreditor));
+                    debits.AddRange(CreateDebits(grossNetType, taxType, amount, costAccountDebitor));
+                }
+                else if (taxType.Description.IndexOf("Umsatzsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    credits.AddRange(CreateCredits(grossNetType, taxType, amount, costAccountCreditor));
+                    debits.AddRange(CreateDebits(grossNetType, nonTax, amount * (-1), costAccountDebitor));
+                }
+                else
+                {
+                    credits.AddRange(CreateCredits(grossNetType, nonTax, amount, costAccountCreditor));
+                    debits.AddRange(CreateDebits(grossNetType, nonTax, amount * (-1), costAccountDebitor));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creates debit items and return them
+        /// </summary>
+        /// <param name="grossNetType"></param>
+        /// <param name="taxType"></param>
+        /// <param name="amount"></param>
+        /// <param name="costAccount"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
         public List<Debit> CreateDebits(GrossNetType grossNetType, TaxType taxType, decimal amount, CostAccount costAccount, string description = "")
         {
             if (costAccount == null)
@@ -146,6 +230,15 @@ namespace FinancialAnalysis.Logic.Manager
             return debits;
         }
 
+        /// <summary>
+        /// Creates credit items and return them
+        /// </summary>
+        /// <param name="grossNetType"></param>
+        /// <param name="taxType"></param>
+        /// <param name="amount"></param>
+        /// <param name="costAccount"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
         public List<Credit> CreateCredits(GrossNetType grossNetType, TaxType taxType, decimal amount, CostAccount costAccount, string description = "")
         {
             if (costAccount == null)
@@ -179,7 +272,7 @@ namespace FinancialAnalysis.Logic.Manager
 
         private void CalculateTax(GrossNetType grossNetType, TaxType taxType, decimal amount, out decimal tax, out decimal amountWithoutTax)
         {
-            if (taxType.AmountOfTax > 0)
+            if (taxType != null && taxType.AmountOfTax > 0)
             {
                 if (grossNetType == GrossNetType.Brutto)
                 {
@@ -199,6 +292,10 @@ namespace FinancialAnalysis.Logic.Manager
             }
         }
 
+        /// <summary>
+        /// Adds ScannedDocuments to the SelectedBooking item
+        /// </summary>
+        /// <param name="scannedDocuments"></param>
         public void AddScannedDocuments(IEnumerable<ScannedDocument> scannedDocuments)
         {
             if (SelectedBooking == null || scannedDocuments == null)
@@ -207,6 +304,10 @@ namespace FinancialAnalysis.Logic.Manager
             SelectedBooking.ScannedDocuments.AddRange(scannedDocuments);
         }
 
+        /// <summary>
+        /// Adds fixed allocation to the SelectedBooking item, removes single cost center
+        /// </summary>
+        /// <param name="fixedCostAllocation"></param>
         public void AddFixedCostAllocation(FixedCostAllocation fixedCostAllocation)
         {
             if (fixedCostAllocation == null)
@@ -220,6 +321,10 @@ namespace FinancialAnalysis.Logic.Manager
             }
         }
 
+        /// <summary>
+        /// Adds a single cost center to the SelectedBooking item, removes fixed allocation
+        /// </summary>
+        /// <param name="costCenter"></param>
         public void AddCostCenter(CostCenter costCenter)
         {
             if (costCenter == null || costCenter.CostCenterId == 0)
@@ -231,6 +336,9 @@ namespace FinancialAnalysis.Logic.Manager
             SelectedBooking.BookingCostCenterMappingList.Add(new BookingCostCenterMapping(0, costCenter.CostCenterId, SelectedBooking.AmountWithoutTax));
         }
 
+        /// <summary>
+        /// Saves all bookings on the BookingList to the database
+        /// </summary>
         public void SaveBookingsToDB()
         {
             foreach (var booking in BookingList)
@@ -278,6 +386,10 @@ namespace FinancialAnalysis.Logic.Manager
             SelectedBooking = null;
         }
 
+        /// <summary>
+        /// Removes the booking from the BookingList
+        /// </summary>
+        /// <param name="id"></param>
         public void RemoveBookingFromList(int id)
         {
             if (id > 0)

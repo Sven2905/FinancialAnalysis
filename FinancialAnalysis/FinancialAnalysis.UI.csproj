@@ -154,6 +154,9 @@
     <Compile Include="Converter\BaseValueConverter.cs" />
     <Compile Include="Converter\DragDropEventArgsConverter.cs" />
     <Compile Include="Converter\EnumToDisplaynameConverter.cs" />
+    <Compile Include="Converter\InverseZeroToVisiblityConverter.cs" />
+    <Compile Include="Converter\InverseZeroToBoolConverter.cs" />
+    <Compile Include="Converter\ZeroToBoolConverter.cs" />
     <Compile Include="Converter\ZeroToVisiblityConverter.cs" />
     <Compile Include="Converter\InverseBooleanToVisiblityConverter.cs" />
     <Compile Include="Converter\ClientTypeToVisiblityConverter.cs" />
