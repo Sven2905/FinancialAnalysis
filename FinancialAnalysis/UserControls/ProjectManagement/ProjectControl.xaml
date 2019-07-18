@@ -87,9 +87,9 @@
 
                                         <Border Grid.Column="2" Padding="0 0 8 0">
                                             <StackPanel VerticalAlignment="Center">
-                                                <TextBlock Margin="10,0,0,0" Text="{Binding Name}" Foreground="#000"
+                                                <TextBlock Margin="10,0,0,0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Foreground="#000"
                                                    TextTrimming="CharacterEllipsis" />
-                                                <TextBlock Margin="10,0,0,0" Text="{Binding Description}" Foreground="#9e9e9e"
+                                                <TextBlock Margin="10,0,0,0" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Foreground="#9e9e9e"
                                                    TextTrimming="CharacterEllipsis" />
                                             </StackPanel>
                                         </Border>
@@ -167,9 +167,8 @@
                                 </dxlc:LayoutGroup>
                                 <dxlc:LayoutGroup>
                                     <dxlc:LayoutItem Label="Budget" FontFamily="Tahoma">
-                                        <dxe:TextEdit
-                                    Text="{Binding SelectedProject.Budget, ConverterCulture='de-DE', StringFormat='C2'}"
-                                    FontFamily="Tahoma" />
+                                        <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch" 
+                             Text="{Binding SelectedProject.Budget, StringFormat=C2, UpdateSourceTrigger=PropertyChanged}" />
                                     </dxlc:LayoutItem>
                                 </dxlc:LayoutGroup>
                                 <dxlc:LayoutGroup>

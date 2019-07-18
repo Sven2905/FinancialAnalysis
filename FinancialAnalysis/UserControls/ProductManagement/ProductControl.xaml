@@ -234,18 +234,17 @@
                                     </dxlc:LayoutGroup>
                                     <dxlc:LayoutGroup>
                                         <dxlc:LayoutItem Label="Einkaufspreis" FontFamily="Tahoma">
-                                            <dxe:TextEdit Text="{Binding SelectedProduct.DefaultBuyingPrice}"
-                                                  FontFamily="Tahoma" Mask="C" MaskType="Numeric"
-                                                  DisplayFormatString="C2" MaskShowPlaceHolders="False"
-                                                  MaskUseAsDisplayFormat="True" />
+                                            <TextBox Height="25" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                                          Text="{Binding SelectedProduct.DefaultBuyingPrice, StringFormat=C2, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
                                         </dxlc:LayoutItem>
                                     </dxlc:LayoutGroup>
                                     <dxlc:LayoutGroup>
                                         <dxlc:LayoutItem Label="Verkaufspreis" FontFamily="Tahoma">
-                                            <dxe:TextEdit Text="{Binding SelectedProduct.DefaultSellingPrice}"
-                                                  FontFamily="Tahoma" Mask="C" MaskType="Numeric"
-                                                  DisplayFormatString="C2" MaskShowPlaceHolders="False"
-                                                  MaskUseAsDisplayFormat="True" />
+                                            <!--dxe:TextEdit  MaskType="Numeric" Height="25" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                                          Text="{Binding SelectedProduct.DefaultSellingPrice, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" 
+                                                          MaskUseAsDisplayFormat="True" MaskCulture="{Binding CultureInfo}" />-->
+                                            <TextBox Height="25" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                                          Text="{Binding SelectedProduct.DefaultSellingPrice, StringFormat=C2, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
                                         </dxlc:LayoutItem>
                                     </dxlc:LayoutGroup>
                                     <dxlc:LayoutGroup>

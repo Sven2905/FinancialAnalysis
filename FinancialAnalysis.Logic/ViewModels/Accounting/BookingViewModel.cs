@@ -42,11 +42,11 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Fields
 
-        private int costAccountCreditorId;
-        private int costAccountDebitorId;
         private decimal amount;
-        private CostAccount costAccountCreditor;
+        private CostAccount costAccountCreditor = new CostAccount();
+        private CostAccount costAccountDebitor = new CostAccount();
         private GrossNetType grossNetType;
+        private CostCenter selectedCostCenter;
 
         #endregion Fields
 
@@ -146,16 +146,21 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 AccountBookingManager.Instance.NewBookingItem(Date, Description);
                 if (Credits.Count == 0 && Debits.Count == 0)
+                {
+                    CostAccountCreditor.TaxType = SelectedTax;
+                    CostAccountCreditor.RefTaxTypeId = SelectedTax.TaxTypeId;
                     AccountBookingManager.Instance.CreateAndAddCreditDebit(GrossNetType, SelectedBookingType, Amount, CostAccountCreditor, CostAccountDebitor, SelectedTax);
+                }
 
                 else if (Credits.Count > 0 && Debits.Count == 0)
                 {
-                    Debits.Add(new Debit(Amount, CostAccountDebitorId, 0));
+                    Debits.Add(new Debit(Amount, CostAccountDebitor.CostAccountId, 0));
+
                     AccountBookingManager.Instance.AddCreditsAndDebits(Credits.ToList(), Debits.ToList());
                 }
                 else if (Credits.Count == 0 && Debits.Count > 0)
                 {
-                    Credits.Add(new Credit(Amount, CostAccountCreditorId, 0));
+                    Credits.Add(new Credit(Amount, CostAccountCreditor.CostAccountId, 0));
                     AccountBookingManager.Instance.AddCreditsAndDebits(Credits.ToList(), Debits.ToList());
                 }
                 else
@@ -214,19 +219,18 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 case AccountingType.Credit:
                     CostAccountCreditor = selectedCostAccount.CostAccount;
-                    CostAccountCreditorId = selectedCostAccount.CostAccount.CostAccountId;
                     break;
 
                 case AccountingType.Debit:
                     CostAccountDebitor = selectedCostAccount.CostAccount;
-                    CostAccountDebitorId = selectedCostAccount.CostAccount.CostAccountId;
                     break;
             }
         }
 
         private bool ValidateBooking()
         {
-            return (CostAccountCreditorId != 0 || Credits.Count > 0) && (CostAccountDebitorId != 0 || Debits.Count > 0) && ValidateBookingMode() && !string.IsNullOrEmpty(Description);
+            return (CostAccountCreditor != null && CostAccountCreditor.CostAccountId != 0 || Credits.Count > 0) && CostAccountDebitor != null && (CostAccountDebitor.CostAccountId != 0 || Debits.Count > 0)
+                && ValidateBookingMode() && !string.IsNullOrEmpty(Description);
         }
 
         private bool ValidateBookingMode()
@@ -279,7 +283,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void AddDebitSplitsToList(DebitSplitList debitSplitList)
         {
-            CostAccountDebitorId = 0;
+            CostAccountDebitor.CostAccountId = 0;
             Debits.AddRange(debitSplitList.Debits);
             RaisePropertyChanged("DebitsDisplay");
             IsEnabledDebitorDropDown = false;
@@ -289,7 +293,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void AddCreditSplitsToList(CreditSplitList creditSplitList)
         {
-            CostAccountCreditorId = 0;
+            CostAccountCreditor.CostAccountId = 0;
             Credits.AddRange(creditSplitList.Credits);
             RaisePropertyChanged("CreditsDisplay");
             IsEnabledCreditorDropDown = false;
@@ -338,8 +342,10 @@ namespace FinancialAnalysis.Logic.ViewModels
                     }
                     return tempCredits;
                 }
-                else if (CostAccountCreditorId != 0 && costAccountDebitorId != 0)
+                else if (CostAccountCreditor != null && CostAccountCreditor.CostAccountId != 0 && CostAccountDebitor != null && CostAccountDebitor.CostAccountId != 0)
                 {
+                    //CostAccountCreditor.TaxType = SelectedTax;
+                    //CostAccountCreditor.RefTaxTypeId = SelectedTax.TaxTypeId;
                     AccountBookingManager.Instance.CreateCreditDebit(GrossNetType, SelectedBookingType, Amount, CostAccountCreditor, CostAccountDebitor, SelectedTax, out List<Credit> creditList, out List<Debit> debitList);
                     var tempCredits = new ObservableCollection<Credit>();
                     foreach (var item in creditList.OrderBy(x => x.CostAccount.AccountNumber))
@@ -352,8 +358,8 @@ namespace FinancialAnalysis.Logic.ViewModels
                     }
                     return tempCredits;
                 }
-                else if (CostAccountCreditorId != 0)
-                    return AccountBookingManager.Instance.CreateCredits(GrossNetType, SelectedTax, Amount, CostAccountList.Single(x => x.CostAccountId == CostAccountCreditorId)).OrderBy(x => x.CostAccount.AccountNumber).ToOberservableCollection();
+                else if (CostAccountCreditor != null && CostAccountCreditor.CostAccountId != 0)
+                    return AccountBookingManager.Instance.CreateCredits(GrossNetType, SelectedTax, Amount, CostAccountList.Single(x => x.CostAccountId == CostAccountCreditor.CostAccountId)).OrderBy(x => x.CostAccount.AccountNumber).ToOberservableCollection();
                 else return new ObservableCollection<Credit>();
             }
         }
@@ -374,7 +380,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                     }
                     return tempDebits;
                 }
-                else if (CostAccountCreditorId != 0 && costAccountDebitorId != 0)
+                else if (CostAccountCreditor != null && CostAccountCreditor.CostAccountId != 0 && CostAccountDebitor != null && CostAccountDebitor.CostAccountId != 0)
                 {
                     AccountBookingManager.Instance.CreateCreditDebit(GrossNetType, SelectedBookingType, Amount, CostAccountCreditor, CostAccountDebitor, SelectedTax, out List<Credit> creditList, out List<Debit> debitList);
                     var tempDebits = new ObservableCollection<Debit>();
@@ -388,81 +394,83 @@ namespace FinancialAnalysis.Logic.ViewModels
                     }
                     return tempDebits;
                 }
-                else if (CostAccountDebitorId != 0)
-                    return AccountBookingManager.Instance.CreateDebits(GrossNetType, SelectedTax, Amount, CostAccountList.Single(x => x.CostAccountId == CostAccountDebitorId)).OrderBy(x => x.CostAccount.AccountNumber).ToOberservableCollection();
+                else if (CostAccountDebitor != null && CostAccountDebitor.CostAccountId != 0)
+                    return AccountBookingManager.Instance.CreateDebits(GrossNetType, SelectedTax, Amount, CostAccountList.Single(x => x.CostAccountId == CostAccountDebitor.CostAccountId)).OrderBy(x => x.CostAccount.AccountNumber).ToOberservableCollection();
                 else return new ObservableCollection<Debit>();
             }
         }
-        public SvenTechCollection<CostCenterCategory> CostCenterCategoryList { get; set; } = new SvenTechCollection<CostCenterCategory>();
-        public SvenTechCollection<Project> ProjectList { get; set; } = new SvenTechCollection<Project>();
         public SvenTechCollection<TaxType> FilteredTaxTypes { get; set; }
-        public SvenTechCollection<FixedCostAllocation> FixedCostAllocationList { get; set; }
         public ObservableCollection<Credit> Credits { get; set; } = new ObservableCollection<Credit>();
         public ObservableCollection<Debit> Debits { get; set; } = new ObservableCollection<Debit>();
         public ObservableCollection<ScannedDocument> ScannedDocumentList { get; set; } = new ObservableCollection<ScannedDocument>();
 
         #endregion Collections
 
-        public int CostAccountCreditorId
+        #region CostCenter
+
+        public SvenTechCollection<CostCenterCategory> CostCenterCategoryList { get; set; } = new SvenTechCollection<CostCenterCategory>();
+        public CostCenter SelectedCostCenter
         {
-            get => costAccountCreditorId;
+            get { return selectedCostCenter; }
             set
             {
-                costAccountCreditorId = value;
-                if (value != 0)
-                    CostAccountCreditor = CostAccountList.Single(x => x.CostAccountId == value);
-                else
-                    CostAccountCreditor = null;
-
-                Credits.Clear();
-                RaisePropertyChanged("CreditsDisplay");
+                selectedCostCenter = value; RaisePropertyChanged("SelectedCostCenter");
+                if (selectedCostCenter != null)
+                {
+                    var tempRemaining = CostCenters.GetRemainingBudgetForId(selectedCostCenter.CostCenterId, Date.Year);
+                    if (tempRemaining == decimal.MinValue)
+                        RemainingCostCenterBudget = CostCenters.GetBudgetForId(selectedCostCenter.CostCenterId, Date.Year);
+                    else
+                        RemainingCostCenterBudget = tempRemaining;
+                }
             }
         }
-        public int CostAccountDebitorId
+        public SvenTechCollection<FixedCostAllocation> FixedCostAllocationList { get; set; }
+        public SvenTechCollection<Project> ProjectList { get; set; } = new SvenTechCollection<Project>();
+        public decimal RemainingCostCenterBudget { get; set; }
+
+        #endregion CostCenter
+
+        public CostAccount CostAccountCreditor
         {
-            get => costAccountDebitorId;
+            get { return costAccountCreditor; }
             set
             {
-                costAccountDebitorId = value;
-                if (value != 0)
-                    CostAccountDebitor = CostAccountList.Single(x => x.CostAccountId == value);
-                else
-                    CostAccountDebitor = null;
+                costAccountCreditor = value;
+                //FilterTaxType();
+                //if (costAccountCreditor != null)
+                //    if (FilteredTaxTypes.Single(x => x.TaxTypeId == costAccountCreditor.RefTaxTypeId) != null)
+                //        SelectedTax = FilteredTaxTypes.Single(x => x.TaxTypeId == costAccountCreditor.RefTaxTypeId);
+                Credits.Clear(); RaisePropertyChanged("CreditsDisplay");
+            }
+        }
+
+        public CostAccount CostAccountDebitor
+        {
+            get { return costAccountDebitor; }
+            set
+            {
+                costAccountDebitor = value;
+                //FilterTaxType();
+                if (costAccountDebitor != null)
+                    if (FilteredTaxTypes.Single(x => x.TaxTypeId == costAccountDebitor.RefTaxTypeId) != null)
+                        SelectedTax = FilteredTaxTypes.Single(x => x.TaxTypeId == costAccountDebitor.RefTaxTypeId);
                 Debits.Clear();
                 RaisePropertyChanged("DebitsDisplay");
             }
         }
+
         public User ActualUser => Globals.ActiveUser;
-        public CostAccount CostAccountCreditor
-        {
-            get => costAccountCreditor;
-            set
-            {
-                costAccountCreditor = value;
-                FilterTaxType();
-                if (costAccountCreditor != null)
-                    SelectedTax = FilteredTaxTypes.Single(x => x.TaxTypeId == costAccountCreditor.RefTaxTypeId);
-            }
-        }
         public SvenTechCollection<Booking> BookingsOnStack { get; set; } = new SvenTechCollection<Booking>();
-        public CostAccount CostAccountDebitor { get; set; }
         public TaxType SelectedTax { get; set; }
         public List<CostAccount> CostAccountList { get; set; }
-
         public GrossNetType GrossNetType
         {
             get { return grossNetType; }
-            set
-            {
-                grossNetType = value;
-                RaisePropertyChanged("CreditsDisplay");
-                RaisePropertyChanged("DebitsDisplay");
-            }
+            set { grossNetType = value; RaisePropertyChanged("CreditsDisplay"); RaisePropertyChanged("DebitsDisplay"); }
         }
-
         public ScannedDocument SelectedScannedDocument { get; set; }
         public BookingType SelectedBookingType { get; set; }
-        public CostCenter SelectedCostCenter { get; set; }
         public CostCenterCategory SelectedCostCenterCategory { get; set; }
         public bool IsFixedCostAllocationActive { get; set; }
         public FixedCostAllocation SelectedFixedCostAllocation { get; set; }

@@ -108,7 +108,15 @@ namespace FinancialAnalysis.Models.SalesManagement
         /// <summary>
         /// Höhe der zu zahlenden Steuer
         /// </summary>
-        public decimal TaxAmount => Subtotal * (Product.TaxType.AmountOfTax / 100);
+        public decimal TaxAmount
+        {
+            get
+            {
+                if (Product != null && Product.TaxType != null)
+                    return Subtotal * (Product.TaxType.AmountOfTax / 100);
+                return 0;
+            }
+        }
 
         /// <summary>
         /// Ist storniert

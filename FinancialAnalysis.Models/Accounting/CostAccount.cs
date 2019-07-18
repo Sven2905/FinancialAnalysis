@@ -32,7 +32,7 @@ namespace FinancialAnalysis.Models.Accounting
         /// <summary>
         /// Referenz-Id des Steuertyps
         /// </summary>
-        public int RefTaxTypeId { get; set; } = 1;
+        public int RefTaxTypeId { get; set; }
 
         /// <summary>
         /// Steuertyp

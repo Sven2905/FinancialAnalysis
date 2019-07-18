@@ -104,7 +104,7 @@
                         <dxg:LookUpEdit.PopupContentTemplate>
                             <ControlTemplate>
                                 <dxg:GridControl x:Name="PART_GridControl" AutoExpandAllGroups="True"
-                                         AutoGenerateColumns="None" ItemsSource="{Binding Debitors}"
+                                         AutoGenerateColumns="None" ItemsSource="{Binding DebitorList}"
                                          EnableSmartColumnsGeneration="False">
                                     <dxg:GridControl.View>
                                         <dxg:TableView x:Name="View" ShowGroupedColumns="True" AutoWidth="True"
@@ -186,16 +186,16 @@
                     <Label Grid.Column="4" Grid.Row="3" Margin="3" Content="Preis" VerticalAlignment="Center" />
                     <Label Grid.Column="4" Grid.Row="4" Margin="3" Content="Menge" VerticalAlignment="Top" />
 
-                    <dxe:TextEdit Grid.Column="5" Grid.Row="3" Margin="3" Mask="C2" MaskType="Numeric" HorizontalContentAlignment="Right"
-                          Text="{Binding SalesOrderPosition.Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          Foreground="#3F729B" MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" />
+                    <TextBox Grid.Column="5" Grid.Row="3" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Stretch" 
+                             Text="{Binding SalesOrderPosition.Price, StringFormat=C2, UpdateSourceTrigger=PropertyChanged}" 
+                             HorizontalContentAlignment="Right" Foreground="#3F729B" />
 
                     <dxe:TextEdit Grid.Column="5" Grid.Row="4" Margin="3" VerticalAlignment="Top" HorizontalContentAlignment="Right"
                           Text="{Binding SalesOrderPosition.Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           Foreground="#3F729B" />
 
                     <dxe:ComboBoxEdit Grid.Column="6" Grid.Row="3" Margin="10,3,3,3"
-                              EditValue="{Binding SalesOrderPosition.GrossNetType}"
+                              EditValue="{Binding SalesOrderPosition.GrossNetType, UpdateSourceTrigger=PropertyChanged}"
                               SelectedIndex="0" Width="100" HorizontalAlignment="Left" Foreground="#3F729B"
                               FontFamily="Tahoma">
                         <dxmvvm:Interaction.Behaviors>
@@ -213,6 +213,12 @@
                     <dxe:TextEdit Grid.Column="9" Grid.Row="4" Margin="3" VerticalAlignment="Top" HorizontalContentAlignment="Right"
                           Text="{Binding SalesOrderPosition.DiscountPercentage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           Foreground="#3F729B" />
+
+                    <VirtualizingStackPanel Grid.Column="10" Grid.Row="4" Orientation="Horizontal" Margin="10,0" VerticalAlignment="Top">
+                        <Label  Content="Betrag" Foreground="#9a9a9a" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="3"/>
+                        <TextBlock Text="{Binding SalesOrderPosition.Total, StringFormat=C2, UpdateSourceTrigger=PropertyChanged}" Foreground="#9a9a9a" 
+                               VerticalAlignment="Center" Margin="3" />
+                    </VirtualizingStackPanel>
 
                     <dxg:GridControl Grid.Column="0" Grid.ColumnSpan="20" Grid.Row="6"
                              ItemsSource="{Binding SalesOrder.SalesOrderPositions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -307,10 +313,14 @@
                     <Label Grid.Column="9" Grid.Row="0" Margin="3" Content="Ansprechpartner" VerticalAlignment="Center" />
 
                     <dxe:ComboBoxEdit Grid.Column="10" Grid.Row="0" Margin="3" ItemsSource="{Binding EmployeeList}" Width="200"
-                              HorizontalAlignment="Left"
-                              DisplayMember="Name"
                               EditValue="{Binding Employee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              Foreground="#3F729B" />
+                              HorizontalAlignment="Left" DisplayMember="Name" Foreground="#3F729B" />
+
+                    <!--<Label Grid.Column="9" Grid.Row="1" Margin="3" Content="Versandart" VerticalAlignment="Center" />
+
+                    <dxe:ComboBoxEdit Grid.Column="10" Grid.Row="1" Margin="3" ItemsSource="{Binding ShipmentTypeList}" Width="200"
+                              EditValue="{Binding SalesOrder.RefShipmentTypeId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              HorizontalAlignment="Left" DisplayMember="Name" ValueMember="ShipmentTypeId" Foreground="#3F729B" />-->
 
                     <VirtualizingStackPanel Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="8" Orientation="Horizontal">
                         <dx:SimpleButton Content="Position anlegen" HorizontalAlignment="Left" Margin="3,0"

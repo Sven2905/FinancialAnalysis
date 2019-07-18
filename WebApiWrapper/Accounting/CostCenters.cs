@@ -1,4 +1,5 @@
 ﻿using FinancialAnalysis.Models.Accounting;
+using System;
 using System.Collections.Generic;
 
 namespace WebApiWrapper.Accounting
@@ -35,6 +36,26 @@ namespace WebApiWrapper.Accounting
         public static bool Delete(int id)
         {
             return WebApi<bool>.DeleteAsync(controllerName, id);
+        }
+
+        public static decimal GetRemainingBudgetForId(int costCenterId, int year)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "CostCenterId", costCenterId },
+                { "Year", year },
+            };
+            return WebApi<decimal>.GetData(controllerName, "GetRemainingBudgetForId", parameters);
+        }
+
+        public static decimal GetBudgetForId(int costCenterId, int year)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "CostCenterId", costCenterId },
+                { "Year", year },
+            };
+            return WebApi<decimal>.GetData(controllerName, "GetBudgetForId", parameters);
         }
     }
 }

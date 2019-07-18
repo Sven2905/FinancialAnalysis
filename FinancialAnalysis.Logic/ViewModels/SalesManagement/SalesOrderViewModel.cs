@@ -30,7 +30,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             Messenger.Default.Register<SelectedSalesType>(this, ChangeSelectedSalesType);
 
-             GetData();
+            GetData();
             Messenger.Default.Register<SelectedSalesType>(this, ChangeSelectedSalesType);
             SetCommands();
         }
@@ -79,6 +79,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public SvenTechCollection<Employee> EmployeeList { get; set; } = new SvenTechCollection<Employee>();
         public SvenTechCollection<Product> ProductList { get; set; } = new SvenTechCollection<Product>();
         public SvenTechCollection<SalesType> SalesTypeList { get; set; } = new SvenTechCollection<SalesType>();
+        public SvenTechCollection<ShipmentType> ShipmentTypeList { get; set; } = new SvenTechCollection<ShipmentType>();
 
         public SvenTechCollection<SalesOrderPosition> SalesOrderPositionList { get; set; } =
             new SvenTechCollection<SalesOrderPosition>();
@@ -183,7 +184,6 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveSalesOrder()
         {
-            SalesOrder.RefShipmentTypeId = 1;
             SalesOrder.RefEmployeeId = Employee.EmployeeId;
             SalesOrder.SalesOrderId = SalesOrders.Insert(SalesOrder);
 
@@ -207,6 +207,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             ProductList = Products.GetAll().ToSvenTechCollection();
             SalesTypeList = SalesTypes.GetAll().ToSvenTechCollection();
             EmployeeList = Employees.GetAll().ToSvenTechCollection();
+            ShipmentTypeList = ShipmentTypes.GetAll().ToSvenTechCollection();
         }
 
         private void ChangeSelectedSalesType(SelectedSalesType SelectedSalesType)

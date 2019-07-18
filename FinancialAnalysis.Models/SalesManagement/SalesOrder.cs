@@ -39,22 +39,12 @@ namespace FinancialAnalysis.Models.SalesManagement
         /// <summary>
         /// Referenz-Id des Auftragtyps
         /// </summary>
-        public int RefSalesTypeId { get; set; }
+        public int RefSalesTypeId { get; set; } = 1;
 
         /// <summary>
         /// Auftragtyp
         /// </summary>
         public SalesType SalesType { get; set; }
-
-        /// <summary>
-        /// Referenz-Id der Warenlieferung
-        /// </summary>
-        public int RefShipmentTypeId { get; set; }
-
-        /// <summary>
-        /// Versandtyp
-        /// </summary>
-        public ShipmentType ShipmentType { get; set; }
 
         /// <summary>
         /// Anmerkung

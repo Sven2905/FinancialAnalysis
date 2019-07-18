@@ -83,7 +83,7 @@ namespace FinancialAnalysis.Logic.Manager
         /// <returns></returns>
         public bool CreateAndAddCreditDebit(GrossNetType grossNetType, BookingType bookingType, decimal amount, CostAccount costAccountCreditor, CostAccount costAccountDebitor, TaxType taxType)
         {
-            if (costAccountCreditor == null || costAccountDebitor == null || taxType == null)
+            if (costAccountCreditor == null || costAccountDebitor == null)
                 return false;
 
             CalculateTax(grossNetType, taxType, amount, out decimal tax, out decimal amountWithoutTax);
@@ -95,40 +95,32 @@ namespace FinancialAnalysis.Logic.Manager
 
             if (bookingType == BookingType.Invoice)
             {
-                if (taxType.Description.IndexOf("Vorsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    SelectedBooking.Credits.AddRange(CreateCredits(grossNetType, nonTax, tax + amountWithoutTax, costAccountCreditor));
-                    SelectedBooking.Debits.AddRange(CreateDebits(grossNetType, taxType, amount, costAccountDebitor));
-                }
-                else if (taxType.Description.IndexOf("Umsatzsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
+                if (taxType.Description.IndexOf("Umsatzsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     SelectedBooking.Credits.AddRange(CreateCredits(grossNetType, taxType, amount, costAccountCreditor));
                     SelectedBooking.Debits.AddRange(CreateDebits(grossNetType, nonTax, tax + amountWithoutTax, costAccountDebitor));
                 }
+                //if (taxType.Description.IndexOf("Vorsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 else
                 {
-                    SelectedBooking.Credits.AddRange(CreateCredits(grossNetType, nonTax, amount, costAccountCreditor));
-                    SelectedBooking.Debits.AddRange(CreateDebits(grossNetType, nonTax, amount, costAccountDebitor));
+                    SelectedBooking.Credits.AddRange(CreateCredits(grossNetType, nonTax, tax + amountWithoutTax, costAccountCreditor));
+                    SelectedBooking.Debits.AddRange(CreateDebits(grossNetType, taxType, amount, costAccountDebitor));
                 }
             }
             else if (bookingType == BookingType.CreditAdvice)
             {
                 // ToDo Check with Tobias !!!
 
-                if (taxType.Description.IndexOf("Vorsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    SelectedBooking.Credits.AddRange(CreateCredits(grossNetType, nonTax, amount * (-1), costAccountCreditor));
-                    SelectedBooking.Debits.AddRange(CreateDebits(grossNetType, taxType, amount, costAccountDebitor));
-                }
-                else if (taxType.Description.IndexOf("Umsatzsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
+                if (taxType.Description.IndexOf("Umsatzsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     SelectedBooking.Credits.AddRange(CreateCredits(grossNetType, taxType, amount, costAccountCreditor));
                     SelectedBooking.Debits.AddRange(CreateDebits(grossNetType, nonTax, amount * (-1), costAccountDebitor));
                 }
+                //else (taxType.Description.IndexOf("Vorsteuer", StringComparison.OrdinalIgnoreCase) >= 0)
                 else
                 {
-                    SelectedBooking.Credits.AddRange(CreateCredits(grossNetType, nonTax, amount, costAccountCreditor));
-                    SelectedBooking.Debits.AddRange(CreateDebits(grossNetType, nonTax, amount * (-1), costAccountDebitor));
+                    SelectedBooking.Credits.AddRange(CreateCredits(grossNetType, nonTax, amount * (-1), costAccountCreditor));
+                    SelectedBooking.Debits.AddRange(CreateDebits(grossNetType, taxType, amount, costAccountDebitor));
                 }
             }
 
@@ -140,7 +132,7 @@ namespace FinancialAnalysis.Logic.Manager
             credits = new List<Credit>();
             debits = new List<Debit>();
 
-            if (costAccountCreditor == null || costAccountDebitor == null || taxType == null)
+            if (costAccountCreditor == null || costAccountDebitor == null)
                 return ;
 
             CalculateTax(grossNetType, taxType, amount, out decimal tax, out decimal amountWithoutTax);
