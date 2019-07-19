@@ -135,22 +135,6 @@ namespace FinancialAnalysis.Models.Accounting
         [JsonIgnore]
         public CostAccount Debitor => Debits?.FirstOrDefault()?.CostAccount;
 
-        public List<Tuple<Credit, Debit>> Pairs
-        {
-            get
-            {
-                List<Tuple<Credit, Debit>> pairs = new List<Tuple<Credit, Debit>>();
-                if (Credits?.Count > 0)
-                {
-                    for (int i = Credits.ToList().Count - 1; i >= 0; i--)
-                        pairs.Add(new Tuple<Credit, Debit>(Credits[i], Debits[i]));
-
-                    return pairs;
-                }
-                return null;
-            }
-        }
-
         #endregion Properties
     }
 }

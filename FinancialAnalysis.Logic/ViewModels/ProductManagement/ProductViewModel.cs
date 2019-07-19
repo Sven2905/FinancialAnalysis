@@ -17,7 +17,7 @@ namespace FinancialAnalysis.Logic.ViewModels
     public class ProductViewModel : ViewModelBase
     {
         #region Constructor
-
+        
         public ProductViewModel()
         {
             if (IsInDesignMode)
@@ -180,6 +180,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Properties
 
+        public ItemPriceCalculationViewModel ItemPriceCalculationViewModel { get; set; } = new ItemPriceCalculationViewModel();
         public SvenTechCollection<Product> FilteredProducts { get; set; } = new SvenTechCollection<Product>();
         public ProductStockingStatusViewModel ProductStockingStatusViewModel { get; set; } = new ProductStockingStatusViewModel();
         public SvenTechCollection<ProductCategory> ProductCategoryList { get; set; } =

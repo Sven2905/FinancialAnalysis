@@ -300,7 +300,7 @@ namespace FinancialAnalysis.Logic.Manager
         /// Adds fixed allocation to the SelectedBooking item, removes single cost center
         /// </summary>
         /// <param name="fixedCostAllocation"></param>
-        public void AddFixedCostAllocation(FixedCostAllocation fixedCostAllocation)
+        public void AddFixedCostAllocation(FixedCostAllocation fixedCostAllocation, int projectId = 0)
         {
             if (fixedCostAllocation == null)
                 throw new Exception("Bitte gültigen Kostenstellenschlüssel angeben.");
@@ -309,7 +309,7 @@ namespace FinancialAnalysis.Logic.Manager
             SelectedBooking.RefFixedCostAllocationId = fixedCostAllocation.FixedCostAllocationId;
             foreach (FixedCostAllocationDetail item in fixedCostAllocation.FixedCostAllocationDetails)
             {
-                SelectedBooking.BookingCostCenterMappingList.Add(new BookingCostCenterMapping(0, item.RefCostCenterId, SelectedBooking.AmountWithoutTax * (decimal)(item.Shares / fixedCostAllocation.Shares.Sum())));
+                SelectedBooking.BookingCostCenterMappingList.Add(new BookingCostCenterMapping(0, item.RefCostCenterId, SelectedBooking.AmountWithoutTax * (decimal)(item.Shares / fixedCostAllocation.Shares.Sum()), projectId));
             }
         }
 
@@ -317,7 +317,7 @@ namespace FinancialAnalysis.Logic.Manager
         /// Adds a single cost center to the SelectedBooking item, removes fixed allocation
         /// </summary>
         /// <param name="costCenter"></param>
-        public void AddCostCenter(CostCenter costCenter)
+        public void AddCostCenter(CostCenter costCenter, int projectId = 0)
         {
             if (costCenter == null || costCenter.CostCenterId == 0)
             {
@@ -325,7 +325,7 @@ namespace FinancialAnalysis.Logic.Manager
             }
 
             SelectedBooking.RefFixedCostAllocationId = 0;
-            SelectedBooking.BookingCostCenterMappingList.Add(new BookingCostCenterMapping(0, costCenter.CostCenterId, SelectedBooking.AmountWithoutTax));
+            SelectedBooking.BookingCostCenterMappingList.Add(new BookingCostCenterMapping(0, costCenter.CostCenterId, SelectedBooking.AmountWithoutTax, projectId));
         }
 
         /// <summary>

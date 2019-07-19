@@ -7,11 +7,12 @@
 
         }
 
-        public BookingCostCenterMapping(int RefBookingId, int RefCostCenterId, decimal Amount)
+        public BookingCostCenterMapping(int RefBookingId, int RefCostCenterId, decimal Amount, int RefProjectId = 0)
         {
             this.RefBookingId = RefBookingId;
             this.RefCostCenterId = RefCostCenterId;
             this.Amount = Amount;
+            this.RefProjectId = RefProjectId;
         }
 
         /// <summary>
@@ -38,5 +39,10 @@
         /// Kostenstelle
         /// </summary>
         public CostCenter CostCenter { get; set; }
+
+        /// <summary>
+        /// Referenz-Id des zugeordneten Projektes
+        /// </summary>
+        public int RefProjectId { get; set; }
     }
 }

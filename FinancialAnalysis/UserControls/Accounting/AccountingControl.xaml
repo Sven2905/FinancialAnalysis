@@ -62,21 +62,21 @@
                 </dx:SimpleButton>
                 <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
                                  VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
+                                 Content="Buchungshistorie" dxwuin:Navigation.NavigateTo="BookingHistoryControl"
+                                 FontFamily="Tahoma"
+                                 VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2"
+                                Visibility="{Binding Path=ShowBookingHistory, Converter={StaticResource BoolToVis}}">
+                    <dx:SimpleButton.Glyph>
+                        <dx:SvgImageSource Uri="/Images/light/search-dollar.svg" Size="100,100" />
+                    </dx:SimpleButton.Glyph>
+                </dx:SimpleButton>
+                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
+                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
                                  Content="Bilanzanalyse" dxwuin:Navigation.NavigateTo="BalanceControl" FontFamily="Tahoma"
                                  VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2"
                                  Visibility="{Binding Path=ShowBookings, Converter={StaticResource BoolToVis}}">
                     <dx:SimpleButton.Glyph>
                         <dx:SvgImageSource Uri="/Images/light/balance-scale.svg" Size="120,100" />
-                    </dx:SimpleButton.Glyph>
-                </dx:SimpleButton>
-                <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
-                                 VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
-                                 Content="Buchungshistorie" dxwuin:Navigation.NavigateTo="BookingHistoryControl"
-                                 FontFamily="Tahoma"
-                                 VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2"
-                    Visibility="{Binding Path=ShowBookingHistory, Converter={StaticResource BoolToVis}}">
-                    <dx:SimpleButton.Glyph>
-                        <dx:SvgImageSource Uri="/Images/light/search-dollar.svg" Size="100,100" />
                     </dx:SimpleButton.Glyph>
                 </dx:SimpleButton>
                 <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"

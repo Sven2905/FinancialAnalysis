@@ -182,40 +182,40 @@ namespace FinancialAnalysis.Logic.ViewModels
                     switch (item.MonthIndex)
                     {
                         case Months.January:
-                            CostCenterCurrentBudget.January = item.Amount * (-1);
+                            CostCenterCurrentBudget.January = item.Amount;
                             break;
                         case Months.February:
-                            CostCenterCurrentBudget.February = item.Amount * (-1);
+                            CostCenterCurrentBudget.February = item.Amount;
                             break;
                         case Months.March:
-                            CostCenterCurrentBudget.March = item.Amount * (-1);
+                            CostCenterCurrentBudget.March = item.Amount;
                             break;
                         case Months.April:
-                            CostCenterCurrentBudget.April = item.Amount * (-1);
+                            CostCenterCurrentBudget.April = item.Amount;
                             break;
                         case Months.May:
-                            CostCenterCurrentBudget.May = item.Amount * (-1);
+                            CostCenterCurrentBudget.May = item.Amount;
                             break;
                         case Months.June:
-                            CostCenterCurrentBudget.June = item.Amount * (-1);
+                            CostCenterCurrentBudget.June = item.Amount;
                             break;
                         case Months.July:
-                            CostCenterCurrentBudget.July = item.Amount * (-1);
+                            CostCenterCurrentBudget.July = item.Amount;
                             break;
                         case Months.August:
-                            CostCenterCurrentBudget.August = item.Amount * (-1);
+                            CostCenterCurrentBudget.August = item.Amount;
                             break;
                         case Months.September:
-                            CostCenterCurrentBudget.September = item.Amount * (-1);
+                            CostCenterCurrentBudget.September = item.Amount;
                             break;
                         case Months.October:
-                            CostCenterCurrentBudget.October = item.Amount * (-1);
+                            CostCenterCurrentBudget.October = item.Amount;
                             break;
                         case Months.November:
-                            CostCenterCurrentBudget.November = item.Amount * (-1);
+                            CostCenterCurrentBudget.November = item.Amount;
                             break;
                         case Months.December:
-                            CostCenterCurrentBudget.December = item.Amount * (-1);
+                            CostCenterCurrentBudget.December = item.Amount;
                             break;
                         default:
                             break;

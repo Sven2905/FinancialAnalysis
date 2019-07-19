@@ -20,12 +20,12 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public LoginViewModel()
         {
-            //        string deviceId = new DeviceIdBuilder()
-            //.AddMachineName()
-            //.AddMacAddress()
-            //.AddProcessorId()
-            //.AddMotherboardSerialNumber()
-            //.ToString();
+    //        string deviceId = new DeviceIdBuilder()
+    //.AddMachineName()
+    //.AddMacAddress()
+    //.AddProcessorId()
+    //.AddMotherboardSerialNumber()
+    //.ToString();
 
             if (IsInDesignMode)
                 return;

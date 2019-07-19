@@ -47,6 +47,9 @@
     <Compile Include="DepreciationMethods\Depreciations.cs" />
     <Compile Include="DepreciationMethods\PerformanceDepreciationItem.cs" />
     <Compile Include="ImplicitCosts.cs" />
+    <Compile Include="PriceCalculationMethods\ItemPriceCalculation.cs" />
+    <Compile Include="PriceCalculationMethods\ItemPriceCalculationInputItem.cs" />
+    <Compile Include="PriceCalculationMethods\ItemPriceCalculationOutputItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

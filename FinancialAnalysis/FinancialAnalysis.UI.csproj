@@ -164,6 +164,9 @@
     <Compile Include="Converter\ColorToBrushConverter.cs" />
     <Compile Include="Converter\NullToVisConverter.cs" />
     <Compile Include="Converter\NullToIsEnabledConverter.cs" />
+    <Compile Include="UserControls\Accounting\ItemPriceCalculationControl.xaml.cs">
+      <DependentUpon>ItemPriceCalculationControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TimeManagement\TimeFastBookingControl.xaml.cs">
       <DependentUpon>TimeFastBookingControl.xaml</DependentUpon>
     </Compile>
@@ -351,6 +354,10 @@
     <Compile Include="Windows\YesNoDialog.xaml.cs">
       <DependentUpon>YesNoDialogWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="UserControls\Accounting\ItemPriceCalculationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\TimeManagement\TimeFastBookingControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

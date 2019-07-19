@@ -147,8 +147,8 @@ namespace FinancialAnalysis.Logic.ViewModels
                 AccountBookingManager.Instance.NewBookingItem(Date, Description);
                 if (Credits.Count == 0 && Debits.Count == 0)
                 {
-                    CostAccountCreditor.TaxType = SelectedTax;
-                    CostAccountCreditor.RefTaxTypeId = SelectedTax.TaxTypeId;
+                    CostAccountDebitor.TaxType = SelectedTax;
+                    CostAccountDebitor.RefTaxTypeId = SelectedTax.TaxTypeId;
                     AccountBookingManager.Instance.CreateAndAddCreditDebit(GrossNetType, SelectedBookingType, Amount, CostAccountCreditor, CostAccountDebitor, SelectedTax);
                 }
 
@@ -171,9 +171,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 AccountBookingManager.Instance.AddScannedDocuments(ScannedDocumentList);
 
                 if (IsFixedCostAllocationActive)
-                    AccountBookingManager.Instance.AddFixedCostAllocation(SelectedFixedCostAllocation);
+                    AccountBookingManager.Instance.AddFixedCostAllocation(SelectedFixedCostAllocation, SelectedProjectId);
                 else
-                    AccountBookingManager.Instance.AddCostCenter(SelectedCostCenter);
+                    AccountBookingManager.Instance.AddCostCenter(SelectedCostCenter, SelectedProjectId);
 
                 BookingsOnStack = AccountBookingManager.Instance.BookingList.ToSvenTechCollection();
 
@@ -256,7 +256,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void SaveStackToDb()
         {
             AccountBookingManager.Instance.SaveBookingsToDB();
-
+            RefreshCostCenterBudget();
             BookingsOnStack.Clear();
         }
 
@@ -299,6 +299,18 @@ namespace FinancialAnalysis.Logic.ViewModels
             IsEnabledCreditorDropDown = false;
             IsEnabledTaxDropDown = false;
             SelectedTax = FilteredTaxTypes.First();
+        }
+
+        private void RefreshCostCenterBudget()
+        {
+            if (selectedCostCenter != null)
+            {
+                var tempRemaining = CostCenters.GetRemainingBudgetForId(selectedCostCenter.CostCenterId, Date.Year);
+                if (tempRemaining == decimal.MinValue)
+                    RemainingCostCenterBudget = CostCenters.GetBudgetForId(selectedCostCenter.CostCenterId, Date.Year);
+                else
+                    RemainingCostCenterBudget = tempRemaining;
+            }
         }
 
         #endregion Methods
@@ -414,20 +426,14 @@ namespace FinancialAnalysis.Logic.ViewModels
             get { return selectedCostCenter; }
             set
             {
-                selectedCostCenter = value; RaisePropertyChanged("SelectedCostCenter");
-                if (selectedCostCenter != null)
-                {
-                    var tempRemaining = CostCenters.GetRemainingBudgetForId(selectedCostCenter.CostCenterId, Date.Year);
-                    if (tempRemaining == decimal.MinValue)
-                        RemainingCostCenterBudget = CostCenters.GetBudgetForId(selectedCostCenter.CostCenterId, Date.Year);
-                    else
-                        RemainingCostCenterBudget = tempRemaining;
-                }
+                selectedCostCenter = value;
+                RefreshCostCenterBudget();
             }
         }
         public SvenTechCollection<FixedCostAllocation> FixedCostAllocationList { get; set; }
         public SvenTechCollection<Project> ProjectList { get; set; } = new SvenTechCollection<Project>();
         public decimal RemainingCostCenterBudget { get; set; }
+        public int SelectedProjectId { get; set; }
 
         #endregion CostCenter
 
@@ -437,14 +443,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             set
             {
                 costAccountCreditor = value;
-                //FilterTaxType();
-                //if (costAccountCreditor != null)
-                //    if (FilteredTaxTypes.Single(x => x.TaxTypeId == costAccountCreditor.RefTaxTypeId) != null)
-                //        SelectedTax = FilteredTaxTypes.Single(x => x.TaxTypeId == costAccountCreditor.RefTaxTypeId);
                 Credits.Clear(); RaisePropertyChanged("CreditsDisplay");
             }
         }
-
         public CostAccount CostAccountDebitor
         {
             get { return costAccountDebitor; }
@@ -459,7 +460,6 @@ namespace FinancialAnalysis.Logic.ViewModels
                 RaisePropertyChanged("DebitsDisplay");
             }
         }
-
         public User ActualUser => Globals.ActiveUser;
         public SvenTechCollection<Booking> BookingsOnStack { get; set; } = new SvenTechCollection<Booking>();
         public TaxType SelectedTax { get; set; }

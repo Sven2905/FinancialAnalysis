@@ -1,0 +1,124 @@
+﻿<UserControl x:Class="FinancialAnalysis.UserControls.Accounting.ItemPriceCalculationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FinancialAnalysis.UserControls.Accounting"
+             xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
+             xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             mc:Ignorable="d" 
+             d:DesignHeight="1050" d:DesignWidth="1920">
+    <UserControl.DataContext>
+        <ViewModels:ItemPriceCalculationViewModel />
+    </UserControl.DataContext>
+    <Grid>
+        <dxdo:DockLayoutManager>
+            <dxdo:LayoutGroup Caption="LayoutRoot" Orientation="Vertical" >
+                <dxdo:LayoutPanel Caption="Preiskalkulation" ShowCloseButton="False" ShowPinButton="False" >
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="   Fertigungsmaterial" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="+ Materialgemeinkosten (%)" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="0" Grid.Row="2" Text="= Materialkosten (MK)" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="0" Grid.Row="4" Text="   Fertigungslöhne" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="0" Grid.Row="5" Text="+ Fertigungsgemeinkosten (%)" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="0" Grid.Row="6" Text="= Fertigungskosten (FK)" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="0" Grid.Row="8" Text="= Herstellkosten: MK + FK" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="0" Grid.Row="10" Text="+ Verwaltungsgemeinkosten (%)" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="0" Grid.Row="11" Text="+ Vertriebsgemeinkosten (%)" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="0" Grid.Row="12" Text="= Selbstkosten" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="0" Grid.Row="14" Text="+ Gewinnzuschlag (%)" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="0" Grid.Row="15" Text="= Barverkaufspreis" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="0" Grid.Row="17" Text="+ Kundenskonto (%)" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="0" Grid.Row="18" Text="+ Vertreterprovision (%)" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="0" Grid.Row="19" Text="= Zielverkaufspreis" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="0" Grid.Row="21" Text="+ Kundenrabatt (%)" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="0" Grid.Row="22" Text="= Angebotspreis" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="0" Grid.Row="24" Text="+ Umsatzsteuer (%)" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="0" Grid.Row="25" Text="= Bruttoverkaufspreis" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                        <dxe:TextEdit Grid.Column="2" Grid.Row="1" HorizontalContentAlignment="Right" EditValue="{Binding ItemPriceCalculationInputItem.MaterialOverheadCosts, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Mask="P" MaskUseAsDisplayFormat="True" MaskType="Numeric" Margin="3" Width="75" Foreground="#3F729B" FontFamily="Tahoma"/>
+                        <dxe:TextEdit Grid.Column="2" Grid.Row="5" HorizontalContentAlignment="Right" EditValue="{Binding ItemPriceCalculationInputItem.ProductOverheads, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Mask="P" MaskUseAsDisplayFormat="True" MaskType="Numeric" Margin="3" Width="75" Foreground="#3F729B" FontFamily="Tahoma"/>
+                        <dxe:TextEdit Grid.Column="2" Grid.Row="10" HorizontalContentAlignment="Right" EditValue="{Binding ItemPriceCalculationInputItem.AdministrativeOverheads, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Mask="P" MaskUseAsDisplayFormat="True" MaskType="Numeric" Margin="3" Width="75" Foreground="#3F729B" FontFamily="Tahoma"/>
+                        <dxe:TextEdit Grid.Column="2" Grid.Row="11" HorizontalContentAlignment="Right" EditValue="{Binding ItemPriceCalculationInputItem.SalesOverheads, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Mask="P" MaskUseAsDisplayFormat="True" MaskType="Numeric" Margin="3" Width="75" Foreground="#3F729B" FontFamily="Tahoma"/>
+                        <dxe:TextEdit Grid.Column="2" Grid.Row="14" HorizontalContentAlignment="Right" EditValue="{Binding ItemPriceCalculationInputItem.ProfitSurcharge, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Mask="P" MaskUseAsDisplayFormat="True" MaskType="Numeric" Margin="3" Width="75" Foreground="#3F729B" FontFamily="Tahoma"/>
+                        <dxe:TextEdit Grid.Column="2" Grid.Row="17" HorizontalContentAlignment="Right" EditValue="{Binding ItemPriceCalculationInputItem.CustomerCashback, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Mask="P" MaskUseAsDisplayFormat="True" MaskType="Numeric" Margin="3" Width="75" Foreground="#3F729B" FontFamily="Tahoma"/>
+                        <dxe:TextEdit Grid.Column="2" Grid.Row="18" HorizontalContentAlignment="Right" EditValue="{Binding ItemPriceCalculationInputItem.AgentCommission, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Mask="P" MaskUseAsDisplayFormat="True" MaskType="Numeric" Margin="3" Width="75" Foreground="#3F729B" FontFamily="Tahoma"/>
+                        <dxe:TextEdit Grid.Column="2" Grid.Row="21" HorizontalContentAlignment="Right" EditValue="{Binding ItemPriceCalculationInputItem.CustomerDiscount, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Mask="P" MaskUseAsDisplayFormat="True" MaskType="Numeric" Margin="3" Width="75" Foreground="#3F729B" FontFamily="Tahoma"/>
+                        <dxe:TextEdit Grid.Column="2" Grid.Row="24" HorizontalContentAlignment="Right" EditValue="{Binding ItemPriceCalculationInputItem.Tax, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Mask="P" MaskUseAsDisplayFormat="True" MaskType="Numeric" Margin="3" Width="75" Foreground="#3F729B" FontFamily="Tahoma"/>
+
+
+                        <dxe:TextEdit Grid.Column="4" Grid.Row="0" HorizontalContentAlignment="Right" EditValue="{Binding ItemPriceCalculationInputItem.ProductionMaterial, StringFormat=C2, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Mask="C" MaskUseAsDisplayFormat="True" MaskType="Numeric" Margin="3" Width="75" Foreground="#3F729B" FontFamily="Tahoma"/>
+                        <TextBlock Grid.Column="4" Grid.Row="1" HorizontalAlignment="Right" Text="{Binding ItemPriceCalculationOutputItem.MaterialOverheadCosts, StringFormat=C2}"  Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="4" Grid.Row="2" HorizontalAlignment="Right" Text="{Binding ItemPriceCalculationOutputItem.MaterialCosts, StringFormat=C2}" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                        <dxe:TextEdit Grid.Column="4" Grid.Row="4" HorizontalContentAlignment="Right" EditValue="{Binding ItemPriceCalculationInputItem.ProductWages, StringFormat=C2, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Mask="C" MaskUseAsDisplayFormat="True" MaskType="Numeric" Margin="3" Width="75" Foreground="#3F729B" FontFamily="Tahoma"/>
+                        <TextBlock Grid.Column="4" Grid.Row="5" HorizontalAlignment="Right" Text="{Binding ItemPriceCalculationOutputItem.ProductOverheads, StringFormat=C2}" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="4" Grid.Row="6" HorizontalAlignment="Right" Text="{Binding ItemPriceCalculationOutputItem.ManufacturingCosts, StringFormat=C2}" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="4" Grid.Row="8" HorizontalAlignment="Right" Text="{Binding ItemPriceCalculationOutputItem.ProductionCosts, StringFormat=C2}" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="4" Grid.Row="10" HorizontalAlignment="Right" Text="{Binding ItemPriceCalculationOutputItem.AdministrativeOverheads, StringFormat=C2}" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="4" Grid.Row="11" HorizontalAlignment="Right" Text="{Binding ItemPriceCalculationOutputItem.SalesOverheads, StringFormat=C2}" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="4" Grid.Row="12" HorizontalAlignment="Right" Text="{Binding ItemPriceCalculationOutputItem.CostPrice, StringFormat=C2}" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="4" Grid.Row="14" HorizontalAlignment="Right" Text="{Binding ItemPriceCalculationOutputItem.ProfitSurcharge, StringFormat=C2}" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="4" Grid.Row="15" HorizontalAlignment="Right" Text="{Binding ItemPriceCalculationOutputItem.CashSellingPrice, StringFormat=C2}" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="4" Grid.Row="17" HorizontalAlignment="Right" Text="{Binding ItemPriceCalculationOutputItem.CustomerCashback, StringFormat=C2}" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="4" Grid.Row="18" HorizontalAlignment="Right" Text="{Binding ItemPriceCalculationOutputItem.AgentCommission, StringFormat=C2}" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="4" Grid.Row="19" HorizontalAlignment="Right" Text="{Binding ItemPriceCalculationOutputItem.TargetSalesPrice, StringFormat=C2}" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="4" Grid.Row="21" HorizontalAlignment="Right" Text="{Binding ItemPriceCalculationOutputItem.CustomerDiscount, StringFormat=C2}" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="4" Grid.Row="22" HorizontalAlignment="Right" Text="{Binding ItemPriceCalculationOutputItem.OfferPrice, StringFormat=C2}" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="4" Grid.Row="24" HorizontalAlignment="Right" Text="{Binding ItemPriceCalculationOutputItem.Tax, StringFormat=C2}" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="4" Grid.Row="25" HorizontalAlignment="Right" Text="{Binding ItemPriceCalculationOutputItem.GrossSellingPrice, StringFormat=C2}" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" FontWeight="Bold" VerticalAlignment="Center"/>
+                    </Grid>
+                </dxdo:LayoutPanel>
+            </dxdo:LayoutGroup>
+        </dxdo:DockLayoutManager>
+    </Grid>
+</UserControl>

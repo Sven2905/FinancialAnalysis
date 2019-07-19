@@ -116,8 +116,8 @@
 
                                                 <TextBlock Grid.Column="6" Grid.Row="0" Text="Gesamtbetrag: " VerticalAlignment="Center" Margin="10,0" 
                                                                    Foreground="#3F729B" FontFamily="Tahoma" />
-                                                <TextBox Grid.Column="7" Grid.Row="0" Height="25" VerticalAlignment="Center" HorizontalAlignment="Stretch"
-                                                         Text="{Binding Amount, StringFormat=C2, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"
+                                                <dxe:TextEdit Grid.Column="7" Grid.Row="0" Height="25" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                                         EditValue="{Binding Amount, StringFormat=C2, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Mask="C" MaskUseAsDisplayFormat="True" MaskType="Numeric" VerticalContentAlignment="Center"
                                                          HorizontalContentAlignment="Right" Width="80" Foreground="#3F729B" />
 
                                                 <dxe:ComboBoxEdit Grid.Column="8" Grid.Row="2" Margin="10,0" EditValue="{Binding GrossNetType,UpdateSourceTrigger=PropertyChanged}"  Height="25"
@@ -346,8 +346,8 @@
 
                                                 <TextBlock Grid.Row="6" Grid.Column="2" Foreground="#3F729B" FontFamily="Tahoma" Margin="0,3,0,3" Text="{Binding RemainingCostCenterBudget, StringFormat=C2, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding IsFixedCostAllocationActive, Converter={StaticResource BoolToVis}}"/>
 
-                                                <dxe:ComboBoxEdit Grid.Row="8" Grid.Column="2" Margin="0,3,0,3" ItemsSource="{Binding ProjectList}" 
-                                                          DisplayMember="Name" EditValue="{Binding ProjectId, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
+                                                <dxe:ComboBoxEdit Grid.Row="8" Grid.Column="2" Margin="0,3,0,3" ItemsSource="{Binding ProjectList}" ValueMember="ProjectId"
+                                                          DisplayMember="Name" EditValue="{Binding SelectedProjectId, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
 
                                             </Grid>
                                         </dxdo:LayoutPanel>

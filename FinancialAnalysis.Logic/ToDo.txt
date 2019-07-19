@@ -7,4 +7,3 @@ Skonti
 Rechteverwaltung vervollständigen
 Mahngebühr
 User und Mitarbeiter beim Speichern synchronisieren
-Leistungsabhängige Abschreibungen

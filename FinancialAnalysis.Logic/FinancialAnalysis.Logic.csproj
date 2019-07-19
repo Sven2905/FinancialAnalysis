@@ -135,6 +135,7 @@
     <Compile Include="Messages\OpenTimeBookingWindowMessage.cs" />
     <Compile Include="ViewModels\Accounting\DebitSplitViewModel.cs" />
     <Compile Include="ViewModels\Accounting\CreditSplitViewModel.cs" />
+    <Compile Include="ViewModels\Accounting\ItemPriceCalculationViewModel.cs" />
     <Compile Include="ViewModels\InfoBoxViewModel.cs" />
     <Compile Include="Mail\Mail.cs" />
     <Compile Include="Messages\OpenClientWindowMessage.cs" />
