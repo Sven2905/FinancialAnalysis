@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BinarySerialization.cs" />
+    <Compile Include="ConvertTo.cs" />
     <Compile Include="Day.cs" />
     <Compile Include="Encryption.cs" />
     <Compile Include="EnumFederalState.cs" />

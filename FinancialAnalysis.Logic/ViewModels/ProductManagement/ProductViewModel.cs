@@ -17,7 +17,7 @@ namespace FinancialAnalysis.Logic.ViewModels
     public class ProductViewModel : ViewModelBase
     {
         #region Constructor
-        
+
         public ProductViewModel()
         {
             if (IsInDesignMode)
@@ -229,9 +229,12 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 _SelectedProduct = value;
                 ProductStockingStatusViewModel.Product = _SelectedProduct;
-                if (_SelectedProduct != null && _SelectedProduct.Picture != null)
+                if (_SelectedProduct != null)
                 {
-                    Image = ConvertToImage(SelectedProduct.Picture);
+                    if (_SelectedProduct.Picture != null)
+                        Image = ConvertToImage(SelectedProduct.Picture);
+                    ItemPriceCalculationViewModel.ItemPriceCalculationInputItem.ProductionMaterial = _SelectedProduct.DefaultBuyingPrice;
+                    ItemPriceCalculationViewModel.Refresh();
                 }
                 else
                 {

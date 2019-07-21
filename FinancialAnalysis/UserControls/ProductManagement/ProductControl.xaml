@@ -283,7 +283,7 @@
                     </Grid>
                 </Grid>
             </dx:DXTabItem>
-            <dx:DXTabItem Header="DEBUG">
+            <dx:DXTabItem Header="Preiskalkulation">
                 <accounting:ItemPriceCalculationControl DataContext="{Binding ItemPriceCalculationViewModel}" />
             </dx:DXTabItem>
         </dx:DXTabControl>

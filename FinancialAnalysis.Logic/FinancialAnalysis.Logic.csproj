@@ -124,6 +124,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounting\ItemPriceCalculationItemHelper.cs" />
     <Compile Include="Calculation\BalanceAccountCalculation.cs" />
     <Compile Include="CoreData.cs" />
     <Compile Include="General\Extensions.cs" />
