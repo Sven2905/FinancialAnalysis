@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Formulas.PriceCalculationMethods
 {
-    public delegate void ValueChanged();
+    public delegate void ValueChangedEvent();
 
     public class ItemPriceCalculationInputItem
     {
         #region Events
 
-        public event ValueChanged ValueChanged;
+        public event ValueChangedEvent ValueChanged;
 
         #endregion Events
 
@@ -40,7 +40,7 @@ namespace Formulas.PriceCalculationMethods
         public decimal ProductionMaterial
         {
             get { return productionMaterial; }
-            set { productionMaterial = value; ValueChanged(); }
+            set { productionMaterial = value; ValueChanged?.Invoke(); }
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Formulas.PriceCalculationMethods
         public decimal MaterialOverheadCosts
         {
             get { return materialOverheadCosts; }
-            set { materialOverheadCosts = value; ValueChanged(); }
+            set { materialOverheadCosts = value; ValueChanged?.Invoke(); }
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Formulas.PriceCalculationMethods
         public decimal ProductWages
         {
             get { return productWages; }
-            set { productWages = value; ValueChanged(); }
+            set { productWages = value; ValueChanged?.Invoke(); }
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Formulas.PriceCalculationMethods
         public decimal ProductOverheads
         {
             get { return productOverheads; }
-            set { productOverheads = value; ValueChanged(); }
+            set { productOverheads = value; ValueChanged?.Invoke(); }
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Formulas.PriceCalculationMethods
         public decimal AdministrativeOverheads
         {
             get { return administrativeOverheads; }
-            set { administrativeOverheads = value; ValueChanged(); }
+            set { administrativeOverheads = value; ValueChanged?.Invoke(); }
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Formulas.PriceCalculationMethods
         public decimal SalesOverheads
         {
             get { return salesOverheads; }
-            set { salesOverheads = value; ValueChanged(); }
+            set { salesOverheads = value; ValueChanged?.Invoke(); }
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Formulas.PriceCalculationMethods
         public decimal ProfitSurcharge
         {
             get { return profitSurcharge; }
-            set { profitSurcharge = value; ValueChanged(); }
+            set { profitSurcharge = value; ValueChanged?.Invoke(); }
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace Formulas.PriceCalculationMethods
         public decimal CustomerCashback
         {
             get { return customerCashback; }
-            set { customerCashback = value; ValueChanged(); }
+            set { customerCashback = value; ValueChanged?.Invoke(); }
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace Formulas.PriceCalculationMethods
         public decimal AgentCommission
         {
             get { return agentCommission; }
-            set { agentCommission = value; ValueChanged(); }
+            set { agentCommission = value; ValueChanged?.Invoke(); }
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace Formulas.PriceCalculationMethods
         public decimal CustomerDiscount
         {
             get { return customerDiscount; }
-            set { customerDiscount = value; ValueChanged(); }
+            set { customerDiscount = value; ValueChanged?.Invoke(); }
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace Formulas.PriceCalculationMethods
         public decimal Tax
         {
             get { return tax; }
-            set { tax = value; ValueChanged(); }
+            set { tax = value; ValueChanged?.Invoke(); }
         }
 
         #endregion Properties

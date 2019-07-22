@@ -45,13 +45,13 @@ namespace Formulas.PriceCalculationMethods
             ItemPriceCalculationOutputItem itemPriceCalculationOutputItem = new ItemPriceCalculationOutputItem();
 
             itemPriceCalculationOutputItem.ProductionMaterial = itemPriceCalculationInputItem.ProductionMaterial;
-            itemPriceCalculationOutputItem.MaterialOverheadCosts = itemPriceCalculationInputItem.ProductionMaterial * (itemPriceCalculationInputItem.MaterialOverheadCosts / 100);
+            itemPriceCalculationOutputItem.MaterialOverheadCosts = itemPriceCalculationInputItem.ProductionMaterial * itemPriceCalculationInputItem.MaterialOverheadCosts;
 
             itemPriceCalculationOutputItem.ProductWages = itemPriceCalculationInputItem.ProductWages;
-            itemPriceCalculationOutputItem.ProductOverheads = itemPriceCalculationInputItem.ProductWages * (itemPriceCalculationInputItem.ProductOverheads / 100);
+            itemPriceCalculationOutputItem.ProductOverheads = itemPriceCalculationInputItem.ProductWages * itemPriceCalculationInputItem.ProductOverheads;
 
-            itemPriceCalculationOutputItem.AdministrativeOverheads = itemPriceCalculationOutputItem.ProductionCosts * (itemPriceCalculationInputItem.AdministrativeOverheads / 100);
-            itemPriceCalculationOutputItem.SalesOverheads = itemPriceCalculationOutputItem.ProductionCosts * (itemPriceCalculationInputItem.SalesOverheads / 100);
+            itemPriceCalculationOutputItem.AdministrativeOverheads = itemPriceCalculationOutputItem.ProductionCosts * itemPriceCalculationInputItem.AdministrativeOverheads;
+            itemPriceCalculationOutputItem.SalesOverheads = itemPriceCalculationOutputItem.ProductionCosts * itemPriceCalculationInputItem.SalesOverheads;
 
             itemPriceCalculationOutputItem.ProfitSurcharge = itemPriceCalculationOutputItem.CostPrice * (itemPriceCalculationInputItem.ProfitSurcharge / 100);
 
