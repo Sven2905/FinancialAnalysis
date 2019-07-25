@@ -31,27 +31,27 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="5" />
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="5"/>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="5" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="5" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="5" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="0" >
+                        <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Gesamtbetrag: " Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="1" Text="{Binding TotalAmount, StringFormat=C2}" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="2" Text="Davon offen: " Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="3" Text="{Binding RemainingAmount, StringFormat=C2}" Foreground="{StaticResource RedLightBrush}" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="0" Text="Gesamtbetrag: " Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="1" Text="{Binding TotalAmount, StringFormat=C2}" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="2" Text="Davon offen: " Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="3" Text="{Binding RemainingAmount, StringFormat=C2}" Foreground="{StaticResource RedLightBrush}" VerticalAlignment="Center" />
                         </Grid>
-                        <Grid Grid.Row="2" >
+                        <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="250" />
@@ -60,10 +60,10 @@
                                 <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="100" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Width="100"  Text="Buchungstext: " VerticalAlignment="Center" Foreground="#3F729B" FontFamily="Tahoma"/>
+                            <TextBlock Grid.Column="0" Width="100"  Text="Buchungstext: " VerticalAlignment="Center" Foreground="#3F729B" FontFamily="Tahoma" />
                             <dxe:TextEdit Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Description}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="400" Height="25" />
                             <TextBlock Grid.Column="3" Text="Betrag: " VerticalAlignment="Center" Foreground="#3F729B" FontFamily="Tahoma" Margin="0,0,5,0" />
-                            <TextBox Grid.Column="4" Text="{Binding Amount, StringFormat=C2}" HorizontalContentAlignment="Right" Padding="3" Width="100" Foreground="#3F729B" Height="25"/>
+                            <TextBox Grid.Column="4" Text="{Binding Amount, StringFormat=C2}" HorizontalContentAlignment="Right" Padding="3" Width="100" Foreground="#3F729B" Height="25" />
                             <dxe:ComboBoxEdit Grid.Column="5" EditValue="{Binding GrossNetType}" VerticalAlignment="Center" Height="25" Margin="10,0,0,0"
                               SelectedIndex="0" Width="75" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Foreground="#3F729B" FontFamily="Tahoma">
                                 <dxmvvm:Interaction.Behaviors>
@@ -73,20 +73,20 @@
                         </Grid>
                         <VirtualizingStackPanel Grid.Row="4" Orientation="Horizontal">
                             <TextBlock Text="Kontenrahmen: " Width="100" VerticalAlignment="Center" Foreground="#3F729B" FontFamily="Tahoma" />
-                            <dxg:LookUpEdit DisplayMember="DisplayName" Foreground="#3F729B" 
+                            <dxg:LookUpEdit DisplayMember="DisplayName" Foreground="#3F729B"
                                                         Grid.Column="1" Grid.Row="6" PopupWidth="800" Width="400"
                                                         ItemsSource="{Binding CostAccountList}" AutoComplete="True"
-                                                        EditValue="{Binding CostAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                        EditValue="{Binding CostAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                         IsPopupAutoWidth="True" AutoPopulateColumns="False">
                                 <dxg:LookUpEdit.PopupContentTemplate>
                                     <ControlTemplate>
-                                        <dxg:GridControl x:Name="PART_GridControl" AutoExpandAllGroups="True" 
-                                                                     AutoGenerateColumns="None" ItemsSource="{Binding CostAccountList, UpdateSourceTrigger=PropertyChanged}" 
+                                        <dxg:GridControl x:Name="PART_GridControl" AutoExpandAllGroups="True"
+                                                                     AutoGenerateColumns="None" ItemsSource="{Binding CostAccountList, UpdateSourceTrigger=PropertyChanged}"
                                                                      EnableSmartColumnsGeneration="False">
                                             <dxg:GridControl.View>
-                                                <dxg:TableView x:Name="View" ShowGroupedColumns="True" AutoWidth="True" 
-                                                                           AllowPerPixelScrolling="True" ScrollAnimationDuration="0" 
-                                                                           ShowAutoFilterRow="True" ShowTotalSummary="True" 
+                                                <dxg:TableView x:Name="View" ShowGroupedColumns="True" AutoWidth="True"
+                                                                           AllowPerPixelScrolling="True" ScrollAnimationDuration="0"
+                                                                           ShowAutoFilterRow="True" ShowTotalSummary="True"
                                                                            IsSynchronizedWithCurrentItem="False" />
                                             </dxg:GridControl.View>
                                             <dxg:GridColumn Binding="{Binding AccountNumber}" Header="Number" Width="50">
@@ -125,8 +125,8 @@
                 <dxdo:LayoutPanel Caption="Splittungen" ShowCloseButton="False" ShowPinButton="False">
                     <dxg:TreeListControl MaxHeight="2000" MaxWidth="4000" ItemsSource="{Binding Credits}" SelectedItem="{Binding SelectedCredit}" VerticalAlignment="Stretch" Margin="0,10,0,0">
                         <dxg:TreeListControl.View>
-                            <dxg:TreeListView KeyFieldName="CreditId" ParentFieldName="RefCreditId" AllowEditing="False" AllowMoveColumnToDropArea="False" AutoWidth="True" VerticalScrollbarVisibility="Auto" 
-                                              ShowHorizontalLines="False" AllowColumnMoving="False" AllowResizing="False" VerticalAlignment="Stretch" ShowIndicator="False" UseEvenRowBackground="True"  />
+                            <dxg:TreeListView KeyFieldName="CreditId" ParentFieldName="RefCreditId" AllowEditing="False" AllowMoveColumnToDropArea="False" AutoWidth="True" VerticalScrollbarVisibility="Auto"
+                                              ShowHorizontalLines="False" AllowColumnMoving="False" AllowResizing="False" VerticalAlignment="Stretch" ShowIndicator="False" UseEvenRowBackground="True" />
                         </dxg:TreeListControl.View>
                         <dxg:TreeListColumn FieldName="CostAccount.DisplayName" Header="Kontenrahmen" Width="80" VisibleIndex="0" />
                         <dxg:TreeListColumn FieldName="Description" Header="Beschreibung" />

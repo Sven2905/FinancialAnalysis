@@ -1,7 +1,7 @@
 ﻿<dx:DXWindow
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     x:Class="FinancialAnalysis.Windows.InvoiceCreationWindow"
-    xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic" 
+    xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -169,8 +169,8 @@
                         </dxdo:LayoutGroup>
                     </dxdo:DockLayoutManager>
 
-                    <VirtualizingStackPanel Grid.Row="1" HorizontalAlignment="Left" >
-                        <dx:SimpleButton Content="Rechnung erstellen" Margin="2" Height="28" Command="{Binding CreateInvoiceCommand}"/>
+                    <VirtualizingStackPanel Grid.Row="1" HorizontalAlignment="Left">
+                        <dx:SimpleButton Content="Rechnung erstellen" Margin="2" Height="28" Command="{Binding CreateInvoiceCommand}" />
                     </VirtualizingStackPanel>
                 </Grid>
             </dx:DXTabItem>

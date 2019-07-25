@@ -4,7 +4,6 @@
     {
         public OpenYesNoDialogWindowMessage()
         {
-
         }
 
         public OpenYesNoDialogWindowMessage(string Title, string Message)

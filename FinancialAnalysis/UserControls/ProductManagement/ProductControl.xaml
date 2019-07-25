@@ -243,7 +243,7 @@
                                     <dxlc:LayoutGroup>
                                         <dxlc:LayoutItem Label="Verkaufspreis" FontFamily="Tahoma">
                                             <!--dxe:TextEdit  MaskType="Numeric" Height="25" VerticalAlignment="Center" HorizontalAlignment="Stretch"
-                                                          Text="{Binding SelectedProduct.DefaultSellingPrice, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" 
+                                                          Text="{Binding SelectedProduct.DefaultSellingPrice, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B"
                                                           MaskUseAsDisplayFormat="True" MaskCulture="{Binding CultureInfo}" />-->
                                             <TextBox Height="25" VerticalAlignment="Center" HorizontalAlignment="Stretch"
                                                           Text="{Binding SelectedProduct.DefaultSellingPrice, StringFormat=C2, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
@@ -283,7 +283,7 @@
                     </Grid>
                 </Grid>
             </dx:DXTabItem>
-            <dx:DXTabItem Header="Preiskalkulation">
+            <dx:DXTabItem Header="Preiskalkulation" IsEnabled="{Binding SelectedProduct, Converter={StaticResource NullConverter}}">
                 <accounting:ItemPriceCalculationControl DataContext="{Binding ItemPriceCalculationViewModel}" />
             </dx:DXTabItem>
         </dx:DXTabControl>

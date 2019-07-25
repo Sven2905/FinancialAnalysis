@@ -1,11 +1,9 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Logic.Manager;
-using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.ProjectManagement;
 using FinancialAnalysis.Models.TimeManagement;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Utilities;
 using WebApiWrapper.ProjectManagement;
 using WebApiWrapper.TimeManagement;
@@ -19,7 +17,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public TimeBookingViewModel()
         {
             GetData();
-            CreateNewBookingCommand = new DelegateCommand(SaveNewBooking, () => bookingManager.ValidateBooking(SelectedTimeBooking)); 
+            CreateNewBookingCommand = new DelegateCommand(SaveNewBooking, () => bookingManager.ValidateBooking(SelectedTimeBooking));
         }
 
         #endregion Constructor
@@ -44,7 +42,6 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void GetData()
         {
             ProjectList = Projects.GetAll().ToSvenTechCollection();
-            
         }
 
         private void LoadTimeBookingsForDay()

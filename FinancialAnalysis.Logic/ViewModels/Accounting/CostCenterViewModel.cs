@@ -74,7 +74,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
-
         public DelegateCommand NewCostCenterCommand { get; set; }
         public DelegateCommand SaveCostCenterCommand { get; set; }
         public DelegateCommand DeleteCostCenterCommand { get; set; }
@@ -176,7 +175,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
             else
             {
-
                 foreach (CostCenterCurrentCosts item in currentCosts)
                 {
                     switch (item.MonthIndex)
@@ -184,39 +182,51 @@ namespace FinancialAnalysis.Logic.ViewModels
                         case Months.January:
                             CostCenterCurrentBudget.January = item.Amount;
                             break;
+
                         case Months.February:
                             CostCenterCurrentBudget.February = item.Amount;
                             break;
+
                         case Months.March:
                             CostCenterCurrentBudget.March = item.Amount;
                             break;
+
                         case Months.April:
                             CostCenterCurrentBudget.April = item.Amount;
                             break;
+
                         case Months.May:
                             CostCenterCurrentBudget.May = item.Amount;
                             break;
+
                         case Months.June:
                             CostCenterCurrentBudget.June = item.Amount;
                             break;
+
                         case Months.July:
                             CostCenterCurrentBudget.July = item.Amount;
                             break;
+
                         case Months.August:
                             CostCenterCurrentBudget.August = item.Amount;
                             break;
+
                         case Months.September:
                             CostCenterCurrentBudget.September = item.Amount;
                             break;
+
                         case Months.October:
                             CostCenterCurrentBudget.October = item.Amount;
                             break;
+
                         case Months.November:
                             CostCenterCurrentBudget.November = item.Amount;
                             break;
+
                         case Months.December:
                             CostCenterCurrentBudget.December = item.Amount;
                             break;
+
                         default:
                             break;
                     }

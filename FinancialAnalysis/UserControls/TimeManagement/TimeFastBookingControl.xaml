@@ -1,18 +1,18 @@
 ﻿<UserControl x:Class="FinancialAnalysis.UserControls.TimeManagement.TimeFastBookingControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
              xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              dx:ThemeManager.ThemeName="Office2019White">
     <UserControl.DataContext>
         <ViewModels:TimeFastBookingViewModel />
     </UserControl.DataContext>
-    <Grid >
-        <Border BorderBrush="#BABABA" BorderThickness="1" CornerRadius="8" >
+    <Grid>
+        <Border BorderBrush="#BABABA" BorderThickness="1" CornerRadius="8">
             <Grid Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -22,11 +22,11 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Text="Zeiterfassung" HorizontalAlignment="Center" FontSize="24" FontFamily="/Resources/Fonts/trajan-pro-3.otf#Trajan Pro 3" Margin="5,2"/>
+                <TextBlock Grid.Row="0" Text="Zeiterfassung" HorizontalAlignment="Center" FontSize="24" FontFamily="/Resources/Fonts/trajan-pro-3.otf#Trajan Pro 3" Margin="5,2" />
                 <dx:SimpleButton Grid.Row="1" Margin="5,2" Content="Login" HorizontalAlignment="Center" Width="120" Height="30" Command="{Binding LoginCommand}" IsEnabled="{Binding AllowLogin}" />
                 <dx:SimpleButton Grid.Row="2" Margin="5,2" Content="Pause Start" HorizontalAlignment="Center" Width="120" Height="30" Command="{Binding StartBreakCommand}" IsEnabled="{Binding AllowStartBreak}" />
                 <dx:SimpleButton Grid.Row="3" Margin="5,2" Content="Pause Ende" HorizontalAlignment="Center" Width="120" Height="30" Command="{Binding EndBreakCommand}" IsEnabled="{Binding AllowEndBreak}" />
-                <dx:SimpleButton Grid.Row="4" Margin="5,2" Content="Logout" HorizontalAlignment="Center" Width="120" Height="30" Command="{Binding LogoutCommand}" IsEnabled="{Binding AllowLogout}"/>
+                <dx:SimpleButton Grid.Row="4" Margin="5,2" Content="Logout" HorizontalAlignment="Center" Width="120" Height="30" Command="{Binding LogoutCommand}" IsEnabled="{Binding AllowLogout}" />
             </Grid>
         </Border>
     </Grid>

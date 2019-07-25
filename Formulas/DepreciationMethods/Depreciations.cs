@@ -155,7 +155,7 @@ namespace Formulas.DepreciationMethods
             {
                 decimal yearlyDepreciation = yearlyPowerList[i].Power * baseValue;
                 initialValue = Math.Max(initialValue - yearlyDepreciation, 0);
-                depreciationValues.Add(new DepreciationValue(i+1, yearlyDepreciation, initialValue));
+                depreciationValues.Add(new DepreciationValue(i + 1, yearlyDepreciation, initialValue));
             }
 
             return depreciationValues;

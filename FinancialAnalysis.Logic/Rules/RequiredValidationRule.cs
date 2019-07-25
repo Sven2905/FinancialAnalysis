@@ -15,7 +15,9 @@ namespace FinancialAnalysis.Logic.Rules
 
             return ValidationResult.ValidResult;
         }
+
         public string FieldName { get; set; }
+
         public static string GetErrorMessage(string fieldName, object fieldValue, object nullValue = null)
         {
             string errorMessage = string.Empty;

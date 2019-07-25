@@ -16,10 +16,13 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         //       _
         //   .__(.)< (MEOW)
-        //    \___)   
+        //    \___)
         //  ~~~~~~~~~~~~~~~~~~
 
         private string _currentTime;
+        private string _Message;
+        private const int showMessageInterval = 5;
+        private Timer progressTimer = new Timer();
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -33,6 +36,8 @@ namespace FinancialAnalysis.Logic.ViewModels
             SetSalesOrderStatusViewModel();
             SetDebitorStatusViewModel();
             SetupTimer();
+            Progress = 0;
+            Message = "";
         }
 
         private void SetDebitorStatusViewModel()
@@ -70,6 +75,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public StatusViewModel DebitorStatusViewModel { get; set; } = new StatusViewModel();
         public DatabaseStatus DatabaseStatus { get; set; }
         public IconItem DatabaseStatusItem { get; set; } = new IconItem();
+        public double Progress { get; set; }
 
         private void SetupTimer()
         {
@@ -118,6 +124,58 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
+        /// <summary>
+        /// [SUMMARY]
+        /// </summary>
+        /// <param name="progress">Object of class 'double' containing progress data</param>
+        /// <param name="message">Object of class 'string' containing message data</param>
+        private void ProgressChanged(double progress, string message)
+        {
+            if ((message == null) && (progress == 0))
+                Progress++;
+            else if ((message == null) && (progress > 0))
+                Progress = progress;
+            else
+            {
+                Progress = progress;
+                Message = message;
+            }
+        }
+
+        public string Message
+        {
+            get { return _Message; }
+            set
+            {
+                _Message = value; RaisePropertyChanged("Message");
+                SetAndStartTimer(showMessageInterval);
+            }
+        }
+
+        private void SetAndStartTimer(int intervalInSeconds)
+        {
+            if (progressTimer.Enabled)
+            {
+                progressTimer.Stop();
+                progressTimer.Interval = intervalInSeconds * 1000;
+                progressTimer.Start();
+            }
+            else
+            {
+                progressTimer = new Timer();
+                progressTimer.Elapsed += progressTimer_Elapsed;
+                progressTimer.AutoReset = false;
+                progressTimer.Interval = intervalInSeconds * 1000;
+                progressTimer.Start();
+            }
+        }
+
+        private void progressTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            Message = string.Empty;
+            progressTimer.Stop();
+        }
+
         #region UserRights
 
         public bool ShowAccounting => Globals.ActiveUser.IsAdministrator ||
@@ -147,6 +205,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public bool ShowTimeManagement => Globals.ActiveUser.IsAdministrator ||
                                          UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
                                              Permission.TimeManagement);
+
         #endregion UserRights
     }
 }

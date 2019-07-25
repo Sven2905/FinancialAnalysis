@@ -61,8 +61,10 @@
     <Compile Include="Accounting\BookingCostCenterMappings.cs" />
     <Compile Include="Accounting\FixedCostAllocations.cs" />
     <Compile Include="Accounting\GainAndLossAccounts.cs" />
+    <Compile Include="Accounting\ItemPriceCalculationItemCostCenters.cs" />
     <Compile Include="Accounting\PaymentConditions.cs" />
     <Compile Include="Accounting\ScannedDocuments.cs" />
+    <Compile Include="Accounting\ItemPriceCalculationItems.cs" />
     <Compile Include="Accounting\TaxTypes.cs" />
     <Compile Include="Administration\UserRightUserMappings.cs" />
     <Compile Include="Administration\UserRights.cs" />

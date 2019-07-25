@@ -131,6 +131,5 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
             }
         }
-
     }
 }

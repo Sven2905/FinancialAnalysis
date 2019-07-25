@@ -9,7 +9,6 @@ namespace FinancialAnalysis.Models.TimeManagement
     {
         public TimeObligatoryHour()
         {
-
         }
 
         public TimeObligatoryHour(int RefEmployeeId, double HoursPerDay, DayOfWeek DayOfWeek)

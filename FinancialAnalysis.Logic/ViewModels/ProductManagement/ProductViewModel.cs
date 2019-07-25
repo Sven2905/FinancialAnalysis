@@ -5,7 +5,6 @@ using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.ProductManagement;
 using System;
-using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
@@ -183,6 +182,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public ItemPriceCalculationViewModel ItemPriceCalculationViewModel { get; set; } = new ItemPriceCalculationViewModel();
         public SvenTechCollection<Product> FilteredProducts { get; set; } = new SvenTechCollection<Product>();
         public ProductStockingStatusViewModel ProductStockingStatusViewModel { get; set; } = new ProductStockingStatusViewModel();
+
         public SvenTechCollection<ProductCategory> ProductCategoryList { get; set; } =
             new SvenTechCollection<ProductCategory>();
 
@@ -233,6 +233,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     if (_SelectedProduct.Picture != null)
                         Image = ConvertToImage(SelectedProduct.Picture);
+                    ItemPriceCalculationViewModel.Product = _SelectedProduct;
                     ItemPriceCalculationViewModel.ItemPriceCalculationInputItem.ProductionMaterial = _SelectedProduct.DefaultBuyingPrice;
                     ItemPriceCalculationViewModel.Refresh();
                 }

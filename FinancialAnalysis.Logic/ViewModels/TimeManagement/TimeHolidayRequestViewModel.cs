@@ -39,6 +39,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public SvenTechCollection<Employee> EmployeeList { get; private set; }
         public SvenTechCollection<TimeHolidayType> TimeHolidayTypeList { get; set; }
         public Employee SelectedEmployee => Employees.GetById(NewTimeHolidayEmployee.RefEmployeeId);
+
         public InfoBoxViewModel HolidayInfoBoxViewModel { get; set; } = new InfoBoxViewModel()
         {
             Color = SvenTechColors.BrushBlue,

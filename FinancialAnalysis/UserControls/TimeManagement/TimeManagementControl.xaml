@@ -47,36 +47,36 @@
             <VirtualizingStackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
                     Margin="0,0,0,0" Orientation="Vertical">
                 <VirtualizingStackPanel Orientation="Horizontal">
-                    <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top" 
-                                     VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1" 
+                    <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
+                                     VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
                                      Content="Stundenübersicht" FontFamily="Tahoma" Width="180"
-                                     dxwuin:Navigation.NavigateTo="TimeBookingOverviewControl" VerticalAlignment="Center" 
+                                     dxwuin:Navigation.NavigateTo="TimeBookingOverviewControl" VerticalAlignment="Center"
                                      Height="180" FontSize="20" Margin="2" ToolTip="Test 123 Beispiel.."
-                                     Visibility="{Binding Path=ShowTimeBookingOverview, Converter={StaticResource BoolToVis}}" >
+                                     Visibility="{Binding Path=ShowTimeBookingOverview, Converter={StaticResource BoolToVis}}">
                         <dx:SimpleButton.Glyph>
                             <dx:SvgImageSource Uri="/Images/light/clock.svg" Size="100,100" />
                         </dx:SimpleButton.Glyph>
                     </dx:SimpleButton>
-                    <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top" 
-                                     VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1" 
-                                     Content="Urlaubsantrag" FontFamily="Tahoma" dxwuin:Navigation.NavigateTo="TimeHolidayRequestControl" 
-                                     VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2" 
+                    <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
+                                     VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
+                                     Content="Urlaubsantrag" FontFamily="Tahoma" dxwuin:Navigation.NavigateTo="TimeHolidayRequestControl"
+                                     VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2"
                                      Visibility="{Binding Path=ShowTimeHolidayRequest, Converter={StaticResource BoolToVis}}">
                         <dx:SimpleButton.Glyph>
                             <dx:SvgImageSource Uri="/Images/light/cocktail.svg" Size="100,100" />
                         </dx:SimpleButton.Glyph>
                     </dx:SimpleButton>
-                    <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top" 
-                                     VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1" 
-                                     Content="Urlaubsantrag" FontFamily="Tahoma" dxwuin:Navigation.NavigateTo="TimeObligatoryHourControl" 
-                                     VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2" 
+                    <dx:SimpleButton Padding="10,20,10,20" GlyphToContentOffset="10" GlyphAlignment="Top"
+                                     VerticalContentAlignment="Center" Foreground="#3f729b" Grid.Row="1"
+                                     Content="Urlaubsantrag" FontFamily="Tahoma" dxwuin:Navigation.NavigateTo="TimeObligatoryHourControl"
+                                     VerticalAlignment="Center" Width="180" Height="180" FontSize="20" Margin="2"
                                      Visibility="{Binding Path=ShowTimeHolidayRequest, Converter={StaticResource BoolToVis}}">
                         <dx:SimpleButton.Glyph>
                             <dx:SvgImageSource Uri="/Images/light/business-time.svg" Size="120,100" />
                         </dx:SimpleButton.Glyph>
                     </dx:SimpleButton>
                 </VirtualizingStackPanel>
-                <VirtualizingStackPanel HorizontalAlignment="Left"/>
+                <VirtualizingStackPanel HorizontalAlignment="Left" />
             </VirtualizingStackPanel>
         </VirtualizingStackPanel>
     </Grid>

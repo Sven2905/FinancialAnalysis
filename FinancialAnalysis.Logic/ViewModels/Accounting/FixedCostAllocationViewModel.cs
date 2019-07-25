@@ -206,6 +206,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
         }
 
-        #endregion Methods
+        #endregion Properties
     }
 }

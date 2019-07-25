@@ -29,27 +29,40 @@
     </Window.DataContext>
     <Window.Resources>
         <Converter:EnumToDisplaynameConverter x:Key="EnumConverter" />
+        <Converter:ZeroToVisiblityConverter x:Key="ZeroToVis" />
     </Window.Resources>
     <Grid Margin="-7,0,-7,-7">
         <Grid.Background>
-            <ImageBrush ImageSource="/Images/background.jpg" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="/Images/background.jpg" Stretch="UniformToFill" />
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <dxb:StatusBarControl VerticalAlignment="Bottom" >
-            <dxb:BarStaticItem Content="{Binding CurrentTime}"/>
+        <dxb:StatusBarControl VerticalAlignment="Bottom">
+            <dxb:BarStaticItem Content="{Binding CurrentTime}" />
             <dxb:BarStaticItem Content="Datenbankverbindung: " Alignment="Far" />
-            <dxb:BarStaticItem Content="{Binding DatabaseStatusItem}" Alignment="Far" >
+            <dxb:BarStaticItem Content="{Binding DatabaseStatusItem}" Alignment="Far">
                 <dxb:BarStaticItem.ContentTemplate>
                     <DataTemplate>
-                        <Path Data="{Binding Data}" Fill="White" Height="{Binding Height}" 
+                        <Path Data="{Binding Data}" Fill="White" Height="{Binding Height}"
                               Width="{Binding Width}" Stretch="Fill" />
                     </DataTemplate>
                 </dxb:BarStaticItem.ContentTemplate>
             </dxb:BarStaticItem>
+            <!--<dxb:BarStaticItem Content="{Binding .}">
+                <dxb:BarStaticItem.ContentTemplate>
+                    <DataTemplate>
+                        <Grid Margin="10,0,0,0">
+                            <VirtualizingStackPanel Orientation="Horizontal">
+                                <dxe:ProgressBarEdit HorizontalAlignment="Left" Width="120" Height="20" Value="{Binding Progress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Minimum="0" Maximum="100" />
+                                <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Width="200" Text="{Binding Message}" />
+                            </VirtualizingStackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </dxb:BarStaticItem.ContentTemplate>
+            </dxb:BarStaticItem>-->
             <!--<dxb:BarStaticItem Content="{Binding DatabaseStatus, Converter={Converter:EnumToDisplaynameConverter}}" Alignment="Far" ShowBorder="True" />-->
             <dxb:BarStaticItem Alignment="Far" ShowBorder="True" />
             <dxb:BarStaticItem Content="{Binding ActiveUser.Name}" Alignment="Far" />

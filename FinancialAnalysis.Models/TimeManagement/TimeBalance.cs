@@ -9,7 +9,6 @@ namespace FinancialAnalysis.Models.TimeManagement
     {
         public TimeBalance()
         {
-
         }
 
         public TimeBalance(int RefEmployeeId, DateTime Date, double Balance)

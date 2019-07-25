@@ -19,7 +19,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Viewbox Width="60" Height="60" Stretch="Uniform" StretchDirection="DownOnly" HorizontalAlignment="Left"
-                 Margin="30,0,0,0" Grid.Column="0" >
+                 Margin="30,0,0,0" Grid.Column="0">
             <Canvas Width="60" Height="60">
                 <Path Data="{Binding ImageVector}" Fill="{Binding Brush}" Height="60" Width="60" Stretch="Fill" />
             </Canvas>

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Formulas.PriceCalculationMethods
+﻿namespace Formulas.PriceCalculationMethods
 {
     public class ItemPriceCalculationOutputItem
     {
@@ -110,7 +104,7 @@ namespace Formulas.PriceCalculationMethods
         #region Angebotspreis
 
         /// <summary>
-        /// Kundenrabatt 
+        /// Kundenrabatt
         /// </summary>
         public decimal CustomerDiscount { get; set; } = 0;
 

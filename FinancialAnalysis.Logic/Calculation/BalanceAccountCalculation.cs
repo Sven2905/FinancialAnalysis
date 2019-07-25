@@ -14,6 +14,7 @@ namespace FinancialAnalysis.Logic.Calculation
         public SvenTechCollection<BalanceAccountResultDetailItem> ActiveAccountDetailedList { get; set; }
         public SvenTechCollection<BalanceAccountResultItem> PassiveAccountList { get; set; }
         public SvenTechCollection<BalanceAccountResultDetailItem> PassiveAccountDetailedList { get; set; }
+
         public decimal SumActiveAccounts
         {
             get
@@ -26,6 +27,7 @@ namespace FinancialAnalysis.Logic.Calculation
                 return ActiveAccountList.Sum(x => x.Amount);
             }
         }
+
         public decimal SumPassiveAccounts
         {
             get
@@ -65,7 +67,6 @@ namespace FinancialAnalysis.Logic.Calculation
             }
             else if (SumPassiveAccounts < SumPassiveAccounts)
             {
-
             }
         }
 

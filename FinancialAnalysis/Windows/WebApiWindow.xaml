@@ -1,6 +1,6 @@
 ﻿<dx:DXWindow
         x:Class="FinancialAnalysis.Windows.WebApiConfigurationWindow"
-        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -24,7 +24,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="10" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -44,10 +44,9 @@
         <dxe:TextEdit Grid.Row="2" Grid.Column="1" Margin="0,2" Width="100" HorizontalAlignment="Left" Text="{Binding Server}" />
         <dxe:TextEdit Grid.Row="3" Grid.Column="1" Margin="0,2" Width="100" HorizontalAlignment="Left" Text="{Binding Port}" />
 
-        <VirtualizingStackPanel Grid.Row="7" Grid.ColumnSpan="2" Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" >
+        <VirtualizingStackPanel Grid.Row="7" Grid.ColumnSpan="2" Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
             <dx:SimpleButton Width="135" Height="30" Margin="0,0,5,0" Content="Speichern" Foreground="#3F729B" FontFamily="Tahoma" Command="{Binding SaveCommand}" />
             <dx:SimpleButton Width="135" Height="30" Content="Abbrechen" Foreground="#3F729B" FontFamily="Tahoma" Command="{Binding CloseCommand}" />
         </VirtualizingStackPanel>
-
     </Grid>
 </dx:DXWindow>

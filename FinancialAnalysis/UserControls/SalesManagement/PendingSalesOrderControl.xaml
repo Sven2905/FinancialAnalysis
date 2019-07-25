@@ -61,8 +61,8 @@
                                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="10,0">
                                     <Grid>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                             <dxe:TextEdit NullText="Filter" Margin="0,5" Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" FontFamily="Tahoma" />
                                         <dxe:ListBoxEdit Grid.Row="1" ItemsSource="{Binding FilteredSalesOrders}" SelectedItem="{Binding SelectedSalesOrder}"

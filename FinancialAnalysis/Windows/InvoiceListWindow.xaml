@@ -41,18 +41,18 @@
                     </Grid.RowDefinitions>
                     <dxdo:DockLayoutManager>
                         <dxdo:LayoutGroup Caption="LayoutRoot">
-                            <dxdo:LayoutPanel Caption="Rechnungen" ShowCloseButton="False" >
+                            <dxdo:LayoutPanel Caption="Rechnungen" ShowCloseButton="False">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="10,0">
                                     <Grid>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <dxlc:GroupBox Header="Filter" Foreground="Red">
                                             <dxlc:GroupBox.HeaderTemplate>
                                                 <DataTemplate>
-                                                    <Label Foreground="#3f729b" FontSize="12" FontWeight="Medium" Margin="3" Content="Filter"/>
+                                                    <Label Foreground="#3f729b" FontSize="12" FontWeight="Medium" Margin="3" Content="Filter" />
                                                 </DataTemplate>
                                             </dxlc:GroupBox.HeaderTemplate>
                                             <VirtualizingStackPanel>
@@ -74,24 +74,22 @@
                                             <dxg:GridColumn FieldName="InvoiceDueDate" Header="Fälligkeitsdatum" />
                                             <dxg:GridColumn FieldName="TotalAmount" Header="Betrag" Width="75" />
                                             <dxg:GridControl.View>
-                                                <dxg:TableView ShowHorizontalLines="True" ShowVerticalLines="False" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" MaxHeight="5000" MaxWidth="5000" 
-                                                               ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" EnableSelectedRowAppearance="False" 
+                                                <dxg:TableView ShowHorizontalLines="True" ShowVerticalLines="False" AllowBandMultiRow="False" VerticalScrollbarVisibility="Auto" MaxHeight="5000" MaxWidth="5000"
+                                                               ShowGroupPanel="False" AllowColumnFiltering="False" AllowEditing="False" UseLegacyFilterEditor="False" EnableSelectedRowAppearance="False"
                                                                UseEvenRowBackground="True" ShowIndicator="False" AllowColumnMoving="False" AllowGrouping="False" AutoWidth="True" />
                                             </dxg:GridControl.View>
                                         </dxg:GridControl>
-                                        
                                     </Grid>
                                 </ScrollViewer>
                             </dxdo:LayoutPanel>
-                            <dxdo:LayoutPanel Caption="Details" ShowCloseButton="False" >
-                                <salesmanagement:InvoiceDetails DataContext="{Binding InvoiceDetailsViewModel}" Margin="10"/>
+                            <dxdo:LayoutPanel Caption="Details" ShowCloseButton="False">
+                                <salesmanagement:InvoiceDetails DataContext="{Binding InvoiceDetailsViewModel}" Margin="10" />
                             </dxdo:LayoutPanel>
-
                         </dxdo:LayoutGroup>
                     </dxdo:DockLayoutManager>
 
-                    <VirtualizingStackPanel Grid.Row="1" HorizontalAlignment="Left" >
-                        <dx:SimpleButton Content="Rechnung erstellen" Margin="2" Height="28" Command="{Binding CreateInvoiceCommand}"/>
+                    <VirtualizingStackPanel Grid.Row="1" HorizontalAlignment="Left">
+                        <dx:SimpleButton Content="Rechnung erstellen" Margin="2" Height="28" Command="{Binding CreateInvoiceCommand}" />
                     </VirtualizingStackPanel>
                 </Grid>
             </dx:DXTabItem>

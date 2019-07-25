@@ -186,8 +186,8 @@
                     <Label Grid.Column="4" Grid.Row="3" Margin="3" Content="Preis" VerticalAlignment="Center" />
                     <Label Grid.Column="4" Grid.Row="4" Margin="3" Content="Menge" VerticalAlignment="Top" />
 
-                    <TextBox Grid.Column="5" Grid.Row="3" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Stretch" 
-                             Text="{Binding SalesOrderPosition.Price, StringFormat=C2, UpdateSourceTrigger=PropertyChanged}" 
+                    <TextBox Grid.Column="5" Grid.Row="3" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                             Text="{Binding SalesOrderPosition.Price, StringFormat=C2, UpdateSourceTrigger=PropertyChanged}"
                              HorizontalContentAlignment="Right" Foreground="#3F729B" />
 
                     <dxe:TextEdit Grid.Column="5" Grid.Row="4" Margin="3" VerticalAlignment="Top" HorizontalContentAlignment="Right"
@@ -215,8 +215,8 @@
                           Foreground="#3F729B" />
 
                     <VirtualizingStackPanel Grid.Column="10" Grid.Row="4" Orientation="Horizontal" Margin="10,0" VerticalAlignment="Top">
-                        <Label  Content="Betrag" Foreground="#9a9a9a" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="3"/>
-                        <TextBlock Text="{Binding SalesOrderPosition.Total, StringFormat=C2, UpdateSourceTrigger=PropertyChanged}" Foreground="#9a9a9a" 
+                        <Label  Content="Betrag" Foreground="#9a9a9a" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="3" />
+                        <TextBlock Text="{Binding SalesOrderPosition.Total, StringFormat=C2, UpdateSourceTrigger=PropertyChanged}" Foreground="#9a9a9a"
                                VerticalAlignment="Center" Margin="3" />
                     </VirtualizingStackPanel>
 

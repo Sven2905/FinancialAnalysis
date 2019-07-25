@@ -45,7 +45,7 @@
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
-        <dxwui:PageAdornerControl Header="Kostenstellen" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="/Resources/Fonts/trajan-pro-3.otf#Trajan Pro 3" >
+        <dxwui:PageAdornerControl Header="Kostenstellen" Grid.ColumnSpan="3" Foreground="#3f729b" FontFamily="/Resources/Fonts/trajan-pro-3.otf#Trajan Pro 3">
             <dxwui:PageAdornerControl.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
@@ -79,7 +79,7 @@
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
-                                            <dxlc:LayoutControl Grid.Row="0" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" 
+                                            <dxlc:LayoutControl Grid.Row="0" Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10"
                                                                 VerticalAlignment="Top" HorizontalAlignment="Stretch">
                                                 <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" HorizontalAlignment="Stretch">
                                                     <dxlc:LayoutGroup.Header>
@@ -93,13 +93,13 @@
                                                 </dxlc:LayoutGroup>
                                             </dxlc:LayoutControl>
                                             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0">
-                                                <dxg:TreeListControl VerticalAlignment="Top" MaxHeight="800" ShowBorder="True" HorizontalAlignment="Stretch" 
-                                                                     ItemsSource="{Binding CostCenterFlatStructures, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                <dxg:TreeListControl VerticalAlignment="Top" MaxHeight="800" ShowBorder="True" HorizontalAlignment="Stretch"
+                                                                     ItemsSource="{Binding CostCenterFlatStructures, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="600" SelectedItem="{Binding SelectedCostCenterFlatStructure, Mode=OneWayToSource}">
                                                     <dxg:TreeListControl.View>
-                                                        <dxg:TreeListView EditFormShowMode="None" 
-                                                                          EnableImmediatePosting="True" ShowVerticalLines="False" AutoExpandAllNodes="True" 
-                                                                          AutoWidth="True" ShowTotalSummary="False" KeyFieldName="Key" ParentFieldName="ParentKey" 
+                                                        <dxg:TreeListView EditFormShowMode="None"
+                                                                          EnableImmediatePosting="True" ShowVerticalLines="False" AutoExpandAllNodes="True"
+                                                                          AutoWidth="True" ShowTotalSummary="False" KeyFieldName="Key" ParentFieldName="ParentKey"
                                                                           AllowEditing="False" ShowIndicator="False" VerticalScrollbarVisibility="Auto">
                                                         </dxg:TreeListView>
                                                     </dxg:TreeListControl.View>
@@ -109,23 +109,23 @@
                                             </ScrollViewer>
                                         </Grid>
                                         <VirtualizingStackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,5">
-                                            <dx:SimpleButton Width="120" Height="30" Margin="0,0,5,0" Content="Neu" 
+                                            <dx:SimpleButton Width="120" Height="30" Margin="0,0,5,0" Content="Neu"
                                                              Foreground="#3F729B" Command="{Binding NewCostCenterCommand}" FontFamily="Tahoma" />
-                                            <dx:SimpleButton Width="120" Height="30" Margin="5,0,5,0" Content="Speichern" Foreground="#3F729B" 
+                                            <dx:SimpleButton Width="120" Height="30" Margin="5,0,5,0" Content="Speichern" Foreground="#3F729B"
                                                              Command="{Binding SaveCostCenterCommand}" FontFamily="Tahoma" />
-                                            <dx:SimpleButton Width="120" Height="30" Margin="5,0,0,0" Content="Löschen" Foreground="#3F729B" 
+                                            <dx:SimpleButton Width="120" Height="30" Margin="5,0,0,0" Content="Löschen" Foreground="#3F729B"
                                                              Command="{Binding DeleteCostCenterCommand}" FontFamily="Tahoma" />
                                         </VirtualizingStackPanel>
                                     </StackPanel>
                                 </Grid>
                             </dxdo:LayoutPanel>
 
-                            <dxdo:LayoutPanel Caption="Informationen" ShowCloseButton="False" >
-                                <Grid Grid.Column="2" Grid.RowSpan="2" >
+                            <dxdo:LayoutPanel Caption="Informationen" ShowCloseButton="False">
+                                <Grid Grid.Column="2" Grid.RowSpan="2">
 
-                                    <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" 
-                                                        IsEnabled="{Binding SelectedCostCenter, Converter={StaticResource NullConverter}}" >
-                                        <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox" >
+                                    <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10"
+                                                        IsEnabled="{Binding SelectedCostCenter, Converter={StaticResource NullConverter}}">
+                                        <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
                                             <dxlc:LayoutGroup.Header>
                                                 <TextBlock Text="Informationen" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
                                             </dxlc:LayoutGroup.Header>

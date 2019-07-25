@@ -72,7 +72,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 RefFixedCostAllocationId = SelectedBooking.RefFixedCostAllocationId,
                 FixedCostAllocation = SelectedBooking.FixedCostAllocation,
-
             };
 
             cancelBooking.BookingId = Bookings.Insert(cancelBooking);

@@ -1,11 +1,8 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Accounting.CostCenterManagement;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utilities;
 using WebApiWrapper.Accounting;
 
@@ -13,18 +10,24 @@ namespace FinancialAnalysis.Logic.Accounting
 {
     public class ItemPriceCalculationItemHelper : ViewModelBase
     {
+        private List<BookingCostCenterMapping> costsPerYear;
+
         public delegate void AmountChangedEvent(decimal amount);
 
-        public ItemPriceCalculationItemHelper()
+        public ItemPriceCalculationItemHelper(List<BookingCostCenterMapping> costsPerYear)
         {
+            this.costsPerYear = costsPerYear;
             LoadCostCenters();
         }
 
         public SvenTechCollection<CostCenter> CostCenterList { get; set; } = new SvenTechCollection<CostCenter>();
         public SvenTechCollection<CostCenterCategory> CostCenterCategoryList { get; set; } = new SvenTechCollection<CostCenterCategory>();
         public SvenTechCollection<CostCenterFlatStructure> CostCenterFlatStructures { get; set; } = new SvenTechCollection<CostCenterFlatStructure>();
+
         public event AmountChangedEvent OnAmountChanged;
+
         public decimal Amount => CalculateAmount();
+
         private decimal CalculateAmount()
         {
             decimal amount = 0;
@@ -34,7 +37,8 @@ namespace FinancialAnalysis.Logic.Accounting
                 {
                     if (item.CostCenter != null)
                     {
-                        amount += CostCenterBudgets.GetAnnuallyCosts(item.CostCenter.CostCenterId, DateTime.Now.Year).Sum(x => x.Amount);
+                        amount += costsPerYear.Where(x => x.RefCostCenterId == item.CostCenter.CostCenterId).Sum(x => x.Amount);
+                        //amount += CostCenterBudgets.GetAnnuallyCosts(item.CostCenter.CostCenterId, DateTime.Now.Year).Sum(x => x.Amount);
                     }
                 }
             }

@@ -285,7 +285,6 @@ namespace FinancialAnalysis.Logic.ViewModels
         public SvenTechCollection<Debitor> FilteredDebitors { get; set; } = new SvenTechCollection<Debitor>();
         public CompanyViewModel CompanyViewModel { get; set; } = new CompanyViewModel();
 
-
         public string CreditorFilterText
         {
             get => _CreditorFilterText;
@@ -303,7 +302,6 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
             }
         }
-
 
         public string DebitorFilterText
         {

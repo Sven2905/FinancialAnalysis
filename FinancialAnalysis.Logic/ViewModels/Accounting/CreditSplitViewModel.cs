@@ -2,13 +2,9 @@
 using FinancialAnalysis.Logic.Manager;
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
-using FinancialAnalysis.Models.BaseClasses;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utilities;
 using WebApiWrapper.Accounting;
 
@@ -27,7 +23,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         private decimal amount;
         private CostAccount costAccount;
 
-        public decimal TotalAmount { get; set; } 
+        public decimal TotalAmount { get; set; }
+
         public decimal Amount
         {
             get { return amount; }
@@ -64,6 +61,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 SelectedTax = TaxTypeList.Single(x => x.TaxTypeId == costAccount.RefTaxTypeId);
             }
         }
+
         public decimal RemainingAmount
         {
             get
@@ -105,7 +103,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 var refCreditToRemove = Credits.SingleOrDefault(x => x.CreditId == SelectedCredit.RefCreditId);
 
                 if (refCreditToRemove != null)
-                Credits.Remove(refCreditToRemove);
+                    Credits.Remove(refCreditToRemove);
             }
 
             var creditToRemove = Credits.SingleOrDefault(x => x.RefCreditId == SelectedCredit.CreditId);

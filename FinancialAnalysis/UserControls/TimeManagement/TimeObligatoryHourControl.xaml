@@ -1,19 +1,19 @@
 ﻿<UserControl x:Class="FinancialAnalysis.UserControls.TimeManagement.TimeObligatoryHourControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
              xmlns:local="clr-namespace:FinancialAnalysis.UserControls.TimeManagement"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              dx:ThemeManager.ThemeName="Office2019White">
     <UserControl.DataContext>
         <ViewModels:TimeObligatoryHourViewModel />
     </UserControl.DataContext>
-    <Grid >
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -63,8 +63,8 @@
             <TextBlock Grid.Row="6" Grid.Column="4" VerticalAlignment="Center" Text="Stunden" />
             <TextBlock Grid.Row="7" Grid.Column="4" VerticalAlignment="Center" Text="Stunden" FontWeight="Bold" />
 
-            <TextBlock Grid.Row="7" Grid.Column="0" Text="Gesamt" FontWeight="Bold" Margin="0,2"/>
-            <TextBlock Grid.Row="7" Grid.Column="2" Text="{Binding HoursSum}" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,2"/>
+            <TextBlock Grid.Row="7" Grid.Column="0" Text="Gesamt" FontWeight="Bold" Margin="0,2" />
+            <TextBlock Grid.Row="7" Grid.Column="2" Text="{Binding HoursSum}" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,2" />
         </Grid>
     </Grid>
 </UserControl>

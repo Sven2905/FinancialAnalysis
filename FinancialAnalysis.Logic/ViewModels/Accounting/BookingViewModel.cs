@@ -1,5 +1,4 @@
 ﻿using DevExpress.Mvvm;
-using DevExpress.Xpf.Dialogs;
 using FinancialAnalysis.Logic.Manager;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models;
@@ -151,7 +150,6 @@ namespace FinancialAnalysis.Logic.ViewModels
                     CostAccountDebitor.RefTaxTypeId = SelectedTax.TaxTypeId;
                     AccountBookingManager.Instance.CreateAndAddCreditDebit(GrossNetType, SelectedBookingType, Amount, CostAccountCreditor, CostAccountDebitor, SelectedTax);
                 }
-
                 else if (Credits.Count > 0 && Debits.Count == 0)
                 {
                     Debits.Add(new Debit(Amount, CostAccountDebitor.CostAccountId, 0));
@@ -179,7 +177,6 @@ namespace FinancialAnalysis.Logic.ViewModels
 
                 ClearForm();
             }, () => ValidateBooking());
-
 
             SaveStackToDbCommand = new DelegateCommand(SaveStackToDb, () => BookingsOnStack.Count > 0);
 
@@ -375,6 +372,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 else return new ObservableCollection<Credit>();
             }
         }
+
         public ObservableCollection<Debit> DebitsDisplay
         {
             get
@@ -411,6 +409,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 else return new ObservableCollection<Debit>();
             }
         }
+
         public SvenTechCollection<TaxType> FilteredTaxTypes { get; set; }
         public ObservableCollection<Credit> Credits { get; set; } = new ObservableCollection<Credit>();
         public ObservableCollection<Debit> Debits { get; set; } = new ObservableCollection<Debit>();
@@ -421,6 +420,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         #region CostCenter
 
         public SvenTechCollection<CostCenterCategory> CostCenterCategoryList { get; set; } = new SvenTechCollection<CostCenterCategory>();
+
         public CostCenter SelectedCostCenter
         {
             get { return selectedCostCenter; }
@@ -430,6 +430,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 RefreshCostCenterBudget();
             }
         }
+
         public SvenTechCollection<FixedCostAllocation> FixedCostAllocationList { get; set; }
         public SvenTechCollection<Project> ProjectList { get; set; } = new SvenTechCollection<Project>();
         public decimal RemainingCostCenterBudget { get; set; }
@@ -446,6 +447,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 Credits.Clear(); RaisePropertyChanged("CreditsDisplay");
             }
         }
+
         public CostAccount CostAccountDebitor
         {
             get { return costAccountDebitor; }
@@ -460,15 +462,18 @@ namespace FinancialAnalysis.Logic.ViewModels
                 RaisePropertyChanged("DebitsDisplay");
             }
         }
+
         public User ActualUser => Globals.ActiveUser;
         public SvenTechCollection<Booking> BookingsOnStack { get; set; } = new SvenTechCollection<Booking>();
         public TaxType SelectedTax { get; set; }
         public List<CostAccount> CostAccountList { get; set; }
+
         public GrossNetType GrossNetType
         {
             get { return grossNetType; }
             set { grossNetType = value; RaisePropertyChanged("CreditsDisplay"); RaisePropertyChanged("DebitsDisplay"); }
         }
+
         public ScannedDocument SelectedScannedDocument { get; set; }
         public BookingType SelectedBookingType { get; set; }
         public CostCenterCategory SelectedCostCenterCategory { get; set; }
@@ -480,6 +485,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public bool IsEnabledCreditorDropDown { get; set; } = true;
         public bool IsEnabledDebitorDropDown { get; set; } = true;
         public bool IsEnabledTaxDropDown { get; set; } = true;
+
         public decimal Amount
         {
             get => Math.Round(amount, 2);

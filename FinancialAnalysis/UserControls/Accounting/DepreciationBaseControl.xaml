@@ -1,8 +1,8 @@
 ﻿<UserControl x:Class="FinancialAnalysis.UserControls.Accounting.DepreciationBaseControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:FinancialAnalysis.UserControls.Accounting"
              xmlns:UserControls="clr-namespace:FinancialAnalysis.UserControls"
              xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
@@ -13,17 +13,17 @@
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              dx:ThemeManager.ThemeName="Office2019White"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
         <ViewModels:DepreciationBaseViewModel />
     </UserControl.DataContext>
     <UserControl.Resources>
-        <UserControls:InverseBooleanToVisiblityConverter x:Key="InverseBoolToVis"/>
-        <UserControls:BooleanToVisiblityConverter x:Key="BoolToVis"/>
+        <UserControls:InverseBooleanToVisiblityConverter x:Key="InverseBoolToVis" />
+        <UserControls:BooleanToVisiblityConverter x:Key="BoolToVis" />
     </UserControl.Resources>
-    <Grid >
+    <Grid>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
@@ -53,7 +53,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Art: " VerticalAlignment="Center" Width="75" />
-                <dxe:ComboBoxEdit Grid.Column="2" EditValue="{Binding DepreciationItem.DepreciationType, UpdateSourceTrigger=PropertyChanged}" 
+                <dxe:ComboBoxEdit Grid.Column="2" EditValue="{Binding DepreciationItem.DepreciationType, UpdateSourceTrigger=PropertyChanged}"
                                                           SelectedIndex="0" HorizontalAlignment="Stretch" Foreground="#3F729B" FontFamily="Tahoma">
                     <dxmvvm:Interaction.Behaviors>
                         <dxmvvm:EnumItemsSourceBehavior EnumType="{x:Type models:DepreciationType}" />
@@ -62,13 +62,13 @@
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Dauer (Jahre): " VerticalAlignment="Center" Width="75" Visibility="{Binding IsPerfomanceBased, Converter={StaticResource BoolToVis}}" />
                 <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding DepreciationItem.Years, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Visibility="{Binding IsPerfomanceBased, Converter={StaticResource BoolToVis}}" />
-                <TextBlock Grid.Row="0" Grid.Column="4" Text="Startkapital: " VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="0" Grid.Column="4" Text="Startkapital: " VerticalAlignment="Center" />
                 <TextBox Grid.Row="0" Grid.Column="6" Text="{Binding DepreciationItem.InitialValue, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
                 <TextBlock Grid.Row="2" Grid.Column="4" Text="Restwert: " VerticalAlignment="Center" Visibility="{Binding IsPerfomanceBased, Converter={StaticResource BoolToVis}}" />
                 <TextBox Grid.Row="2" Grid.Column="6" Text="{Binding DepreciationItem.AssetValue, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Visibility="{Binding IsPerfomanceBased, Converter={StaticResource BoolToVis}}" />
             </Grid>
 
-            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Margin="0,10" Visibility="{Binding IsPerfomanceBased, Converter={StaticResource InverseBoolToVis}}" >
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Margin="0,10" Visibility="{Binding IsPerfomanceBased, Converter={StaticResource InverseBoolToVis}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -83,7 +83,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Width="75" Text="Leistung: " Margin="0,0,5,0"/>
+                    <TextBlock Grid.Column="0" Width="75" Text="Leistung: " Margin="0,0,5,0" />
                     <TextBox Grid.Column="1" Text="{Binding Power, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
                 </Grid>
 
@@ -95,11 +95,11 @@
                                UseEvenRowBackground="True" ShowIndicator="False" AllowColumnMoving="False" AllowGrouping="False" AutoWidth="False" />
                     </dxg:GridControl.View>
                     <dxg:GridColumn FieldName="Year" Header="Jahr" Width="50" />
-                    <dxg:GridColumn FieldName="Power" Header="Leistung" Width="75"/>
+                    <dxg:GridColumn FieldName="Power" Header="Leistung" Width="75" />
                 </dxg:GridControl>
 
                 <Grid Grid.Column="0" Grid.Row="1" Margin="0,10">
-                    <VirtualizingStackPanel Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                    <VirtualizingStackPanel Width="120" HorizontalAlignment="Left" VerticalAlignment="Top">
                         <dx:SimpleButton Height="30" Content="Hinzufügen" Command="{Binding AddYearlyPowerCommand}" Margin="0,0,0,5" />
                         <dx:SimpleButton Height="30" Content="Entfernen" Command="{Binding RemoveYearlyPowerCommand}" />
                     </VirtualizingStackPanel>
@@ -119,13 +119,12 @@
                         <dxe:TextEditSettings Mask="C" MaskType="Numeric" MaskUseAsDisplayFormat="True" />
                     </dxg:GridColumn.EditSettings>
                 </dxg:GridColumn>
-                <dxg:GridColumn FieldName="AssetValue" Header="Kalk. Restbuchwert" >
+                <dxg:GridColumn FieldName="AssetValue" Header="Kalk. Restbuchwert">
                     <dxg:GridColumn.EditSettings>
                         <dxe:TextEditSettings Mask="C" MaskType="Numeric" MaskUseAsDisplayFormat="True" />
                     </dxg:GridColumn.EditSettings>
                 </dxg:GridColumn>
             </dxg:GridControl>
-
         </Grid>
     </Grid>
 </UserControl>

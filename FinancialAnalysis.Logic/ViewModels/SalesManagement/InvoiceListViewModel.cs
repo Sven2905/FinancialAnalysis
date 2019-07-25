@@ -44,6 +44,5 @@ namespace FinancialAnalysis.Logic.ViewModels
             get => _SelectedInvoice;
             set { _SelectedInvoice = value; InvoiceDetailsViewModel.Invoice = _SelectedInvoice; }
         }
-
     }
 }

@@ -1,5 +1,4 @@
 ﻿using FinancialAnalysis.Models.Accounting;
-using System;
 using System.Collections.Generic;
 
 namespace WebApiWrapper.Accounting

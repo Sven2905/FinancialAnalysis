@@ -9,6 +9,7 @@ namespace FinancialAnalysis.Models.Accounting
     public class DepreciationItem : BindableBase
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

@@ -1,8 +1,8 @@
 ﻿<UserControl x:Class="FinancialAnalysis.UserControls.SalesManagement.InvoiceDetails"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:FinancialAnalysis.UserControls.SalesManagement"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
@@ -56,11 +56,11 @@
 
         <TextBlock Grid.Row="6" Grid.Column="0" Text="Gesamtbetrag" Foreground="#3f729b" FontFamily="Tahoma" />
         <dxe:TextEdit Grid.Column="1" Grid.Row="0" Mask="C2" MaskType="Numeric" VerticalAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Right"
-                                                  Text="{Binding Invoice.TotalAmount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ShowBorder="False" 
+                                                  Text="{Binding Invoice.TotalAmount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ShowBorder="False"
                                                   MaskShowPlaceHolders="False" MaskUseAsDisplayFormat="True" />
 
         <TextBlock Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" Margin="15,0,0,0" Text="Davon bezahlt" Foreground="#3f729b" FontFamily="Tahoma" />
-        <dxe:TextEdit Grid.Row="8" Grid.Column="2" Text="{Binding Invoice.PaidAmount}" Foreground="#3f729b" FontFamily="Tahoma" 
+        <dxe:TextEdit Grid.Row="8" Grid.Column="2" Text="{Binding Invoice.PaidAmount}" Foreground="#3f729b" FontFamily="Tahoma"
                       Mask="C" MaskType="Numeric" MaskUseAsDisplayFormat="True" />
 
         <TextBlock Grid.Row="10" Grid.Column="0" Margin="15,0,0,0" Text="Noch ausstehend" Foreground="#3f729b" FontFamily="Tahoma" />
@@ -92,6 +92,5 @@
 
         <TextBlock Grid.Row="6" Grid.Column="4" Text="Bearbeiter" Foreground="#3f729b" FontFamily="Tahoma" />
         <TextBlock Grid.Row="6" Grid.Column="6" Text="{Binding Invoice.Employee.Name}" Foreground="#3f729b" FontFamily="Tahoma" />
-
     </Grid>
 </UserControl>

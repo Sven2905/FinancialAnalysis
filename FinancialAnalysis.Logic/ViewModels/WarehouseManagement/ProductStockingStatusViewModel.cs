@@ -14,7 +14,6 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public ProductStockingStatusViewModel()
         {
-
         }
 
         #endregion Constructor
@@ -95,6 +94,5 @@ namespace FinancialAnalysis.Logic.ViewModels
         }
 
         #endregion Methods
-
     }
 }

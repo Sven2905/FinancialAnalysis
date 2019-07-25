@@ -4,7 +4,6 @@
     {
         public BookingCostCenterMapping()
         {
-
         }
 
         public BookingCostCenterMapping(int RefBookingId, int RefCostCenterId, decimal Amount, int RefProjectId = 0)

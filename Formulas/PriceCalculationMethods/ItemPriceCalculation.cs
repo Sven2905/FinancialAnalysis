@@ -1,43 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Formulas.PriceCalculationMethods
+﻿namespace Formulas.PriceCalculationMethods
 {
     public static class ItemPriceCalculation
     {
         // https://www.buhl.de/meinbuero/preiskalkulation-2/
 
-        /* 
+        /*
          * Fertigungsmaterial
          * + Materialgemeinkosten
          * = Materialkosten (MK)
-         * 
+         *
          * Fertigungslöhne
          * + Fertigungsgemeinkosten
          * = Fertigungskosten (FK)
-         * 
+         *
          * = Herstellkosten: MK + FK
-         * 
+         *
          * + Verwaltungsgemeinkosten
          * + Vertriebsgemeinkosten
          * = Selbstkosten
-         * 
+         *
          * + Gewinnzuschlag
          * = Barverkaufspreis
-         * 
+         *
          * + Kundenskonto
          * + Vertreterprovision
          * = Zielverkaufspreis
-         * 
+         *
          * + Kundenrabatt
          * = Angebotspreis
-         * 
+         *
          * + Umsatzsteuer
          * = Bruttoverkaufspreis
-        
+
          */
 
         public static ItemPriceCalculationOutputItem CalculatePriceForItem(ItemPriceCalculationInputItem itemPriceCalculationInputItem)

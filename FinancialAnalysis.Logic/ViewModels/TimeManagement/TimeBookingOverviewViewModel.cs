@@ -6,7 +6,6 @@ using FinancialAnalysis.Models.General;
 using FinancialAnalysis.Models.ProjectManagement;
 using FinancialAnalysis.Models.TimeManagement;
 using System;
-using System.Linq;
 using Utilities;
 using WebApiWrapper.ProjectManagement;
 using WebApiWrapper.TimeManagement;
@@ -15,7 +14,6 @@ namespace FinancialAnalysis.Logic.ViewModels
 {
     public class TimeBookingOverviewViewModel : ViewModelBase
     {
-
         #region Constructor
 
         public TimeBookingOverviewViewModel()
@@ -25,14 +23,14 @@ namespace FinancialAnalysis.Logic.ViewModels
             SetCommands();
             GetData();
         }
-        
+
         #endregion Constructor
 
         #region Fields
 
         private DateTime selectedDate;
         private int selectedEmployeeId;
-        TimeBookingManager timeBookingManager = new TimeBookingManager();
+        private TimeBookingManager timeBookingManager = new TimeBookingManager();
 
         #endregion Fields
 
@@ -145,6 +143,5 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand DeleteTimeBookingCommand { get; set; }
 
         #endregion Properties
-
     }
 }

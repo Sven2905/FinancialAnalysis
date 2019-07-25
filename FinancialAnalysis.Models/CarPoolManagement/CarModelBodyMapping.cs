@@ -7,7 +7,6 @@ namespace FinancialAnalysis.Models.CarPoolManagement
     {
         public CarModelBodyMapping()
         {
-
         }
 
         public CarModelBodyMapping(int RefCarModelId, int RefCarBodyId)
