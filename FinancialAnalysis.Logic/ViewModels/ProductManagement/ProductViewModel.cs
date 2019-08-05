@@ -193,6 +193,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand OpenProductCategoriesWindowCommand { get; set; }
         public string Password { get; set; } = string.Empty;
         public string PasswordRepeat { get; set; } = string.Empty;
+        public bool AllowItemCalculation => SelectedProduct != null && SelectedProduct.ProductId != 0;
 
         public string FilterText
         {

@@ -105,6 +105,11 @@ namespace FinancialAnalysis.Logic.ViewModels
             Refresh();
         }
 
+        private void CalculateOtherProducts()
+        {
+
+        }
+
         #endregion Methods
 
         #region Properties

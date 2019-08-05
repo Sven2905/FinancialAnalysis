@@ -13,18 +13,28 @@ namespace FinancialAnalysis.Logic.Accounting
 {
     public class ItemPriceCalculationItemHelper : ViewModelBase
     {
+        #region Events
+
         public delegate void AmountChangedEvent(decimal amount);
+        public event AmountChangedEvent OnAmountChanged;
+
+        #endregion
+
+        #region Properties
 
         public ItemPriceCalculationItemHelper()
         {
             LoadCostCenters();
         }
-
         public SvenTechCollection<CostCenter> CostCenterList { get; set; } = new SvenTechCollection<CostCenter>();
         public SvenTechCollection<CostCenterCategory> CostCenterCategoryList { get; set; } = new SvenTechCollection<CostCenterCategory>();
         public SvenTechCollection<CostCenterFlatStructure> CostCenterFlatStructures { get; set; } = new SvenTechCollection<CostCenterFlatStructure>();
-        public event AmountChangedEvent OnAmountChanged;
         public decimal Amount => CalculateAmount();
+
+        #endregion
+
+        #region Methods
+
         private decimal CalculateAmount()
         {
             decimal amount = 0;
@@ -40,14 +50,12 @@ namespace FinancialAnalysis.Logic.Accounting
             }
             return amount;
         }
-
         private void LoadCostCenters()
         {
             CostCenterList = CostCenters.GetAll().ToSvenTechCollection();
             CostCenterCategoryList = CostCenterCategories.GetAll().ToSvenTechCollection();
             SetupFlatStructure();
         }
-
         private void CostCenterFlatStructures_OnItemPropertyChanged(object sender, object item, System.ComponentModel.PropertyChangedEventArgs e)
         {
             CostCenterFlatStructures.OnItemPropertyChanged -=
@@ -91,7 +99,6 @@ namespace FinancialAnalysis.Logic.Accounting
             RaisePropertyChanged("CostCenterFlatStructures");
             OnAmountChanged?.Invoke(Amount);
         }
-
         private void SetupFlatStructure()
         {
             int key = 0;
@@ -119,5 +126,7 @@ namespace FinancialAnalysis.Logic.Accounting
                 key++;
             }
         }
+
+        #endregion
     }
 }
