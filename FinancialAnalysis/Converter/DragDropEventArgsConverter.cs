@@ -12,7 +12,9 @@ namespace FinancialAnalysis.UserControls
     {
         private static readonly DragDropEventArgsConverter Instance = new DragDropEventArgsConverter();
 
-        public DragDropEventArgsConverter() { }
+        public DragDropEventArgsConverter()
+        {
+        }
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
@@ -24,8 +26,6 @@ namespace FinancialAnalysis.UserControls
             return args is GridDropEventArgs ? new DropEventArgsWrapper((GridDropEventArgs)args) : args;
         }
     }
-
-
 
     public class DropEventArgsWrapper : IDropEventArgs
     {

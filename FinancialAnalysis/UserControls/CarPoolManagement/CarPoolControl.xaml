@@ -1,8 +1,8 @@
 ﻿<UserControl x:Class="FinancialAnalysis.UserControls.CarPoolManagement.CarPoolControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:FinancialAnalysis.UserControls.CarPoolManagement"
              xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
              xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
@@ -10,12 +10,12 @@
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              dx:ThemeManager.ThemeName="Office2019White"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
         <ViewModels:CarPoolViewModel />
     </UserControl.DataContext>
-    <Grid >
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="20" />
@@ -39,12 +39,12 @@
         </dxwui:PageAdornerControl>
         <dx:DXTabControl Grid.Row="2"  Margin="50,0,50,20">
             <dx:DXTabItem Header="Übersicht" Foreground="#3F729B" FontFamily="Tahoma">
-                <Grid >
+                <Grid>
                     <dxdo:DockLayoutManager>
                         <dxdo:LayoutGroup Caption="LayoutRoot">
                             <dxdo:LayoutPanel Caption="Fahrzeuge" ShowCloseButton="False" ShowPinButton="False">
                                 <Grid>
-                                    <TextBlock Text="Test" Margin="10,0"/>
+                                    <TextBlock Text="Test" Margin="10,0" />
                                 </Grid>
                             </dxdo:LayoutPanel>
                             <dxdo:LayoutPanel Caption="Informationen" ShowCloseButton="False" ShowPinButton="False">
@@ -56,7 +56,7 @@
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <VirtualizingStackPanel>
-                                        <TextBlock Text="Fahrzeug" Grid.Row="0" Foreground="#3F729B" FontFamily="Tahoma" FontSize="14"/>
+                                        <TextBlock Text="Fahrzeug" Grid.Row="0" Foreground="#3F729B" FontFamily="Tahoma" FontSize="14" />
                                         <Separator />
                                     </VirtualizingStackPanel>
                                     <Grid Grid.Row="1">
@@ -76,11 +76,11 @@
                                         <dxdo:LabelItem Grid.Column="0" Grid.Row="1" Foreground="#3F729B" FontFamily="Tahoma" Content="Modell " VerticalAlignment="Center" />
                                         <dxdo:LabelItem Grid.Column="0" Grid.Row="2" Foreground="#3F729B" FontFamily="Tahoma" Content="Bauart " VerticalAlignment="Center" />
                                         <dxdo:LabelItem Grid.Column="0" Grid.Row="3" Foreground="#3F729B" FontFamily="Tahoma" Content="Generation " VerticalAlignment="Center" />
-                                        <dxdo:LabelItem Grid.Column="0" Grid.Row="4" Foreground="#3F729B" FontFamily="Tahoma" Content="Motorisierung " VerticalAlignment="Center" Margin="0,0,3,0"/>
+                                        <dxdo:LabelItem Grid.Column="0" Grid.Row="4" Foreground="#3F729B" FontFamily="Tahoma" Content="Motorisierung " VerticalAlignment="Center" Margin="0,0,3,0" />
 
                                         <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="0" ItemsSource="{Binding CarMakeList}" DisplayMember="Name" Margin="0,3"
                                                           EditValue="{Binding SelectedCarMake, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
-                                        <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="1" ItemsSource="{Binding CarModelList}" DisplayMember="Name" Margin="0,3" 
+                                        <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="1" ItemsSource="{Binding CarModelList}" DisplayMember="Name" Margin="0,3"
                                                           EditValue="{Binding SelectedCarModel, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
                                         <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="2" ItemsSource="{Binding CarBodyList}" DisplayMember="Name" Margin="0,3"
                                                           EditValue="{Binding SelectedCarBody, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
@@ -90,7 +90,7 @@
                                                           EditValue="{Binding SelectedCarTrim, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
                                     </Grid>
                                     <VirtualizingStackPanel Grid.Row="2" Margin="0,30,0,0">
-                                        <TextBlock Text="Sonstiges" Foreground="#3F729B" FontFamily="Tahoma" FontSize="14"/>
+                                        <TextBlock Text="Sonstiges" Foreground="#3F729B" FontFamily="Tahoma" FontSize="14" />
                                         <Separator />
                                     </VirtualizingStackPanel>
                                     <Grid Grid.Row="3">
@@ -111,7 +111,6 @@
 
                                         <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Employees}" DisplayMember="Name" Margin="0,3"
                                                           EditValue="{Binding SelectedEmployee, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
-                                        
                                     </Grid>
                                 </Grid>
                             </dxdo:LayoutPanel>

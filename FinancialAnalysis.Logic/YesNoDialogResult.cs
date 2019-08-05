@@ -4,7 +4,6 @@
     {
         public YesNoDialogResult()
         {
-
         }
 
         public YesNoDialogResult(bool DialogResult)

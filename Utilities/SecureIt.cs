@@ -5,7 +5,6 @@ using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 
-
 namespace Utilities
 {
     public static class SecureIt

@@ -244,7 +244,7 @@
                             </dxe:ImageEdit>
                         </DockPanel>
 
-                        <DockPanel Grid.Row="0" Grid.Column="2" >
+                        <DockPanel Grid.Row="0" Grid.Column="2">
                             <TextBlock DockPanel.Dock="Top" Text="Zugriffsrechte" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="12,0,0,0" />
                             <dxg:TreeListControl DockPanel.Dock="Top" Margin="0,10,0,0" VerticalAlignment="Stretch" MaxWidth="5000" MaxHeight="800"
                                          ItemsSource="{Binding UserRightUserMappingFlatStructure, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

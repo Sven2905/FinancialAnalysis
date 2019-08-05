@@ -53,18 +53,21 @@ namespace FinancialAnalysis.Models.Accounting
                         result = true;
                     }
                     break;
+
                 case PayType.ThisMonth:
                     if (payDate <= new DateTime(dueDate.Year, dueDate.Month, TimeValue))
                     {
                         result = true;
                     }
                     break;
+
                 case PayType.NextMonth:
                     if (payDate <= new DateTime(dueDate.Year, dueDate.Month + 1, TimeValue))
                     {
                         result = true;
                     }
                     break;
+
                 default:
                     result = false;
                     break;

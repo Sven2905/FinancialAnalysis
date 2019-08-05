@@ -7,7 +7,6 @@ namespace FinancialAnalysis.Logic.ViewModels
 {
     public class LastBookingViewModel : ViewModelBase
     {
-
         private int _RefProductId;
         private int _RefStockyardId;
 

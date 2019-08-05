@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FinancialAnalysis.Logic.Messages
+﻿namespace FinancialAnalysis.Logic.Messages
 {
     public class OpenTimeBookingWindowMessage
     {

@@ -150,7 +150,7 @@ namespace FinancialAnalysis.Logic.Manager
                     }
                     else
                     {
-                    TimeBalances.Insert(new TimeBalance(refEmployeeId, dateTime, lastBalance.Balance - obligatoryHoursDay));
+                        TimeBalances.Insert(new TimeBalance(refEmployeeId, dateTime, lastBalance.Balance - obligatoryHoursDay));
                     }
                 }
             }
@@ -163,7 +163,6 @@ namespace FinancialAnalysis.Logic.Manager
                 }
             }
         }
-
 
         public IEnumerable<TimeBookingDayItem> GetBookingItemsForMonth(DateTime dateTime, int refEmployeeId)
         {
@@ -245,14 +244,17 @@ namespace FinancialAnalysis.Logic.Manager
                     case TimeBookingType.Login:
                         login = timeBookingList[i].BookingTime;
                         break;
+
                     case TimeBookingType.Logout:
                         logout = timeBookingList[i].BookingTime;
                         if (logout > login)
                             sumWorkingTime += logout.Subtract(login);
                         break;
+
                     case TimeBookingType.StartBreak:
                         startBreak = timeBookingList[i].BookingTime;
                         break;
+
                     case TimeBookingType.EndBreak:
                         endBreak = timeBookingList[i].BookingTime;
                         if (logout > login)

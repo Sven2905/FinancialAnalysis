@@ -4,6 +4,7 @@
     {
         // Accounting 1 - 99
         Accounting = 1,
+
         AccountingBookings = 2,
         AccountingPaymentCondiditions = 3,
         AccountingCostAccounts = 4,
@@ -19,18 +20,21 @@
 
         // Configuration 100 - 199
         Configuration = 100,
+
         ConfigurationMail = 101,
         ConfigurationUsers = 102,
         ConfigurationMyCompanies = 103,
 
         // ProjectManagement 200 - 299
         ProjectManagement = 200,
+
         ProjectManagementEmployees = 201,
         ProjectManagementProjects = 202,
         ProjectManagementProjectWorkingTimes = 203,
 
         // WarehouseManagement 300 - 399
         WarehouseManagement = 300,
+
         Warehouses = 301,
         WarehouseSave = 302,
         WarehouseDelete = 303,
@@ -49,6 +53,7 @@
 
         // SaleManagement 500 - 599
         SalesManagement = 500,
+
         SalesInvoices = 501,
         SalesInvoiceTypes = 502,
         SalesShipments = 503,
@@ -59,11 +64,13 @@
 
         // ProductManagement 600 - 699
         ProductManagement = 600,
+
         Products = 601,
         ProductCategories = 602,
 
         // TimeManagement 700 - 799
         TimeManagement = 700,
+
         TimeBooking = 701,
         TimeBookingForOthers = 702,
         TimeHolidayRequest = 703,

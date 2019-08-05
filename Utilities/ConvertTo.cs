@@ -18,6 +18,7 @@ namespace Utilities
         /// MinDatValue stellt den Basiswert für ConvertTo.MinDat bereit, der Wert ist mit dem 01.01.2000 00:00:00 voreingestellt
         /// </summary>
         static public DateTime MinDatValue = new DateTime(2000, 1, 1);
+
         /// <summary>
         /// MaxDatValue stellt den Basiswert für ConvertTo.MinDat bereit, der Wert ist mit dem 31.12.2199 23:59:59 voreingestellt
         /// </summary>
@@ -32,6 +33,7 @@ namespace Utilities
         {
             return ConvertTo.ByteArray(value, Encoding.Unicode);
         }
+
         static public byte[] ByteArray(object value, Encoding encoding)
         {
             if (value is byte[])
@@ -64,6 +66,7 @@ namespace Utilities
             else
                 return "";
         }
+
         static public string StringNull(object value)
         {
             if (value is string)
@@ -82,6 +85,7 @@ namespace Utilities
                 }
             }
         }
+
         /// <summary>
         /// Konvertiert das angegebene Objekt zu einem Integer (int32)
         /// </summary>
@@ -97,10 +101,12 @@ namespace Utilities
             else
                 return defaultValue;
         }
+
         static public int Int(object value)
         {
             return ConvertTo.Int(value, 0);
         }
+
         static public int? IntNull(object value)
         {
             if (value is int)
@@ -211,6 +217,7 @@ namespace Utilities
                 }
             }
         }
+
         /// <summary>
         /// Konvertiert das angegebene Objekt zu einem Double
         /// </summary>
@@ -238,6 +245,7 @@ namespace Utilities
         {
             return ConvertTo.Double(value, 0.0);
         }
+
         static public double? DoubleNull(object value)
         {
             if (value is double)
@@ -267,6 +275,7 @@ namespace Utilities
                 }
             }
         }
+
         /// <summary>
         /// Konvertiert das angegebene Objekt zu einem Decimal
         /// </summary>
@@ -281,10 +290,12 @@ namespace Utilities
             else
                 return defaultValue;
         }
+
         public static decimal Decimal(object value)
         {
             return ConvertTo.Decimal(value, 0.0M);
         }
+
         static public decimal? DecimalNull(object value)
         {
             if (value is decimal)
@@ -314,6 +325,7 @@ namespace Utilities
                 }
             }
         }
+
         /// <summary>
         /// Konvertiert das angegebene Objekt zu einem Long (int64)
         /// </summary>
@@ -327,10 +339,12 @@ namespace Utilities
             else
                 return defaultValue;
         }
+
         static public long Long(object value)
         {
             return Long(value, 0);
         }
+
         static public long? LongNull(object value)
         {
             if (value is long || value is long?)
@@ -356,6 +370,7 @@ namespace Utilities
                 }
             }
         }
+
         /// <summary>
         /// Konvertiert das angegebene Objekt zu einem Datetime, im Falle von null oder DBNull wird ConvertTo.MinDatValue zurückgegeben
         /// </summary>
@@ -379,6 +394,7 @@ namespace Utilities
                 return MaxDatValue;
             }
         }
+
         /// <summary>
         /// Konvertiert das angegebene Objekt zu einem Datetime, im Falle von null oder DBNull wird ConvertTo.MinDatValue zurückgegeben
         /// </summary>
@@ -386,7 +402,6 @@ namespace Utilities
         /// <returns>DateTime</returns>
         static public DateTime MinDat(object value)
         {
-
             if (value is DateTime)
             {
                 return (DateTime)value;
@@ -410,6 +425,7 @@ namespace Utilities
                 }
             }
         }
+
         /// <summary>
         /// /// Konvertiert das angegebene Objekt zu einem Datetime, im Falle von null oder DBNull wird DateTime.Now zurückgegeben
         /// </summary>
@@ -417,7 +433,6 @@ namespace Utilities
         /// <returns>DateTime</returns>
         static public DateTime NowDat(object value)
         {
-
             if (value is DateTime)
             {
                 return (DateTime)value;
@@ -441,6 +456,7 @@ namespace Utilities
                 }
             }
         }
+
         static public DateTime? NullDat(object value)
         {
             if (value is DateTime)
@@ -560,6 +576,7 @@ namespace Utilities
 
             return defaultValue;
         }
+
         public static T GetEnum<T>(int value, T defaultValue) where T : struct, IConvertible
         {
             try
@@ -580,7 +597,6 @@ namespace Utilities
                 return defaultValue;
             }
         }
-
 
         static public DateTime MinDatJS(object value)
         {
@@ -610,7 +626,7 @@ namespace Utilities
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -670,7 +686,7 @@ namespace Utilities
                 return "00:00:00";
             }
         }
-        
+
         /// <summary>
         /// Konvertiert ein Dateum in das Format ShortDate + ShortTime
         /// </summary>
@@ -683,7 +699,7 @@ namespace Utilities
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="value"></param>
         /// <param name="dec"></param>
@@ -718,6 +734,7 @@ namespace Utilities
             }
             return Int(ret);
         }
+
         /// <summary>
         /// Liefert aus der übergebenen Zeichenfolge die enthaltenen Zahlen zurück. Der String von links nach rechts durchgeparst.
         /// Fließkommazahlen werden durch Komma-Trennung auomatisch korrigiert.
@@ -751,7 +768,6 @@ namespace Utilities
             return Double(ret);
         }
 
-
         public static ArrayList ArrayList(List<int> list)
         {
             ArrayList ret = new ArrayList(list.Count);
@@ -775,7 +791,6 @@ namespace Utilities
             }
             return ret;
         }
-
 
         public static void Debug(string text)
         {

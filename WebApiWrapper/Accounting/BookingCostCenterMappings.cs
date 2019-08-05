@@ -17,6 +17,26 @@ namespace WebApiWrapper.Accounting
             return WebApi<BookingCostCenterMapping>.GetDataById(controllerName, id);
         }
 
+        public static List<BookingCostCenterMapping> GetAllByYear(int year)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "Year", year },
+            };
+
+            return WebApi<List<BookingCostCenterMapping>>.GetData(controllerName, "GetAllByYear", parameters);
+        }
+
+        //public static decimal GetSumOfCostCenters(List<int> refCostCenterIds, int year)
+        //{
+        //    Dictionary<string, object> parameters = new Dictionary<string, object>
+        //    {
+        //        { "RefCostCenterIds", refCostCenterIds },
+        //        { "Year", year },
+        //    };
+        //    return WebApi<decimal>.GetData(controllerName, "GetSumOfCostCenters", parameters);
+        //}
+
         public static int Insert(BookingCostCenterMapping BookingCostCenterMapping)
         {
             return WebApi<int>.PostAsync(controllerName, BookingCostCenterMapping, "SinglePost").Result;

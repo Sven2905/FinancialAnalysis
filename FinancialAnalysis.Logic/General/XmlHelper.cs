@@ -95,8 +95,7 @@ namespace FinancialAnalysis.Logic
             }
             catch (Exception e)
             {
-                throw new Exception("There was an error attempting to read the file " + filePath + "\n\n" +
-                                    e.InnerException.Message);
+                throw new Exception("There was an error attempting to read the file " + filePath + "\n\n" + e.InnerException.Message);
             }
             finally
             {

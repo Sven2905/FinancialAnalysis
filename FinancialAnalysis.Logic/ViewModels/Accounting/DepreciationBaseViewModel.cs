@@ -2,8 +2,6 @@
 using FinancialAnalysis.Models;
 using FinancialAnalysis.Models.Accounting;
 using Formulas.DepreciationMethods;
-using System;
-using System.Linq;
 using Utilities;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -69,12 +67,15 @@ namespace FinancialAnalysis.Logic.ViewModels
                 case DepreciationType.SumOfTheYearsDigitMethod:
                     DepreciationValues = Depreciations.CalculateArithmenticDegressiveValuesForYears(DepreciationItem.InitialValue, DepreciationItem.AssetValue, DepreciationItem.Years).ToSvenTechCollection();
                     break;
+
                 case DepreciationType.DecliningBalanceMethod:
                     DepreciationValues = Depreciations.CalculateGeometryDregressiveForYears(DepreciationItem.InitialValue, DepreciationItem.AssetValue, DepreciationItem.Years).ToSvenTechCollection();
                     break;
+
                 case DepreciationType.Linear:
                     DepreciationValues = Depreciations.CalculateLinearValueForYears(DepreciationItem.InitialValue, DepreciationItem.AssetValue, DepreciationItem.Years).ToSvenTechCollection();
                     break;
+
                 case DepreciationType.PerfomanceBased:
                     if (YearlyPowers.Count > 0)
                         DepreciationValues = Depreciations.CalculatePerfomanceBased(DepreciationItem.InitialValue, YearlyPowers).ToSvenTechCollection();

@@ -13,7 +13,7 @@
         }
 
         /// <summary>
-        /// Nutzungsjahr 
+        /// Nutzungsjahr
         /// </summary>
         public int Year { get; set; }
 

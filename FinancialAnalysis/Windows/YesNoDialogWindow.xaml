@@ -19,7 +19,7 @@
         </Grid.ColumnDefinitions>
         <TextBlock VerticalAlignment="Center" Margin="30,-30,30,0" TextWrapping="Wrap"
                    Text="{Binding Message}" />
-        <VirtualizingStackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" >
+        <VirtualizingStackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
         <dx:SimpleButton Content="Ja" Width="75" Margin="0,0,50,15" Command="{Binding YesCommand}" />
         <dx:SimpleButton Content="Nein" Width="75" Margin="0,0,0,15" Command="{Binding NoCommand}" />
         </VirtualizingStackPanel>

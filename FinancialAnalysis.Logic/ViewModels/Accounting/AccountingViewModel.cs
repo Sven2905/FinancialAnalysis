@@ -38,6 +38,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public bool ShowCostCenters => Globals.ActiveUser.IsAdministrator
                                     || UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
                                         Permission.AccountingCostCenters);
+
         #endregion UserRights
     }
 }

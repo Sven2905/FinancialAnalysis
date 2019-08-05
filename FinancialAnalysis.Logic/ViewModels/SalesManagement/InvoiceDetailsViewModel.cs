@@ -19,10 +19,6 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #endregion Constructor
 
-        #region Fields
-
-        #endregion Fields
-
         #region Methods
 
         private void SaveInvoice()

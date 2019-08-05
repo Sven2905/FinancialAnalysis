@@ -196,8 +196,10 @@ namespace FinancialAnalysis.Logic.ViewModels
         public ProductStockingStatusViewModel ProductStockingStatusViewModel { get; set; } = new ProductStockingStatusViewModel();
         public LastBookingViewModel LastBookingViewModel { get; set; } = new LastBookingViewModel();
         public Warehouse SelectedWarehouse { get; set; }
+
         //public SvenTechCollection<WarehouseStockingFlatStructure> FilteredWarehousesFlatStructure { get; set; }
         public SvenTechCollection<Warehouse> FilteredWarehouses { get; set; }
+
         public Warehouse SelectedWarehouseTakeOut { get; set; }
         public DelegateCommand StoreCommand { get; set; }
         public DelegateCommand TakeOutCommand { get; set; }
@@ -296,8 +298,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             ProductList = Products.GetAll().ToSvenTechCollection();
             WarehouseList = Warehouses.GetAllWithoutStock().ToSvenTechCollection();
         }
-
-
 
         //private SvenTechCollection<Warehouse> CreateFilteredWarehouses()
         //{

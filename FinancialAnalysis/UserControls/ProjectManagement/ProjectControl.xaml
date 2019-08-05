@@ -167,7 +167,7 @@
                                 </dxlc:LayoutGroup>
                                 <dxlc:LayoutGroup>
                                     <dxlc:LayoutItem Label="Budget" FontFamily="Tahoma">
-                                        <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch" 
+                                        <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch"
                              Text="{Binding SelectedProject.Budget, StringFormat=C2, UpdateSourceTrigger=PropertyChanged}" />
                                     </dxlc:LayoutItem>
                                 </dxlc:LayoutGroup>

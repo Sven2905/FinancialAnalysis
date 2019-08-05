@@ -31,6 +31,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public DelegateCommand NewDepreciationItemCommand { get; set; }
         public DelegateCommand SaveDepreciationItemCommand { get; set; }
         public DelegateCommand DeleteDepreciationItemCommand { get; set; }
+
         public string FilterText
         {
             get => _FilterText;
@@ -53,6 +54,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public SvenTechCollection<DepreciationItem> DepreciationItemList { get; set; }
         public SvenTechCollection<CostAccount> CostAccountList { get; private set; }
         public SvenTechCollection<DepreciationItem> FilteredDepreciationItems { get; set; }
+
         public DepreciationItem SelectedDepreciationItem
         {
             get => _SelectedDepreciationItem;

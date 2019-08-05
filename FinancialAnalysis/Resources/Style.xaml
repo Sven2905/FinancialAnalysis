@@ -2,33 +2,32 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:FinancialAnalysis.Resources">
 
-    <Color x:Key="Cyan" A="#FF" R="#2B" G="#BB" B="#AD"/>
-    <Color x:Key="BlueLight" A="#FF" R="#33" G="#B5" B="#E5"/>
-    <Color x:Key="BlueDark" A="#FF" R="#17" G="#3F" B="#5F"/>
-    <Color x:Key="Blue" A="#FF" R="#42" G="#85" B="#F4"/>
-    <Color x:Key="BlueAlt" A="#FF" R="#20" G="#63" B="#9B"/>
-    <Color x:Key="Green" A="#FF" R="#00" G="#7E" B="#33"/>
-    <Color x:Key="GreenLight" A="#FF" R="#3C" G="#AE" B="#A3"/>
-    <Color x:Key="Red" A="#FF" R="#CC" G="#00" B="#00"/>
-    <Color x:Key="RedLight" A="#FF" R="#ED" G="#55" B="#3B"/>
-    <Color x:Key="Yellow" A="#FF" R="#FF" G="#88" B="#00"/>
-    <Color x:Key="YellowLight" A="#FF" R="#F6" G="#D5" B="#5C"/>
-    <Color x:Key="SvenTechOrange" A="#FF" R="#E4" G="#9D" B="#20"/>
-    <Color x:Key="SvenTechGrey" A="#FF" R="#91" G="#93" B="#96"/>
-    <Color x:Key="SvenTechBlue" A="#FF" R="#3F" G="#72" B="#9B"/>
-    <SolidColorBrush x:Key="CyanBrush" Color="{StaticResource Cyan}"/>
-    <SolidColorBrush x:Key="BlueLightBrush" Color="{StaticResource BlueLight}"/>
-    <SolidColorBrush x:Key="BlueDarkBrush" Color="{StaticResource BlueDark}"/>
-    <SolidColorBrush x:Key="BlueBrush" Color="{StaticResource Blue}"/>
-    <SolidColorBrush x:Key="BlueAltBrush" Color="{StaticResource BlueAlt}"/>
-    <SolidColorBrush x:Key="GreenBrush" Color="{StaticResource Green}"/>
-    <SolidColorBrush x:Key="GreenLightBrush" Color="{StaticResource GreenLight}"/>
-    <SolidColorBrush x:Key="RedBrush" Color="{StaticResource Red}"/>
-    <SolidColorBrush x:Key="RedLightBrush" Color="{StaticResource RedLight}"/>
-    <SolidColorBrush x:Key="YellowBrush" Color="{StaticResource Yellow}"/>
-    <SolidColorBrush x:Key="YellowLightBrush" Color="{StaticResource YellowLight}"/>
-    <SolidColorBrush x:Key="SvenTechOrangeBrush" Color="{StaticResource SvenTechOrange}"/>
-    <SolidColorBrush x:Key="SvenTechGreyBrush" Color="{StaticResource SvenTechGrey}"/>
-    <SolidColorBrush x:Key="SvenTechBlueBrush" Color="{StaticResource SvenTechBlue}"/>
-
+    <Color x:Key="Cyan" A="#FF" R="#2B" G="#BB" B="#AD" />
+    <Color x:Key="BlueLight" A="#FF" R="#33" G="#B5" B="#E5" />
+    <Color x:Key="BlueDark" A="#FF" R="#17" G="#3F" B="#5F" />
+    <Color x:Key="Blue" A="#FF" R="#42" G="#85" B="#F4" />
+    <Color x:Key="BlueAlt" A="#FF" R="#20" G="#63" B="#9B" />
+    <Color x:Key="Green" A="#FF" R="#00" G="#7E" B="#33" />
+    <Color x:Key="GreenLight" A="#FF" R="#3C" G="#AE" B="#A3" />
+    <Color x:Key="Red" A="#FF" R="#CC" G="#00" B="#00" />
+    <Color x:Key="RedLight" A="#FF" R="#ED" G="#55" B="#3B" />
+    <Color x:Key="Yellow" A="#FF" R="#FF" G="#88" B="#00" />
+    <Color x:Key="YellowLight" A="#FF" R="#F6" G="#D5" B="#5C" />
+    <Color x:Key="SvenTechOrange" A="#FF" R="#E4" G="#9D" B="#20" />
+    <Color x:Key="SvenTechGrey" A="#FF" R="#91" G="#93" B="#96" />
+    <Color x:Key="SvenTechBlue" A="#FF" R="#3F" G="#72" B="#9B" />
+    <SolidColorBrush x:Key="CyanBrush" Color="{StaticResource Cyan}" />
+    <SolidColorBrush x:Key="BlueLightBrush" Color="{StaticResource BlueLight}" />
+    <SolidColorBrush x:Key="BlueDarkBrush" Color="{StaticResource BlueDark}" />
+    <SolidColorBrush x:Key="BlueBrush" Color="{StaticResource Blue}" />
+    <SolidColorBrush x:Key="BlueAltBrush" Color="{StaticResource BlueAlt}" />
+    <SolidColorBrush x:Key="GreenBrush" Color="{StaticResource Green}" />
+    <SolidColorBrush x:Key="GreenLightBrush" Color="{StaticResource GreenLight}" />
+    <SolidColorBrush x:Key="RedBrush" Color="{StaticResource Red}" />
+    <SolidColorBrush x:Key="RedLightBrush" Color="{StaticResource RedLight}" />
+    <SolidColorBrush x:Key="YellowBrush" Color="{StaticResource Yellow}" />
+    <SolidColorBrush x:Key="YellowLightBrush" Color="{StaticResource YellowLight}" />
+    <SolidColorBrush x:Key="SvenTechOrangeBrush" Color="{StaticResource SvenTechOrange}" />
+    <SolidColorBrush x:Key="SvenTechGreyBrush" Color="{StaticResource SvenTechGrey}" />
+    <SolidColorBrush x:Key="SvenTechBlueBrush" Color="{StaticResource SvenTechBlue}" />
 </ResourceDictionary>

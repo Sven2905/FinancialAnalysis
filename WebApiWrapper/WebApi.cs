@@ -26,6 +26,13 @@ namespace WebApiWrapper
                     {
                         url += item.Key + "=" + ((DateTime)(item.Value)).ToString("yyyy-MM-ddTHH:mm:ss") + "&";
                     }
+                    else if (item.Value is IEnumerable<int>)
+                    {
+                        foreach (var collectionItem in (IEnumerable<int>)item.Value)
+                        {
+                            url += item.Key + "[]=" + collectionItem + "&";
+                        }
+                    }
                     else
                     {
                         url += item.Key + "=" + item.Value + "&";
@@ -180,7 +187,6 @@ namespace WebApiWrapper
                 }
             }
             return false;
-
         }
     }
 }

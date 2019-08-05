@@ -1,8 +1,6 @@
 ﻿using DevExpress.Mvvm;
-using FinancialAnalysis.Models.TimeManagement;
 using System;
 using System.Collections.Generic;
-using WebApiWrapper.TimeManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -42,21 +40,27 @@ namespace FinancialAnalysis.Logic.ViewModels
                         case DayOfWeek.Sunday:
                             HoursSunday = item.HoursPerDay;
                             break;
+
                         case DayOfWeek.Monday:
                             HoursMonday = item.HoursPerDay;
                             break;
+
                         case DayOfWeek.Tuesday:
                             HoursTuesday = item.HoursPerDay;
                             break;
+
                         case DayOfWeek.Wednesday:
                             HoursWednesday = item.HoursPerDay;
                             break;
+
                         case DayOfWeek.Thursday:
                             HoursThursday = item.HoursPerDay;
                             break;
+
                         case DayOfWeek.Friday:
                             HoursFriday = item.HoursPerDay;
                             break;
+
                         case DayOfWeek.Saturday:
                             HoursSaturday = item.HoursPerDay;
                             break;
@@ -76,21 +80,27 @@ namespace FinancialAnalysis.Logic.ViewModels
                         case DayOfWeek.Sunday:
                             item.HoursPerDay = HoursSunday;
                             break;
+
                         case DayOfWeek.Monday:
                             item.HoursPerDay = HoursMonday;
                             break;
+
                         case DayOfWeek.Tuesday:
                             item.HoursPerDay = HoursTuesday;
                             break;
+
                         case DayOfWeek.Wednesday:
                             item.HoursPerDay = HoursWednesday;
                             break;
+
                         case DayOfWeek.Thursday:
                             HoursThursday = item.HoursPerDay;
                             break;
+
                         case DayOfWeek.Friday:
                             item.HoursPerDay = HoursFriday;
                             break;
+
                         case DayOfWeek.Saturday:
                             item.HoursPerDay = HoursSaturday;
                             break;

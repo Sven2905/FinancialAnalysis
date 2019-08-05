@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Formulas.PriceCalculationMethods
+﻿namespace Formulas.PriceCalculationMethods
 {
     public delegate void ValueChangedEvent();
 
@@ -116,7 +110,7 @@ namespace Formulas.PriceCalculationMethods
         }
 
         /// <summary>
-        /// Kundenrabatt 
+        /// Kundenrabatt
         /// </summary>
         public decimal CustomerDiscount
         {

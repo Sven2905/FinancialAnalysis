@@ -128,7 +128,7 @@ namespace FinancialAnalysis.Models.SalesManagement
         public SvenTechCollection<InvoicePosition> InvoicePositions { get; set; } = new SvenTechCollection<InvoicePosition>();
 
         /// <summary>
-        /// Wenn die Zahlungsbedingungen eingehalten wurden, wird der automatisch der Prozentsatz abgezogen 
+        /// Wenn die Zahlungsbedingungen eingehalten wurden, wird der automatisch der Prozentsatz abgezogen
         /// </summary>
         /// <returns>Der letztendlich zu bezahlende Betrag</returns>
         private decimal CheckForPaymentConditions()

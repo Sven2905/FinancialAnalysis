@@ -20,9 +20,11 @@ namespace FinancialAnalysis.Logic.ViewModels
         public bool ShowProjects => Globals.ActiveUser.IsAdministrator ||
                             UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
                                 Permission.ProjectManagementProjects);
+
         public bool ShowEmployees => Globals.ActiveUser.IsAdministrator ||
                             UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
                                 Permission.ProjectManagementEmployees);
+
         public bool ShowProjectWorkingTimes => Globals.ActiveUser.IsAdministrator ||
                             UserManager.Instance.IsUserRightGranted(Globals.ActiveUser,
                                 Permission.ProjectManagementProjectWorkingTimes);
