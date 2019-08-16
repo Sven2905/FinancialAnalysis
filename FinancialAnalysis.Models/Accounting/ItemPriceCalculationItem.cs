@@ -22,6 +22,6 @@ namespace FinancialAnalysis.Models.Accounting
         public decimal AgentCommission { get; set; }
         public decimal CustomerDiscount { get; set; }
         public decimal Tax { get; set; }
-        public List<ItemPriceCalculationItemCostCenter> ItemPriceCalculationItemCostCenters { get; set; }
+        public List<ItemPriceCalculationItemCostCenter> ItemPriceCalculationItemCostCenters { get; set; } = new List<ItemPriceCalculationItemCostCenter>();
     }
 }

@@ -17,14 +17,23 @@ namespace WebApiWrapper.Accounting
             return WebApi<ItemPriceCalculationItem>.GetDataById(controllerName, id);
         }
 
-        public static List<Booking> GetByCostCenter(int RefCostCenterId, int ItemPriceCalculationItemId)
+        public static List<ItemPriceCalculationItem> GetByCostCenterAndItemPriceCalculationItemId(int RefCostCenterId, int ItemPriceCalculationItemId)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>
             {
                 { "RefCostCenterId", RefCostCenterId },
                 { "ItemPriceCalculationItemId", ItemPriceCalculationItemId },
             };
-            return WebApi<List<Booking>>.GetData(controllerName, "GetByCostCenter", parameters);
+            return WebApi<List<ItemPriceCalculationItem>>.GetData(controllerName, "GetByCostCenterAndItemPriceCalculationItemId", parameters);
+        }
+
+        public static List<ItemPriceCalculationItem> GetByCostCenter(int RefCostCenterId)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "RefCostCenterId", RefCostCenterId },
+            };
+            return WebApi<List<ItemPriceCalculationItem>>.GetData(controllerName, "GetByCostCenter", parameters);
         }
 
         public static int Insert(ItemPriceCalculationItem ItemPriceCalculationItem)
