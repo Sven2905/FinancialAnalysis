@@ -80,9 +80,6 @@
     <Reference Include="DevExpress.XtraGrid.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.CodeParser.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraReports.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DeviceId, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeviceId.4.3.0\lib\net40\DeviceId.dll</HintPath>
-    </Reference>
     <Reference Include="MathNet.Numerics, Version=4.8.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.4.8.1\lib\net461\MathNet.Numerics.dll</HintPath>
     </Reference>
@@ -136,7 +133,10 @@
     <Compile Include="CoreData.cs" />
     <Compile Include="General\Extensions.cs" />
     <Compile Include="General\Globals.cs" />
+    <Compile Include="ViewModels\License\LicenseActivateViewModel.cs" />
+    <Compile Include="ViewModels\License\LicenseViewModel.cs" />
     <Compile Include="Manager\AccountBookingManager.cs" />
+    <Compile Include="Manager\PriceCalculationManager.cs" />
     <Compile Include="Manager\TimeBookingManager.cs" />
     <Compile Include="Messages\OpenCreditSplitWindowMessage.cs" />
     <Compile Include="Messages\OpenDebitSplitWindowMessage.cs" />
@@ -238,6 +238,9 @@
     <Content Include="Data\auto_databases_February_2019.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="LicenseVerify.cer">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -258,6 +261,14 @@
     <ProjectReference Include="..\Formulas\Formulas.csproj">
       <Project>{e510ca7e-f91c-43c4-bdf7-8e9efba4f9e5}</Project>
       <Name>Formulas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\License\License.csproj">
+      <Project>{ED1AF9CF-612F-40D6-B794-A4FB64543557}</Project>
+      <Name>License</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SvenTechLicense\Licenses.csproj">
+      <Project>{5331322f-7e2f-40cf-8ba4-0e982d7820c6}</Project>
+      <Name>Licenses</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
       <Project>{69f19f6b-092b-4ee7-ad82-3944f3694952}</Project>

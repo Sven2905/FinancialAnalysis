@@ -6,12 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    dx:ThemeManager.ThemeName="Office2019White"
     mc:Ignorable="d"
     d:DataContext="{x:Static dx:SplashScreenViewModel.DesignTimeData}">
-    <Grid x:Name="LayoutRoot">
+    <Grid x:Name="LayoutRoot" Background="White">
         <Grid x:Name="Splash" Width="450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0">
             <Grid x:Name="Back">
-                <Border Background="Black" CornerRadius="3" Opacity="0.15" />
+                <Border Background="Black" CornerRadius="3" Opacity="0.05" />
                 <Border CornerRadius="2" Margin="1" />
             </Grid>
             <Grid x:Name="Content_Area" Margin="12">

@@ -1,9 +1,11 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Logic.Messages;
 using System.IO;
+using System.Threading;
 using System.Windows;
 using Utilities;
 using WebApiWrapper;
+
 
 namespace FinancialAnalysis.Logic.ViewModels
 {
@@ -19,12 +21,6 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public LoginViewModel()
         {
-            //        string deviceId = new DeviceIdBuilder()
-            //.AddMachineName()
-            //.AddMacAddress()
-            //.AddProcessorId()
-            //.AddMotherboardSerialNumber()
-            //.ToString();
 
             if (IsInDesignMode)
                 return;
@@ -60,6 +56,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 ShowError = false;
                 //Messenger.Default.Send(new OpenSplashScreenMessage());
+                //Thread.Sleep(1000);
                 Messenger.Default.Send(new OpenMainWindowMessage());
             }
             else

@@ -33,11 +33,18 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 return;
             }
+            LoadLicense();
             SetSalesOrderStatusViewModel();
             SetDebitorStatusViewModel();
             SetupTimer();
             Progress = 0;
             Message = "";
+        }
+
+        private void LoadLicense()
+        {
+            LicenseViewModel licenseViewModel = new LicenseViewModel();
+            var test = Globals.ActiveLicense;
         }
 
         private void SetDebitorStatusViewModel()

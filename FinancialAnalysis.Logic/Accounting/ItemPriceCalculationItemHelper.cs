@@ -12,7 +12,7 @@ namespace FinancialAnalysis.Logic.Accounting
     {
         private List<BookingCostCenterMapping> costsPerYear;
 
-        public delegate void AmountChangedEvent(decimal amount);
+        public delegate void AmountChangedEvent();
 
         public ItemPriceCalculationItemHelper(List<BookingCostCenterMapping> costsPerYear)
         {
@@ -38,6 +38,7 @@ namespace FinancialAnalysis.Logic.Accounting
                     if (item.CostCenter != null)
                     {
                         amount += costsPerYear.Where(x => x.RefCostCenterId == item.CostCenter.CostCenterId).Sum(x => x.Amount);
+                        
                         //amount += CostCenterBudgets.GetAnnuallyCosts(item.CostCenter.CostCenterId, DateTime.Now.Year).Sum(x => x.Amount);
                     }
                 }
@@ -93,7 +94,7 @@ namespace FinancialAnalysis.Logic.Accounting
             CostCenterFlatStructures.OnItemPropertyChanged +=
                 CostCenterFlatStructures_OnItemPropertyChanged;
             RaisePropertyChanged("CostCenterFlatStructures");
-            OnAmountChanged?.Invoke(Amount);
+            OnAmountChanged?.Invoke();
         }
 
         private void SetupFlatStructure()

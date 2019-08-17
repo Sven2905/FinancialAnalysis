@@ -4,14 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E510CA7E-F91C-43C4-BDF7-8E9EFBA4F9E5}</ProjectGuid>
+    <ProjectGuid>{5331322F-7E2F-40CF-8BA4-0E982D7820C6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Formulas</RootNamespace>
-    <AssemblyName>Formulas</AssemblyName>
+    <RootNamespace>Licenses</RootNamespace>
+    <AssemblyName>Licenses</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -41,14 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CostCenterCalculations.cs" />
-    <Compile Include="DepreciationMethods\DepreciationValue.cs" />
-    <Compile Include="CalculationOfInterest.cs" />
-    <Compile Include="DepreciationMethods\Depreciations.cs" />
-    <Compile Include="DepreciationMethods\PerformanceDepreciationItem.cs" />
-    <Compile Include="ImplicitCosts.cs" />
-    <Compile Include="PriceCalculationMethods\StandardItemPriceCalculation.cs" />
+    <Compile Include="FinancialAnalysisLicense.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\License\License.csproj">
+      <Project>{ED1AF9CF-612F-40D6-B794-A4FB64543557}</Project>
+      <Name>License</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

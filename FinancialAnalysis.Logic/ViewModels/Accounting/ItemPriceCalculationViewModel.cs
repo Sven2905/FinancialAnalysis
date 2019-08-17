@@ -26,9 +26,8 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             SetCommands();
             SubscribeEvents();
-            ItemPriceCalculationInputItem = new ItemPriceCalculationInputItem();
-            ItemPriceCalculationInputItem.ValueChanged += ItemPriceCalculationInputItem_ValueChanged;
-            ItemPriceCalculationOutputItem = ItemPriceCalculation.CalculatePriceForItem(ItemPriceCalculationInputItem);
+            StandardItemPriceCalculation = new StandardItemPriceCalculation();
+            StandardItemPriceCalculation.ValueChanged += ItemPriceCalculationInputItem_ValueChanged;
         }
 
         #endregion Constructor
@@ -46,69 +45,31 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SubscribeEvents()
         {
-            MaterialOverHeadCostsCostCenters.OnAmountChanged += MaterialOverHeadCostsCostCenters_OnAmountChanged;
-            ProductOverheadsCostCenters.OnAmountChanged += ProductOverheadsCostCenters_OnAmountChanged;
-            AdministrativeOverheadsCostCenters.OnAmountChanged += AdministrativeOverheadsCostCenters_OnAmountChanged;
-            SalesOverHeadsCostCenters.OnAmountChanged += SalesOverHeadsCostCenters_OnAmountChanged;
+            MaterialOverHeadCostsCostCenters.OnAmountChanged += CostCenters_OnAmountChanged;
+            ProductOverheadsCostCenters.OnAmountChanged += CostCenters_OnAmountChanged;
+            AdministrativeOverheadsCostCenters.OnAmountChanged += CostCenters_OnAmountChanged;
+            SalesOverHeadsCostCenters.OnAmountChanged += CostCenters_OnAmountChanged;
         }
 
-        private void SalesOverHeadsCostCenters_OnAmountChanged(decimal amount)
-        {
-            Refresh();
-        }
-
-        private void AdministrativeOverheadsCostCenters_OnAmountChanged(decimal amount)
-        {
-            Refresh();
-        }
-
-        private void ProductOverheadsCostCenters_OnAmountChanged(decimal amount)
-        {
-            Refresh();
-        }
-
-        private void MaterialOverHeadCostsCostCenters_OnAmountChanged(decimal amount)
+        private void CostCenters_OnAmountChanged()
         {
             Refresh();
         }
 
         private void SetCommands()
         {
-            SaveCommand = new DelegateCommand(Save, () => ItemPriceCalculationOutputItem.GrossSellingPrice != 0);
+            SaveCommand = new DelegateCommand(Save, () => StandardItemPriceCalculation.GrossSellingPrice != 0);
         }
 
         public void Refresh()
         {
-            CalculatePrice();
-            RaisePropertiesChanged("ItemPriceCalculationInputItem");
-            RaisePropertiesChanged("ItemPriceCalculationOutputItem");
+            StandardItemPriceCalculation.MaterialOverHeadCostCentersAmount = MaterialOverHeadCostsCostCenters.Amount;
+            StandardItemPriceCalculation.ProductOverHeadCostCentersAmount = ProductOverheadsCostCenters.Amount;
+            StandardItemPriceCalculation.AdministrativeOverHeadCostCentersAmount = AdministrativeOverheadsCostCenters.Amount;
+            StandardItemPriceCalculation.SalesOverHeadCostCentersAmount = SalesOverHeadsCostCenters.Amount;
+            RaisePropertiesChanged("StandardItemPriceCalculation");
         }
 
-        private void CalculatePrice()
-        {
-            ItemPriceCalculationInputItem.ValueChanged -= ItemPriceCalculationInputItem_ValueChanged;
-
-            if (ProductionTime > 0)
-                ItemPriceCalculationInputItem.ProductWages = HourlyWage * ProductionTime;
-
-            ItemPriceCalculationOutputItem = ItemPriceCalculation.CalculatePriceForItem(ItemPriceCalculationInputItem);
-
-            if (ItemAmountPerAnno > 0 && ItemPriceCalculationInputItem.ProductionMaterial > 0)
-                ItemPriceCalculationInputItem.MaterialOverheadCosts = MaterialOverHeadCostsCostCenters.Amount / (ItemAmountPerAnno * ItemPriceCalculationInputItem.ProductionMaterial);
-
-            if (ItemAmountPerAnno > 0 && ItemPriceCalculationOutputItem.ProductWages > 0)
-                ItemPriceCalculationInputItem.ProductOverheads = ProductOverheadsCostCenters.Amount / (ItemAmountPerAnno * ItemPriceCalculationOutputItem.ProductWages);
-
-            if (ItemAmountPerAnno > 0 && ItemPriceCalculationOutputItem.ProductionCosts > 0)
-                ItemPriceCalculationInputItem.AdministrativeOverheads = AdministrativeOverheadsCostCenters.Amount / (ItemAmountPerAnno * ItemPriceCalculationOutputItem.ProductionCosts);
-
-            if (ItemAmountPerAnno > 0 && ItemPriceCalculationOutputItem.ProductionCosts > 0)
-                ItemPriceCalculationInputItem.SalesOverheads = SalesOverHeadsCostCenters.Amount / (ItemAmountPerAnno * ItemPriceCalculationOutputItem.ProductionCosts);
-
-            ItemPriceCalculationOutputItem = ItemPriceCalculation.CalculatePriceForItem(ItemPriceCalculationInputItem);
-
-            ItemPriceCalculationInputItem.ValueChanged += ItemPriceCalculationInputItem_ValueChanged;
-        }
 
         private void ItemPriceCalculationInputItem_ValueChanged()
         {
@@ -124,7 +85,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void UpdateProduct()
         {
-            Product.DefaultSellingPrice = ItemPriceCalculationOutputItem.GrossSellingPrice;
+            Product.DefaultSellingPrice = StandardItemPriceCalculation.GrossSellingPrice;
             Products.Update(Product);
         }
 
@@ -132,11 +93,11 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             ItemPriceCalculationItem ItemPriceCalculationItem = new ItemPriceCalculationItem()
             {
-                AgentCommission = ItemPriceCalculationInputItem.AgentCommission,
-                CustomerCashback = ItemPriceCalculationInputItem.CustomerCashback,
-                CustomerDiscount = ItemPriceCalculationInputItem.CustomerDiscount,
-                ProfitSurcharge = ItemPriceCalculationInputItem.ProfitSurcharge,
-                Tax = ItemPriceCalculationInputItem.Tax,
+                AgentCommission = StandardItemPriceCalculation.AgentCommission,
+                CustomerCashback = StandardItemPriceCalculation.CustomerCashback,
+                CustomerDiscount = StandardItemPriceCalculation.CustomerDiscount,
+                ProfitSurcharge = StandardItemPriceCalculation.ProfitSurcharge,
+                Tax = StandardItemPriceCalculation.Tax,
                 HourlyWage = HourlyWage,
                 ProductionTime = ProductionTime,
                 ItemAmountPerAnno = ItemAmountPerAnno,
@@ -210,8 +171,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Properties
 
-        public ItemPriceCalculationInputItem ItemPriceCalculationInputItem { get; set; }
-        public ItemPriceCalculationOutputItem ItemPriceCalculationOutputItem { get; set; }
+        public StandardItemPriceCalculation StandardItemPriceCalculation { get; set; }
         public ItemPriceCalculationItemHelper MaterialOverHeadCostsCostCenters { get; set; }
         public ItemPriceCalculationItemHelper ProductOverheadsCostCenters { get; set; }
         public ItemPriceCalculationItemHelper AdministrativeOverheadsCostCenters { get; set; }

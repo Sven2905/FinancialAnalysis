@@ -234,7 +234,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                     if (_SelectedProduct.Picture != null)
                         Image = ConvertToImage(SelectedProduct.Picture);
                     ItemPriceCalculationViewModel.Product = _SelectedProduct;
-                    ItemPriceCalculationViewModel.ItemPriceCalculationInputItem.ProductionMaterial = _SelectedProduct.DefaultBuyingPrice;
+                    ItemPriceCalculationViewModel.StandardItemPriceCalculation.ProductionMaterial = _SelectedProduct.DefaultBuyingPrice;
                     ItemPriceCalculationViewModel.Refresh();
                 }
                 else

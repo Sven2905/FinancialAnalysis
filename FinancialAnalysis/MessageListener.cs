@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using DevExpress.Xpf.Core;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Logic.ViewModels;
 using FinancialAnalysis.UI.Desktop;
@@ -99,6 +100,7 @@ namespace FinancialAnalysis.UI
                     Application.Current.MainWindow = null;
                     Application.Current.MainWindow = window;
                     window.Show();
+                    //DXSplashScreen.Close();
                 });
             //Messenger.Default.Register<OpenSplashScreenMessage>(this,
             //    msg =>
