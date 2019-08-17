@@ -283,7 +283,7 @@
                     </Grid>
                 </Grid>
             </dx:DXTabItem>
-            <dx:DXTabItem Header="Preiskalkulation" IsEnabled="{Binding SelectedProduct, Converter={StaticResource NullConverter}}">
+            <dx:DXTabItem Header="Preiskalkulation" IsEnabled="{Binding AllowItemCalculation}">
                 <accounting:ItemPriceCalculationControl DataContext="{Binding ItemPriceCalculationViewModel}" />
             </dx:DXTabItem>
             <dx:DXTabItem Header="Differenzkalkulation" IsEnabled="{Binding SelectedProduct, Converter={StaticResource NullConverter}}">

@@ -17,6 +17,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public ItemPriceCalculationViewModel()
         {
+            CalculatePriceForOtherProducts();
             var costsPerYear = BookingCostCenterMappings.GetAllByYear(DateTime.Now.Year);
 
             MaterialOverHeadCostsCostCenters = new ItemPriceCalculationItemHelper(costsPerYear);
@@ -38,6 +39,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private decimal hourlyWage;
         private decimal productionTime;
         private Product product;
+        ItemPriceCalculationItem itemPriceCalculationItem;
 
         #endregion Fields
 
@@ -91,7 +93,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveNewItem()
         {
-            ItemPriceCalculationItem ItemPriceCalculationItem = new ItemPriceCalculationItem()
+            itemPriceCalculationItem = new ItemPriceCalculationItem()
             {
                 AgentCommission = StandardItemPriceCalculation.AgentCommission,
                 CustomerCashback = StandardItemPriceCalculation.CustomerCashback,
@@ -104,7 +106,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 RefProductId = Product.ProductId
             };
 
-            var itemPriceCalculationItemId = ItemPriceCalculationItems.Insert(ItemPriceCalculationItem);
+            var itemPriceCalculationItemId = ItemPriceCalculationItems.Insert(itemPriceCalculationItem);
 
             var ItemPriceCalculationItemCostCenterList = new List<ItemPriceCalculationItemCostCenter>();
 
@@ -165,6 +167,26 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
 
             ItemPriceCalculationItemCostCenters.Insert(ItemPriceCalculationItemCostCenterList);
+        }
+
+        private void CalculateOthers()
+        {
+            foreach (var item in MaterialOverHeadCostsCostCenters.CostCenterFlatStructures)
+            {
+                if (item.CostCenter == null)
+                    continue;
+
+                var itemPriceCalculationItemList = ItemPriceCalculationItems.GetByCostCenter(item.CostCenter.CostCenterId);
+
+                foreach (ItemPriceCalculationItem tmpItemPriceCalculationItem in itemPriceCalculationItemList)
+                {
+                    if (tmpItemPriceCalculationItem.ItemPriceCalculationItemId != itemPriceCalculationItem.ItemPriceCalculationItemId)
+                    {
+
+                    }
+                }
+            }
+
         }
 
         #endregion Methods
