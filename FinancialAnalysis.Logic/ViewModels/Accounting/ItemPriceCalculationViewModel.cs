@@ -17,7 +17,6 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public ItemPriceCalculationViewModel()
         {
-            CalculatePriceForOtherProducts();
             var costsPerYear = BookingCostCenterMappings.GetAllByYear(DateTime.Now.Year);
 
             MaterialOverHeadCostsCostCenters = new ItemPriceCalculationItemHelper(costsPerYear);
@@ -166,7 +165,9 @@ namespace FinancialAnalysis.Logic.ViewModels
                 }
             }
 
+            ItemPriceCalculationItemCostCenters.DeleteByRefItemPriceCalculationItemId(itemPriceCalculationItemId);
             ItemPriceCalculationItemCostCenters.Insert(ItemPriceCalculationItemCostCenterList);
+            CalculateOthers();
         }
 
         private void CalculateOthers()
@@ -182,7 +183,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     if (tmpItemPriceCalculationItem.ItemPriceCalculationItemId != itemPriceCalculationItem.ItemPriceCalculationItemId)
                     {
-
+                        var test = tmpItemPriceCalculationItem;
                     }
                 }
             }

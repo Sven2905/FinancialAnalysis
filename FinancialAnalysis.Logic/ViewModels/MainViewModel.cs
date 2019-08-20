@@ -1,4 +1,5 @@
 using DevExpress.Mvvm;
+using FinancialAnalysis.Logic.Manager;
 using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.Enums;
 using FinancialAnalysis.Models.General;
@@ -43,8 +44,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void LoadLicense()
         {
-            LicenseViewModel licenseViewModel = new LicenseViewModel();
-            var test = Globals.ActiveLicense;
+            LicenseManager.Instance.Initialize();
         }
 
         private void SetDebitorStatusViewModel()

@@ -133,6 +133,7 @@
     <Compile Include="CoreData.cs" />
     <Compile Include="General\Extensions.cs" />
     <Compile Include="General\Globals.cs" />
+    <Compile Include="Manager\LicenseManager.cs" />
     <Compile Include="ViewModels\License\LicenseActivateViewModel.cs" />
     <Compile Include="ViewModels\License\LicenseViewModel.cs" />
     <Compile Include="Manager\AccountBookingManager.cs" />

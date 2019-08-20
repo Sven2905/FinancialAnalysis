@@ -32,6 +32,15 @@ namespace WebApiWrapper.Accounting
             return WebApi<bool>.PutAsync(controllerName, ItemPriceCalculationItemCostCenter, "Put").Result;
         }
 
+        public static bool DeleteByRefItemPriceCalculationItemId(int RefItemPriceCalculationItemId)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "RefItemPriceCalculationItemId", RefItemPriceCalculationItemId },
+            };
+            return WebApi<bool>.GetData(controllerName, "DeleteByRefItemPriceCalculationItemId", parameters);
+        }
+
         public static bool Delete(int id)
         {
             return WebApi<bool>.DeleteAsync(controllerName, id);
