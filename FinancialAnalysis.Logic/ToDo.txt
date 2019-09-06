@@ -1,7 +1,6 @@
 ﻿Krankenkasse UserControl / ViewModel
 Projektdetails (Kosten, Stunden, ...)
 Debitoren für Produkte n:m
-Kosten- und Leistungsrechnung für Preisbestimmung
 Abschreibungen
 Skonti
 Rechteverwaltung vervollständigen

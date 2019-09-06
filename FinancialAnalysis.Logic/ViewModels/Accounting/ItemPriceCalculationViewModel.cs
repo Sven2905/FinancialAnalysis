@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using DevExpress.Xpf.Bars;
 using FinancialAnalysis.Logic.Accounting;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Enums;
@@ -6,6 +7,7 @@ using FinancialAnalysis.Models.ProductManagement;
 using Formulas.PriceCalculationMethods;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using WebApiWrapper.Accounting;
 using WebApiWrapper.ProductManagement;
 
@@ -23,7 +25,6 @@ namespace FinancialAnalysis.Logic.ViewModels
             ProductOverheadsCostCenters = new ItemPriceCalculationItemHelper(costsPerYear);
             AdministrativeOverheadsCostCenters = new ItemPriceCalculationItemHelper(costsPerYear);
             SalesOverHeadsCostCenters = new ItemPriceCalculationItemHelper(costsPerYear);
-
             SetCommands();
             SubscribeEvents();
             StandardItemPriceCalculation = new StandardItemPriceCalculation();
@@ -43,6 +44,47 @@ namespace FinancialAnalysis.Logic.ViewModels
         #endregion Fields
 
         #region Methods
+
+        private void LoadData()
+        {
+            var itemPriceCalculationItem = ItemPriceCalculationItems.GetByRefProductId(Product.ProductId);
+
+            if (itemPriceCalculationItem == null)
+            {
+                StandardItemPriceCalculation = new StandardItemPriceCalculation();
+                return;
+            }
+
+            StandardItemPriceCalculation.AgentCommission = itemPriceCalculationItem.AgentCommission;
+            StandardItemPriceCalculation.CustomerCashback = itemPriceCalculationItem.CustomerCashback;
+            StandardItemPriceCalculation.CustomerDiscount = itemPriceCalculationItem.CustomerDiscount;
+            StandardItemPriceCalculation.ProfitSurcharge = itemPriceCalculationItem.ProfitSurcharge;
+            StandardItemPriceCalculation.Tax = itemPriceCalculationItem.Tax;
+            StandardItemPriceCalculation.HourlyWage = itemPriceCalculationItem.HourlyWage;
+            StandardItemPriceCalculation.ProductionTime = itemPriceCalculationItem.ProductionTime;
+            StandardItemPriceCalculation.ItemAmountPerAnno = itemPriceCalculationItem.ItemAmountPerAnno;
+
+            foreach (var item in itemPriceCalculationItem.ItemPriceCalculationItemCostCenters)
+            {
+                switch (item.ItemPriceCalculationItemCostCenterType)
+                {
+                    case ItemPriceCalculationItemCostCenterType.MaterialOverheadCosts:
+                        MaterialOverHeadCostsCostCenters.CostCenterFlatStructures.SingleOrDefault(x => x.CostCenter?.CostCenterId == item.RefCostCenterId).IsActive = true;
+                        break;
+                    case ItemPriceCalculationItemCostCenterType.ProductOverheadCosts:
+                        ProductOverheadsCostCenters.CostCenterFlatStructures.SingleOrDefault(x => x.CostCenter?.CostCenterId == item.RefCostCenterId).IsActive = true;
+                        break;
+                    case ItemPriceCalculationItemCostCenterType.AdministrativeOverheadCosts:
+                        AdministrativeOverheadsCostCenters.CostCenterFlatStructures.SingleOrDefault(x => x.CostCenter?.CostCenterId == item.RefCostCenterId).IsActive = true;
+                        break;
+                    case ItemPriceCalculationItemCostCenterType.SalesOverheadCosts:
+                        SalesOverHeadsCostCenters.CostCenterFlatStructures.SingleOrDefault(x => x.CostCenter?.CostCenterId == item.RefCostCenterId).IsActive = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
 
         private void SubscribeEvents()
         {
@@ -64,6 +106,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public void Refresh()
         {
+            MaterialOverHeadCostsCostCenters.ItemAmountPerAnno = StandardItemPriceCalculation.ItemAmountPerAnno;
+            ProductOverheadsCostCenters.ItemAmountPerAnno = StandardItemPriceCalculation.ItemAmountPerAnno;
+            AdministrativeOverheadsCostCenters.ItemAmountPerAnno = StandardItemPriceCalculation.ItemAmountPerAnno;
+            SalesOverHeadsCostCenters.ItemAmountPerAnno = StandardItemPriceCalculation.ItemAmountPerAnno;
             StandardItemPriceCalculation.MaterialOverHeadCostCentersAmount = MaterialOverHeadCostsCostCenters.Amount;
             StandardItemPriceCalculation.ProductOverHeadCostCentersAmount = ProductOverheadsCostCenters.Amount;
             StandardItemPriceCalculation.AdministrativeOverHeadCostCentersAmount = AdministrativeOverheadsCostCenters.Amount;
@@ -79,7 +125,16 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void Save()
         {
-            SaveNewItem();
+            var item = ItemPriceCalculationItems.GetByRefProductId(Product.ProductId);
+            if (item != null)
+            {
+                UpdateSavedItem(item);
+                SaveCostCenters(item.ItemPriceCalculationItemId);
+            }
+            else
+            {
+                SaveNewItem();
+            }
 
             UpdateProduct();
         }
@@ -107,6 +162,26 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             var itemPriceCalculationItemId = ItemPriceCalculationItems.Insert(itemPriceCalculationItem);
 
+            SaveCostCenters(itemPriceCalculationItemId);
+        }
+
+        private void UpdateSavedItem(ItemPriceCalculationItem item)
+        {
+            item.AgentCommission = StandardItemPriceCalculation.AgentCommission;
+            item.CustomerCashback = StandardItemPriceCalculation.CustomerCashback;
+            item.CustomerDiscount = StandardItemPriceCalculation.CustomerDiscount;
+            item.ProfitSurcharge = StandardItemPriceCalculation.ProfitSurcharge;
+            item.Tax = StandardItemPriceCalculation.Tax;
+            item.HourlyWage = HourlyWage;
+            item.ProductionTime = ProductionTime;
+            item.ItemAmountPerAnno = ItemAmountPerAnno;
+            item.RefProductId = Product.ProductId;
+
+            ItemPriceCalculationItems.Update(item);
+        }
+
+        private void SaveCostCenters(int itemPriceCalculationItemId)
+        {
             var ItemPriceCalculationItemCostCenterList = new List<ItemPriceCalculationItemCostCenter>();
 
             foreach (var item in MaterialOverHeadCostsCostCenters.CostCenterFlatStructures)
@@ -183,7 +258,7 @@ namespace FinancialAnalysis.Logic.ViewModels
                 {
                     if (tmpItemPriceCalculationItem.ItemPriceCalculationItemId != itemPriceCalculationItem.ItemPriceCalculationItemId)
                     {
-                        var test = tmpItemPriceCalculationItem;
+                        ItemPriceCalculationItems.Update(tmpItemPriceCalculationItem);
                     }
                 }
             }
@@ -200,7 +275,17 @@ namespace FinancialAnalysis.Logic.ViewModels
         public ItemPriceCalculationItemHelper AdministrativeOverheadsCostCenters { get; set; }
         public ItemPriceCalculationItemHelper SalesOverHeadsCostCenters { get; set; }
         public DelegateCommand SaveCommand { get; set; }
-        public Product Product { get; set; }
+
+        public Product Product
+        {
+            get { return product; }
+            set
+            {
+                product = value;
+                if (product != null && product.ProductId > 0)
+                    LoadData();
+            }
+        }
 
         public int ItemAmountPerAnno
         {

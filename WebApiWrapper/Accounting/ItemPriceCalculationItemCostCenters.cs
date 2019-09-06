@@ -17,6 +17,11 @@ namespace WebApiWrapper.Accounting
             return WebApi<ItemPriceCalculationItemCostCenter>.GetDataById(controllerName, id);
         }
 
+        public static int GetItemQuantityForCostCenterId(int id)
+        {
+            return WebApi<int>.GetDataById(controllerName, id, "GetItemQuantityForCostCenterId");
+        }
+
         public static int Insert(ItemPriceCalculationItemCostCenter ItemPriceCalculationItemCostCenter)
         {
             return WebApi<int>.PostAsync(controllerName, ItemPriceCalculationItemCostCenter, "SinglePost").Result;

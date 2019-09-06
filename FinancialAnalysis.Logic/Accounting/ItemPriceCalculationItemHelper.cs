@@ -1,6 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Accounting;
 using FinancialAnalysis.Models.Accounting.CostCenterManagement;
+using FinancialAnalysis.Models.ProductManagement;
 using System.Collections.Generic;
 using System.Linq;
 using Utilities;
@@ -23,9 +24,8 @@ namespace FinancialAnalysis.Logic.Accounting
         public SvenTechCollection<CostCenter> CostCenterList { get; set; } = new SvenTechCollection<CostCenter>();
         public SvenTechCollection<CostCenterCategory> CostCenterCategoryList { get; set; } = new SvenTechCollection<CostCenterCategory>();
         public SvenTechCollection<CostCenterFlatStructure> CostCenterFlatStructures { get; set; } = new SvenTechCollection<CostCenterFlatStructure>();
-
+        public int ItemAmountPerAnno { get; set; }
         public event AmountChangedEvent OnAmountChanged;
-
         public decimal Amount => CalculateAmount();
 
         private decimal CalculateAmount()
@@ -37,9 +37,11 @@ namespace FinancialAnalysis.Logic.Accounting
                 {
                     if (item.CostCenter != null)
                     {
-                        amount += costsPerYear.Where(x => x.RefCostCenterId == item.CostCenter.CostCenterId).Sum(x => x.Amount);
-                        
+                        var tmpCosts = costsPerYear.Where(x => x.RefCostCenterId == item.CostCenter.CostCenterId).Sum(x => x.Amount);
+                        var fullQuantity = ItemPriceCalculationItemCostCenters.GetItemQuantityForCostCenterId(item.CostCenter.CostCenterId);
+
                         //amount += CostCenterBudgets.GetAnnuallyCosts(item.CostCenter.CostCenterId, DateTime.Now.Year).Sum(x => x.Amount);
+                        amount += tmpCosts / fullQuantity * ItemAmountPerAnno;
                     }
                 }
             }

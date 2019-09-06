@@ -9,6 +9,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Utilities;
+using WebApiWrapper.Accounting;
 using WebApiWrapper.ProductManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -96,6 +97,13 @@ namespace FinancialAnalysis.Logic.ViewModels
                 _Products.Remove(SelectedProduct);
                 SelectedProduct = null;
                 return;
+            }
+
+            var priceCalculationItem = ItemPriceCalculationItems.GetByRefProductId(SelectedProduct.ProductId);
+            if (priceCalculationItem != null)
+            {
+                ItemPriceCalculationItemCostCenters.DeleteByRefItemPriceCalculationItemId(priceCalculationItem.ItemPriceCalculationItemId);
+                ItemPriceCalculationItems.Delete(priceCalculationItem.ItemPriceCalculationItemId);
             }
 
             Products.Delete(SelectedProduct.ProductId);
