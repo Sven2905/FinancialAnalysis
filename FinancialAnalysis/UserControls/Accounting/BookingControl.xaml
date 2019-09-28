@@ -213,10 +213,11 @@
                                                 <TextBlock Grid.Column="0" Grid.Row="4" Text="Steuer: " VerticalAlignment="Center" Margin="5" Foreground="#3F729B" FontFamily="Tahoma" />
 
                                                 <dxg:LookUpEdit DisplayMember="DisplayName" Foreground="#3F729B"
+                                                                ValueMember="CostAccountId"
                                                                 Grid.Column="2" Grid.Row="0" Margin="0,3,0,3" PopupWidth="800"
                                                                 ItemsSource="{Binding CostAccountList, UpdateSourceTrigger=PropertyChanged}" AutoComplete="True"
                                                                 IsEnabled="{Binding IsEnabledDebitorDropDown}"
-                                                                EditValue="{Binding CostAccountDebitor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                EditValue="{Binding CostAccountDebitorId, UpdateSourceTrigger=PropertyChanged}"
                                                                 IsPopupAutoWidth="True" AutoPopulateColumns="False">
                                                     <dxg:LookUpEdit.PopupContentTemplate>
                                                         <ControlTemplate>
@@ -244,11 +245,11 @@
                                                     </dxg:LookUpEdit.PopupContentTemplate>
                                                 </dxg:LookUpEdit>
 
-                                                <dxg:LookUpEdit DisplayMember="DisplayName" Foreground="#3F729B"
+                                                <dxg:LookUpEdit DisplayMember="DisplayName" Foreground="#3F729B" ValueMember="CostAccountId"
                                                                 Grid.Column="2" Grid.Row="2" Margin="0,3,0,3" PopupWidth="800"
                                                                 ItemsSource="{Binding CostAccountList}"
                                                                 IsEnabled="{Binding IsEnabledCreditorDropDown}"
-                                                                EditValue="{Binding CostAccountCreditor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                EditValue="{Binding CostAccountCreditorId, UpdateSourceTrigger=PropertyChanged}"
                                                                 AutoComplete="True" IsPopupAutoWidth="True" AutoPopulateColumns="False">
                                                     <dxg:LookUpEdit.PopupContentTemplate>
                                                         <ControlTemplate>

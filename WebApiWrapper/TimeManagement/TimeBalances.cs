@@ -18,26 +18,26 @@ namespace WebApiWrapper.TimeManagement
             return WebApi<TimeBalance>.GetDataById(controllerName, id);
         }
 
-        public static TimeBalance GetByDateAndRefEmployeeId(DateTime Date, int RefEmployeeId)
+        public static TimeBalance GetByDateAndRefUserId(DateTime Date, int RefUserId)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>
             {
                 { "Date", Date },
-                { "RefEmployeeId", RefEmployeeId },
+                { "RefUserId", RefUserId },
             };
 
-            return WebApi<TimeBalance>.GetData(controllerName, "GetByDateAndRefEmployeeId", parameters);
+            return WebApi<TimeBalance>.GetData(controllerName, "GetByDateAndRefUserId", parameters);
         }
 
-        public static TimeBalance GetLastByDateAndRefEmployeeId(DateTime Date, int RefEmployeeId)
+        public static TimeBalance GetLastByDateAndRefUserId(DateTime Date, int RefUserId)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>
             {
                 { "Date", Date },
-                { "RefEmployeeId", RefEmployeeId },
+                { "RefUserId", RefUserId },
             };
 
-            return WebApi<TimeBalance>.GetData(controllerName, "GetLastByDateAndRefEmployeeId", parameters);
+            return WebApi<TimeBalance>.GetData(controllerName, "GetLastByDateAndRefUserId", parameters);
         }
 
         public static int Insert(TimeBalance TimeBalance)

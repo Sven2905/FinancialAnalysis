@@ -10,14 +10,14 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public TimeObligatoryHourViewModel()
         {
-            SaveCommand = new DelegateCommand(SaveData, () => EmployeeId > 0);
+            SaveCommand = new DelegateCommand(SaveData, () => UserId > 0);
         }
 
         #endregion Constructor
 
         #region Fields
 
-        private int _EmployeeId;
+        private int _UserId;
         private List<Models.TimeManagement.TimeObligatoryHour> _TimeObligatoryHours = new List<Models.TimeManagement.TimeObligatoryHour>();
 
         #endregion Fields
@@ -26,10 +26,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void LoadData()
         {
-            if (EmployeeId == 0)
+            if (UserId == 0)
                 return;
 
-            _TimeObligatoryHours = WebApiWrapper.TimeManagement.TimeObligatoryHours.GetByRefEmployeeId(EmployeeId);
+            _TimeObligatoryHours = WebApiWrapper.TimeManagement.TimeObligatoryHours.GetByRefUserId(UserId);
 
             if (_TimeObligatoryHours.Count > 0)
             {
@@ -112,13 +112,13 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 List<Models.TimeManagement.TimeObligatoryHour> itemsToSave = new List<Models.TimeManagement.TimeObligatoryHour>()
                 {
-                    new Models.TimeManagement.TimeObligatoryHour(EmployeeId, HoursMonday, DayOfWeek.Monday),
-                    new Models.TimeManagement.TimeObligatoryHour(EmployeeId, HoursTuesday, DayOfWeek.Tuesday),
-                    new Models.TimeManagement.TimeObligatoryHour(EmployeeId, HoursWednesday, DayOfWeek.Wednesday),
-                    new Models.TimeManagement.TimeObligatoryHour(EmployeeId, HoursThursday, DayOfWeek.Thursday),
-                    new Models.TimeManagement.TimeObligatoryHour(EmployeeId, HoursFriday, DayOfWeek.Friday),
-                    new Models.TimeManagement.TimeObligatoryHour(EmployeeId, HoursSaturday, DayOfWeek.Saturday),
-                    new Models.TimeManagement.TimeObligatoryHour(EmployeeId, HoursSunday, DayOfWeek.Sunday),
+                    new Models.TimeManagement.TimeObligatoryHour(UserId, HoursMonday, DayOfWeek.Monday),
+                    new Models.TimeManagement.TimeObligatoryHour(UserId, HoursTuesday, DayOfWeek.Tuesday),
+                    new Models.TimeManagement.TimeObligatoryHour(UserId, HoursWednesday, DayOfWeek.Wednesday),
+                    new Models.TimeManagement.TimeObligatoryHour(UserId, HoursThursday, DayOfWeek.Thursday),
+                    new Models.TimeManagement.TimeObligatoryHour(UserId, HoursFriday, DayOfWeek.Friday),
+                    new Models.TimeManagement.TimeObligatoryHour(UserId, HoursSaturday, DayOfWeek.Saturday),
+                    new Models.TimeManagement.TimeObligatoryHour(UserId, HoursSunday, DayOfWeek.Sunday),
                 };
 
                 WebApiWrapper.TimeManagement.TimeObligatoryHours.Insert(itemsToSave);
@@ -131,10 +131,10 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         #region Properties
 
-        public int EmployeeId
+        public int UserId
         {
-            get { return _EmployeeId; }
-            set { _EmployeeId = value; RaisePropertyChanged(); LoadData(); }
+            get { return _UserId; }
+            set { _UserId = value; RaisePropertyChanged(); LoadData(); }
         }
 
         public DelegateCommand SaveCommand { get; set; }

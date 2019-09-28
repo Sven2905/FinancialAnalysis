@@ -17,9 +17,9 @@ namespace WebApiWrapper.TimeManagement
             return WebApi<TimeObligatoryHour>.GetDataById(controllerName, id);
         }
 
-        public static List<TimeObligatoryHour> GetByRefEmployeeId(int id)
+        public static List<TimeObligatoryHour> GetByRefUserId(int id)
         {
-            return WebApi<List<TimeObligatoryHour>>.GetDataById(controllerName, id, "GetByRefEmployeeId");
+            return WebApi<List<TimeObligatoryHour>>.GetDataById(controllerName, id, "GetByRefUserId");
         }
 
         public static int Insert(TimeObligatoryHour TimeObligatoryHour)

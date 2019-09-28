@@ -1,5 +1,6 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Accounting;
+using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.General;
 using FinancialAnalysis.Models.ProjectManagement;
 using Newtonsoft.Json;
@@ -89,12 +90,12 @@ namespace FinancialAnalysis.Models.SalesManagement
         /// <summary>
         /// Referenz-Id Mitarbeiter
         /// </summary>
-        public int RefEmployeeId { get; set; }
+        public int RefUserId { get; set; }
 
         /// <summary>
         /// Mitarbeiter
         /// </summary>
-        public Employee Employee { get; set; }
+        public User User { get; set; }
 
         /// <summary>
         /// Summe aller Zwischenbeträge der Positionen

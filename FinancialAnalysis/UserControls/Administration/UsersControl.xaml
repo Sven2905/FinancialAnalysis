@@ -7,10 +7,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
              xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
+             xmlns:models="clr-namespace:FinancialAnalysis.Models;assembly=FinancialAnalysis.Models"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:timemanagement="clr-namespace:FinancialAnalysis.UserControls.TimeManagement"
+             xmlns:rules="clr-namespace:FinancialAnalysis.Logic.Rules;assembly=FinancialAnalysis.Logic"
              mc:Ignorable="d"
              d:DesignHeight="1050" d:DesignWidth="1920">
     <UserControl.DataContext>
@@ -147,9 +150,9 @@
 
                     <Grid Grid.RowSpan="4" Grid.Column="3" Margin="0,30,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
                         <DockPanel>
@@ -223,16 +226,199 @@
                                             <dxe:TextEdit Text="{Binding SelectedUser.Mail, Mode=TwoWay}" FontFamily="Tahoma" />
                                         </dxlc:LayoutItem>
                                     </dxlc:LayoutGroup>
-                                    <dxlc:LayoutGroup>
-                                        <dxlc:LayoutItem Label="Mitarbeiter" FontFamily="Tahoma">
-                                            <dxe:ComboBoxEdit Margin="3" ItemsSource="{Binding EmployeeList}" HorizontalAlignment="Stretch" DisplayMember="Name" ValueMember="EmployeeId" ClearSelectionOnBackspace="True"
-                                                              EditValue="{Binding SelectedUser.RefEmployeeId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
+                                    <dxlc:LayoutGroup Orientation="Vertical" >
+                                        <dxlc:LayoutItem Label="Geschlecht" FontFamily="Tahoma">
+                                            <dxe:ComboBoxEdit
+                                ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:Gender}, SplitNames=True}"
+                                EditValue="{Binding SelectedUser.Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                FontFamily="Tahoma" />
+                                        </dxlc:LayoutItem>
+                                        <dxlc:LayoutGroup>
+                                            <dxlc:LayoutItem Label="Geburtsdatum" FontFamily="Tahoma">
+                                                <dxe:DateEdit DateTime="{Binding SelectedUser.Birthdate}" FontFamily="Tahoma"
+                                              DisplayFormatString="dd.MM.yyyy" />
+                                            </dxlc:LayoutItem>
+                                        </dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="Strasse" FontFamily="Tahoma">
+                                            <dxe:TextEdit
+                                        NullText="Straße"
+                                        ValidateOnEnterKeyPressed="True"
+                                        FontFamily="Tahoma">
+                                                <dxe:TextEdit.EditValue>
+                                                    <Binding Path="SelectedUser.Street"
+                                                     UpdateSourceTrigger="PropertyChanged"
+                                                     Mode="TwoWay">
+                                                        <Binding.ValidationRules>
+                                                            <rules:RequiredValidationRule FieldName="Strasse" />
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </dxe:TextEdit.EditValue>
+                                            </dxe:TextEdit>
+                                        </dxlc:LayoutItem>
+                                        <dxlc:LayoutGroup>
+                                            <dxlc:LayoutItem Label="Postleitzahl" Width="100" FontFamily="Tahoma">
+                                                <dxe:TextEdit
+                                        NullText="PLZ"
+                                        ValidateOnEnterKeyPressed="True"
+                                        FontFamily="Tahoma">
+                                                    <dxe:TextEdit.EditValue>
+                                                        <Binding Path="SelectedUser.Postcode"
+                                                     UpdateSourceTrigger="PropertyChanged"
+                                                     Mode="TwoWay">
+                                                            <Binding.ValidationRules>
+                                                                <rules:RequiredValidationRule FieldName="Postleitzahl" />
+                                                            </Binding.ValidationRules>
+                                                        </Binding>
+                                                    </dxe:TextEdit.EditValue>
+                                                </dxe:TextEdit>
+                                            </dxlc:LayoutItem>
+                                            <dxlc:LayoutItem Label="Ort" FontFamily="Tahoma">
+                                                <dxe:TextEdit
+                                        NullText="Ort"
+                                        ValidateOnEnterKeyPressed="True"
+                                        FontFamily="Tahoma">
+                                                    <dxe:TextEdit.EditValue>
+                                                        <Binding Path="SelectedUser.City"
+                                                     UpdateSourceTrigger="PropertyChanged"
+                                                     Mode="TwoWay">
+                                                            <Binding.ValidationRules>
+                                                                <rules:RequiredValidationRule FieldName="Ort" />
+                                                            </Binding.ValidationRules>
+                                                        </Binding>
+                                                    </dxe:TextEdit.EditValue>
+                                                </dxe:TextEdit>
+                                            </dxlc:LayoutItem>
+                                        </dxlc:LayoutGroup>
+                                        <dxlc:LayoutGroup>
+                                            <dxlc:LayoutItem Label="Nationalität" FontFamily="Tahoma">
+                                                <dxe:TextEdit
+                                    Text="{Binding SelectedUser.Nationality, UpdateSourceTrigger=PropertyChanged}"
+                                    FontFamily="Tahoma" />
+                                            </dxlc:LayoutItem>
+                                        </dxlc:LayoutGroup>
+                                        <dxlc:LayoutGroup>
+                                            <dxlc:LayoutItem Label="Konfession" FontFamily="Tahoma">
+                                                <dxe:TextEdit
+                                    Text="{Binding SelectedUser.Confession, UpdateSourceTrigger=PropertyChanged}"
+                                    FontFamily="Tahoma" />
+                                            </dxlc:LayoutItem>
+                                        </dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="Familienstand" FontFamily="Tahoma">
+                                            <dxe:ComboBoxEdit
+                                ItemsSource="{dxe:EnumItemsSource EnumType={x:Type models:CivilStatus}, SplitNames=True}"
+                                EditValue="{Binding SelectedUser.CivilStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                FontFamily="Tahoma" />
                                         </dxlc:LayoutItem>
                                     </dxlc:LayoutGroup>
                                 </dxlc:LayoutGroup>
                             </dxlc:LayoutControl>
-                            <dxe:ImageEdit DockPanel.Dock="Top" Grid.Column="0" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Margin="12"
-                                   Stretch="UniformToFill" Source="{Binding Image, Mode=TwoWay}" AllowNullInput="True">
+                        </DockPanel>
+
+                        <DockPanel Grid.Column="1">
+                            <TextBlock DockPanel.Dock="Top" Text="Details" FontSize="24" FontFamily="Tahoma" Foreground="Transparent" Margin="12,0" />
+                            <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="10" 
+                                    IsEnabled="{Binding SelectedUser, Converter={StaticResource NullConverter}}">
+
+                                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
+                                    <dxlc:LayoutGroup.Header>
+                                        <TextBlock Text="Bankdaten" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                                    </dxlc:LayoutGroup.Header>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="Bank" FontFamily="Tahoma">
+                                            <dxe:TextEdit Text="{Binding SelectedUser.BankName}" FontFamily="Tahoma" />
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="IBAN" FontFamily="Tahoma">
+                                            <dxe:TextEdit Text="{Binding SelectedUser.IBAN}" FontFamily="Tahoma" />
+                                        </dxlc:LayoutItem>
+                                        <dxlc:LayoutItem Label="BIC" FontFamily="Tahoma">
+                                            <dxe:TextEdit Text="{Binding SelectedUser.BIC}" FontFamily="Tahoma" />
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                </dxlc:LayoutGroup>
+                                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
+                                    <dxlc:LayoutGroup.Header>
+                                        <TextBlock Text="Beruflich" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                                    </dxlc:LayoutGroup.Header>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="Gehalt" FontFamily="Tahoma">
+                                            <dxe:TextEdit
+                                    Text="{Binding SelectedUser.Salary, ConverterCulture='de-DE', StringFormat='C2'}"
+                                    FontFamily="Tahoma" />
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="Urlaubstage" FontFamily="Tahoma">
+                                            <dxe:TextEdit Text="{Binding SelectedUser.VacationDays}" FontFamily="Tahoma" />
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="Tarif" FontFamily="Tahoma">
+                                            <dxe:TextEdit Text="{Binding SelectedUser.Tariff}" FontFamily="Tahoma" />
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                </dxlc:LayoutGroup>
+
+                                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
+                                    <dxlc:LayoutGroup.Header>
+                                        <TextBlock Text="Arbeitszeiten" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                                    </dxlc:LayoutGroup.Header>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="" FontFamily="Tahoma">
+                                            <timemanagement:TimeObligatoryHourControl DataContext="{Binding TimeObligatoryHourViewModel}" />
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                </dxlc:LayoutGroup>
+                            </dxlc:LayoutControl>
+                        </DockPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <TextBlock DockPanel.Dock="Top" Text="Details" FontSize="24" FontFamily="Tahoma" Foreground="Transparent" Margin="12,0" />
+                            <dxlc:LayoutControl Orientation="Vertical" ItemStyle="{StaticResource itemStyle}"
+                                    IsEnabled="{Binding SelectedUser, Converter={StaticResource NullConverter}}">
+                                <dxlc:LayoutGroup Orientation="Vertical" View="GroupBox">
+                                    <dxlc:LayoutGroup.Header>
+                                        <TextBlock Text="Allgemeines" Foreground="#3f729b" FontWeight="Bold" FontFamily="Tahoma" />
+                                    </dxlc:LayoutGroup.Header>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="Telefon Büro" FontFamily="Tahoma">
+                                            <dxe:TextEdit Text="{Binding SelectedUser.Phone}" FontFamily="Tahoma" />
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="Mobil" FontFamily="Tahoma">
+                                            <dxe:TextEdit Text="{Binding SelectedUser.Mobile}" FontFamily="Tahoma" />
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="E-Mail" FontFamily="Tahoma">
+                                            <dxe:TextEdit Text="{Binding SelectedUser.Mail}" FontFamily="Tahoma" />
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="Sozialversicherungsnummer" FontFamily="Tahoma">
+                                            <dxe:TextEdit Text="{Binding SelectedUser.NationalInsuranceNumber}"
+                                              FontFamily="Tahoma" />
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="Steuer-Id" FontFamily="Tahoma">
+                                            <dxe:TextEdit Text="{Binding SelectedUser.TaxId}" FontFamily="Tahoma" />
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                    <dxlc:LayoutGroup>
+                                        <dxlc:LayoutItem Label="Krankenkasse" FontFamily="Tahoma">
+                                            <dxe:ComboBoxEdit ValueMember="HealthInsuranceId" DisplayMember="Name"
+                                                  ItemsSource="{Binding HealthInsuranceList}"
+                                                  EditValue="{Binding SelectedUser.RefHealthInsuranceId}"
+                                                  FontFamily="Tahoma" />
+                                        </dxlc:LayoutItem>
+                                    </dxlc:LayoutGroup>
+                                </dxlc:LayoutGroup>
+                            </dxlc:LayoutControl>
+                            <dxe:ImageEdit Width="350" Height="350" VerticalAlignment="Top"
+                               Source="{Binding Image, Mode=TwoWay}" AllowNullInput="True">
                                 <dxe:ImageEdit.MenuTemplate>
                                     <ControlTemplate>
                                         <StackPanel Orientation="Horizontal">
@@ -242,30 +428,49 @@
                                     </ControlTemplate>
                                 </dxe:ImageEdit.MenuTemplate>
                             </dxe:ImageEdit>
-                        </DockPanel>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="Rechteverwaltung">
+                <DockPanel Margin="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" DockPanel.Dock="Top" Text="Zugriffsrechte" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="12,0,0,0" />
 
-                        <DockPanel Grid.Row="0" Grid.Column="2">
-                            <TextBlock DockPanel.Dock="Top" Text="Zugriffsrechte" FontSize="24" FontFamily="Tahoma" Foreground="#3f729b" Margin="12,0,0,0" />
-                            <dxg:TreeListControl DockPanel.Dock="Top" Margin="0,10,0,0" VerticalAlignment="Stretch" MaxWidth="5000" MaxHeight="800"
+                        <Grid Grid.Row="1" Margin="12,10,0,0" HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Filter" FontSize="14" FontFamily="Tahoma" Foreground="#3f729b" VerticalAlignment="Center"/>
+                            <TextBox Grid.Column="2" Text="{Binding FilterText}" Margin="5,0" />
+                        </Grid>
+
+                        <dxg:TreeListControl Grid.Row="2" DockPanel.Dock="Top" Margin="0,10,0,0" VerticalAlignment="Stretch" MaxWidth="5000" MaxHeight="800"
                                          ItemsSource="{Binding UserRightUserMappingFlatStructure, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          SelectionMode="Row" ShowBorder="True">
-                                <dxg:TreeListControl.View>
-                                    <dxg:TreeListView EditFormColumnCount="2" EditFormShowMode="None"
+                            <dxg:TreeListControl.View>
+                                <dxg:TreeListView EditFormColumnCount="2" EditFormShowMode="None"
                                               EnableImmediatePosting="True" Width="auto"
                                               AutoWidth="True" ShowTotalSummary="False" KeyFieldName="HierachicalId"
                                               ParentFieldName="ParentCategory"
                                               VerticalScrollbarVisibility="Auto">
-                                    </dxg:TreeListView>
-                                </dxg:TreeListControl.View>
-                                <dxg:TreeListColumn FieldName="IsGranted" Header="Zugriff" MaxWidth="60" Width="60" />
-                                <dxg:TreeListColumn FieldName="Name" Header="Name" MaxWidth="250" Width="250"
+                                </dxg:TreeListView>
+                            </dxg:TreeListControl.View>
+                            <dxg:TreeListColumn FieldName="IsGranted" Header="Zugriff" MaxWidth="60" Width="60" />
+                            <dxg:TreeListColumn FieldName="Name" Header="Name" MaxWidth="250" Width="250"
                                             AllowEditing="False" />
-                                <dxg:TreeListColumn FieldName="Description" Header="Beschreibung" MaxWidth="450" Width="450"
+                            <dxg:TreeListColumn FieldName="Description" Header="Beschreibung" MaxWidth="450" Width="450"
                                             AllowEditing="False" />
-                            </dxg:TreeListControl>
-                        </DockPanel>
+                        </dxg:TreeListControl>
                     </Grid>
-                </Grid>
+                </DockPanel>
             </dx:DXTabItem>
         </dx:DXTabControl>
     </Grid>

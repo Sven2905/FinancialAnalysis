@@ -1,5 +1,6 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Accounting;
+using FinancialAnalysis.Models.Administration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -75,17 +76,17 @@ namespace FinancialAnalysis.Models.ProjectManagement
         /// <summary>
         /// Referenz-Id des Projektverantworlichen
         /// </summary>
-        public int RefEmployeeId { get; set; }
+        public int RefUserId { get; set; }
 
         /// <summary>
         /// Projektverantworlicher
         /// </summary>
-        public virtual Employee Employee { get; set; } // Leader
+        public virtual User User { get; set; } // Leader
 
         /// <summary>
         /// Dem Projekt zugeordnete Mitarbeiter
         /// </summary>
-        public virtual List<ProjectEmployeeMapping> ProjectEmployeeMappings { get; set; }
+        public virtual List<ProjectUserMapping> ProjectUserMappings { get; set; }
 
         /// <summary>
         /// Gebuchte Arbeitszeiten auf dem Projekt

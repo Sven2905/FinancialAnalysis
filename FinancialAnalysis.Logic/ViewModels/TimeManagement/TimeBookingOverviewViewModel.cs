@@ -2,11 +2,13 @@
 using FinancialAnalysis.Logic.Manager;
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Models;
+using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.General;
 using FinancialAnalysis.Models.ProjectManagement;
 using FinancialAnalysis.Models.TimeManagement;
 using System;
 using Utilities;
+using WebApiWrapper.Administration;
 using WebApiWrapper.ProjectManagement;
 using WebApiWrapper.TimeManagement;
 
@@ -29,7 +31,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         #region Fields
 
         private DateTime selectedDate;
-        private int selectedEmployeeId;
+        private int selectedUserId;
         private TimeBookingManager timeBookingManager = new TimeBookingManager();
 
         #endregion Fields
@@ -42,7 +44,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             HolidayInfoBoxViewModel.SetIconData("M391.32 128H24.68c-21.95 0-32.94 26.53-17.42 42.05L192 354.79V480h-53.33c-14.73 0-26.67 11.94-26.67 26.67 0 2.95 2.39 5.33 5.33 5.33h181.33c2.95 0 5.33-2.39 5.33-5.33 0-14.73-11.94-26.67-26.67-26.67H224V354.79l107.7-107.7 22.66-22.66 54.37-54.37c15.52-15.53 4.53-42.06-17.41-42.06zM208 325.53L42.47 160h331.06L208 325.53zM432 0c-62.55 0-114.89 40.23-134.61 96h34.31c17.95-37.68 55.83-64 100.3-64 61.76 0 112 50.24 112 112s-50.24 112-112 112c-18.49 0-35.68-4.93-51.06-12.9l-23.52 23.52C379.23 279.92 404.59 288 432 288c79.53 0 144-64.47 144-144S511.53 0 432 0zm0 192c-.04 0-.08-.01-.13-.01-.2.21-.3.48-.51.69L405.04 219c8.46 3.05 17.46 5 26.96 5 44.12 0 80-35.89 80-80s-35.88-80-80-80c-26.05 0-49.01 12.68-63.62 32H432c26.47 0 48 21.53 48 48s-21.53 48-48 48z");
             selectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             DateString = selectedDate.ToString("MMMM yyyy");
-            SelectedEmployeeId = Globals.ActiveUser.RefEmployeeId;
+            SelectedUserId = Globals.ActiveUser.UserId;
         }
 
         private void CheckUserRights()
@@ -61,15 +63,15 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void GetData()
         {
-            EmployeeList = Employees.GetAll().ToSvenTechCollection();
+            UserList = Users.GetAll().ToSvenTechCollection();
             GetTimeBookings();
         }
 
         private void GetTimeBookings()
         {
-            TimeBookingList = timeBookingManager.GetBookingItemsForMonth(DateTime.Now, SelectedEmployeeId).ToSvenTechCollection();
+            TimeBookingList = timeBookingManager.GetBookingItemsForMonth(DateTime.Now, SelectedUserId).ToSvenTechCollection();
 
-            var balanceItem = TimeBalances.GetLastByDateAndRefEmployeeId(DateTime.Now, SelectedEmployeeId);
+            var balanceItem = TimeBalances.GetLastByDateAndRefUserId(DateTime.Now, SelectedUserId);
             if (balanceItem != null)
                 BalanceInfoBoxViewModel.Value = (decimal)balanceItem.Balance;
         }
@@ -90,9 +92,9 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public void NewTimeBooking()
         {
-            if (SelectedEmployeeId != 0)
+            if (SelectedUserId != 0)
             {
-                Messenger.Default.Send(new OpenTimeBookingWindowMessage { RefEmployeeId = SelectedEmployeeId });
+                Messenger.Default.Send(new OpenTimeBookingWindowMessage { RefUserId = SelectedUserId });
             }
         }
 
@@ -124,10 +126,17 @@ namespace FinancialAnalysis.Logic.ViewModels
             Value = 20,
         };
 
-        public int SelectedEmployeeId
+        public int SelectedUserId
         {
-            get { return selectedEmployeeId; }
-            set { selectedEmployeeId = value; RaisePropertiesChanged(); GetTimeBookings(); }
+            get { return selectedUserId; }
+            set
+            {
+                selectedUserId = value;
+                RaisePropertiesChanged();
+                GetTimeBookings();
+                if (SelectedUserId > 0)
+                    HolidayInfoBoxViewModel.Value = Users.GetById(SelectedUserId).VacationDays;
+            }
         }
 
         public string DateString { get; set; }
@@ -135,7 +144,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public TimeHolidayType SelectedTimeHolidayType { get; set; }
         public TimeBookingType TimeBookingType { get; set; }
         public SvenTechCollection<TimeBookingDayItem> TimeBookingList { get; set; } = new SvenTechCollection<TimeBookingDayItem>();
-        public SvenTechCollection<Employee> EmployeeList { get; set; }
+        public SvenTechCollection<User> UserList { get; set; }
         public bool ShowTimeBookingForOthers { get; set; }
         public DelegateCommand NextMonthCommand { get; set; }
         public DelegateCommand LastMonthCommand { get; set; }

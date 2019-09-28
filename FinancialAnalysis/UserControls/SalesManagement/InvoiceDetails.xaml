@@ -91,6 +91,6 @@
         <dxe:DateEdit Grid.Row="4" Grid.Column="6" Foreground="#3F729B" FontFamily="Tahoma" DisplayFormatString="dd.MM.yyyy" DateTime="{Binding Invoice.PaidDate}" />
 
         <TextBlock Grid.Row="6" Grid.Column="4" Text="Bearbeiter" Foreground="#3f729b" FontFamily="Tahoma" />
-        <TextBlock Grid.Row="6" Grid.Column="6" Text="{Binding Invoice.Employee.Name}" Foreground="#3f729b" FontFamily="Tahoma" />
+        <TextBlock Grid.Row="6" Grid.Column="6" Text="{Binding Invoice.User.Name}" Foreground="#3f729b" FontFamily="Tahoma" />
     </Grid>
 </UserControl>

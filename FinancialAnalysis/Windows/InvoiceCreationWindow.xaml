@@ -81,9 +81,9 @@
                                                       DisplayMember="Name" ValueMember="PaymentConditionId" Foreground="#3F729B" />
 
                                     <TextBlock Grid.Column="0" Grid.Row="8" Text="Bearbeiter" VerticalAlignment="Center" Foreground="#3F729B" FontFamily="Tahoma" />
-                                    <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="8" Margin="3" ItemsSource="{Binding EmployeeList}"
-                                                      EditValue="{Binding Invoice.RefEmployeeId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      DisplayMember="Name" ValueMember="EmployeeId" Foreground="#3F729B" />
+                                    <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="8" Margin="3" ItemsSource="{Binding UserList}"
+                                                      EditValue="{Binding Invoice.RefUserId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      DisplayMember="Name" ValueMember="UserId" Foreground="#3F729B" />
                                 </Grid>
                             </dxdo:LayoutPanel>
                             <dxdo:LayoutPanel Caption="Verfügbare Positionen" ShowCloseButton="False" ItemWidth="400">

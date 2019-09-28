@@ -274,9 +274,6 @@
     <Compile Include="UserControls\ProjectManagement\ProjectWorkingTimeControl.xaml.cs">
       <DependentUpon>ProjectWorkingTimeControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ProjectManagement\EmployeeControl.xaml.cs">
-      <DependentUpon>EmployeeControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\ProjectManagement\ProjectControl.xaml.cs">
       <DependentUpon>ProjectControl.xaml</DependentUpon>
     </Compile>
@@ -508,10 +505,6 @@
     <Page Include="UserControls\ProjectManagement\ProjectWorkingTimeControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\ProjectManagement\EmployeeControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ProjectManagement\ProjectControl.xaml">
       <SubType>Designer</SubType>

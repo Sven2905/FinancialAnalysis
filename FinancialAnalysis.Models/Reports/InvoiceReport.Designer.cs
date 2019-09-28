@@ -249,7 +249,7 @@
             // xrLabel4
             // 
             this.xrLabel4.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Employee].[Mail]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[User].[Mail]")});
             this.xrLabel4.LocationFloat = new DevExpress.Utils.PointFloat(453.1251F, 195F);
             this.xrLabel4.Multiline = true;
             this.xrLabel4.Name = "xrLabel4";
@@ -262,7 +262,7 @@
             // xrLabel3
             // 
             this.xrLabel3.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Employee].[Phone]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[User].[Phone]")});
             this.xrLabel3.LocationFloat = new DevExpress.Utils.PointFloat(549.9991F, 171.9999F);
             this.xrLabel3.Multiline = true;
             this.xrLabel3.Name = "xrLabel3";
@@ -275,7 +275,7 @@
             // xrLabel2
             // 
             this.xrLabel2.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Employee].[Name]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[User].[Name]")});
             this.xrLabel2.LocationFloat = new DevExpress.Utils.PointFloat(523.6661F, 148.9999F);
             this.xrLabel2.Multiline = true;
             this.xrLabel2.Name = "xrLabel2";

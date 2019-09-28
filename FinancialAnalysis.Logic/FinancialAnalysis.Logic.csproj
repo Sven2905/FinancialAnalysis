@@ -134,6 +134,7 @@
     <Compile Include="General\Extensions.cs" />
     <Compile Include="General\Globals.cs" />
     <Compile Include="Manager\LicenseManager.cs" />
+    <Compile Include="ViewModels\Administration\HealthInsuranceViewModel.cs" />
     <Compile Include="ViewModels\License\LicenseActivateViewModel.cs" />
     <Compile Include="ViewModels\License\LicenseViewModel.cs" />
     <Compile Include="Manager\AccountBookingManager.cs" />
@@ -221,7 +222,6 @@
     <Compile Include="ViewModels\WarehouseManagement\WarehouseViewModel.cs" />
     <Compile Include="ViewModels\ProductManagement\ProductViewModel.cs" />
     <Compile Include="ViewModels\ProductManagement\ProductCategoryViewModel.cs" />
-    <Compile Include="ViewModels\ProjectManagement\EmployeeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PDFViewerViewModel.cs" />
     <Compile Include="ViewModels\Accounting\TaxTypeViewModel.cs" />

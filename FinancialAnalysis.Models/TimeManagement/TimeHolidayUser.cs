@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.General;
 using FinancialAnalysis.Models.ProjectManagement;
 using Newtonsoft.Json;
@@ -8,7 +9,7 @@ using System.Windows.Media;
 namespace FinancialAnalysis.Models.TimeManagement
 {
     [JsonObject(MemberSerialization.OptOut)]
-    public class TimeHolidayEmployee : BindableBase
+    public class TimeHolidayUser : BindableBase
     {
         #region Fields
 
@@ -65,13 +66,13 @@ namespace FinancialAnalysis.Models.TimeManagement
             set { _IsSpecialLeave = value; OnValueChanged(); }
         }
 
-        public int TimeHolidayEmployeeId { get; set; }
-        public int RefEmployeeId { get; set; }
+        public int TimeHolidayUserId { get; set; }
+        public int RefUserId { get; set; }
         public string Reason { get; set; }
         public int RefTimeHolidayTypeId { get; set; }
         public DateTime TimeStamp { get; set; }
-        public Employee ApprovalEmployee { get; set; }
-        public int RefApprovalEmployeeId { get; set; }
+        public User ApprovalUser { get; set; }
+        public int RefApprovalUserId { get; set; }
         public bool IsApproved { get; set; }
         public DateTime ApprovalDate { get; set; }
 
@@ -102,7 +103,7 @@ namespace FinancialAnalysis.Models.TimeManagement
                 {
                     return "M413.505 91.951L133.49 371.966l-98.995-98.995c-4.686-4.686-12.284-4.686-16.971 0L6.211 284.284c-4.686 4.686-4.686 12.284 0 16.971l118.794 118.794c4.686 4.686 12.284 4.686 16.971 0l299.813-299.813c4.686-4.686 4.686-12.284 0-16.971l-11.314-11.314c-4.686-4.686-12.284-4.686-16.97 0z";
                 }
-                else if (!IsApproved && RefApprovalEmployeeId != 0)
+                else if (!IsApproved && RefApprovalUserId != 0)
                 {
                     return "M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z";
                 }
@@ -121,7 +122,7 @@ namespace FinancialAnalysis.Models.TimeManagement
                 {
                     return SvenTechColors.BrushLightGreen;
                 }
-                else if (!IsApproved && RefApprovalEmployeeId != 0)
+                else if (!IsApproved && RefApprovalUserId != 0)
                 {
                     return SvenTechColors.BrushLightRed;
                 }

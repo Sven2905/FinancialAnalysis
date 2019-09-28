@@ -127,9 +127,9 @@
                                 </dxlc:LayoutGroup>
                                 <dxlc:LayoutGroup>
                                     <dxlc:LayoutItem Label="Mitarbeiter" FontFamily="Tahoma">
-                                        <dxe:ComboBoxEdit ValueMember="EmployeeId" DisplayMember="Name"
-                                                  ItemsSource="{Binding EmployeeList}"
-                                                  EditValue="{Binding ProjectWorkingTime.RefEmployeeId}"
+                                        <dxe:ComboBoxEdit ValueMember="UserId" DisplayMember="Name"
+                                                  ItemsSource="{Binding UserList}"
+                                                  EditValue="{Binding ProjectWorkingTime.RefUserId}"
                                                   FontFamily="Tahoma" />
                                     </dxlc:LayoutItem>
                                 </dxlc:LayoutGroup>

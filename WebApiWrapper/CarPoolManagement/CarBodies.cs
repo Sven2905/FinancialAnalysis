@@ -14,7 +14,13 @@ namespace WebApiWrapper.CarPoolManagement
 
         public static List<CarBody> GetByRefCarModelId(int RefCarModelId)
         {
-            return WebApi<List<CarBody>>.GetDataById(controllerName, RefCarModelId, "GetByRefCarModelId");
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "RefCarModelId", RefCarModelId },
+            };
+
+            return WebApi<List<CarBody>>.GetData(controllerName, "GetByRefCarModelId", parameters);
+            //return WebApi<List<CarBody>>.GetDataById(controllerName, RefCarModelId, "GetByRefCarModelId");
         }
 
         public static int Insert(CarBody CarBody)

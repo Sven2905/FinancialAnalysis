@@ -23,6 +23,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             GetData();
             _Users = LoadAllUsers();
+            LoadHealthInsurances();
             NewUserCommand = new DelegateCommand(NewUser);
             SaveUserCommand = new DelegateCommand(SaveUser, () => Validation());
             DeleteUserCommand = new DelegateCommand(DeleteUser,
@@ -44,7 +45,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void GetData()
         {
-            EmployeeList = Employees.GetAll().ToSvenTechCollection();
+
         }
 
         private void UserRightUserMappingFlatStructure_OnItemPropertyChanged(object sender, object item,
@@ -143,6 +144,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 Globals.ActiveUser = SelectedUser;
             }
+
+            TimeObligatoryHourViewModel.UserId = SelectedUser.UserId;
+            TimeObligatoryHourViewModel.SaveData();
         }
 
         public BitmapImage ConvertToImage(byte[] array)
@@ -234,18 +238,24 @@ namespace FinancialAnalysis.Logic.ViewModels
             return !string.IsNullOrEmpty(Password) && !string.IsNullOrEmpty(PasswordRepeat);
         }
 
+        private void LoadHealthInsurances()
+        {
+            HealthInsuranceList = HealthInsurances.GetAll().ToSvenTechCollection();
+        }
+
         #endregion Methods
 
         #region Properties
 
         public SvenTechCollection<UserRightUserMappingFlatStructure> UserRightUserMappingFlatStructure { get; set; } =
             new SvenTechCollection<UserRightUserMappingFlatStructure>();
+        public SvenTechCollection<HealthInsurance> HealthInsuranceList { get; set; } = new SvenTechCollection<HealthInsurance>();
 
         public SvenTechCollection<User> FilteredUsers { get; set; } = new SvenTechCollection<User>();
-        public SvenTechCollection<Employee> EmployeeList { get; set; } = new SvenTechCollection<Employee>();
         public DelegateCommand NewUserCommand { get; set; }
         public DelegateCommand SaveUserCommand { get; set; }
         public DelegateCommand DeleteUserCommand { get; set; }
+        public TimeObligatoryHourViewModel TimeObligatoryHourViewModel { get; set; } = new TimeObligatoryHourViewModel();
         public string Password { get; set; } = string.Empty;
         public string PasswordRepeat { get; set; } = string.Empty;
 
@@ -288,6 +298,8 @@ namespace FinancialAnalysis.Logic.ViewModels
                         UserManager.Instance.GetUserRightUserMappingFlatStructure(_SelectedUser);
                     UserRightUserMappingFlatStructure.OnItemPropertyChanged +=
                         UserRightUserMappingFlatStructure_OnItemPropertyChanged;
+
+                    TimeObligatoryHourViewModel.UserId = _SelectedUser.UserId;
                 }
 
                 if (_SelectedUser != null && _SelectedUser.Picture != null)

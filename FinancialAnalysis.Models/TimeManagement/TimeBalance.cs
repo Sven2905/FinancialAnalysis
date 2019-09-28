@@ -11,15 +11,15 @@ namespace FinancialAnalysis.Models.TimeManagement
         {
         }
 
-        public TimeBalance(int RefEmployeeId, DateTime Date, double Balance)
+        public TimeBalance(int RefUserId, DateTime Date, double Balance)
         {
-            this.RefEmployeeId = RefEmployeeId;
+            this.RefUserId = RefUserId;
             this.Date = Date;
             this.Balance = Balance;
         }
 
         public int TimeBalanceId { get; set; }
-        public int RefEmployeeId { get; set; }
+        public int RefUserId { get; set; }
         public DateTime Date { get; set; }
         public double Balance { get; set; }
     }

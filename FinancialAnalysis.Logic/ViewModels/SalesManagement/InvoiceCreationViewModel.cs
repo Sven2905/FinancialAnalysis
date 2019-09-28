@@ -3,6 +3,7 @@
 using FinancialAnalysis.Logic.Messages;
 using FinancialAnalysis.Logic.SalesManagement;
 using FinancialAnalysis.Models.Accounting;
+using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.Interfaces;
 using FinancialAnalysis.Models.ProjectManagement;
 using FinancialAnalysis.Models.SalesManagement;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Windows.Input;
 using Utilities;
 using WebApiWrapper.Accounting;
+using WebApiWrapper.Administration;
 using WebApiWrapper.ProjectManagement;
 using WebApiWrapper.SalesManagement;
 
@@ -48,7 +50,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             InvoiceTypeList = InvoiceTypes.GetAll().ToSvenTechCollection();
             PaymentConditionList = PaymentConditions.GetAll().ToSvenTechCollection();
-            EmployeeList = Employees.GetAll().ToSvenTechCollection();
+            UserList = Users.GetAll().ToSvenTechCollection();
         }
 
         public void RemoveFromInvoiceDrop(IDropEventArgs e)
@@ -143,7 +145,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         {
             Invoice.InvoiceId = Invoices.Insert(Invoice);
             Invoice.TotalAmount = ProductsOnInvoice.Sum(x => x.Total);
-            Invoice.Employee = EmployeeList.Single(x => x.EmployeeId == Invoice.RefEmployeeId);
+            Invoice.User = UserList.Single(x => x.UserId == Invoice.RefUserId);
             Invoice.Debitor = SalesOrder.Debitor;
 
             SvenTechCollection<InvoicePosition> itemsToSave = new SvenTechCollection<InvoicePosition>();
@@ -156,7 +158,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
             InvoiceReportData invoiceReportData = new InvoiceReportData()
             {
-                Employee = Invoice.Employee,
+                User = Invoice.User,
                 SalesOrder = SalesOrder,
                 Invoice = Invoice,
                 MyCompany = Globals.CoreData.MyCompany
@@ -183,7 +185,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public SvenTechCollection<InvoiceType> InvoiceTypeList { get; set; } = new SvenTechCollection<InvoiceType>();
         public SvenTechCollection<SalesOrderPosition> OrderedProducts { get; set; } = new SvenTechCollection<SalesOrderPosition>();
         public SvenTechCollection<SalesOrderPosition> ProductsOnInvoice { get; set; } = new SvenTechCollection<SalesOrderPosition>();
-        public SvenTechCollection<Employee> EmployeeList { get; set; } = new SvenTechCollection<Employee>();
+        public SvenTechCollection<User> UserList { get; set; } = new SvenTechCollection<User>();
 
         #endregion Properties
     }

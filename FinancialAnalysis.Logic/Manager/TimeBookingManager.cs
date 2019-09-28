@@ -11,10 +11,10 @@ namespace FinancialAnalysis.Logic.Manager
     {
         public bool ValidateBooking(TimeBooking timeBooking)
         {
-            if (timeBooking.RefEmployeeId == 0)
+            if (timeBooking.RefUserId == 0)
                 return false;
 
-            List<TimeBooking> bookingsForSelectedDay = TimeBookings.GetDataForDay(timeBooking.BookingTime, timeBooking.RefEmployeeId);
+            List<TimeBooking> bookingsForSelectedDay = TimeBookings.GetDataForDay(timeBooking.BookingTime, timeBooking.RefUserId);
 
             if (bookingsForSelectedDay?.Count > 0)
             {
@@ -36,10 +36,10 @@ namespace FinancialAnalysis.Logic.Manager
             return true;
         }
 
-        public List<TimeBookingType> GetAllowedActionsList(DateTime dateTime, int refEmployeeId)
+        public List<TimeBookingType> GetAllowedActionsList(DateTime dateTime, int refUserId)
         {
             List<TimeBookingType> allowedActions = new List<TimeBookingType>();
-            List<TimeBooking> bookingsForSelectedDay = TimeBookings.GetDataForDay(dateTime, refEmployeeId);
+            List<TimeBooking> bookingsForSelectedDay = TimeBookings.GetDataForDay(dateTime, refUserId);
 
             if (bookingsForSelectedDay.Count > 0)
             {
@@ -79,7 +79,7 @@ namespace FinancialAnalysis.Logic.Manager
                 SaveBalance(timeBooking);
 
             var date = timeBooking.BookingTime.Date;
-            var allBookings = TimeBookings.GetDataSinceDayForRefEmployeeId(timeBooking.BookingTime, timeBooking.RefEmployeeId);
+            var allBookings = TimeBookings.GetDataSinceDayForRefUserId(timeBooking.BookingTime, timeBooking.RefUserId);
 
             while (date.Date < DateTime.Now.Date)
             {
@@ -88,7 +88,7 @@ namespace FinancialAnalysis.Logic.Manager
                 if (booking != null)
                     SaveBalance(booking);
                 else
-                    SaveBalanceWithoutBookings(date, timeBooking.RefEmployeeId);
+                    SaveBalanceWithoutBookings(date, timeBooking.RefUserId);
 
                 date = date.AddDays(1);
             }
@@ -98,10 +98,10 @@ namespace FinancialAnalysis.Logic.Manager
 
         private void SaveBalance(TimeBooking timeBooking)
         {
-            var bookings = TimeBookings.GetDataForDay(timeBooking.BookingTime, timeBooking.RefEmployeeId);
+            var bookings = TimeBookings.GetDataForDay(timeBooking.BookingTime, timeBooking.RefUserId);
             var hours = timeBooking.BookingTime - bookings.First().BookingTime;
 
-            var obligatoryHours = TimeObligatoryHours.GetByRefEmployeeId(timeBooking.RefEmployeeId);
+            var obligatoryHours = TimeObligatoryHours.GetByRefUserId(timeBooking.RefUserId);
             if (obligatoryHours.Count > 0)
             {
                 var day = obligatoryHours.SingleOrDefault(x => x.DayOfWeek == timeBooking.BookingTime.DayOfWeek);
@@ -110,12 +110,12 @@ namespace FinancialAnalysis.Logic.Manager
                     var dayItem = CreateDayItem(bookings, day);
                     var balanceValue = dayItem.WorkingHours.TotalHours - day.HoursPerDay;
 
-                    var lastItem = TimeBalances.GetLastByDateAndRefEmployeeId(timeBooking.BookingTime, timeBooking.RefEmployeeId);
+                    var lastItem = TimeBalances.GetLastByDateAndRefUserId(timeBooking.BookingTime, timeBooking.RefUserId);
 
                     if (lastItem != null)
                         balanceValue += lastItem.Balance;
 
-                    var existingItem = TimeBalances.GetByDateAndRefEmployeeId(timeBooking.BookingTime, timeBooking.RefEmployeeId);
+                    var existingItem = TimeBalances.GetByDateAndRefUserId(timeBooking.BookingTime, timeBooking.RefUserId);
 
                     if (existingItem != null)
                     {
@@ -124,24 +124,24 @@ namespace FinancialAnalysis.Logic.Manager
                     }
                     else
                     {
-                        TimeBalance timeBalance = new TimeBalance(timeBooking.RefEmployeeId, timeBooking.BookingTime, balanceValue);
+                        TimeBalance timeBalance = new TimeBalance(timeBooking.RefUserId, timeBooking.BookingTime, balanceValue);
                         TimeBalances.Insert(timeBalance);
                     }
                 }
             }
         }
 
-        public void SaveBalanceWithoutBookings(DateTime dateTime, int refEmployeeId)
+        public void SaveBalanceWithoutBookings(DateTime dateTime, int refUserId)
         {
-            var lastBalance = TimeBalances.GetLastByDateAndRefEmployeeId(dateTime, refEmployeeId);
-            var obligatoryHours = TimeObligatoryHours.GetByRefEmployeeId(refEmployeeId);
+            var lastBalance = TimeBalances.GetLastByDateAndRefUserId(dateTime, refUserId);
+            var obligatoryHours = TimeObligatoryHours.GetByRefUserId(refUserId);
 
             if (lastBalance != null)
             {
                 if (obligatoryHours != null)
                 {
                     var obligatoryHoursDay = obligatoryHours.Single(x => x.DayOfWeek == dateTime.DayOfWeek).HoursPerDay;
-                    var existingItem = TimeBalances.GetByDateAndRefEmployeeId(dateTime, refEmployeeId);
+                    var existingItem = TimeBalances.GetByDateAndRefUserId(dateTime, refUserId);
 
                     if (existingItem != null)
                     {
@@ -150,7 +150,7 @@ namespace FinancialAnalysis.Logic.Manager
                     }
                     else
                     {
-                        TimeBalances.Insert(new TimeBalance(refEmployeeId, dateTime, lastBalance.Balance - obligatoryHoursDay));
+                        TimeBalances.Insert(new TimeBalance(refUserId, dateTime, lastBalance.Balance - obligatoryHoursDay));
                     }
                 }
             }
@@ -159,14 +159,14 @@ namespace FinancialAnalysis.Logic.Manager
                 if (obligatoryHours != null)
                 {
                     var obligatoryHoursDay = obligatoryHours.Single(x => x.DayOfWeek == dateTime.DayOfWeek).HoursPerDay;
-                    TimeBalances.Insert(new TimeBalance(refEmployeeId, dateTime, (obligatoryHoursDay * (-1))));
+                    TimeBalances.Insert(new TimeBalance(refUserId, dateTime, (obligatoryHoursDay * (-1))));
                 }
             }
         }
 
-        public IEnumerable<TimeBookingDayItem> GetBookingItemsForMonth(DateTime dateTime, int refEmployeeId)
+        public IEnumerable<TimeBookingDayItem> GetBookingItemsForMonth(DateTime dateTime, int refUserId)
         {
-            List<TimeBooking> bookingsForMonth = TimeBookings.GetDataForMonth(dateTime, refEmployeeId);
+            List<TimeBooking> bookingsForMonth = TimeBookings.GetDataForMonth(dateTime, refUserId);
 
             var timeBookingDayItems = CreateDayItems(bookingsForMonth).ToList();
             var startDate = new DateTime(dateTime.Year, dateTime.Month, 1);
@@ -179,15 +179,15 @@ namespace FinancialAnalysis.Logic.Manager
                     timeBookingDayItem.BookingDate = startDate;
                     timeBookingDayItem.WorkingHours = new TimeSpan(0);
                     timeBookingDayItem.BreaktimeHours = new TimeSpan(0);
-                    timeBookingDayItem.ObligatoryHours = GetObgligaryHoursForDay(startDate, refEmployeeId);
+                    timeBookingDayItem.ObligatoryHours = GetObgligaryHoursForDay(startDate, refUserId);
 
-                    var balanceForDay = TimeBalances.GetByDateAndRefEmployeeId(startDate, refEmployeeId);
+                    var balanceForDay = TimeBalances.GetByDateAndRefUserId(startDate, refUserId);
 
                     if (balanceForDay != null)
                         timeBookingDayItem.Balance = balanceForDay.Balance;
                     else
                     {
-                        var lastBalance = TimeBalances.GetLastByDateAndRefEmployeeId(startDate, refEmployeeId);
+                        var lastBalance = TimeBalances.GetLastByDateAndRefUserId(startDate, refUserId);
                         if (lastBalance != null)
                             timeBookingDayItem.Balance = lastBalance.Balance;
                         else
@@ -210,7 +210,7 @@ namespace FinancialAnalysis.Logic.Manager
 
             List<TimeBookingDayItem> timeBookingDayItems = new List<TimeBookingDayItem>();
 
-            var timeObligatoryHours = TimeObligatoryHours.GetByRefEmployeeId(timeBookings.ToList()[0].RefEmployeeId);
+            var timeObligatoryHours = TimeObligatoryHours.GetByRefUserId(timeBookings.ToList()[0].RefUserId);
 
             var itemsPerDay = timeBookings.GroupBy(x => x.BookingTime.Date);
             foreach (var item in itemsPerDay)
@@ -226,6 +226,9 @@ namespace FinancialAnalysis.Logic.Manager
 
         private TimeBookingDayItem CreateDayItem(IEnumerable<TimeBooking> timeBookings, TimeObligatoryHour timeObligatoryHour)
         {
+            if (timeBookings == null || timeObligatoryHour == null)
+                return null;
+
             List<TimeBooking> timeBookingList = timeBookings.ToList();
             if (!timeBookings.Any(x => x.TimeBookingType == TimeBookingType.Logout))
                 return null;
@@ -267,7 +270,7 @@ namespace FinancialAnalysis.Logic.Manager
             timeBookingDayItem.BookingDate = timeBookingList[0].BookingTime.Date;
             timeBookingDayItem.ObligatoryHours = timeObligatoryHour.HoursPerDay;
 
-            var timeBalance = TimeBalances.GetByDateAndRefEmployeeId(timeBookingList[0].BookingTime, timeBookingList[0].RefEmployeeId);
+            var timeBalance = TimeBalances.GetByDateAndRefUserId(timeBookingList[0].BookingTime, timeBookingList[0].RefUserId);
             if (timeBalance != null)
                 timeBookingDayItem.Balance = timeBalance.Balance;
 
@@ -344,9 +347,9 @@ namespace FinancialAnalysis.Logic.Manager
             }
         }
 
-        public double GetObgligaryHoursForDay(DateTime dateTime, int refEmployeeId)
+        public double GetObgligaryHoursForDay(DateTime dateTime, int refUserId)
         {
-            var obligatoryHours = TimeObligatoryHours.GetByRefEmployeeId(refEmployeeId);
+            var obligatoryHours = TimeObligatoryHours.GetByRefUserId(refUserId);
             if (obligatoryHours == null || obligatoryHours.Count == 0 || obligatoryHours.SingleOrDefault(x => x.DayOfWeek == dateTime.DayOfWeek) == null)
                 return 0;
 

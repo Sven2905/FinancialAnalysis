@@ -1,9 +1,11 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Accounting;
+using FinancialAnalysis.Models.Administration;
 using FinancialAnalysis.Models.ProjectManagement;
 using System;
 using Utilities;
 using WebApiWrapper.Accounting;
+using WebApiWrapper.Administration;
 using WebApiWrapper.ProjectManagement;
 
 namespace FinancialAnalysis.Logic.ViewModels
@@ -20,7 +22,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             }
 
             LoadProjects();
-            LoadEmployees();
+            LoadUsers();
             LoadCostCenters();
             NewProjectCommand = new DelegateCommand(NewProject);
             SaveProjectCommand = new DelegateCommand(SaveProject, () => Validation());
@@ -32,9 +34,9 @@ namespace FinancialAnalysis.Logic.ViewModels
         #region Properties
 
         public SvenTechCollection<Project> ProjectList { get; set; }
-        public SvenTechCollection<Employee> EmployeeList { get; set; }
+        public SvenTechCollection<User> UserList { get; set; }
         public SvenTechCollection<CostCenter> CostCenterList { get; set; }
-        public Employee SelectedLeader { get; set; }
+        public User SelectedLeader { get; set; }
         public DelegateCommand NewProjectCommand { get; set; }
         public DelegateCommand SaveProjectCommand { get; set; }
         public DelegateCommand DeleteProjectCommand { get; set; }
@@ -54,9 +56,9 @@ namespace FinancialAnalysis.Logic.ViewModels
             CostCenterList = CostCenters.GetAll().ToSvenTechCollection();
         }
 
-        private void LoadEmployees()
+        private void LoadUsers()
         {
-            EmployeeList = Employees.GetAll().ToSvenTechCollection();
+            UserList = Users.GetAll().ToSvenTechCollection();
         }
 
         private void NewProject()

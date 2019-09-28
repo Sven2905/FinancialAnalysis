@@ -18,7 +18,7 @@ namespace FinancialAnalysis.Models.ProjectManagement
         /// <summary>
         /// Referenz-Id Mitarbeiter
         /// </summary>
-        public int RefEmployeeId { get; set; }
+        public int RefUserId { get; set; }
 
         /// <summary>
         /// Referenz-Id Projekt

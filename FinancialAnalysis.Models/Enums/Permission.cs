@@ -28,7 +28,7 @@
         // ProjectManagement 200 - 299
         ProjectManagement = 200,
 
-        ProjectManagementEmployees = 201,
+        ProjectManagementUsers = 201,
         ProjectManagementProjects = 202,
         ProjectManagementProjectWorkingTimes = 203,
 

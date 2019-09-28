@@ -60,7 +60,7 @@
             </dxe:ComboBoxEdit>
 
             <Label Grid.Row="2" Grid.Column="4" Content="Projekt " VerticalAlignment="Center" />
-            <dxg:LookUpEdit Grid.Row="2" Grid.Column="6" DisplayMember="Name" ValueMember="EmployeeId" Foreground="#3F729B"
+            <dxg:LookUpEdit Grid.Row="2" Grid.Column="6" DisplayMember="Name" ValueMember="UserId" Foreground="#3F729B"
                             Margin="0,3" PopupWidth="800" ItemsSource="{Binding ProjectList, UpdateSourceTrigger=PropertyChanged}"
                             EditValue="{Binding SelectedTimeBooking.RefProjectId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             AutoComplete="True" IsPopupAutoWidth="True" AutoPopulateColumns="False" Width="200" />

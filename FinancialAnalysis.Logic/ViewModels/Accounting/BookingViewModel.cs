@@ -46,6 +46,8 @@ namespace FinancialAnalysis.Logic.ViewModels
         private CostAccount costAccountDebitor = new CostAccount();
         private GrossNetType grossNetType;
         private CostCenter selectedCostCenter;
+        private int costAccountDebitorId;
+        private int costAccountCreditorId;
 
         #endregion Fields
 
@@ -216,10 +218,12 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 case AccountingType.Credit:
                     CostAccountCreditor = selectedCostAccount.CostAccount;
+                    CostAccountCreditorId = selectedCostAccount.CostAccount.CostAccountId;
                     break;
 
                 case AccountingType.Debit:
                     CostAccountDebitor = selectedCostAccount.CostAccount;
+                    CostAccountDebitorId = selectedCostAccount.CostAccount.CostAccountId;
                     break;
             }
         }
@@ -281,6 +285,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void AddDebitSplitsToList(DebitSplitList debitSplitList)
         {
             CostAccountDebitor.CostAccountId = 0;
+            CostAccountDebitorId = 0;
             Debits.AddRange(debitSplitList.Debits);
             RaisePropertyChanged("DebitsDisplay");
             IsEnabledDebitorDropDown = false;
@@ -291,6 +296,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         private void AddCreditSplitsToList(CreditSplitList creditSplitList)
         {
             CostAccountCreditor.CostAccountId = 0;
+            CostAccountCreditorId = 0;
             Credits.AddRange(creditSplitList.Credits);
             RaisePropertyChanged("CreditsDisplay");
             IsEnabledCreditorDropDown = false;
@@ -460,6 +466,28 @@ namespace FinancialAnalysis.Logic.ViewModels
                         SelectedTax = FilteredTaxTypes.Single(x => x.TaxTypeId == costAccountDebitor.RefTaxTypeId);
                 Debits.Clear();
                 RaisePropertyChanged("DebitsDisplay");
+            }
+        }
+
+        public int CostAccountDebitorId
+        {
+            get { return costAccountDebitorId; }
+            set
+            {
+                costAccountDebitorId = value;
+                if (CostAccountList != null)
+                    CostAccountDebitor = CostAccountList.SingleOrDefault(x => x.CostAccountId == value);
+            }
+        }
+
+        public int CostAccountCreditorId
+        {
+            get { return costAccountCreditorId; }
+            set
+            {
+                costAccountCreditorId = value;
+                if (CostAccountList != null)
+                    CostAccountCreditor = CostAccountList.SingleOrDefault(x => x.CostAccountId == value);
             }
         }
 

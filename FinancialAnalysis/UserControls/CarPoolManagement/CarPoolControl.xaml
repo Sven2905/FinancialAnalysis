@@ -70,23 +70,27 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
 
                                         <dxdo:LabelItem Grid.Column="0" Grid.Row="0" Foreground="#3F729B" FontFamily="Tahoma" Content="Marke " VerticalAlignment="Center" />
                                         <dxdo:LabelItem Grid.Column="0" Grid.Row="1" Foreground="#3F729B" FontFamily="Tahoma" Content="Modell " VerticalAlignment="Center" />
                                         <dxdo:LabelItem Grid.Column="0" Grid.Row="2" Foreground="#3F729B" FontFamily="Tahoma" Content="Bauart " VerticalAlignment="Center" />
-                                        <dxdo:LabelItem Grid.Column="0" Grid.Row="3" Foreground="#3F729B" FontFamily="Tahoma" Content="Generation " VerticalAlignment="Center" />
-                                        <dxdo:LabelItem Grid.Column="0" Grid.Row="4" Foreground="#3F729B" FontFamily="Tahoma" Content="Motorisierung " VerticalAlignment="Center" Margin="0,0,3,0" />
+                                        <dxdo:LabelItem Grid.Column="0" Grid.Row="3" Foreground="#3F729B" FontFamily="Tahoma" Content="Baujahr " VerticalAlignment="Center" Margin="0,0,3,0" />
+                                        <dxdo:LabelItem Grid.Column="0" Grid.Row="4" Foreground="#3F729B" FontFamily="Tahoma" Content="Generation " VerticalAlignment="Center" />
+                                        <dxdo:LabelItem Grid.Column="0" Grid.Row="5" Foreground="#3F729B" FontFamily="Tahoma" Content="Motorisierung " VerticalAlignment="Center" Margin="0,0,3,0" />
 
-                                        <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="0" ItemsSource="{Binding CarMakeList}" DisplayMember="Name" Margin="0,3"
+                                        <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="0" ItemsSource="{Binding CarMakeList}" DisplayMember="Name" Margin="0,3" IncrementalFiltering="True"
                                                           EditValue="{Binding SelectedCarMake, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
                                         <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="1" ItemsSource="{Binding CarModelList}" DisplayMember="Name" Margin="0,3"
                                                           EditValue="{Binding SelectedCarModel, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
                                         <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="2" ItemsSource="{Binding CarBodyList}" DisplayMember="Name" Margin="0,3"
                                                           EditValue="{Binding SelectedCarBody, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
-                                        <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="3" ItemsSource="{Binding CarGenerationList}" DisplayMember="Name" Margin="0,3"
+                                        <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="3" ItemsSource="{Binding Years}" Margin="0,3"
+                                                          EditValue="{Binding SelectedYear, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
+                                        <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="4" ItemsSource="{Binding CarGenerationList}" DisplayMember="Name" Margin="0,3"
                                                           EditValue="{Binding SelectedCarGeneration, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
-                                        <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="4" ItemsSource="{Binding CarTrimList}" DisplayMember="Name" Margin="0,3"
+                                        <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="5" ItemsSource="{Binding CarTrimList}" DisplayMember="Name" Margin="0,3"
                                                           EditValue="{Binding SelectedCarTrim, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
                                     </Grid>
                                     <VirtualizingStackPanel Grid.Row="2" Margin="0,30,0,0">
@@ -109,8 +113,8 @@
 
                                         <dxdo:LabelItem Grid.Column="0" Grid.Row="0" Foreground="#3F729B" FontFamily="Tahoma" Content="Mitarbeiter" VerticalAlignment="Center" />
 
-                                        <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Employees}" DisplayMember="Name" Margin="0,3"
-                                                          EditValue="{Binding SelectedEmployee, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
+                                        <dxe:ComboBoxEdit Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Users}" DisplayMember="Name" Margin="0,3"
+                                                          EditValue="{Binding SelectedUser, UpdateSourceTrigger=PropertyChanged}" Foreground="#3F729B" />
                                     </Grid>
                                 </Grid>
                             </dxdo:LayoutPanel>

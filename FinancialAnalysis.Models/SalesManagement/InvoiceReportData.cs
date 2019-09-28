@@ -1,4 +1,5 @@
-﻿using FinancialAnalysis.Models.ClientManagement;
+﻿using FinancialAnalysis.Models.Administration;
+using FinancialAnalysis.Models.ClientManagement;
 using FinancialAnalysis.Models.ProjectManagement;
 
 namespace FinancialAnalysis.Models.SalesManagement
@@ -21,7 +22,7 @@ namespace FinancialAnalysis.Models.SalesManagement
         /// <summary>
         /// Bearbeitender Mitarbeiter
         /// </summary>
-        public Employee Employee { get; set; }
+        public User User { get; set; }
 
         /// <summary>
         /// Rechnung

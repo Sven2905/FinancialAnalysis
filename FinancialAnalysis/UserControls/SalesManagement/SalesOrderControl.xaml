@@ -312,8 +312,8 @@
 
                     <Label Grid.Column="9" Grid.Row="0" Margin="3" Content="Ansprechpartner" VerticalAlignment="Center" />
 
-                    <dxe:ComboBoxEdit Grid.Column="10" Grid.Row="0" Margin="3" ItemsSource="{Binding EmployeeList}" Width="200"
-                              EditValue="{Binding Employee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    <dxe:ComboBoxEdit Grid.Column="10" Grid.Row="0" Margin="3" ItemsSource="{Binding UserList}" Width="200"
+                              EditValue="{Binding User, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               HorizontalAlignment="Left" DisplayMember="Name" Foreground="#3F729B" />
 
                     <!--<Label Grid.Column="9" Grid.Row="1" Margin="3" Content="Versandart" VerticalAlignment="Center" />

@@ -2,6 +2,6 @@
 {
     public class OpenTimeBookingWindowMessage
     {
-        public int RefEmployeeId { get; set; }
+        public int RefUserId { get; set; }
     }
 }

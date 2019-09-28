@@ -5,6 +5,7 @@ using FinancialAnalysis.Models.TimeManagement;
 using System;
 using System.Collections.Generic;
 using Utilities;
+using WebApiWrapper.Administration;
 using WebApiWrapper.ProjectManagement;
 using WebApiWrapper.TimeManagement;
 
@@ -26,7 +27,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private DateTime bookingTime = DateTime.Now;
         private readonly TimeBookingManager bookingManager = new TimeBookingManager();
-        private int refEmployeeId;
+        private int refUserId;
         private TimeBooking selectedTimeBooking = new TimeBooking();
 
         #endregion Fields
@@ -46,7 +47,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void LoadTimeBookingsForDay()
         {
-            BookingsForSelectedDay = TimeBookings.GetDataForDay(bookingTime, RefEmployeeId);
+            BookingsForSelectedDay = TimeBookings.GetDataForDay(bookingTime, RefUserId);
         }
 
         #endregion Methods
@@ -59,10 +60,16 @@ namespace FinancialAnalysis.Logic.ViewModels
             set { bookingTime = value; RaisePropertyChanged(); LoadTimeBookingsForDay(); }
         }
 
-        public int RefEmployeeId
+        public int RefUserId
         {
-            get { return refEmployeeId; }
-            set { refEmployeeId = value; SelectedTimeBooking.RefEmployeeId = value; RaisePropertyChanged(); LoadTimeBookingsForDay(); }
+            get { return refUserId; }
+            set
+            {
+                refUserId = value;
+                SelectedTimeBooking.RefUserId = value;
+                RaisePropertyChanged();
+                LoadTimeBookingsForDay();
+            }
         }
 
         public TimeBooking SelectedTimeBooking

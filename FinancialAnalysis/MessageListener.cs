@@ -196,7 +196,7 @@ namespace FinancialAnalysis.UI
                     TimeBookingWindow window = new TimeBookingWindow();
                     if (window.DataContext is TimeBookingViewModel model)
                     {
-                        model.RefEmployeeId = msg.RefEmployeeId;
+                        model.RefUserId = msg.RefUserId;
                     }
                     window.ShowDialog();
                 });

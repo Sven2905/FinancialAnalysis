@@ -13,37 +13,37 @@ namespace WebApiWrapper.TimeManagement
             return WebApi<List<TimeBooking>>.GetData(controllerName);
         }
 
-        public static List<TimeBooking> GetDataForDay(DateTime Date, int RefEmployeeId)
+        public static List<TimeBooking> GetDataForDay(DateTime Date, int RefUserId)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>
             {
                 { "date", Date },
-                { "refEmployeeId", RefEmployeeId },
+                { "refUserId", RefUserId },
             };
 
             return WebApi<List<TimeBooking>>.GetData(controllerName, "GetDataForDay", parameters);
         }
 
-        public static List<TimeBooking> GetDataForMonth(DateTime date, int refEmployeeId)
+        public static List<TimeBooking> GetDataForMonth(DateTime date, int refUserId)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>
             {
                 { "date", date },
-                { "refEmployeeId", refEmployeeId },
+                { "refUserId", refUserId },
             };
 
             return WebApi<List<TimeBooking>>.GetData(controllerName, "GetDataForMonth", parameters);
         }
 
-        public static List<TimeBooking> GetDataSinceDayForRefEmployeeId(DateTime date, int refEmployeeId)
+        public static List<TimeBooking> GetDataSinceDayForRefUserId(DateTime date, int refUserId)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>
             {
                 { "date", date },
-                { "refEmployeeId", refEmployeeId },
+                { "refUserId", refUserId },
             };
 
-            return WebApi<List<TimeBooking>>.GetData(controllerName, "GetDataSinceDayForRefEmployeeId", parameters);
+            return WebApi<List<TimeBooking>>.GetData(controllerName, "GetDataSinceDayForRefUserId", parameters);
         }
 
         public static TimeBooking GetById(int id)

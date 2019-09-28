@@ -5,10 +5,10 @@ using System;
 namespace FinancialAnalysis.Models.TimeManagement
 {
     [JsonObject(MemberSerialization.OptOut)]
-    public class TimeEmployeeAbsence : BindableBase
+    public class TimeUserAbsence : BindableBase
     {
-        public int TimeEmployeeAbsenceId { get; set; }
-        public int RefEmployeeId { get; set; }
+        public int TimeUserAbsenceId { get; set; }
+        public int RefUserId { get; set; }
         public DateTime FirstDay { get; set; }
         public DateTime LastDay { get; set; }
         public bool OnlyWorkingDays { get; set; }

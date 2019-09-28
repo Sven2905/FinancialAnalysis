@@ -11,15 +11,15 @@ namespace FinancialAnalysis.Models.TimeManagement
         {
         }
 
-        public TimeObligatoryHour(int RefEmployeeId, double HoursPerDay, DayOfWeek DayOfWeek)
+        public TimeObligatoryHour(int RefUserId, double HoursPerDay, DayOfWeek DayOfWeek)
         {
-            this.RefEmployeeId = RefEmployeeId;
+            this.RefUserId = RefUserId;
             this.HoursPerDay = HoursPerDay;
             this.DayOfWeek = DayOfWeek;
         }
 
         public int TimeObligatoryHourId { get; set; }
-        public int RefEmployeeId { get; set; }
+        public int RefUserId { get; set; }
         public double HoursPerDay { get; set; }
         public DayOfWeek DayOfWeek { get; set; }
     }

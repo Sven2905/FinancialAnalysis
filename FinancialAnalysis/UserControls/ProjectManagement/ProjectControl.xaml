@@ -159,9 +159,9 @@
                                 </dxlc:LayoutGroup>
                                 <dxlc:LayoutGroup>
                                     <dxlc:LayoutItem Label="Projektleiter" FontFamily="Tahoma">
-                                        <dxe:ComboBoxEdit ValueMember="EmployeeId" DisplayMember="Name"
-                                                  ItemsSource="{Binding EmployeeList}"
-                                                  EditValue="{Binding SelectedProject.RefEmployeeId}"
+                                        <dxe:ComboBoxEdit ValueMember="UserId" DisplayMember="Name"
+                                                  ItemsSource="{Binding UserList}"
+                                                  EditValue="{Binding SelectedProject.RefUserId}"
                                                   FontFamily="Tahoma" />
                                     </dxlc:LayoutItem>
                                 </dxlc:LayoutGroup>
@@ -195,8 +195,8 @@
 
                     <ScrollViewer Grid.Column="4" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
                           Margin="0,50,0,0">
-                        <ListView ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}"
-                          x:Name="Employees" BorderThickness="1" BorderBrush="DarkGray" FontSize="14">
+                        <ListView ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}"
+                          x:Name="Users" BorderThickness="1" BorderBrush="DarkGray" FontSize="14">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel />

@@ -12,7 +12,7 @@ namespace FinancialAnalysis.Logic.ViewModels
     {
         public TimeFastBookingViewModel()
         {
-            if (Globals.ActiveUser.RefEmployeeId != 0)
+            if (Globals.ActiveUser.UserId != 0)
             {
                 Validate();
             }
@@ -24,7 +24,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void Validate()
         {
-            var allowedActions = bookingManager.GetAllowedActionsList(DateTime.Now, Globals.ActiveUser.RefEmployeeId);
+            var allowedActions = bookingManager.GetAllowedActionsList(DateTime.Now, Globals.ActiveUser.UserId);
 
             AllowLogin = allowedActions.Contains(TimeBookingType.Login);
             AllowStartBreak = allowedActions.Contains(TimeBookingType.StartBreak);
@@ -50,7 +50,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             timeBooking.BookingTime = DateTime.Now;
             timeBooking.TimeStamp = DateTime.Now;
             timeBooking.TimeBookingType = timeBookingType;
-            timeBooking.RefEmployeeId = Globals.ActiveUser.RefEmployeeId;
+            timeBooking.RefUserId = Globals.ActiveUser.UserId;
             TimeBookings.Insert(timeBooking);
             Validate();
         }

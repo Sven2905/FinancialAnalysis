@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using FinancialAnalysis.Models.Administration;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -53,6 +54,6 @@ namespace FinancialAnalysis.Models.ProjectManagement
         /// <summary>
         /// Liste aller Mitarbeiter mit der Krankenkasse
         /// </summary>
-        public virtual List<Employee> Employees { get; set; }
+        public virtual List<User> Users { get; set; }
     }
 }

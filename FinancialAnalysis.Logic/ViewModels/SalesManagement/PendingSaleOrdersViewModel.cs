@@ -59,7 +59,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 MyCompany = Globals.CoreData.MyCompany,
                 SalesOrder = SelectedSalesOrder,
-                Employee = SelectedSalesOrder.Employee
+                User = SelectedSalesOrder.User
             };
 
             SalesReportPDFCreator.CreateAndShowOrderReport(salesOrderReportData, false);

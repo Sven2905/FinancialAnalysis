@@ -70,9 +70,9 @@
                         <VirtualizingStackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
                             <Label  Content="Mitarbeiter " VerticalAlignment="Center" Margin="0,0,10,0" Visibility="{Binding ShowTimeHolidayRequestForOthers, Converter={StaticResource BoolToVis}}" />
                             <dxg:LookUpEdit DisplayMember="Name" Foreground="#3F729B" Width="200" AutoPopulateColumns="False"
-                                            ItemsSource="{Binding EmployeeList, UpdateSourceTrigger=PropertyChanged}"
-                                            EditValue="{Binding SelectedEmployeeId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            AutoComplete="True" IsPopupAutoWidth="True" Margin="5,2" ValueMember="EmployeeId"
+                                            ItemsSource="{Binding UserList, UpdateSourceTrigger=PropertyChanged}"
+                                            EditValue="{Binding SelectedUserId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            AutoComplete="True" IsPopupAutoWidth="True" Margin="5,2" ValueMember="UserId"
                                             Visibility="{Binding ShowTimeHolidayRequestForOthers, Converter={StaticResource BoolToVis}}">
                                 <dxg:LookUpEdit.PopupContentTemplate>
                                     <ControlTemplate>

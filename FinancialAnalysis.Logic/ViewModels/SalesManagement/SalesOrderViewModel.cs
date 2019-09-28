@@ -9,6 +9,7 @@ using FinancialAnalysis.Models.ProjectManagement;
 using FinancialAnalysis.Models.SalesManagement;
 using Utilities;
 using WebApiWrapper.Accounting;
+using WebApiWrapper.Administration;
 using WebApiWrapper.ProductManagement;
 using WebApiWrapper.ProjectManagement;
 using WebApiWrapper.SalesManagement;
@@ -71,11 +72,11 @@ namespace FinancialAnalysis.Logic.ViewModels
             set { _SelectedDebitor = value; SalesOrder.Debitor = _SelectedDebitor; SalesOrder.RefDebitorId = _SelectedDebitor.DebitorId; }
         }
 
-        public Employee Employee { get; set; }
+        public User User { get; set; }
         public SalesOrderPosition SalesOrderPosition { get; set; } = new SalesOrderPosition();
         public SalesOrderPosition SelectedSalesOrderPosition { get; set; }
         public SvenTechCollection<Debitor> DebitorList { get; set; } = new SvenTechCollection<Debitor>();
-        public SvenTechCollection<Employee> EmployeeList { get; set; } = new SvenTechCollection<Employee>();
+        public SvenTechCollection<User> UserList { get; set; } = new SvenTechCollection<User>();
         public SvenTechCollection<Product> ProductList { get; set; } = new SvenTechCollection<Product>();
         public SvenTechCollection<SalesType> SalesTypeList { get; set; } = new SvenTechCollection<SalesType>();
         public SvenTechCollection<ShipmentType> ShipmentTypeList { get; set; } = new SvenTechCollection<ShipmentType>();
@@ -175,7 +176,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 MyCompany = Globals.CoreData.MyCompany,
                 SalesOrder = SalesOrder,
-                Employee = Employee
+                User = User
             };
 
             SalesReportPDFCreator.CreateAndShowOrderReport(salesOrderReportData, IsPreview);
@@ -183,7 +184,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         private void SaveSalesOrder()
         {
-            SalesOrder.RefEmployeeId = Employee.EmployeeId;
+            SalesOrder.RefUserId = User.UserId;
             SalesOrder.SalesOrderId = SalesOrders.Insert(SalesOrder);
 
             foreach (SalesOrderPosition item in SalesOrder.SalesOrderPositions)
@@ -205,7 +206,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             DebitorList = Debitors.GetAll().ToSvenTechCollection();
             ProductList = Products.GetAll().ToSvenTechCollection();
             SalesTypeList = SalesTypes.GetAll().ToSvenTechCollection();
-            EmployeeList = Employees.GetAll().ToSvenTechCollection();
+            UserList = Users.GetAll().ToSvenTechCollection();
             ShipmentTypeList = ShipmentTypes.GetAll().ToSvenTechCollection();
         }
 
