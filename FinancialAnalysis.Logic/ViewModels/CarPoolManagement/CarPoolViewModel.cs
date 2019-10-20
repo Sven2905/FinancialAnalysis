@@ -56,12 +56,15 @@ namespace FinancialAnalysis.Logic.ViewModels
                 SelectedCarBody = CarBodyList.First();
         }
 
-        private void GetCarGeneration(int RefCarModelId)
+        private void GetCarGeneration()
         {
             var generationIds = tmpCarTrimList.Where(x => x.Year == selectedYear).Select(x => x.RefCarGenerationId);
 
             CarGenerationList = tmpCarGenerationList.Where(x => generationIds.Contains(x.CarGenerationId)).ToSvenTechCollection();
             CarTrimList.Clear();
+            if (CarGenerationList?.Count == 1)
+                SelectedCarGeneration = CarGenerationList.FirstOrDefault();
+
             CarEngine = null;
         }
 
@@ -81,15 +84,15 @@ namespace FinancialAnalysis.Logic.ViewModels
             CarGenerationList.Clear();
         }
 
-        private void GetCarTrims(int RefCarGenerationId)
+        private void GetCarTrims()
         {
-            CarTrimList = CarTrims.GetByRefCarGenerationId(selectedCarGeneration.CarGenerationId).Where(x => x.Year == selectedYear).Distinct().ToSvenTechCollection();
+            CarTrimList = CarTrims.GetByRefCarGenerationId(selectedCarGeneration.CarGenerationId).Where(x => x.Year == selectedYear && x.RefCarBodyId == selectedCarBody.CarBodyId).ToSvenTechCollection();
             CarEngine = null;
         }
 
         private void GetCarEngine(int RefCarTrimId)
         {
-            //CarEngine = CarEngines.GetByRefCarTrimId(RefCarTrimId).FirstOrDefault();
+            CarEngine = CarEngines.GetByRefCarTrimId(RefCarTrimId);
         }
 
         public SvenTechCollection<CarMake> CarMakeList { get; set; } = new SvenTechCollection<CarMake>();
@@ -152,7 +155,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
                 selectedCarGeneration = value; 
                 if (selectedCarGeneration != null)
-                    GetCarTrims(value.CarGenerationId);
+                    GetCarTrims();
             }
         }
 
@@ -180,7 +183,7 @@ namespace FinancialAnalysis.Logic.ViewModels
 
                 selectedYear = value;
                 if (selectedYear != 0)
-                GetCarGeneration(selectedCarModel.CarModelId);
+                GetCarGeneration();
             }
         }
 

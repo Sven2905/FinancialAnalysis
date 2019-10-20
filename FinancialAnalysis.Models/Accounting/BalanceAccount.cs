@@ -1,5 +1,7 @@
-﻿using DevExpress.Mvvm;
+﻿using System;
+using DevExpress.Mvvm;
 using FinancialAnalysis.Models.Enums;
+using FinancialAnalysis.Models.Interfaces;
 using Newtonsoft.Json;
 using Utilities;
 
@@ -9,18 +11,21 @@ namespace FinancialAnalysis.Models.Accounting
     /// Bilanz-Posten
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class BalanceAccount : BindableBase
+    public class BalanceAccount : BaseClass
     {
         public BalanceAccount()
         {
         }
 
-        public BalanceAccount(int BalanceAccountId, string Name, AccountType AccountType, int ParentId = 0)
+        public BalanceAccount(int BalanceAccountId, string Name, AccountType AccountType, int ParentId = 0, bool IsDeletable = true, bool IsEditable = true, int CreatedBy = 0)
         {
             this.BalanceAccountId = BalanceAccountId;
             this.Name = Name;
             this.ParentId = ParentId;
             this.AccountType = AccountType;
+            this.IsDeletable = IsDeletable;
+            this.IsEditable = IsEditable;
+            this.CreatedBy = CreatedBy;
         }
 
         /// <summary>

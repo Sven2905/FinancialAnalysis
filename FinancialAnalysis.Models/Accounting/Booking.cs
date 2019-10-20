@@ -10,7 +10,7 @@ namespace FinancialAnalysis.Models.Accounting
     /// Buchung
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class Booking : BindableBase
+    public class Booking : BaseClass
     {
         #region Constructor
 

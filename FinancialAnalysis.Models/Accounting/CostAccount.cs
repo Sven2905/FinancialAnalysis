@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.Accounting
     /// Kontenrahmen
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class CostAccount : BindableBase
+    public class CostAccount : BaseClass
     {
         public CostAccount()
         {

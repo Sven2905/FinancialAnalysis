@@ -1,5 +1,6 @@
 ﻿using DevExpress.Mvvm;
 using FinancialAnalysis.Logic.Messages;
+using FinancialAnalysis.Logic.MessageSystem;
 using System.IO;
 using System.Threading;
 using System.Windows;
@@ -21,7 +22,6 @@ namespace FinancialAnalysis.Logic.ViewModels
 
         public LoginViewModel()
         {
-
             if (IsInDesignMode)
                 return;
 
@@ -60,14 +60,10 @@ namespace FinancialAnalysis.Logic.ViewModels
                 Messenger.Default.Send(new OpenMainWindowMessage());
             }
             else
-            {
                 _Counter++;
-            }
 
             if (_Counter >= 3)
-            {
                 Exit();
-            }
         }
 
         private void Exit()

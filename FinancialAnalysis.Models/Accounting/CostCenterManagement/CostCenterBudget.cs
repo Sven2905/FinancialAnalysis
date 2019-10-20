@@ -8,7 +8,7 @@ namespace FinancialAnalysis.Models.Accounting
     /// Kostenstellen Budget
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class CostCenterBudget : BindableBase
+    public class CostCenterBudget : BaseClass
     {
         #region Fields
 

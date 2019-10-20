@@ -168,11 +168,20 @@
     <Compile Include="UserControls\Accounting\ItemPriceCalculationControl.xaml.cs">
       <DependentUpon>ItemPriceCalculationControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Banking\CompoundInterestControl.xaml.cs">
+      <DependentUpon>CompoundInterestControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Licence\LicenseActivateControl.xaml.cs">
       <DependentUpon>LicenseActivateControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Licence\LicenseControl.xaml.cs">
       <DependentUpon>LicenseControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MessageSystem\MessageBadgeControl.xaml.cs">
+      <DependentUpon>MessageBadgeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Optimization\CostOptimizationControl.xaml.cs">
+      <DependentUpon>CostOptimizationControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TimeManagement\TimeFastBookingControl.xaml.cs">
       <DependentUpon>TimeFastBookingControl.xaml</DependentUpon>
@@ -246,6 +255,9 @@
     </Compile>
     <Compile Include="UserControls\TimeManagement\TimeObligatoryHourControl.xaml.cs">
       <DependentUpon>TimeObligatoryHourControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WarehouseManagement\EconomicOrderQuantityControl.xaml.cs">
+      <DependentUpon>EconomicOrderQuantityControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\WarehouseManagement\ProductStockingStatusControl.xaml.cs">
       <DependentUpon>ProductStockingStatusControl.xaml</DependentUpon>
@@ -362,11 +374,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Banking\CompoundInterestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Licence\LicenseActivateControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Licence\LicenseControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MessageSystem\MessageBadgeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Optimization\CostOptimizationControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -467,6 +491,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\TimeManagement\TimeObligatoryHourControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\WarehouseManagement\EconomicOrderQuantityControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -4726,6 +4754,10 @@
       <Project>{3bcf7383-9805-4bd4-a8cd-fd978e348e15}</Project>
       <Name>FinancialAnalysis.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Formulas\Formulas.csproj">
+      <Project>{e510ca7e-f91c-43c4-bdf7-8e9efba4f9e5}</Project>
+      <Name>Formulas</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
       <Project>{69F19F6B-092B-4EE7-AD82-3944F3694952}</Project>
       <Name>Utilities</Name>
@@ -4751,6 +4783,12 @@
       <Version>1.0.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Images\light\drumstick-bite.svg" />
+    <Content Include="Images\light\drumstick.svg" />
+    <Content Include="Images\light\dryer-alt.svg" />
+    <Content Include="Images\light\dryer.svg" />
+    <Content Include="Images\light\duck.svg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -118,6 +118,7 @@
     <Compile Include="Accounting\SelectedCostCenterCategory.cs" />
     <Compile Include="Accounting\TaxType.cs" />
     <Compile Include="Administration\DatabaseConfiguration.cs" />
+    <Compile Include="BaseClass.cs" />
     <Compile Include="BaseClasses\CreditDebitBase.cs" />
     <Compile Include="BaseClasses\CreditorDebitorBase.cs" />
     <Compile Include="CarPoolManagement\CarBody.cs" />
@@ -159,8 +160,17 @@
     <Compile Include="Enums\GrossNetType.cs" />
     <Compile Include="General\TimerLastRuntime.cs" />
     <Compile Include="Helper\EnumHelper.cs" />
+    <Compile Include="Interfaces\IActivatable.cs" />
+    <Compile Include="Interfaces\IAuditable.cs" />
+    <Compile Include="Interfaces\IDeleteable.cs" />
     <Compile Include="Interfaces\IDropEventArgs.cs" />
     <Compile Include="Enums\PayType.cs" />
+    <Compile Include="Interfaces\IDeleted.cs" />
+    <Compile Include="Interfaces\IEditable.cs" />
+    <Compile Include="Interfaces\IVisible.cs" />
+    <Compile Include="MessageSystem\Mailbox.cs" />
+    <Compile Include="MessageSystem\MailboxType.cs" />
+    <Compile Include="MessageSystem\Message.cs" />
     <Compile Include="ProductManagement\SelectedProductCategory.cs" />
     <Compile Include="ClientManagement\Company.cs" />
     <Compile Include="Accounting\Creditor.cs" />

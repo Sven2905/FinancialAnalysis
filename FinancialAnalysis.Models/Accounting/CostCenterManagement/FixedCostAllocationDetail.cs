@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.Accounting
     /// Kostenstellenaufteilungdetails
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class FixedCostAllocationDetail : BindableBase
+    public class FixedCostAllocationDetail : BaseClass
     {
         /// <summary>
         /// Id

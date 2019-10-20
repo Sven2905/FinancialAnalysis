@@ -31,8 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MathNet.Numerics, Version=4.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.4.9.0\lib\net461\MathNet.Numerics.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,14 +47,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Banking\CompoundInterestItem.cs" />
+    <Compile Include="Banking\CompoundInterest.cs" />
+    <Compile Include="Banking\CompoundInterestIntervall.cs" />
     <Compile Include="CostCenterCalculations.cs" />
     <Compile Include="DepreciationMethods\DepreciationValue.cs" />
-    <Compile Include="CalculationOfInterest.cs" />
     <Compile Include="DepreciationMethods\Depreciations.cs" />
     <Compile Include="DepreciationMethods\PerformanceDepreciationItem.cs" />
+    <Compile Include="Derivation\Derivative.cs" />
     <Compile Include="ImplicitCosts.cs" />
+    <Compile Include="Miscellaneous.cs" />
     <Compile Include="PriceCalculationMethods\StandardItemPriceCalculation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Warehouse\OrderOptimization.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

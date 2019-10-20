@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="FinancialAnalysis.UserControls.EconomicOrderQuantityControl"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:ViewModels="clr-namespace:FinancialAnalysis.Logic.ViewModels;assembly=FinancialAnalysis.Logic"
+      xmlns:local="clr-namespace:FinancialAnalysis.UserControls"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:usercontrols="clr-namespace:FinancialAnalysis.UserControls"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             mc:Ignorable="d" 
+      d:DesignHeight="1000" d:DesignWidth="1900">
+    <UserControl.DataContext>
+        <ViewModels:EconomicOrderQuantityViewModel />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <usercontrols:BooleanToVisiblityConverter x:Key="BooleanToVisibilityConverter"/>
+        <usercontrols:InverseBooleanToVisiblityConverter x:Key="InvBoolToVis"/>
+    </UserControl.Resources>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.ColumnSpan="3" Orientation="Horizontal">
+            <RadioButton VerticalAlignment="Center" GroupName="Type" IsChecked="{Binding IsAndlerChecked}" Content="Andler" Margin="0,0,30,0"/>
+            <RadioButton VerticalAlignment="Center" GroupName="Type" Content="Kosiol" />
+        </StackPanel>
+
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Jahresverbrauch" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center" />
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Kosten je Bestellung" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center" />
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Artikelpreis" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center" />
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="Zins- und Lagerhaltungskostensatz" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center" Visibility="{Binding IsAndlerChecked, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InvBoolToVis}}" />
+        <TextBlock Grid.Column="0" Grid.Row="5" Text="Zinssatz" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center" Visibility="{Binding IsAndlerChecked, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <TextBlock Grid.Column="0" Grid.Row="6" Text="Rabatt" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center" Visibility="{Binding IsAndlerChecked, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <TextBlock Grid.Column="0" Grid.Row="7" Text="Lagerkostensatz" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center" Visibility="{Binding IsAndlerChecked, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <TextBlock Grid.Column="0" Grid.Row="9" Text="Optimale Bestellmenge" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center" />
+        <TextBlock Grid.Column="0" Grid.Row="10" Text="Bestellungen pro Jahr" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center" />
+        <TextBlock Grid.Column="0" Grid.Row="11" Text="Bestellturnus (Tage)" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center" />
+
+        <dx:SimpleButton Grid.Column="0" Grid.Row="13" Content="Berechnen" Width="125" Height="24" Command="{Binding CalculateEconomicOrderQuantityCommand}" />
+
+        <dxe:TextEdit Grid.Column="2" Grid.Row="1" HorizontalContentAlignment="Right" EditValue="{Binding AnnualConsumption, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" MaskUseAsDisplayFormat="True" MaskType="Numeric" Margin="3" Width="75" Foreground="#3F729B" FontFamily="Tahoma" />
+        <dxe:TextEdit Grid.Column="2" Grid.Row="2" HorizontalContentAlignment="Right" EditValue="{Binding CostPerOrder, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Mask="C" MaskUseAsDisplayFormat="True" MaskType="Numeric" Margin="3" Width="75" Foreground="#3F729B" FontFamily="Tahoma" />
+        <dxe:TextEdit Grid.Column="2" Grid.Row="3" HorizontalContentAlignment="Right" EditValue="{Binding Product.DefaultSellingPrice, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Mask="C" MaskUseAsDisplayFormat="True" MaskType="Numeric" Margin="3" Width="75" Foreground="#3F729B" FontFamily="Tahoma" />
+        <dxe:TextEdit Grid.Column="2" Grid.Row="4" HorizontalContentAlignment="Right" EditValue="{Binding InterestAndStorageCostsRate, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Mask="P" MaskUseAsDisplayFormat="True" MaskType="Numeric" Margin="3" Width="75" Foreground="#3F729B" FontFamily="Tahoma"  Visibility="{Binding IsAndlerChecked, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InvBoolToVis}}" />
+        <dxe:TextEdit Grid.Column="2" Grid.Row="5" HorizontalContentAlignment="Right" EditValue="{Binding InterestRate, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Mask="P" MaskUseAsDisplayFormat="True" MaskType="Numeric" Margin="3" Width="75" Foreground="#3F729B" FontFamily="Tahoma" Visibility="{Binding IsAndlerChecked, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <dxe:TextEdit Grid.Column="2" Grid.Row="6" HorizontalContentAlignment="Right" EditValue="{Binding Discount, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Mask="P" MaskUseAsDisplayFormat="True" MaskType="Numeric" Margin="3" Width="75" Foreground="#3F729B" FontFamily="Tahoma" Visibility="{Binding IsAndlerChecked, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <dxe:TextEdit Grid.Column="2" Grid.Row="7" HorizontalContentAlignment="Right" EditValue="{Binding HoldingCosts, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Mask="P" MaskUseAsDisplayFormat="True" MaskType="Numeric" Margin="3" Width="75" Foreground="#3F729B" FontFamily="Tahoma" Visibility="{Binding IsAndlerChecked, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+        <TextBlock Grid.Column="2" Grid.Row="9" Text="{Binding EconomicOrderQuantity, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center" />
+        <TextBlock Grid.Column="2" Grid.Row="10" Text="{Binding Frequency, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center" />
+        <TextBlock Grid.Column="2" Grid.Row="11" Text="{Binding Turnus, UpdateSourceTrigger=PropertyChanged, ConverterCulture='de-DE'}" Margin="3" Foreground="#3F729B" FontFamily="Tahoma" VerticalAlignment="Center" />
+
+    </Grid>
+</UserControl>

@@ -190,6 +190,7 @@ namespace FinancialAnalysis.Logic.ViewModels
         public ItemPriceCalculationViewModel ItemPriceCalculationViewModel { get; set; } = new ItemPriceCalculationViewModel();
         public SvenTechCollection<Product> FilteredProducts { get; set; } = new SvenTechCollection<Product>();
         public ProductStockingStatusViewModel ProductStockingStatusViewModel { get; set; } = new ProductStockingStatusViewModel();
+        public EconomicOrderQuantityViewModel EconomicOrderQuantityViewModel { get; set; } = new EconomicOrderQuantityViewModel();
 
         public SvenTechCollection<ProductCategory> ProductCategoryList { get; set; } =
             new SvenTechCollection<ProductCategory>();
@@ -238,6 +239,7 @@ namespace FinancialAnalysis.Logic.ViewModels
             {
                 _SelectedProduct = value;
                 ProductStockingStatusViewModel.Product = _SelectedProduct;
+                EconomicOrderQuantityViewModel.Product = _SelectedProduct;
                 if (_SelectedProduct != null)
                 {
                     if (_SelectedProduct.Picture != null)

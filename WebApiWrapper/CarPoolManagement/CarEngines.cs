@@ -12,9 +12,9 @@ namespace WebApiWrapper.CarPoolManagement
             return WebApi<List<CarEngine>>.GetData(controllerName);
         }
 
-        public static List<CarEngine> GetByRefCarTrimId(int RefCarTrimId)
+        public static CarEngine GetByRefCarTrimId(int RefCarTrimId)
         {
-            return WebApi<List<CarEngine>>.GetDataById(controllerName, RefCarTrimId, "GetByRefCarTrimId");
+            return WebApi<CarEngine>.GetDataById(controllerName, RefCarTrimId, "GetByRefCarTrimId");
         }
 
         public static int Insert(CarEngine CarEngine)

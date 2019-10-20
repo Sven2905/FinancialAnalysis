@@ -8,7 +8,7 @@ namespace FinancialAnalysis.Models.Accounting
     /// Kontenrahmenkategorie
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class CostAccountCategory : BindableBase
+    public class CostAccountCategory : BaseClass
     {
         /// <summary>
         /// Id

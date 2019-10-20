@@ -9,7 +9,7 @@ namespace FinancialAnalysis.Models.Accounting
     ///     Kostenstelle
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class CostCenter : BindableBase
+    public class CostCenter : BaseClass
     {
         /// <summary>
         /// Id

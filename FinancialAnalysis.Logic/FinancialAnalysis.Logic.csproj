@@ -123,9 +123,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
-    <Reference Include="Z.ExtensionMethods, Version=2.1.1.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
-      <HintPath>..\packages\Z.ExtensionMethods.2.1.1\lib\net45\Z.ExtensionMethods.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounting\ItemPriceCalculationItemHelper.cs" />
@@ -134,7 +131,9 @@
     <Compile Include="General\Extensions.cs" />
     <Compile Include="General\Globals.cs" />
     <Compile Include="Manager\LicenseManager.cs" />
+    <Compile Include="MessageSystem\MessageSystemClient.cs" />
     <Compile Include="ViewModels\Administration\HealthInsuranceViewModel.cs" />
+    <Compile Include="ViewModels\Banking\CompoundInterestViewModel.cs" />
     <Compile Include="ViewModels\License\LicenseActivateViewModel.cs" />
     <Compile Include="ViewModels\License\LicenseViewModel.cs" />
     <Compile Include="Manager\AccountBookingManager.cs" />
@@ -188,12 +187,14 @@
     <Compile Include="ViewModels\Administration\MailConfigurationViewModel.cs" />
     <Compile Include="ViewModels\Accounting\BalanceViewModel.cs" />
     <Compile Include="ViewModels\CarPoolManagement\CarPoolViewModel.cs" />
+    <Compile Include="ViewModels\Optimization\CostOptimizationViewModel.cs" />
     <Compile Include="ViewModels\TimeManagement\TimeFastBookingViewModel.cs" />
     <Compile Include="ViewModels\TimeManagement\TimeHolidayRequestViewModel.cs" />
     <Compile Include="ViewModels\TimeManagement\TimeBookingOverviewViewModel.cs" />
     <Compile Include="ViewModels\TimeManagement\TimeBookingViewModel.cs" />
     <Compile Include="ViewModels\TimeManagement\TimeManagementViewModel.cs" />
     <Compile Include="ViewModels\TimeManagement\TimeObligatoryHourViewModel.cs" />
+    <Compile Include="ViewModels\WarehouseManagement\EconomicOrderQuantityViewModel.cs" />
     <Compile Include="ViewModels\WebApiConfigurationViewModel.cs" />
     <Compile Include="ViewModels\DatabaseConfigurationViewModel.cs" />
     <Compile Include="ViewModels\DialogViewModel.cs" />
