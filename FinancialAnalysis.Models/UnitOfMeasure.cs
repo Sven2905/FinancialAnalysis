@@ -5,7 +5,7 @@ namespace FinancialAnalysis.Models
     /// <summary>
     /// Maßeinheit
     /// </summary>
-    public class UnitOfMeasure : BindableBase
+    public class UnitOfMeasure : BaseClass
     {
         /// <summary>
         /// Id

@@ -8,7 +8,7 @@ namespace FinancialAnalysis.Models.SalesManagement
     /// Auftragspositionen
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class SalesOrderPosition : BindableBase
+    public class SalesOrderPosition : BaseClass
     {
         /// <summary>
         /// Id

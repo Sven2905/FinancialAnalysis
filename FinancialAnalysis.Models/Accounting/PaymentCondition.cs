@@ -8,7 +8,7 @@ namespace FinancialAnalysis.Models.Accounting
     /// Zahlungskondition
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class PaymentCondition : BindableBase
+    public class PaymentCondition : BaseClass
     {
         /// <summary>
         /// Id

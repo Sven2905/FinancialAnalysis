@@ -2,7 +2,7 @@
 
 namespace FinancialAnalysis.Models.WarehouseManagement
 {
-    public class WarehouseStockingFlatStructure : BindableBase
+    public class WarehouseStockingFlatStructure : BaseClass
     {
         public int Id { get; set; }
         public int ParentKey { get; set; }

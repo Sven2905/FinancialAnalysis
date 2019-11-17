@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.CarPoolManagement
     /// Generation
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class CarGeneration : BindableBase
+    public class CarGeneration : BaseClass
     {
         /// <summary>
         /// Id der Generation

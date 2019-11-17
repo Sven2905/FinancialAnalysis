@@ -59,6 +59,7 @@
     <Compile Include="Miscellaneous.cs" />
     <Compile Include="PriceCalculationMethods\StandardItemPriceCalculation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Solve.cs" />
     <Compile Include="Warehouse\OrderOptimization.cs" />
   </ItemGroup>
   <ItemGroup>

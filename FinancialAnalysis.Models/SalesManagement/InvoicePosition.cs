@@ -8,7 +8,7 @@ namespace FinancialAnalysis.Models.SalesManagement
     /// Rechnungsposition
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class InvoicePosition : BindableBase
+    public class InvoicePosition : BaseClass
     {
         public InvoicePosition()
         {

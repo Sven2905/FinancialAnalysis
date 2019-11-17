@@ -225,7 +225,7 @@ namespace FinancialAnalysis.Logic
 
             UserRightList = LoadUserRightsFromDB();
             UserList = LoadUsersFromDB();
-            return UserList.Single(x => x.LoginUser == username);
+            return UserList.Single(x => x.LoginUser.ToLower() == username.ToLower());
         }
 
         private List<UserRight> LoadUserRightsFromDB()

@@ -8,7 +8,7 @@ namespace FinancialAnalysis.Models.ProjectManagement
     /// Arbeitszeit am Projekt
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class ProjectWorkingTime : BindableBase
+    public class ProjectWorkingTime : BaseClass
     {
         /// <summary>
         /// Id

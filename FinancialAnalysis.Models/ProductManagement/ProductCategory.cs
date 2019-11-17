@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.ProductManagement
     /// Produktkategorie
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class ProductCategory : BindableBase
+    public class ProductCategory : BaseClass
     {
         /// <summary>
         /// Id

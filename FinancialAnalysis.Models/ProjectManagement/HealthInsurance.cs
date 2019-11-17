@@ -9,7 +9,7 @@ namespace FinancialAnalysis.Models.ProjectManagement
     /// Krankenkasse
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class HealthInsurance : BindableBase
+    public class HealthInsurance : BaseClass
     {
         /// <summary>
         /// Id

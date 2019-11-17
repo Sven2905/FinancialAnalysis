@@ -1,6 +1,6 @@
 ﻿using FinancialAnalysis.Models.MailManagement;
-using Serilog;
 using System;
+using Serilog;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;

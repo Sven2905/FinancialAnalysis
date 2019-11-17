@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.ClientManagement
     /// Firma
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class Company : BindableBase
+    public class Company : BaseClass
     {
         /// <summary>
         /// Id

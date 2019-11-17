@@ -5,7 +5,7 @@ using System;
 namespace FinancialAnalysis.Models.TimeManagement
 {
     [JsonObject(MemberSerialization.OptOut)]
-    public class TimeBooking : BindableBase
+    public class TimeBooking : BaseClass
     {
         public int TimeBookingId { get; set; }
         public int RefUserId { get; set; }

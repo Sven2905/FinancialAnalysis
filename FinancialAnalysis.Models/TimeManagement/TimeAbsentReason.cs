@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace FinancialAnalysis.Models.TimeManagement
 {
     [JsonObject(MemberSerialization.OptOut)]
-    public class TimeAbsentReason : BindableBase
+    public class TimeAbsentReason : BaseClass
     {
         public int TimeAbsentReasonId { get; set; }
         public string Name { get; set; }

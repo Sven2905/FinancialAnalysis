@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace FinancialAnalysis.Models.Accounting
 {
     [JsonObject(MemberSerialization.OptOut)]
-    public class ItemPriceCalculationItem : BindableBase
+    public class ItemPriceCalculationItem : BaseClass
     {
         public int ItemPriceCalculationItemId { get; set; }
         public decimal HourlyWage { get; set; }

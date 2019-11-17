@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.Administration
     /// Benutzerrechtzuordnung
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class UserRightUserMapping : BindableBase
+    public class UserRightUserMapping : BaseClass
     {
         public UserRightUserMapping()
         {

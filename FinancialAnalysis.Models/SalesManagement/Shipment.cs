@@ -9,7 +9,7 @@ namespace FinancialAnalysis.Models.SalesManagement
     /// Warenlieferung
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class Shipment : BindableBase
+    public class Shipment : BaseClass
     {
         public Shipment()
         {

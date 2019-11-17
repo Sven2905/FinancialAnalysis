@@ -8,7 +8,7 @@ namespace FinancialAnalysis.Models.ProjectManagement
     /// Zuordnung Mitarbeiter-Projekt
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class ProjectUserMapping : BindableBase
+    public class ProjectUserMapping : BaseClass
     {
         /// <summary>
         /// Id

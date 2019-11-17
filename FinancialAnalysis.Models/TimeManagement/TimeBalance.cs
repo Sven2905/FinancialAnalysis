@@ -5,7 +5,7 @@ using System;
 namespace FinancialAnalysis.Models.TimeManagement
 {
     [JsonObject(MemberSerialization.OptOut)]
-    public class TimeBalance : BindableBase
+    public class TimeBalance : BaseClass
     {
         public TimeBalance()
         {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace FinancialAnalysis.Models.MessageSystem
 {
         [JsonObject(MemberSerialization.OptOut)]
-    public class Mailbox : BindableBase
+    public class Mailbox : BaseClass
     {
         public int MailboxId { get; set; }
         public int RefUserId { get; set; }

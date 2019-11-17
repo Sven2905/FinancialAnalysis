@@ -12,7 +12,7 @@ namespace FinancialAnalysis.Models.Administration
     /// Benutzer
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class User : BindableBase
+    public class User : BaseClass
     {
         #region Properties
 

@@ -9,7 +9,7 @@ namespace FinancialAnalysis.Models.ProjectManagement
     /// Tarif
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class Tariff : BindableBase
+    public class Tariff : BaseClass
     {
         /// <summary>
         /// Id

@@ -8,7 +8,7 @@ namespace FinancialAnalysis.Models.Administration
     /// Benutzerrechtzuordnung flache Struktur für TreeList
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class UserRightUserMappingFlatStructure : BindableBase
+    public class UserRightUserMappingFlatStructure : BaseClass
     {
         public UserRightUserMappingFlatStructure(User user, UserRight userRight, int userRightMappingId = 0)
         {

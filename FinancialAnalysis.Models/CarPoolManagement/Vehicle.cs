@@ -8,7 +8,7 @@ namespace FinancialAnalysis.Models.CarPoolManagement
     /// Fahrzeug
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class Vehicle : BindableBase
+    public class Vehicle : BaseClass
     {
         // Make - Model - Year - Body - Generation - Trim
 

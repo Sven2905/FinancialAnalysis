@@ -9,7 +9,7 @@ namespace FinancialAnalysis.Models.SalesManagement
     /// Mahnung
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class InvoiceReminder : BindableBase
+    public class InvoiceReminder : BaseClass
     {
         /// <summary>
         /// Id

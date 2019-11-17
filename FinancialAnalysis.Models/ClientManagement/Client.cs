@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.ClientManagement
     /// Klient
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class Client : BindableBase
+    public class Client : BaseClass
     {
         public Client()
         {

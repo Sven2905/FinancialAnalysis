@@ -8,7 +8,7 @@ namespace FinancialAnalysis.Models.WarehouseManagement
     /// Eingelagertes Produkt
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class StockedProduct : BindableBase
+    public class StockedProduct : BaseClass
     {
         public StockedProduct()
         {

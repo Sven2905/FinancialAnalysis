@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.Accounting.CostCenterManagement
     /// Flache Sturktur der Kostenstellen für TreeLists
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class CostCenterFlatStructure : BindableBase
+    public class CostCenterFlatStructure : BaseClass
     {
         public int Key { get; set; }
         public int ParentKey { get; set; }

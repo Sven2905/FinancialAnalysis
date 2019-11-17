@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.Accounting
     /// Gewinn- und Verlustrechnungskonto
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class GainAndLossAccount : BindableBase
+    public class GainAndLossAccount : BaseClass
     {
         public GainAndLossAccount()
         {

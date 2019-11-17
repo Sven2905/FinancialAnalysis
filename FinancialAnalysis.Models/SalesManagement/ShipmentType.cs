@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.SalesManagement
     /// Versandtyp
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class ShipmentType : BindableBase
+    public class ShipmentType : BaseClass
     {
         /// <summary>
         /// Id

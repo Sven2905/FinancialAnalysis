@@ -9,7 +9,7 @@ using System.Windows.Media;
 namespace FinancialAnalysis.Models.TimeManagement
 {
     [JsonObject(MemberSerialization.OptOut)]
-    public class TimeHolidayUser : BindableBase
+    public class TimeHolidayUser : BaseClass
     {
         #region Fields
 

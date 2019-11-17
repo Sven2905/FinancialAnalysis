@@ -8,7 +8,7 @@ namespace FinancialAnalysis.Models.WarehouseManagement
     /// Lagerhaus
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class Warehouse : BindableBase
+    public class Warehouse : BaseClass
     {
         /// <summary>
         /// Id

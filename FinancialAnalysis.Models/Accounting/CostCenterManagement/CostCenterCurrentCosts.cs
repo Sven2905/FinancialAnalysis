@@ -8,7 +8,7 @@ namespace FinancialAnalysis.Models.Accounting.CostCenterManagement
     /// Aktuelle Kosten für Kostenstelle
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class CostCenterCurrentCosts : BindableBase
+    public class CostCenterCurrentCosts : BaseClass
     {
         /// <summary>
         /// Index des Monats

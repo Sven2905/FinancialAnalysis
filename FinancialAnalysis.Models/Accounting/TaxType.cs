@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.Accounting
     /// Steuertyp
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class TaxType : BindableBase
+    public class TaxType : BaseClass
     {
         /// <summary>
         /// Id

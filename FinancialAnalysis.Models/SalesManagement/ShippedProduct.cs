@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.SalesManagement
     /// Lieferposition
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class ShippedProduct : BindableBase
+    public class ShippedProduct : BaseClass
     {
         /// <summary>
         /// Id

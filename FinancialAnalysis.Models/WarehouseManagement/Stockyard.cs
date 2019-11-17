@@ -8,7 +8,7 @@ namespace FinancialAnalysis.Models.WarehouseManagement
     /// Lagerplatz
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class Stockyard : BindableBase
+    public class Stockyard : BaseClass
     {
         /// <summary>
         /// Id

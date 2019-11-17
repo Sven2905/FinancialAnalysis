@@ -5,7 +5,7 @@ using System;
 namespace FinancialAnalysis.Models.TimeManagement
 {
     [JsonObject(MemberSerialization.OptOut)]
-    public class TimeObligatoryHour : BindableBase
+    public class TimeObligatoryHour : BaseClass
     {
         public TimeObligatoryHour()
         {

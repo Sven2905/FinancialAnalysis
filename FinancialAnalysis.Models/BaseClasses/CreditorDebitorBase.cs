@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.BaseClasses
     /// <summary>
     /// Basisklasse für Kreditoren und Debitoren
     /// </summary>
-    public class CreditorDebitorBase : BindableBase
+    public class CreditorDebitorBase : BaseClass
     {
         /// <summary>
         /// Referenz-Id Klient

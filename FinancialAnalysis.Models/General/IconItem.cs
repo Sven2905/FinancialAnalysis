@@ -3,7 +3,7 @@ using System.Windows.Media;
 
 namespace FinancialAnalysis.Models.General
 {
-    public class IconItem : BindableBase
+    public class IconItem : BaseClass
     {
         public IconItem()
         {

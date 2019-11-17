@@ -12,7 +12,7 @@ namespace FinancialAnalysis.Models.SalesManagement
     /// Rechnung
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class Invoice : BindableBase
+    public class Invoice : BaseClass
     {
         private decimal _PaidAmount;
 

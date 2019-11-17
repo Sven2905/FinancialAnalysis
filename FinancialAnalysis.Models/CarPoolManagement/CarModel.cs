@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.CarPoolManagement
     /// Automodell
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class CarModel : BindableBase
+    public class CarModel : BaseClass
     {
         /// <summary>
         /// Id des Automodells

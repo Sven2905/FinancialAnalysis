@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace FinancialAnalysis.Models.Accounting
 {
     [JsonObject(MemberSerialization.OptOut)]
-    public class BalanceAccountResultItem : BindableBase
+    public class BalanceAccountResultItem : BaseClass
     {
         public int BalanceAccountId { get; set; }
         public string Name { get; set; }

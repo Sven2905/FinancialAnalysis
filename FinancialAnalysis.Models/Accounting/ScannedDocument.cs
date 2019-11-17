@@ -8,7 +8,7 @@ namespace FinancialAnalysis.Models.Accounting
     /// Gespeichertes Dokument
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class ScannedDocument : BindableBase
+    public class ScannedDocument : BaseClass
     {
         /// <summary>
         /// Id

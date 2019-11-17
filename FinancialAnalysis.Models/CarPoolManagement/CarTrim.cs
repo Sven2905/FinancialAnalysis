@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.CarPoolManagement
     /// Motorisierungen
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class CarTrim : BindableBase
+    public class CarTrim : BaseClass
     {
         /// <summary>
         /// Id der Motorisierungen

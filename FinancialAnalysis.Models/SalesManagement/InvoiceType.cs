@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.SalesManagement
     /// Rechnungstyp
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class InvoiceType : BindableBase
+    public class InvoiceType : BaseClass
     {
         /// <summary>
         /// Id

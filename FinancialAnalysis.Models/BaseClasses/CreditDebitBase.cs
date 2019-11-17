@@ -8,7 +8,7 @@ namespace FinancialAnalysis.Models.BaseClasses
     /// Basisklasse für Soll- und Haben-Positionen
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class CreditDebitBase : BindableBase
+    public class CreditDebitBase : BaseClass
     {
         /// <summary>
         /// Betrag

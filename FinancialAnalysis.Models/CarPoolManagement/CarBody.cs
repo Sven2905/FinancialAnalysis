@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.CarPoolManagement
     /// Bauart
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class CarBody : BindableBase
+    public class CarBody : BaseClass
     {
         /// <summary>
         /// Id der Bauart

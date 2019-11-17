@@ -7,7 +7,7 @@ namespace FinancialAnalysis.Models.ProjectManagement
     /// Projektrolle
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class ProjectRole : BindableBase
+    public class ProjectRole : BaseClass
     {
         /// <summary>
         /// Id

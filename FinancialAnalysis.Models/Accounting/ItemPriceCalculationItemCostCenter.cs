@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace FinancialAnalysis.Models.Accounting
 {
     [JsonObject(MemberSerialization.OptOut)]
-    public class ItemPriceCalculationItemCostCenter : BindableBase
+    public class ItemPriceCalculationItemCostCenter : BaseClass
     {
         public int ItemPriceCalculationItemCostCenterId { get; set; }
         public int RefCostCenterId { get; set; }

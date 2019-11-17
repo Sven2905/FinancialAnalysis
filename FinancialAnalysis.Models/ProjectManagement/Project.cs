@@ -11,7 +11,7 @@ namespace FinancialAnalysis.Models.ProjectManagement
     /// Projekt
     /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
-    public class Project : BindableBase
+    public class Project : BaseClass
     {
         /// <summary>
         /// Id

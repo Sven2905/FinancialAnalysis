@@ -5,7 +5,7 @@ using System;
 namespace FinancialAnalysis.Models.TimeManagement
 {
     [JsonObject(MemberSerialization.OptOut)]
-    public class TimeUserAbsence : BindableBase
+    public class TimeUserAbsence : BaseClass
     {
         public int TimeUserAbsenceId { get; set; }
         public int RefUserId { get; set; }
