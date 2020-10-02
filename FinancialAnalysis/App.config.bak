@@ -4,10 +4,6 @@
   <configSections>
 
     <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
-  
-    <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-      <section name="DXThemeManager" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false" />
-    </sectionGroup>
   </configSections>
   <startup>
     <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.6.1" />
@@ -15,6 +11,9 @@
   <connectionStrings>
     <add name="FinancialAnalysisDB" providerName="System.Data.SqlClient" connectionString="Data Source=sven.tech;Initial Catalog=FinancialAnalysis;User Id=FinancialAdmin;Password=Y!R,+=/4NN-p[H%e;" />
   </connectionStrings>
+  <!--<connectionStrings>
+    <add name="FinancialAnalysisDB" providerName="System.Data.SqlClient" connectionString="Data Source=sven.tech;Initial Catalog=FinancialAnalysis;User ID=Sven;Password=+78Jura36F;" />
+  </connectionStrings>-->
   <runtime>
     <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
       <dependentAssembly>
@@ -37,12 +36,4 @@
       <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
     </providers>
   </entityFramework>
-
-  <userSettings>
-    <DXThemeManager>
-      <setting name="ApplicationThemeName" serializeAs="String">
-        <value>Office2016White</value>
-      </setting>
-    </DXThemeManager>
-  </userSettings>
 </configuration>
